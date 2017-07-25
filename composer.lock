@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3e30595c781075bb116db87f748e9898",
+    "content-hash": "529fc06925068072f5974725735cba7c",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1041,6 +1041,54 @@
             "time": "2017-03-26T20:37:53+00:00"
         },
         {
+            "name": "roksta/toast",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/roksta21/Toast.git",
+                "reference": "d71cceff15eba5453bfacc689325a1d0f070a99a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/roksta21/Toast/zipball/d71cceff15eba5453bfacc689325a1d0f070a99a",
+                "reference": "d71cceff15eba5453bfacc689325a1d0f070a99a",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/session": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "helpers/helpers.php"
+                ],
+                "psr-4": {
+                    "Roksta\\Toastr\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "roksta",
+                    "email": "roksta21@gmail.com"
+                }
+            ],
+            "description": "Toastr notifications in laravel",
+            "keywords": [
+                "alert",
+                "laravel notifications",
+                "notifications"
+            ],
+            "time": "2017-04-26T07:55:06+00:00"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "v5.4.8",
             "source": {
@@ -1888,6 +1936,54 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2016-09-20T12:50:39+00:00"
+        },
+        {
+            "name": "venturecraft/revisionable",
+            "version": "1.28.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/VentureCraft/revisionable.git",
+                "reference": "5a76d29b897d4864cef41c605e7e03258dd5d051"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/VentureCraft/revisionable/zipball/5a76d29b897d4864cef41c605e7e03258dd5d051",
+                "reference": "5a76d29b897d4864cef41c605e7e03258dd5d051",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~4.0|~5.0|~5.1",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/migrations"
+                ],
+                "psr-0": {
+                    "Venturecraft\\Revisionable": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Duell",
+                    "email": "me@chrisduell.com"
+                }
+            ],
+            "description": "Keep a revision history for your models without thinking, created as a package for use with Laravel",
+            "homepage": "http://github.com/venturecraft/revisionable",
+            "keywords": [
+                "ardent",
+                "history",
+                "laravel",
+                "model",
+                "revision"
+            ],
+            "time": "2016-08-02T02:32:00+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

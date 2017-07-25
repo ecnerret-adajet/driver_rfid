@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'sqlsrv'),
 
     /*
     |--------------------------------------------------------------------------
@@ -74,6 +74,39 @@ return [
             'database' => env('DB_DATABASE', 'forge'),
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+        ],
+
+        'sqlsrv_two' => [
+            'driver' => 'sqlsrv',
+            'host' => env('DB_TWO_HOST', 'localhost'),
+            'port' => env('DB_TWO_PORT', '1433'),
+            'database' => env('DB_TWO_DATABASE', 'forge'),
+            'username' => env('DB_TWO_USERNAME', 'forge'),
+            'password' => env('DB_TWO_PASSWORD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+        ],
+
+        'sqlsrv_three' => [
+            'driver' => 'sqlsrv',
+            'host' => env('DB_THREE_HOST', 'localhost'),
+            'port' => env('DB_THREE_PORT', '1433'),
+            'database' => env('DB_THREE_DATABASE', 'forge'),
+            'username' => env('DB_THREE_USERNAME', 'forge'),
+            'password' => env('DB_THREE_PASSWORD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+        ],
+
+        'sqlsrv_four' => [
+            'driver' => 'sqlsrv',
+            'host' => env('DB_FOUR_HOST', 'localhost'),
+            'port' => env('DB_FOUR_PORT', '1433'),
+            'database' => env('DB_FOUR_DATABASE', 'forge'),
+            'username' => env('DB_FOUR_USERNAME', 'forge'),
+            'password' => env('DB_FOUR_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
         ],

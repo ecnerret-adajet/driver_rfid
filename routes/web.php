@@ -12,9 +12,22 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('drivers');
 });
 
 Auth::routes();
 
+Route::group(['middleware' => 'auth'], function () {
+
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('/drivers','DriversController');
+
+Route::get('/driversJson', function () {
+    $drivers = App\Driver::with(['haulers','trucks'])->get();
+    return $drivers;
+});
+
+
+});
+

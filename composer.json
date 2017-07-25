@@ -9,6 +9,8 @@
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4.0",
+        "roksta/toast": "^1.0",
+        "venturecraft/revisionable": "^1.28",
         "zizaco/entrust": "^1.8"
     },
     "require-dev": {
