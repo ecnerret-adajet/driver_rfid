@@ -11,7 +11,7 @@ class ClasificationTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::connection('sqlsrv_four')->table('clasifications')->insert([
+        DB::table('clasifications')->insert([
             array('name' => 'Transfer'),
             array('name' => 'Lost ID'),
         ]);

@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Clasification extends Model
 {
-    protected $connection = "sqlsrv_four";
+    protected $connection = "sqlsrv";
     protected $fillable = [
         'name'
     ];
 
-    public function drivers()
+    public function driver()
     {
         return $this->hasMany(Driver::class);
     }

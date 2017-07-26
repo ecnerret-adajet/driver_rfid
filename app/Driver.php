@@ -74,4 +74,13 @@ class Driver extends Model
         return $this->hasMany('App\Transfer');
     }
 
+
+    /**
+    * Clasification to determine whether TRANSFER or LOST RIFID
+    */
+    public function clasification()
+    {
+        return $this->belongsTo('App\Clasification');
+    }
+
 }

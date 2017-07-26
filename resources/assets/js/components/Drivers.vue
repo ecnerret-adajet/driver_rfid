@@ -19,12 +19,21 @@
         <div class="had-container">
             <ul class="collection">
                 <li v-for="driver in filteredDriver" class="collection-item avatar">
-                    <i class="material-icons circle">folder</i>
+                    <i class="material-icons circle">person</i>
                     <span class="title">{{driver.name}}</span>
-                    <p>First Line <br>
-                        Second Line
+                    <p v-for="truck in driver.trucks">
+                        {{ truck.plate_number }}
                     </p>
-                    <a href="#!" class="secondary-content"><i class="material-icons">open_in_new</i></a>
+                    <p v-for="hauler in driver.haulers">
+                        {{hauler.name}} 
+                    </p>
+
+                    <p class="secondary-content right-align">
+                        <a :href="driver_link + driver.id + '/edit'"><i class="material-icons">open_in_new</i></a><br/>
+                        <span>
+                        COUNT UPDATE: {{ driver.update_count == null ? 0 : driver.update_count  }}
+                        </span>
+                    </p>
                 </li>
                 <li v-if="filteredDriver.length == 0" class="collection-item avatar center-align">
                     <span class="title">NO DRIVER FOUND</span>
@@ -40,7 +49,8 @@ export default {
     data() {
         return {
             searchString: '',
-             drivers: []
+            driver_link: '/driver_rfid/public/drivers/',
+            drivers: []
         }
     },
     created() {
@@ -69,6 +79,5 @@ export default {
 
         }
     }
-
 }
 </script>

@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Clasification;
+use App\Cardholder;
 use App\Hauler;
 use App\Driver;
+use App\Truck;
 use Toast;
 
 class DriversController extends Controller
@@ -68,9 +70,19 @@ class DriversController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Driver $driver)
     {
-        //
+        $cardholders = Cardholder::pluck('Name','CardholderID');
+        $clasifications = Clasification::pluck('name','id');
+        $haulers = Hauler::pluck('name','id');
+        $trucks = Truck::pluck('plate_number','id');
+        
+        return view('drivers.edit',compact(
+            'driver',
+            'clasifications',
+            'haulers',
+            'cardholders',
+            'trucks'));
     }
 
     /**
@@ -80,9 +92,40 @@ class DriversController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Driver $driver)
     {
-        //
+        $this->validate($request, [
+                'name' => 'required',
+                'hauler_list' => 'required',
+                'truck_list' => 'required',
+                'phone_number' => 'required',
+                'cardholder_list' => 'required',
+                'clasification_list' => 'required',
+        ]);
+
+        $plate = $request->input('cardholder_list');
+        $clasification_id = $request->input('clasification_list');
+
+        $driver->update($request->all());
+        if($request->hasFile('avatar')){
+            $driver->avatar = $request->file('avatar')->store('drivers');
+        }        
+
+        if(empty($driver->update_count)) {
+            $driver->update_count = 1;
+        } else {
+            $driver->update_count += 1;
+        }
+        
+        $driver->cardholder()->associate($plate);
+        $driver->clasification()->associate($clasification_id);
+        $driver->save();
+
+        $driver->haulers()->sync( (array) $request->input('hauler_list'));
+        $driver->trucks()->sync( (array) $request->input('truck_list'));
+
+
+        return redirect('drivers');
     }
 
     /**

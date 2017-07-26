@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClasificationsTable extends Migration
+class AddCountFieldsToDriversTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateClasificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('clasifications', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->timestamps();
+        Schema::table('drivers', function (Blueprint $table) {
+            $table->integer('update_count')->unsigned()->nullable();
         });
     }
 
@@ -27,6 +25,8 @@ class CreateClasificationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clasifications');
+        Schema::table('drivers', function (Blueprint $table) {
+            $table->dropColumn('update_count');
+        });
     }
 }
