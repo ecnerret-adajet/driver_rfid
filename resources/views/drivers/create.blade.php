@@ -15,12 +15,10 @@
                         </div>
                     </div>
 
-
                     {!! Form::model($driver = new \App\Driver, ['url' => 'drivers', 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
-                                {!! csrf_field() !!}
+                    {!! csrf_field() !!}
                     @include('drivers.form')
                     {!! Form::close() !!}
-                            
                    
 
 

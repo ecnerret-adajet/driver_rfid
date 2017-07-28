@@ -17,6 +17,7 @@ window.Vue = require('vue');
 
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('drivers', require('./components/Drivers.vue'));
+Vue.component('prints', require('./components/Prints.vue'));
 
 const app = new Vue({
     el: '#app'

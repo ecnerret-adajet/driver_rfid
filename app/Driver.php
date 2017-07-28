@@ -14,7 +14,9 @@ class Driver extends Model
     	'phone_number',
     	'substitute',
         'cardholder_id',
-        'remarks'
+        'remarks',
+        'print_status',
+        'update_count'
     ];
 
     /**

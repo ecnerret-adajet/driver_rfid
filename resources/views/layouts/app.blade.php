@@ -9,6 +9,11 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script>
+    window.Laravel = {!! json_encode([
+        'csrfToken' => csrf_token(),
+    ]) !!};
+    </script>
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -17,7 +22,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/all.css') }}" rel="stylesheet" media="screen,projection">
-
     </head>
 
     <body>
@@ -72,6 +76,13 @@
        <!-- Scripts -->
         <script src="{{ asset('js/all.js') }}"></script>
         @include('vendor.roksta.toastr')
+        <script>
+        $.ajaxSetup({
+        headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        </script>
         @yield('script')
         
 

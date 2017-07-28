@@ -117,6 +117,7 @@ class DriversController extends Controller
             $driver->update_count += 1;
         }
         
+        $driver->print_status = 1;
         $driver->cardholder()->associate($plate);
         $driver->clasification()->associate($clasification_id);
         $driver->save();
@@ -127,7 +128,7 @@ class DriversController extends Controller
 
         return redirect('drivers');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *

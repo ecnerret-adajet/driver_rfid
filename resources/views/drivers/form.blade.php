@@ -1,15 +1,17 @@
 
 
-<div class="row" style="padding-top: 50px;">
-    <div class="col m8 offset-m2">
+<div class="had-container" style="padding-top: 50px;">
+    <div class="col m8">
         <div class="card-panel grey lighten-4">
             <div class="row">
                 <form class="col s12">
-
                     <div class="row">
                        <div class="input-field col s12">
-                       
+                       @if(count($driver->clasification) == 0)
                         {{ Form::select('clasification_list', $clasifications, null, ['class' => 'validate', 'placeholder' => 'Select Clasification']) }}
+                       @else
+                        {{ Form::select('clasification_list', $clasifications, $driver->clasification->id, ['class' => 'validate', 'placeholder' => 'Select Clasification']) }}
+                       @endif
                         <label>Clasification</label>
                         @if ($errors->has('clasification_list'))
                             <span class="help-block red-text">
@@ -111,6 +113,34 @@
 
                 </form>
             </div>
+        </div>
+    </div> <!-- end col m8 -->
+    <div class="col m4">
+        <div class="card-panel grey lighten-5">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input type="text" disabled class="validate" value="100">
+                    <label>Cost:</label>
+                </div>
+            </div>
+             <div class="row">
+                <div class="input-field col s12">
+                    <input type="text" disabled class="validate" value="{{$driver->update_count == null ? 0 : $driver->update_count}}">
+                    <label>Print Count:</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input type="text" disabled class="validate" value="{{$driver->user->name}}">
+                    <label>Last Edited by:</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input type="text" disabled class="validate" value="{{ date('F d,Y', strtotime($driver->updated_at)) == 'January 01,1970' ? '-- -- --' :  date('F d,Y', strtotime($driver->updated_at)) }}">
+                    <label>Update Date:</label>
+                </div>
+            </div>            
         </div>
     </div>
 </div>

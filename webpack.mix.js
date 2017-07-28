@@ -15,13 +15,13 @@ const { mix } = require('laravel-mix');
 //    .sass('resources/assets/sass/app.scss', 'public/css');
 
 mix.styles([
-        'node_modules/materialize-css/dist/css/materialize.css',
+        'node_modules/materialize-css/dist/css/materialize.min.css',
         'public/css/style.css',
         // 'resources/assets/css/select2.min.css',
         'resources/assets/css/select2-materialize.css',
     ], 'public/css/all.css')
     .js([
-        'node_modules/materialize-css/dist/js/materialize.js',
+        'node_modules/materialize-css/dist/js/materialize.min.js',
         'resources/assets/js/app.js',
         'resources/assets/js/select2.min.js',
     ], 'public/js/all.js');

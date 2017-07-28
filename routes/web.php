@@ -21,6 +21,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/prints','PrintController@index');
+Route::get('/forPrint','PrintController@getForPrint');
+Route::post('/prints/{id}','PrintController@printed');
+
 Route::resource('/drivers','DriversController');
 
 Route::get('/driversJson', function () {
