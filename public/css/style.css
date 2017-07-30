@@ -53,12 +53,6 @@ h6 {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
-
-/* .input-group:active,
-.input-group:hover {
-    background-color: rgba(100, 100, 100, 0.1);
-} */
-
 .input-group.centered {
     margin: 0 auto;
 }
@@ -98,4 +92,23 @@ h6 {
 
 .inactive .input-group-addon:not(:first-child) {
     opacity: 0;
+}
+
+
+/*** ADDITIONAL COLLECTION STYLE ****/
+
+.collections-title {
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+}
+
+.collections-content {
+    font-weight: 300;
+    padding: 0;
+    margin: 0;
+}
+
+.collections-row {
+    margin: 0 ! important;
 }

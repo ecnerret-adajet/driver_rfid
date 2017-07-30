@@ -12,8 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('drivers');
-});
+    return view('home');
+})->middleware('auth');
 
 Auth::routes();
 

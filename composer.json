@@ -11,6 +11,7 @@
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4.0",
         "roksta/toast": "^1.0",
+        "spatie/laravel-activitylog": "^1.15",
         "venturecraft/revisionable": "^1.28",
         "zizaco/entrust": "^1.8"
     },

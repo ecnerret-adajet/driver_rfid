@@ -13659,11 +13659,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  * code may be modified to fit the specific needs of your application.
  */
 
-// try {
-//     window.$ = window.jQuery = require('jquery');
-
-//     require('bootstrap-sass');
-// } catch (e) {}
+window.$ = window.jQuery = __webpack_require__(1);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -26927,8 +26923,8 @@ module.exports = g;
 /* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(11);
 __webpack_require__(9);
+__webpack_require__(11);
 module.exports = __webpack_require__(10);
 
 

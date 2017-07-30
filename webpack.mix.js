@@ -21,7 +21,7 @@ mix.styles([
         'resources/assets/css/select2-materialize.css',
     ], 'public/css/all.css')
     .js([
-        'node_modules/materialize-css/dist/js/materialize.min.js',
         'resources/assets/js/app.js',
+        'node_modules/materialize-css/dist/js/materialize.min.js',
         'resources/assets/js/select2.min.js',
     ], 'public/js/all.js');
