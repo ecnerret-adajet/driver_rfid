@@ -24,8 +24,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/prints','PrintController@index');
 Route::get('/forPrint','PrintController@getForPrint');
 Route::post('/prints/{id}','PrintController@printed');
-
 Route::resource('/drivers','DriversController');
+
+Route::get('/confirm/create/{id}','ConfirmsController@create');
+Route::post('/confirm/{id}','ConfirmsController@store');
 
 Route::get('/driversJson', function () {
     $drivers = App\Driver::with(['haulers','trucks'])->get();

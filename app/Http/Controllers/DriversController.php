@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\ConfirmDriver;
 use Carbon\Carbon;
 use App\Clasification;
 use App\Cardholder;
 use App\Hauler;
 use App\Driver;
 use App\Truck;
+use App\User;
 use Toast;
 
 class DriversController extends Controller
@@ -124,6 +127,9 @@ class DriversController extends Controller
 
         $driver->haulers()->sync( (array) $request->input('hauler_list'));
         $driver->trucks()->sync( (array) $request->input('truck_list'));
+
+        //send email to supervisor for approval
+        Notification::send(User::first(), new ConfirmDriver($driver));
 
 
         return redirect('drivers');

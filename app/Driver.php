@@ -85,4 +85,12 @@ class Driver extends Model
         return $this->belongsTo('App\Clasification');
     }
 
+    /**
+    * Confirm approval from RTC supervisor
+    */
+    public function confirms()
+    {
+        return $this->hasMany(Confirm::class);
+    }
+
 }

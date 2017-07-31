@@ -31,4 +31,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Driver::class);
     }
+
+    public function confirms()
+    {
+        return $this->hasMany(Confirm::class);
+    }
 }

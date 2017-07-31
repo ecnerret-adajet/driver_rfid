@@ -52,21 +52,21 @@ class ConfirmDriver extends Notification
             $status = 'updated';
         }
 
-       $truck = Truck::select('plate_number')->with(['drivers' => function ($query) {
-            $query->where('id', $this->driver->id);
-        }])->first();
+        foreach($this->driver->trucks as $truck){
+            $truck_name = $truck->plate_number;
+        }
 
-        $hauler = Hauler::select('name')->with(['drivers' => function ($query) {
-            $query->where('id', $this->driver->id);
-        }])->first();
+        foreach($this->driver->haulers as $hauler){
+            $hauler_name = $hauler->name;
+        }
 
         return (new MailMessage)
             ->success()
             ->subject('Trucking Monitoring: Driver RFID Confirmation')
             ->greeting('Good day!')
-            ->line($this->driver->user->name. ' has '. $status .' a new driver for your review, please see the details below.')
-            ->line($this->driver->name. ' - '. $truck . ' - '. $hauler)
-            ->action('Confirm Now', url('/confirm/'.$this->driver->id))
+            ->line($this->driver->user->name. ' has '. $status .' a driver for your review, please see the details below.')
+            ->line($this->driver->name. ' - '. $hauler_name . ' - '. $truck_name)
+            ->action('Confirm Now', url('/confirm/create/'.$this->driver->id))
             ->line('Thank you for using our application!');
 
     }
