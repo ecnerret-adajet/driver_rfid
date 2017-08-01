@@ -7,7 +7,8 @@
             </div>
         </div>
 
-        @if($driver->print_status == 1)
+
+        @if($driver->notif_status != 1)
 
         <form method="POST" action="{{ url('/confirm',$id) }}">
             {!! csrf_field() !!}
@@ -19,9 +20,10 @@
         <div class="had-container" style="padding-top: 50px;">   
             <div class="card-panel grey lighten-4 center-align">
                 <em>
-                    <h3>
+                    <i class="material-icons large" style="font-size: 40px;">mood_bad</i>
+                    <p>
                          No request found, please confirm..
-                    </h3>
+                    </p>
                 </em>
             </div>
         </div>

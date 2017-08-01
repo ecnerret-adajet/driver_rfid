@@ -49,6 +49,10 @@ class ConfirmsController extends Controller
         $confirm->user()->associate(Auth::user()->id);
         $confirm->save();
 
+        $driver = Driver::findOrFail($id);
+        $driver->notif_status = 1;
+        $driver->save();
+
         return redirect('prints');
     }
 

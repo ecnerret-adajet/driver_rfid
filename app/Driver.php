@@ -16,7 +16,8 @@ class Driver extends Model
         'cardholder_id',
         'remarks',
         'print_status',
-        'update_count'
+        'update_count',
+        'notif_status'
     ];
 
     /**

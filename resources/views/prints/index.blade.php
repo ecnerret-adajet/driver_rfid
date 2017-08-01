@@ -15,7 +15,7 @@
         <div class="row">
             @foreach($item as $driver)
             <div class="col s3">
-                <div class="card">
+                <div class="card {{ $driver->notif_status == 1 ? 'blue-grey darken-1 white-text' : '' }}">
                     <div class="card-content">
                     <span class="card-title">{{ $driver->name }}</span>
                     <p>
@@ -24,10 +24,15 @@
                     </p>
                     </div>
                     <div class="card-action">
+                    @if($driver->notif_status == 1)
                     <form method="POST" action="{{ url('/prints',$driver->id) }}">
                          {!! csrf_field() !!}
                         <button  type="submit" class="waves-effect waves-light btn">Mark as printed</button>
                     </form>
+                    @else
+                    NOT CONFIRM IN EMAIL YET
+
+                    @endif
                     </div>
                 </div>
             </div>

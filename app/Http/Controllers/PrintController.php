@@ -9,6 +9,7 @@ use App\Driver;
 use App\Cardholder;
 use App\Truck;
 use App\Hauler;
+use App\Confirm;
 
 class PrintController extends Controller
 {
@@ -45,6 +46,7 @@ class PrintController extends Controller
     {
         $driver = Driver::findOrFail($id);
         $driver->print_status = 0;
+        $driver->notif_status = 0;
         $driver->save();
 
         return redirect('prints');

@@ -33,10 +33,7 @@
                 <div class="had-container">
                     <div class=" nav-wrapper" style="box-shadow: 0 ! important">
                       
-                        <ul class="left hide-on-med-and-down">
-                            <li> <a href="#!"><i class="material-icons">menu</i></a></li>
-                        </ul>
-                          <a href="#" class="brand-logo">Trucking Monitoring</a>
+                          <a href="{{url('/home')}}" class="brand-logo">Trucking Monitoring</a>
                         <ul class="right hide-on-med-and-down">
                         
                         <li><a href="badges.html"><i class="material-icons">view_module</i></a></li>
