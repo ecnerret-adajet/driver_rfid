@@ -27,7 +27,7 @@ class PrintController extends Controller
     public function index()
     {
         $print = Driver::where('print_status',1)
-                ->with(['haulers','trucks','clasification','user'])->get();
+                ->with(['haulers','trucks','clasification','user','confirms'])->get();
         return view('prints.index', compact('print'));
     }
 

@@ -24,15 +24,21 @@
                     </p>
                     </div>
                     <div class="card-action">
-                    @if($driver->notif_status == 1)
-                    <form method="POST" action="{{ url('/prints',$driver->id) }}">
+                    @forelse($driver->confirms as $confirm)
+                        @if($confirm->status ==  "Approve")
+                         <form method="POST" action="{{ url('/prints',$driver->id) }}">
                          {!! csrf_field() !!}
                         <button  type="submit" class="waves-effect waves-light btn">Mark as printed</button>
-                    </form>
-                    @else
-                    NOT CONFIRM IN EMAIL YET
+                        </form>
+                        @else
+                        <span class="red-text center-align">
+                            THIS REQUEST IS DISAPPROVED
+                        </span>
+                        @endif
+                    @empty
+                        NOT CONFIRM IN EMAIL YET
 
-                    @endif
+                    @endforelse
                     </div>
                 </div>
             </div>
