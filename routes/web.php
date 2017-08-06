@@ -34,6 +34,8 @@ Route::get('/driversJson', function () {
     return $drivers;
 });
 
+Route::resource('/settings','SettingsController');
+
 
 });
 

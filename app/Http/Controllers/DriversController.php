@@ -35,9 +35,11 @@ class DriversController extends Controller
      */
     public function create()
     {
-        $clasifications = Clasification::pluck('name','id');
-        $haulers = Hauler::pluck('name','id');
-        return view('drivers.create',compact('clasifications','haulers'));
+        $cardholders = Cardholder::pluck('Name','CardholderID');
+        $clasifications = Clasification::pluck('id','name');
+        $haulers = Hauler::pluck('id','name');
+        $trucks = Truck::pluck('plate_number','id');
+        return view('drivers.create',compact('clasifications','haulers','cardholders','trucks'));
     }
 
     /**
