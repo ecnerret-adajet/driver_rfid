@@ -35,10 +35,10 @@ class DriversController extends Controller
      */
     public function create()
     {
-        $cardholders = Cardholder::pluck('Name','CardholderID');
-        $clasifications = Clasification::pluck('id','name');
-        $haulers = Hauler::pluck('id','name');
-        $trucks = Truck::pluck('plate_number','id');
+        $cardholders = ['' => ''] + Cardholder::pluck('Name','CardholderID')->all();
+        $clasifications = Clasification::pluck('name','id');
+        $haulers = ['' => ''] + Hauler::pluck('name','id')->all();
+        $trucks = ['' => ''] + Truck::pluck('plate_number','id')->all();
         return view('drivers.create',compact('clasifications','haulers','cardholders','trucks'));
     }
 
@@ -50,10 +50,28 @@ class DriversController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            // 'avatar' => 'required',
+            'name' => 'required|max:255|unique:drivers',
+            'driver_number' => 'required|integer|unique:drivers',
+            'cardholder_list' => 'required',
+            'hauler_list' => 'required',
+            'truck_list' => 'required',
+            'phone_number' => 'required',
+                
+        ]);
+
+        $plate = $request->input('cardholder_list');
         $driver = Auth::user()->drivers()->create($request->all());
         if($request->hasFile('avatar')){
             $driver->avatar = $request->file('avatar')->store('drivers');
         } 
+        $driver->cardholder()->associate($plate);
+        $driver->save();
+
+        $driver->haulers()->attach($request->input('hauler_list'));
+        $driver->trucks()->attach($request->input('truck_list'));
+        
         toast()->success('message', 'title');
         return redirect('drivers');
     }

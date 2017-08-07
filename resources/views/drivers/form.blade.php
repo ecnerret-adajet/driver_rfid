@@ -5,6 +5,8 @@
         <div class="card-panel grey lighten-4">
             <div class="row">
                 <form class="col s12">
+                
+                    @if(!Request::is('drivers/create'))
                     <div class="row">
                        <div class="input-field col s12">
                        @if(count($driver->clasification) == 0)
@@ -20,15 +22,28 @@
                         @endif
                         </div> 
                     </div>
+                    @endif
+
+                    <div class="row">
+                        <div class="file-field input-field">
+                            <div class="btn waves-effect waves-light">
+                                <span>Upload Photo</span>
+                                <input type="file" name="avatar">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="input-field col s12">
                         @if(str_contains(Request::path(), 'edit'))
-                        {!! Form::select('cardholder_list', $cardholders, $driver->cardholder->CardholderID, ['class' => 'validate', 'placeholder' => 'Select Deploy RFID'] ) !!}
+                        {!! Form::select('cardholder_list', $cardholders, $driver->cardholder->CardholderID, ['placeholder' => 'Select Deploy RFID', 'id' => 'select2-materialize-rfid', 'class' => 'validate'] ) !!}
                         @else
-                        {!! Form::select('cardholder_list', $cardholders, null, ['class' => 'validate', 'placeholder' => 'Select Deploy RFID'] ) !!}
+                        {!! Form::select('cardholder_list', $cardholders, null, ['placeholder' => 'Select Deploy RFID', 'id' => 'select2-materialize-rfid', 'class' => 'validate'] ) !!}
                         @endif
-                            <label>Deploy RFID</label>
+                            
                             @if ($errors->has('cardholder_list'))
                                 <span class="help-block red-text">
                                 <strong>{{ $errors->first('cardholder_list') }}</strong>
@@ -61,8 +76,8 @@
 
                     <div class="row">
                        <div class="input-field col s6">
-                        {{ Form::select('truck_list', $trucks, null, ['class' => 'validate', 'placeholder' => 'Select Plate Number']) }}
-                        <label>Plate Number</label>
+                        {{ Form::select('truck_list', $trucks, null, ['placeholder' => 'Select Plate Number', 'id' => 'select2-materialize-truck', 'class' => 'validate']) }}
+                         {{--  <label>Plate Number</label>   --}}
                             @if ($errors->has('truck_list'))
                                 <span class="help-block red-text">
                                     <strong>{{ $errors->first('truck_list') }}</strong>
@@ -71,8 +86,8 @@
                         </div> 
 
                         <div class="input-field col s6">
-                            {{Form::select('hauler_list', $haulers, null, ['class' => 'validate', 'placeholder' => 'Select Operator'])}}
-                            <label>Operator</label>
+                            {{Form::select('hauler_list', $haulers, null, ['placeholder' => 'Select Operator', 'id' => 'select2-materialize-hauler', 'class' => 'validate'])}}
+                            {{--  <label>Operator</label>  --}}
                             @if ($errors->has('hauler_list'))
                                 <span class="help-block red-text">
                                     <strong>{{ $errors->first('hauler_list') }}</strong>
@@ -131,13 +146,21 @@
             </div>
             <div class="row">
                 <div class="input-field col s12">
+                @if(!Request::is('drivers/create'))
                     <input type="text" disabled class="validate" value="{{$driver->user->name}}">
+                @else
+                    <input type="text" disabled class="validate" value="">
+                @endif
                     <label>Last Edited by:</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
+                @if(!Request::is('drivers/create'))
                     <input type="text" disabled class="validate" value="{{ date('F d,Y', strtotime($driver->updated_at)) == 'January 01,1970' ? '-- -- --' :  date('F d,Y', strtotime($driver->updated_at)) }}">
+                @else
+                    <input type="text" disabled class="validate" value="">
+                @endif
                     <label>Update Date:</label>
                 </div>
             </div>            
@@ -148,7 +171,23 @@
 
 @section('script')
     <script>
-        $('.select2-materialize').select2();
+        $("#select2-materialize-truck").select2({
+            placeholder: "Select Plate Number",
+            allowClear: true,
+        });
+
+        $("#select2-materialize-hauler").select2({
+            placeholder: "Select Operator",
+            allowClear: true,
+        });
+
+        $("#select2-materialize-rfid").select2({
+            placeholder: "Select RFID",
+            allowClear: true,
+        });
+
+    </script>
+    <script>
         $('select').material_select();
     </script>
 @endsection

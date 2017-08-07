@@ -17,11 +17,11 @@ const { mix } = require('laravel-mix');
 mix.styles([
         'node_modules/materialize-css/dist/css/materialize.min.css',
         'public/css/style.css',
-        // 'resources/assets/css/select2.min.css',
         'resources/assets/css/select2-materialize.css',
+        // 'resources/assets/css/select2.min.css',
     ], 'public/css/all.css')
     .js([
         'resources/assets/js/app.js',
-        'node_modules/materialize-css/dist/js/materialize.min.js',
         'resources/assets/js/select2.min.js',
+        'node_modules/materialize-css/dist/js/materialize.min.js',
     ], 'public/js/all.js');
