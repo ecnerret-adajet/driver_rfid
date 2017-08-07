@@ -19,7 +19,7 @@
         <div class="had-container">
             <ul class="collection">
                 <li v-for="driver in filteredDriver" class="collection-item avatar">
-                    <i class="material-icons circle">person</i>
+                     <img :src="avatar_link + driver.avatar" alt="" class="circle">
                     <span class="title">{{driver.name}}</span>
                     <p v-for="truck in driver.trucks">
                         {{ truck.plate_number }}
@@ -50,6 +50,7 @@ export default {
         return {
             searchString: '',
             driver_link: '/driver_rfid/public/drivers/',
+            avatar_link: 'http://localhost/driver_rfid/storage/app/',
             drivers: []
         }
     },

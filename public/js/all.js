@@ -13524,6 +13524,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             searchString: '',
             driver_link: '/driver_rfid/public/drivers/',
+            avatar_link: 'http://localhost/driver_rfid/storage/app/',
             drivers: []
         };
     },
@@ -16760,9 +16761,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._l((_vm.filteredDriver), function(driver) {
     return _c('li', {
       staticClass: "collection-item avatar"
-    }, [_c('i', {
-      staticClass: "material-icons circle"
-    }, [_vm._v("person")]), _vm._v(" "), _c('span', {
+    }, [_c('img', {
+      staticClass: "circle",
+      attrs: {
+        "src": _vm.avatar_link + driver.avatar,
+        "alt": ""
+      }
+    }), _vm._v(" "), _c('span', {
       staticClass: "title"
     }, [_vm._v(_vm._s(driver.name))]), _vm._v(" "), _vm._l((driver.trucks), function(truck) {
       return _c('p', [_vm._v("\n                    " + _vm._s(truck.plate_number) + "\n                ")])
