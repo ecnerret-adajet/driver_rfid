@@ -75,6 +75,7 @@
 
 </div> <!-- end row -->
 
+<!-- temp
 <div class="row">
     <div class="col s12">
       <ul class="collection with-header">
@@ -105,6 +106,7 @@
     </div>
 
 </div>
+-->
 
 @endsection
 @section('script')

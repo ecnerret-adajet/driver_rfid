@@ -14,6 +14,7 @@ use App\Driver;
 use App\Truck;
 use App\User;
 use Toast;
+use App\Setting;
 
 class DriversController extends Controller
 {
@@ -148,8 +149,10 @@ class DriversController extends Controller
         $driver->haulers()->sync( (array) $request->input('hauler_list'));
         $driver->trucks()->sync( (array) $request->input('truck_list'));
 
+       
         //send email to supervisor for approval
-        Notification::send(User::first(), new ConfirmDriver($driver));
+        $setting = Setting::first();
+        Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmDriver($driver));
 
 
         return redirect('drivers');
