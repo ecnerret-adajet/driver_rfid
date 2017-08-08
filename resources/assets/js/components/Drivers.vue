@@ -61,22 +61,22 @@ export default {
     computed: {
         filteredDriver() {
             
-            var articles_array = this.drivers;
+            var drivers_array = this.drivers;
             var searchString = this.searchString;
 
             if(!searchString){
-                return articles_array;
+                return drivers_array;
             }
 
             searchString = searchString.trim().toLowerCase();
 
-            articles_array = articles_array.filter(function(item){
+            drivers_array = drivers_array.filter(function(item){
                 if(item.name.toLowerCase().indexOf(searchString) !== -1){
                     return item;
                 }
             })
 
-            return articles_array;
+            return drivers_array;
 
         }
     }

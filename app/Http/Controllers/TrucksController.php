@@ -18,7 +18,7 @@ class TrucksController extends Controller
      */
     public function index()
     {
-        //
+        return view('trucks.index');
     }
 
     /**
