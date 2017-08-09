@@ -93,5 +93,18 @@ class Driver extends Model
     {
         return $this->hasMany(Confirm::class);
     }
+    
+    /**
+    * Logs all revisions from drivers record
+    */
+    public function versions()
+    {
+        return $this->belongsToMany(Verson::class);
+    }
+    
+    public function getVersionListAttribute()
+    {
+        return $this->versions->pluck('id')->all();
+    }
 
 }

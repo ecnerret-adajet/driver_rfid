@@ -26,6 +26,7 @@ Route::get('/forPrint','PrintController@getForPrint');
 Route::post('/prints/{id}','PrintController@printed');
 Route::resource('/drivers','DriversController');
 Route::resource('/trucks','TrucksController');
+Route::resource('/haulers','HaulersController');
 
 Route::get('/confirm/create/{id}','ConfirmsController@create');
 Route::post('/confirm/{id}','ConfirmsController@store');
@@ -38,6 +39,11 @@ Route::get('/driversJson', function () {
 Route::get('/trucksJson', function() {
     $trucks = App\Truck::with(['drivers','haulers'])->get();
     return $trucks;
+});
+
+Route::get('/haulersJson', function() {
+    $haulers = App\Hauler::with(['drivers','trucks'])->get();
+    return $haulers;
 });
 
 Route::resource('/settings','SettingsController');
