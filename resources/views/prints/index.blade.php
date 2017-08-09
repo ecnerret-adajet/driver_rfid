@@ -24,20 +24,19 @@
                     </p>
                     </div>
                     <div class="card-action">
-                    @forelse($driver->confirms as $confirm)
+                    @forelse($driver->confirms->reverse()->take(1) as $confirm)
                         @if($confirm->status ==  "Approve")
                          <form method="POST" action="{{ url('/prints',$driver->id) }}">
                          {!! csrf_field() !!}
                         <button  type="submit" class="waves-effect waves-light btn">Mark as printed</button>
                         </form>
                         @else
-                        <span class="red-text center-align">
-                            THIS REQUEST IS DISAPPROVED
+                        <span class="white-text center-align">
+                            THIS REQUEST WAS DISAPPROVED
                         </span>
                         @endif
                     @empty
                         NOT CONFIRM IN EMAIL YET
-
                     @endforelse
                     </div>
                 </div>

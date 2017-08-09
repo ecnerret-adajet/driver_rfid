@@ -18,13 +18,13 @@
         @else
 
         <div class="had-container" style="padding-top: 50px;">   
-            <div class="card-panel grey lighten-4 center-align">
-                <em>
-                    <i class="material-icons large" style="font-size: 40px;">mood_bad</i>
-                    <p>
-                         No request found, please confirm..
-                    </p>
-                </em>
+            <div class="card grey lighten-4">
+            <div class="card-content">
+              <p style="font-size: 40px; font-weight: 300;">Ooops. We couldn't find this request :( </p>
+            </div>
+            <div class="card-action">
+              <a href="{{url('/home')}}">back to home</a>
+            </div>
             </div>
         </div>
 

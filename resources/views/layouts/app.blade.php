@@ -36,8 +36,8 @@
                           <a href="{{url('/home')}}" class="brand-logo">Trucking Monitoring</a>
                         <ul class="right hide-on-med-and-down">
                         
-                        <li><a href="badges.html"><i class="material-icons">view_module</i></a></li>
-                        <li><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
+                        <li><a href="#"><i class="material-icons">view_module</i></a></li>
+                        {{--  <li><a href="#"><i class="material-icons">refresh</i></a></li>  --}}
                                             <!-- Dropdown Trigger -->
                          
                                 <li><a class="dropdown-button" href="#!" data-activates="dropdown1">{{ Auth::user()->name }}<i class="material-icons right">arrow_drop_down</i></a></li>

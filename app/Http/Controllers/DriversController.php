@@ -67,11 +67,16 @@ class DriversController extends Controller
         if($request->hasFile('avatar')){
             $driver->avatar = $request->file('avatar')->store('drivers');
         } 
+        $driver->print_status = 1;
         $driver->cardholder()->associate($plate);
         $driver->save();
 
         $driver->haulers()->attach($request->input('hauler_list'));
         $driver->trucks()->attach($request->input('truck_list'));
+
+        //send email to supervisor for approval
+        $setting = Setting::first();
+        Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmDriver($driver));
         
         toast()->success('message', 'title');
         return redirect('drivers');
