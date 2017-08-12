@@ -15,12 +15,17 @@
         <div class="row">
             @foreach($item as $driver)
             <div class="col s3">
-                <div class="card {{ $driver->notif_status == 1 ? 'blue-grey darken-1 white-text' : '' }}">
+                <div class="card {{ $driver->notif_status == 1 ? 'red lighten-3 white-text' : '' }}">
                     <div class="card-content">
                     <span class="card-title">{{ $driver->name }}</span>
                     <p>
+                        @if(count($driver->clasification) > 0)
                         Clasification: {{ $driver->clasification->name }} <br/>
                         Edited by: {{ $driver->user->name }}<br/>
+                        @else
+                        New Driver <br/>
+                        Created by: {{ $driver->user->name }}<br/>
+                        @endif
                     </p>
                     </div>
                     <div class="card-action">

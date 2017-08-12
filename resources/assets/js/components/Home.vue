@@ -1,10 +1,6 @@
-@extends('layouts.app')
+<template>
 
-@section('content')
-
-<div class="had-container">
-
-  <div class="row">      
+    <div class="row">      
     <div class="col l4 m12 s12">
       <div class="card light-blue">
         <div class="card-content">
@@ -13,7 +9,7 @@
                 TOTAL HAULERS
               </span>
               <h1>
-                30
+                {{ home.hauler }}
               </h1>
           </div>
           <div id="test2" class="white-text" style="display: none;">
@@ -21,7 +17,7 @@
                 TOTAL TRUCKS
               </span>
               <h1>
-                30
+                {{ home.truck }}
               </h1>
           </div>
 
@@ -30,7 +26,7 @@
                 TOTAL DRIVERS
               </span>
               <h1>
-             30
+            {{ home.driver }}
               </h1>
           </div>
         </div>
@@ -63,26 +59,32 @@
             <div class="card-content white-text">
               <span >PENDING TO PRINT</span>
               <h1>
-                20
+                {{home.print}}
               </h1>
             </div>
             <div class="card-action">
-              <a href="{{ url('/prints') }}" class="waves-effect waves-light">View details</a>
+              <a :href="print_link" class="waves-effect waves-light">View details</a>
             </div>
           </div>
   </div>
 
 
 </div> <!-- end row -->
-</div> <!-- end container -->
 
+</template>
 
-@endsection
-@section('script')
-  <script>
-      $(document).ready(function(){
-        $('ul.tabs').tabs();
-    });
-  </script>
-@endsection
+<script>
+export default {
+    data() {
+        return {
+            print_link: '/driver_rfid/public/prints',
+            home: []
+        }
+    },
 
+    created() {
+        axios.get('http://localhost/driver_rfid/public/homeJson')
+        .then(response => this.home = response.data);
+    }
+}
+</script>

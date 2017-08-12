@@ -26,7 +26,7 @@ class PrintController extends Controller
 
     public function index()
     {
-        $print = Driver::where('print_status',1)
+        $print = Driver::orderBy('updated_at','DESC')->where('print_status',1)
                 ->with(['haulers','trucks','clasification','user','confirms'])->get();
         return view('prints.index', compact('print'));
     }

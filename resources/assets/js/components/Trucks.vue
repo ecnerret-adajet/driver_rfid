@@ -36,7 +36,7 @@
                     </p>
                 </li>
                 <li v-if="filteredTruck.length == 0" class="collection-item avatar center-align">
-                    <span class="title">NO truck FOUND</span>
+                    <span class="title">NO TRUCK FOUND</span>
                 </li>
             </ul>
         </div>

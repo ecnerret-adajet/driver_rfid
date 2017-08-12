@@ -36,6 +36,8 @@ Route::get('/driversJson', function () {
     return $drivers;
 });
 
+// return Json results
+
 Route::get('/trucksJson', function() {
     $trucks = App\Truck::with(['drivers','haulers'])->get();
     return $trucks;
@@ -46,8 +48,25 @@ Route::get('/haulersJson', function() {
     return $haulers;
 });
 
-Route::resource('/settings','SettingsController');
+Route::get('/settingsJson', function() {
+    $settings = App\Setting::with('user')->get();
+    return $settings;
+});
 
+Route::get('/cardsJson', function() {
+    $cards = App\Card::all()->take(30);
+    return $cards;
+});
+
+Route::get('/homeJson', 'HomeController@homeStatus');
+
+Route::resource('/settings','SettingsController');
+Route::resource('/classifications','ClassificationsController');
+
+
+Route::get('/cards','CardsController@index');
+Route::get('/bind/create/{CardID}','BindersController@create');
+Route::post('/bind/{CardID}','BindersController@store');
 
 });
 

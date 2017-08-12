@@ -28,7 +28,8 @@ class TrucksController extends Controller
      */
     public function create()
     {
-        //
+        $haulers = ['' => ''] + Hauler::pluck('name','id')->all();
+        return view('trucks.create', compact('haulers'));
     }
 
     /**
@@ -39,7 +40,16 @@ class TrucksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $this->validate($request, [
+            'plate_number' => 'required|unique:trucks',
+            'hauler_list' => 'required'
+        ]);
+
+        $truck = Truck::create($request->all());
+        $truck->haulers()->attach($request->input('hauler_list'));
+
+
+        return redirect('trucks');
     }
 
     /**
@@ -59,9 +69,10 @@ class TrucksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Truck $truck)
     {
-        //
+         $haulers = Hauler::pluck('name','id');
+        return view('trucks.edit', compact('truck','haulers'));
     }
 
     /**
