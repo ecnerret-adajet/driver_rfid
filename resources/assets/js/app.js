@@ -19,7 +19,10 @@ Vue.component('example', require('./components/Example.vue'));
 Vue.component('drivers', require('./components/Drivers.vue'));
 Vue.component('trucks', require('./components/Trucks.vue'));
 Vue.component('haulers', require('./components/Haulers.vue'));
+Vue.component('settings', require('./components/Settings.vue'));
 Vue.component('prints', require('./components/Prints.vue'));
+Vue.component('home', require('./components/Home.vue'));
+Vue.component('cards', require('./components/Cards.vue'));
 
 const app = new Vue({
     el: '#app'

@@ -17,6 +17,7 @@
         "vue": "^2.1.10"
     },
     "dependencies": {
-        "materialize-css": "^0.100.0"
+        "materialize-css": "^0.100.0",
+        "vuejs-paginator": "^2.0.1"
     }
 }

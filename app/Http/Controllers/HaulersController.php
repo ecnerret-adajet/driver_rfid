@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Hauler;
 
 class HaulersController extends Controller
 {
@@ -23,7 +25,7 @@ class HaulersController extends Controller
      */
     public function create()
     {
-        //
+        return view('haulers.create');
     }
 
     /**
@@ -34,7 +36,13 @@ class HaulersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required|unique:haulers'
+        ]);
+
+        $hauler = Hauler::create($request->all());
+
+        return redirect('haulers');
     }
 
     /**

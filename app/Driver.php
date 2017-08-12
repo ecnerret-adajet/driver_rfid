@@ -17,7 +17,9 @@ class Driver extends Model
         'remarks',
         'print_status',
         'update_count',
-        'notif_status'
+        'notif_status',
+        'driver_license',
+        'nbi_number',
     ];
 
     /**
