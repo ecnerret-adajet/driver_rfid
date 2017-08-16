@@ -15,7 +15,7 @@ class Cardholder extends Model
 
     public function card()
     {
-    	return $this->belongsTo(Card::class,'CardholderID','CardholderID');
+    	return $this->hasOne(Card::class,'CardholderID','CardholderID');
     }
 
     public function log()

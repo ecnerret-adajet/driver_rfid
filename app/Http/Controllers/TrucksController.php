@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Truck;
 use App\Driver;
 use App\Hauler;
+use App\Card;
 
 class TrucksController extends Controller
 {
@@ -28,8 +29,14 @@ class TrucksController extends Controller
      */
     public function create()
     {
+        // for testing
+        // $rfid_card = Card::whereHas('binders', function($q) {
+        //     $q->where('card_id','2');
+        // });
+
         $haulers = ['' => ''] + Hauler::pluck('name','id')->all();
-        return view('trucks.create', compact('haulers'));
+        $cards = ['' => ''] + Card::pluck('CardNo','CardID')->all();
+        return view('trucks.create', compact('haulers','cards'));
     }
 
     /**
@@ -42,10 +49,16 @@ class TrucksController extends Controller
     {
          $this->validate($request, [
             'plate_number' => 'required|unique:trucks',
-            'hauler_list' => 'required'
+            'hauler_list' => 'required',
+            'card_list' => 'required'
         ]);
 
+        $card_rfid = $request->input('card_list');
         $truck = Truck::create($request->all());
+        $truck->card()->associate($card_rfid);
+        $truck->save();
+
+
         $truck->haulers()->attach($request->input('hauler_list'));
 
 
@@ -72,7 +85,8 @@ class TrucksController extends Controller
     public function edit(Truck $truck)
     {
          $haulers = Hauler::pluck('name','id');
-        return view('trucks.edit', compact('truck','haulers'));
+         $cards = ['' => ''] + Card::pluck('CardNo','CardID')->all();
+        return view('trucks.edit', compact('truck','haulers','cards'));
     }
 
     /**
@@ -82,9 +96,20 @@ class TrucksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Truck $truck)
     {
-        //
+        $this->validate($request, [
+            'plate_number' => 'required',
+            'hauler_list' => 'required',
+            'card_list' => 'required'
+        ]);
+
+        $card_rfid = $request->input('card_list');
+        $truck->update($request->all());
+        $truck->card()->associate($card_rfid);
+        $truck->save();
+
+        return redirect('trucks');
     }
 
     /**

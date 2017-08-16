@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Card;
 use App\Rfid;
+use App\Cardholder;
 
 class CardsController extends Controller
 {
@@ -60,7 +61,9 @@ class CardsController extends Controller
     {
         $card = Card::where('CardID',$CardID)->first();
         $rfids = Rfid::pluck('name','id');
-        return view('cards.edit', compact('card','rfids'));
+        // for testing
+        $cardholders = Cardholder::pluck('Name','CardholderID');
+        return view('cards.edit', compact('card','rfids','cardholders'));
     }
 
     /**
@@ -73,10 +76,13 @@ class CardsController extends Controller
     public function update(Request $request, Card $card)
     {
         $this->validate($request, [
-            'rfid_list'
+            'cardholder_id'
         ]);
 
-        $card->rfids()->sync($request->input('rfid_list'));
+        $cardholder_id = $request->input('cardholder');
+        $card->cardholder()->associate($cardholder_id);
+        $card->save();
+        // $card->rfids()->sync($request->input('rfid_list'));
 
         return redirect('cards');
 

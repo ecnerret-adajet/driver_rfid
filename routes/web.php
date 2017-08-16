@@ -54,7 +54,7 @@ Route::get('/settingsJson', function() {
 });
 
 Route::get('/cardsJson', function() {
-    $cards = App\Card::all()->take(30);
+    $cards = App\Card::with('binders')->get();
     return $cards;
 });
 
@@ -65,8 +65,14 @@ Route::resource('/classifications','ClassificationsController');
 
 
 Route::get('/cards','CardsController@index');
+Route::get('/cards/assign/{CardID}','CardsController@edit');
+Route::post('/cards/{CardID}','CardsController@update');
+
+
 Route::get('/bind/create/{CardID}','BindersController@create');
 Route::post('/bind/{CardID}','BindersController@store');
+
+Route::resource('/cardholders','CardholdersController');
 
 });
 

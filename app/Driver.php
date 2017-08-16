@@ -35,6 +35,11 @@ class Driver extends Model
         return $this->belongsTo('App\Cardholder','cardholder_id','CardholderID');
     }
 
+    public function card()
+    {
+        return $this->belongsTo('App\Card','card_id','CardID');
+    }
+
     // public function getCardholderListAttribute()
     // {
     //     return $this->cardholder->pluck('CardholderID')->all();
@@ -107,6 +112,20 @@ class Driver extends Model
     public function getVersionListAttribute()
     {
         return $this->versions->pluck('id')->all();
+    }
+
+    /**
+    *
+    * Get all Cards to link
+    */
+    public function binders()
+    {
+        return $this->belongsToMany('App\Binder');
+    }
+
+    public function getBinderListAttribute()
+    {
+        return $this->binders()->pluck('id')->all();
     }
 
 }

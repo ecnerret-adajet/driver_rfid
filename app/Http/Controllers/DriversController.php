@@ -13,6 +13,8 @@ use App\Hauler;
 use App\Driver;
 use App\Truck;
 use App\User;
+use App\Binder;
+use App\Card;
 use Toast;
 use App\Setting;
 
@@ -20,8 +22,7 @@ class DriversController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -36,11 +37,17 @@ class DriversController extends Controller
      */
     public function create()
     {
-        $cardholders = ['' => ''] + Cardholder::pluck('Name','CardholderID')->all();
         $clasifications = Clasification::pluck('name','id');
         $haulers = ['' => ''] + Hauler::pluck('name','id')->all();
         $trucks = ['' => ''] + Truck::pluck('plate_number','id')->all();
-        return view('drivers.create',compact('clasifications','haulers','cardholders','trucks'));
+        $cards = ['' => ''] + Card::pluck('CardNo','CardID')->all();
+
+        // for testing
+        // $rfid_card = Card::whereHas('binders', function($q) {
+        //     $q->where('card_id','1');
+        // })->pluck('CardNo','CardID');
+
+        return view('drivers.create',compact('clasifications','haulers','trucks','cards'));
     }
 
     /**
@@ -55,20 +62,20 @@ class DriversController extends Controller
             // 'avatar' => 'required',
             'name' => 'required|max:255|unique:drivers',
             'driver_number' => 'required|integer|unique:drivers',
-            'cardholder_list' => 'required',
+            'card_list' => 'required',
             'hauler_list' => 'required',
             'truck_list' => 'required',
             'phone_number' => 'required',
                 
         ]);
 
-        $plate = $request->input('cardholder_list');
+        $card_rfid = $request->input('card_list');
         $driver = Auth::user()->drivers()->create($request->all());
         if($request->hasFile('avatar')){
             $driver->avatar = $request->file('avatar')->store('drivers');
         } 
         $driver->print_status = 1;
-        $driver->cardholder()->associate($plate);
+        $driver->card()->associate($card_rfid);
         $driver->save();
 
         $driver->haulers()->attach($request->input('hauler_list'));
@@ -101,16 +108,16 @@ class DriversController extends Controller
      */
     public function edit(Driver $driver)
     {
-        $cardholders = Cardholder::pluck('Name','CardholderID');
         $clasifications = Clasification::pluck('name','id');
         $haulers = Hauler::pluck('name','id');
         $trucks = Truck::pluck('plate_number','id');
+        $cards = ['' => ''] + Card::pluck('CardNo','CardID')->all();
         
         return view('drivers.edit',compact(
             'driver',
             'clasifications',
             'haulers',
-            'cardholders',
+            'cards',
             'trucks'));
     }
 
@@ -128,11 +135,11 @@ class DriversController extends Controller
                 'hauler_list' => 'required',
                 'truck_list' => 'required',
                 'phone_number' => 'required',
-                'cardholder_list' => 'required',
+                'card_list' => 'required',
                 'clasification_list' => 'required',
         ]);
 
-        $plate = $request->input('cardholder_list');
+        $card_rfid = $request->input('card_list');
         $clasification_id = $request->input('clasification_list');
 
         $driver->update($request->all());
@@ -147,7 +154,7 @@ class DriversController extends Controller
         }
         
         $driver->print_status = 1;
-        $driver->cardholder()->associate($plate);
+        $driver->card()->associate($card_rfid);
         $driver->clasification()->associate($clasification_id);
         $driver->save();
 

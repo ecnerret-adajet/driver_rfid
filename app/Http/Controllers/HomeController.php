@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Driver;
 use App\Hauler;
 use App\Truck;
+use App\Card;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -31,16 +33,20 @@ class HomeController extends Controller
 
     public function homeStatus()
     {
-        $print = Driver::where('print_status',1)->count();
-        $hauler = Hauler::all()->count();
-        $truck = Truck::all()->count();
-        $driver = Driver::all()->count();
+        $prints = Driver::where('print_status',1)->count();
+        $haulers = Hauler::all()->count();
+        $trucks = Truck::all()->count();
+        $drivers = Driver::all()->count();
+        $cards = Card::all()->count();
+        $users = User::all()->count();
 
         $data = array(
-            'print' => $print,
-            'hauler' => $hauler,
-            'truck' => $truck,
-            'driver' => $driver
+            'prints' => $prints,
+            'haulers' => $haulers,
+            'trucks' => $trucks,
+            'drivers' => $drivers,
+            'cards' => $cards,
+            'users' => $users,
         );
 
         return $data;

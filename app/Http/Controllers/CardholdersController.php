@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Card;
-use App\Rfid;
-use App\Binder;
 use App\Cardholder;
+use App\Card;
+use Carbon\Carbon;
 
-class BindersController extends Controller
+class CardholdersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +16,7 @@ class BindersController extends Controller
      */
     public function index()
     {
-        //
+        return view('cardholders.index');
     }
 
     /**
@@ -25,14 +24,9 @@ class BindersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($CardID)
+    public function create()
     {
-        $binder = Binder::where('card_id',$CardID)->first();
-        $card = Card::where('CardID',$CardID)->first();
-        $rfids = Rfid::pluck('name','id');
-        $cards = Card::pluck('CardNo','CardID');
-        $cardholders = Cardholder::pluck('Name','CardholderID');
-        return view('binders.create',compact('rfids','cards','card','cardholders','binder'));
+        return view('cardholders.create');
     }
 
     /**
@@ -41,31 +35,9 @@ class BindersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $CardID)
+    public function store(Request $request)
     {
-        $this->validate($request, [
-            'rfid_list' => 'required',
-        ]);
-
-        $rfid = $request->input('rfid_list');
-        $cardholder_id = $request->input('cardholder_list');
-
-        Binder::updateOrCreate([
-            'card_id' => $CardID,
-        ],[
-            'card_id' => $CardID,
-            'rfid_id' => $rfid,
-            'cardholder_id' => $cardholder_id
-        ]);
-
-
-        //  Update to Card databse
-        $card = Card::where('CardID',$CardID)->update([
-            'CardholderID' => $request->input('cardholder_list')
-        ]);
-       
-
-        return redirect('cards');
+        //
     }
 
     /**

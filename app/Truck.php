@@ -30,4 +30,27 @@ class Truck extends Model
     {
         return $this->haulers->pluck('id')->all();
     }
+
+        /**
+    *
+    * Get all Cards to link
+    */
+    public function binders()
+    {
+        return $this->belongsToMany('App\Binder');
+    }
+
+    public function getBinderListAttribute()
+    {
+        return $this->binders()->pluck('id')->all();
+    }
+
+    /**
+    *
+    * Associate Sticker RFID to truck
+    */
+    public function card()
+    {
+        return $this->belongsTo('App\Card','card_id','CardID');
+    }
 }

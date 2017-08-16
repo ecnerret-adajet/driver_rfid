@@ -14,10 +14,11 @@
         "jquery": "^3.1.1",
         "laravel-mix": "0.*",
         "lodash": "^4.17.4",
-        "vue": "^2.1.10"
+        "vue": "^2.1.10",
+        "vuejs-paginator-axios": "^2.0.1"
     },
     "dependencies": {
         "materialize-css": "^0.100.0",
-        "vuejs-paginator": "^2.0.1"
+        "vuejs-paginator": "^2.0.2"
     }
 }
