@@ -13521,23 +13521,52 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             searchString: '',
             cards_link: '/driver_rfid/public/bind/create/',
-            cards: []
+            cards: [],
+            loading: false
         };
     },
     created: function created() {
-        var _this = this;
-
-        axios.get('http://localhost/driver_rfid/public/cardsJson').then(function (response) {
-            return _this.cards = response.data;
-        });
+        this.getCards();
     },
 
+
+    methods: {
+        getCards: function getCards() {
+            var _this = this;
+
+            this.loading = true;
+            axios.get('http://localhost/driver_rfid/public/cardsJson').then(function (response) {
+                _this.cards = response.data;
+                _this.loading = false;
+            });
+        }
+    },
 
     computed: {
         filteredCard: function filteredCard() {
@@ -13614,6 +13643,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -13621,15 +13668,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             searchString: '',
             driver_link: '/driver_rfid/public/drivers/',
             avatar_link: 'http://localhost/driver_rfid/storage/app/',
-            drivers: []
+            drivers: [],
+            loading: false
         };
     },
     created: function created() {
-        var _this = this;
+        this.getDrivers();
+    },
 
-        axios.get('http://localhost/driver_rfid/public/driversJson').then(function (response) {
-            return _this.drivers = response.data;
-        });
+
+    methods: {
+        getDrivers: function getDrivers() {
+            var _this = this;
+
+            this.loading = true;
+            axios.get('http://localhost/driver_rfid/public/driversJson').then(function (response) {
+                _this.drivers = response.data;
+                _this.loading = false;
+            });
+        }
     },
 
     computed: {
@@ -13736,21 +13793,49 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             searchString: '',
             hauler_link: '/driver_rfid/public/haulers/',
-            haulers: []
+            haulers: [],
+            loading: false
         };
     },
     created: function created() {
-        var _this = this;
+        this.getHauler();
+    },
 
-        axios.get('http://localhost/driver_rfid/public/haulersJson').then(function (response) {
-            return _this.haulers = response.data;
-        });
+
+    methods: {
+        getHauler: function getHauler() {
+            var _this = this;
+
+            this.loading = true;
+            axios.get('http://localhost/driver_rfid/public/haulersJson').then(function (response) {
+                _this.haulers = response.data;
+                _this.loading = false;
+            });
+        }
     },
 
     computed: {
@@ -13856,20 +13941,120 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             print_link: '/driver_rfid/public/prints',
-            home: []
+            home: [],
+            is_loading: false
         };
     },
     created: function created() {
-        var _this = this;
+        this.getHome();
+    },
 
-        axios.get('http://localhost/driver_rfid/public/homeJson').then(function (response) {
-            return _this.home = response.data;
-        });
+
+    methods: {
+        getHome: function getHome() {
+            var _this = this;
+
+            this.is_loading = true;
+            axios.get('http://localhost/driver_rfid/public/homeJson').then(function (response) {
+                _this.home = response.data;
+                _this.is_loading = false;
+            });
+        }
     }
 });
 
@@ -14028,21 +14213,47 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             searchString: '',
             truck_link: '/driver_rfid/public/trucks/',
-            trucks: []
+            trucks: [],
+            loading: false
         };
     },
     created: function created() {
-        var _this = this;
+        this.getTruck();
+    },
 
-        axios.get('http://localhost/driver_rfid/public/trucksJson').then(function (response) {
-            return _this.trucks = response.data;
-        });
+
+    methods: {
+        getTruck: function getTruck() {
+            var _this = this;
+
+            this.loading = true;
+            axios.get('http://localhost/driver_rfid/public/trucksJson').then(function (response) {
+                _this.trucks = response.data;
+                _this.loading = false;
+            });
+        }
     },
 
     computed: {
@@ -17268,7 +17479,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2)])]), _vm._v(" "), _c('div', {
     staticClass: "had-container"
-  }, [_c('ul', {
+  }, [(!_vm.loading) ? _c('div', [_c('ul', {
     staticClass: "collection"
   }, [_vm._l((_vm.filteredTruck), function(truck) {
     return _c('li', {
@@ -17276,9 +17487,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('span', {
       staticClass: "title"
     }, [_vm._v(_vm._s(truck.plate_number))]), _vm._v(" "), _vm._l((truck.haulers), function(hauler) {
-      return _c('p', [_vm._v("\n                    " + _vm._s(hauler.name) + "\n                ")])
+      return _c('p', [_vm._v("\n                            " + _vm._s(hauler.name) + "\n                        ")])
     }), _vm._v(" "), _vm._l((truck.drivers), function(driver) {
-      return _c('p', [_vm._v("\n                    " + _vm._s(driver.name) + " \n                ")])
+      return _c('p', [_vm._v("\n                            " + _vm._s(driver.name) + " \n                        ")])
     }), _vm._v(" "), _c('p', {
       staticClass: "secondary-content right-align"
     }, [_c('a', {
@@ -17292,7 +17503,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "collection-item avatar center-align"
   }, [_c('span', {
     staticClass: "title"
-  }, [_vm._v("NO TRUCK FOUND")])]) : _vm._e()], 2)])])
+  }, [_vm._v("NO TRUCK FOUND")])]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
+    staticClass: "center-align",
+    staticStyle: {
+      "padding-top": "50px"
+    }
+  }, [_vm._m(3)]) : _vm._e()])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "input-group-addon opener"
@@ -17311,6 +17527,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "material-icons"
   }, [_vm._v("clear")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "preloader-wrapper small active"
+  }, [_c('div', {
+    staticClass: "spinner-layer spinner-green-only"
+  }, [_c('div', {
+    staticClass: "circle-clipper left"
+  }, [_c('div', {
+    staticClass: "circle"
+  })]), _c('div', {
+    staticClass: "gap-patch"
+  }, [_c('div', {
+    staticClass: "circle"
+  })]), _c('div', {
+    staticClass: "circle-clipper right"
+  }, [_c('div', {
+    staticClass: "circle"
+  })])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -17354,89 +17588,175 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col l4 m12 s12"
-  }, [_c('div', {
-    staticClass: "card light-blue"
-  }, [_c('div', {
-    staticClass: "card-content"
-  }, [_c('div', {
-    staticClass: "white-text",
+  return _c('div', [_c('ul', {
+    staticClass: "collapsible popout",
+    attrs: {
+      "data-collapsible": "accordion"
+    }
+  }, [_c('li', [_c('div', {
+    staticClass: "collapsible-header active"
+  }, [_vm._v("Overview")]), _vm._v(" "), _c('div', {
+    staticClass: "collapsible-body grey lighten-3",
     staticStyle: {
-      "display": "none"
-    },
-    attrs: {
-      "id": "test1"
+      "padding": "0"
     }
-  }, [_c('span', {
-    staticClass: "title"
-  }, [_vm._v("\n                TOTAL HAULERS\n              ")]), _vm._v(" "), _c('h1', [_vm._v("\n                " + _vm._s(_vm.home.hauler) + "\n              ")])]), _vm._v(" "), _c('div', {
-    staticClass: "white-text",
-    staticStyle: {
-      "display": "none"
-    },
-    attrs: {
-      "id": "test2"
-    }
-  }, [_c('span', {
-    staticClass: "title"
-  }, [_vm._v("\n                TOTAL TRUCKS\n              ")]), _vm._v(" "), _c('h1', [_vm._v("\n                " + _vm._s(_vm.home.truck) + "\n              ")])]), _vm._v(" "), _c('div', {
-    staticClass: "white-text active",
-    attrs: {
-      "id": "test3"
-    }
-  }, [_c('span', {
-    staticClass: "title"
-  }, [_vm._v("\n                TOTAL DRIVERS\n              ")]), _vm._v(" "), _c('h1', [_vm._v("\n            " + _vm._s(_vm.home.driver) + "\n              ")])])]), _vm._v(" "), _vm._m(0)])]), _vm._v(" "), _c('div', {
-    staticClass: "col l4 m12 s12"
   }, [_c('div', {
-    staticClass: "card teal darken-2"
+    staticClass: "row dash-status"
   }, [_c('div', {
-    staticClass: "card-content white-text"
-  }, [_c('span', [_vm._v("PENDING TO PRINT")]), _vm._v(" "), _c('h1', [_vm._v("\n                " + _vm._s(_vm.home.print) + "\n              ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-action"
-  }, [_c('a', {
-    staticClass: "waves-effect waves-light",
-    attrs: {
-      "href": _vm.print_link
-    }
-  }, [_vm._v("View details")])])])])])
+    staticClass: "col s3 dash-child"
+  }, [_c('p', [_vm._v("All Trucks")]), _vm._v(" "), (!_vm.is_loading) ? _c('div', [_c('p', {
+    staticClass: "app-count"
+  }, [_vm._v("\n                           " + _vm._s(_vm.home.trucks) + "\n                          ")])]) : _vm._e(), _vm._v(" "), (_vm.is_loading) ? _c('div', [_vm._m(0)]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "col s3 dash-child"
+  }, [_c('p', [_vm._v("All Drivers")]), _vm._v(" "), (!_vm.is_loading) ? _c('div', [_c('p', {
+    staticClass: "app-count"
+  }, [_vm._v("\n                           " + _vm._s(_vm.home.drivers) + "\n                          ")])]) : _vm._e(), _vm._v(" "), (_vm.is_loading) ? _c('div', [_vm._m(1)]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "col s3 dash-child"
+  }, [_c('p', [_vm._v("All Haulers")]), _vm._v(" "), (!_vm.is_loading) ? _c('div', [_c('p', {
+    staticClass: "app-count"
+  }, [_vm._v("\n                          " + _vm._s(_vm.home.haulers) + "\n                          ")])]) : _vm._e(), _vm._v(" "), (_vm.is_loading) ? _c('div', [_vm._m(2)]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "col s3  last-dash-child "
+  }, [_c('p', [_vm._v("All Cards")]), _vm._v(" "), (!_vm.is_loading) ? _c('div', [_c('p', {
+    staticClass: "app-count"
+  }, [_vm._v("\n                          " + _vm._s(_vm.home.cards) + "\n                          ")])]) : _vm._e(), _vm._v(" "), (_vm.is_loading) ? _c('div', [_vm._m(3)]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "row dash-status"
+  }, [_c('div', {
+    staticClass: "col s3 last-dash-status"
+  }, [_c('p', [_vm._v("For Print")]), _vm._v(" "), (!_vm.is_loading) ? _c('div', [_c('p', {
+    staticClass: "app-count"
+  }, [_vm._v("\n                          " + _vm._s(_vm.home.prints) + "\n                          ")])]) : _vm._e(), _vm._v(" "), (_vm.is_loading) ? _c('div', [_vm._m(4)]) : _vm._e()]), _vm._v(" "), _vm._m(5), _vm._v(" "), _c('div', {
+    staticClass: "col s3 last-dash-status"
+  }, [_c('p', [_vm._v("Total Users")]), _vm._v(" "), (!_vm.is_loading) ? _c('div', [_c('p', {
+    staticClass: "app-count"
+  }, [_vm._v("\n                          " + _vm._s(_vm.home.users) + "\n                          ")])]) : _vm._e(), _vm._v(" "), (_vm.is_loading) ? _c('div', [_vm._m(6)]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "col s3 last-dash-status"
+  })])])]), _vm._v(" "), _vm._m(7), _vm._v(" "), _vm._m(8)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "card-tabs white"
-  }, [_c('ul', {
-    staticClass: "tabs tabs-fixed-width tabs-transparent"
-  }, [_c('li', {
-    staticClass: "tab"
-  }, [_c('a', {
-    staticClass: "blue-text",
-    attrs: {
-      "href": "#test1"
-    }
-  }, [_vm._v("\n              Total Hauler\n            ")])]), _vm._v(" "), _c('li', {
-    staticClass: "tab"
-  }, [_c('a', {
-    staticClass: "light-blue-text",
-    attrs: {
-      "href": "#test2"
-    }
-  }, [_vm._v("\n            Total Trucks\n            ")])]), _vm._v(" "), _c('li', {
-    staticClass: "tab"
-  }, [_c('a', {
-    staticClass: "blue-text active",
-    attrs: {
-      "href": "#test3"
-    }
-  }, [_vm._v("\n                 Total Drivers\n            ")])]), _vm._v(" "), _c('li', {
-    staticClass: "indicator",
-    staticStyle: {
-      "right": "0px",
-      "left": "238px",
-      "background-color": "#03a9f4"
-    }
-  })])])
+    staticClass: "app-loading preloader-wrapper small active"
+  }, [_c('div', {
+    staticClass: "spinner-layer spinner-green-only"
+  }, [_c('div', {
+    staticClass: "circle-clipper left"
+  }, [_c('div', {
+    staticClass: "circle"
+  })]), _c('div', {
+    staticClass: "gap-patch"
+  }, [_c('div', {
+    staticClass: "circle"
+  })]), _c('div', {
+    staticClass: "circle-clipper right"
+  }, [_c('div', {
+    staticClass: "circle"
+  })])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "preloader-wrapper small active"
+  }, [_c('div', {
+    staticClass: "spinner-layer spinner-green-only"
+  }, [_c('div', {
+    staticClass: "circle-clipper left"
+  }, [_c('div', {
+    staticClass: "circle"
+  })]), _c('div', {
+    staticClass: "gap-patch"
+  }, [_c('div', {
+    staticClass: "circle"
+  })]), _c('div', {
+    staticClass: "circle-clipper right"
+  }, [_c('div', {
+    staticClass: "circle"
+  })])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "preloader-wrapper small active"
+  }, [_c('div', {
+    staticClass: "spinner-layer spinner-green-only"
+  }, [_c('div', {
+    staticClass: "circle-clipper left"
+  }, [_c('div', {
+    staticClass: "circle"
+  })]), _c('div', {
+    staticClass: "gap-patch"
+  }, [_c('div', {
+    staticClass: "circle"
+  })]), _c('div', {
+    staticClass: "circle-clipper right"
+  }, [_c('div', {
+    staticClass: "circle"
+  })])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "preloader-wrapper small active"
+  }, [_c('div', {
+    staticClass: "spinner-layer spinner-green-only"
+  }, [_c('div', {
+    staticClass: "circle-clipper left"
+  }, [_c('div', {
+    staticClass: "circle"
+  })]), _c('div', {
+    staticClass: "gap-patch"
+  }, [_c('div', {
+    staticClass: "circle"
+  })]), _c('div', {
+    staticClass: "circle-clipper right"
+  }, [_c('div', {
+    staticClass: "circle"
+  })])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "preloader-wrapper small active"
+  }, [_c('div', {
+    staticClass: "spinner-layer spinner-green-only"
+  }, [_c('div', {
+    staticClass: "circle-clipper left"
+  }, [_c('div', {
+    staticClass: "circle"
+  })]), _c('div', {
+    staticClass: "gap-patch"
+  }, [_c('div', {
+    staticClass: "circle"
+  })]), _c('div', {
+    staticClass: "circle-clipper right"
+  }, [_c('div', {
+    staticClass: "circle"
+  })])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col s3 last-dash-status"
+  }, [_c('p', [_vm._v("Email Confirmation")]), _vm._v(" "), _c('p', {
+    staticClass: "app-count"
+  }, [_vm._v("\n                  0\n                  ")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "preloader-wrapper small active"
+  }, [_c('div', {
+    staticClass: "spinner-layer spinner-green-only"
+  }, [_c('div', {
+    staticClass: "circle-clipper left"
+  }, [_c('div', {
+    staticClass: "circle"
+  })]), _c('div', {
+    staticClass: "gap-patch"
+  }, [_c('div', {
+    staticClass: "circle"
+  })]), _c('div', {
+    staticClass: "circle-clipper right"
+  }, [_c('div', {
+    staticClass: "circle"
+  })])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', [_c('div', {
+    staticClass: "collapsible-header"
+  }, [_vm._v("Second")]), _vm._v(" "), _c('div', {
+    staticClass: "collapsible-body"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', [_c('div', {
+    staticClass: "collapsible-header"
+  }, [_vm._v("Third")]), _vm._v(" "), _c('div', {
+    staticClass: "collapsible-body"
+  })])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -17526,7 +17846,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2)])]), _vm._v(" "), _c('div', {
     staticClass: "had-container"
-  }, [_c('ul', {
+  }, [(!_vm.loading) ? _c('div', [_c('ul', {
     staticClass: "collection"
   }, [_vm._l((_vm.filteredDriver), function(driver) {
     return _c('li', {
@@ -17540,9 +17860,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }), _vm._v(" "), _c('span', {
       staticClass: "title"
     }, [_vm._v(_vm._s(driver.name))]), _vm._v(" "), _vm._l((driver.trucks), function(truck) {
-      return _c('p', [_vm._v("\n                    " + _vm._s(truck.plate_number) + "\n                ")])
+      return _c('p', [_vm._v("\n                        " + _vm._s(truck.plate_number) + "\n                    ")])
     }), _vm._v(" "), _vm._l((driver.haulers), function(hauler) {
-      return _c('p', [_vm._v("\n                    " + _vm._s(hauler.name) + " \n                ")])
+      return _c('p', [_vm._v("\n                        " + _vm._s(hauler.name) + " \n                    ")])
     }), _vm._v(" "), _c('p', {
       staticClass: "secondary-content right-align"
     }, [_c('a', {
@@ -17551,12 +17871,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('i', {
       staticClass: "material-icons"
-    }, [_vm._v("open_in_new")])]), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                    COUNT UPDATE: " + _vm._s(driver.update_count == null ? 0 : driver.update_count) + "\n                    ")])])], 2)
+    }, [_vm._v("open_in_new")])]), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                        COUNT UPDATE: " + _vm._s(driver.update_count == null ? 0 : driver.update_count) + "\n                        ")])])], 2)
   }), _vm._v(" "), (_vm.filteredDriver.length == 0) ? _c('li', {
     staticClass: "collection-item avatar center-align"
   }, [_c('span', {
     staticClass: "title"
-  }, [_vm._v("NO DRIVER FOUND")])]) : _vm._e()], 2)])])
+  }, [_vm._v("NO DRIVER FOUND")])]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
+    staticClass: "center-align",
+    staticStyle: {
+      "padding-top": "50px"
+    }
+  }, [_vm._m(3)]) : _vm._e()])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "input-group-addon opener"
@@ -17575,6 +17900,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "material-icons"
   }, [_vm._v("clear")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "preloader-wrapper small active"
+  }, [_c('div', {
+    staticClass: "spinner-layer spinner-green-only"
+  }, [_c('div', {
+    staticClass: "circle-clipper left"
+  }, [_c('div', {
+    staticClass: "circle"
+  })]), _c('div', {
+    staticClass: "gap-patch"
+  }, [_c('div', {
+    staticClass: "circle"
+  })]), _c('div', {
+    staticClass: "circle-clipper right"
+  }, [_c('div', {
+    staticClass: "circle"
+  })])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -17616,14 +17959,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2)])]), _vm._v(" "), _c('div', {
     staticClass: "had-container"
-  }, [_c('ul', {
+  }, [(!_vm.loading) ? _c('div', [_c('ul', {
     staticClass: "collection"
   }, [_vm._l((_vm.filteredHauler), function(hauler) {
     return _c('li', {
       staticClass: "collection-item avatar"
     }, [_c('span', {
       staticClass: "title"
-    }, [_vm._v(_vm._s(hauler.name))]), _vm._v(" "), _c('p', [_vm._v("\n                    " + _vm._s(hauler.address) + "\n                ")]), _vm._v(" "), _c('p', [_vm._v("\n                    " + _vm._s(hauler.contact_number) + " \n                ")]), _vm._v(" "), _c('p', {
+    }, [_vm._v(_vm._s(hauler.name))]), _vm._v(" "), _c('p', [_vm._v("\n                        " + _vm._s(hauler.address) + "\n                    ")]), _vm._v(" "), _c('p', [_vm._v("\n                        " + _vm._s(hauler.contact_number) + " \n                    ")]), _vm._v(" "), _c('p', {
       staticClass: "secondary-content right-align"
     }, [_c('a', {
       attrs: {
@@ -17631,12 +17974,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('i', {
       staticClass: "material-icons"
-    }, [_vm._v("open_in_new")])]), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                    NUMBER OF TRUCK(S): " + _vm._s(hauler.drivers.length) + "\n                    ")])])])
+    }, [_vm._v("open_in_new")])]), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                        NUMBER OF TRUCK(S): " + _vm._s(hauler.drivers.length) + "\n                        ")])])])
   }), _vm._v(" "), (_vm.filteredHauler.length == 0) ? _c('li', {
     staticClass: "collection-item avatar center-align"
   }, [_c('span', {
     staticClass: "title"
-  }, [_vm._v("NO HAULER FOUND")])]) : _vm._e()], 2)])])
+  }, [_vm._v("NO HAULER FOUND")])]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
+    staticClass: "center-align",
+    staticStyle: {
+      "padding-top": "50px"
+    }
+  }, [_vm._m(3)]) : _vm._e()])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "input-group-addon opener"
@@ -17655,6 +18003,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "material-icons"
   }, [_vm._v("clear")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "preloader-wrapper small active"
+  }, [_c('div', {
+    staticClass: "spinner-layer spinner-green-only"
+  }, [_c('div', {
+    staticClass: "circle-clipper left"
+  }, [_c('div', {
+    staticClass: "circle"
+  })]), _c('div', {
+    staticClass: "gap-patch"
+  }, [_c('div', {
+    staticClass: "circle"
+  })]), _c('div', {
+    staticClass: "circle-clipper right"
+  }, [_c('div', {
+    staticClass: "circle"
+  })])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -17670,10 +18036,7 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "had-container",
-    staticStyle: {
-      "padding-top": "50px"
-    }
+    staticClass: "col s12"
   }, _vm._l((_vm.settings), function(setting) {
     return _c('div', {
       staticClass: "card grey lighten-4"
@@ -17740,14 +18103,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2)])]), _vm._v(" "), _c('div', {
     staticClass: "had-container"
-  }, [_c('ul', {
+  }, [(!_vm.loading) ? _c('div', [_c('ul', {
     staticClass: "collection"
   }, [_vm._l((_vm.filteredCard), function(card) {
     return _c('li', {
       staticClass: "collection-item avatar"
-    }, [_c('span', {
+    }, [_c('i', {
+      staticClass: "material-icons circle"
+    }, [_vm._v("folder")]), _vm._v(" "), _c('span', {
       staticClass: "title"
-    }, [_vm._v(_vm._s(card.CardNo))]), _vm._v(" "), _c('p', [_vm._v("\r\n                   Card ID: " + _vm._s(card.CardID) + "\r\n                ")]), _vm._v(" "), _c('p'), _vm._v(" "), _c('p', {
+    }, [_vm._v(_vm._s(card.CardNo))]), _vm._v(" "), _c('p', [_c('strong', [_vm._v("Assigned Cardholder")]), _vm._v(" "), _vm._l((card.binder), function(cardholder) {
+      return _c('span', [_vm._v(_vm._s(cardholder.cardholder_id))])
+    })], 2), _vm._v(" "), _c('p'), _vm._v(" "), _c('p', {
       staticClass: "secondary-content right-align"
     }, [_c('a', {
       attrs: {
@@ -17760,7 +18127,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "collection-item avatar center-align"
   }, [_c('span', {
     staticClass: "title"
-  }, [_vm._v("NO TRUCK FOUND")])]) : _vm._e()], 2)])])
+  }, [_vm._v("NO TRUCK FOUND")])]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
+    staticClass: "center-align",
+    staticStyle: {
+      "padding-top": "50px"
+    }
+  }, [_vm._m(3)]) : _vm._e()])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "input-group-addon opener"
@@ -17779,6 +18151,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "material-icons"
   }, [_vm._v("clear")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "preloader-wrapper small active"
+  }, [_c('div', {
+    staticClass: "spinner-layer spinner-green-only"
+  }, [_c('div', {
+    staticClass: "circle-clipper left"
+  }, [_c('div', {
+    staticClass: "circle"
+  })]), _c('div', {
+    staticClass: "gap-patch"
+  }, [_c('div', {
+    staticClass: "circle"
+  })]), _c('div', {
+    staticClass: "circle-clipper right"
+  }, [_c('div', {
+    staticClass: "circle"
+  })])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

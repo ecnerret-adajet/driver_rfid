@@ -1,7 +1,7 @@
 <template>
 
 
-  <div class="had-container" style="padding-top: 50px;">
+  <div class="col s12">
         <div class="card grey lighten-4"  v-for="setting in settings">
             <div class="card-content gray-text">
               <span class="card-title">Emailing User</span>

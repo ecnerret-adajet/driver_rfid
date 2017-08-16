@@ -1,76 +1,166 @@
 <template>
+  <div>
+    <ul class="collapsible popout" data-collapsible="accordion">
+        <li>
+            <div class="collapsible-header active">Overview</div>
+            <div class="collapsible-body grey lighten-3" style="padding: 0;">
 
-    <div class="row">      
-    <div class="col l4 m12 s12">
-      <div class="card light-blue">
-        <div class="card-content">
-          <div id="test1" style="display: none;" class="white-text">
-              <span class="title">
-                TOTAL HAULERS
-              </span>
-              <h1>
-                {{ home.hauler }}
-              </h1>
-          </div>
-          <div id="test2" class="white-text" style="display: none;">
-              <span class="title">
-                TOTAL TRUCKS
-              </span>
-              <h1>
-                {{ home.truck }}
-              </h1>
-          </div>
+            <div class="row dash-status">
 
-          <div id="test3" style="" class="white-text active">
-              <span class="title">
-                TOTAL DRIVERS
-              </span>
-              <h1>
-            {{ home.driver }}
-              </h1>
-          </div>
-        </div>
-        <div class="card-tabs white">
-          <ul class="tabs tabs-fixed-width tabs-transparent">
-          <li class="tab">
-            <a href="#test1" class="blue-text">
-              Total Hauler
-            </a>
-          </li>
-          <li class="tab">
-            <a class="light-blue-text" href="#test2">
-            Total Trucks
-            </a>
-          </li>
-          <li class="tab">
-            <a href="#test3" class="blue-text active">
-                 Total Drivers
-            </a>
-          </li>
-          <li class="indicator" style="right: 0px; left: 238px; background-color: #03a9f4;"></li></ul>
-          </div>
+                <div class="col s3 dash-child">
+                    <p>All Trucks</p>
+                        <div  v-if="!is_loading">
+                            <p class="app-count">
+                             {{ home.trucks }}
+                            </p>
+                        </div>
+                        <div v-if="is_loading">
+                            <div class="app-loading preloader-wrapper small active">
+                                <div class="spinner-layer spinner-green-only">
+                                    <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                    </div><div class="gap-patch">
+                                        <div class="circle"></div>
+                                    </div><div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
 
-      </div>
-    </div>
-
-
-    <div class="col l4 m12 s12">
-   <div class="card teal darken-2">
-            <div class="card-content white-text">
-              <span >PENDING TO PRINT</span>
-              <h1>
-                {{home.print}}
-              </h1>
+                <div class="col s3 dash-child">
+                    <p>All Drivers</p>
+                        <div  v-if="!is_loading">
+                            <p class="app-count">
+                             {{ home.drivers }}
+                            </p>
+                        </div>
+                        <div v-if="is_loading">
+                            <div class="preloader-wrapper small active">
+                                <div class="spinner-layer spinner-green-only">
+                                    <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                    </div><div class="gap-patch">
+                                        <div class="circle"></div>
+                                    </div><div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="col s3 dash-child">
+                    <p>All Haulers</p>
+                    <div  v-if="!is_loading">
+                            <p class="app-count">
+                            {{ home.haulers }}
+                            </p>
+                        </div>
+                        <div v-if="is_loading">
+                            <div class="preloader-wrapper small active">
+                                <div class="spinner-layer spinner-green-only">
+                                    <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                    </div><div class="gap-patch">
+                                        <div class="circle"></div>
+                                    </div><div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="col s3  last-dash-child ">
+                    <p>All Cards</p>
+                        <div  v-if="!is_loading">
+                            <p class="app-count">
+                            {{ home.cards }}
+                            </p>
+                        </div>
+                        <div v-if="is_loading">
+                            <div class="preloader-wrapper small active">
+                                <div class="spinner-layer spinner-green-only">
+                                    <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                    </div><div class="gap-patch">
+                                        <div class="circle"></div>
+                                    </div><div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
             </div>
-            <div class="card-action">
-              <a :href="print_link" class="waves-effect waves-light">View details</a>
+
+            <div class="row dash-status">
+                <div class="col s3 last-dash-status">
+                    <p>For Print</p>
+                        <div  v-if="!is_loading">
+                            <p class="app-count">
+                            {{ home.prints }}
+                            </p>
+                        </div>
+                        <div v-if="is_loading">
+                            <div class="preloader-wrapper small active">
+                                <div class="spinner-layer spinner-green-only">
+                                    <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                    </div><div class="gap-patch">
+                                        <div class="circle"></div>
+                                    </div><div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="col s3 last-dash-status">
+                    <p>Email Confirmation</p>
+                    <p class="app-count">
+                    0
+                    </p>
+                </div>
+                <div class="col s3 last-dash-status">
+                    <p>Total Users</p>
+                        <div  v-if="!is_loading">
+                            <p class="app-count">
+                            {{ home.users }}
+                            </p>
+                        </div>
+                        <div v-if="is_loading">
+                            <div class="preloader-wrapper small active">
+                                <div class="spinner-layer spinner-green-only">
+                                    <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                    </div><div class="gap-patch">
+                                        <div class="circle"></div>
+                                    </div><div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="col s3 last-dash-status">
+                 
+                </div>
             </div>
-          </div>
+
+
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header">Second</div>
+            <div class="collapsible-body"></div>
+        </li>
+        <li>
+            <div class="collapsible-header">Third</div>
+            <div class="collapsible-body"></div>
+        </li>
+    </ul>
   </div>
-
-
-</div> <!-- end row -->
-
 </template>
 
 <script>
@@ -78,13 +168,24 @@ export default {
     data() {
         return {
             print_link: '/driver_rfid/public/prints',
-            home: []
+            home: [],
+            is_loading: false
         }
     },
 
     created() {
-        axios.get('http://localhost/driver_rfid/public/homeJson')
-        .then(response => this.home = response.data);
+      this.getHome()
+    },
+
+    methods: {
+        getHome() {
+            this.is_loading = true
+            axios.get('http://localhost/driver_rfid/public/homeJson')
+            .then(response => {
+                this.home = response.data
+                this.is_loading = false
+            });
+        }
     }
 }
 </script>

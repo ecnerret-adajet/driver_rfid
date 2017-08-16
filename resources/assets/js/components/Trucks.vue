@@ -17,28 +17,44 @@
         </div>
 
         <div class="had-container">
-            <ul class="collection">
-                <li v-for="truck in filteredTruck" class="collection-item avatar">
-                     <!-- <img :src="avatar_link + truck.avatar" alt="" class="circle"> -->
-                    <span class="title">{{truck.plate_number}}</span>
-                    <p v-for="hauler in truck.haulers">
-                        {{ hauler.name }}
-                    </p>
-                    <p v-for="driver in truck.drivers">
-                        {{driver.name}} 
-                    </p>
+                <div v-if="!loading">
+                    <ul class="collection">
+                        <li v-for="truck in filteredTruck" class="collection-item avatar">
+                            <!-- <img :src="avatar_link + truck.avatar" alt="" class="circle"> -->
+                            <span class="title">{{truck.plate_number}}</span>
+                            <p v-for="hauler in truck.haulers">
+                                {{ hauler.name }}
+                            </p>
+                            <p v-for="driver in truck.drivers">
+                                {{driver.name}} 
+                            </p>
 
-                    <p class="secondary-content right-align">
-                        <a :href="truck_link + truck.id + '/edit'"><i class="material-icons">open_in_new</i></a><br/>
-                        <!-- <span>
-                        COUNT UPDATE: {{ truck.update_count == null ? 0 : truck.update_count  }}
-                        </span> -->
-                    </p>
-                </li>
-                <li v-if="filteredTruck.length == 0" class="collection-item avatar center-align">
-                    <span class="title">NO TRUCK FOUND</span>
-                </li>
-            </ul>
+                            <p class="secondary-content right-align">
+                                <a :href="truck_link + truck.id + '/edit'"><i class="material-icons">open_in_new</i></a><br/>
+                                <!-- <span>
+                                COUNT UPDATE: {{ truck.update_count == null ? 0 : truck.update_count  }}
+                                </span> -->
+                            </p>
+                        </li>
+                        <li v-if="filteredTruck.length == 0" class="collection-item avatar center-align">
+                            <span class="title">NO TRUCK FOUND</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="center-align" style="padding-top: 50px" v-if="loading">
+                    <div class="preloader-wrapper small active">
+                        <div class="spinner-layer spinner-green-only">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
 
     </div>
@@ -50,13 +66,25 @@ export default {
         return {
             searchString: '',
             truck_link: '/driver_rfid/public/trucks/',
-            trucks: []
+            trucks: [],
+            loading: false
         }
     },
     created() {
-        axios.get('http://localhost/driver_rfid/public/trucksJson')
-        .then(response => this.trucks = response.data);
+        this.getTruck()
     },
+
+    methods: {
+        getTruck() {
+            this.loading = true
+            axios.get('http://localhost/driver_rfid/public/trucksJson')
+            .then(response => {
+                 this.trucks = response.data
+                 this.loading = false
+            });
+        }
+    },
+
     computed: {
         filteredTruck() {
             var trucks_array = this.trucks;

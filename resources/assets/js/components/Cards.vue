@@ -17,26 +17,46 @@
     </div>
 
     <div class="had-container">
-        <ul class="collection">
-            <li v-for="card in filteredCard" class="collection-item avatar">
-                <span class="title">{{card.CardNo}}</span>
-                <p>
-                   Card ID: {{ card.CardID }}
-                </p>
-                <p>
-                </p>
 
-                <p class="secondary-content right-align">
-                    <a :href="cards_link + card.CardID"><i class="material-icons">open_in_new</i></a><br/>
-                    <!-- <span>
-                    COUNT UPDATE: {{ truck.update_count == null ? 0 : truck.update_count  }}
-                    </span> -->
-                </p>
-            </li>
-            <li v-if="filteredCard.length == 0" class="collection-item avatar center-align">
-                <span class="title">NO TRUCK FOUND</span>
-            </li>
-        </ul>
+        <div v-if="!loading">
+            <ul class="collection">
+                <li v-for="card in filteredCard" class="collection-item avatar">
+                    <i class="material-icons circle">folder</i>
+                    <span class="title">{{card.CardNo}}</span>
+                    <p>
+                     <strong>Assigned Cardholder:</strong> <span v-for="cardholder in card.binder">{{ cardholder.cardholder_id }}</span>
+                    </p>
+
+                    <p>
+                    </p>
+
+                    <p class="secondary-content right-align">
+                        <a :href="cards_link + card.CardID"><i class="material-icons">open_in_new</i></a><br/>
+                        <!-- <span>
+                        COUNT UPDATE: {{ truck.update_count == null ? 0 : truck.update_count  }}
+                        </span> -->
+                    </p>
+                </li>
+                <li v-if="filteredCard.length == 0" class="collection-item avatar center-align">
+                    <span class="title">NO TRUCK FOUND</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="center-align" style="padding-top:50px" v-if="loading">
+            <div class="preloader-wrapper small active">
+                <div class="spinner-layer spinner-green-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div><div class="gap-patch">
+                        <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </div>
@@ -48,13 +68,24 @@ export default {
         return {
             searchString: '',
             cards_link: '/driver_rfid/public/bind/create/',
-            cards:[]
+            cards:[],
+            loading: false
         }
     },
-    
+
     created() {
-        axios.get('http://localhost/driver_rfid/public/cardsJson')
-        .then(response => this.cards = response.data);
+        this.getCards()
+    },
+
+    methods: {
+        getCards() {
+            this.loading = true
+            axios.get('http://localhost/driver_rfid/public/cardsJson')
+            .then(response => {
+                this.cards = response.data
+                this.loading = false
+            });
+        }
     },
 
     computed: {
@@ -77,6 +108,7 @@ export default {
             return cards_array;
         }
     }
+
 
 
 }
