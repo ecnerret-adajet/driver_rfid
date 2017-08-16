@@ -2,31 +2,26 @@
 
 @section('content')
 
-    <div class="row light-blue darken-1 white-text">
-        <div class="had-container">
-            <div class="col s12">
-                <h5>To Print RFID</h5>
-            </div>
+         <div class="col s12">
+            <h4 class="form-title">Print Status Page</h4>
         </div>
-    </div>
 
-    <div class="had-container">
-        @foreach($print->chunk(4) as $item)
+        @foreach($print->chunk(3) as $item)
         <div class="row">
             @foreach($item as $driver)
-            <div class="col s3">
+            <div class="col s12 m12 l4">
                 <div class="card {{ $driver->notif_status == 1 ? 'red lighten-3 white-text' : '' }}">
                     <div class="card-content">
                     <span class="card-title">{{ $driver->name }}</span>
-                    <p>
-                        @if(count($driver->clasification) > 0)
-                        Clasification: {{ $driver->clasification->name }} <br/>
-                        Edited by: {{ $driver->user->name }}<br/>
-                        @else
-                        New Driver <br/>
-                        Created by: {{ $driver->user->name }}<br/>
-                        @endif
-                    </p>
+                        <p>
+                            @if(count($driver->clasification) > 0)
+                            Clasification: {{ $driver->clasification->name }} <br/>
+                            Edited by: {{ $driver->user->name }}<br/>
+                            @else
+                            New Driver <br/>
+                            Created by: {{ $driver->user->name }}<br/>
+                            @endif
+                        </p>
                     </div>
                     <div class="card-action">
                     @forelse($driver->confirms->reverse()->take(1) as $confirm)
@@ -49,7 +44,6 @@
             @endforeach
         </div>
         @endforeach
-    </div>
 
 @endsection
 

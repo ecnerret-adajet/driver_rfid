@@ -2,9 +2,9 @@
 @section('content')
 
     <div class="row">
-        <div class="card-panel  light-blue darken-1 white-text z-depth-0 no-edge overlap">
-            <div class="had-container">
-            </div>
+        
+        <div class="col s12">
+            <h4 class="form-title">Create Driver</h4>
         </div>
 
         {!! Form::model($driver = new \App\Driver, ['url' => 'drivers', 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}

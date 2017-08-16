@@ -1,6 +1,6 @@
 
 
-<div class="had-container" style="padding-top: 50px;">
+    <div class="col s12">
         <div class="card-panel grey lighten-4">
             <div class="row">
                 <form class="col s12">
@@ -19,16 +19,31 @@
                     </div>
 
                     <div class="row">
-                       <div class="input-field col s12">
-                             {{Form::select('hauler_list', $haulers, null, ['placeholder' => 'Select Operator', 'class' => 'validate'])}}
+                        <div class="input-field col s6">
+                        @if(str_contains(Request::path(), 'edit'))
+                        {!! Form::select('card_list', $cards, count($truck->card) == 0 ? 'null' : $truck->card->CardID, ['placeholder' => 'Select Deploy RFID', 'id' => 'select2-materialize-card', 'class' => 'validate'] ) !!}
+                        @else
+                        {!! Form::select('card_list', $cards, null, ['placeholder' => 'Select Deploy RFID', 'id' => 'select2-materialize-card', 'class' => 'validate'] ) !!}
+                        @endif
+                            
+                            @if ($errors->has('card_list'))
+                                <span class="help-block red-text">
+                                <strong>{{ $errors->first('card_list') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="input-field col s6">
+                            {{Form::select('hauler_list', $haulers, null, ['placeholder' => 'Select Operator', 'id' => 'select2-materialize-hauler', 'class' => 'validate'])}}
                             {{--  <label>Operator</label>  --}}
                             @if ($errors->has('hauler_list'))
                                 <span class="help-block red-text">
                                     <strong>{{ $errors->first('hauler_list') }}</strong>
                                 </span>
                             @endif
-                        </div> 
+                        </div>
                     </div>
+
 
                     <div class="row">
                           
@@ -65,8 +80,8 @@
                 </form>
             </div>
         </div>
+    </div>
 
-</div>
 
 
 @section('script')
@@ -75,5 +90,12 @@
             placeholder: "Select Operator",
             allowClear: true,
         });
+
+        
+        $("#select2-materialize-card").select2({
+            placeholder: "Select Card",
+            allowClear: true,
+        });
+        
     </script>
 @endsection

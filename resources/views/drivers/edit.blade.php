@@ -2,11 +2,10 @@
 @section('content')
 
             <div class="row">
-                    <div class="card-panel  light-blue darken-1 white-text z-depth-0 no-edge overlap">
-                        <div class="had-container">
-                        </div>
-                    </div>
 
+                <div class="col s12">
+                    <h4 class="form-title">Edit Driver</h4>
+                </div>
 
                     {!! Form::model($driver, ['method' => 'PATCH','route' => ['drivers.update', $driver->id], 'enctype'=>'multipart/form-data']) !!}
                     {!! csrf_field() !!}

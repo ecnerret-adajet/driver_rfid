@@ -1,6 +1,6 @@
 
 
-<div class="had-container" style="padding-top: 50px;">
+<div class="col m12">
         <div class="card-panel grey lighten-4">
             <div class="row">
                 <form class="col s12">

@@ -1,6 +1,5 @@
 
 
-<div class="had-container" style="padding-top: 50px;">
     <div class="col m8">
         <div class="card-panel grey lighten-4">
             <div class="row">
@@ -36,17 +35,18 @@
                         </div>
                     </div>
 
+
                     <div class="row">
                         <div class="input-field col s12">
                         @if(str_contains(Request::path(), 'edit'))
-                        {!! Form::select('cardholder_list', $cardholders, $driver->cardholder->CardholderID, ['placeholder' => 'Select Deploy RFID', 'id' => 'select2-materialize-rfid', 'class' => 'validate'] ) !!}
+                        {!! Form::select('card_list', $cards, count($driver->card) == 0 ? 'null' : $driver->card->CardID, ['placeholder' => 'Select Deploy RFID', 'id' => 'select2-materialize-card', 'class' => 'validate'] ) !!}
                         @else
-                        {!! Form::select('cardholder_list', $cardholders, null, ['placeholder' => 'Select Deploy RFID', 'id' => 'select2-materialize-rfid', 'class' => 'validate'] ) !!}
+                        {!! Form::select('card_list', $cards, null, ['placeholder' => 'Select Deploy RFID', 'id' => 'select2-materialize-card', 'class' => 'validate'] ) !!}
                         @endif
                             
-                            @if ($errors->has('cardholder_list'))
+                            @if ($errors->has('card_list'))
                                 <span class="help-block red-text">
-                                <strong>{{ $errors->first('cardholder_list') }}</strong>
+                                <strong>{{ $errors->first('card_list') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -166,7 +166,6 @@
             </div>            
         </div>
     </div>
-</div>
 
 
 @section('script')
@@ -183,6 +182,11 @@
 
         $("#select2-materialize-rfid").select2({
             placeholder: "Select RFID",
+            allowClear: true,
+        });
+
+        $("#select2-materialize-card").select2({
+            placeholder: "Select Card",
             allowClear: true,
         });
 
