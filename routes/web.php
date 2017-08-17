@@ -32,7 +32,7 @@ Route::get('/confirm/create/{id}','ConfirmsController@create');
 Route::post('/confirm/{id}','ConfirmsController@store');
 
 Route::get('/driversJson', function () {
-    $drivers = App\Driver::with(['haulers','trucks'])->get();
+    $drivers = App\Driver::with(['haulers','trucks','cardholder'])->get();
     return $drivers;
 });
 
@@ -54,9 +54,10 @@ Route::get('/settingsJson', function() {
 });
 
 Route::get('/cardsJson', function() {
-    $cards = App\Card::with('binders')->get();
+    $cards = App\Card::with(['binders','binders.rfid'])->get();
     return $cards;
 });
+
 
 Route::get('/homeJson', 'HomeController@homeStatus');
 

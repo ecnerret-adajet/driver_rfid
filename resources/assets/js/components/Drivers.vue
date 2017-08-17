@@ -22,13 +22,14 @@
                 <ul class="collection">
                     <li v-for="driver in filteredDriver" class="collection-item avatar">
                         <img :src="avatar_link + driver.avatar" alt="" class="circle">
-                        <span class="title">{{driver.name}}</span>
+                        <span class="title">{{driver.name}} : <small>{{ driver.cardholder.Name }}</small></span>
                         <p v-for="truck in driver.trucks">
                             {{ truck.plate_number }}
                         </p>
                         <p v-for="hauler in driver.haulers">
-                            {{hauler.name}} 
+                            {{hauler.name}}
                         </p>
+                      
 
                         <p class="secondary-content right-align">
                             <a :href="driver_link + driver.id + '/edit'"><i class="material-icons">open_in_new</i></a><br/>
@@ -101,7 +102,7 @@ export default {
             searchString = searchString.trim().toLowerCase();
 
             drivers_array = drivers_array.filter(function(item){
-                if(item.name.toLowerCase().indexOf(searchString) !== -1){
+                if(item.name.toLowerCase().indexOf(searchString) !== -1 || item.cardholder.Name.toLowerCase().indexOf(searchString) !== -1){
                     return item;
                 }
             })

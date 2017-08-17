@@ -13541,6 +13541,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -13661,6 +13662,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -13702,7 +13704,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             searchString = searchString.trim().toLowerCase();
 
             drivers_array = drivers_array.filter(function (item) {
-                if (item.name.toLowerCase().indexOf(searchString) !== -1) {
+                if (item.name.toLowerCase().indexOf(searchString) !== -1 || item.cardholder.Name.toLowerCase().indexOf(searchString) !== -1) {
                     return item;
                 }
             });
@@ -17859,10 +17861,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }), _vm._v(" "), _c('span', {
       staticClass: "title"
-    }, [_vm._v(_vm._s(driver.name))]), _vm._v(" "), _vm._l((driver.trucks), function(truck) {
+    }, [_vm._v(_vm._s(driver.name) + " : "), _c('small', [_vm._v(_vm._s(driver.cardholder.Name))])]), _vm._v(" "), _vm._l((driver.trucks), function(truck) {
       return _c('p', [_vm._v("\n                        " + _vm._s(truck.plate_number) + "\n                    ")])
     }), _vm._v(" "), _vm._l((driver.haulers), function(hauler) {
-      return _c('p', [_vm._v("\n                        " + _vm._s(hauler.name) + " \n                    ")])
+      return _c('p', [_vm._v("\n                        " + _vm._s(hauler.name) + "\n                    ")])
     }), _vm._v(" "), _c('p', {
       staticClass: "secondary-content right-align"
     }, [_c('a', {
@@ -18110,11 +18112,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "collection-item avatar"
     }, [_c('i', {
       staticClass: "material-icons circle"
-    }, [_vm._v("folder")]), _vm._v(" "), _c('span', {
+    }, [_vm._v("nfc")]), _vm._v(" "), _c('span', {
       staticClass: "title"
-    }, [_vm._v(_vm._s(card.CardNo))]), _vm._v(" "), _c('p', [_c('strong', [_vm._v("Assigned Cardholder")]), _vm._v(" "), _vm._l((card.binder), function(cardholder) {
-      return _c('span', [_vm._v(_vm._s(cardholder.cardholder_id))])
-    })], 2), _vm._v(" "), _c('p'), _vm._v(" "), _c('p', {
+    }, [_vm._v(_vm._s(card.CardNo))]), _vm._v(" "), _vm._l((card.binders), function(binder) {
+      return _c('p', _vm._l((binder), function(rfid) {
+        return _c('span', [_vm._v(" " + _vm._s(rfid.name))])
+      }))
+    }), _vm._v(" "), _c('p'), _vm._v(" "), _c('p', {
       staticClass: "secondary-content right-align"
     }, [_c('a', {
       attrs: {
@@ -18122,7 +18126,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('i', {
       staticClass: "material-icons"
-    }, [_vm._v("open_in_new")])]), _c('br')])])
+    }, [_vm._v("open_in_new")])]), _c('br')])], 2)
   }), _vm._v(" "), (_vm.filteredCard.length == 0) ? _c('li', {
     staticClass: "collection-item avatar center-align"
   }, [_c('span', {
