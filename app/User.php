@@ -4,10 +4,12 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use EntrustUserTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -32,8 +34,38 @@ class User extends Authenticatable
         return $this->hasMany(Driver::class);
     }
 
+    /**
+     * get role
+     */
+    public function getRoleListAttribute()
+    {
+        return $this->roles->pluck('id')->all();
+    }
+
+
     public function confirms()
     {
         return $this->hasMany(Confirm::class);
     }
+
+        /**
+    *
+    *get the associated user from monitor database
+    *
+    */
+    public function monitors(){
+        return $this->hasMany('App\Monitor');
+    }
+    
+    /**
+    *
+    * Get the associated user from pickup created
+    *
+    */
+    public function pickups()
+    {
+        return $this->hasMany('App\Pickup');
+    }
+
+
 }

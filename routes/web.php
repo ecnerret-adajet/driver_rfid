@@ -32,7 +32,7 @@ Route::get('/confirm/create/{id}','ConfirmsController@create');
 Route::post('/confirm/{id}','ConfirmsController@store');
 
 Route::get('/driversJson', function () {
-    $drivers = App\Driver::with(['haulers','trucks','cardholder'])->get();
+    $drivers = App\Driver::with(['haulers','trucks','cardholder','card'])->get();
     return $drivers;
 });
 
@@ -58,6 +58,11 @@ Route::get('/cardsJson', function() {
     return $cards;
 });
 
+Route::get('/usersJson', function() {
+    $user = App\User::with(['roles','roles.permissions'])->get();
+    return $user;
+});
+
 
 Route::get('/homeJson', 'HomeController@homeStatus');
 
@@ -75,5 +80,16 @@ Route::post('/bind/{CardID}','BindersController@store');
 
 Route::resource('/cardholders','CardholdersController');
 
+Route::resource('users','UsersController');
+Route::resource('roles', 'RolesController');
+
+});
+
+Route::any('{any?}', function ($any = null) {
+    if (Auth::check()) {
+        return redirect('/home');
+    } else {
+        return redirect('/');
+    }
 });
 

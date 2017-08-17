@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "materialize-css": "^0.100.0",
+        "moment": "^2.18.1",
         "vuejs-paginator": "^2.0.2"
     }
 }

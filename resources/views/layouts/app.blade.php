@@ -110,7 +110,9 @@
                         </li>
                         <li class="collection-item">
                         <span>
-                            <a href="{{url('/users')}}">
+                            <a class="{{ (Request::is('users') ||
+                                          Request::is('users/*')
+                                        ) ? 'active' : '' }}" href="{{url('/users')}}">
                             <i class="material-icons">verified_user</i> <span class="hide-on-med-and-down">Users</span>
                             </a>
                         </span>
