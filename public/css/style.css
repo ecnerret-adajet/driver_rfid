@@ -1,6 +1,7 @@
 html,
 body {
     font-family: 'Lato', sans-serif;
+    overflow-x: hidden;
 }
 
 h1,
@@ -187,4 +188,18 @@ h6 {
 
 .app-loading {
     height: 25px;
+}
+
+
+/*** REPORTS TABLE STYLE ****/
+
+.reports-table {
+    font-size: 80%;
+}
+
+.btn-small {
+    height: 34px;
+    line-height: 34px;
+    font-size: 15px;
+    padding: 0 0.5rem;
 }

@@ -32,6 +32,9 @@
                       
 
                         <p class="secondary-content right-align">
+                             <span class="chip red white-text" v-if="driver.card !=  null">
+                                Card Assigned
+                            </span>        
                             <a :href="driver_link + driver.id + '/edit'"><i class="material-icons">open_in_new</i></a><br/>
                             <span>
                             COUNT UPDATE: {{ driver.update_count == null ? 0 : driver.update_count  }}

@@ -21,12 +21,13 @@
         <div v-if="!loading">
             <ul class="collection">
                 <li v-for="card in filteredCard" class="collection-item avatar">
-                    <i class="material-icons circle">folder</i>
-                    <span class="title">{{card.CardNo}}</span>
-                    <p>
-                     <strong>Assigned Cardholder:</strong> <span v-for="cardholder in card.binder">{{ cardholder.cardholder_id }}</span>
-                    </p>
 
+                    <i class="material-icons circle">nfc</i>
+
+                    <span class="title">{{card.CardNo}}</span>
+                    <p v-for="binder in card.binders">
+                     <span v-for="rfid in binder"> {{ rfid.name }}</span>
+                    </p>
                     <p>
                     </p>
 

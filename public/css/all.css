@@ -18,6 +18,7 @@
 html,
 body {
     font-family: 'Lato', sans-serif;
+    overflow-x: hidden;
 }
 
 h1,
@@ -204,6 +205,20 @@ h6 {
 
 .app-loading {
     height: 25px;
+}
+
+
+/*** REPORTS TABLE STYLE ****/
+
+.reports-table {
+    font-size: 80%;
+}
+
+.btn-small {
+    height: 34px;
+    line-height: 34px;
+    font-size: 15px;
+    padding: 0 0.5rem;
 }
 .select2-container {
     box-sizing: border-box;
@@ -443,7 +458,7 @@ h6 {
 }
 
 .select2-container--default .select2-selection--multiple {
-    background-color: white;
+    /* background-color: white; */
     border: 1px solid #aaa;
     border-radius: 4px;
     cursor: text
@@ -516,7 +531,7 @@ h6 {
 }
 
 .select2-container--default.select2-container--disabled .select2-selection--multiple {
-    background-color: #eee;
+    /* background-color: #eee; */
     cursor: default
 }
 
@@ -721,7 +736,7 @@ h6 {
 }
 
 .select2-container--classic .select2-selection--multiple {
-    background-color: white;
+    /* background-color: white; */
     border: 1px solid #aaa;
     border-radius: 4px;
     cursor: text;
@@ -858,7 +873,7 @@ h6 {
 
 .select2-container--default .select2-selection--multiple,
 .select2-container--default.select2-container--focus .select2-selection--multiple {
-    height: auto
+    height: auto;
 }
 
 .select2-container--default .select2-search--inline .select2-search__field {

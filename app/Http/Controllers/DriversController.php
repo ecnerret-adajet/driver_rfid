@@ -180,4 +180,50 @@ class DriversController extends Controller
     {
         //
     }
+
+    /*
+    *
+    * Export Drivers 
+    *
+    */
+    public function exportDrivers()
+    {
+        $drivers = Driver::orderBy('cardholder_id','ASC')->get();
+
+        Excel::create('drivers'.Carbon::now()->format('Ymdh'), function($excel) use ($drivers) {
+
+            $excel->sheet('Sheet1', function($sheet) use ($drivers) {
+
+                $arr = array();
+
+                foreach($drivers as $driver) {
+                    foreach($driver->trucks as $truck) {
+                        foreach($driver->haulers as $hauler) {
+
+                            $data =  array(
+                            $driver->name,
+                            $truck->plate_number,
+                            $driver->phone_number,
+                            $driver->substitute,
+                            $hauler->name
+                            );
+                            array_push($arr, $data);
+
+                        }
+                    }
+                }
+                //set the titles
+                $sheet->fromArray($arr,null,'A1',false,false)
+                        ->setBorder('A1:E'.$drivers->count(),'thin')
+                        ->prependRow(array(
+                        'DRIVER NAME', 'PLATE NUMBER', 'PHONE NUMBER', 'SUBSTITUTE', 'OPERATOR'));
+                $sheet->cells('A1:E1', function($cells) {
+                            $cells->setBackground('#f1c40f'); 
+                });
+
+            });
+
+        })->download('xlsx');
+            
+    }
 }

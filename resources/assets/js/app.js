@@ -24,6 +24,7 @@ Vue.component('prints', require('./components/Prints.vue'));
 Vue.component('home', require('./components/Home.vue'));
 Vue.component('cards', require('./components/Cards.vue'));
 Vue.component('users', require('./components/Users.vue'));
+Vue.component('logs', require('./components/Logs.vue'));
 
 const app = new Vue({
     el: '#app'

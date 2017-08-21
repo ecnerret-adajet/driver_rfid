@@ -13,6 +13,11 @@ class Cardholder extends Model
     	'CardholderID'
     ];
 
+    protected $visible = [
+        'CardholderID',
+        'Name'
+    ];
+
     public function card()
     {
     	return $this->hasOne(Card::class,'CardholderID','CardholderID');
@@ -40,5 +45,17 @@ class Cardholder extends Model
                      ->where('LogID', '<=', $current)
                      ->where('LogID', '>=', $current-5);
                      })->pluck('Name');
+    }
+
+    /*
+    *
+    * Get pickup cards from cardholder 
+    *
+    */
+    public function scopePickupCards($query)
+    {
+        $query->select('CardholderID')
+              ->where('Name','LIKE','%Pickup%')
+              ->get();
     }
 }

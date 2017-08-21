@@ -109,13 +109,18 @@
                             </a>
                         </li>
                         <li class="collection-item">
-                        <span>
+                            <a class="{{ (Request::is('entries') ||
+                                          Request::is('generateEntries*')
+                                        ) ? 'active' : '' }}" href="{{url('/entries')}}">
+                            <i class="material-icons">show_chart</i> <span class="hide-on-med-and-down">Reports</span>
+                            </a>
+                        </li>
+                        <li class="collection-item">
                             <a class="{{ (Request::is('users') ||
                                           Request::is('users/*')
                                         ) ? 'active' : '' }}" href="{{url('/users')}}">
                             <i class="material-icons">verified_user</i> <span class="hide-on-med-and-down">Users</span>
                             </a>
-                        </span>
                         </li>
                     </ul>
                 </div>
@@ -129,24 +134,12 @@
 
         </div> <!-- end container -->
 
-       
-            
-
-
         </div>
        <!-- Scripts -->
         <script src="{{ asset('js/all.js') }}"></script>
-        <script>
-        $(document).ready(function(){
-            $('.button-collapse').sideNav({
-                edge: 'right'
-            });
-        });
-        </script>
         @include('vendor.roksta.toastr')
         @yield('script')
 
 
     </body>
   </html>
-        

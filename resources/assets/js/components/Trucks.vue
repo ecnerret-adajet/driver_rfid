@@ -20,8 +20,8 @@
                 <div v-if="!loading">
                     <ul class="collection">
                         <li v-for="truck in filteredTruck" class="collection-item avatar">
-                            <!-- <img :src="avatar_link + truck.avatar" alt="" class="circle"> -->
-                            <span class="title">{{truck.plate_number}}</span>
+                             <i class="material-icons circle">local_shipping</i>
+                            <span class="title">{{truck.plate_number}} : <small class="chip" v-for="driver in truck.drivers">{{ driver.cardholder.Name }}</small></span>
                             <p v-for="hauler in truck.haulers">
                                 {{ hauler.name }}
                             </p>
@@ -30,6 +30,9 @@
                             </p>
 
                             <p class="secondary-content right-align">
+                                <span class="chip red white-text" v-if="truck.card !=  null">
+                                    Sticker Assigned
+                                </span>  
                                 <a :href="truck_link + truck.id + '/edit'"><i class="material-icons">open_in_new</i></a><br/>
                                 <!-- <span>
                                 COUNT UPDATE: {{ truck.update_count == null ? 0 : truck.update_count  }}
@@ -95,9 +98,15 @@ export default {
             }
 
             searchString = searchString.trim().toLowerCase();
-
+    
             trucks_array = trucks_array.filter(function(item){
-                if(item.plate_number.toLowerCase().indexOf(searchString) !== -1) {
+
+                var cardholder = item['drivers'].map((driver) => {
+                    return driver.cardholder.Name.toLowerCase().indexOf(searchString) !== -1
+                })
+
+
+                if(item.plate_number.toLowerCase().indexOf(searchString) !== -1){
                     return item;
                 }
             })

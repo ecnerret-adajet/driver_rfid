@@ -236,7 +236,7 @@
 }
 
 .select2-container--default .select2-selection--multiple {
-    background-color: white;
+    /* background-color: white; */
     border: 1px solid #aaa;
     border-radius: 4px;
     cursor: text
@@ -309,7 +309,7 @@
 }
 
 .select2-container--default.select2-container--disabled .select2-selection--multiple {
-    background-color: #eee;
+    /* background-color: #eee; */
     cursor: default
 }
 
@@ -514,7 +514,7 @@
 }
 
 .select2-container--classic .select2-selection--multiple {
-    background-color: white;
+    /* background-color: white; */
     border: 1px solid #aaa;
     border-radius: 4px;
     cursor: text;
@@ -651,7 +651,7 @@
 
 .select2-container--default .select2-selection--multiple,
 .select2-container--default.select2-container--focus .select2-selection--multiple {
-    height: auto
+    height: auto;
 }
 
 .select2-container--default .select2-search--inline .select2-search__field {

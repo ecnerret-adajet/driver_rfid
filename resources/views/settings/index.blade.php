@@ -13,13 +13,5 @@
 
 
 @endsection
-@section('script')
-  <script>
-      $(document).ready(function(){
-        $('ul.tabs').tabs({
-            swipeable: 'true' 
-        });
-    });
-  </script>
-@endsection
+
 

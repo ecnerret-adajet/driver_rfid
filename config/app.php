@@ -171,6 +171,7 @@ return [
         Zizaco\Entrust\EntrustServiceProvider::class,
         Roksta\Toastr\ToastrServiceProvider::class,
         Spatie\Activitylog\ActivitylogServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -233,6 +234,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Toast' => Roksta\Toastr\Toast::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 

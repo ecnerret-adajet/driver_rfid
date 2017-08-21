@@ -21,11 +21,21 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/logs','LogsController@index');
+Route::get('/entriesIn','LogsController@entriesIn');
+Route::get('/entriesOut','LogsController@entriesOut');
+
+
+
 Route::get('/prints','PrintController@index');
 Route::get('/forPrint','PrintController@getForPrint');
 Route::post('/prints/{id}','PrintController@printed');
+
 Route::resource('/drivers','DriversController');
+Route::get('/exportDrivers','DriversController@exportDrivers');
+
 Route::resource('/trucks','TrucksController');
+
 Route::resource('/haulers','HaulersController');
 
 Route::get('/confirm/create/{id}','ConfirmsController@create');
@@ -39,7 +49,7 @@ Route::get('/driversJson', function () {
 // return Json results
 
 Route::get('/trucksJson', function() {
-    $trucks = App\Truck::with(['drivers','haulers'])->get();
+    $trucks = App\Truck::with(['drivers','haulers','drivers.cardholder','card'])->get();
     return $trucks;
 });
 
@@ -82,6 +92,21 @@ Route::resource('/cardholders','CardholdersController');
 
 Route::resource('users','UsersController');
 Route::resource('roles', 'RolesController');
+
+
+Route::get('/entries','ReportsController@entries');
+Route::get('/generateEntries','ReportsController@generateEntries');
+Route::get('/generateEntriesExport','ReportsController@generateEntriesExport');
+
+//Daily Monitoring route setup
+Route::get('/monitors/create/{id}','MonitorsController@create');
+Route::post('/monitors/{id}', 'MonitorsController@store');
+Route::get('/monitors/{monitor}/edit/{id}', ['as' => 'monitors.edit', 'uses' => 'MonitorsController@edit']);
+// Route::post('/monitors/{monitor}', ['as' => 'monitors.update', 'uses' => 'MonitorsController@update']);
+Route::resource('monitors', 'MonitorsController', ['except' => [
+    'create', 'store', 'edit'
+]]);
+
 
 });
 

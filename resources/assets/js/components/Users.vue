@@ -47,6 +47,12 @@
                                 <i class="material-icons">delete</i>
                             </td>
                         </tr>
+
+                        <tr v-if="filteredUser.length == 0">
+                            <td colspan="5" class="center-align">
+                                <span class="title gray-text">NO USER FOUND</span>
+                            </td>
+                        </tr>
                        
                         </tbody>
                     </table>

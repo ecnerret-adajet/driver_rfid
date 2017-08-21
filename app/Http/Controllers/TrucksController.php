@@ -50,7 +50,7 @@ class TrucksController extends Controller
          $this->validate($request, [
             'plate_number' => 'required|unique:trucks',
             'hauler_list' => 'required',
-            'card_list' => 'required'
+            // 'card_list' => 'required'
         ]);
 
         $card_rfid = $request->input('card_list');
