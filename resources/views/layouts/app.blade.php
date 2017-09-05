@@ -15,6 +15,8 @@
     ]) !!};
     </script>
 
+    @yield('top-script')
+
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!--Import Google Icon Font-->
@@ -68,6 +70,7 @@
                             <i class="material-icons">dashboard</i> <span class="hide-on-med-and-down"> Dashboard </span>
                             </a>
                         </li>
+                        @role((['Administrator','Monitoring']))
                         <li class="collection-item">
                             <a class="{{ (Request::is('haulers') ||
                                           Request::is('haulers/*')
@@ -89,6 +92,16 @@
                             <i class="material-icons">face</i> <span class="hide-on-med-and-down">Drivers</span>
                             </a>
                         </li>
+                        @endrole
+                        @role((['Administrator','Personnel']))
+                         <li class="collection-item">
+                            <a class="{{ (Request::is('pickups') ||
+                                          Request::is('pickups/*') ? 'active' : '') }}" href="{{url('/pickups')}}">
+                            <i class="material-icons">filter_none</i> <span class="hide-on-med-and-down">Pickups</span>
+                            </a>
+                        </li>
+                        @endrole
+                        @role((['Administrator','Manager']))
                         <li class="collection-item">
                             <a class="{{ Request::is('prints') ? 'active' : '' }}" href="{{url('/prints')}}">
                             <i class="material-icons">print</i> <span class="hide-on-med-and-down">Print</span>
@@ -108,13 +121,18 @@
                             <i class="material-icons">settings</i> <span class="hide-on-med-and-down">Settings</span>
                             </a>
                         </li>
+                        @endrole
+                        @role((['Administrator','Monitoring','Manager']))
                         <li class="collection-item">
                             <a class="{{ (Request::is('entries') ||
-                                          Request::is('generateEntries*')
+                                          Request::is('generateEntries*') ||
+                                           Request::is('monitors/*')
                                         ) ? 'active' : '' }}" href="{{url('/entries')}}">
                             <i class="material-icons">show_chart</i> <span class="hide-on-med-and-down">Reports</span>
                             </a>
                         </li>
+                        @endrole
+                        @role((['Administrator']))
                         <li class="collection-item">
                             <a class="{{ (Request::is('users') ||
                                           Request::is('users/*')
@@ -122,6 +140,14 @@
                             <i class="material-icons">verified_user</i> <span class="hide-on-med-and-down">Users</span>
                             </a>
                         </li>
+                        @endrole
+                         @role((['Administrator','Monitoring','Manager']))
+                        <li class="collection-item">
+                            <a  href="{{url('/feed')}}">
+                            <i class="material-icons red-text">track_changes</i> <span class="hide-on-med-and-down">Live Feed</span>
+                            </a>
+                        </li>
+                        @endrole
                     </ul>
                 </div>
 

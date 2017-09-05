@@ -32,11 +32,11 @@
                         </form>
                         @else
                         <span class="white-text center-align">
-                            THIS REQUEST WAS DISAPPROVED
+                        DISAPPROVED
                         </span>
                         @endif
                     @empty
-                        NOT CONFIRM IN EMAIL YET
+                        PENDING APPROVAL
                     @endforelse
                     </div>
                 </div>

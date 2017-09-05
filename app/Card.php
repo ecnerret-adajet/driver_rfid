@@ -10,6 +10,17 @@ class Card extends Model
     protected $table = "Card";
     public $timestamps = false;
 
+    protected $hidden = [
+        'CodeType',
+        'Deactivation',
+        'PinCode',
+        'Privilege',
+        'AreaID',
+        'FingerprintExist',
+        'DataGroupID',
+        'DisableLockCard',
+    ];
+
     public function cardholder()
     {
     	return $this->belongsTo(Cardholder::class,'CardholderID','CardholderID');
@@ -20,9 +31,9 @@ class Card extends Model
         return $this->hasMany('App\Binder','card_id','CardID');
     }
 
-    public function driver()
+    public function drivers()
     {
-        return $this->hasOne('App\Driver','CardID','card_id');
+        return $this->hasMany('App\Driver','card_id','CardID');
     }
 
     public function truck()

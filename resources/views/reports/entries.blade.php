@@ -42,13 +42,15 @@
 
                                 {{ Form::open(array('url' => '/generateEntries', 'method' => 'get')) }}
 
-
                                     <div class="row">
                                         <div class="input-field col s12">
                                         {{--  <label>Operator</label>  --}}
-                                        {!! Form::select('hauler_list[]', $haulers, $sel_hauler, ['id' => 'select2-materialize-hauler', 'class' => 'validate','multiple'] ) !!}
-
-                                
+                                            {!! Form::select('hauler_list[]', $haulers, $sel_hauler, ['id' => 'select2-materialize-hauler', 'class' => 'validate', 'multiple'=>'multiple'] ) !!}
+                                            @if ($errors->has('hauler_list'))
+                                                <span class="help-block red-text">
+                                                <strong>{{ $errors->first('hauler_list') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -79,6 +81,7 @@
                                             </button>
                                         </div>
                                     </div>
+
                                 {!! Form::close() !!} 
 
 
@@ -122,6 +125,7 @@
 
                                         <tbody>
                                         @foreach($today_result as $today)
+
                                             @foreach($today->drivers as $driver)
                                                 @foreach($driver->haulers as $hauler)
 
@@ -143,22 +147,33 @@
                                                         ->whereDate('LocalTime' ,Carbon\Carbon::parse($x))
                                                         ->orderBy('LocalTime','ASC')
                                                         ->get() as $value => $trip)
-                                                            @if($value == 0)
-                                                                @if(empty($trip->monitors()->count()))
-                                                                <a href="{{url('/monitors/create/'.$trip->LogID)}}">
-                                                                        <i class="material-icons green-text">check_circle</i>
-                                                                </a>
-                                                                @else
 
-                                                                @foreach($trip->monitors->reverse()->take(1) as $monitor)
-                                                                <a href="{{url('/monitors/'.$monitor->id.'/edit/'.$trip->LogID) }}">
-                                                                    <i class="material-icons blue-text">book</i>
-                                                                </a>
-                                                                @endforeach
-                                                                @endif
-                                                                @endif                                            
+                                                                @if($value == 0)
+                                                                    @if(empty($trip->monitors()->count()))
+                                                                        <a href="{{url('/monitors/create/'.$trip->LogID)}}">
+                                                                                <i class="material-icons green-text">check_circle</i>
+                                                                        </a>
+                                                                    @else
+                                                                        @foreach($trip->monitors->reverse()->take(1) as $monitor)
+                                                                        <a href="{{url('/monitors/'.$monitor->id.'/edit/'.$trip->LogID) }}">
+                                                                            <i class="material-icons blue-text">book</i>
+                                                                        </a>
+                                                                        @endforeach
+                                                                    @endif
+                                                                @endif            
+
+                                                    @empty
+
+                                                        @forelse($monitors->where('driver_id',$driver->id)->where('ship_date',Carbon\Carbon::parse($x))->take(1)  as $monitor)
+                                                            <a href="{{url('/monitors/notrip/'.$monitor->id.'/'.$driver->id.'/edit/')}}">
+                                                                <i class="material-icons red-text">book</i>
+                                                            </a>
                                                         @empty
+                                                            <a href="{{url('/monitors/notrip/'.Carbon\Carbon::parse($x).'/'.$driver->id)}}">
                                                                 <i class="material-icons red-text">cancel</i>
+                                                            </a>
+                                                        @endforelse
+                                                                                                            
                                                     @endforelse
 
                                                 </td>

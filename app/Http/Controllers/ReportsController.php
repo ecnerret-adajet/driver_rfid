@@ -18,14 +18,20 @@ class ReportsController extends Controller
 {
     public function entries()
     {
-        $haulers = Hauler::pluck('name','id');
-        $count_days = 0;
+		$haulers = Hauler::pluck('name','id');
+		$monitors = Monitor::all();
+		$count_days = 0;
+		
+		$logs = Log::where('CardholderID', '>=', 1)
+					->whereDate('LocalTime', '>=', Carbon::now())
+					->orderBy('LocalTime','DESC')->get();
 
-        $today_result = Log::enties()->unique('CardholderID');
+		$today_result = $logs->unique('CardholderID');
 
         return view('reports.entries', compact(
             'haulers',
             'count_days',
+            'monitors',
             'today_result'));
     }
 
@@ -43,20 +49,21 @@ class ReportsController extends Controller
         $count_days = Carbon::parse($start_date)->diffInDays(Carbon::parse($end_date));
         
         $logs = Log::where('CardholderID', '>=', 1)
-		->whereBetween('LocalTime', [Carbon::parse($start_date), Carbon::parse($end_date)])
-	    ->orderBy('LocalTime','ASC')
-	    ->with(['drivers.haulers' => function($q) use ($hauler_list){
-	   		$q->whereIn('id', $hauler_list);
-        }])->get();
+				->whereBetween('LocalTime', [Carbon::parse($start_date), Carbon::parse($end_date)])
+				->orderBy('LocalTime','ASC')
+				->with(['drivers.haulers' => function($q) use ($hauler_list){
+					$q->whereIn('id', $hauler_list);
+				}])->get();
         
         $today_result = $logs->unique('CardholderID');
         
-        $haulers = Hauler::pluck('name','id');
+		$haulers = Hauler::pluck('name','id');
+		$monitors = Monitor::all();
 
         $trips = Log::whereDate('LocalTime', '>=' ,$start_date)
-        ->whereDate('LocalTime', '<=', $end_date)
-        ->orderBy('LocalTime','ASC')
-        ->get();
+					->whereDate('LocalTime', '<=', $end_date)
+					->orderBy('LocalTime','ASC')
+					->get();
 
         $between = ( Carbon::parse($start_date)->diffInDays(Carbon::parse($end_date)) == 0 ? 1 : Carbon::parse($start_date)->diffInDays(Carbon::parse($end_date))  );
 	    $col_count = $between + 1;
@@ -69,6 +76,7 @@ class ReportsController extends Controller
                     'end_date',
                     'count_days',
                     'hauler_list',
+                    'monitors',
                     'value',
                     'index',
                     'between',
@@ -96,19 +104,22 @@ class ReportsController extends Controller
 		$count_days = Carbon::parse($start_date)->diffInDays(Carbon::parse($end_date));
 
 		$logs = Log::where('CardholderID', '>=', 1)
-		->whereBetween('LocalTime', [Carbon::parse($start_date), Carbon::parse($end_date)])
-		->orderBy('LocalTime','ASC')
-		->with(['drivers.haulers' => function($q) use ($hauler_list){
-			$q->whereIn('id', $hauler_list);
-		}])->get();
+				->whereBetween('LocalTime', [Carbon::parse($start_date), Carbon::parse($end_date)])
+				->orderBy('LocalTime','ASC')
+				->with(['drivers.haulers' => function($q) use ($hauler_list){
+					$q->whereIn('id', $hauler_list);
+				}])->get();
 
 		$today_result = $logs->unique('CardholderID');
+
+		//add all monitors database
+		$monitors = Monitor::all();
 
 		// adding header dates
 		$top_header = array();
 		if(!empty($start_date) && !empty($end_date)) {
 			for ($x = $start_date; $x <= $end_date; $x=date('Y-m-d', strtotime($x. ' + 1 days'))) {
-				$top_header[] = date('F d', strtotime($x));
+				$top_header[] = Carbon::parse($x);
 			}
 		}
 
@@ -116,22 +127,26 @@ class ReportsController extends Controller
 			$result_array = array();
 			if(!empty($start_date) && !empty($end_date)) {
 				for ($x = $start_date; $x <= $end_date; $x=date('Y-m-d', strtotime($x. ' + 1 days'))) {
-
-				$result_array[] = $x;
+						$ship_date = $x;
+						$result_array[] = $x;
 					
 				}
 			}
 
 		// Export Excel File
-		Excel::create('trucking_report'.Carbon::now()->format('Ymdh'), function($excel) use ($today_result, $top_header, $result_array, $logs) {
+		Excel::create('trucking_report'.Carbon::now()->format('Ymdh'), function($excel) use ($today_result, 
+		$top_header, $result_array, $logs, $monitors, $ship_date) {
 
-		$excel->sheet('Sheet1', function($sheet) use ($today_result, $top_header, $result_array, $logs) {
+		$excel->sheet('Sheet1', function($sheet) use ($today_result, 
+		$top_header, $result_array, $logs, $monitors, $ship_date) {
 
 			$sheet->loadView('reports.export_entries')
 				->with('today_result',$today_result)
 				->with('top_header',$top_header)
 				->with('result_array',$result_array)
-				->with('logs',$logs);
+				->with('logs',$logs)
+				->with('monitors',$monitors)
+				->with('ship_date',$ship_date);
 
 			});
 

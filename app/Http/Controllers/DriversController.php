@@ -17,6 +17,8 @@ use App\Binder;
 use App\Card;
 use Toast;
 use App\Setting;
+use Excel;
+use App\Log;
 
 class DriversController extends Controller
 {
@@ -76,6 +78,7 @@ class DriversController extends Controller
         } 
         $driver->print_status = 1;
         $driver->card()->associate($card_rfid);
+        $driver->cardholder()->associate($driver->card->CardholderID);
         $driver->save();
 
         $driver->haulers()->attach($request->input('hauler_list'));
@@ -95,9 +98,16 @@ class DriversController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Driver $driver)
     {
-        //
+        $logs = Log::with('customers')
+                    ->whereNotIn('ControllerID',[1])
+                    ->where('CardholderID','=',$driver->cardholder->CardholderID)
+                    ->orderBy('LocalTime','DESC')
+                    ->get();
+
+
+        return view('drivers.show', compact('driver','logs'));
     }
 
     /**
@@ -153,20 +163,23 @@ class DriversController extends Controller
             $driver->update_count += 1;
         }
         
-        $driver->print_status = 1;
         $driver->card()->associate($card_rfid);
         $driver->clasification()->associate($clasification_id);
+
+        if($driver->clasification_id == 2) {
+            $driver->print_status = 1;
+
+            // send email to supervisor for approval
+            $setting = Setting::first();
+            Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmDriver($driver));
+        }
+
         $driver->save();
 
         $driver->haulers()->sync( (array) $request->input('hauler_list'));
         $driver->trucks()->sync( (array) $request->input('truck_list'));
 
        
-        //send email to supervisor for approval
-        $setting = Setting::first();
-        Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmDriver($driver));
-
-
         return redirect('drivers');
     }
     

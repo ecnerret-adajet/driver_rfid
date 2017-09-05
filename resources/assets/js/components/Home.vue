@@ -151,14 +151,6 @@
 
             </div>
         </li>
-        <li>
-            <div class="collapsible-header">Second</div>
-            <div class="collapsible-body"></div>
-        </li>
-        <li>
-            <div class="collapsible-header">Third</div>
-            <div class="collapsible-body"></div>
-        </li>
     </ul>
   </div>
 </template>

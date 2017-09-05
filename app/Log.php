@@ -12,6 +12,15 @@ class Log extends Model
 
     protected $dates = ['LocalTime'];
 
+    protected $hidden = [
+        'MsgID',
+        'CardBits',
+        'CardCode',
+        'CardType',
+        'DoorID',
+        'Invalid',
+    ];
+
     public function cardholders()
     {
     	return $this->hasMany('App\Cardholder','CardholderID','CardholderID');
@@ -78,7 +87,7 @@ class Log extends Model
     */
     public function scopeEnties($query)
     {
-        $pickups = App\Cardholder::select('CardholderID')
+        $pickups = Cardholder::select('CardholderID')
                                    ->where('Name','LIKE','%Pickup%')
                                    ->get();
 

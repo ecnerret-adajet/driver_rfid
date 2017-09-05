@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Classification;
 
-class ClassificationsController extends Controller
+class ClasificationsController extends Controller
 {
     /**
      * Display a listing of the resource.

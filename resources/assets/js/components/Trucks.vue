@@ -4,14 +4,23 @@
         <div class="row">
             <div class="input-group search pull-right">
                 <span class="input-group-addon opener">
+                <a>
                 <i class="material-icons">search</i>
+                </a>
                 </span>
                 <input type="text" v-model="searchString"  class="form-control" placeholder="Search">
+
                 <span class="input-group-addon">
-                <i class="material-icons">more_vert</i>
+                <a :href="export_link">
+                <i class="material-icons tooltipped" data-position="top" data-delay="50" data-tooltip="Save as excel">file_download</i>
+                </a>
                 </span>
+                
+                
                 <span class="input-group-addon opener">
+                <a>
                 <i class="material-icons">clear</i>
+                </a>
                 </span>
             </div>
         </div>
@@ -21,7 +30,8 @@
                     <ul class="collection">
                         <li v-for="truck in filteredTruck" class="collection-item avatar">
                              <i class="material-icons circle">local_shipping</i>
-                            <span class="title">{{truck.plate_number}} : <small class="chip" v-for="driver in truck.drivers">{{ driver.cardholder.Name }}</small></span>
+                            <span class="title">{{truck.plate_number}} : 
+                                <small class="chip" v-for="driver in truck.drivers">{{ driver.cardholder.Name }}</small></span>
                             <p v-for="hauler in truck.haulers">
                                 {{ hauler.name }}
                             </p>
@@ -69,12 +79,17 @@ export default {
         return {
             searchString: '',
             truck_link: '/driver_rfid/public/trucks/',
+            export_link: 'http://localhost/driver_rfid/public/exportTrucks',
             trucks: [],
             loading: false
         }
     },
     created() {
         this.getTruck()
+    },
+
+    mounted(){
+        $('.tooltipped').tooltip({delay: 50});
     },
 
     methods: {

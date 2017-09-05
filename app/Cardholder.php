@@ -13,19 +13,90 @@ class Cardholder extends Model
     	'CardholderID'
     ];
 
-    protected $visible = [
-        'CardholderID',
-        'Name'
+    protected $hidden = [
+        'FirstName',
+        'LastName',
+        'SendSMSMessage',
+        'SMSMessage',
+        'Gender',
+        'Birthday',
+        'EmployeeID',
+        'Home_Phone',
+        'Home_Fax',
+        'MobilePhone',
+        'Home_ZipCode',
+        'Home_Address',
+        'Home_EMail',
+        'Home_HomePage',
+        'Home_Notes',
+        'JobTitle',
+        'HireDate',
+        'Department',
+        'Office',
+        'Office_Phone',
+        'Office_Ext',
+        'Office_Fax',
+        'Office_CompanyName',
+        'Office_ZipCode',
+        'Office_Address',
+        'Office_EMail',
+        'Office_HomePage',
+        'Office_Notes',
+        'UserDefine01',
+        'UserDefine02',
+        'UserDefine03',
+        'UserDefine04',
+        'UserDefine05',
+        'UserDefine06',
+        'UserDefine07',
+        'UserDefine08',
+        'UserDefine09',
+        'UserDefine10',
+        'Photo',
+        'AreaID',
+        'AD_GUID',
+        'Fingerprint01',
+        'Fingerprint02',
+        'Fingerprint03',
+        'Fingerprint04',
+        'Fingerprint05',
+        'Fingerprint06',
+        'Fingerprint07',
+        'Fingerprint08',
+        'Fingerprint09',
+        'Fingerprint10',
+        'AntiDuressID',
+        'MiddleName',
+        'DataGroupID',
+        'Division',
+        'FacialFeature',
+        'FacialPrivilege',
     ];
 
-    public function card()
+  
+
+    public function cards()
     {
-    	return $this->hasOne(Card::class,'CardholderID','CardholderID');
+        return $this->hasMany(Card::class,'CardholderID','CardholderID');
     }
 
-    public function log()
+    public function logs()
     {
-    	return $this->belongsTo('App\Log','CardholderID','CardholderID');
+        return $this->hasMany('App\Log','CardholderID','CardholderID')
+                    ->whereNotIn('ControllerID',[1]);
+    }
+
+    public function logsIn()
+    {
+        return $this->hasMany('App\Log','CardholderID','CardholderID')
+                    ->where('Direction',1);
+                 
+    }
+
+    public function logsOut()
+    {
+        return $this->hasMany('App\Log','CardholderID','CardholderID')
+                    ->where('Direction',2);
     }
 
     public function drivers()

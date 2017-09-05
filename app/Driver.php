@@ -128,4 +128,9 @@ class Driver extends Model
         return $this->binders()->pluck('id')->all();
     }
 
+    public function monitor()
+    {
+        return $this->hasOne('App\Monitor');
+    }
+
 }

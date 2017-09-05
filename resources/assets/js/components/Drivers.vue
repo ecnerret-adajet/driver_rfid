@@ -4,14 +4,20 @@
         <div class="row">
             <div class="input-group search pull-right">
                 <span class="input-group-addon opener">
+                <a>
                 <i class="material-icons">search</i>
+                </a>
                 </span>
                 <input type="text" v-model="searchString"  class="form-control" placeholder="Search">
                 <span class="input-group-addon">
-                <i class="material-icons">more_vert</i>
+                <a :href="export_link">
+                <i class="material-icons tooltipped" data-position="top" data-delay="50" data-tooltip="Save as excel">file_download</i>
+                </a>
                 </span>
                 <span class="input-group-addon opener">
+                <a>
                 <i class="material-icons">clear</i>
+                </a>
                 </span>
             </div>
         </div>
@@ -22,7 +28,7 @@
                 <ul class="collection">
                     <li v-for="driver in filteredDriver" class="collection-item avatar">
                         <img :src="avatar_link + driver.avatar" alt="" class="circle">
-                        <span class="title">{{driver.name}} : <small>{{ driver.cardholder.Name }}</small></span>
+                        <span class="title"> <a :href="'/driver_rfid/public/drivers/' + driver.id">{{driver.name}}</a> : <small>{{ driver.cardholder.Name }}</small></span>
                         <p v-for="truck in driver.trucks">
                             {{ truck.plate_number }}
                         </p>
@@ -35,10 +41,13 @@
                              <span class="chip red white-text" v-if="driver.card !=  null">
                                 Card Assigned
                             </span>        
-                            <a :href="driver_link + driver.id + '/edit'"><i class="material-icons">open_in_new</i></a><br/>
-                            <span>
-                            COUNT UPDATE: {{ driver.update_count == null ? 0 : driver.update_count  }}
-                            </span>
+                            <a :href="driver_link + driver.id + '/edit'"><i class="material-icons">open_in_new</i></a> <br/>
+                            <small>
+                            COUNT LOGS: <strong> {{ driver.cardholder.logs.length == null ? '0' : driver.cardholder.logs.length }} </strong>
+                            </small>
+                             <small>
+                            COUNT UPDATE: <strong> {{ driver.update_count == null ? 0 : driver.update_count  }} </strong>
+                            </small>
                         </p>
                     </li>
                     <li v-if="filteredDriver.length == 0" class="collection-item avatar center-align">
@@ -73,6 +82,7 @@ export default {
             searchString: '',
             driver_link: '/driver_rfid/public/drivers/',
             avatar_link: 'http://localhost/driver_rfid/storage/app/',
+            export_link: 'http://localhost/driver_rfid/public/exportDrivers',
             drivers: [],
             loading: false
         }

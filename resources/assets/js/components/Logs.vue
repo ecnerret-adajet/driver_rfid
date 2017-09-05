@@ -1,57 +1,42 @@
 <template>
     <div>
-        <ul class="collapsible" data-collapsible="accordion">
-            <li>
-
+        <ul class="collapsible popout" data-collapsible="accordion">
+            <li v-for="(today, index) in logs">
+                 
                 <div class="collapsible-header">
-                    
-                    <div class="row" v-for="today in today_log">
-                        <div class="col s2">
-                            <span class="btn">
-                                {{ moment(today.LocalTime) }}
-                            </span>
-                        </div>
-                        <div class="col s2" v-for="driver in today.drivers">
-                            <div v-for="truck in driver.trucks">
-                                {{truck.plate_number}}
-                            </div>
-                        </div>
-                        <div class="col s2" v-for="customer in today.customers">
-                            {{ customer.address }}
-                        </div>
-                        <div class="col s2" v-for="(current_in, index) in filteredIn(today.CardholderID)">
-                            <div v-if="index == 0">
-                                {{ moment(current_in.LocalTime) }}
-                            </div>
-                        </div>
-                        <div class="col s2" v-for="(current_out, index) in filteredOut(today.CardholderID)">
-                            <div v-if="index == 0">
-                                {{ moment(current_out.LocalTime) }}
-                            </div>
-                        </div>
-                        <div class="col s2">
-                            <div v-for="(current_out, x) in filteredOut(today.CardholderID)">
-                                <div v-if="x == 0">
-                                    <div v-for="(current_in, y) in filteredIn(today.CardholderID)">
-                                        <div v-if="y == 0">
-                                            {{ dateDiff(current_in.LocalTime, current_out.LocalTime) }}
+
+                          <div class="col s2" v-for="(cardholder, index) in today.cardholders">
+                                <div v-for="(card,x) in cardholder.cards">
+                                        <div v-for="(driver, y) in card.drivers">
+                                                <div v-for="(truck, t) in driver.trucks">
+                                                           {{truck.plate_number}}
+                                                </div>
                                         </div>
-                                        <div v-else>
-                                            NO IN
-                                        </div>
-                                    </div>
                                 </div>
-                                <div v-else>
-                                    NO OUT
-                                </div>
-                            </div>
                         </div>
-                    </div>
+    
+
+                        <div class="col s2" v-for="(cardholder, index) in today.cardholders">
+                                <div v-for="(card,x) in cardholder.cards">
+                                        <div v-for="(driver, y) in card.drivers">
+                                                    {{driver.name}}
+                                        </div>
+                                </div>
+                        </div>
+
+                        
+
+
+                      
+               
+                        
+                   
 
                 </div>
                 <div class="collapsible-body">
-
+                    <span>lasjflasjflakjflajflas</span>
                 </div>
+                
 
             </li>
         </ul>
@@ -65,93 +50,70 @@ export default {
             search: '',
             loading: false,
             logs: [],
-            all_in: [],
-            all_out: [],
-            match: []
+            in: [],
+            out: [],
         }
     },
 
     created() {
-        this.allIn()
-        this.allOut()
-        this.logs()
-        this.match()
+        this.getLogs()
+        this.getIn()
+        this.getOut()
     },
 
     methods: {
-        allIn() {
-            this.loading = true
-            axios.get('http://localhost/driver_rfid/public/entriesIn')
-            .then(response => {
-                this.all_in = response.data
-                this.loading = false
-            });
-        },
-
-        allOut(){
-            this.loading = true
-            axios.get('http://localhost/driver_rfid/public/entriesOut')
-            .then(response => {
-                this.all_out = resonpose.data
-                this.loading = false
-            });
-        },
-
-        logs(){
+        getLogs(){
             this.loading = true
             axios.get('http://localhost/driver_rfid/public/logs')
             .then(response => {
                 this.logs = response.data
                 this.loading = false
             });
-        }
-    },
-
-    computed: {
-        filteredIn(today) {
-            var in_array = this.all_in;
-            var cardholder_id = today;
-            
-            in_array = in_array.filter(function(item) {
-              return  item.CardholderID.indexOf(cardholder_id) > -1
-            })
-
-            return in_array;
-
         },
 
-        filteredOut(today) {
-            var out_array = this.all_out;
-            var cardholder_id = today;
-
-            out_array = out_array.filter(function(item) {
-                return item.CardholderID.indexOf(cardholder_id) > -1
-            })
-
-            return out_array;
+        getIn() {
+            this.loading = true
+            axios.get('http://localhost/driver_rfid/public/entriesIn')
+            .then(response => {
+                this.in = response.data
+                this.loading = false
+            });
         },
 
-        filteredMatch(id) {
-            var logs = this.logs;
-            var current_1 = id;
-            var current_2 = id - 5;
-
-            logs = logs.filter(function(item) {
-                if(item.LogID < current_1 && item.LogID >= current_2) {
-                    return item;
-                }
-            })
-
-            return logs;
-
+        getOut() {
+            this.loading = true
+            axios.get('http://localhost/driver_rfid/public/entriesOut')
+            .then(response => {
+                this.out = response.data
+                this.loading = false
+            });
         },
-
+        
         moment(date) {
             return moment(date).format('MMMM  d, Y h:m:s A');
         },
 
         dateDiff(now, then) {
-           return  moment.utc(this.moment(now,"DD/MM/YYYY HH:mm:ss").diff(this.moment(then,"DD/MM/YYYY HH:mm:ss"))).format("HH:mm:ss")
+           return  moment.utc(moment(now,"DD/MM/YYYY HH:mm:ss").diff(moment(then,"DD/MM/YYYY HH:mm:ss"))).format("HH:mm:ss");
+        },
+
+        dateDuration(date) {
+            return moment(date, "YYYYMMDD").fromNow();
+        }
+    }, 
+
+    computed: {
+        filterIn(today) {
+            var in_array = this.in;
+            var search =  today.split(' ');
+
+           in_array = in_array.filter(function(item){
+                if(item.CardholderID.indexOf(search) !== -1){
+                    return item;
+                }
+            })
+
+            return in_array;
         }
     }
 

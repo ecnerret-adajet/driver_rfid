@@ -35,6 +35,7 @@ Route::resource('/drivers','DriversController');
 Route::get('/exportDrivers','DriversController@exportDrivers');
 
 Route::resource('/trucks','TrucksController');
+Route::get('/exportTrucks','TrucksController@exportTrucks');
 
 Route::resource('/haulers','HaulersController');
 
@@ -42,7 +43,7 @@ Route::get('/confirm/create/{id}','ConfirmsController@create');
 Route::post('/confirm/{id}','ConfirmsController@store');
 
 Route::get('/driversJson', function () {
-    $drivers = App\Driver::with(['haulers','trucks','cardholder','card'])->get();
+    $drivers = App\Driver::with(['haulers','trucks','cardholder','card','cardholder.logs'])->get();
     return $drivers;
 });
 
@@ -77,7 +78,7 @@ Route::get('/usersJson', function() {
 Route::get('/homeJson', 'HomeController@homeStatus');
 
 Route::resource('/settings','SettingsController');
-Route::resource('/classifications','ClassificationsController');
+// Route::resource('/classifications','ClassificationsController');
 
 
 Route::get('/cards','CardsController@index');
@@ -101,11 +102,28 @@ Route::get('/generateEntriesExport','ReportsController@generateEntriesExport');
 //Daily Monitoring route setup
 Route::get('/monitors/create/{id}','MonitorsController@create');
 Route::post('/monitors/{id}', 'MonitorsController@store');
+
+
+Route::get('/monitors/notrip/{date}/{id}','MonitorsController@noTrip');
+Route::post('/monitors/notrip/{date}/{id}', 'MonitorsController@storeNoTrip');
+Route::get('/monitors/notrip/{monitor}/{id}/edit/',['as' => 'notrip.edit', 'uses' => 'MonitorsController@editNoTrip']);
+Route::post('/monitors/notrip/{monitor}',['as'=>'notrip.update','uses'=>'MonitorsController@updateNoTrip']);
+
+
+
+
 Route::get('/monitors/{monitor}/edit/{id}', ['as' => 'monitors.edit', 'uses' => 'MonitorsController@edit']);
 // Route::post('/monitors/{monitor}', ['as' => 'monitors.update', 'uses' => 'MonitorsController@update']);
 Route::resource('monitors', 'MonitorsController', ['except' => [
     'create', 'store', 'edit'
 ]]);
+
+Route::get('/pickupsJson','PickupsController@pickupsJson');
+Route::resource('/pickups','PickupsController');
+
+Route::get('/feed','FeedsController@index');
+Route::get('/feed-content','FeedsController@feedContent');
+Route::get('/home-content','FeedsController@homeFeed');
 
 
 });

@@ -9,14 +9,24 @@ class Monitor extends Model
     protected $connection = "sqlsrv";
     protected $fillable = [
     	'remarks',
-    	'odometer'
+        'odometer',
+        'ship_date'
+    ];
+
+    protected $dates = [
+        'ship_date'
     ];
 
     public function user(){
     	return $this->belongsTo('App\User');
     }
 
-   public function Log()
+    public function driver()
+    {
+        return $this->belongsTo('App\Driver');
+    }
+
+    public function Log()
     {
         return $this->belongsTo('App\Log','log_ID','LogID');
     }

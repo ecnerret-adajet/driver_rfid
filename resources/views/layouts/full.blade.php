@@ -15,6 +15,8 @@
     ]) !!};
     </script>
 
+    @yield('top-script')
+
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!--Import Google Icon Font-->
@@ -42,13 +44,6 @@
                     </div>
                 </li>
                 <li><a href="{{ url('/home') }}">Dashboard</a></li>
-                <li><a href="{{ url('/haulers') }}">Haulers</a></li>
-                <li><a href="{{ url('/trucks') }}">Trucks</a></li>
-                <li><a href="{{ url('/drivers') }}">Drivers</a></li>
-                <li><a href="{{ url('/cards') }}">Cards</a></li>
-                <li><a href="{{ url('/settings') }}">Settings</a></li>
-                <li><a href="#!">Users</a></li>
-                <li><div class="divider"></div></li>
                 <li><a class="waves-effect" 
                         href="{{ route('logout') }}"
                         onclick="event.preventDefault();

@@ -75,6 +75,28 @@
                     </div>
 
                     <div class="row">
+                         <div class="input-field col s6">
+                            {{ Form::text('driver_license', null, ['class' => 'validate']) }}
+                            <label>Driver License</label>
+                            @if ($errors->has('driver_license'))
+                                <span class="help-block red-text">
+                                    <strong>{{ $errors->first('driver_license') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="input-field col s6">
+                            {{ Form::text('nbi_number', null, ['class' => 'validate']) }}
+                            <label>NBI Number</label>
+                            @if ($errors->has('nbi_number'))
+                                <span class="help-block red-text">
+                                    <strong>{{ $errors->first('nbi_number') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="row">
                        <div class="input-field col s6">
                         {{ Form::select('truck_list', $trucks, null, ['placeholder' => 'Select Plate Number', 'id' => 'select2-materialize-truck', 'class' => 'validate']) }}
                          {{--  <label>Plate Number</label>   --}}

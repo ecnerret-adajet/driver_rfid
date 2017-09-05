@@ -28,18 +28,25 @@ class LogsController extends Controller
     */
     public function index()
     {
-        $pickups = Cardholder::pickupCards();
-        $logs = Log::with(['drivers',
-                           'drivers.transfers',
-                           'drivers.trucks',
-                           'customers',])->logsNoPickup($pickups);
+        $pickup_cards = Cardholder::select('CardholderID')
+                                    ->where('Name', 'LIKE', '%Pickup%')
+                                    ->get();
+
+        $logs = Log::whereNotIn('ControllerID',[1])
+                    ->whereNotIn('CardholderID',$pickup_cards)
+                    ->where('CardholderID', '>=', 1)
+                    ->whereDate('LocalTime', Carbon::now())
+                    ->orderBy('LocalTime','DESC')
+                    ->with(['customers'
+                            ,'cardholders'
+                            ,'cardholders.cards'
+                            ,'cardholders.drivers'
+                            ,'cardholders.cards.drivers.trucks'
+                            ,'cardholders.cards.drivers.haulers'
+                            ,'cardholders.cards.drivers.transfers'])->get();
+
 
         $today_log = $logs->unique('CardholderID')->take(35); //35
-
-        // return view('home', compact(
-        //     'all_in',
-        //     'all_out',
-        //     'today_log'));
         
         return $today_log;
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Hauler;
+use App\Server;
 
 class HaulersController extends Controller
 {
@@ -25,7 +26,8 @@ class HaulersController extends Controller
      */
     public function create()
     {
-        return view('haulers.create');
+        $servers = Server::pluck('name','id');
+        return view('haulers.create', compact('servers'));
     }
 
     /**
@@ -37,10 +39,14 @@ class HaulersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'name' => 'required|unique:haulers'
+            'name' => 'required|unique:haulers',
+            'server_list' => 'required'
         ]);
 
+        $server_list = $request->input('server_list');
         $hauler = Hauler::create($request->all());
+        $hauler->server()->associate($card_rfid);
+        $hauler->save();
 
         return redirect('haulers');
     }

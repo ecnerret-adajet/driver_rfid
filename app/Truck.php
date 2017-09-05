@@ -9,10 +9,14 @@ class Truck extends Model
     protected $connection = "sqlsrv";
     protected $fillable = [
     	'plate_number',
-    	'vehicle_type',
-    	'capacity',
-    	'origin',
-    	'availability'
+        'availability',
+        'reg_number',
+        'contract_code',
+        'contract_description',
+        'vendor_description',
+        'subvendor_description',
+        'validity_start_date',
+        'validity_end_date',
     ];
 
     public function drivers()
@@ -52,5 +56,15 @@ class Truck extends Model
     public function card()
     {
         return $this->belongsTo('App\Card','card_id','CardID');
+    }
+
+    /**
+    *
+    * Associate capacities categories to truck
+    *
+    */
+    public function capacity()
+    {
+        return $this->belongsTo('App\Capacity');
     }
 }

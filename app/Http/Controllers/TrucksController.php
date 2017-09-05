@@ -9,6 +9,8 @@ use App\Truck;
 use App\Driver;
 use App\Hauler;
 use App\Card;
+use App\Capacity;
+use Excel;
 
 class TrucksController extends Controller
 {
@@ -36,7 +38,8 @@ class TrucksController extends Controller
 
         $haulers = ['' => ''] + Hauler::pluck('name','id')->all();
         $cards = ['' => ''] + Card::pluck('CardNo','CardID')->all();
-        return view('trucks.create', compact('haulers','cards'));
+        $capacities = ['' => ''] + Capacity::pluck('description','id')->all();
+        return view('trucks.create', compact('haulers','cards','capacities'));
     }
 
     /**
@@ -54,8 +57,10 @@ class TrucksController extends Controller
         ]);
 
         $card_rfid = $request->input('card_list');
+        $capacity_id = $request->input('capacities_list');
         $truck = Truck::create($request->all());
         $truck->card()->associate($card_rfid);
+        $truck->capacity()->associate($capacity_id);
         $truck->save();
 
 
@@ -121,5 +126,49 @@ class TrucksController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function exportTrucks()
+    {
+        $trucks = Truck::all();
+        
+        Excel::create('trucks'.Carbon::now()->format('Ymdh'), function($excel) use ($trucks) {
+
+            $excel->sheet('Sheet1', function($sheet) use ($trucks) {
+
+                $arr = array();
+
+                foreach($trucks as $truck) {
+                    foreach($truck->drivers as $driver) {
+                        foreach($driver->haulers as $hauler) {
+
+                            $data =  array(
+                            $truck->plate_number,
+                            $truck->vehicle_type,
+                            $truck->capacity,
+                            $hauler->name,
+                            $driver->name
+                            );
+
+                            array_push($arr, $data);
+
+                        }
+                    }
+                }
+
+                //set the titles
+                $sheet->fromArray($arr,null,'A1',false,false)
+                        ->setBorder('A1:E'.$trucks->count(),'thin')
+                        ->prependRow(array(
+                        'PLATE NUMBER', 'TRUCK TYPE', 'CAPACITY', 'HAULER', 'DRIVER NAME'));
+                $sheet->cells('A1:E1', function($cells) {
+                            $cells->setBackground('#f1c40f'); 
+                });
+
+
+            });
+
+        })->download('xlsx');
+        
     }
 }

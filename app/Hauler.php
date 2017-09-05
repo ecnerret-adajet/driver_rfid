@@ -11,7 +11,12 @@ class Hauler extends Model
     	'name',
     	'address',
     	'contact_number',
-        'vendor_name'
+        'availability',
+        'vendor_number',
+        'vendor_customer_code',
+        'vat_reg_tin',
+        'subconvendor_name',
+        'subconvendor_number'
     ];
     
     public function drivers()
@@ -24,6 +29,11 @@ class Hauler extends Model
     public function trucks()
     {
         return $this->belongsToMany('App\Truck');
+    }
+
+    public function server()
+    {
+        return $this->belongsTo('App\Server');
     }
 
 }

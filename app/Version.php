@@ -8,11 +8,14 @@ class Version extends Model
 {
     protected $connection = "sqlsrv";
     protected $fillable = [
-        'key',
-        'old_value',
-        'new_value',
-        'start_validity_date',
-        'end_validity_date'
+        'plate_number',
+        'reg_number',
+        'vendor_number',
+        'subvendor_number',
+        'contract_code',
+        'contract_description',
+        'vendor_description',
+        'subvendor_description',
     ];
 
     public function user()
@@ -23,6 +26,16 @@ class Version extends Model
     public function drivers()
     {
         return $this->belongsToMany(Driver::class);
+    }
+
+    public function trucks()
+    {
+        return $this->belongsToMany(Truck::class);
+    }
+
+    public function getTruckListAttribute()
+    {
+        return $this->trucks()->pluck('id')->all();
     }
 
 }

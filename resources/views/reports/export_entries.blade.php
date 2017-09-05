@@ -28,11 +28,13 @@
                 <th>DRIVER</th>
                 <th>PLATE NUMBER</th>
 
-                @foreach($top_header as $header)                                
+                @foreach($top_header as $i => $header)                                
                 <th>
-                    {{  strtoupper($header) }}
+                    {{  strtoupper(date('F d', strtotime($header)))  }} 
                 </th>
                 @endforeach
+
+                
 
                 </tr>
                 </thead>
@@ -42,6 +44,7 @@
                     @foreach($today->drivers as $driver)
                     @foreach($driver->haulers as $hauler)
 
+                        
                     <tr>
                             <td>
                                 {{$hauler->name}}
@@ -64,22 +67,32 @@
                                     @if($value == 0)
                                             @if(empty($trip->monitors()->count()))
                                             <td class="no-trip">
-                                            NO REPORT
+                                            NO REPORT 
                                             </td>
                                             @else
 
                                             @foreach($trip->monitors as $monitor)
                                             <td class="has-trip">
-                                                {{ $monitor->location->code }}{{ $monitor->status->code }}{{ $monitor->duration->days }}{{ $monitor->detail->code }}
+                                                {{ $monitor->location->code }}{{ $monitor->status->code }}{{ $monitor->duration->days }}{{ $monitor->detail->code }}  {{ $i }}
                                             </td>
 
                                             @endforeach
                                             @endif
                                     @endif
-                                @empty
-                                            <td>
-                                            XXXXXXXX
-                                            </td>
+                                    @empty
+                                        
+                                            @forelse($monitors->where('driver_id',$driver->id)->where('ship_date',Carbon\Carbon::parse($result))->take(1)  as $monitor)
+                                                <td class="has-trip">
+                                                    {{ $monitor->location->code }}{{ $monitor->status->code }}{{ $monitor->duration->days }}{{ $monitor->detail->code }}
+                                                </td>
+                                            @empty
+                                                <td class="no-trip">
+                                                    NO REPORT 
+                                                      
+                                                </td>
+                                            @endforelse
+                                           
+                                            
                                 @endforelse
                             @endforeach
 
@@ -91,6 +104,7 @@
                     @endforeach
                     @endforeach
                     @endforeach
+                    
             </table>
 
 </html>

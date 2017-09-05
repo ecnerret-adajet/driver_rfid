@@ -7,12 +7,22 @@
         
 
                     <div class="row">
-                        <div class="input-field col s12">
+                        <div class="input-field col s6">
                             {{ Form::text('plate_number', null, ['class' => 'validate']) }}
                             <label>Plate Number</label>
                             @if ($errors->has('plate_number'))
                                 <span class="help-block red-text">
                                     <strong>{{ $errors->first('plate_number') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                          <div class="input-field col s6">
+                            {{ Form::text('reg_number', null, ['class' => 'validate']) }}
+                            <label>Registration Number</label>
+                            @if ($errors->has('reg_number'))
+                                <span class="help-block red-text">
+                                    <strong>{{ $errors->first('reg_number') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -44,31 +54,92 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                        <div class="input-field col s12">
+                            @if(str_contains(Request::path(), 'edit'))
+                            {!! Form::select('capacities_list', $capacities, count($truck->capacity) == 0 ? 'null' : $truck->capacity->id, ['placeholder' => 'Select Capacity', 'id' => 'select2-materialize-capacity', 'class' => 'validate'] ) !!}
+                            @else
+                            {!! Form::select('capacities_list', $capacities, null, ['placeholder' => 'Select Deploy RFID', 'id' => 'select2-materialize-capacity', 'class' => 'validate'] ) !!}
+                            @endif
+                            
+                            @if ($errors->has('card_list'))
+                                <span class="help-block red-text">
+                                <strong>{{ $errors->first('card_list') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
 
                     <div class="row">
-                          
-                        <div class="input-field col s6">
-                            {{Form::text('vehicle_type', null, ['class' => 'validate'])}}
-                            <label>Vehicle Type</label>
-                            @if ($errors->has('vehicle_type'))
+                          <div class="input-field col s6">
+                            {{ Form::text('vendor_description', null, ['class' => 'validate']) }}
+                            <label>Vendor Number</label>
+                            @if ($errors->has('vendor_description'))
                                 <span class="help-block red-text">
-                                    <strong>{{ $errors->first('vehicle_type') }}</strong>
+                                    <strong>{{ $errors->first('vendor_description') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="input-field col s6">
+                            {{ Form::text('subvendor_description', null, ['class' => 'validate']) }}
+                            <label>Subvendor Number</label>
+                            @if ($errors->has('subvendor_description'))
+                                <span class="help-block red-text">
+                                    <strong>{{ $errors->first('subvendor_description') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    
+                    </div>
+
+                    <div class="row">
+                          <div class="input-field col s6">
+                            {{ Form::text('contract_code', null, ['class' => 'validate']) }}
+                            <label>Contract Code</label>
+                            @if ($errors->has('contract_code'))
+                                <span class="help-block red-text">
+                                    <strong>{{ $errors->first('contract_code') }}</strong>
                                 </span>
                             @endif
                         </div>
 
 
                          <div class="input-field col s6">
-                            {{ Form::text('capacity', null, ['class' => 'validate']) }}
-                            <label>Capacity</label>
-                            @if ($errors->has('capacity'))
+                            {{ Form::text('contract_description', null, ['class' => 'validate']) }}
+                            <label>Contract Description</label>
+                            @if ($errors->has('contract_description'))
                                 <span class="help-block red-text">
-                                    <strong>{{ $errors->first('capacity') }}</strong>
+                                    <strong>{{ $errors->first('contract_description') }}</strong>
                                 </span>
                             @endif
                         </div>
+                    
                     </div>
 
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input name="validity_start_date" type="text" class="datepicker">
+                            <label>Validity Start Date</label>
+                            @if ($errors->has('validity_start_date'))
+                                <span class="help-block red-text">
+                                    <strong>{{ $errors->first('validity_start_date') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+
+                         <div class="input-field col s6">
+                              <input name="validity_end_date" type="text" class="datepicker">
+                            <label>Validity End Date</label>
+                            @if ($errors->has('validity_end_date'))
+                                <span class="help-block red-text">
+                                    <strong>{{ $errors->first('validity_end_date') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    
+                    </div>
 
 
                     <div class="row">
@@ -95,6 +166,20 @@
         $("#select2-materialize-card").select2({
             placeholder: "Select Card",
             allowClear: true,
+        });
+
+        $("#select2-materialize-capacity").select2({
+            placeholder: "Select Capacity",
+            allowClear: true,
+        });
+
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15, // Creates a dropdown of 15 years to control year,
+            today: 'Today',
+            clear: 'Clear',
+            close: 'Ok',
+            closeOnSelect: false // Close upon selecting a date,
         });
         
     </script>

@@ -4,14 +4,20 @@
         <div class="row">
             <div class="input-group search pull-right">
                 <span class="input-group-addon opener">
+                <a>
                 <i class="material-icons">search</i>
+                </a>
                 </span>
                 <input type="text" v-model="searchString"  class="form-control" placeholder="Search">
                 <span class="input-group-addon">
+                <a>
                 <i class="material-icons">more_vert</i>
+                </a>
                 </span>
                 <span class="input-group-addon opener">
+                <a>
                 <i class="material-icons">clear</i>
+                </a>
                 </span>
             </div>
         </div>
