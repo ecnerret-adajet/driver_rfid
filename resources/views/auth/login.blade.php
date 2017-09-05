@@ -4,6 +4,15 @@
 
 <div class="container">
 
+ <div class="row" style="padding-top: 100px;">
+    <div class="col s8 offset-s2 center-align">
+
+                <i class="medium material-icons circle">nfc</i>
+           
+    </div>
+ </div>
+
+
   <div class="row">
       <div class="col m8 offset-m2 ">
         <div class="card-panel grey lighten-4 hoverable">
@@ -45,10 +54,6 @@
                                 <button type="submit" class="btn btn-primary">
                                     Login
                                 </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a>
                             </div>
                         </div>
                     </form>
