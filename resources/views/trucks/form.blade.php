@@ -3,7 +3,7 @@
     <div class="col s12">
         <div class="card-panel grey lighten-4">
             <div class="row">
-                <form class="col s12">
+                <form class="col s12" id="trucks">
         
 
                     <div class="row">
@@ -56,11 +56,8 @@
 
                     <div class="row">
                         <div class="input-field col s12">
-                            @if(str_contains(Request::path(), 'edit'))
-                            {!! Form::select('capacities_list', $capacities, count($truck->capacity) == 0 ? 'null' : $truck->capacity->id, ['placeholder' => 'Select Capacity', 'id' => 'select2-materialize-capacity', 'class' => 'validate'] ) !!}
-                            @else
+                           
                             {!! Form::select('capacities_list', $capacities, null, ['placeholder' => 'Select Deploy RFID', 'id' => 'select2-materialize-capacity', 'class' => 'validate'] ) !!}
-                            @endif
                             
                             @if ($errors->has('card_list'))
                                 <span class="help-block red-text">
@@ -71,7 +68,9 @@
                     </div>
 
                     <div class="row">
-                          <div class="input-field col s6">
+                           
+                        <vendor></vendor>
+                          {{--  <div class="input-field col s6">
                             {{ Form::text('vendor_description', null, ['class' => 'validate']) }}
                             <label>Vendor Number</label>
                             @if ($errors->has('vendor_description'))
@@ -79,7 +78,7 @@
                                     <strong>{{ $errors->first('vendor_description') }}</strong>
                                 </span>
                             @endif
-                        </div>
+                        </div>  --}}
 
                         <div class="input-field col s6">
                             {{ Form::text('subvendor_description', null, ['class' => 'validate']) }}

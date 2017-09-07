@@ -7,8 +7,9 @@
  <div class="row" style="padding-top: 100px;">
     <div class="col s8 offset-s2 center-align">
 
-                <i class="medium material-icons circle">nfc</i>
-           
+                {{--  <i class="medium material-icons circle">nfc</i>  --}}
+        <h4>Trucking Monitoring</h4>
+
     </div>
  </div>
 

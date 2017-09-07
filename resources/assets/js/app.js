@@ -9,6 +9,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -26,6 +27,7 @@ Vue.component('cards', require('./components/Cards.vue'));
 Vue.component('users', require('./components/Users.vue'));
 Vue.component('logs', require('./components/Logs.vue'));
 Vue.component('pickups', require('./components/Pickups.vue'));
+Vue.component('vendor', require('./components/Vendor.vue'));
 
 
 const app = new Vue({

@@ -74,6 +74,14 @@ Route::get('/usersJson', function() {
     return $user;
 });
 
+Route::get('/vendorsJson', function() {
+    $url = "http://10.96.4.39/trucking/rfc_get_vendor.php";
+    $result = file_get_contents($url);
+    $data = json_decode($result,true);
+
+    return $data;
+});
+
 
 Route::get('/homeJson', 'HomeController@homeStatus');
 

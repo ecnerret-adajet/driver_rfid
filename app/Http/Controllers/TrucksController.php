@@ -37,8 +37,12 @@ class TrucksController extends Controller
         // });
 
         $haulers = ['' => ''] + Hauler::pluck('name','id')->all();
-        $cards = ['' => ''] + Card::pluck('CardNo','CardID')->all();
+
+        $cards = ['' => ''] + Card::hasOne()->pluck('CardNo','CardID')->all();
+
         $capacities = ['' => ''] + Capacity::pluck('description','id')->all();
+
+
         return view('trucks.create', compact('haulers','cards','capacities'));
     }
 
@@ -91,7 +95,8 @@ class TrucksController extends Controller
     {
          $haulers = Hauler::pluck('name','id');
          $cards = ['' => ''] + Card::pluck('CardNo','CardID')->all();
-        return view('trucks.edit', compact('truck','haulers','cards'));
+         $capacities = Capacity::pluck('description','id');
+        return view('trucks.edit', compact('truck','haulers','cards','capacities'));
     }
 
     /**

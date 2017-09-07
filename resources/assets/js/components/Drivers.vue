@@ -115,7 +115,7 @@ export default {
             searchString = searchString.trim().toLowerCase();
 
             drivers_array = drivers_array.filter(function(item){
-                if(item.name.toLowerCase().indexOf(searchString) !== -1 || item.cardholder.Name.toLowerCase().indexOf(searchString) !== -1){
+                if(item.name.toLowerCase().indexOf(searchString) !== -1 || item.cardholder.Name.toLowerCase().indexOf(searchString) !== -1 || item.phone_number.toLowerCase().indexOf(searchString) !== -1){
                     return item;
                 }
             })
