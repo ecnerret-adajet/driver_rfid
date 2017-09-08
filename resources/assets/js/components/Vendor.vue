@@ -1,27 +1,39 @@
 <template>
 
-
+<div class="row">
 
     <div class="input-field col s6">
         <input type="text" name="vendor_description" class="validate"  v-model="searchVendor" >
         <label>Vendor Number</label>
-        <div v-for="(vendor, index) in filteredVendor">
+        <div v-for="(vendor, v) in filteredVendor">
             <span class="red-text" v-if="emptyVendor">
                 NO DATA YET
             </span>
             <span v-else>
-                <span v-if="index == 0">
+                <span v-if="v == 0">
                     {{ vendor.vendor_name }}
                 </span>
             </span>
         </div>
     </div>
 
+      <div class="input-field col s6">
+        <input type="text" name="subvendor_description" class="validate"  v-model="searchSubVendor" >
+        <label>Subvendor Number</label>
+        <div v-for="(subvendor, s) in filteredSubVendor">
+            <span class="red-text" v-if="emptySubVendor">
+                NO DATA YET
+            </span>
+            <span v-else>
+                <span v-if="s == 0">
+                    {{ subvendor.vendor_name }}
+                </span>
+            </span>
+        </div>
+    </div>
 
 
-
-
-
+</div>
 
 
 </template>
@@ -31,18 +43,24 @@ export default {
         return {
             searchVendor: '',
             searchSubVendor: '',
+            vendors: [],
+            subvendors: [],
             emptySubVendor: false,
             emptyVendor: false,
-            vendors: []
         }
     },
     created() {
        this.getVendor()
+       this.getSubvendor()
     },
     methods: {
         getVendor() {
              axios.get('http://localhost/driver_rfid/public/vendorsJson')
             .then(response => this.vendors = response.data);
+        },
+        getSubvendor() {
+             axios.get('http://localhost/driver_rfid/public/subvendorJson')
+            .then(response => this.subvendors = response.data);
         }
     },
     computed: {
@@ -69,9 +87,10 @@ export default {
           
         },
 
+
         filteredSubVendor() {
             
-            var subcon_array = this.vendors;
+            var subcon_array = this.subvendors;
             var searchSubVendor = this.searchSubVendor;
             var onEmpty =  this.emptySubVendor;
 

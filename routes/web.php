@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -78,9 +79,17 @@ Route::get('/vendorsJson', function() {
     $url = "http://10.96.4.39/trucking/rfc_get_vendor.php";
     $result = file_get_contents($url);
     $data = json_decode($result,true);
-
     return $data;
 });
+
+Route::get('/subvendorJson', function() {
+    $url = "http://10.96.4.39/trucking/rfc_get_vendor.php";
+    $result = file_get_contents($url);
+    $data = json_decode($result,true);
+    $collection = collect($data)->where('vendor_number', '!=', '0000002000');
+    return $collection;
+});
+
 
 
 Route::get('/homeJson', 'HomeController@homeStatus');

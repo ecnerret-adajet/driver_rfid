@@ -35,7 +35,18 @@ class Truck extends Model
         return $this->haulers->pluck('id')->all();
     }
 
-        /**
+    //list all assicaited contract code in truck 
+    public function contracts()
+    {
+        return $this->belongsToMany('App\Contract');
+    }
+     
+    public function getContractListAttribute()
+    {
+        return $this->contracts->pluck('id')->all();
+    }
+
+    /**
     *
     * Get all Cards to link
     */

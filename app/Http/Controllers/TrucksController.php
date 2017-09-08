@@ -11,6 +11,7 @@ use App\Hauler;
 use App\Card;
 use App\Capacity;
 use Excel;
+use App\Contract;
 
 class TrucksController extends Controller
 {
@@ -38,12 +39,14 @@ class TrucksController extends Controller
 
         $haulers = ['' => ''] + Hauler::pluck('name','id')->all();
 
-        $cards = ['' => ''] + Card::hasOne()->pluck('CardNo','CardID')->all();
+        $cards = ['' => ''] + Card::where('CardholderID',0)->pluck('CardNo','CardID')->all();
 
         $capacities = ['' => ''] + Capacity::pluck('description','id')->all();
 
+        $contracts = ['' => ''] + Contract::pluck('contract_code','id')->all();
 
-        return view('trucks.create', compact('haulers','cards','capacities'));
+
+        return view('trucks.create', compact('haulers','cards','capacities','contracts'));
     }
 
     /**
@@ -56,7 +59,7 @@ class TrucksController extends Controller
     {
          $this->validate($request, [
             'plate_number' => 'required|unique:trucks',
-            'hauler_list' => 'required',
+            'vendor_description' => 'required',
             // 'card_list' => 'required'
         ]);
 
@@ -68,7 +71,8 @@ class TrucksController extends Controller
         $truck->save();
 
 
-        $truck->haulers()->attach($request->input('hauler_list'));
+        $truck->contracts()->attach($request->input('contract_list'));
+        // $truck->haulers()->attach($request->input('hauler_list'));
 
 
         return redirect('trucks');

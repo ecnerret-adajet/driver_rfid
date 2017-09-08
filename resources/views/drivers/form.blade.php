@@ -63,15 +63,7 @@
                             @endif
                         </div>
 
-                        <div class="input-field col s6">
-                            {{Form::number('driver_number', null, ['class' => 'validate'])}}
-                            <label>Deploy Number</label>
-                            @if ($errors->has('driver_number'))
-                                <span class="help-block red-text">
-                                    <strong>{{ $errors->first('driver_number') }}</strong>
-                                </span>
-                            @endif
-                        </div>
+                       
                     </div>
 
                     <div class="row">
@@ -107,15 +99,7 @@
                             @endif
                         </div> 
 
-                        <div class="input-field col s6">
-                            {{Form::select('hauler_list', $haulers, null, ['placeholder' => 'Select Operator', 'id' => 'select2-materialize-hauler', 'class' => 'validate'])}}
-                            {{--  <label>Operator</label>  --}}
-                            @if ($errors->has('hauler_list'))
-                                <span class="help-block red-text">
-                                    <strong>{{ $errors->first('hauler_list') }}</strong>
-                                </span>
-                            @endif
-                        </div>
+                       
                     </div>
 
 

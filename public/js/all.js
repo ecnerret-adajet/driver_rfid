@@ -33853,19 +33853,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             searchVendor: '',
             searchSubVendor: '',
+            vendors: [],
+            subvendors: [],
             emptySubVendor: false,
-            emptyVendor: false,
-            vendors: []
+            emptyVendor: false
         };
     },
     created: function created() {
         this.getVendor();
+        this.getSubvendor();
     },
 
     methods: {
@@ -33874,6 +33888,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.get('http://localhost/driver_rfid/public/vendorsJson').then(function (response) {
                 return _this.vendors = response.data;
+            });
+        },
+        getSubvendor: function getSubvendor() {
+            var _this2 = this;
+
+            axios.get('http://localhost/driver_rfid/public/subvendorJson').then(function (response) {
+                return _this2.subvendors = response.data;
             });
         }
     },
@@ -33900,7 +33921,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         filteredSubVendor: function filteredSubVendor() {
 
-            var subcon_array = this.vendors;
+            var subcon_array = this.subvendors;
             var searchSubVendor = this.searchSubVendor;
             var onEmpty = this.emptySubVendor;
 
@@ -37681,6 +37702,8 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
     staticClass: "input-field col s6"
   }, [_c('input', {
     directives: [{
@@ -37703,11 +37726,38 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.searchVendor = $event.target.value
       }
     }
-  }), _vm._v(" "), _c('label', [_vm._v("Vendor Number")]), _vm._v(" "), _vm._l((_vm.filteredVendor), function(vendor, index) {
+  }), _vm._v(" "), _c('label', [_vm._v("Vendor Number")]), _vm._v(" "), _vm._l((_vm.filteredVendor), function(vendor, v) {
     return _c('div', [(_vm.emptyVendor) ? _c('span', {
       staticClass: "red-text"
-    }, [_vm._v("\n            NO DATA YET\n        ")]) : _c('span', [(index == 0) ? _c('span', [_vm._v("\n                " + _vm._s(vendor.vendor_name) + "\n            ")]) : _vm._e()])])
-  })], 2)
+    }, [_vm._v("\r\n                NO DATA YET\r\n            ")]) : _c('span', [(v == 0) ? _c('span', [_vm._v("\r\n                    " + _vm._s(vendor.vendor_name) + "\r\n                ")]) : _vm._e()])])
+  })], 2), _vm._v(" "), _c('div', {
+    staticClass: "input-field col s6"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.searchSubVendor),
+      expression: "searchSubVendor"
+    }],
+    staticClass: "validate",
+    attrs: {
+      "type": "text",
+      "name": "subvendor_description"
+    },
+    domProps: {
+      "value": (_vm.searchSubVendor)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.searchSubVendor = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('label', [_vm._v("Subvendor Number")]), _vm._v(" "), _vm._l((_vm.filteredSubVendor), function(subvendor, s) {
+    return _c('div', [(_vm.emptySubVendor) ? _c('span', {
+      staticClass: "red-text"
+    }, [_vm._v("\r\n                NO DATA YET\r\n            ")]) : _c('span', [(s == 0) ? _c('span', [_vm._v("\r\n                    " + _vm._s(subvendor.vendor_name) + "\r\n                ")]) : _vm._e()])])
+  })], 2)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

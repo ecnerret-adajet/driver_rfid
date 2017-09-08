@@ -43,15 +43,7 @@
                             @endif
                         </div>
 
-                        <div class="input-field col s6">
-                            {{Form::select('hauler_list', $haulers, null, ['placeholder' => 'Select Operator', 'id' => 'select2-materialize-hauler', 'class' => 'validate'])}}
-                            {{--  <label>Operator</label>  --}}
-                            @if ($errors->has('hauler_list'))
-                                <span class="help-block red-text">
-                                    <strong>{{ $errors->first('hauler_list') }}</strong>
-                                </span>
-                            @endif
-                        </div>
+                       
                     </div>
 
                     <div class="row">
@@ -67,52 +59,21 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                  
                            
                         <vendor></vendor>
-                          {{--  <div class="input-field col s6">
-                            {{ Form::text('vendor_description', null, ['class' => 'validate']) }}
-                            <label>Vendor Number</label>
-                            @if ($errors->has('vendor_description'))
-                                <span class="help-block red-text">
-                                    <strong>{{ $errors->first('vendor_description') }}</strong>
-                                </span>
-                            @endif
-                        </div>  --}}
-
-                        <div class="input-field col s6">
-                            {{ Form::text('subvendor_description', null, ['class' => 'validate']) }}
-                            <label>Subvendor Number</label>
-                            @if ($errors->has('subvendor_description'))
-                                <span class="help-block red-text">
-                                    <strong>{{ $errors->first('subvendor_description') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    
-                    </div>
+                     
 
                     <div class="row">
-                          <div class="input-field col s6">
-                            {{ Form::text('contract_code', null, ['class' => 'validate']) }}
-                            <label>Contract Code</label>
-                            @if ($errors->has('contract_code'))
+                          <div class="input-field col s12">
+                            {!! Form::select('contract_list', $contracts, null, ['placeholder' => 'Select Contract Code', 'id' => 'select2-materialize-contract', 'class' => 'validate'] ) !!}
+                            @if ($errors->has('contract_list'))
                                 <span class="help-block red-text">
-                                    <strong>{{ $errors->first('contract_code') }}</strong>
+                                    <strong>{{ $errors->first('contract_list') }}</strong>
                                 </span>
                             @endif
                         </div>
 
-
-                         <div class="input-field col s6">
-                            {{ Form::text('contract_description', null, ['class' => 'validate']) }}
-                            <label>Contract Description</label>
-                            @if ($errors->has('contract_description'))
-                                <span class="help-block red-text">
-                                    <strong>{{ $errors->first('contract_description') }}</strong>
-                                </span>
-                            @endif
-                        </div>
                     
                     </div>
 
@@ -164,6 +125,11 @@
         
         $("#select2-materialize-card").select2({
             placeholder: "Select Card",
+            allowClear: true,
+        });
+
+        $("#select2-materialize-contract").select2({
+            placeholder: "Select Contract Code",
             allowClear: true,
         });
 

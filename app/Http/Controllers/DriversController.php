@@ -42,7 +42,7 @@ class DriversController extends Controller
         $clasifications = Clasification::pluck('name','id');
         $haulers = ['' => ''] + Hauler::pluck('name','id')->all();
         $trucks = ['' => ''] + Truck::pluck('plate_number','id')->all();
-        $cards = ['' => ''] + Card::pluck('CardNo','CardID')->all();
+        $cards = ['' => ''] +  Card::where('CardholderID',0)->pluck('CardNo','CardID')->all();
 
         // for testing
         // $rfid_card = Card::whereHas('binders', function($q) {
@@ -65,7 +65,6 @@ class DriversController extends Controller
             'name' => 'required|max:255|unique:drivers',
             'driver_number' => 'required|integer|unique:drivers',
             'card_list' => 'required',
-            'hauler_list' => 'required',
             'truck_list' => 'required',
             'phone_number' => 'required',
                 
@@ -81,7 +80,7 @@ class DriversController extends Controller
         $driver->cardholder()->associate($driver->card->CardholderID);
         $driver->save();
 
-        $driver->haulers()->attach($request->input('hauler_list'));
+        // $driver->haulers()->attach($request->input('hauler_list'));
         $driver->trucks()->attach($request->input('truck_list'));
 
         //send email to supervisor for approval
