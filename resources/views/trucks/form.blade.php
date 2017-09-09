@@ -1,127 +1,134 @@
 
 
-    <div class="col s12">
-        <div class="card-panel grey lighten-4">
-            <div class="row">
-                <form class="col s12" id="trucks">
-        
+   <div class="card mx-auto">
+    <div class="card-header">
+        Add New Driver
 
-                    <div class="row">
-                        <div class="input-field col s6">
-                            {{ Form::text('plate_number', null, ['class' => 'validate']) }}
-                            <label>Plate Number</label>
-                            @if ($errors->has('plate_number'))
-                                <span class="help-block red-text">
-                                    <strong>{{ $errors->first('plate_number') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                          <div class="input-field col s6">
-                            {{ Form::text('reg_number', null, ['class' => 'validate']) }}
-                            <label>Registration Number</label>
-                            @if ($errors->has('reg_number'))
-                                <span class="help-block red-text">
-                                    <strong>{{ $errors->first('reg_number') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="input-field col s6">
-                        @if(str_contains(Request::path(), 'edit'))
-                        {!! Form::select('card_list', $cards, count($truck->card) == 0 ? 'null' : $truck->card->CardID, ['placeholder' => 'Select Deploy RFID', 'id' => 'select2-materialize-card', 'class' => 'validate'] ) !!}
-                        @else
-                        {!! Form::select('card_list', $cards, null, ['placeholder' => 'Select Deploy RFID', 'id' => 'select2-materialize-card', 'class' => 'validate'] ) !!}
-                        @endif
-                            
-                            @if ($errors->has('card_list'))
-                                <span class="help-block red-text">
-                                <strong>{{ $errors->first('card_list') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                       
-                    </div>
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                           
-                            {!! Form::select('capacities_list', $capacities, null, ['placeholder' => 'Select Deploy RFID', 'id' => 'select2-materialize-capacity', 'class' => 'validate'] ) !!}
-                            
-                            @if ($errors->has('card_list'))
-                                <span class="help-block red-text">
-                                <strong>{{ $errors->first('card_list') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-
-                  
-                           
-                        <vendor></vendor>
-                     
-
-                    <div class="row">
-                          <div class="input-field col s12">
-                            {!! Form::select('contract_list', $contracts, null, ['placeholder' => 'Select Contract Code', 'id' => 'select2-materialize-contract', 'class' => 'validate'] ) !!}
-                            @if ($errors->has('contract_list'))
-                                <span class="help-block red-text">
-                                    <strong>{{ $errors->first('contract_list') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                    
-                    </div>
-
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <input name="validity_start_date" type="text" class="datepicker">
-                            <label>Validity Start Date</label>
-                            @if ($errors->has('validity_start_date'))
-                                <span class="help-block red-text">
-                                    <strong>{{ $errors->first('validity_start_date') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-
-                         <div class="input-field col s6">
-                              <input name="validity_end_date" type="text" class="datepicker">
-                            <label>Validity End Date</label>
-                            @if ($errors->has('validity_end_date'))
-                                <span class="help-block red-text">
-                                    <strong>{{ $errors->first('validity_end_date') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    
-                    </div>
-
-
-                    <div class="row">
-                        <button type="submit" class="btn waves-effect waves-light">Submit
-                            <i class="material-icons right">send</i>
-                        </button>
-                    </div>
-
-                </form>
-            </div>
-        </div>
+        <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
+        Back
+        </a>
     </div>
+    <div class="card-body">
+        <form>
 
+            <div class="form-row">
+                 <div class="col-md-6">
+                    <div class="form-group {{ $errors->has('plate_number') ? ' has-danger' : '' }}">
+                        <label>Plate Number</label>
+                        {{ Form::text('plate_number', null, ['class' => 'form-control', 'id' => 'driverName', 'placeholder' => 'Enter First Name']) }}
+                        @if ($errors->has('plate_number'))
+                            <div class="form-control-feedback">
+                                <small>
+                                {{ $errors->first('plate_number') }}
+                                </small>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group {{ $errors->has('reg_number') ? ' has-danger' : '' }}">
+                        <label>Registration Number</label>
+                        {{ Form::text('reg_number', null, ['class' => 'form-control', 'id' => 'driverName', 'placeholder' => 'Enter First Name']) }}
+                        @if ($errors->has('reg_number'))
+                            <div class="form-control-feedback">
+                                <small>
+                                {{ $errors->first('reg_number') }}
+                                </small>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                    <div class="col-md-12">
+                        <div class="form-group {{ $errors->has('card_list') ? ' has-danger' : '' }}">
+                                <label for="selectCard">RFID Card</label>
+                                @if(str_contains(Request::path(), 'edit'))
+                                {!! Form::select('card_list', $cards, count($driver->card) == 0 ? 'null' : $driver->card->CardID, ['placeholder' => 'Select Deploy RFID', 'id' => 'selectCard select2-materialize-card', 'class' => 'form-control'] ) !!}
+                                @else
+                                {!! Form::select('card_list', $cards, null, ['placeholder' => 'Select Deploy RFID', 'id' => 'selectCard select2-materialize-card', 'class' => 'form-control'] ) !!}
+                                @endif
+                                @if ($errors->has('card_list'))
+                                    <div class="form-control-feedback">
+                                    <small>
+                                        {{ $errors->first('card_list') }}
+                                        </small>
+                                    </div>
+                                @endif
+                        </div>
+                    </div>
+            </div>
+
+            
+            <div class="form-row">
+                <div class="col-md-6">
+                    <div class="form-group {{ $errors->has('capacity_list') ? ' has-danger' : '' }}">
+                            <label for="selectCard">Capacity</label>
+                            {!! Form::select('capacity_list', $capacities, null, ['placeholder' => 'Select Capacity', 'id' => 'selectCard select2-materialize-truck', 'class' => 'form-control'] ) !!}
+                            @if ($errors->has('capacity_list'))
+                                <div class="form-control-feedback">
+                                <small>
+                                    {{ $errors->first('capacity_list') }}
+                                    </small>
+                                </div>
+                            @endif
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group {{ $errors->has('contract_list') ? ' has-danger' : '' }}">
+                            <label for="selectCard">Contract Code</label>
+                            {!! Form::select('contract_list', $contracts, null, ['placeholder' => 'Select Contract Code', 'id' => 'selectCard select2-materialize-truck', 'class' => 'form-control'] ) !!}
+                            @if ($errors->has('contract_list'))
+                                <div class="form-control-feedback">
+                                <small>
+                                    {{ $errors->first('contract_list') }}
+                                    </small>
+                                </div>
+                            @endif
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-6">
+                    <div class="form-group {{ $errors->has('validity_start_date') ? ' has-danger' : '' }}">
+                            <label>Start Validity Date</label>
+                            {!! Form::input('date', 'validity_start_date', $truck->validity_start_date, ['class' => 'form-control'] ) !!}
+                            @if ($errors->has('validity_start_date'))
+                                <div class="form-control-feedback">
+                                <small>
+                                    {{ $errors->first('validity_start_date') }}
+                                    </small>
+                                </div>
+                            @endif
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group {{ $errors->has('validity_end_date') ? ' has-danger' : '' }}">
+                            <label>End Validity Date</label>
+                            {!! Form::input('date', 'validity_start_date', $truck->validity_end_date, ['class' => 'form-control'] ) !!}
+                            @if ($errors->has('validity_end_date'))
+                                <div class="form-control-feedback">
+                                <small>
+                                    {{ $errors->first('validity_end_date') }}
+                                    </small>
+                                </div>
+                            @endif
+                    </div>
+                </div>
+            </div>
+        
+        
+             <button type="submit"  class="btn btn-primary btn-block" href="login.html">Submit</button>
+        </form>
+    </div>
+    </div>
 
 
 @section('script')
     <script>
-        $("#select2-materialize-hauler").select2({
-            placeholder: "Select Operator",
-            allowClear: true,
-        });
-
         
         $("#select2-materialize-card").select2({
             placeholder: "Select Card",
@@ -136,16 +143,6 @@
         $("#select2-materialize-capacity").select2({
             placeholder: "Select Capacity",
             allowClear: true,
-        });
-
-        $('.datepicker').pickadate({
-            selectMonths: true, // Creates a dropdown to control month
-            selectYears: 15, // Creates a dropdown of 15 years to control year,
-            today: 'Today',
-            clear: 'Clear',
-            close: 'Ok',
-            closeOnSelect: false // Close upon selecting a date,
-        });
-        
+        });    
     </script>
 @endsection

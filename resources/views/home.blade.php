@@ -13,8 +13,18 @@
 @endsection
 @section('content')
 
-<home></home>
+  <!-- Breadcrumbs -->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+        <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">My Dashboard</li>
+    </ol>
 
+
+    <home></home>
+
+       
     <div id="wait" style="padding-top: 30px;">
         <div class="preloader-wrapper small active">
             <div class="spinner-layer spinner-green-only">

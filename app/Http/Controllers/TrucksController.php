@@ -37,13 +37,15 @@ class TrucksController extends Controller
         //     $q->where('card_id','2');
         // });
 
-        $haulers = ['' => ''] + Hauler::pluck('name','id')->all();
 
-        $cards = ['' => ''] + Card::where('CardholderID',0)->pluck('CardNo','CardID')->all();
+        // temporary comment 
+        // $haulers = ['' => ''] + Hauler::pluck('name','id')->all();
 
-        $capacities = ['' => ''] + Capacity::pluck('description','id')->all();
+        // $cards = ['' => ''] + Card::where('CardholderID',0)->pluck('CardNo','CardID')->all();
 
-        $contracts = ['' => ''] + Contract::pluck('contract_code','id')->all();
+        // $capacities = ['' => ''] + Capacity::pluck('description','id')->all();
+
+        // $contracts = ['' => ''] + Contract::pluck('contract_code','id')->all();
 
 
         return view('trucks.create', compact('haulers','cards','capacities','contracts'));

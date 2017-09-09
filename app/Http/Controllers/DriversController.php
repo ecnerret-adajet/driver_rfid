@@ -28,8 +28,7 @@ class DriversController extends Controller
      */
     public function index()
     {
-        $drivers = Driver::all();
-        return view('drivers.index', compact('drivers'));
+        return view('drivers.index');
     }
 
     /**
@@ -42,7 +41,8 @@ class DriversController extends Controller
         $clasifications = Clasification::pluck('name','id');
         $haulers = ['' => ''] + Hauler::pluck('name','id')->all();
         $trucks = ['' => ''] + Truck::pluck('plate_number','id')->all();
-        $cards = ['' => ''] +  Card::where('CardholderID',0)->pluck('CardNo','CardID')->all();
+
+        $cards = ['' => ''] +  Card::pluck('CardNo','CardID')->all();
 
         // for testing
         // $rfid_card = Card::whereHas('binders', function($q) {
@@ -63,11 +63,14 @@ class DriversController extends Controller
         $this->validate($request, [
             // 'avatar' => 'required',
             'name' => 'required|max:255|unique:drivers',
-            'driver_number' => 'required|integer|unique:drivers',
             'card_list' => 'required',
             'truck_list' => 'required',
-            'phone_number' => 'required',
+            'phone_number' => 'required|max:10|min:10',
+            'nbi_number' => 'required|max:8|min:8',
+            'driver_license' => 'required|max:13|min:13',
                 
+        ],[
+            'truck_list.required' => 'Plate Number is required'
         ]);
 
         $card_rfid = $request->input('card_list');
@@ -80,14 +83,12 @@ class DriversController extends Controller
         $driver->cardholder()->associate($driver->card->CardholderID);
         $driver->save();
 
-        // $driver->haulers()->attach($request->input('hauler_list'));
         $driver->trucks()->attach($request->input('truck_list'));
 
         //send email to supervisor for approval
         $setting = Setting::first();
         Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmDriver($driver));
         
-        toast()->success('message', 'title');
         return redirect('drivers');
     }
 

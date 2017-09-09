@@ -1,181 +1,161 @@
+      
+      
+      
+      <div class="card mx-auto">
+        <div class="card-header">
+         Add New Driver
 
-
-    <div class="col m8">
-        <div class="card-panel grey lighten-4">
-            <div class="row">
-                <form class="col s12">
-                
-                    @if(!Request::is('drivers/create'))
-                    <div class="row">
-                       <div class="input-field col s12">
-                       @if(count($driver->clasification) == 0)
-                        {{ Form::select('clasification_list', $clasifications, null, ['class' => 'validate', 'placeholder' => 'Select Clasification']) }}
-                       @else
-                        {{ Form::select('clasification_list', $clasifications, $driver->clasification->id, ['class' => 'validate', 'placeholder' => 'Select Clasification']) }}
-                       @endif
-                        <label>Clasification</label>
-                        @if ($errors->has('clasification_list'))
-                            <span class="help-block red-text">
-                                <strong>{{ $errors->first('clasification_list') }}</strong>
-                            </span>
-                        @endif
-                        </div> 
-                    </div>
-                    @endif
-
-                    <div class="row">
-                        <div class="file-field input-field">
-                            <div class="btn waves-effect waves-light">
-                                <span>Upload Photo</span>
-                                {{ Form::file('avatar') }}
-                            </div>
-                            <div class="file-path-wrapper">
-                                <input class="file-path validate" type="text">
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                        @if(str_contains(Request::path(), 'edit'))
-                        {!! Form::select('card_list', $cards, count($driver->card) == 0 ? 'null' : $driver->card->CardID, ['placeholder' => 'Select Deploy RFID', 'id' => 'select2-materialize-card', 'class' => 'validate'] ) !!}
-                        @else
-                        {!! Form::select('card_list', $cards, null, ['placeholder' => 'Select Deploy RFID', 'id' => 'select2-materialize-card', 'class' => 'validate'] ) !!}
-                        @endif
-                            
-                            @if ($errors->has('card_list'))
-                                <span class="help-block red-text">
-                                <strong>{{ $errors->first('card_list') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="input-field col s6">
-                            {{ Form::text('name', null, ['class' => 'validate']) }}
-                            <label>Driver Name</label>
-                            @if ($errors->has('name'))
-                                <span class="help-block red-text">
-                                    <strong>{{ $errors->first('name') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                       
-                    </div>
-
-                    <div class="row">
-                         <div class="input-field col s6">
-                            {{ Form::text('driver_license', null, ['class' => 'validate']) }}
-                            <label>Driver License</label>
-                            @if ($errors->has('driver_license'))
-                                <span class="help-block red-text">
-                                    <strong>{{ $errors->first('driver_license') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                        <div class="input-field col s6">
-                            {{ Form::text('nbi_number', null, ['class' => 'validate']) }}
-                            <label>NBI Number</label>
-                            @if ($errors->has('nbi_number'))
-                                <span class="help-block red-text">
-                                    <strong>{{ $errors->first('nbi_number') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="row">
-                       <div class="input-field col s6">
-                        {{ Form::select('truck_list', $trucks, null, ['placeholder' => 'Select Plate Number', 'id' => 'select2-materialize-truck', 'class' => 'validate']) }}
-                         {{--  <label>Plate Number</label>   --}}
-                            @if ($errors->has('truck_list'))
-                                <span class="help-block red-text">
-                                    <strong>{{ $errors->first('truck_list') }}</strong>
-                                </span>
-                            @endif
-                        </div> 
-
-                       
-                    </div>
-
-
-                    <div class="row">
-                        <div class="input-field col s6">
-                            {{Form::text('phone_number', null, ['class' => 'validate'])}}
-                            <label>Phone Number</label>
-                             @if ($errors->has('phone_number'))
-                                <span class="help-block red-text">
-                                    <strong>{{ $errors->first('phone_number') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-
-                        <div class="input-field col s6">
-                            {{Form::text('substitute', null, ['class' => 'validate'])}}
-                            <label>Substitute</label>
-                              @if ($errors->has('substitute'))
-                                <span class="help-block red-text">
-                                    <strong>{{ $errors->first('substitute') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <button type="submit" class="btn waves-effect waves-light">Submit
-                            <i class="material-icons right">send</i>
-                        </button>
-                    </div>
-
-                </form>
-            </div>
+         <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
+            Back
+         </a>
         </div>
-    </div> <!-- end col m8 -->
-    <div class="col m4">
-        <div class="card-panel grey lighten-5">
-            <div class="row">
-                <div class="input-field col s12">
-                    <input type="text" disabled class="validate" value="100">
-                    <label>Cost:</label>
-                </div>
-            </div>
-             <div class="row">
-                <div class="input-field col s12">
-                    <input type="text" disabled class="validate" value="{{$driver->update_count == null ? 0 : $driver->update_count}}">
-                    <label>Print Count:</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
+        <div class="card-body">
+          <form>
+
                 @if(!Request::is('drivers/create'))
-                    <input type="text" disabled class="validate" value="{{$driver->user->name}}">
-                @else
-                    <input type="text" disabled class="validate" value="">
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-12">
+                            @if(count($driver->clasification) == 0)
+                            {{ Form::select('clasification_list', $clasifications, null, ['class' => 'form-control', 'placeholder' => 'Select Clasification']) }}
+                            @else
+                            {{ Form::select('clasification_list', $clasifications, $driver->clasification->id, ['class' => 'form-control', 'placeholder' => 'Select Clasification']) }}
+                            @endif
+                            <label>Clasification</label>
+                            @if ($errors->has('clasification_list'))
+                                <span class="help-block red-text">
+                                    <strong>{{ $errors->first('clasification_list') }}</strong>
+                                </span>
+                            @endif
+                            </div> 
+                        </div>
+                    </div>
                 @endif
-                    <label>Last Edited by:</label>
+         
+                <div class="form-row">
+                     <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="exampleInputFile">Upload Photo</label>
+                            <input type="file" name="avatar" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+                            <small id="fileHelp" class="form-text text-muted"></small>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="form-row">
+                    <div class="col-md-12">
+                        <div class="form-group {{ $errors->has('card_list') ? ' has-danger' : '' }}">
+                                <label for="selectCard">RFID Card</label>
+                                @if(str_contains(Request::path(), 'edit'))
+                                {!! Form::select('card_list', $cards, count($driver->card) == 0 ? 'null' : $driver->card->CardID, ['placeholder' => 'Select Deploy RFID', 'id' => 'selectCard select2-materialize-card', 'class' => 'form-control'] ) !!}
+                                @else
+                                {!! Form::select('card_list', $cards, null, ['placeholder' => 'Select Deploy RFID', 'id' => 'selectCard select2-materialize-card', 'class' => 'form-control'] ) !!}
+                                @endif
+                                @if ($errors->has('card_list'))
+                                    <div class="form-control-feedback">
+                                    <small>
+                                        {{ $errors->first('card_list') }}
+                                        </small>
+                                    </div>
+                                @endif
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <div class="form-group {{ $errors->has('truck_list') ? ' has-danger' : '' }}">
+                                <label for="selectCard">Plate Number</label>
+                                {!! Form::select('truck_list', $trucks, null, ['placeholder' => 'Select Plate Number', 'id' => 'selectCard select2-materialize-truck', 'class' => 'form-control'] ) !!}
+                                @if ($errors->has('truck_list'))
+                                    <div class="form-control-feedback">
+                                    <small>
+                                        {{ $errors->first('truck_list') }}
+                                        </small>
+                                    </div>
+                                @endif
+                        </div>
+                    </div>
+                </div>
+
+            <div class="form-row">
+                <div class="col-md-12">
+                    <div class="form-group {{ $errors->has('name') ? ' has-danger' : '' }}">
+                        <label for="driverName">Full Name</label>
+                        {{ Form::text('name', null, ['class' => 'form-control', 'id' => 'driverName', 'placeholder' => 'Enter First Name']) }}
+                        @if ($errors->has('name'))
+                                <div class="form-control-feedback">
+                                    <small>
+                                    {{ $errors->first('name') }}
+                                    </small>
+                                </div>
+                            @endif
+                    </div>
+                </div>
+
+              </div>
+
+            <div class="form-row">
+               
+                    <div class="col-md-6">
+                     <div class="form-group {{ $errors->has('driver_license') ? ' has-danger' : '' }}">
+                    <label for="driverLicense">License Number</label>
+                    {{Form::text('driver_license', null, ['class' => 'form-control', 'placeholder' => 'Enter License Number', "data-inputmask" => "'mask': 'a99-99-999999'", 'data-mask'])}}
+                    @if ($errors->has('driver_license'))
+                            <div class="form-control-feedback">
+                                <small>
+                                {{ $errors->first('driver_license') }}
+                                </small>
+                            </div>
+                        @endif
+                    </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group {{ $errors->has('nbi_number') ? ' has-danger' : '' }}">
+                        <label for="nbiNumber">NBI Number</label>
+                        {{ Form::text('nbi_number', null, ['class' => 'form-control', 'placeholder' => 'Enter NBI Number', "data-inputmask" => "'mask': '99999999'", 'data-mask']) }}
+                        @if ($errors->has('nbi_number'))
+                            <div class="form-control-feedback">
+                                    <small>
+                                    {{ $errors->first('nbi_number') }}
+                                    </small>
+                                </div>
+                        @endif
+                        </div>
+                    </div>
+
+                </div>
+
+            <div class="form-row">
+                <div class="col-md-12">
+                    <div class="form-group {{ $errors->has('phone_number') ? ' has-danger' : '' }}">
+                    <label>Phone Number</label>
+                    {{Form::text('phone_number', null, ['class' => 'form-control','placeholder' => 'Phone Number', "data-inputmask" => "'mask': '[9999999999]'", 'data-mask'])}}
+                       @if ($errors->has('phone_number'))
+                            <div class="form-control-feedback">
+                                    <small>
+                                    {{ $errors->first('phone_number') }}
+                                    </small>
+                                </div>
+                        @endif
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="input-field col s12">
-                @if(!Request::is('drivers/create'))
-                    <input type="text" disabled class="validate" value="{{ date('F d,Y', strtotime($driver->updated_at)) == 'January 01,1970' ? '-- -- --' :  date('F d,Y', strtotime($driver->updated_at)) }}">
-                @else
-                    <input type="text" disabled class="validate" value="">
-                @endif
-                    <label>Update Date:</label>
-                </div>
-            </div>            
+            
+             <button type="submit"  class="btn btn-primary btn-block" href="login.html">Submit</button>
+          </form>
         </div>
-    </div>
+      </div>
+
+ 
 
 
 @section('script')
     <script>
+
+        $("[data-mask]").inputmask();
+    
         $("#select2-materialize-truck").select2({
             placeholder: "Select Plate Number",
             allowClear: true,
@@ -196,8 +176,5 @@
             allowClear: true,
         });
 
-    </script>
-    <script>
-        $('select').material_select();
     </script>
 @endsection

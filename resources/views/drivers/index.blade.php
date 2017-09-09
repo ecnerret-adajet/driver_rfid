@@ -2,13 +2,22 @@
 
 @section('content')
 
-<drivers></drivers>
 
-<div class="fixed-action-btn">
-  <a class="btn-floating btn-large waves-effect waves-light red" href="{{url('drivers/create')}}">
-      <i class="material-icons">add</i>
-  </a>
-</div>
+   <div class="card mx-auto">
+        <div class="card-header">
+        All Drivers
+
+        <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
+        Back
+        </a>
+        </div>
+        <div class="card-body">
+            <drivers></drivers>
+        </div><!-- end card-body -->
+    </div> <!-- end card -->
+
+
+
 @endsection
 
 
