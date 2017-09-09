@@ -32569,6 +32569,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -35220,7 +35237,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "custom-search-input"
     }
   }, [_c('div', {
-    staticClass: "input-group col-sm-11"
+    staticClass: "input-group col-sm-12 col-md-12 col-lg-12 mb-2 p-0"
   }, [_c('input', {
     directives: [{
       name: "model",
@@ -35242,72 +35259,71 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.searchString = $event.target.value
       }
     }
-  }), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
-    staticClass: "col-sm-1"
-  }, [_c('div', {
-    staticClass: "dropdown show"
-  }, [_vm._m(1), _vm._v(" "), _c('div', {
-    staticClass: "dropdown-menu",
-    attrs: {
-      "aria-labelledby": "dropdownMenuLink"
-    }
-  }, [_c('a', {
+  }), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "dropdown pull-right"
+  }, [_vm._m(1), _vm._v(" "), _c('ul', {
+    staticClass: "dropdown-menu"
+  }, [_c('li', [_c('a', {
     staticClass: "dropdown-item",
     attrs: {
       "href": _vm.export_link
     }
-  }, [_vm._v("Export as Excel")])])])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Export as Excel")])])])])])])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-sm-12"
   }, [(!_vm.loading) ? _c('div', [_c('ul', {
     staticClass: "list-group"
-  }, [_c('li', {
+  }, [_vm._l((_vm.filteredDriver), function(driver) {
+    return _c('li', {
+      staticClass: "list-group-item"
+    }, [_c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "col-sm-1"
+    }, [_c('img', {
+      staticClass: "rounded-circle",
+      staticStyle: {
+        "height": "60px",
+        "width": "auto"
+      },
+      attrs: {
+        "src": _vm.avatar_link + driver.avatar,
+        "align": "middle"
+      }
+    })]), _vm._v(" "), _c('div', {
+      staticClass: "col-sm-5"
+    }, [_c('a', {
+      attrs: {
+        "href": '/driver_rfid/public/drivers/' + driver.id
+      }
+    }, [_vm._v(_vm._s(driver.name))]), _vm._v(" : "), _c('small', [_vm._v(_vm._s(driver.cardholder.Name))]), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.trucks), function(truck) {
+      return _c('span', [_vm._v("\n                                              " + _vm._s(truck.plate_number) + "\n                                          ")])
+    }), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.haulers), function(hauler) {
+      return _c('span', [_vm._v("\n                                              " + _vm._s(hauler.name) + "\n                                          ")])
+    })], 2), _vm._v(" "), _c('div', {
+      staticClass: "col-sm-3"
+    }, [(driver.card != null) ? _c('span', {
+      staticClass: "badge badge-primary"
+    }, [_vm._v("\n                                              Card Assigned\n                                          ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                          COUNT LOGS: "), _c('strong', [_vm._v(" " + _vm._s(driver.cardholder.logs.length == null ? '0' : driver.cardholder.logs.length) + " ")])]), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                          COUNT UPDATE: "), _c('strong', [_vm._v(" " + _vm._s(driver.update_count == null ? 0 : driver.update_count) + " ")])])]), _vm._v(" "), _c('div', {
+      staticClass: "col-sm-3 pull-right right"
+    }, [_c('div', {
+      staticClass: "dropdown pull-right"
+    }, [_vm._m(2, true), _vm._v(" "), _c('ul', {
+      staticClass: "dropdown-menu"
+    }, [_c('li', [_c('a', {
+      attrs: {
+        "href": _vm.driver_link + driver.id + '/edit'
+      }
+    }, [_vm._v("\n                                                       Edit Driver\n                                                      ")])])])])])])])
+  }), _vm._v(" "), (_vm.filteredDriver.length == 0) ? _c('li', {
     staticClass: "list-group-item"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-sm-1"
-  }, [_c('img', {
-    staticClass: "rounded-circle",
-    staticStyle: {
-      "height": "60px",
-      "width": "auto"
-    },
-    attrs: {
-      "src": _vm.avatar_link + _vm.driver.avatar,
-      "align": "middle"
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "col-sm-5"
-  }, [_c('a', {
-    attrs: {
-      "href": '/driver_rfid/public/drivers/' + _vm.driver.id
-    }
-  }, [_vm._v(_vm._s(_vm.driver.name))]), _vm._v(" : "), _c('small', [_vm._v(_vm._s(_vm.driver.cardholder.Name))]), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((_vm.driver.trucks), function(truck) {
-    return _c('span', [_vm._v("\n                                              " + _vm._s(truck.plate_number) + "\n                                          ")])
-  }), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((_vm.driver.haulers), function(hauler) {
-    return _c('span', [_vm._v("\n                                              " + _vm._s(hauler.name) + "\n                                          ")])
-  })], 2), _vm._v(" "), _c('div', {
-    staticClass: "col-sm-3 pull-right right"
-  }, [(_vm.driver.card != null) ? _c('span', {
-    staticClass: "badge badge-default"
-  }, [_vm._v("\n                                              Card Assigned\n                                          ")]) : _vm._e(), _vm._v(" "), _c('a', {
-    attrs: {
-      "href": _vm.driver_link + _vm.driver.id + '/edit'
-    }
-  }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("open_in_new")])]), _vm._v(" "), _c('br')]), _vm._v(" "), _c('div', {
-    staticClass: "col-sm-3"
-  }, [_c('span', [_vm._v("\n                                          COUNT LOGS: "), _c('strong', [_vm._v(" " + _vm._s(_vm.driver.cardholder.logs.length == null ? '0' : _vm.driver.cardholder.logs.length) + " ")])]), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                          COUNT UPDATE: "), _c('strong', [_vm._v(" " + _vm._s(_vm.driver.update_count == null ? 0 : _vm.driver.update_count) + " ")])])])])]), _vm._v(" "), (_vm.filteredDriver.length == 0) ? _c('li', {
-    staticClass: "list-group-item"
-  }, [_vm._m(2)]) : _vm._e()])]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
+  }, [_vm._m(3)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
     staticClass: "center-align",
     staticStyle: {
       "padding-top": "50px"
     }
-  }, [_vm._m(3)]) : _vm._e()])])])
+  }, [_vm._m(4)]) : _vm._e()])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "input-group-btn"
@@ -35316,18 +35332,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "button"
     }
-  }, [_c('span', {
-    staticClass: " glyphicon glyphicon-search"
+  }, [_c('i', {
+    staticClass: "fa fa-search"
   })])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
-    staticClass: "btn btn-secondary dropdown-toggle",
+    staticClass: "btn btn-primary btn-block",
     attrs: {
-      "href": "https://example.com",
-      "id": "dropdownMenuLink",
-      "data-toggle": "dropdown",
-      "aria-haspopup": "true",
-      "aria-expanded": "false"
+      "href": "javascript:void(0);",
+      "data-toggle": "dropdown"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-ellipsis-v"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
+    attrs: {
+      "href": "javascript:void(0);",
+      "data-toggle": "dropdown"
     }
   }, [_c('i', {
     staticClass: "fa fa-ellipsis-v"
@@ -45846,10 +45868,10 @@ module.exports = function(module) {
 __webpack_require__(126);
 __webpack_require__(130);
 __webpack_require__(133);
-__webpack_require__(131);
 __webpack_require__(129);
 __webpack_require__(128);
 __webpack_require__(127);
+__webpack_require__(131);
 module.exports = __webpack_require__(132);
 
 

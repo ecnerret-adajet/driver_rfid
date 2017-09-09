@@ -88,21 +88,24 @@
           </li>
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
             <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
-              <i class="fa fa-fw fa-sitemap"></i>
+              <i class="fa fa-fw fa-file"></i>
               <span class="nav-link-text">
-                Settings</span>
+                Administration</span>
             </a>
             <ul class="sidenav-second-level collapse" id="collapseMulti">
               <li>
                 <a href="#">Approver's Email</a>
               </li>
+               <li>
+                <a href="#">System Logs</a>
+              </li>
             </ul>
           </li>
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
             <a class="nav-link" href="#">
-              <i class="fa fa-fw fa-link"></i>
+              <i class="fa fa-fw fa-file"></i>
               <span class="nav-link-text">
-                Link</span>
+                Pending RFID</span>
             </a>
           </li>
         </ul>
