@@ -33443,6 +33443,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -34741,25 +34745,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "list-group-item"
     }, [_c('div', {
       staticClass: "row"
-    }, [_c('div', {
-      staticClass: "col-sm-1"
-    }, [_c('img', {
-      staticClass: "rounded-circle",
-      staticStyle: {
-        "height": "60px",
-        "width": "auto"
-      },
-      attrs: {
-        "src": _vm.avatar_link + _vm.driver.avatar,
-        "align": "middle"
-      }
-    })]), _vm._v(" "), _c('div', {
+    }, [_vm._m(2, true), _vm._v(" "), _c('div', {
       staticClass: "col-sm-5"
     }, [_vm._v("\n                                           " + _vm._s(truck.plate_number) + "  : "), _vm._l((truck.drivers), function(driver) {
       return _c('small', {
-        staticClass: "chip"
+        staticClass: "badge badge-primary mr-2"
       }, [_vm._v(_vm._s(driver.cardholder.Name))])
-    }), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((truck.haulers), function(hauler) {
+    }), _vm._v(" "), _vm._l((truck.haulers), function(hauler) {
       return _c('span', [_vm._v("\n                                              " + _vm._s(hauler.name) + "\n                                           ")])
     }), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((truck.drivers), function(driver) {
       return _c('span', [_vm._v("\n                                                " + _vm._s(driver.name) + "\n                                           ")])
@@ -34771,7 +34763,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "col-sm-3 pull-right right"
     }, [_c('div', {
       staticClass: "dropdown pull-right"
-    }, [_vm._m(2, true), _vm._v(" "), _c('ul', {
+    }, [_vm._m(3, true), _vm._v(" "), _c('ul', {
       staticClass: "dropdown-menu"
     }, [_c('li', [_c('a', {
       attrs: {
@@ -34780,12 +34772,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n                                                        Edit Truck\n                                                       ")])])])])])])])
   }), _vm._v(" "), (_vm.filteredTruck.length == 0) ? _c('li', {
     staticClass: "list-group-item"
-  }, [_vm._m(3)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
+  }, [_vm._m(4)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
     staticClass: "center-align",
     staticStyle: {
       "padding-top": "50px"
     }
-  }, [_vm._m(4)]) : _vm._e()])])])
+  }, [_vm._m(5)]) : _vm._e()])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "input-group-btn"
@@ -34807,6 +34799,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "fa fa-ellipsis-v"
   })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-sm-1"
+  }, [_c('span', {
+    staticClass: "fa-stack fa-lg"
+  }, [_c('i', {
+    staticClass: "fa fa-circle fa-stack-2x"
+  }), _vm._v(" "), _c('i', {
+    staticClass: "fa fa-user-o fa-stack-1x fa-inverse"
+  })])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
     attrs: {

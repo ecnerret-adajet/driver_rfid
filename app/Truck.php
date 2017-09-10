@@ -19,6 +19,11 @@ class Truck extends Model
         'validity_end_date',
     ];
 
+    protected $dates = [
+        'validity_start_date',
+        'validity_end_date'
+    ];
+
     public function drivers()
     {
     	return $this->belongsToMany(Driver::class);

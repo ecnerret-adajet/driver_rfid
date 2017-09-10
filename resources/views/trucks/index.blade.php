@@ -11,7 +11,7 @@
         <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
         Back
         </a>
-         <a class="btn btn-primary btn-sm pull-right" href="{{ url('trucks/create') }}">
+         <a class="btn btn-primary btn-sm pull-right mr-2" href="{{ url('trucks/create') }}">
         Add New Truck
         </a>
         </div>

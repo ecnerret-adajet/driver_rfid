@@ -14,14 +14,16 @@
                         </a>
                     </div>
                     <div class="card-body">
-                        <form>
+                      
 
                 {!! Form::model($truck = new \App\Truck, ['url' => 'trucks', 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
                 {!! csrf_field() !!}
+                  <form>
                 @include('trucks.form')
+                </form>
                 {!! Form::close() !!}
 
-                  </form>
+                  
                 </div>
                 </div>
 

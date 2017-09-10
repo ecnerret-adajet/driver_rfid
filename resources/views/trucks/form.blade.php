@@ -6,7 +6,7 @@
                  <div class="col-md-6">
                     <div class="form-group {{ $errors->has('plate_number') ? ' has-danger' : '' }}">
                         <label>Plate Number</label>
-                        {{ Form::text('plate_number', null, ['class' => 'form-control', 'id' => 'driverName', 'placeholder' => 'Enter First Name']) }}
+                        {{ Form::text('plate_number', null, ['class' => 'form-control', 'id' => 'driverName', 'placeholder' => 'Enter Plate Number', "data-inputmask" => "'mask': 'aaa-9999'", 'data-mask']) }}
                         @if ($errors->has('plate_number'))
                             <div class="form-control-feedback">
                                 <small>
@@ -57,7 +57,7 @@
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('capacity_list') ? ' has-danger' : '' }}">
                             <label for="selectCard">Capacity</label>
-                            {!! Form::select('capacity_list', $capacities, null, ['placeholder' => 'Select Capacity', 'id' => 'selectCard select2-materialize-truck', 'class' => 'form-control'] ) !!}
+                            {!! Form::select('capacity_list', $capacities, null, ['placeholder' => 'Select Capacity', 'id' => 'selectCard select2-materialize-capacity', 'class' => 'form-control'] ) !!}
                             @if ($errors->has('capacity_list'))
                                 <div class="form-control-feedback">
                                 <small>
@@ -70,11 +70,40 @@
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('contract_list') ? ' has-danger' : '' }}">
                             <label for="selectCard">Contract Code</label>
-                            {!! Form::select('contract_list', $contracts, null, ['placeholder' => 'Select Contract Code', 'id' => 'selectCard select2-materialize-truck', 'class' => 'form-control'] ) !!}
+                            {!! Form::select('contract_list', $contracts, null, ['placeholder' => 'Select Contract Code', 'id' => 'selectCard select2-materialize-contract', 'class' => 'form-control'] ) !!}
                             @if ($errors->has('contract_list'))
                                 <div class="form-control-feedback">
                                 <small>
                                     {{ $errors->first('contract_list') }}
+                                    </small>
+                                </div>
+                            @endif
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-6">
+                    <div class="form-group {{ $errors->has('vendor_description') ? ' has-danger' : '' }}">
+                            <label for="selectCard">Vendor Number</label>
+                            {!! Form::select('vendor_description', $vendors, null, ['placeholder' => 'Select Vendor', 'id' => 'selectCard select2-materialize-capacity', 'class' => 'form-control'] ) !!}
+                            @if ($errors->has('vendor_description'))
+                                <div class="form-control-feedback">
+                                <small>
+                                    {{ $errors->first('vendor_description') }}
+                                    </small>
+                                </div>
+                            @endif
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group {{ $errors->has('subvendor_description') ? ' has-danger' : '' }}">
+                            <label for="selectCard">Subvendor Number</label>
+                            {!! Form::select('subvendor_description', $subvendors, null, ['placeholder' => 'Select Subvendor', 'id' => 'selectCard select2-materialize-contract', 'class' => 'form-control'] ) !!}
+                            @if ($errors->has('subvendor_description'))
+                                <div class="form-control-feedback">
+                                <small>
+                                    {{ $errors->first('subvendor_description') }}
                                     </small>
                                 </div>
                             @endif
@@ -117,6 +146,8 @@
 
 @section('script')
     <script>
+
+        $("[data-mask]").inputmask();
         
         $("#select2-materialize-card").select2({
             placeholder: "Select Card",

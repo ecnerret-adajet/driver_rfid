@@ -14,17 +14,17 @@
             </a>
             </div>
             <div class="card-body">
-            <form>
+            
         
                
                     {!! Form::model($setting, ['method' => 'PATCH','route' => ['settings.update', $setting->id], 'enctype'=>'multipart/form-data']) !!}
                     {!! csrf_field() !!}
-
+                        <form>
                     @include('settings.form')
-                    
+                        </form>
                     {!! Form::close() !!}
 
-                </form>
+                
             </div>
         </div>
 

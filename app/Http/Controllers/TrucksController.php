@@ -38,17 +38,23 @@ class TrucksController extends Controller
         // });
 
 
-        // temporary comment 
-        // $haulers = ['' => ''] + Hauler::pluck('name','id')->all();
+        $haulers = ['' => ''] + Hauler::pluck('name','id')->all();
 
-        // $cards = ['' => ''] + Card::where('CardholderID',0)->pluck('CardNo','CardID')->all();
+        $cards = ['' => ''] + Card::where('CardholderID',0)->pluck('CardNo','CardID')->all();
 
-        // $capacities = ['' => ''] + Capacity::pluck('description','id')->all();
+        $capacities = ['' => ''] + Capacity::pluck('description','id')->all();
 
-        // $contracts = ['' => ''] + Contract::pluck('contract_code','id')->all();
+        $contracts = ['' => ''] + Contract::pluck('contract_code','id')->all();
+
+        $url = "http://10.96.4.39/trucking/rfc_get_vendor.php";
+        $result = file_get_contents($url);
+        $data = json_decode($result,true);
+
+        $subvendors = collect($data)->where('vendor_number', '!=', '0000002000')->pluck('vendor_name','vendor_number');
+        $vendors = collect($data)->pluck('vendor_name','vendor_number');
 
 
-        return view('trucks.create', compact('haulers','cards','capacities','contracts'));
+        return view('trucks.create', compact('haulers','cards','capacities','contracts','subvendors','vendors'));
     }
 
     /**
@@ -60,9 +66,16 @@ class TrucksController extends Controller
     public function store(Request $request)
     {
          $this->validate($request, [
-            'plate_number' => 'required|unique:trucks',
+            'plate_number' => 'required|max:8|min:8|unique:trucks',
+            'card_list' => 'required',
+            'capacity_list' => 'required',
+            'contract_list' => 'required',
+            'validity_start_date' => 'required',
             'vendor_description' => 'required',
-            // 'card_list' => 'required'
+        ],[
+            'card_list.required' => 'RFID Number is required',
+            'capacity_list.required' => 'Capacity Field is required',
+            'contract_list.required' => 'Contract Code is required',
         ]);
 
         $card_rfid = $request->input('card_list');
@@ -114,15 +127,25 @@ class TrucksController extends Controller
      */
     public function update(Request $request, Truck $truck)
     {
-        $this->validate($request, [
-            'plate_number' => 'required',
-            'hauler_list' => 'required',
-            'card_list' => 'required'
+
+         $this->validate($request, [
+            'plate_number' => 'required|max:8|min:8',
+            'card_list' => 'required',
+            'capacity_list' => 'required',
+            'contract_list' => 'required',
+            'validity_start_date' => 'required',
+            'vendor_description' => 'required',
+        ],[
+            'card_list.required' => 'RFID Number is required',
+            'capacity_list.required' => 'Capacity Field is required',
+            'contract_list.required' => 'Contract Code is required',
         ]);
 
         $card_rfid = $request->input('card_list');
+        $capacity_id = $request->input('capacities_list');
         $truck->update($request->all());
         $truck->card()->associate($card_rfid);
+        $truck->capacity()->associate($capacity_id);
         $truck->save();
 
         return redirect('trucks');

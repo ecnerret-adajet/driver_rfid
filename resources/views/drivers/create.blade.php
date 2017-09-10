@@ -14,14 +14,16 @@
          </a>
         </div>
         <div class="card-body">
-          <form>
+          
     
-             {!! Form::model($driver = new \App\Driver, ['url' => 'drivers', 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
-        {!! csrf_field() !!}
-        @include('drivers.form')
-        {!! Form::close() !!}
+          {!! Form::model($driver = new \App\Driver, ['url' => 'drivers', 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
+          {!! csrf_field() !!}
+          <form>
+          @include('drivers.form')
+          </form>
+          {!! Form::close() !!}
 
-              </form>
+          
         </div>
       </div>
 

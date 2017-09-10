@@ -40,11 +40,15 @@
                                 <li v-for="truck in filteredTruck" class="list-group-item">
                                     <div class="row">   
                                         <div class="col-sm-1">
-                                             <img :src="avatar_link + driver.avatar" class="rounded-circle" style="height: 60px; width: auto;"  align="middle">
+
+                                            <span class="fa-stack fa-lg">
+                                                <i class="fa fa-circle fa-stack-2x"></i>
+                                                <i class="fa fa-user-o fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                        
                                         </div>
                                         <div class="col-sm-5">
-                                            {{truck.plate_number}}  : <small class="chip" v-for="driver in truck.drivers">{{ driver.cardholder.Name }}</small>
-                                            <br/>
+                                            {{truck.plate_number}}  : <small class="badge badge-primary mr-2" v-for="driver in truck.drivers">{{ driver.cardholder.Name }}</small>
                                             <span  v-for="hauler in truck.haulers">
                                                {{ hauler.name }}
                                             </span>
