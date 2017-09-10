@@ -9,6 +9,7 @@
         <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
         Back
         </a>
+        
         </div>
         <div class="card-body">
 
@@ -18,8 +19,12 @@
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-12">
-                            <label>Approvers Email</label>
-                                    {{ Form::select('user_list', null, $setting->user->id, ['class' => 'form-control', 'placeholder' => 'Select User','disabled']) }}                 
+                            <label>Approvers Email</label>                            
+                        
+                            <select class="form-control" disabled>
+                                <option value="0" selected="selected">{{ $setting->user->name }}</option>
+                            </select>
+
                             </div> 
                         </div>
                     </div>

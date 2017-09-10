@@ -8,7 +8,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Driver;
 use App\Truck;
-use App\Hauler;
 
 class ConfirmDriver extends Notification
 {
@@ -54,11 +53,15 @@ class ConfirmDriver extends Notification
 
         foreach($this->driver->trucks as $truck){
             $truck_name = $truck->plate_number;
+
+            foreach($truck->haulers as $hauler){
+
+            $hauler_name = $hauler->name;
+
+            }
         }
 
-        foreach($this->driver->haulers as $hauler){
-            $hauler_name = $hauler->name;
-        }
+        
 
         return (new MailMessage)
             ->success()

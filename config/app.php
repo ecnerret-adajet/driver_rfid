@@ -173,6 +173,7 @@ return [
         Spatie\Activitylog\ActivitylogServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
+        MercurySeries\Flashy\FlashyServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -236,6 +237,7 @@ return [
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Toast' => Roksta\Toastr\Toast::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Flashy' => MercurySeries\Flashy\Flashy::class,
 
     ],
 

@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Card extends Model
 {
+
+    use LogsActivity;
+
     protected $connection = "sqlsrv_two";
     protected $table = "Card";
     public $timestamps = false;
@@ -19,6 +23,10 @@ class Card extends Model
         'FingerprintExist',
         'DataGroupID',
         'DisableLockCard',
+    ];
+
+    protected static $logAttributes = [
+        'binders', 
     ];
 
     public function cardholder()

@@ -15,7 +15,7 @@ use App\Truck;
 use App\User;
 use App\Binder;
 use App\Card;
-use Toast;
+use Flashy;
 use App\Setting;
 use Excel;
 use App\Log;
@@ -39,17 +39,11 @@ class DriversController extends Controller
     public function create()
     {
         $clasifications = Clasification::pluck('name','id');
-        $haulers = ['' => ''] + Hauler::pluck('name','id')->all();
         $trucks = ['' => ''] + Truck::pluck('plate_number','id')->all();
-
         $cards = ['' => ''] +  Card::pluck('CardNo','CardID')->all();
 
-        // for testing
-        // $rfid_card = Card::whereHas('binders', function($q) {
-        //     $q->where('card_id','1');
-        // })->pluck('CardNo','CardID');
 
-        return view('drivers.create',compact('clasifications','haulers','trucks','cards'));
+        return view('drivers.create',compact('clasifications','trucks','cards'));
     }
 
     /**
@@ -88,7 +82,9 @@ class DriversController extends Controller
         //send email to supervisor for approval
         $setting = Setting::first();
         Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmDriver($driver));
-        
+
+
+        flashy()->success('Driver successfully created!');
         return redirect('drivers');
     }
 

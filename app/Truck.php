@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Truck extends Model
 {
+
+    use LogsActivity;
+
     protected $connection = "sqlsrv";
     protected $fillable = [
     	'plate_number',
@@ -13,6 +17,15 @@ class Truck extends Model
         'reg_number',
         'contract_code',
         'contract_description',
+        'vendor_description',
+        'subvendor_description',
+        'validity_start_date',
+        'validity_end_date',
+    ];
+
+    protected static $logAttributes = [
+        'plate_number', 
+        'availability',
         'vendor_description',
         'subvendor_description',
         'validity_start_date',

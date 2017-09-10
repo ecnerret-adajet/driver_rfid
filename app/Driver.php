@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Driver extends Model
 {
+
+     use LogsActivity;
+
     protected $connection = "sqlsrv";
     protected $fillable = [
     	'avatar',
@@ -20,6 +24,11 @@ class Driver extends Model
         'notif_status',
         'driver_license',
         'nbi_number',
+    ];
+
+    protected static $logAttributes = [
+        'name', 
+        'cardholder_id',
     ];
 
     /**
