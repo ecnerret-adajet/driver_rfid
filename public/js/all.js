@@ -43736,7 +43736,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     Sanitize Title
     If the caption data is trusted, for example you are hardcoding it in, then leave this to false.
     This will free you to add html tags, such as links, in the caption.
-     If the caption data is user submitted or from some other untrusted source, then set this to true
+      If the caption data is user submitted or from some other untrusted source, then set this to true
     to prevent xss and other injection attacks.
      */
     sanitizeTitle: false
@@ -43838,10 +43838,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
     /*
       Show context menu for image on right-click
-       There is a div containing the navigation that spans the entire image and lives above of it. If
+        There is a div containing the navigation that spans the entire image and lives above of it. If
       you right-click, you are right clicking this div and not the image. This prevents users from
       saving the image or using other context menu actions with the image.
-       To fix this, when we detect the right mouse button is pressed down, but not yet clicked, we
+        To fix this, when we detect the right mouse button is pressed down, but not yet clicked, we
       set pointer-events to none on the nav div. This is so that the upcoming right-click event on
       the next mouseup will bubble down to the image. Once the right-click/contextmenu event occurs
       we set the pointer events back to auto for the nav div so it can capture hover and left-click
@@ -46595,10 +46595,6 @@ module.exports = function spread(callback) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
 //
 //
 //
@@ -65316,8 +65312,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       return _c('span', _vm._l((binder), function(rfid) {
         return _c('span', [_vm._v("\r\n                                        " + _vm._s(rfid.name) + "\r\n                                    ")])
       }))
-    }), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((_vm.driver.haulers), function(hauler) {
-      return _c('span', [_vm._v("\r\n                                    " + _vm._s(hauler.name) + "\r\n                                ")])
     })], 2), _vm._v(" "), _c('div', {
       staticClass: "col-sm-3 pull-right right"
     }, [_c('div', {

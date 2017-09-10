@@ -38,10 +38,6 @@
                                         {{ rfid.name }}
                                     </span>
                                 </span>
-                                <br/>
-                                <span v-for="hauler in driver.haulers">
-                                    {{hauler.name}}
-                                </span>
                             </div>
                             <div class="col-sm-3 pull-right right">
                                 <div class="dropdown pull-right">
