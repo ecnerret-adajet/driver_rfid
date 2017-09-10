@@ -79,10 +79,10 @@
             </a>
             <ul class="sidenav-second-level collapse" id="collapseExamplePages">
               <li>
-                <a href="login.html">All Users</a>
+                <a href="{{url('/users')}}">All Users</a>
               </li>
               <li>
-                <a href="register.html">Roles</a>
+                <a href="{{url('/roles')}}">Roles</a>
               </li>
             </ul>
           </li>
@@ -94,7 +94,7 @@
             </a>
             <ul class="sidenav-second-level collapse" id="collapseMulti">
               <li>
-                <a href="#">Approver's Email</a>
+                <a href="{{url('/settings')}}">Approver's Email</a>
               </li>
                <li>
                 <a href="#">System Logs</a>

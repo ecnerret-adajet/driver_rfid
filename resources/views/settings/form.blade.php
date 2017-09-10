@@ -1,45 +1,22 @@
 
-
-    <div class="col m12">
-        <div class="card-panel grey lighten-4">
-     
-                <form class="col s12">
-
-
-                    <div class="row">
-                       <div class="input-field col s12">
-                       @if(count($setting->user) == 0)
-                        {{ Form::select('user_list', $users, null, ['class' => 'validate', 'placeholder' => 'Select User']) }}
-                       @else
-                        {{ Form::select('user_list', $users, $setting->user->id, ['class' => 'validate', 'placeholder' => 'Select User']) }}
-                       @endif
-                        <label>Emailing User</label>
-                        @if ($errors->has('clasification_list'))
-                            <span class="help-block red-text">
-                                <strong>{{ $errors->first('clasification_list') }}</strong>
-                            </span>
-                        @endif
-                        </div> 
-                    </div>
-
-                 
-
-
-                    <div class="row">
-                        <button type="submit" class="btn waves-effect waves-light">Submit
-                            <i class="material-icons right">send</i>
-                        </button>
-                    </div>
-
-                </form>
-
+  <div class="form-group {{ $errors->has('user_list') ? ' has-danger' : '' }}">
+        <div class="form-row">
+            <div class="col-md-12">
+             <label>Approvers Email</label>
+             @if(count($setting->user) == 0)
+            {{ Form::select('user_list', $users, null, ['class' => 'form-control', 'placeholder' => 'Select User']) }}
+            @else
+            {{ Form::select('user_list', $users, $setting->user->id, ['class' => 'form-control', 'placeholder' => 'Select User']) }}
+            @endif
+            @if ($errors->has('user_list'))
+                <div class="form-control-feedback">
+                    <small>
+                    {{ $errors->first('user_list') }}
+                    </small>
+                </div>
+            @endif
+            </div> 
         </div>
-    </div> <!-- end col m12 -->
-</div>
+    </div>
 
-
-@section('script')
-    <script>
-        $('select').material_select();
-    </script>
-@endsection
+    <button type="submit"  class="btn btn-primary btn-block">Submit</button>

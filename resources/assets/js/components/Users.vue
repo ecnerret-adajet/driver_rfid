@@ -1,70 +1,80 @@
 <template>
-    <div>
-         <ul class="collapsible popout" data-collapsible="accordion">
-            <li>
-                <div class="collapsible-header active">Users</div>
-                <div class="collapsible-body grey lighten-5">
 
-                      <div class="row">
-                        <div class="input-group search pull-right">
-                            <span class="input-group-addon opener">
-                            <a>
-                            <i class="material-icons">search</i>
-                            </a>
-                            </span>
-                            <input type="text" v-model="searchUser"  class="form-control" placeholder="Search">
-                            <span class="input-group-addon">
-                            <a>
-                            <i class="material-icons">more_vert</i>
-                            </a>
-                            </span>
-                            <span class="input-group-addon opener">
-                            <a>
-                            <i class="material-icons">clear</i>
-                            </a>
-                            </span>
-                        </div>
-                    </div>
 
-                    <div v-if="!loading">
-                    <table class="highlight">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Last Login</th>
-                            <th></th>
-                        </tr>
-                        </thead>
+  <div>
+               <div clas="row">
 
-                        <tbody>
-                     
-                        <tr v-for="user in filteredUser">
-                            <td>{{ user.name }}</td>
-                            <td>{{ user.email }}</td>
-                            <td v-for="role in user.roles">
-                                <div class="chip blue lighten-3 white-text">
-                                    {{role.name}}
-                                </div>
-                            </td>
-                            <td>{{ moment(user.last_login_at) }}</td>
-                            <td>
-                                <i class="material-icons">delete</i>
-                            </td>
-                        </tr>
+                <div id="custom-search-input">
+                    <div class="input-group col-sm-12 col-md-12 col-lg-12 mb-2 p-0">
 
-                        <tr v-if="filteredUser.length == 0">
-                            <td colspan="5" class="center-align">
-                                <span class="title gray-text">NO USER FOUND</span>
-                            </td>
-                        </tr>
+                        <input type="text" class="  search-query form-control"  v-model="searchUser" placeholder="Search" />
+                        <span class="input-group-btn">
+                        <button class="btn btn-danger" type="button">
+                        <i class="fa fa-search"></i>
+                        </button>
                        
-                        </tbody>
-                    </table>
-                      </div>
+                        </span>
 
-                        <div class="center-align" style="padding-top: 50px" v-if="loading">
+                    </div>
+                       
+                         
+
+                </div>
+            </div> <!-- end row -->
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div v-if="!loading">
+                            <ul class="list-group">
+                                <li v-for="user in filteredUser" class="list-group-item">
+                                    <div class="row">   
+                                        <div class="col-sm-1">
+                                        
+                                            <span class="fa-stack fa-lg">
+                                                <i class="fa fa-circle fa-stack-2x"></i>
+                                                <i class="fa fa-user-o fa-stack-1x fa-inverse"></i>
+                                            </span>
+
+                                        </div>
+                                        <div class="col-sm-5">
+                                            {{ user.name }}
+                                            <br/>
+                                            {{ user.email }}
+                                            <br/>
+                                            <span v-for="role in user.roles">
+                                                 {{role.name}}
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            {{ moment(user.last_login_at) }}
+                                        </div>
+                                        <div class="col-sm-3 pull-right right">
+                                            <div class="dropdown pull-right">
+                                                <a href="javascript:void(0);" data-toggle="dropdown">
+                                                   <i class="fa fa-ellipsis-v"></i>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a href="#">
+                                                         Deactivate User
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </li>
+                                <li v-if="filteredUser.length == 0"  class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-sm-12 center">
+                                            <span>NO RECORD FOUND</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                         <div class="center-align" style="padding-top: 50px" v-if="loading">
                             <div class="preloader-wrapper small active">
                                 <div class="spinner-layer spinner-green-only">
                                     <div class="circle-clipper left">
@@ -77,17 +87,10 @@
                                 </div>
                             </div>
                         </div>
-
-
-                        
+                    </div>
                 </div>
-            </li>
-            <li>
-                <div class="collapsible-header">Roles</div>
-                <div class="collapsible-body"></div>
-            </li>
-        </ul>
-    </div>
+  </div>
+
 </template>
 <script>
 import moment from 'moment';

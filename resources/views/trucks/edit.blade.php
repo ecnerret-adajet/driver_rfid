@@ -1,11 +1,20 @@
 @extends('layouts.app')
 @section('content')
 
-            <div class="row">
-                   
-                    <div class="col s12">
-                    <h4 class="form-title">Edit Truck</h4>
-                     </div>
+          <div class="row">
+
+                <div class="col-sm-12">
+
+                 <div class="card mx-auto">
+                    <div class="card-header">
+                        Edit Truck
+
+                        <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
+                        Back
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <form>
 
 
                     {!! Form::model($truck, ['method' => 'PATCH','route' => ['trucks.update', $truck->id], 'enctype'=>'multipart/form-data']) !!}
@@ -19,10 +28,16 @@
                             
                    
 
+                 </form>
+                </div>
+                </div>
 
 
 
-                </div><!-- end row -->
+                </div>
+
+                
+            </div><!-- end row -->
 
 
 @endsection

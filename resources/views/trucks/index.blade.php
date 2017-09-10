@@ -2,13 +2,26 @@
 
 @section('content')
 
-<trucks></trucks>
 
-<div class="fixed-action-btn">
-  <a class="btn-floating btn-large waves-effect waves-light red" href="{{url('trucks/create')}}">
-      <i class="material-icons">add</i>
-  </a>
-</div>
+
+   <div class="card mx-auto">
+        <div class="card-header">
+        All Trucks
+
+        <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
+        Back
+        </a>
+         <a class="btn btn-primary btn-sm pull-right" href="{{ url('trucks/create') }}">
+        Add New Truck
+        </a>
+        </div>
+        <div class="card-body">
+            <trucks></trucks>
+        </div><!-- end card-body -->
+    </div> <!-- end card -->
+
+
+
 @endsection
 
 

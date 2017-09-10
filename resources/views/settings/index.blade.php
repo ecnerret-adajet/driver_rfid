@@ -2,14 +2,39 @@
 
 @section('content')
 
-    <div class="row">
+   <div class="card mx-auto">
+        <div class="card-header">
+        Approvers Email
 
-        <settings></settings>
+        <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
+        Back
+        </a>
+        </div>
+        <div class="card-body">
 
-    </div><!-- end row -->
+        @foreach($settings as $setting)
+
+                <form>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-12">
+                            <label>Approvers Email</label>
+                                    {{ Form::select('user_list', null, $setting->user->id, ['class' => 'form-control', 'placeholder' => 'Select User','disabled']) }}                 
+                            </div> 
+                        </div>
+                    </div>
+
+                <a href="{{url('/settings/'.$setting->id.'/edit')}}" class="btn btn-primary btn-block">Edit</a>
+
+                </form>
+
+        @endforeach
+
+           
 
 
-
+        </div><!-- end card-body -->
+    </div> <!-- end card -->
 
 
 @endsection

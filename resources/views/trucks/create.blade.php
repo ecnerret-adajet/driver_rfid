@@ -5,10 +5,26 @@
 
                 <div class="col-sm-12">
 
+                 <div class="card mx-auto">
+                    <div class="card-header">
+                        Add New Truck
+
+                        <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
+                        Back
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <form>
+
                 {!! Form::model($truck = new \App\Truck, ['url' => 'trucks', 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
                 {!! csrf_field() !!}
                 @include('trucks.form')
                 {!! Form::close() !!}
+
+                  </form>
+                </div>
+                </div>
+
 
 
                 </div>

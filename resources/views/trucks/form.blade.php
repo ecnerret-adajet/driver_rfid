@@ -1,15 +1,6 @@
 
 
-   <div class="card mx-auto">
-    <div class="card-header">
-        Add New Driver
-
-        <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
-        Back
-        </a>
-    </div>
-    <div class="card-body">
-        <form>
+  
 
             <div class="form-row">
                  <div class="col-md-6">
@@ -122,10 +113,7 @@
         
         
              <button type="submit"  class="btn btn-primary btn-block" href="login.html">Submit</button>
-        </form>
-    </div>
-    </div>
-
+      
 
 @section('script')
     <script>

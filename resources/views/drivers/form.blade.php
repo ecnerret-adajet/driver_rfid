@@ -1,31 +1,21 @@
       
-      
-      
-      <div class="card mx-auto">
-        <div class="card-header">
-         Add New Driver
-
-         <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
-            Back
-         </a>
-        </div>
-        <div class="card-body">
-          <form>
 
                 @if(!Request::is('drivers/create'))
-                    <div class="form-group">
+                    <div class="form-group {{ $errors->has('clasification_list') ? ' has-danger' : '' }}">
                         <div class="form-row">
                             <div class="col-md-12">
+                            <label>Clasification</label>
                             @if(count($driver->clasification) == 0)
                             {{ Form::select('clasification_list', $clasifications, null, ['class' => 'form-control', 'placeholder' => 'Select Clasification']) }}
                             @else
                             {{ Form::select('clasification_list', $clasifications, $driver->clasification->id, ['class' => 'form-control', 'placeholder' => 'Select Clasification']) }}
                             @endif
-                            <label>Clasification</label>
                             @if ($errors->has('clasification_list'))
-                                <span class="help-block red-text">
-                                    <strong>{{ $errors->first('clasification_list') }}</strong>
-                                </span>
+                                <div class="form-control-feedback">
+                                    <small>
+                                    {{ $errors->first('clasification_list') }}
+                                    </small>
+                                </div>
                             @endif
                             </div> 
                         </div>
@@ -143,10 +133,8 @@
                 </div>
             </div>
             
-             <button type="submit"  class="btn btn-primary btn-block" href="login.html">Submit</button>
-          </form>
-        </div>
-      </div>
+             <button type="submit"  class="btn btn-primary btn-block">Submit</button>
+    
 
  
 
