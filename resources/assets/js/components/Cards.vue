@@ -1,69 +1,78 @@
 <template>
 <div>
 
-      <div class="row">
-            <div class="input-group search pull-right">
-                <span class="input-group-addon opener">
-                <a>
-                <i class="material-icons">search</i>
-                </a>
+
+    <div clas="row">
+        <div id="custom-search-input">
+            <div class="input-group col-sm-12 col-md-12 col-lg-12 mb-2 p-0">
+                <input type="text" class="  search-query form-control"  v-model="searchString" placeholder="Search" />
+                <span class="input-group-btn">
+                <button class="btn btn-danger" type="button">
+                <i class="fa fa-search"></i>
+                </button>
                 </span>
-                <input type="text" v-model="searchString"  class="form-control" placeholder="Search">
-                <span class="input-group-addon">
-                <a>
-                <i class="material-icons">more_vert</i>
-                </a>
-                </span>
-                <span class="input-group-addon opener">
-                <a>
-                <i class="material-icons">clear</i>
-                </a>
-                </span>
+            </div>                
+        </div>
+    </div> <!-- end row -->
+
+
+         <div class="row">
+        <div class="col-sm-12">
+            <div v-if="!loading">
+                <ul class="list-group">
+                    <li v-for="card in filteredCard" class="list-group-item">
+                        <div class="row">   
+                            <div class="col-sm-1">
+
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-user-o fa-stack-1x fa-inverse"></i>
+                                </span>
+                            
+                            </div>
+                            <div class="col-sm-8">
+                                {{card.CardNo}}
+                                <br/>
+                                <span v-for="binder in card.binders">
+                                    <span v-for="rfid in binder">
+                                        {{ rfid.name }}
+                                    </span>
+                                </span>
+                                <br/>
+                                <span v-for="hauler in driver.haulers">
+                                    {{hauler.name}}
+                                </span>
+                            </div>
+                            <div class="col-sm-3 pull-right right">
+                                <div class="dropdown pull-right">
+                                    <a href="javascript:void(0);" data-toggle="dropdown">
+                                        <i class="fa fa-ellipsis-v"></i>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a :href="cards_link + card.CardID">
+                                                Edit Card
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </li>
+                    <li v-if="filteredCard.length == 0"  class="list-group-item">
+                        <div class="row">
+                            <div class="col-sm-12 center">
+                                <span>NO RECORD FOUND</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+                <div class="center-align" style="padding-top: 50px" v-if="loading">
+                <div class="loader center">Loading...</div>
             </div>
         </div>
-
-    <div class="had-container">
-
-        <div v-if="!loading">
-            <ul class="collection">
-                <li v-for="card in filteredCard" class="collection-item avatar">
-
-                    <i class="material-icons circle">nfc</i>
-
-                    <span class="title">{{card.CardNo}}</span>
-                    <p v-for="binder in card.binders">
-                     <span v-for="rfid in binder"> {{ rfid.name }}</span>
-                    </p>
-                    <p>
-                    </p>
-
-                    <p class="secondary-content right-align">
-                        <a :href="cards_link + card.CardID"><i class="material-icons">open_in_new</i></a><br/>
-                        <!-- <span>
-                        COUNT UPDATE: {{ truck.update_count == null ? 0 : truck.update_count  }}
-                        </span> -->
-                    </p>
-                </li>
-                <li v-if="filteredCard.length == 0" class="collection-item avatar center-align">
-                    <span class="title">NO TRUCK FOUND</span>
-                </li>
-            </ul>
-        </div>
-
-        <div class="center-align" style="padding-top:50px" v-if="loading">
-            <div class="preloader-wrapper small active">
-                <div class="spinner-layer spinner-green-only">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div><div class="gap-patch">
-                        <div class="circle"></div>
-                    </div><div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 
 </div>

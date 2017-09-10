@@ -1,78 +1,124 @@
 @extends('layouts.app')
 @section('content')
 
+
+<div class="card mx-auto">
+        <div class="card-header">
+        Driver's Information
+
+        <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
+        Back
+        </a>
+        </div>
+        <div class="card-body">
+
             <div class="row">
 
-                <div class="col s12">
-                    <h4 class="form-title">Truck Status</h4>
+                <div class="col-sm-2">
+                    @foreach($log->drivers as $driver)
+                         <img class="img-responsive rounded-circle" style="height: 150px; width: auto;" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}">
+                    @endforeach                
                 </div>
 
+                <div class="col-sm-4">
+                    <span class="text-muted">DRIVER NAME:</span><br/>
+                    @foreach($log->drivers as $driver)
+                        {{  $driver->name }}
+                    <br/> 
+                    <br/>
+                    <span class="text-muted">PLATE NUMBER:</span><br/>
+                        @foreach($driver->trucks as $truck)
+                            {{$truck->plate_number}}
+                    <br/>
+                    <br/>
+                    <span class="text-muted">HAULER:</span><br/>
+                     @if($truck->vendor_description == null)
+                        @foreach($truck->haulers as $hauler)
+                                {{ $hauler->name }}
+                        @endforeach
+                    @else
+                        {{ $truck->vendor_description }}
+                    @endif
+                      @endforeach
+                    @endforeach
 
-                
-                <div class="col s12">
-                    <div class="card-panel grey lighten-4">
-                        <div class="row">
-
-                        
-                            <div class="col s2">
-                                <img alt="" class="circle responsive-img" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}">
-                            </div>
-
-                            <div class="col s3">
-
-                                <div class="row">
-                                    <small class="grey-text">DRIVER NAME </small><br/>
-                                            {{  $driver->name }}
-                                </div>
-
-                                <div class="row">
-                                    <small class="grey-text">TIME IN </small><br/>
-                                    NO TRIP FOUND  
-                                </div>
-                            </div>
-
-                            <div class="col s3">
-                                    <div class="row">
-                                    <small class="grey-text">PLATE NUMBER </small><br/>
-                                            @foreach($driver->trucks as $truck)
-                                                {{$truck->plate_number}}
-                                            @endforeach
-                                    </div>
-
-                                    <div class="row">
-                                        <small class="grey-text">TIME OUT </small><br/>
-                                        NO TRIP FOUND 
-                                    </div>
-                            </div>
-
-                            <div class="col s3">
-                                <div class="row">
-                                    <small class="grey-text">OPERATOR </small><br/>
-                                            @foreach($driver->haulers as $hauler)
-                                                {{$hauler->name}}
-                                            @endforeach
-                                    </div>
-
-
-                                    <div class="row">
-                                            <small class="grey-text">TIME BETWEEN </small><br/>
-                                            NO TRIP FOUND
-                                    </div> 
-                                
-                            </div>
-                    
-
-                        </div>
-                    </div>
                 </div>
 
+                <div class="col-sm-4">
 
-                {!! Form::model($monitor = new \App\Monitor, ['url' => 'monitors/notrip/'.$no_trip_date.'/'.$driver->id, 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
-                    {!! csrf_field() !!}
-                    @include('monitors.form')
-                {!! Form::close() !!}
+                    <span class="text-muted">TIME IN:</span><br/>
+                     <?php $final_in = ''; ?>
+                    @forelse($all_in->where('CardholderID', '==', $log->CardholderID)->take(1) as $in)
+                        {{ $final_in = date('Y-m-d h:i:s A', strtotime($in->LocalTime))}}
+                    @empty
+                        <?php $final_in = Carbon\Carbon::now() ?>
+                        NO IN   
+                    @endforelse  
+                    <br/>
+                    <br/>
+                    <span class="text-muted">TIME OUT:</span><br/>
+                     <?php $final_out = ''; ?>
+                    @forelse($all_out->where('CardholderID', '==', $log->CardholderID)->take(1) as $out)
+                        {{ $final_out = date('Y-m-d h:i:s A', strtotime($out->LocalTime))}}
+                        <br/>
+                    @empty
+                        NO OUT
+                    @endforelse
+                    <br/>
+                    <br/>
+                    <span class="text-muted">DURATION TIME:</span>   
+                    @forelse($all_out->where('CardholderID', '==', $log->CardholderID)->take(1) as $out )
+                    @forelse($all_in->where('CardholderID', '==', $log->CardholderID)->take(1) as $in )
+                        {{  $in->LocalTime->diffInHours($out->LocalTime)}} Hour(s)
+                    @empty
+                        NO PAIRED TIME IN
+                    @endforelse
+                    @empty
+                        NO PAIRED TIME OUT
+                    @endforelse 
                 
-            </div><!-- end row -->
+                </div>
+                <div class="col-sm-2">
+                    <span class="text-muted">STATUS</span><br/>
+                     @foreach($log->drivers as $driver)
+                        @if($driver->availability == 1)
+                            <span class="badge badge-primary">
+                                ACTIVE
+                            </span>
+                        @else
+                            <span class="badge badge-warning">
+                                INACTIVE
+                            </span>
+                        @endif
+                    @endforeach
+                </div>  
+
+            </div>
+
+
+        </div><!-- end card-body -->
+    </div> <!-- end card -->
+
+    <div class="card mx-auto">
+        <div class="card-header">
+        Create Truck Status
+
+        </div>
+        <div class="card-body">
+
+
+            {!! Form::model($monitor = new \App\Monitor, ['url' => '/monitors/'.$id, 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
+            {!! csrf_field() !!}
+            <form>
+            @include('monitors.form')
+            </form>
+            {!! Form::close() !!}
+
+
+        </div><!-- end card-body -->
+    </div> <!-- end card -->
+
+
 
 
 @endsection

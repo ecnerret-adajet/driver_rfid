@@ -48,12 +48,22 @@
           </li>
 
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+            <a class="nav-link nav-link-collapse {{ (Request::is('trucks') || 
+                                                     Request::is('trucks/*') ||
+                                                     Request::is('drivers') ||
+                                                     Request::is('drivers/*') ||           
+                                                     Request::is('cards') || 
+                                                     Request::is('bind/*')) ? '' : 'collapsed' }}" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
               <i class="fa fa-fw fa-file"></i>
               <span class="nav-link-text">
                 Master Data</span>
             </a>
-            <ul class="sidenav-second-level collapse" id="collapseComponents">
+            <ul class="sidenav-second-level {{ (Request::is('trucks') || 
+                                                     Request::is('trucks/*') ||
+                                                     Request::is('drivers') ||
+                                                     Request::is('drivers/*') ||           
+                                                     Request::is('cards') || 
+                                                     Request::is('bind/*')) ? '' : 'collapse' }}" id="collapseComponents">
               <li class="{{ (Request::is('trucks') ||
                             Request::is('trucks/*')  
                         ) ? 'active' : '' }}">
@@ -129,7 +139,7 @@
 
 
         <ul class="navbar-nav sidenav-toggler">
-          <li class="nav-item">
+          {{--  <li class="nav-item">
             <a class="nav-link text-center" id="sidenavToggler">
               <i class="fa fa-fw fa-angle-left"></i>
             </a>
@@ -221,7 +231,7 @@
                 View all alerts
               </a>
             </div>
-          </li>
+          </li>  --}}
     
           <li class="nav-item">
             <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
