@@ -141,7 +141,7 @@
             </div>
         
         
-             <button type="submit"  class="btn btn-primary btn-block" href="login.html">Submit</button>
+             <button type="submit"  class="btn btn-primary btn-block">Submit</button>
       
 
 @section('script')

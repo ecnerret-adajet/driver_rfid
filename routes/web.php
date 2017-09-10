@@ -143,6 +143,10 @@ Route::get('/feed-content','FeedsController@feedContent');
 Route::get('/home-content','FeedsController@homeFeed');
 
 
+//activies logs
+Route::get('/activities','ActivitiesController@index');
+
+
 });
 
 Route::any('{any?}', function ($any = null) {

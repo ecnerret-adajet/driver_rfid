@@ -78,10 +78,14 @@
                 Users</span>
             </a>
             <ul class="sidenav-second-level collapse" id="collapseExamplePages">
-              <li>
+              <li class="{{ (Request::is('users') ||
+                              Request::is('users/*')
+                            ) ? 'active' : '' }}">
                 <a href="{{url('/users')}}">All Users</a>
               </li>
-              <li>
+              <li class="{{ (Request::is('roles') ||
+                              Request::is('roles/*')
+                            ) ? 'active' : '' }}">
                 <a href="{{url('/roles')}}">Roles</a>
               </li>
             </ul>
@@ -93,22 +97,39 @@
                 Administration</span>
             </a>
             <ul class="sidenav-second-level collapse" id="collapseMulti">
-              <li>
+              <li class="{{ (Request::is('settings') ||
+                              Request::is('settings/*')
+                            ) ? 'active' : '' }}">
                 <a href="{{url('/settings')}}">Approver's Email</a>
               </li>
-               <li>
-                <a href="#">System Logs</a>
+               <li class="{{ (Request::is('activities') ||
+                              Request::is('activities/*')
+                            ) ? 'active' : '' }">
+                <a href="{{url('/activities')}}">System Logs</a>
               </li>
             </ul>
           </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
-            <a class="nav-link" href="#">
+          <li class="nav-item {{ Request::is('prints') ? 'active' : '' }}" data-toggle="tooltip" data-placement="right" title="Link">
+            <a class="nav-link" href="{{url('/prints')}}">
               <i class="fa fa-fw fa-file"></i>
               <span class="nav-link-text">
-                Pending RFID</span>
+                Print</span>
+            </a>
+          </li>
+
+          <li class="nav-item {{ (Request::is('entries') ||
+                                  Request::is('generateEntries*') ||
+                                  Request::is('monitors/*')
+                                ) ? 'active' : '' }}" data-toggle="tooltip" data-placement="right" title="Link">
+            <a class="nav-link" href="{{ url('/entries') }}">
+              <i class="fa fa-fw fa-file"></i>
+              <span class="nav-link-text">
+                Report</span>
             </a>
           </li>
         </ul>
+
+
         <ul class="navbar-nav sidenav-toggler">
           <li class="nav-item">
             <a class="nav-link text-center" id="sidenavToggler">

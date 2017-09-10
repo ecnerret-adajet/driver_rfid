@@ -12,6 +12,7 @@ use App\Card;
 use App\Capacity;
 use Excel;
 use App\Contract;
+use Flashy;
 
 class TrucksController extends Controller
 {
@@ -89,7 +90,7 @@ class TrucksController extends Controller
         $truck->contracts()->attach($request->input('contract_list'));
         // $truck->haulers()->attach($request->input('hauler_list'));
 
-
+        flashy()->success('Truck has successfully created!');
         return redirect('trucks');
     }
 
@@ -148,6 +149,7 @@ class TrucksController extends Controller
         $truck->capacity()->associate($capacity_id);
         $truck->save();
 
+        flashy()->success('Truck has successfully updated!');
         return redirect('trucks');
     }
 

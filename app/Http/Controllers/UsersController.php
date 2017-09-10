@@ -11,6 +11,7 @@ use DB;
 use Image;
 use Hash;
 use App\Permission;
+use Flashy;
 
 class UsersController extends Controller
 {
@@ -64,7 +65,7 @@ class UsersController extends Controller
 
          $user->roles()->sync( (array) $request->input('roles_list') );
 
-          alert()->success('Success Message', 'Create account successful');
+        flashy()->success('User has successfully created!');
 
         return redirect('users');
     }
@@ -115,7 +116,7 @@ class UsersController extends Controller
         $user->update($input);
         $user->roles()->sync( (array) $request->input('roles_list') );
 
-        alert()->success('Success Message', 'Update Succesfully');
+        flashy()->success('Driver has successfully updated!');
 
         return redirect('users');
     }

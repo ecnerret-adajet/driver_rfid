@@ -12,119 +12,127 @@
     }
 ?>
 @extends('layouts.app')
-
 @section('content')
-    <div class="row">
 
-        <div class="col s12">
-            <h4 class="form-title">Report Entries</h4>
+
+    <div class="card mx-auto">
+        <div class="card-header">
+       Genarate Entries
+        <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
+        Back
+        </a>
         </div>
+        <div class="card-body">
 
-         @if (session('status')) 
-        <div class="col s12">
-            <div class="card red white-text">
-                <div class="card-content gray-text">
-                    <strong>Oh snap!</strong>   {{ session('status') }}
+             @if (session('status')) 
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Oh snap!</strong> Change a few things up and try submitting again.
                     </div>
-            </div>
-        </div>
-         @endif
-
-        <div class="col s12">
-        <ul class="collapsible popout" data-collapsible="expandable">
-            <li>
-                <div class="collapsible-header active">Generate Entries</div>
-                <div class="collapsible-body grey lighten-5" style="padding: 0;">
-
-                    <div class="row">
-                        <div class="col s12">
-                            
-
-                                {{ Form::open(array('url' => '/generateEntries', 'method' => 'get')) }}
-
-                                    <div class="row">
-                                        <div class="input-field col s12">
-                                        {{--  <label>Operator</label>  --}}
-                                            {!! Form::select('hauler_list[]', $haulers, $sel_hauler, ['id' => 'select2-materialize-hauler', 'class' => 'validate', 'multiple'=>'multiple'] ) !!}
-                                            @if ($errors->has('hauler_list'))
-                                                <span class="help-block red-text">
-                                                <strong>{{ $errors->first('hauler_list') }}</strong>
-                                                </span>
-                                            @endif
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="input-field col s4">
-                                            {!! Form::input('date','start_date', $sel_start, ['class' => 'form-control']) !!}
-                                            {{--  <label>Start Date</label>  --}}
-                                            @if ($errors->has('start_date'))
-                                                <span class="help-block red-text">
-                                                <strong>{{ $errors->first('start_date') }}</strong>
-                                                </span>
-                                            @endif
-                                        </div>
-
-                                        <div class="input-field col s4">
-                                            {!! Form::input('date', 'end_date', $sel_end, ['class' => 'form-control', 'max' => ''.date('Y-m-d', strtotime(Carbon\Carbon::now())).'' ]) !!} 
-                                            {{--  <label>Start Date</label>  --}}
-                                            @if ($errors->has('end_date'))
-                                                <span class="help-block red-text">
-                                                <strong>{{ $errors->first('end_date') }}</strong>
-                                                </span>
-                                            @endif
-                                        </div>
-
-                                        <div class="input-field col s4">
-                                            <button style="width: 100%" type="submit" class="z-depth-0 blue btn waves-effect waves-light">Generate
-                                                <i class="material-icons right">send</i>
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                {!! Form::close() !!} 
-
-
-
-                            
-                        </div><!-- end col s12 -->
-                    </div><!-- end row -->
-                        
-                </div><!-- end first section -->
-            </li>
-            <li>
-                <div class="collapsible-header active">
-                        <div class="col s6">Today's Entries</div>
-                        <div class="col s6 right-align">
-                            @if(Request::is('generateEntries*'))
-                                <a href="{{ url('/generateEntriesExport') }}" class="waves-effect blue waves-light btn btn-small z-depth-0 ">Export to xls</a>
-                            @endif
-                        </div>
                 </div>
-                <div class="collapsible-body grey lighten-5" style="padding: 0;">
-                
-                    <div class="row">
-                        <div class="col s12">
-                                    <table class="reports-table highlight">
-                                        <thead>
-                                            <tr>
-                                                <th>Hauler</th>
-                                                <th>Driver</th>
-                                                <th>Plate Number</th>
+            </div>
+             @endif
 
-                                                @if(!empty($start_date) && !empty($end_date))
-                                                    @for ($x = $start_date; $x <= $end_date; $x=date('Y-m-d', strtotime($x. ' + 1 days')))
-                                                        <th class="center-align">
-                                                            {{ date('F d', strtotime($x)) }}
-                                                        </th>
-                                                    @endfor
-                                                @endif
+             <div class="row">
+                <div class="col-sm-12">
+                     {{ Form::open(array('url' => '/generateEntries', 'method' => 'get')) }}
+                        <form>
 
-                                            </tr>
-                                        </thead>
 
-                                        <tbody>
-                                        @foreach($today_result as $today)
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <div class="form-group {{ $errors->has('hauler_list') ? ' has-danger' : '' }}">
+                                        <label>Operator</label>
+                                         {!! Form::select('hauler_list[]', $haulers, $sel_hauler, ['id' => 'select2-materialize-hauler', 'class' => 'validate', 'multiple'=>'multiple'] ) !!}
+                                        @if ($errors->has('hauler_list'))
+                                            <div class="form-control-feedback">
+                                            <small>
+                                                {{ $errors->first('hauler_list') }}
+                                                </small>
+                                            </div>
+                                        @endif
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-group {{ $errors->has('start_date') ? ' has-danger' : '' }}">
+                                        <label>Start Date</label>
+                                        {!! Form::input('date','start_date', $sel_start, ['class' => 'form-control']) !!}
+                                        @if ($errors->has('start_date'))
+                                            <div class="form-control-feedback">
+                                            <small>
+                                                {{ $errors->first('start_date') }}
+                                                </small>
+                                            </div>
+                                        @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group {{ $errors->has('end_date') ? ' has-danger' : '' }}">
+                                        <label>End Date</label>
+                                        {!! Form::input('date', 'end_date', $sel_end, ['class' => 'form-control', 'max' => ''.date('Y-m-d', strtotime(Carbon\Carbon::now())).'' ]) !!} 
+                                        @if ($errors->has('end_date'))
+                                            <div class="form-control-feedback">
+                                            <small>
+                                                {{ $errors->first('end_date') }}
+                                                </small>
+                                            </div>
+                                        @endif
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit"  class="btn btn-primary btn-block">Generate</button>
+                        
+                        </form>
+                    {!! Form::close() !!} 
+                </div>             
+             </div>
+
+            
+        </div><!-- end card-body -->
+    </div> <!-- end card -->
+
+
+    <div class="card mx-auto">
+        <div class="card-header">
+        Entries Result
+
+        <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
+        Back
+        </a>
+         @if(Request::is('generateEntries*'))
+            <a href="{{ url('/generateEntriesExport') }}"  class="btn btn-primary btn-sm pull-right mr-2">Export to xls</a>
+        @endif
+        </div>
+        <div class="card-body">
+
+
+
+           <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Hauler</th>
+                                        <th>Driver</th>
+                                        <th>Plate Number</th>
+                                        @if(!empty($start_date) && !empty($end_date))
+                                            @for ($x = $start_date; $x <= $end_date; $x=date('Y-m-d', strtotime($x. ' + 1 days')))
+                                                <th class="center-align">
+                                                    {{ date('F d', strtotime($x)) }}
+                                                </th>
+                                            @endfor
+                                        @endif
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($today_result as $today)
 
                                             @foreach($today->drivers as $driver)
                                                 @foreach($driver->haulers as $hauler)
@@ -185,35 +193,19 @@
                                                 @endforeach
                                             @endforeach
                                         @endforeach
-                                        
-                                        </tbody>
-                                    </table>
-                        </div><!-- end col s12 -->
-                    </div><!-- end row -->
-                
-                </div><!-- end second section -->
-            </li>
-        </ul>
-        </div>
-  
+                                </tbody>
+                                </table>
 
 
-        
+                    </div>
+                </div>
+           </div>
 
-    </div><!-- end row -->
+
+
+        </div><!-- end card-body -->
+    </div> <!-- end card -->
+
 @endsection
 
-@section('script')
-    <script>
-        $("#select2-materialize-hauler").select2({
-            placeholder: "Select Operator",
-            allowClear: true,
-        });   
-
-        $('.datepicker').pickadate({
-            selectMonths: true, // Creates a dropdown to control month
-            selectYears: 15 // Creates a dropdown of 15 years to control year
-        });     
-    </script>
-@endsection
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Setting;
 use App\User;
+use Flashy;
 
 
 class SettingsController extends Controller
@@ -74,6 +75,7 @@ class SettingsController extends Controller
     public function edit(Setting $setting)
     {
         $users = User::pluck('name','id');
+        flashy()->success('Setting has successfully updated!');
         return view('settings.edit', compact('setting','users'));
     }
 

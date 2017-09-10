@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\ConfirmDriver;
+use Spatie\Activitylog\Models\Activity;
 use Carbon\Carbon;
 use App\Clasification;
 use App\Cardholder;
@@ -84,7 +85,7 @@ class DriversController extends Controller
         Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmDriver($driver));
 
 
-        flashy()->success('Driver successfully created!');
+        flashy()->success('Driver has successfully created!');
         return redirect('drivers');
     }
 
@@ -101,9 +102,17 @@ class DriversController extends Controller
                     ->where('CardholderID','=',$driver->cardholder->CardholderID)
                     ->orderBy('LocalTime','DESC')
                     ->get();
+        
+        $activities = Activity::all();
 
+        $data = array(
+            'logs' => $logs,
+            'activities' => $activities
+        );
+            
+        return $data;
 
-        return view('drivers.show', compact('driver','logs'));
+        // return view('drivers.show', compact('driver','logs'));
     }
 
     /**
@@ -175,7 +184,7 @@ class DriversController extends Controller
         $driver->haulers()->sync( (array) $request->input('hauler_list'));
         $driver->trucks()->sync( (array) $request->input('truck_list'));
 
-       
+        flashy()->success('Driver has successfully updated!');
         return redirect('drivers');
     }
     
