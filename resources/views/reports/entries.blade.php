@@ -15,7 +15,7 @@
 @section('content')
 
 
-    <div class="card mx-auto">
+    <div class="card mx-auto mb-3">
         <div class="card-header">
        Genarate Entries
         <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
@@ -44,7 +44,7 @@
                             <div class="col-md-12">
                                 <div class="form-group {{ $errors->has('hauler_list') ? ' has-danger' : '' }}">
                                         <label>Operator</label>
-                                         {!! Form::select('hauler_list[]', $haulers, $sel_hauler, ['id' => 'select2-materialize-hauler', 'class' => 'validate', 'multiple'=>'multiple'] ) !!}
+                                         {!! Form::select('hauler_list[]', $haulers, $sel_hauler, ['class' => 'form-control select2-hauler', 'multiple'=>'multiple'] ) !!}
                                         @if ($errors->has('hauler_list'))
                                             <div class="form-control-feedback">
                                             <small>
@@ -97,13 +97,10 @@
     </div> <!-- end card -->
 
 
-    <div class="card mx-auto">
+    <div class="card mx-auto mb-3">
         <div class="card-header">
         Entries Result
 
-        <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
-        Back
-        </a>
          @if(Request::is('generateEntries*'))
             <a href="{{ url('/generateEntriesExport') }}"  class="btn btn-primary btn-sm pull-right mr-2">Export to xls</a>
         @endif
@@ -149,7 +146,7 @@
                                                 @if(!empty($start_date) && !empty($end_date))
                                                 @for ($x = $start_date; $x <= $end_date; $x=date('Y-m-d', strtotime($x. ' + 1 days')))
                                                 
-                                                <td class="center-align">
+                                                <td class="center">
 
                                                     @forelse(App\Log::where('CardholderID',$today->CardholderID)
                                                         ->whereDate('LocalTime' ,Carbon\Carbon::parse($x))

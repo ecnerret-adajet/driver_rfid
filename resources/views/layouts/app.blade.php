@@ -102,9 +102,7 @@
                             ) ? 'active' : '' }}">
                 <a href="{{url('/settings')}}">Approver's Email</a>
               </li>
-               <li class="{{ (Request::is('activities') ||
-                              Request::is('activities/*')
-                            ) ? 'active' : '' }">
+               <li>
                 <a href="{{url('/activities')}}">System Logs</a>
               </li>
             </ul>

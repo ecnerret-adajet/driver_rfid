@@ -105,14 +105,13 @@ class DriversController extends Controller
         
         $activities = Activity::all();
 
-        $data = array(
-            'logs' => $logs,
-            'activities' => $activities
-        );
+        // $data = array(
+        //     'logs' => $logs,
+        //     'activities' => $activities
+        // );
             
-        return $data;
 
-        // return view('drivers.show', compact('driver','logs'));
+        return view('drivers.show', compact('driver','logs'));
     }
 
     /**

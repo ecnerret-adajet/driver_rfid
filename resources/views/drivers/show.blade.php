@@ -2,7 +2,7 @@
 
 @section('content')
 
-   <div class="card mx-auto">
+   <div class="card mx-auto mb-3">
         <div class="card-header">
         Driver's Information
         <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
@@ -16,22 +16,24 @@
 
             <div class="row p-2">
                     <div class="col-sm-2">
-                        <img class="img-responsive img-rounded" style="height: 150px; width: auto;" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}">
+                        <img class="img-responsive rounded-circle" style="height: 150px; width: auto;" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}">
                     </div>
                     <div class="col-sm-4">
-                        <span class="text-muted">DRIVER NAME</span>
+                        <span class="text-muted">DRIVER NAME</span><br/>
                          {{ $driver->name }}
                         <br/>
                         <br/>
-                        <span>PHONE NUMBER</span>
+                        <span class="text-muted">PHONE NUMBER</span><br/>
                         {{ $driver->phone_number }}
                     </div>
                     <div class="col-sm-4">
-                        <span class="text-muted">PLATE NUMBER</span>
+                        <span class="text-muted">PLATE NUMBER</span><br/>
                           @foreach($driver->trucks as $truck)
                             {{$truck->plate_number}}
 
-                        <span class="text-muted">HAULER</span>
+                        <br/>
+                        <br/>
+                        <span class="text-muted">HAULER</span><br/>
                             @if($truck->vendor_description == null)
                                 @foreach($truck->haulers as $hauler)
                                         {{ $hauler->name }}
@@ -43,7 +45,7 @@
 
                     </div>
                     <div class="col-sm-2">
-                        <span class="text-muted">STATUS</span>
+                        <span class="text-muted">STATUS</span><br/>
                         @if($driver->availability == 1)
                             <span class="badge badge-primary">
                                 ACTIVE
@@ -59,7 +61,7 @@
     </div> <!-- end card -->
 
 
-    <div class="card mx-auto">
+    <div class="card mx-auto mb-3">
         <div class="card-header">
         Driver's Log
         </div> 
