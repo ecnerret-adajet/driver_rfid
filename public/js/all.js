@@ -46666,6 +46666,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -65260,17 +65269,23 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
-    staticClass: "row"
+    attrs: {
+      "clas": "row"
+    }
   }, [_c('div', {
-    staticClass: "input-group search pull-right"
-  }, [_vm._m(0), _vm._v(" "), _c('input', {
+    attrs: {
+      "id": "custom-search-input"
+    }
+  }, [_c('div', {
+    staticClass: "input-group col-sm-12 col-md-12 col-lg-12 mb-2 p-0"
+  }, [_c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: (_vm.searchString),
       expression: "searchString"
     }],
-    staticClass: "form-control",
+    staticClass: "  search-query form-control",
     attrs: {
       "type": "text",
       "placeholder": "Search"
@@ -65284,76 +65299,82 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.searchString = $event.target.value
       }
     }
-  }), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2)])]), _vm._v(" "), _c('div', {
-    staticClass: "had-container"
+  }), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-sm-12"
   }, [(!_vm.loading) ? _c('div', [_c('ul', {
-    staticClass: "collection"
+    staticClass: "list-group"
   }, [_vm._l((_vm.filteredCard), function(card) {
     return _c('li', {
-      staticClass: "collection-item avatar"
-    }, [_c('i', {
-      staticClass: "material-icons circle"
-    }, [_vm._v("nfc")]), _vm._v(" "), _c('span', {
-      staticClass: "title"
-    }, [_vm._v(_vm._s(card.CardNo))]), _vm._v(" "), _vm._l((card.binders), function(binder) {
-      return _c('p', _vm._l((binder), function(rfid) {
-        return _c('span', [_vm._v(" " + _vm._s(rfid.name))])
+      staticClass: "list-group-item"
+    }, [_c('div', {
+      staticClass: "row"
+    }, [_vm._m(1, true), _vm._v(" "), _c('div', {
+      staticClass: "col-sm-8"
+    }, [_vm._v("\r\n                                " + _vm._s(card.CardNo) + "\r\n                                "), _c('br'), _vm._v(" "), _vm._l((card.binders), function(binder) {
+      return _c('span', _vm._l((binder), function(rfid) {
+        return _c('span', [_vm._v("\r\n                                        " + _vm._s(rfid.name) + "\r\n                                    ")])
       }))
-    }), _vm._v(" "), _c('p'), _vm._v(" "), _c('p', {
-      staticClass: "secondary-content right-align"
-    }, [_c('a', {
+    }), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((_vm.driver.haulers), function(hauler) {
+      return _c('span', [_vm._v("\r\n                                    " + _vm._s(hauler.name) + "\r\n                                ")])
+    })], 2), _vm._v(" "), _c('div', {
+      staticClass: "col-sm-3 pull-right right"
+    }, [_c('div', {
+      staticClass: "dropdown pull-right"
+    }, [_vm._m(2, true), _vm._v(" "), _c('ul', {
+      staticClass: "dropdown-menu"
+    }, [_c('li', [_c('a', {
       attrs: {
         "href": _vm.cards_link + card.CardID
       }
-    }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("open_in_new")])]), _c('br')])], 2)
+    }, [_vm._v("\r\n                                                Edit Card\r\n                                            ")])])])])])])])
   }), _vm._v(" "), (_vm.filteredCard.length == 0) ? _c('li', {
-    staticClass: "collection-item avatar center-align"
-  }, [_c('span', {
-    staticClass: "title"
-  }, [_vm._v("NO TRUCK FOUND")])]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
+    staticClass: "list-group-item"
+  }, [_vm._m(3)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
     staticClass: "center-align",
     staticStyle: {
       "padding-top": "50px"
     }
-  }, [_vm._m(3)]) : _vm._e()])])
+  }, [_c('div', {
+    staticClass: "loader center"
+  }, [_vm._v("Loading...")])]) : _vm._e()])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
-    staticClass: "input-group-addon opener"
-  }, [_c('a', [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("search")])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "input-group-addon"
-  }, [_c('a', [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("more_vert")])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "input-group-addon opener"
-  }, [_c('a', [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("clear")])])])
+    staticClass: "input-group-btn"
+  }, [_c('button', {
+    staticClass: "btn btn-danger",
+    attrs: {
+      "type": "button"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-search"
+  })])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "preloader-wrapper small active"
+    staticClass: "col-sm-1"
+  }, [_c('span', {
+    staticClass: "fa-stack fa-lg"
+  }, [_c('i', {
+    staticClass: "fa fa-circle fa-stack-2x"
+  }), _vm._v(" "), _c('i', {
+    staticClass: "fa fa-user-o fa-stack-1x fa-inverse"
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
+    attrs: {
+      "href": "javascript:void(0);",
+      "data-toggle": "dropdown"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-ellipsis-v"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
   }, [_c('div', {
-    staticClass: "spinner-layer spinner-green-only"
-  }, [_c('div', {
-    staticClass: "circle-clipper left"
-  }, [_c('div', {
-    staticClass: "circle"
-  })]), _c('div', {
-    staticClass: "gap-patch"
-  }, [_c('div', {
-    staticClass: "circle"
-  })]), _c('div', {
-    staticClass: "circle-clipper right"
-  }, [_c('div', {
-    staticClass: "circle"
-  })])])])
+    staticClass: "col-sm-12 center"
+  }, [_c('span', [_vm._v("NO RECORD FOUND")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

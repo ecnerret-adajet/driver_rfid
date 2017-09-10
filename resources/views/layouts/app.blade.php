@@ -82,12 +82,18 @@
             </ul>
           </li>
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
-            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
+            <a class="nav-link nav-link-collapse {{ (Request::is('users') || 
+                                                     Request::is('users/*') ||
+                                                     Request::is('roles') ||
+                                                     Request::is('roles/*')) ? '' : 'collapsed' }}" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
               <i class="fa fa-fw fa-user"></i>
               <span class="nav-link-text">
                 Users</span>
             </a>
-            <ul class="sidenav-second-level collapse" id="collapseExamplePages">
+            <ul class="sidenav-second-level {{ (Request::is('users') || 
+                                                     Request::is('users/*') ||
+                                                     Request::is('roles') ||
+                                                     Request::is('roles/*')) ? '' : 'collapse' }}" id="collapseExamplePages">
               <li class="{{ (Request::is('users') ||
                               Request::is('users/*')
                             ) ? 'active' : '' }}">
@@ -101,12 +107,16 @@
             </ul>
           </li>
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
-            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
+            <a class="nav-link nav-link-collapse {{ (Request::is('settings') || 
+                                                     Request::is('settings/*') ||
+                                                     Request::is('activities')) ? '' : 'collapsed' }}" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
               <i class="fa fa-fw fa-file"></i>
               <span class="nav-link-text">
                 Administration</span>
             </a>
-            <ul class="sidenav-second-level collapse" id="collapseMulti">
+            <ul class="sidenav-second-level {{ (Request::is('settings') || 
+                                                     Request::is('settings/*') ||
+                                                     Request::is('activities')) ? '' : 'collapse' }}" id="collapseMulti">
               <li class="{{ (Request::is('settings') ||
                               Request::is('settings/*')
                             ) ? 'active' : '' }}">
