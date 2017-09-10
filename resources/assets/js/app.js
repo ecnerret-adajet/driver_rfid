@@ -28,6 +28,7 @@ Vue.component('users', require('./components/Users.vue'));
 Vue.component('logs', require('./components/Logs.vue'));
 Vue.component('pickups', require('./components/Pickups.vue'));
 Vue.component('vendor', require('./components/Vendor.vue'));
+Vue.component('driverdetails', require('./components/DriverDetails.vue'));
 
 
 const app = new Vue({
