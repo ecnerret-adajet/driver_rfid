@@ -4,7 +4,7 @@
 
    <div class="card mx-auto">
         <div class="card-header">
-        Approvers Email
+        Set approver's email
 
         <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
         Back
@@ -19,7 +19,7 @@
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-12">
-                            <label>Approvers Email</label>                            
+                            <label>Approver's Email</label>                            
                         
                             <select class="form-control" disabled>
                                 <option value="0" selected="selected">{{ $setting->user->name }}</option>

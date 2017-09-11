@@ -2,7 +2,7 @@
 @section('content')
 
 
-      <div class="card mx-auto">
+      <div class="card mx-aut mb-3">
         <div class="card-header">
         Driver's Information
 
@@ -32,12 +32,12 @@
                     <br/>
                     <br/>
                     <span class="text-muted">HAULER:</span><br/>
-                     @if($truck->vendor_description == null)
+                     @if($truck->vendor_number == null)
                         @foreach($truck->haulers as $hauler)
                                 {{ $hauler->name }}
                         @endforeach
                     @else
-                        {{ $truck->vendor_description }}
+                        {{ $truck->vendor_number }}
                     @endif
                       @endforeach
                     @endforeach
@@ -99,7 +99,7 @@
         </div><!-- end card-body -->
     </div> <!-- end card -->
 
-    <div class="card mx-auto">
+    <div class="card mx-auto mb-3">
         <div class="card-header">
         Create Truck Status
 

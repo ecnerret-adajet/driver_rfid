@@ -1,51 +1,44 @@
 
-
-<div class="had-container" style="padding-top: 50px;">   
-    <div class="card-panel grey lighten-4">
-        <div class="row">
-            <form class="col s12">
-    
-                <div class="row">
-                      <div class="input-field col s12">
-                        <select name="status">
-                            <option value="" disabled selected>Choose your option</option>
-                            <option value="Approve">Approve</option>
-                            <option value="Disapproved">Disapproved</option>
-                        </select>
-                        <label>Select Status</label>
-                         @if ($errors->has('status'))
-                            <span class="help-block red-text">
-                                <strong>{{ $errors->first('status') }}</strong>
-                            </span>
-                        @endif
+<div class="form-row">
+    <div class="col-md-12">
+        <div class="form-group {{ $errors->has('status') ? ' has-danger' : '' }}">
+                <label>Status</label>
+                {!! Form::select('status', ['Approve' => 'Approve', 'Disapprove' => 'Disapprove'], null, ['placeholder' => 'Select Status','class' => 'form-control'] ) !!}
+                
+                @if ($errors->has('status'))
+                    <div class="form-control-feedback">
+                    <small>
+                        {{ $errors->first('status') }}
+                        </small>
                     </div>
-                </div>
-
-               <div class="row">
-                    <form class="col s12">
-                        <div class="row">
-                        <div class="input-field col s12">
-                            {{Form::textarea('remarks', null, ['class' => 'materialize-textarea', 'data-length' => '120'])}}
-                            <label>Remarks</label>
-                        </div>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="row">
-                    <button type="submit" class="btn waves-effect waves-light">Submit
-                        <i class="material-icons right">send</i>
-                    </button>
-                </div>
-
-            </form>
+                @endif
         </div>
     </div>
 </div>
 
+<div class="form-row">
+    <div class="col-md-12">
+        <div class="form-group {{ $errors->has('remarks') ? ' has-danger' : '' }}">
+                <label>Remarks</label>
+                {!! Form::textarea('remarks', null, ['placeholder' => 'Enter Remarks','class' => 'form-control'] ) !!}
+                @if ($errors->has('remarks'))
+                    <div class="form-control-feedback">
+                    <small>
+                        {{ $errors->first('remarks') }}
+                        </small>
+                    </div>
+                @endif
+        </div>
+    </div>
+</div>
+
+<button type="submit"  class="btn btn-primary btn-block">Submit</button>
+
 
 @section('script')
     <script>
-        $('select').material_select();
+        $(".select2-status").select2({
+
+        });
     </script>
 @endsection

@@ -86,14 +86,6 @@
         </div>
        <!-- Scripts -->
         <script src="{{ asset('js/all.js') }}"></script>
-        <script>
-        $(document).ready(function(){
-            $('.button-collapse').sideNav({
-                edge: 'right'
-            });
-        });
-        </script>
-        @include('vendor.roksta.toastr')
         @yield('script')
 
 

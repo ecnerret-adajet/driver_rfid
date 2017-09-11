@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Carbon\Carbon;
 
 class Truck extends Model
 {
@@ -18,6 +19,8 @@ class Truck extends Model
         'contract_code',
         'contract_description',
         'vendor_description',
+        'vendor_number',
+        'subvendor_number',
         'subvendor_description',
         'validity_start_date',
         'validity_end_date',
@@ -36,6 +39,32 @@ class Truck extends Model
         'validity_start_date',
         'validity_end_date'
     ];
+
+    /**
+     * Dates configuration for validity_start_date
+     */
+     public function setValidityStartDateAttribute($date)
+     {
+         $this->attributes['validity_start_date'] = Carbon::parse($date);
+     }
+ 
+     public function getValidityStartDateAttribute($date)
+     {
+         return Carbon::parse($date)->format('Y-m-d');
+     }
+
+    /**
+     * Dates configuration for validity_end_date
+     */
+     public function setValidityEndDateAttribute($date)
+     {
+         $this->attributes['validity_end_date'] = Carbon::parse($date);
+     }
+ 
+     public function getValidityEndDateAttribute($date)
+     {
+         return Carbon::parse($date)->format('Y-m-d');
+     }
 
     public function drivers()
     {
@@ -95,5 +124,10 @@ class Truck extends Model
     public function capacity()
     {
         return $this->belongsTo('App\Capacity');
+    }
+
+    public function base()
+    {
+        return $this->belongsTo('App\Base');
     }
 }

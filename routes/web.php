@@ -36,7 +36,10 @@ Route::resource('/drivers','DriversController');
 Route::get('/exportDrivers','DriversController@exportDrivers');
 
 Route::resource('/trucks','TrucksController');
+Route::get('/trucks/{truck}/transfer','TrucksController@transferHauler');
+Route::patch('/transfer/{truck}',[  'as' => 'transfer.update' ,'uses' => 'TrucksController@updateTransferHauler']);
 Route::get('/exportTrucks','TrucksController@exportTrucks');
+
 
 Route::resource('/haulers','HaulersController');
 

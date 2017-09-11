@@ -102,7 +102,7 @@
               <li class="{{ (Request::is('roles') ||
                               Request::is('roles/*')
                             ) ? 'active' : '' }}">
-                <a href="{{url('/roles')}}">Roles</a>
+                <a href="#">Roles</a>
               </li>
             </ul>
           </li>
@@ -112,7 +112,7 @@
                                                      Request::is('activities')) ? '' : 'collapsed' }}" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
               <i class="fa fa-fw fa-file"></i>
               <span class="nav-link-text">
-                Administration</span>
+                Admin</span>
             </a>
             <ul class="sidenav-second-level {{ (Request::is('settings') || 
                                                      Request::is('settings/*') ||
@@ -122,29 +122,42 @@
                             ) ? 'active' : '' }}">
                 <a href="{{url('/settings')}}">Approver's Email</a>
               </li>
-               <li>
+               <li class="{{ (Request::is('activities')) ? 'active' : '' }}">
                 <a href="{{url('/activities')}}">System Logs</a>
               </li>
             </ul>
           </li>
-          <li class="nav-item {{ Request::is('prints') ? 'active' : '' }}" data-toggle="tooltip" data-placement="right" title="Link">
-            <a class="nav-link" href="{{url('/prints')}}">
+
+
+
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reports">
+            <a class="nav-link nav-link-collapse {{ (Request::is('prints') || 
+                                                     Request::is('entries') ||
+                                                     Request::is('generateEntries*') ||
+                                                     Request::is('monitors/*'))  ? '' : 'collapsed' }}" data-toggle="collapse" href="#collapseReports" data-parent="#exampleAccordion">
               <i class="fa fa-fw fa-file"></i>
               <span class="nav-link-text">
-                Print</span>
+                Reports</span>
             </a>
-          </li>
+            <ul class="sidenav-second-level {{ (Request::is('prints') || 
+                                                     Request::is('entries') ||
+                                                     Request::is('generateEntries*') ||
+                                                     Request::is('monitors/*')) ? '' : 'collapse' }}" id="collapseReports">
+              <li class="{{ (Request::is('prints')) ? 'active' : '' }}">
+                <a href="{{url('/prints')}}">RFID Approval Status</a>
+              </li>
 
-          <li class="nav-item {{ (Request::is('entries') ||
+               <li class=" {{ (Request::is('entries') ||
                                   Request::is('generateEntries*') ||
                                   Request::is('monitors/*')
-                                ) ? 'active' : '' }}" data-toggle="tooltip" data-placement="right" title="Link">
-            <a class="nav-link" href="{{ url('/entries') }}">
-              <i class="fa fa-fw fa-file"></i>
-              <span class="nav-link-text">
-                Report</span>
-            </a>
+                                ) ? 'active' : '' }}">
+                <a href="{{url('/entries')}}">Truck Status Report</a>
+              </li>
+            </ul>
           </li>
+
+
+
         </ul>
 
 
@@ -244,9 +257,12 @@
           </li>  --}}
     
           <li class="nav-item">
-            <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+            <a class="nav-link" hrer="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
               <i class="fa fa-fw fa-sign-out"></i>
               Logout</a>
+              <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+            </form>
           </li>
         </ul>
       </div>
@@ -281,28 +297,6 @@
     </a>
 
     <!-- Logout Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            Select "Logout" below if you are ready to end your current session.
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-      <!-- Logout Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">

@@ -14,21 +14,21 @@
                         </a>
                     </div>
                     <div class="card-body">
-                        <form>
+                      
 
 
                     {!! Form::model($truck, ['method' => 'PATCH','route' => ['trucks.update', $truck->id], 'enctype'=>'multipart/form-data']) !!}
                     {!! csrf_field() !!}
 
-
-                    @include('trucks.form')
-
+                      <form>
+                       @include('trucks.form')
+                    </form>
                             
                     {!! Form::close() !!}
                             
                    
 
-                 </form>
+                 
                 </div>
                 </div>
 

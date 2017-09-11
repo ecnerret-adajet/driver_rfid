@@ -41,27 +41,24 @@
                                             <br/>
                                             {{ user.email }}
                                             <br/>
-                                            <span v-for="role in user.roles">
+                                            <span class="badge badge-primary" v-for="role in user.roles">
                                                  {{role.name}}
                                             </span>
                                         </div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
+                                            <span class="text-muted">LAST LOGIN:</span><br/>
                                             {{ moment(user.last_login_at) }}
+                                            <br/>
+                                            <span class="text-muted">IP:</span>
+                                            {{  user.last_login_ip }}
                                         </div>
-                                        <div class="col-sm-3 pull-right right">
-                                            <div class="dropdown pull-right">
-                                                <a href="javascript:void(0);" data-toggle="dropdown">
-                                                   <i class="fa fa-ellipsis-v"></i>
-                                                </a>
-                                                <ul class="dropdown-menu">
-                                                    <li>
-                                                        <a href="#">
-                                                         Deactivate User
-                                                        </a>
-                                                    </li>
-                                                </ul>
+                                        <div class="col-sm-2 pull-right right">
+
+                                            <div class="btn-group pull-right" role="group" aria-label="Basic example">
+                                                <a href="javascript:void(0);" class="btn btn-secondary btn-sm">Edit User</a>
+                                                <a href="javascript:void(0);" class="btn btn-secondary btn-sm">Deactivate</a>
                                             </div>
-                                            
+                                                                                        
                                         </div>
                                     </div>
                                 </li>
@@ -74,8 +71,10 @@
                                 </li>
                             </ul>
                         </div>
-                         <div class="center-align" style="padding-top: 50px" v-if="loading">
-                            <div class="loader center">Loading...</div>
+                         <div class="center-align" style="padding-top: 50px; display: flex; align-items: center; justify-content: center;" v-if="loading">
+                            <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                                <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                            </svg>	
                         </div>
                     </div>
                 </div>

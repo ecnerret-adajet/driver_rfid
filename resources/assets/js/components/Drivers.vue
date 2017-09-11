@@ -14,17 +14,11 @@
                        
                         </span>
 
-                         <div class="dropdown pull-right">
-                            <a class="btn btn-primary btn-block" href="javascript:void(0);" data-toggle="dropdown">
-                                <i class="fa fa-ellipsis-v"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item" :href="export_link">Export as Excel</a>
-                                </li>
-                            </ul>
-                        </div>
+                        <a :href="export_link" class="btn btn-primary">
+                            Export as Excel
+                        </a>
 
+                       
 
                     </div>
                        
@@ -67,18 +61,18 @@
                                             </span>
                                         </div>
                                         <div class="col-sm-3 pull-right right">
-                                            <div class="dropdown pull-right">
-                                                <a href="javascript:void(0);" data-toggle="dropdown">
-                                                   <i class="fa fa-ellipsis-v"></i>
-                                                </a>
-                                                <ul class="dropdown-menu">
-                                                    <li>
-                                                        <a :href="driver_link + driver.id + '/edit'">
-                                                         Edit Driver
-                                                        </a>
-                                                    </li>
-                                                </ul>
+
+                                             <div class="btn-group pull-right" role="group" aria-label="Basic example">
+                                                <a :href="driver_link + driver.id + '/transfer'" class="btn btn-secondary btn-sm">Reassign</a>
+                                                <a :href="driver_link + driver.id + '/edit'" class="btn btn-secondary btn-sm">Edit</a>
                                             </div>
+
+                                            <span v-if="driver.availability == 1">
+                                                <i class="fa fa-circle" style="color:green" aria-hidden="true"></i>                                            
+                                            </span>
+                                            <span v-if="driver.availability == 0">
+                                                <i class="fa fa-circle" style="color:red" aria-hidden="true"></i> 
+                                            </span>
                                             
                                         </div>
                                     </div>
@@ -92,8 +86,10 @@
                                 </li>
                             </ul>
                         </div>
-                         <div class="center-align" style="padding-top: 50px" v-if="loading">
-                            <div class="loader center">Loading...</div>
+                         <div class="center-align" style="padding-top: 50px; display: flex; align-items: center; justify-content: center;" v-if="loading">
+                            <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                                <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                            </svg>	
                         </div>
                     </div>
                 </div>

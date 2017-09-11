@@ -2,7 +2,6 @@
 
 @section('content')
 
-
    <div class="card mx-auto">
         <div class="card-header">
         All Drivers
@@ -18,7 +17,6 @@
             <drivers></drivers>
         </div><!-- end card-body -->
     </div> <!-- end card -->
-
 
 
 @endsection

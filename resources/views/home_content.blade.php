@@ -37,7 +37,7 @@
                             @endforeach
                         @endforeach 
                     </div>
-                    <div class="col-sm-7 right">
+                    <div class="col-sm-4 right">
                         <?php $final_in = ''; ?>
                         @forelse($all_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
                             <span> IN: {{ $final_in = date('Y-m-d h:i:s A', strtotime($in->LocalTime))}} </span>
@@ -61,12 +61,47 @@
                         @forelse($all_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in )
                         <span> {{  $in->LocalTime->diffInHours($out->LocalTime)}} Hour(s) </span> 
                         @empty
-                        <span>  NO PAIRED TIME IN </span>
+                            @forelse($all_in_2->where('CardholderID', '==', $result->CardholderID)->take(1) as $in2)
+                                <span> {{  $in2->LocalTime->diffInHours($out->LocalTime)}} Hour(s) </span>
+                            @empty
+                            <span>  NO PAIRED TIME IN </span>
+                            @endforelse                         
                         @endforelse
                         @empty
                         <span>NO PAIRED TIME OUT </span> 
                         @endforelse
 
+                    </div>
+                    <div class="col-sm-3">
+
+                         @forelse($all_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
+                            <a class="btn btn-sm btn-success mb-2" href="{{url('http://172.17.2.25:8080/RFID/'.date('Ymd',strtotime($in->LocalTime)).'/AC.'.date('Ymd',strtotime($in->LocalTime)).'.0000'.$in->LogID.'-1.jpg')}}" data-lightbox="{{$result->LogID}}" data-title="TIME IN - {{  date('Y-m-d h:i:s A', strtotime($in->LocalTime))}}">                      
+                               Snapshot - in
+                            </a>
+                        @empty
+                            @forelse($all_in_2->where('CardholderID', '==', $result->CardholderID)->take(1) as $in2)
+                                <a class="btn btn-sm btn-success mb-2" href="{{url('http://172.17.2.25:8080/RFID/'.date('Ymd',strtotime($in2->LocalTime)).'/AC.'.date('Ymd',strtotime($in2->LocalTime)).'.0000'.$in2->LogID.'-1.jpg')}}" data-lightbox="{{$result->LogID}}" data-title="TIME IN - {{  date('Y-m-d h:i:s A', strtotime($in2->LocalTime))}}">                      
+                                    Snapshot - in
+                                </a>
+                            @empty
+                            <span>  NO IN </span>
+                            @endforelse  
+                        @endforelse
+
+                        <br/>
+
+                         <?php $final_out = ''; ?>                                     
+                        @forelse($all_out->where('CardholderID', '==', $result->CardholderID)->take(1) as $out)
+                            <a class="btn btn-sm btn-primary" href="{{url('http://172.17.2.25:8080/RFID/'.date('Ymd',strtotime($out->LocalTime)).'/AC.'.date('Ymd',strtotime($out->LocalTime)).'.0000'.$out->LogID.'-2.jpg')}}" data-lightbox="{{$result->LogID}}" data-title="TIME OUT - {{  date('Y-m-d h:i:s A', strtotime($out->LocalTime))}}">                      
+                                Snapshot - out
+                            </a>
+                        @empty
+                        <span>NO OUT</span>
+                        @endforelse
+
+                        
+
+                    
                     </div>
                 
                 </div>

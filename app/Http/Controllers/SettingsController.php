@@ -74,8 +74,7 @@ class SettingsController extends Controller
      */
     public function edit(Setting $setting)
     {
-        $users = User::pluck('name','id');
-        flashy()->success('Setting has successfully updated!');
+        $users = User::pluck('email','id');
         return view('settings.edit', compact('setting','users'));
     }
 
@@ -86,9 +85,14 @@ class SettingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Setting $setting)
     {
-        //
+        $user =  $request->input('user_list');
+        $setting->user()->associate($user);
+        $setting->save();
+
+        flashy()->success('Setting has successfully updated!');
+        return redirect('settings');
     }
 
     /**

@@ -41,7 +41,7 @@ class DriversController extends Controller
     {
         $clasifications = Clasification::pluck('name','id');
         $trucks = ['' => ''] + Truck::pluck('plate_number','id')->all();
-        $cards = ['' => ''] +  Card::pluck('CardNo','CardID')->all();
+        $cards =  Card::pluck('CardNo','CardID');
 
 
         return view('drivers.create',compact('clasifications','trucks','cards'));
@@ -60,7 +60,7 @@ class DriversController extends Controller
             'name' => 'required|max:255|unique:drivers',
             'card_list' => 'required',
             'truck_list' => 'required',
-            'phone_number' => 'required|max:10|min:10',
+            'phone_number' => 'required|max:13|min:13',
             'nbi_number' => 'required|max:8|min:8',
             'driver_license' => 'required|max:13|min:13',
                 

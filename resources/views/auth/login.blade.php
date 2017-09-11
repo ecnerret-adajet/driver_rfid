@@ -3,65 +3,43 @@
 @section('content')
 
 <div class="container">
-
- <div class="row" style="padding-top: 100px;">
-    <div class="col s8 offset-s2 center-align">
-
-                {{--  <i class="medium material-icons circle">nfc</i>  --}}
-        <h4>Trucking Monitoring</h4>
-
-    </div>
- </div>
-
-
-  <div class="row">
-      <div class="col m8 offset-m2 ">
-        <div class="card-panel grey lighten-4 hoverable">
-                    <form class="form-horizontal" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
-
-                        <div class="row form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                           <div class="input-field col s12">
-                                <input id="email" type="email" name="email" value="{{ old('email') }}" require class="validate">
-                                <label for="email">Email</label>
-                                @if ($errors->has('email'))
-                                    <span class="help-block red-text">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+   <div class="card card-login mx-auto mt-5">
+        <div class="card-header">
+          Login
+        </div>
+        <div class="card-body">
+          <form class="form-horizontal" method="POST" action="{{ route('login') }}">
+           {{ csrf_field() }}
+            <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
+              <label>Email address</label>
+              <input id="email" type="email" name="email" value="{{ old('email') }}" require placeholder="Enter Email" class="form-control">
+                 @if ($errors->has('email'))
+                    <div class="form-control-feedback">
+                            <small>
+                            {{ $errors->first('email') }}
+                            </small>
                         </div>
-
-
-                        <div class="row form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-
-                             <div class="input-field col s12">
-                                <input id="password" type="password" class="validate" name="password" required>
-                                <label for="password">Password</label>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block red-text">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                @endif
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+               <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
+                @if ($errors->has('password'))
+                    <div class="form-control-feedback">
+                            <small>
+                            {{ $errors->first('password') }}
+                            </small>
                         </div>
-
-
-
-
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                @endif
+            </div>
+          
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+          </form>
         </div>
       </div>
     </div>
 
 
-</div>
+
+
 @endsection

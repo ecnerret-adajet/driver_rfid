@@ -17,7 +17,7 @@
 
     <div class="card mx-auto mb-3">
         <div class="card-header">
-       Genarate Entries
+            Vehicle Trip Report
         <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
         Back
         </a>
@@ -204,5 +204,9 @@
     </div> <!-- end card -->
 
 @endsection
-
+@section('script')
+<script>
+     $(".select2-hauler").select2();
+</script>
+@endsection
 

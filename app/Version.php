@@ -16,6 +16,8 @@ class Version extends Model
         'contract_description',
         'vendor_description',
         'subvendor_description',
+        'start_validity_date',
+        'end_validity_date',
     ];
 
     public function user()

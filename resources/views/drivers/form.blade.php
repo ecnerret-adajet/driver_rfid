@@ -6,14 +6,32 @@
                             <div class="col-md-12">
                             <label>Clasification</label>
                             @if(count($driver->clasification) == 0)
-                            {{ Form::select('clasification_list', $clasifications, null, ['class' => 'form-control', 'placeholder' => 'Select Clasification']) }}
+                            {{ Form::select('clasification_list', $clasifications, null, ['class' => 'form-control select2-clasification', 'placeholder' => 'Select Clasification']) }}
                             @else
-                            {{ Form::select('clasification_list', $clasifications, $driver->clasification->id, ['class' => 'form-control', 'placeholder' => 'Select Clasification']) }}
+                            {{ Form::select('clasification_list', $clasifications, $driver->clasification->id, ['class' => 'form-control select2-clasification', 'placeholder' => 'Select Clasification']) }}
                             @endif
                             @if ($errors->has('clasification_list'))
                                 <div class="form-control-feedback">
                                     <small>
                                     {{ $errors->first('clasification_list') }}
+                                    </small>
+                                </div>
+                            @endif
+                            </div> 
+                        </div>
+                    </div>
+                @endif
+
+                @if(!Request::is('drivers/create'))
+                    <div class="form-group {{ $errors->has('availability') ? ' has-danger' : '' }}">
+                        <div class="form-row">
+                            <div class="col-md-12">
+                            <label>Status</label>
+                            {{ Form::select('availability', ['0' => 'Inactive','1' => 'Active'], $driver->availability, ['class' => 'form-control', 'placeholder' => 'Select Driver Status']) }}
+                            @if ($errors->has('availability'))
+                                <div class="form-control-feedback">
+                                    <small>
+                                    {{ $errors->first('availability') }}
                                     </small>
                                 </div>
                             @endif
@@ -35,11 +53,11 @@
                  <div class="form-row">
                     <div class="col-md-12">
                         <div class="form-group {{ $errors->has('card_list') ? ' has-danger' : '' }}">
-                                <label for="selectCard">RFID Card</label>
+                                <label>RFID Card</label>
                                 @if(str_contains(Request::path(), 'edit'))
-                                {!! Form::select('card_list', $cards, count($driver->card) == 0 ? 'null' : $driver->card->CardID, ['placeholder' => 'Select Deploy RFID', 'id' => 'selectCard select2-materialize-card', 'class' => 'form-control'] ) !!}
+                                {!! Form::select('card_list', $cards, count($driver->card) == 0 ? 'null' : $driver->card->CardID, ['placeholder' => 'Select Deploy RFID',  'class' => 'form-control select2-card'] ) !!}
                                 @else
-                                {!! Form::select('card_list', $cards, null, ['placeholder' => 'Select Deploy RFID', 'id' => 'selectCard select2-materialize-card', 'class' => 'form-control'] ) !!}
+                                {!! Form::select('card_list', $cards, null, ['placeholder' => 'Select Deploy RFID', 'class' => 'form-control select2-card'] ) !!}
                                 @endif
                                 @if ($errors->has('card_list'))
                                     <div class="form-control-feedback">
@@ -55,8 +73,8 @@
                 <div class="form-row">
                     <div class="col-md-12">
                         <div class="form-group {{ $errors->has('truck_list') ? ' has-danger' : '' }}">
-                                <label for="selectCard">Plate Number</label>
-                                {!! Form::select('truck_list', $trucks, null, ['placeholder' => 'Select Plate Number', 'id' => 'selectCard select2-materialize-truck', 'class' => 'form-control'] ) !!}
+                                <label>Plate Number</label>
+                                {!! Form::select('truck_list', $trucks, null, ['placeholder' => 'Select Plate Number', 'class' => 'form-control select2-truck'] ) !!}
                                 @if ($errors->has('truck_list'))
                                     <div class="form-control-feedback">
                                     <small>
@@ -121,7 +139,7 @@
                 <div class="col-md-12">
                     <div class="form-group {{ $errors->has('phone_number') ? ' has-danger' : '' }}">
                     <label>Phone Number</label>
-                    {{Form::text('phone_number', null, ['class' => 'form-control','placeholder' => 'Phone Number', "data-inputmask" => "'mask': '[9999999999]'", 'data-mask'])}}
+                    {{Form::text('phone_number', null, ['class' => 'form-control','placeholder' => 'Phone Number', "data-inputmask" => "'mask': '+63[9999999999]'", 'data-mask'])}}
                        @if ($errors->has('phone_number'))
                             <div class="form-control-feedback">
                                     <small>
@@ -141,28 +159,16 @@
 
 @section('script')
     <script>
-
         $("[data-mask]").inputmask();
-    
-        $("#select2-materialize-truck").select2({
+        $(".select2-card").select2({
+             placeholder: "Select Card",
+            allowClear: true,
+        });
+        $(".select2-clasification").select2();
+
+        $(".select2-truck").select2({
             placeholder: "Select Plate Number",
             allowClear: true,
         });
-
-        $("#select2-materialize-hauler").select2({
-            placeholder: "Select Operator",
-            allowClear: true,
-        });
-
-        $("#select2-materialize-rfid").select2({
-            placeholder: "Select RFID",
-            allowClear: true,
-        });
-
-        $("#select2-materialize-card").select2({
-            placeholder: "Select Card",
-            allowClear: true,
-        });
-
     </script>
 @endsection

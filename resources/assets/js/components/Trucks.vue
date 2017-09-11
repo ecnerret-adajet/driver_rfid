@@ -14,16 +14,10 @@
                        
                         </span>
 
-                         <div class="dropdown pull-right">
-                            <a class="btn btn-primary btn-block" href="javascript:void(0);" data-toggle="dropdown">
-                                <i class="fa fa-ellipsis-v"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item" :href="export_link">Export as Excel</a>
-                                </li>
-                            </ul>
-                        </div>
+                        <a class="btn btn-primary" :href="export_link">
+                            Export as Excel
+                        </a>
+
 
 
                     </div>
@@ -43,7 +37,7 @@
 
                                             <span class="fa-stack fa-lg">
                                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                                <i class="fa fa-user-o fa-stack-1x fa-inverse"></i>
+                                                <i class="fa fa-truck fa-stack-1x fa-inverse" aria-hidden="true"></i>
                                             </span>
                                         
                                         </div>
@@ -63,17 +57,10 @@
                                             </span> 
                                         </div>
                                         <div class="col-sm-3 pull-right right">
-                                            <div class="dropdown pull-right">
-                                                <a href="javascript:void(0);" data-toggle="dropdown">
-                                                   <i class="fa fa-ellipsis-v"></i>
-                                                </a>
-                                                <ul class="dropdown-menu">
-                                                    <li>
-                                                        <a :href="truck_link + truck.id + '/edit'">
-                                                         Edit Truck
-                                                        </a>
-                                                    </li>
-                                                </ul>
+
+                                            <div class="btn-group pull-right" role="group" aria-label="Basic example">
+                                                <a :href="truck_link + truck.id + '/transfer'" class="btn btn-secondary btn-sm">Trasnfer</a>
+                                                <a :href="truck_link + truck.id + '/edit'" class="btn btn-secondary btn-sm">Edit</a>
                                             </div>
                                             
                                         </div>
@@ -88,8 +75,10 @@
                                 </li>
                             </ul>
                         </div>
-                         <div class="center-align" style="padding-top: 50px" v-if="loading">
-                            <div class="loader center">Loading...</div>
+                         <div class="center-align" style="padding-top: 50px; display: flex; align-items: center; justify-content: center;" v-if="loading">
+                            <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                                <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                            </svg>	
                         </div>
                     </div>
                 </div>
@@ -110,10 +99,6 @@ export default {
     },
     created() {
         this.getTruck()
-    },
-
-    mounted(){
-        $('.tooltipped').tooltip({delay: 50});
     },
 
     methods: {

@@ -3,7 +3,7 @@
 @section('content')
 
 
-   <div class="card mx-auto">
+   <div class="card mx-auto mb-3">
         <div class="card-header">
         All Drivers
 
@@ -42,7 +42,7 @@
                             <div class="col-sm-3 pull-right right">
 
                                     <span class="badge badge-primary pull-right">
-                                        {{ date('F d, Y', strtotime($activity->created_at)) }}
+                                        {{ date('Y-m-d h:i:s A', strtotime($activity->created_at)) }}
                                     </span>
                                 
                             </div>

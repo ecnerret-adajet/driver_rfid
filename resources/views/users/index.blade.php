@@ -2,7 +2,7 @@
 
 @section('content')
 
- <div class="card mx-auto">
+ <div class="card mx-auto mb-3">
         <div class="card-header">
         All Users
 

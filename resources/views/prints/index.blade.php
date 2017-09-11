@@ -2,51 +2,76 @@
 
 @section('content')
 
-         <div class="col s12">
-            <h4 class="form-title">Print Status Page</h4>
-        </div>
 
-        @foreach($print->chunk(3) as $item)
-        <div class="row">
-            @foreach($item as $driver)
-            <div class="col s12 m12 l4">
-                <div class="card {{ $driver->notif_status == 1 ? 'red lighten-3 white-text' : '' }}">
-                    <div class="card-content">
-                    <span class="card-title">{{ $driver->name }}</span>
-                        <p>
-                            @if(count($driver->clasification) > 0)
-                            Clasification: {{ $driver->clasification->name }} <br/>
-                            Edited by: {{ $driver->user->name }}<br/>
-                            @else
-                            New Driver <br/>
-                            Created by: {{ $driver->user->name }}<br/>
-                            @endif
-                        </p>
-                    </div>
-                    <div class="card-action">
-                    @forelse($driver->confirms->reverse()->take(1) as $confirm)
+   <div class="card mx-auto">
+        <div class="card-header">
+        RFID Cards for Approval 
+
+        <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
+        Back
+        </a>
+        </div>
+        <div class="card-body">
+
+            <div class="table-responsive">
+            <table class="table" width="100%" id="printTable" cellspacing="0">
+            <thead>
+                <tr>
+                <th>Driver Name</th>
+                <th>Clasification</th>
+                <th>Created By</th>
+                <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach($print as $driver)
+                <tr>
+                <td>{{ $driver->name }}</td>
+                <td>
+                    @if(count($driver->clasification) > 0)
+                     {{ $driver->clasification->name }} 
+                    @endif
+                </td>
+                <td>
+                    {{ $driver->user->name }}
+                </td>
+                <td>
+                @forelse($driver->confirms->reverse()->take(1) as $confirm)
                         @if($confirm->status ==  "Approve")
-                         <form method="POST" action="{{ url('/prints',$driver->id) }}">
+                         {{--  <form method="POST" action="{{ url('/prints',$driver->id) }}">
                          {!! csrf_field() !!}
-                        <button  type="submit" class="waves-effect waves-light btn">Mark as printed</button>
-                        </form>
+                        <button  type="submit" class="btn btn-success">APPROVED</button>
+                        </form>  --}}
+                        <span class="badge badge-success">
+                        APPROVED
+                        </span>
                         @else
-                        <span class="white-text center-align">
+                        <span class="badge badge-danger">
                         DISAPPROVED
                         </span>
                         @endif
                     @empty
-                        PENDING APPROVAL
+                        <span class="badge badge-primary">
+                             PENDING APPROVAL
+                        </span>
                     @endforelse
-                    </div>
-                </div>
-            </div>
+                </td>
+                </tr>
             @endforeach
-        </div>
-        @endforeach
+            </tbody>
+            </table>
+            </div>
 
+
+        </div><!-- end card-body -->
+    </div> <!-- end card -->
 @endsection
-
-
+@section('script')
+<script>
+  $(document).ready(function() {
+    $('#printTable').DataTable();
+  });
+</script>
+@endsection
 
 

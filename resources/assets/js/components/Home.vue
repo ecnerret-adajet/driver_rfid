@@ -64,7 +64,7 @@
                 <div class="card-body-icon">
                 </div>
                 <div class="mr-5">
-                   For Print
+                   For Printing
                 </div>
                  <div>
                     <h3>

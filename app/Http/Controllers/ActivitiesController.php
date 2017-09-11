@@ -11,9 +11,9 @@ class ActivitiesController extends Controller
     public function index()
     {
         $users = User::all();
-        $activities = Activity::where('created_at','DESC')->get();    
+        $activities = Activity::all();    
 
-        return view('activities.index', compact('activities','user'));
+        return view('activities.index', compact('activities','users'));
 
     }
 }

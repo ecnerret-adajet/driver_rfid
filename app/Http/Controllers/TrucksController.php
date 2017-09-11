@@ -13,6 +13,8 @@ use App\Capacity;
 use Excel;
 use App\Contract;
 use Flashy;
+use App\Version;
+use App\Base;
 
 class TrucksController extends Controller
 {
@@ -33,21 +35,18 @@ class TrucksController extends Controller
      */
     public function create()
     {
-        // for testing
-        // $rfid_card = Card::whereHas('binders', function($q) {
-        //     $q->where('card_id','2');
-        // });
 
+        $haulers = Hauler::pluck('name','id');
 
-        $haulers = ['' => ''] + Hauler::pluck('name','id')->all();
+        $cards = Card::where('CardholderID',0)->pluck('CardNo','CardID');
 
-        $cards = ['' => ''] + Card::where('CardholderID',0)->pluck('CardNo','CardID')->all();
+        $capacities = Capacity::pluck('description','id');
 
-        $capacities = ['' => ''] + Capacity::pluck('description','id')->all();
+        $contracts = Contract::pluck('contract_code','id');
 
-        $contracts = ['' => ''] + Contract::pluck('contract_code','id')->all();
+        $bases = Base::pluck('origin','id');
 
-        $url = "http://10.96.4.39/trucking/rfc_get_vendor.php";
+        $url = "http://10.96.4.39/trucking/rfc_get_vendor.php?server=lfug";
         $result = file_get_contents($url);
         $data = json_decode($result,true);
 
@@ -55,7 +54,7 @@ class TrucksController extends Controller
         $vendors = collect($data)->pluck('vendor_name','vendor_number');
 
 
-        return view('trucks.create', compact('haulers','cards','capacities','contracts','subvendors','vendors'));
+        return view('trucks.create', compact('haulers','cards','capacities','contracts','subvendors','vendors','bases'));
     }
 
     /**
@@ -73,6 +72,7 @@ class TrucksController extends Controller
             'contract_list' => 'required',
             'validity_start_date' => 'required',
             'vendor_description' => 'required',
+            'base_list' => 'required',
         ],[
             'card_list.required' => 'RFID Number is required',
             'capacity_list.required' => 'Capacity Field is required',
@@ -81,9 +81,13 @@ class TrucksController extends Controller
 
         $card_rfid = $request->input('card_list');
         $capacity_id = $request->input('capacities_list');
+        $base_id = $request->input('base_list');
+
         $truck = Truck::create($request->all());
+        $truck->contract_code = $request->input('contract_list');
         $truck->card()->associate($card_rfid);
         $truck->capacity()->associate($capacity_id);
+        $truck->base()->associate($base_id);
         $truck->save();
 
 
@@ -114,10 +118,67 @@ class TrucksController extends Controller
     public function edit(Truck $truck)
     {
          $haulers = Hauler::pluck('name','id');
-         $cards = ['' => ''] + Card::pluck('CardNo','CardID')->all();
+         $cards =  Card::pluck('CardNo','CardID')->all();
          $capacities = Capacity::pluck('description','id');
-        return view('trucks.edit', compact('truck','haulers','cards','capacities'));
+         $contracts = Contract::pluck('contract_code','id');
+         $bases = Base::pluck('origin','id');
+
+         $url = "http://10.96.4.39/trucking/rfc_get_vendor.php?server=lfug";
+         $result = file_get_contents($url);
+         $data = json_decode($result,true);
+ 
+         $subvendors = collect($data)->where('vendor_number', '!=', '0000002000')->pluck('vendor_name','vendor_number');
+         $vendors = collect($data)->pluck('vendor_name','vendor_number');
+
+
+        return view('trucks.edit', compact('truck','haulers','cards','capacities','contracts','subvendors','vendors','bases'));
     }
+
+    // Transfer truck to 3PL
+    public function transferHauler(Truck $truck) 
+    {
+        $url = "http://10.96.4.39/trucking/rfc_get_vendor.php?server=lfug";
+        $result = file_get_contents($url);
+        $data = json_decode($result,true);
+
+        $subvendors = collect($data)->where('vendor_number', '!=', '0000002000')->pluck('vendor_name','vendor_number');
+        $vendors = collect($data)->pluck('vendor_name','vendor_number');
+
+        return view('trucks.transfer', compact('vendors','subvendors','truck'));
+    }
+
+    // store tranfer truck to 3PL
+    public function updateTransferHauler(Request $request, Truck $truck)
+    {
+        $this->validate($request, [
+            'validity_start_date' => 'required|date',
+            'validity_end_date' => 'required|date',
+            'vendor_description' => 'required',
+            'subvendor_description' => 'required'
+        ]);
+
+        $version = new Version;
+        $version->truck_id = $truck->id;
+        $version->user_id = Auth::user()->id;
+        $version->plate_number = $truck->plate_number;
+        $version->reg_number = $truck->reg_number;
+        $version->vendor_description = $truck->vendor_description;
+        $version->subvendor_description = $truck->subvendor_description;
+        $version->contract_code = $truck->contract_code;
+        $version->base_id = $truck->base_id;
+        $version->start_validity_date = $request->input('validity_end_date');
+        $version->end_validity_date = Carbon::now();
+        $version->save(); 
+
+        $truck->update($request->all());
+
+        $activity = activity()
+                    ->log('Transferred a Truck to 3PL');
+
+        flashy()->success('Truck has successfully transferred!');
+        return redirect('trucks');
+    }
+    
 
     /**
      * Update the specified resource in storage.
@@ -136,6 +197,7 @@ class TrucksController extends Controller
             'contract_list' => 'required',
             'validity_start_date' => 'required',
             'vendor_description' => 'required',
+            'base_list' => 'required',
         ],[
             'card_list.required' => 'RFID Number is required',
             'capacity_list.required' => 'Capacity Field is required',
@@ -144,9 +206,12 @@ class TrucksController extends Controller
 
         $card_rfid = $request->input('card_list');
         $capacity_id = $request->input('capacities_list');
+        $base_id = $request->input('base_list');
+
         $truck->update($request->all());
         $truck->card()->associate($card_rfid);
         $truck->capacity()->associate($capacity_id);
+        $truck->base()->associate($base_id);
         $truck->save();
 
         flashy()->success('Truck has successfully updated!');

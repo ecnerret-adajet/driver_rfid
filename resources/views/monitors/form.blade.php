@@ -20,8 +20,8 @@
     <div class="form-row">
         <div class="col-md-12">
             <div class="form-group {{ $errors->has('odometer') ? ' has-danger' : '' }}">
-                <label>Full Name</label>
-                {{ Form::number('odometer', $monitor->odometer, ['class' => 'form-control']) }}
+                <label>Odometer</label>
+                {{ Form::number('odometer', $monitor->odometer, ['placeholder' => 'Enter Odometer', 'class' => 'form-control']) }}
                 @if ($errors->has('odometer'))
                         <div class="form-control-feedback">
                             <small>
