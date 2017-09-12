@@ -109,6 +109,8 @@
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
             <a class="nav-link nav-link-collapse {{ (Request::is('settings') || 
                                                      Request::is('settings/*') ||
+                                                     Request::is('handlers') ||
+                                                     Request::is('handlers/*') ||
                                                      Request::is('activities')) ? '' : 'collapsed' }}" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
               <i class="fa fa-fw fa-file"></i>
               <span class="nav-link-text">
@@ -116,6 +118,8 @@
             </a>
             <ul class="sidenav-second-level {{ (Request::is('settings') || 
                                                      Request::is('settings/*') ||
+                                                     Request::is('handlers') ||
+                                                     Request::is('handlers/*') ||
                                                      Request::is('activities')) ? '' : 'collapse' }}" id="collapseMulti">
               <li class="{{ (Request::is('settings') ||
                               Request::is('settings/*')
@@ -124,6 +128,9 @@
               </li>
                <li class="{{ (Request::is('activities')) ? 'active' : '' }}">
                 <a href="{{url('/activities')}}">System Logs</a>
+              </li>
+              <li class="{{ (Request::is('handlers') || Request::is('handlers/*')) ? 'active' : '' }}">
+                <a href="{{url('/handlers')}}">Handler Mappings</a>
               </li>
             </ul>
           </li>
@@ -257,12 +264,10 @@
           </li>  --}}
     
           <li class="nav-item">
-            <a class="nav-link" hrer="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+            <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal">
               <i class="fa fa-fw fa-sign-out"></i>
-              Logout</a>
-              <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                            {{ csrf_field() }}
-            </form>
+              Logout
+            </a>
           </li>
         </ul>
       </div>
@@ -311,7 +316,13 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+
+            <a class="btn btn-primary" href="javascript::void(0);" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Confirm</a>
+
+              <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+            </form>
+          
           </div>
         </div>
       </div>
@@ -324,7 +335,6 @@
         <script src="{{ asset('js/all.js') }}"></script>
         @yield('script')
         @include('flashy::message')
-
 
     </body>
   </html>

@@ -1,6 +1,6 @@
    @extends('layouts.feeds')   
-
       @section('feed-section') 
+      @inject('map', 'App\Http\Controllers\FeedsController')
     
     {{--  <div class="row">
         <div class="col-sm-12">
@@ -36,6 +36,13 @@
                                 {{$hauler->name}}
                             @endforeach
                         @endforeach 
+                        <br/>
+
+                      @foreach($result->customers as $customer)
+                            {{  str_limit(title_case($customer->address),35) }}<br/>
+                        @endforeach
+
+
                     </div>
                     <div class="col-sm-4 right">
                         <?php $final_in = ''; ?>
@@ -99,7 +106,23 @@
                         <span>NO OUT</span>
                         @endforelse
 
-                        
+                        <br/>
+
+                        @foreach($result->customers as $customer)
+                        <?php
+                          $data = $map->googleMap($customer->address);
+                        ?>
+
+                        @if($data['status'] != "NOT_FOUND" && $data['status'] != "ZERO_RESULTS")
+                            <?php 
+                            $customer_address = addslashes($data['routes'][0]['legs'][0]['end_address']);
+                            ?>                                 
+                            <a class="btn btn-primary btn-sm mt-2" href="javascript:void(0);" id="show-map" onclick="showMapModal('{{ $customer_address }}')">
+                                View Map
+                            </a>
+                        @endif
+
+                        @endforeach
 
                     
                     </div>
@@ -120,3 +143,20 @@
            
 
     @endsection
+   @section('script')
+   <script>
+
+      var currURL = "";
+            function showMapModal(customer_address){
+                var url = "http://www.google.com/maps/embed/v1/directions?origin=L2-3+B1+BV+Romero+Blvd,+Tondo,+Manila,+Tondo,+Manila,+Metro+Manila&destination="+ customer_address +"&key=AIzaSyDmCmQ3m-UNz1j1reAgrTcGNu1zLcm7FJc";
+                if(currURL != url) //avoid reloading same map
+                {
+                    $('#frame_map').attr('src', url)
+                }
+                $('#myModal').modal('show'); 
+                currURL = url;
+            }   
+
+   </script>
+   @endsection
+   @extends('map_modal')

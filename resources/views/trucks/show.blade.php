@@ -1,10 +1,11 @@
 @extends('layouts.app')
 @section('content')
+@inject('version_vendor', 'App\Http\Controllers\TrucksController')
+         
 
-       
-    <div class="card mx-aut mb-3">
+        <div class="card mx-auto mb-3">
         <div class="card-header">
-        Truck's Information
+            Truck's Information
 
         <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
         Back
@@ -12,7 +13,8 @@
         </div>
         <div class="card-body">
 
-            <div class="row">
+
+             <div class="row">
 
                 <div class="col-sm-2">
 
@@ -44,7 +46,7 @@
                                 {{ $hauler->name }}
                         @endforeach
                     @else
-                        {{ $truck->vendor_description }}
+                        {{ $truck_vendors['vendor_name'] }}
                     @endif
 
                 </div>
@@ -52,7 +54,7 @@
                 <div class="col-sm-4">
 
                     <span class="text-muted">SUBVENDOR:</span><br/>
-                    {{ $truck->subvendor_description }}
+                    {{ $truck_subvendors['vendor_name']}}
                     <br/>
                     <br/>
                     <span class="text-muted">START VALIDITY DATE</span><br/>
@@ -80,36 +82,64 @@
 
             </div>
 
+            
+        
+    </div>
+    </div>
 
-        </div><!-- end card-body -->
-    </div> <!-- end card -->
+    <div class="card mx-auto mb-3">
+        <div class="card-header">
+            Truck's History
 
+        </div>
+        <div class="card-body">
 
+        
 
+        <table class="table">
+        <thead>
+            <tr>
+                <th>Plate #</th>
+                <th>Reg #</th>
+                <th>Vendor</th>
+                <th>Subvendor</th>
+                <th>Base</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach($versions as $version)
+            <tr>
+            <td>
+                {{$version->plate_number}}
+            </td>
+            <td>
+                {{$version->reg_number}}
+            </td>
+            <td>
+               {{ $version_vendor->versionVendorName($version->vendor_description)['vendor_name'] }}
+            </td>
+            <td>
+                 {{ $version_vendor->versionVendorName($version->subvendor_description)['vendor_name'] }}
+            </td>
+            <td>{{$version->base_id}}</td>
+            <td>
+                {{ date('m/d/Y', strtotime($version->start_validity_date))}}
+            </td>
+            <td>
+                {{ date('m/d/Y', strtotime($version->end_validity_date))}}
+            </td>
+            </tr>
+        @endforeach
+        </tbody>
+        </table>
+            
+        
 
-                 <div class="card mx-auto mb-3">
-                    <div class="card-header">
-                        Transfer to 3PL
-
-                    </div>
-                    <div class="card-body">
-                        
-
-
-                    {!! Form::model($truck, ['method' => 'PATCH','route' => ['transfer.update', $truck->id], 'enctype'=>'multipart/form-data']) !!}
-                    {!! csrf_field() !!}
-
-                    <form>
-                    @include('trucks.formTransfer')
-                     </form>
-                            
-                    {!! Form::close() !!}
-                            
-                   
-
-                
-                </div>
-                </div>
+        
+    </div>
+    </div>
 
 
 

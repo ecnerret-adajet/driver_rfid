@@ -11,10 +11,17 @@
                 <div class="mr-5">
                  All Trucks
                 </div>
-                <div>
+                <div v-if="!is_loading">
                     <h3>
                  {{ home.trucks }}
                     </h3>
+                </div>
+                 <div v-if="is_loading">
+                  <div class="center-align" style="display: flex; align-items: center; justify-content: center;">
+                        <svg class="spinner" width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                        </svg>	
+                    </div>
                 </div>
               </div>
               <a href="#" class="card-footer text-white clearfix small z-1">
@@ -32,10 +39,17 @@
                 <div class="mr-5">
                   All Drivers
                 </div>
-                <div>
+               <div v-if="!is_loading">
                     <h3>
                       {{ home.drivers }}
                     </h3>
+                </div>
+                 <div v-if="is_loading">
+                  <div class="center-align" style="display: flex; align-items: center; justify-content: center;">
+                        <svg class="spinner" width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                        </svg>	
+                    </div>
                 </div>
             <div v-if="is_loading">
                     <div class="preloader-wrapper small active">
@@ -66,10 +80,17 @@
                 <div class="mr-5">
                    For Printing
                 </div>
-                 <div>
+                 <div v-if="!is_loading">
                     <h3>
                    {{ home.prints }}
                     </h3>
+                </div>
+                 <div v-if="is_loading">
+                  <div class="center-align" style="display: flex; align-items: center; justify-content: center;">
+                        <svg class="spinner" width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                        </svg>	
+                    </div>
                 </div>
               </div>
               <a href="#" class="card-footer text-white clearfix small z-1">
@@ -87,10 +108,17 @@
                 <div class="mr-5">
                    Users
                 </div>
-                <div>
+                <div v-if="!is_loading">
                     <h3>
                     {{ home.users }}
                     </h3>
+                </div>
+                <div v-if="is_loading">
+                  <div class="center-align" style="display: flex; align-items: center; justify-content: center;">
+                        <svg class="spinner" width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                        </svg>	
+                    </div>
                 </div>
               </div>
               <a href="#" class="card-footer text-white clearfix small z-1">

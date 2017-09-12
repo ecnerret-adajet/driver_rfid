@@ -32,12 +32,12 @@
                     <br/>
                     <br/>
                     <span class="text-muted">HAULER:</span><br/>
-                     @if($truck->vendor_number == null)
+                     @if($truck->vendor_description == null)
                         @foreach($truck->haulers as $hauler)
                                 {{ $hauler->name }}
                         @endforeach
                     @else
-                        {{ $truck->vendor_number }}
+                        {{ $truck->vendor_description }}
                     @endif
                       @endforeach
                     @endforeach

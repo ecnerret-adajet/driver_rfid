@@ -149,6 +149,10 @@ Route::get('/home-content','FeedsController@homeFeed');
 //activies logs
 Route::get('/activities','ActivitiesController@index');
 
+//handler's mapping route setup
+Route::resource('/handlers','handlerMappingsController');
+Route::get('/handlerJson','handlerMappingsController@getHandlerJson');
+
 
 });
 

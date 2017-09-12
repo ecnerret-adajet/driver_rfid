@@ -1,7 +1,7 @@
 
 
   
-
+             @if(Request::is('trucks/create'))
             <div class="form-row">
                  <div class="col-md-6">
                     <div class="form-group {{ $errors->has('plate_number') ? ' has-danger' : '' }}">
@@ -31,9 +31,10 @@
                     </div>
                 </div>
             </div>
+            @endif
 
             <div class="form-row">
-                    <div class="col-md-6">
+                   <div class="col-md-12">
                         <div class="form-group {{ $errors->has('card_list') ? ' has-danger' : '' }}">
                                 <label for="selectCard">RFID Sticker</label>
                                 @if(!Request::is('trucks/create'))
@@ -50,10 +51,28 @@
                                 @endif
                         </div>
                     </div>
+            </div>
+
+
+
+            <div class="form-row">
+                     <div class="col-md-6">
+                    <div class="form-group {{ $errors->has('plant_list') ? ' has-danger' : '' }}">
+                            <label>Plant Truck</label>
+                            {!! Form::select('plant_list', $plants, null, ['placeholder' => 'Select Plant', 'class' => 'form-control'] ) !!}
+                            @if ($errors->has('plant_list'))
+                                <div class="form-control-feedback">
+                                <small>
+                                    {{ $errors->first('plant_list') }}
+                                    </small>
+                                </div>
+                            @endif
+                    </div>
+                </div>
 
                     <div class="col-md-6">
                     <div class="form-group {{ $errors->has('base_list') ? ' has-danger' : '' }}">
-                            <label>Truck Origin</label>
+                            <label>Base Truck</label>
                             {!! Form::select('base_list', $bases, null, ['placeholder' => 'Select Capacity', 'class' => 'form-control'] ) !!}
                             @if ($errors->has('base_list'))
                                 <div class="form-control-feedback">
@@ -96,6 +115,7 @@
                 </div>
             </div>
 
+             @if(Request::is('trucks/create'))
             <div class="form-row">
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('vendor_description') ? ' has-danger' : '' }}">
@@ -124,6 +144,8 @@
                     </div>
                 </div>
             </div>
+             @endif
+           
 
             <div class="form-row">
                 <div class="col-md-6">
@@ -153,6 +175,7 @@
                     </div>
                 </div>
             </div>
+            
         
         
             <button type="submit"  class="btn btn-primary btn-block">Submit</button>

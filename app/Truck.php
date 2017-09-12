@@ -130,4 +130,9 @@ class Truck extends Model
     {
         return $this->belongsTo('App\Base');
     }
+
+    public function plant()
+    {
+        return $this->belongsTo('App\Plant');
+    }
 }

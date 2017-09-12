@@ -8,6 +8,7 @@ use App\Log;
 use Carbon\Carbon;
 use JavaScript;
 use App\Cardholder;
+use App\Customer;
 
 class FeedsController extends Controller
 {
@@ -15,6 +16,17 @@ class FeedsController extends Controller
     public function index() 
     {
         return view('feed');
+    }
+
+    public function googleMap($address)
+    {
+        $destination = str_replace(' ','+',$address);
+        //make request
+        $url = "https://maps.googleapis.com/maps/api/directions/json?origin=L2-3+B1+BV+Romero+Blvd,+Tondo,+Manila,+Tondo,+Manila,+Metro+Manila&destination=".$destination."&key=AIzaSyDc28EA8qpYrsF10DKWKa4CSVKYSNZrudQ";
+        $map_result = file_get_contents($url);
+        $map_json = json_decode($map_result,true);
+
+        return $map_json;
     }
 
     public function homeFeed()

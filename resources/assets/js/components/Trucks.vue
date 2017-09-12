@@ -42,7 +42,7 @@
                                         
                                         </div>
                                         <div class="col-sm-5">
-                                            {{truck.plate_number}}  : <small class="badge badge-primary mr-2" v-for="driver in truck.drivers">{{ driver.cardholder.Name }}</small>
+                                           <a :href="truck_link + truck.id "> {{truck.plate_number}} </a> : <small class="badge badge-primary mr-2" v-for="driver in truck.drivers">{{ driver.cardholder.Name }}</small>
                                             <span  v-for="hauler in truck.haulers">
                                                {{ hauler.name }}
                                             </span>
