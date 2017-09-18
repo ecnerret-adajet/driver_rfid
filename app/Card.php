@@ -29,6 +29,11 @@ class Card extends Model
         'binders', 
     ];
 
+    // public function getCardHolderAttribute()
+    // {   
+    //     return $this->CardNo .' - '. $cardholder_name;
+    // }
+
     public function cardholder()
     {
     	return $this->belongsTo(Cardholder::class,'CardholderID','CardholderID');
@@ -41,7 +46,7 @@ class Card extends Model
 
     public function drivers()
     {
-        return $this->hasMany('App\Driver','card_id','CardID');
+        return $this->hasMany('App\Driver','card_id');
     }
 
     public function truck()

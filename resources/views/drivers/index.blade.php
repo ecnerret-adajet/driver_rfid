@@ -2,15 +2,9 @@
 
 @section('content')
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
-</button>
 
 
-
-
-   <div class="card mx-auto">
+   <div class="card mx-auto mb-3">
         <div class="card-header">
         All Drivers
 

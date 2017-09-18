@@ -63,7 +63,7 @@
                                         <div class="col-sm-3 pull-right right">
 
                                              <div class="btn-group pull-right" role="group" aria-label="Basic example">
-                                                <a :href="driver_link + driver.id + '/transfer'" class="btn btn-secondary btn-sm">Reassign</a>
+                                                <a :href="driver_link + driver.id + '/reassign'" class="btn btn-secondary btn-sm">Reassign</a>
                                                 <a :href="driver_link + driver.id + '/edit'" class="btn btn-secondary btn-sm">Edit</a>
                                             </div>
 
@@ -138,7 +138,7 @@ export default {
             searchString = searchString.trim().toLowerCase();
 
             drivers_array = drivers_array.filter(function(item){
-                if(item.name.toLowerCase().indexOf(searchString) !== -1 || item.cardholder.Name.toLowerCase().indexOf(searchString) !== -1 || item.phone_number.toLowerCase().indexOf(searchString) !== -1){
+                if(item.name.toLowerCase().indexOf(searchString) !== -1 || item.phone_number.toLowerCase().indexOf(searchString) !== -1){
                     return item;
                 }
             })

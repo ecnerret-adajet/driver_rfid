@@ -7,7 +7,7 @@
 
         <div class="card mx-auto">
             <div class="card-header">
-            Approvers Email
+            Edit Email
 
             <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
                 Back

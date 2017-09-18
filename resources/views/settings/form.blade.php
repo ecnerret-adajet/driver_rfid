@@ -2,7 +2,13 @@
   <div class="form-group {{ $errors->has('user_list') ? ' has-danger' : '' }}">
         <div class="form-row">
             <div class="col-md-12">
-             <label>Approvers Email</label>
+            @if(Request::is('/settings/1/edit'))
+             <label>Approver's Email</label>
+             @else
+            <label>Admin's Email</label>
+             @endif
+
+
              @if(count($setting->user) == 0)
             {{ Form::select('user_list', $users, null, ['class' => 'form-control', 'placeholder' => 'Select User']) }}
             @else

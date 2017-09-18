@@ -41,20 +41,21 @@
                     <br/>
                     <br/>
                     <span class="text-muted">VENDOR:</span><br/>
-                     @if($truck->vendor_description == null)
-                        @foreach($truck->haulers as $hauler)
-                                {{ $hauler->name }}
-                        @endforeach
-                    @else
-                        {{ $truck_vendors['vendor_name'] }}
-                    @endif
+                     {{ $truck_subvendors['vendor_name']}}
 
                 </div>
 
                 <div class="col-sm-4">
 
                     <span class="text-muted">SUBVENDOR:</span><br/>
-                    {{ $truck_subvendors['vendor_name']}}
+                  
+                      @if($truck->vendor_description == null)
+                        @foreach($truck->haulers as $hauler)
+                                {{ $hauler->name }}
+                        @endforeach
+                    @else
+                        {{ $truck_vendors['vendor_name'] }}
+                    @endif
                     <br/>
                     <br/>
                     <span class="text-muted">START VALIDITY DATE</span><br/>

@@ -33,6 +33,8 @@ Route::get('/forPrint','PrintController@getForPrint');
 Route::post('/prints/{id}','PrintController@printed');
 
 Route::resource('/drivers','DriversController');
+Route::get('/drivers/{driver}/reassign','DriversController@reassign');
+Route::patch('/reassign/{driver}',[  'as' => 'reassign.update' ,'uses' => 'DriversController@submitReassign']);
 Route::get('/exportDrivers','DriversController@exportDrivers');
 
 Route::resource('/trucks','TrucksController');
@@ -47,19 +49,20 @@ Route::get('/confirm/create/{id}','ConfirmsController@create');
 Route::post('/confirm/{id}','ConfirmsController@store');
 
 Route::get('/driversJson', function () {
-    $drivers = App\Driver::with(['haulers','trucks','cardholder','card','cardholder.logs'])->get();
+    $drivers = App\Driver::with(['haulers','trucks','cardholder','card','cardholder.logs'])->orderBy('id','DESC')->get();
+    // $drivers = App\Driver::where('availability',1)->with(['haulers','trucks','cardholder','card','cardholder.logs'])->orderBy('id','DESC')->get();
     return $drivers;
 });
 
 // return Json results
 
 Route::get('/trucksJson', function() {
-    $trucks = App\Truck::with(['drivers','haulers','drivers.cardholder','card'])->get();
+    $trucks = App\Truck::where('availability',1)->with(['drivers','haulers','drivers.cardholder','card'])->orderBy('id','DESC')->get();
     return $trucks;
 });
 
 Route::get('/haulersJson', function() {
-    $haulers = App\Hauler::with(['drivers','trucks'])->get();
+    $haulers = App\Hauler::with(['drivers','trucks'])->orderBy('id','DESC')->get();
     return $haulers;
 });
 
@@ -139,11 +142,20 @@ Route::resource('monitors', 'MonitorsController', ['except' => [
 ]]);
 
 Route::get('/pickupsJson','PickupsController@pickupsJson');
+Route::get('/pickupsStatus','PickupsController@pickupsStatus');
 Route::resource('/pickups','PickupsController');
+
 
 Route::get('/feed','FeedsController@index');
 Route::get('/feed-content','FeedsController@feedContent');
 Route::get('/home-content','FeedsController@homeFeed');
+Route::get('/home-content','FeedsController@homeFeed');
+Route::get('/barrier','FeedsController@barrier');
+Route::get('/barrier-content','FeedsController@barrierContent');
+
+//queues route setup
+Route::get('/queueJson','QueuesController@queueJson');
+Route::get('/queues','QueuesController@index');
 
 
 //activies logs

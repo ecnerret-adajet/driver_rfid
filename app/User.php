@@ -56,6 +56,16 @@ class User extends Authenticatable
     public function monitors(){
         return $this->hasMany('App\Monitor');
     }
+
+    /*
+    *
+    * Get all associate user from queue model
+    *
+    */
+    public function queues()
+    {
+        return $this->hasMany('App\Queue');
+    }
     
     /**
     *

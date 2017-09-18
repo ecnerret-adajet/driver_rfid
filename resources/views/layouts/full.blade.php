@@ -27,63 +27,48 @@
     <link href="{{ asset('css/all.css') }}" rel="stylesheet" media="screen,projection">
     </head>
 
-    <body>
+    <body class="fixed-nav sticky-footer" id="page-top">
         <div id="app">
 
-             @if (!Auth::guest())
 
-            <ul id="slide-out" class="side-nav">
-                <li>
-                    <div class="user-view">
-                        <div class="background">
-                            <img src=" {{ asset('img/bg1.png') }}">
-                        </div>
-                        <a href="#!user"><img class="circle" src=" {{ asset('img/avatar.png') }}"></a>
-                        <a href="#!name"><span class="white-text name">{{ Auth::user()->name }}</span></a>
-                        <a href="#!email"><span class="white-text email">{{ Auth::user()->email }} </span></a>
-                    </div>
-                </li>
-                <li><a href="{{ url('/home') }}">Dashboard</a></li>
-                <li><a class="waves-effect" 
-                        href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">Logout</a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    {{ csrf_field() }}
-                </form>
-                </li>
-            </ul>
-
-            <nav class="blue darken-2 z-depth-1">
-                <div class="had-container">
-                    <div class=" nav-wrapper" style="box-shadow: 0 ! important">
-                      
-                          <a href="{{url('/home')}}" class="brand-logo">Trucking Monitoring</a>
-                        <ul class="right hide-on-med-and-down">
-                        
-                       
-                        <li><a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-    
-            @endif
+    @if(!Auth::guest())
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+      <a class="navbar-brand" href="{{url('/home')}}">Truck Monitoring</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
 
 
-                     @yield('content')
-            
+     
 
 
-            </div><!-- end row -->
+      </div>
+    </nav>
+    @endif
 
-        </div> <!-- end container -->
+    <div class="content">
 
-       
-            
+      <div class="container-fluid">
+
+  
+        @yield('content')
+
+
+
+      </div>
+      <!-- /.container-fluid -->
+
+    </div>
+    <!-- /.content-wrapper -->
+
+   
+
 
 
         </div>
+
        <!-- Scripts -->
         <script src="{{ asset('js/all.js') }}"></script>
         @yield('script')

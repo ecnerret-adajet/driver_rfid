@@ -101,7 +101,7 @@ class Cardholder extends Model
 
     public function drivers()
     {
-        return $this->hasMany('App\Driver','id','CardholderID');
+        return $this->hasMany('App\Driver','cardholder_id','CardholderID');
     }
 
     public function pickups()

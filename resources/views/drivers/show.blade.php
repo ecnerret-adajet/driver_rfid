@@ -35,7 +35,7 @@
                         <br/>
                         <span class="text-muted">HAULER</span><br/>
                             @if($truck->vendor_description == null)
-                                @foreach($truck->haulers as $hauler)
+                                @foreach($driver->haulers as $hauler)
                                         {{ $hauler->name }}
                                 @endforeach
                             @else
@@ -86,14 +86,14 @@
                                 {{$log->LogID}}
                             </td>
                             <td>
-                                @foreach($log->drivers as $driver)
+                                @foreach($log->drivers->take(1)->reverse() as $driver)
                                     @foreach($driver->trucks as $truck)
                                         {{$truck->plate_number}}
                                     @endforeach
                                 @endforeach  
                             </td>
                             <td>
-                                @foreach($log->drivers as $driver)
+                                @foreach($log->drivers->take(1) as $driver)
                                     {{$driver->cardholder_id}}
                                 @endforeach
                             </td>
@@ -115,6 +115,51 @@
             </div>
         </div><!-- end card-body -->
     </div> <!-- end card -->
+
+
+        <div class="card mx-auto mb-3">
+        <div class="card-header">
+            Driver's History
+
+        </div>
+        <div class="card-body">
+
+        
+
+        <table class="table">
+        <thead>
+            <tr>
+                <th>Plate #</th>
+                <th>Vendor</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach($versions as $version)
+            <tr>
+            <td>
+                {{$version->plate_number}}
+            </td>
+            <td>
+                {{$version->vendor}}
+            </td>
+            <td>
+                {{ date('m/d/Y', strtotime($version->start_date))}}
+            </td>
+            <td>
+                {{ date('m/d/Y', strtotime($version->end_date))}}
+            </td>
+            </tr>
+        @endforeach
+        </tbody>
+        </table>
+            
+        
+
+        
+    </div>
+    </div>
 
 
 @endsection

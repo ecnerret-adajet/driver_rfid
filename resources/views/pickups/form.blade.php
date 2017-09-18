@@ -1,92 +1,100 @@
 
-
-<div class="col m12">
-        <div class="card-panel grey lighten-4">
-            <div class="row">
-                <form class="col s12">
-        
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                           <small><lable>Pickup Number</lable></small> 
-                        </div>
-
-                        <div class="input-field col s12">
-                        @if(str_contains(Request::path(), 'edit'))           
-                        {!! Form::select('cardholder_list', $cardholders, $pickup->cardholder->CardholderID, ['id' => 'select2-materialize-card', 'class' => 'validate', 'placeholder' => '--- Assign a RFID ---'] ) !!}
-                        @else
-                        {!! Form::select('cardholder_list', $cardholders, null, ['id' => 'select2-materialize-card', 'class' => 'validate', 'placeholder' => '--- Assign a RFID ---'] ) !!}
-                        @endif
-                            
-                            @if ($errors->has('cardholder_list'))
-                                <span class="help-block red-text">
-                                    <strong>{{ $errors->first('cardholder_list') }}</strong>
-                                </span>
-                            @endif
-                        </div>
+<div class="form-row">
+    <div class="col-md-12">
+        <div class="form-group {{ $errors->has('cardholder_list') ? ' has-danger' : '' }}">
+                <label>RFID Card</label>
+                @if(str_contains(Request::path(), 'edit'))
+                {!! Form::select('cardholder_list', $cardholders, $pickup->cardholder->CardholderID, ['placeholder' => 'Select Pickup Number',  'class' => 'form-control select2-pickup'] ) !!}
+                @else
+                {!! Form::select('cardholder_list', $cardholders, null, ['placeholder' => 'Select Pickup Number', 'class' => 'form-control select2-pickup'] ) !!}
+                @endif
+                @if ($errors->has('cardholder_list'))
+                    <div class="form-control-feedback">
+                    <small>
+                        {{ $errors->first('cardholder_list') }}
+                        </small>
                     </div>
-
-                     <div class="row">
-                         <div class="input-field col s4">
-                            {!! Form::text('plate_number', null,  ['class' => 'validate']) !!}
-                            <label>Plate Number</label>
-                            @if ($errors->has('plate_number'))
-                                <span class="help-block red-text">
-                                    <strong>{{ $errors->first('plate_number') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                  
-                         <div class="input-field col s4">
-                            {{ Form::text('driver_name', null, ['class' => 'validate']) }}
-                            <label>Driver Name</label>
-                            @if ($errors->has('driver_name'))
-                                <span class="help-block red-text">
-                                    <strong>{{ $errors->first('driver_name') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                  
-                         <div class="input-field col s4">
-                            {{ Form::text('company', null, ['class' => 'validate']) }}
-                            <label>Operator</label>
-                            @if ($errors->has('company'))
-                                <span class="help-block red-text">
-                                    <strong>{{ $errors->first('company') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <textarea id="textarea1" name="remarks" class="materialize-textarea"></textarea>
-                            <label>Remarks</label>
-                            @if ($errors->has('remarks'))
-                                <span class="help-block red-text">
-                                    <strong>{{ $errors->first('remarks') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    
-                    </div>
-
-                    <div class="row">
-                        <button type="submit" class="btn waves-effect waves-light">Submit
-                            <i class="material-icons right">send</i>
-                        </button>
-                    </div>
-
-                </form>
-            </div>
+                @endif
         </div>
-
+    </div>
 </div>
+
+
+<div class="form-row">
+    <div class="col-md-12">
+        <div class="form-group {{ $errors->has('plate_number') ? ' has-danger' : '' }}">
+            <label>Plate Number</label>
+            {{ Form::text('plate_number', null, ['class' => 'form-control', 'placeholder' => 'Enter Plate Number']) }}
+            @if ($errors->has('plate_number'))
+                    <div class="form-control-feedback">
+                        <small>
+                        {{ $errors->first('plate_number') }}
+                        </small>
+                    </div>
+                @endif
+        </div>
+    </div>
+</div>
+
+
+<div class="form-row">
+    <div class="col-md-12">
+        <div class="form-group {{ $errors->has('driver_name') ? ' has-danger' : '' }}">
+            <label>Driver Name</label>
+            {{ Form::text('driver_name', null, ['class' => 'form-control', 'placeholder' => 'Enter Driver Name']) }}
+            @if ($errors->has('driver_name'))
+                    <div class="form-control-feedback">
+                        <small>
+                        {{ $errors->first('driver_name') }}
+                        </small>
+                    </div>
+                @endif
+        </div>
+    </div>
+</div>
+
+
+<div class="form-row">
+    <div class="col-md-12">
+        <div class="form-group {{ $errors->has('company') ? ' has-danger' : '' }}">
+            <label>Company</label>
+            {{ Form::text('company', null, ['class' => 'form-control', 'placeholder' => 'Enter Company']) }}
+            @if ($errors->has('company'))
+                    <div class="form-control-feedback">
+                        <small>
+                        {{ $errors->first('company') }}
+                        </small>
+                    </div>
+                @endif
+        </div>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="col-md-12">
+        <div class="form-group {{ $errors->has('remarks') ? ' has-danger' : '' }}">
+            <label>Remarks</label>
+            {{ Form::textarea('remarks', null, ['class' => 'form-control', 'placeholder' => 'Enter Remarks','rows' => '3']) }}
+            @if ($errors->has('remarks'))
+                    <div class="form-control-feedback">
+                        <small>
+                        {{ $errors->first('remarks') }}
+                        </small>
+                    </div>
+                @endif
+        </div>
+    </div>
+</div>
+
+
+<button type="submit"  class="btn btn-primary btn-block">Submit</button>
+
+
 
 
 @section('script')
     <script>
-        $("#select2-materialize-card").select2({
+        $(".select2-pickup").select2({
             placeholder: "Select Pickup Number",
             allowClear: true,
         });

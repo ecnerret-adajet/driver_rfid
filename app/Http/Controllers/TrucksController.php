@@ -48,13 +48,15 @@ class TrucksController extends Controller
     public function create()
     {
 
-        $haulers = Hauler::pluck('name','id');
+        $haulers = ['' => ''] + Hauler::pluck('name','vendor_number')->all();
 
-        $cards = Card::where('CardholderID',0)->pluck('CardNo','CardID');
+        $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','vendor_number')->all();
+
+        $cards = Card::orderBy('CardNo','DESC')->where('CardholderID','>=', 15)->pluck('CardNo','CardID');
 
         $capacities = Capacity::pluck('description','id');
 
-        $contracts = Contract::pluck('contract_code','id');
+        $contracts = ['' => ''] + Contract::all()->pluck('contract','id')->all();
 
         $bases = Base::pluck('origin','id');
 
@@ -63,7 +65,7 @@ class TrucksController extends Controller
         $subvendors = ['NO SUBVENDOR' => 'NO SUBVENDOR'] + collect($this->vendorSubvendor())->where('vendor_number', '!=', '0000002000')->pluck('vendor_name','vendor_number')->all();
         $vendors = collect($this->vendorSubvendor())->pluck('vendor_name','vendor_number');
 
-        return view('trucks.create', compact('haulers','cards','capacities','contracts','subvendors','vendors','bases','plants'));
+        return view('trucks.create', compact('haulers','cards','capacities','contracts','subvendors','vendors','bases','plants','haulers_subcon'));
     }
 
     /**
@@ -75,36 +77,40 @@ class TrucksController extends Controller
     public function store(Request $request)
     {
          $this->validate($request, [
-            // 'plate_number' => 'required|max:8|min:8|unique:trucks',
-            'card_list' => 'required',
+            'plate_number' => 'required|max:8|unique:trucks',
+            // 'card_list' => 'required',
             'capacity_list' => 'required',
             'contract_list' => 'required',
             'validity_start_date' => 'required',
-            'vendor_description' => 'required',
+            'hauler_list' => 'required',
             'base_list' => 'required',
             'plant_list' => 'required',
         ],[
             'card_list.required' => 'RFID Number is required',
             'capacity_list.required' => 'Capacity Field is required',
             'contract_list.required' => 'Contract Code is required',
+            'hauler_list.required' => 'Vendor Name is required'
         ]);
 
         $card_rfid = $request->input('card_list');
         $capacity_id = $request->input('capacity_list');
         $base_id = $request->input('base_list');
-        $plant_id = $request->input('plant_list');
+        // $plant_id = $request->input('plant_list');
 
         $truck = Truck::create($request->all());
         $truck->contract_code = $request->input('contract_list');
+        // from haulers ID
+        $truck->vendor_description = $request->input('hauler_list');
         $truck->card()->associate($card_rfid);
         $truck->capacity()->associate($capacity_id);
         $truck->base()->associate($base_id);
-        $truck->plant()->associate($plant_id);
+        // $truck->plant()->associate($plant_id);
         $truck->save();
 
 
         $truck->contracts()->attach($request->input('contract_list'));
-        // $truck->haulers()->attach($request->input('hauler_list'));
+        $truck->plants()->attach($request->input('plant_list'));
+        $truck->haulers()->attach($request->input('hauler_list'));
 
         flashy()->success('Truck has successfully created!');
         return redirect('trucks');
@@ -141,26 +147,31 @@ class TrucksController extends Controller
      */
     public function edit(Truck $truck)
     {
-         $haulers = Hauler::pluck('name','id');
-         $cards =  Card::pluck('CardNo','CardID')->all();
+        $haulers = ['' => ''] + Hauler::pluck('name','vendor_number')->all();
+        $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','vendor_number')->all();
+
+         $cards =  Card::orderBy('CardNo','DESC')->pluck('CardNo','CardID')->all();
          $capacities = Capacity::pluck('description','id');
-         $contracts = Contract::pluck('contract_code','id');
+         $contracts = Contract::all()->pluck('contract','id');
          $bases = Base::pluck('origin','id');
          $plants = Plant::pluck('plant_name','id');
 
          $subvendors = ['NO SUBVENDOR' => 'NO SUBVENDOR'] + collect($this->vendorSubvendor())->where('vendor_number', '!=', '0000002000')->pluck('vendor_name','vendor_number')->all();
          $vendors = collect($this->vendorSubvendor())->pluck('vendor_name','vendor_number');
 
-        return view('trucks.edit', compact('truck','haulers','cards','capacities','contracts','subvendors','vendors','bases','plants'));
+        return view('trucks.edit', compact('truck','haulers','cards','capacities','contracts','subvendors','vendors','bases','plants','haulers_subcon'));
     }
 
     // Transfer truck to 3PL
     public function transferHauler(Truck $truck) 
     {
-        $subvendors = collect($this->vendorSubvendor())->where('vendor_number', '!=', '0000002000')->pluck('vendor_name','vendor_number');
-        $vendors = collect($this->vendorSubvendor())->pluck('vendor_name','vendor_number');
+        // $subvendors = collect($this->vendorSubvendor())->where('vendor_number', '!=', '0000002000')->pluck('vendor_name','vendor_number');
+        // $vendors = collect($this->vendorSubvendor())->pluck('vendor_name','vendor_number');
 
-        return view('trucks.transfer', compact('vendors','subvendors','truck'));
+        $haulers = ['' => ''] + Hauler::pluck('name','vendor_number')->all();
+        $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','vendor_number')->all();
+
+        return view('trucks.transfer', compact('haulers','haulers_subcon','truck'));
     }
 
     // store tranfer truck to 3PL
@@ -170,7 +181,6 @@ class TrucksController extends Controller
             'validity_start_date' => 'required|date',
             'validity_end_date' => 'required|date',
             'vendor_description' => 'required',
-            'subvendor_description' => 'required'
         ]);
 
         $version = new Version;
@@ -185,8 +195,8 @@ class TrucksController extends Controller
         $version->start_validity_date = $request->input('validity_end_date');
         $version->end_validity_date = Carbon::now();
         $version->save(); 
-
-        $truck->update($request->all());
+    
+        $truck->update($request->all());            
 
         $activity = activity()
                     ->log('Transferred a Truck to 3PL');
@@ -211,6 +221,7 @@ class TrucksController extends Controller
             'card_list' => 'required',
             'capacity_list' => 'required',
             'contract_list' => 'required',
+            'hauler_list' => 'required',
             'validity_start_date' => 'required',
             'vendor_description' => 'required',
             'base_list' => 'required',
@@ -233,6 +244,8 @@ class TrucksController extends Controller
         $truck->plant()->associate($plant_id);
         $truck->save();
 
+        $truck->haulers()->sync( (array) $request->input('hauler_list'));
+        
         flashy()->success('Truck has successfully updated!');
         return redirect('trucks');
     }

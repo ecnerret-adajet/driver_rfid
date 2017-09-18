@@ -6,22 +6,21 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use App\Confirm;
 use App\Driver;
-use App\Truck;
 
-class ConfirmDriver extends Notification
+class ConfirmAdmin extends Notification
 {
     use Queueable;
-
-    protected $driver;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Driver $driver)
+    public function __construct(Confirm $confirm, Driver $driver)
     {
+        $this->confirm = $confirm;
         $this->driver = $driver;
     }
 
@@ -45,29 +44,13 @@ class ConfirmDriver extends Notification
     public function toMail($notifiable)
     {
 
-        if(count($this->driver->clasification) == 0) {
-            $status = 'added';
-        } else {
-            $status = 'updated';
-        }
-
-        foreach($this->driver->trucks as $truck){
-            $truck_name = $truck->plate_number;
-            foreach($truck->haulers as $hauler){
-                $hauler_name = $hauler->name;
-            }
-        }
-        
-  
         return (new MailMessage)
-            ->success()
-            ->subject('Truck Monitoring: Driver RFID Confirmation')
-            ->greeting('Good day!')
-            ->line($this->driver->user->name. ' has '. $status .' a driver for your review, please see the details below.')
-            ->line($this->driver->name.' - '. $truck_name)
-            ->action('Confirm Now', url('/confirm/create/'.$this->driver->id))
-            ->line('Thank you for using our application!');
-
+                    ->success()
+                    ->subject('Truck Monitoring: Print RFID')
+                    ->greeting('Good day!')
+                    ->line('This is to notify that a new driver is now ready to print, please the details below.')
+                    ->line($this->driver->name.' - '. $this->confirm->remarks)
+                    ->line('Kindly login to RFID ID System to confirm');
     }
 
     /**

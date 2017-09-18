@@ -1,11 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-     <div class="row">
-        
-    <div class="col-sm-12">
-
-     <div class="card mx-auto">
+     <div class="card mx-auto mb-3">
         <div class="card-header">
          Edit Driver
 
@@ -14,21 +10,19 @@
          </a>
         </div>
         <div class="card-body">
-          <form>
+        
 
             {!! Form::model($driver, ['method' => 'PATCH','route' => ['drivers.update', $driver->id], 'enctype'=>'multipart/form-data']) !!}
             {!! csrf_field() !!}
-
+            <form>
             @include('drivers.form')
-            
+             </form>
             {!! Form::close() !!}
                     
 
-      </form>
+     
         </div>
       </div>
 
-    </div>
-    </div><!-- end row -->
 
 @endsection

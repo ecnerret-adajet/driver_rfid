@@ -24,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach($print as $driver)
+            @forelse($print as $driver)
                 <tr>
                 <td>{{ $driver->name }}</td>
                 <td>
@@ -57,7 +57,11 @@
                     @endforelse
                 </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td rowspan="3" class="center">NO RECORD FOUND</td>                
+                </tr>
+            @endforelse
             </tbody>
             </table>
             </div>

@@ -1,18 +1,28 @@
 @extends('layouts.app')
 @section('content')
 
-            <div class="row">
 
-                <div class="col s12">
-                    <h4 class="form-title">New Pickup</h4>
-                </div>
+ 
+     <div class="card mx-auto mb-3">
+        <div class="card-header">
+         Add New Pickup
 
-                {!! Form::model($pickup = new \App\Pickup, ['url' => 'pickups', 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
+         <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
+            Back
+         </a>
+        </div>
+        <div class="card-body">
+          
+    
+          {!! Form::model($pickup = new \App\Pickup, ['url' => 'pickups', 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
                 {!! csrf_field() !!}
-                @include('pickups.form')
-                {!! Form::close() !!}
-                
-            </div><!-- end row -->
+          <form>
+          @include('pickups.form')
+          </form>
+          {!! Form::close() !!}
 
+          
+        </div>
+      </div>
 
 @endsection

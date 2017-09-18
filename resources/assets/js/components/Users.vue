@@ -55,8 +55,8 @@
                                         <div class="col-sm-2 pull-right right">
 
                                             <div class="btn-group pull-right" role="group" aria-label="Basic example">
-                                                <a href="javascript:void(0);" class="btn btn-secondary btn-sm">Edit User</a>
-                                                <a href="javascript:void(0);" class="btn btn-secondary btn-sm">Deactivate</a>
+                                                <a :href="users_link + user.id + '/edit'" class="btn btn-secondary btn-sm">Edit User</a>
+                                                <!-- <a href="javascript:void(0);" class="btn btn-secondary btn-sm">Deactivate</a> -->
                                             </div>
                                                                                         
                                         </div>
@@ -89,6 +89,7 @@ export default {
             searchUser: '',
             loading: false,
             users: [],
+            users_link: '/driver_rfid/public/users/',
         }
     },
 

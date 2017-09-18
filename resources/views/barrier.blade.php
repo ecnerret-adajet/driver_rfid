@@ -3,7 +3,7 @@
     <script>
         setInterval(
         function(){
-            $('#realtimeFeed').load('http://localhost/driver_rfid/public/feed-content');
+            $('#realtimePlant').load('http://localhost/driver_rfid/public/barrier-content');
         }, 2000);
     </script>
 @endsection
@@ -11,11 +11,11 @@
 
    <div class="card mx-auto mt-3">
         <div class="card-header">
-            Truck Entries 
+            Plant Entries 
         </div>
         <div class="card-body">
 
-            <div id="realtimeFeed">
+            <div id="realtimePlant">
             </div>
 
         </div><!-- end card-body -->

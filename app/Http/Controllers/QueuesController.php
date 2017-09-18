@@ -4,14 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Notification;
-use App\Notifications\ConfirmAdmin;
-use App\Setting;
-use App\Driver;
-use App\Confirm;
-use App\User;
+use App\Queue;
+use App\Log;
+use Flashy;
 
-class ConfirmsController extends Controller
+class QueuesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +17,19 @@ class ConfirmsController extends Controller
      */
     public function index()
     {
-        //
+
+        return view('queues.index');
+    }
+
+    public function queueJson()
+    {
+        $log_queues = Log::with(['drivers','drivers.trucks','drivers.haulers'])
+        ->where('ControllerID',1)
+        ->where('DoorID',0)
+        ->where('CardholderID', '>=', 15)
+        ->orderBy('LogID','DESC')->get();
+
+        return $log_queues;
     }
 
     /**
@@ -28,10 +37,9 @@ class ConfirmsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
-    {   
-        $driver = Driver::findOrFail($id);
-        return view('confirms.create', compact('id','driver'));
+    public function create($log)
+    {
+        return view('queues.create');
     }
 
     /**
@@ -40,34 +48,22 @@ class ConfirmsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(Request $request, $log)
     {
         $this->validate($request, [
-            'status'
+            'availability' => 'required'
         ]);
 
-        $confirm = new Confirm;
-        $confirm->fill($request->all());
-        $confirm->driver()->associate($id);
-        $confirm->user()->associate(Auth::user()->id);
-        $confirm->save();
+        $log_id = Log::select('LogID')->where('LogID',$log)->first();
 
-        if($confirm->status == 'Approve') {
+        $queue = Auth::user()->queues()->create($request->all());
+        $queue->LogID = $log_id;
+        $queue->save();
 
-            $driver = Driver::findOrFail($id);
-            $driver->notif_status = 1;
-            $driver->availability = 1;
-            $driver->save();
+        flashy()->success('Queue has successfully created!');
+        return redirect('queues');
 
-             //send email to supervisor for approval
-            $setting = Setting::with('user')->where('id',2)->first();
-            Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmAdmin($confirm,$driver));
-
-        }
-
-        return redirect('prints');
     }
-
 
     /**
      * Display the specified resource.

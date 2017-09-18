@@ -31,6 +31,11 @@ class Log extends Model
     	return $this->hasMany('App\Driver','cardholder_id','CardholderID');
     }
 
+    public function queues()
+    {
+        return $this->hasMany('App\Queue','LogID','LogID');
+    }
+
     public function customers()
     {
         return $this->hasMany('App\Customer','log_ID','LogID');
@@ -137,5 +142,20 @@ class Log extends Model
                      ->where('CardholderID', '>=', 1)
                      ->whereDate('LocalTime', Carbon::now())
                      ->orderBy('LocalTime','DESC')->get();
+    }
+
+    /*
+    *
+    * Get all logs from truckscale reader
+    *
+    */
+    public function scopeQueue($query)
+    {
+        return $query->where('ControllerID',1)
+                    ->where('DoorID',0)
+                    ->where('CardholderID', '>=', 15)
+                    ->whereDate('LocalTime', Carbon::now())
+                    ->orderBy('LocalTime','DESC')->get();
+
     }
 }

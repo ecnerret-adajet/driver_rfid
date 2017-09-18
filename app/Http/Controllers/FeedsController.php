@@ -61,7 +61,27 @@ class FeedsController extends Controller
 
         $today_result = $logs->unique('CardholderID');
 
-        return view('home_content', compact('logs','today_result',
+
+        // return logs from barrier
+        $barriers = Log::whereIn('DoorID',[3])
+        ->whereNotIn('CardholderID',$pickup_cards)
+        ->where('CardholderID', '>=', 15)
+        ->whereDate('LocalTime', '>=', Carbon::now())
+        ->orderBy('LocalTime','DESC')->get();
+
+        $barrier_in = Log::whereIn('DoorID',[3])
+        ->where('CardholderID', '>=', 15)
+        ->where('Direction', 1)
+        ->whereBetween('LocalTime', [Carbon::now()->subDays(1), Carbon::now()])
+        ->orderBy('LocalTime','DESC')->get();
+
+        $barrier_out = Log::whereIn('DoorID',[3])
+        ->where('CardholderID', '>=', 15)
+        ->where('Direction', 2)
+        ->whereDate('LocalTime', Carbon::now())
+        ->orderBy('LocalTime','DESC')->get();
+
+        return view('home_content', compact('logs','today_result','barrier_in','barrier_out','barriers',
 		'all_out','all_in','all_in_2','loading'));
 
     }
@@ -99,5 +119,42 @@ class FeedsController extends Controller
 
         return view('feed_content', compact('logs','today_result',
 		'all_out','all_in','all_in_2'));
+    }
+
+    public function barrier() 
+    {
+        return view('barrier');
+    }
+
+    public function barrierContent()
+    {
+
+        $pickup_cards = Cardholder::select('CardholderID')
+        ->where('Name', 'LIKE', '%Pickup%')
+        ->get();
+
+         // return logs from barrier
+         $barriers = Log::whereIn('DoorID',[3])
+         ->whereNotIn('CardholderID',$pickup_cards)
+         ->where('CardholderID', '>=', 15)
+         ->whereDate('LocalTime', '>=', Carbon::now())
+         ->orderBy('LocalTime','DESC')->get();
+ 
+         $barrier_in = Log::whereIn('DoorID',[3])
+         ->where('CardholderID', '>=', 15)
+         ->where('Direction', 1)
+         ->whereBetween('LocalTime', [Carbon::now()->subDays(1), Carbon::now()])
+         ->orderBy('LocalTime','DESC')->get();
+ 
+         $barrier_out = Log::whereIn('DoorID',[3])
+         ->where('CardholderID', '>=', 15)
+         ->where('Direction', 2)
+         ->whereDate('LocalTime', Carbon::now())
+         ->orderBy('LocalTime','DESC')->get();
+
+         $barrier_results = $barriers->unique('CardholderID');
+
+         return view('barrier_content',compact('barriers','barrier_in','barrier_out','barrier_results'));
+
     }
 }

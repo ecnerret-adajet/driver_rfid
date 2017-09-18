@@ -18,8 +18,10 @@ use App\Binder;
 use App\Card;
 use Flashy;
 use App\Setting;
+use App\Driverversion;
 use Excel;
 use App\Log;
+use DB;
 
 class DriversController extends Controller
 {
@@ -40,11 +42,17 @@ class DriversController extends Controller
     public function create()
     {
         $clasifications = Clasification::pluck('name','id');
-        $trucks = ['' => ''] + Truck::pluck('plate_number','id')->all();
-        $cards =  Card::pluck('CardNo','CardID');
+        $haulers = ['' => ''] +  Hauler::orderBy('id','DESC')->pluck('name','id')->all();
+        // show only plate numbers without assigned driver
+        $trucks = ['' => ''] + Truck::doesntHave('drivers')->orderBy('id','DESC')->pluck('plate_number','id')->all();
+        
 
+        $cards = Card::orderBy('CardNo','DESC')->where('CardholderID','>=', 15)->pluck('CardNo','CardID');
+        // $cards =  Card::doesntHave('cardholder.drivers')->orderBy('CardNo','DESC')->pluck('CardNo','CardID');
+        // $cards =  Card::doesntHave('cardholder')->orderBy('CardNo','DESC')->pluck('CardNo','CardID');
 
-        return view('drivers.create',compact('clasifications','trucks','cards'));
+        // return $cards->count();
+        return view('drivers.create',compact('clasifications','trucks','cards','haulers'));
     }
 
     /**
@@ -74,11 +82,17 @@ class DriversController extends Controller
             $driver->avatar = $request->file('avatar')->store('drivers');
         } 
         $driver->print_status = 1;
+        $driver->availability = 0;
         $driver->card()->associate($card_rfid);
         $driver->cardholder()->associate($driver->card->CardholderID);
         $driver->save();
 
         $driver->trucks()->attach($request->input('truck_list'));
+
+        $drivers_truck = DB::table('hauler_truck')->select('hauler_id')
+                            ->where('truck_id',$request->input('truck_list'))->first();
+
+        $driver->haulers()->attach($drivers_truck);       
 
         //send email to supervisor for approval
         $setting = Setting::first();
@@ -102,16 +116,10 @@ class DriversController extends Controller
                     ->where('CardholderID','=',$driver->cardholder->CardholderID)
                     ->orderBy('LocalTime','DESC')
                     ->get();
-        
-        $activities = Activity::all();
 
-        // $data = array(
-        //     'logs' => $logs,
-        //     'activities' => $activities
-        // );
-            
-
-        return view('drivers.show', compact('driver','logs'));
+        $versions = Driverversion::where('driver_id',$driver->id)->orderBy('created_at','DESC')->get();
+      
+        return view('drivers.show', compact('driver','logs','versions'));
     }
 
     /**
@@ -122,10 +130,26 @@ class DriversController extends Controller
      */
     public function edit(Driver $driver)
     {
+        // $users = User::whereHas('roles', function($q){
+        //     $q->where('id',3); // to revierwer
+        // })->pluck('name','id');
+
+        foreach($driver->trucks as $truck){
+            foreach($truck->haulers as $hauler){
+                $x = $hauler->id;
+            }
+        }
+    
         $clasifications = Clasification::pluck('name','id');
-        $haulers = Hauler::pluck('name','id');
-        $trucks = Truck::pluck('plate_number','id');
-        $cards = ['' => ''] + Card::pluck('CardNo','CardID')->all();
+
+        $haulers = Hauler::orderBy('id','DESC')->pluck('name','id');
+
+        $trucks = Truck::whereHas('haulers',function($q) use ($x){
+            $q->where('id',$x);
+        })->orderBy('id','DESC')->pluck('plate_number','id');
+
+        // $cards = ['' => ''] + Card::orderBy('CardNo','DESC')->pluck('CardNo','CardID')->all();
+        $cards =  Card::orderBy('CardNo','DESC')->pluck('CardNo','CardID');
         
         return view('drivers.edit',compact(
             'driver',
@@ -133,6 +157,74 @@ class DriversController extends Controller
             'haulers',
             'cards',
             'trucks'));
+
+    }
+
+    /**
+    *
+    * Reassignment Driver to another Plate Number
+    *
+    */
+    public function reassign(Driver $driver)
+    {
+
+        foreach($driver->trucks as $truck){
+            foreach($truck->haulers as $hauler){
+                $x = $hauler->id;
+            }
+        }
+
+        $trucks = Truck::whereHas('haulers',function($q) use ($x){
+            $q->where('id',$x);
+        })->orderBy('id','DESC')->pluck('plate_number','id');
+
+        return view('drivers.reassign',compact('driver','trucks'));
+    }
+
+    public function submitReassign(Request $request, Driver $driver)
+    {
+
+        $this->validate($request,[
+            'truck_list' => 'required'
+        ]);
+
+        foreach($driver->trucks as $truck) {
+            $plate = $truck->plate_number;
+            $start = $truck->start_validity_date;
+            $end = $truck->end_validity_date;
+        }
+
+        foreach($driver->haulers as $hauler){
+            $hauler = $hauler->name;
+        }
+
+        $version =  new Driverversion;
+        $version->driver_id = $driver->id;
+        $version->user_id = Auth::user()->id;
+        $version->plate_number = $plate;
+        $version->vendor = $hauler;
+        $version->start_date = $request->input('end_validity_date');
+        $version->end_date = Carbon::now();
+        $version->save();
+
+        
+        $driver->update($request->all());
+        $driver->availability = 0;
+        $driver->save();
+        $driver->trucks()->sync( (array) $request->input('truck_list'));
+        
+
+        $activity = activity()
+        ->log('Reassigned a driver to a plate number');
+
+
+        //send email to supervisor for approval
+        $setting = Setting::first();
+        Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmDriver($driver));
+
+        
+        flashy()->success('Driver has successfully Reassigned!');
+        return redirect('drivers');
     }
 
     /**

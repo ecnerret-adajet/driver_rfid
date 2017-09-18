@@ -6,9 +6,9 @@
                             <div class="col-md-12">
                             <label>Clasification</label>
                             @if(count($driver->clasification) == 0)
-                            {{ Form::select('clasification_list', $clasifications, null, ['class' => 'form-control select2-clasification', 'placeholder' => 'Select Clasification']) }}
+                            {{ Form::select('clasification_list', $clasifications, null, ['class' => 'form-control', 'placeholder' => 'Select Clasification']) }}
                             @else
-                            {{ Form::select('clasification_list', $clasifications, $driver->clasification->id, ['class' => 'form-control select2-clasification', 'placeholder' => 'Select Clasification']) }}
+                            {{ Form::select('clasification_list', $clasifications, null, ['class' => 'form-control select2-clasification', 'placeholder' => 'Select Clasification']) }}
                             @endif
                             @if ($errors->has('clasification_list'))
                                 <div class="form-control-feedback">
@@ -84,13 +84,14 @@
                                 @endif
                         </div>
                     </div>
+
                 </div>
 
             <div class="form-row">
                 <div class="col-md-12">
                     <div class="form-group {{ $errors->has('name') ? ' has-danger' : '' }}">
                         <label for="driverName">Full Name</label>
-                        {{ Form::text('name', null, ['class' => 'form-control', 'id' => 'driverName', 'placeholder' => 'Enter First Name']) }}
+                        {{ Form::text('name', null, ['class' => 'form-control', 'id' => 'driverName', 'placeholder' => 'Enter Name']) }}
                         @if ($errors->has('name'))
                                 <div class="form-control-feedback">
                                     <small>
@@ -108,7 +109,7 @@
                     <div class="col-md-6">
                      <div class="form-group {{ $errors->has('driver_license') ? ' has-danger' : '' }}">
                     <label for="driverLicense">License Number</label>
-                    {{Form::text('driver_license', null, ['class' => 'form-control', 'placeholder' => 'Enter License Number', "data-inputmask" => "'mask': 'a99-99-999999'", 'data-mask'])}}
+                    {{Form::text('driver_license', null, ['class' => 'form-control', 'placeholder' => 'Enter License Number', "data-inputmask" => "'mask': 'A99-99-999999'", 'data-mask'])}}
                     @if ($errors->has('driver_license'))
                             <div class="form-control-feedback">
                                 <small>
@@ -137,7 +138,7 @@
 
             <div class="form-row">
                 <div class="col-md-12">
-                    <div class="form-group {{ $errors->has('phone_number') ? ' has-danger' : '' }}">
+                    <div class="form-group {{ $errors->has('hauler_list') ? ' has-danger' : '' }}">
                     <label>Phone Number</label>
                     {{Form::text('phone_number', null, ['class' => 'form-control','placeholder' => 'Phone Number', "data-inputmask" => "'mask': '+63[9999999999]'", 'data-mask'])}}
                        @if ($errors->has('phone_number'))
@@ -147,6 +148,35 @@
                                     </small>
                                 </div>
                         @endif
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-6">
+                    <div class="form-group {{ $errors->has('start_validity_date') ? ' has-danger' : '' }}">
+                            <label>Start Validity Date</label>
+                            {!! Form::input('date', 'start_validity_date', $driver->start_validity_date, ['class' => 'form-control'] ) !!}
+                            @if ($errors->has('start_validity_date'))
+                                <div class="form-control-feedback">
+                                <small>
+                                    {{ $errors->first('start_validity_date') }}
+                                    </small>
+                                </div>
+                            @endif
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group {{ $errors->has('end_validity_date') ? ' has-danger' : '' }}">
+                            <label>End Validity Date</label>
+                            {!! Form::input('date', 'end_validity_date', $driver->end_validity_date, ['class' => 'form-control'] ) !!}
+                            @if ($errors->has('end_validity_date'))
+                                <div class="form-control-feedback">
+                                <small>
+                                    {{ $errors->first('end_validity_date') }}
+                                    </small>
+                                </div>
+                            @endif
                     </div>
                 </div>
             </div>
@@ -168,6 +198,11 @@
 
         $(".select2-truck").select2({
             placeholder: "Select Plate Number",
+            allowClear: true,
+        });
+
+        $(".select2-hauler").select2({
+            placeholder: "Select Operator",
             allowClear: true,
         });
     </script>

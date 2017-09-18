@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Carbon\Carbon;
 
 class Driver extends Model
 {
@@ -24,12 +25,46 @@ class Driver extends Model
         'notif_status',
         'driver_license',
         'nbi_number',
+        'start_validity_date',
+        'end_validity_date'
     ];
 
     protected static $logAttributes = [
         'name', 
         'cardholder_id',
     ];
+
+    protected $dates = [
+        'start_validity_date',
+        'end_validity_date'
+    ];
+
+
+      /**
+     * Dates configuration for validity_start_date
+     */
+     public function setStartValidityDateAttribute($date)
+     {
+         $this->attributes['start_validity_date'] = Carbon::parse($date);
+     }
+ 
+     public function getStartValidityDateAttribute($date)
+     {
+         return Carbon::parse($date)->format('Y-m-d');
+     }
+
+    /**
+     * Dates configuration for validity_end_date
+     */
+     public function setEndValidityDateAttribute($date)
+     {
+         $this->attributes['end_validity_date'] = Carbon::parse($date);
+     }
+ 
+     public function getEndValidityDateAttribute($date)
+     {
+         return Carbon::parse($date)->format('Y-m-d');
+     }
 
     /**
      * driver model has a user authenticated belongsto relationship

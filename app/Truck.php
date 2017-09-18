@@ -135,4 +135,16 @@ class Truck extends Model
     {
         return $this->belongsTo('App\Plant');
     }
+
+    //get plant multi select field
+
+    public function plants()
+    {
+        return $this->belongsToMany('App\Plant');
+    }
+
+    public function getPlantListAttribute()
+    {
+        return $this->plants()->pluck('id')->all();
+    }
 }

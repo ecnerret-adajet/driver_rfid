@@ -21,6 +21,24 @@ class PickupsController extends Controller
         return view('pickups.index');
     }
 
+    public function pickupsStatus()
+    {
+        $pickups_count = Pickup::all()->count();
+
+        $current_pickup = Pickup::select('cardholder_id')->where('availability',1)->count();
+
+        $available_card = Cardholder::whereNotIn('CardholderID', [$current_pickup])
+                ->where('Name', 'LIKE', '%Pickup%')->with('pickups')->count();
+
+        $data = array(
+            'all_pickups' => $pickups_count,
+            'current_pickup' => $current_pickup,
+            'available_card' => $available_card,
+        );
+
+        return $data;
+    }
+
     public function pickupsJson()
     {
         $pickups = Pickup::orderBy('created_at','desc')->with('cardholder','cardholder.logsIn','cardholder.logsOut')->get();

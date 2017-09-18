@@ -4,9 +4,9 @@
 
 
 
- <div class="card mx-auto">
+   <div class="card mx-auto mb-3">
         <div class="card-header">
-        All Drivers
+        All Queues
 
         <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
         Back
@@ -14,12 +14,14 @@
         </div>
         <div class="card-body">
 
+
+            <queue></queue>
         
-            <cards></cards>
-
-
+        
+        
         </div><!-- end card-body -->
     </div> <!-- end card -->
+
 
 
 

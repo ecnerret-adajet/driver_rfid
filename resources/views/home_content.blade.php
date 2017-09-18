@@ -2,12 +2,6 @@
       @section('feed-section') 
       @inject('map', 'App\Http\Controllers\FeedsController')
     
-    {{--  <div class="row">
-        <div class="col-sm-12">
-            <h2></h2>
-        </div>
-    </div>  --}}
-
       <div class="row pb-5">
         <div class="col-sm-12">
                   <ul class="list-group">
@@ -20,7 +14,7 @@
                             <img class="rounded-circle" style="height: 60px; width: auto;" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}" align="middle">
                         @endforeach
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                          @foreach($result->drivers as $driver)
                         <span class="title" style="text-transform: uppercase">{{$driver->name}} </span>
                         @endforeach
@@ -44,13 +38,13 @@
 
 
                     </div>
-                    <div class="col-sm-4 right">
+                    <div class="col-sm-3 right">
                         <?php $final_in = ''; ?>
                         @forelse($all_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
-                            <span> IN: {{ $final_in = date('Y-m-d h:i:s A', strtotime($in->LocalTime))}} </span>
+                            <span class="badge badge-secondary"> SHIP-I: {{ $final_in = date('m/d/y h:i:s A', strtotime($in->LocalTime))}} </span>
                         @empty
                             @forelse($all_in_2->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
-                                <span> IN: {{ $final_in = date('Y-m-d h:i:s A', strtotime($in->LocalTime))}} </span>
+                                <span class="badge badge-secondary"> SHIP-I: {{ $final_in = date('m/d/y h:i:s A', strtotime($in->LocalTime))}} </span>
                             @empty
                             <span>  NO IN </span>
                             @endforelse  
@@ -58,9 +52,9 @@
                         <br/>
                           <?php $final_out = ''; ?>                                     
                         @forelse($all_out->where('CardholderID', '==', $result->CardholderID)->take(1) as $out)
-                        <span> OUT: {{ $final_out = date('Y-m-d h:i:s A', strtotime($out->LocalTime))}} </span>
+                        <span class="badge badge-secondary"> SHIP-O: {{ $final_out = date('Y-m-d h:i:s A', strtotime($out->LocalTime))}} </span>
                         @empty
-                        <span>NO OUT</span>
+                        <span class="badge badge-secondary">NO OUT</span>
                         @endforelse
                         <br/>
 
@@ -80,6 +74,37 @@
 
                     </div>
                     <div class="col-sm-3">
+
+                    <?php $barrier_final_in = ''; ?>
+                    @forelse($barrier_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
+                        <span class="badge badge-secondary"> PLANT-I: {{ $barrier_final_in = date('m/d/y h:i:s A', strtotime($in->LocalTime))}} </span>
+                    @empty
+                        <span>  NO PLANT IN </span>
+                    @endforelse
+                    <br/>
+
+                    <?php $final_barrier_out = ''; ?>                                     
+                    @forelse($barrier_out->where('CardholderID', '==', $result->CardholderID)->take(1) as $out)
+                    <span class="badge badge-secondary"> PLANT-O: {{ $final_barrier_out = date('Y-m-d h:i:s A', strtotime($out->LocalTime))}} </span>
+                    @empty
+                    <span class="badge badge-secondary">NO PLANT OUT</span>
+                    @endforelse
+                    <br/>
+
+                     @forelse($barrier_out->where('CardholderID', '==', $result->CardholderID)->take(1) as $out )
+                    @forelse($barrier_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in )
+                    <span> {{  $in->LocalTime->diffInHours($out->LocalTime)}} Hour(s) </span> 
+                    @empty
+                    <span>  NO PLANT TIME IN </span>                        
+                    @endforelse
+                    @empty
+                    <span>NO PLANT TIME OUT </span> 
+                    @endforelse
+
+                    
+
+                    </div>
+                    <div class="col-sm-2">
 
                          @forelse($all_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
                             <a class="btn btn-sm btn-success mb-2" href="{{url('http://172.17.2.25:8080/RFID/'.date('Ymd',strtotime($in->LocalTime)).'/AC.'.date('Ymd',strtotime($in->LocalTime)).'.0000'.$in->LogID.'-1.jpg')}}" data-lightbox="{{$result->LogID}}" data-title="TIME IN - {{  date('Y-m-d h:i:s A', strtotime($in->LocalTime))}}">                      
@@ -108,21 +133,7 @@
 
                         <br/>
 
-                        @foreach($result->customers as $customer)
-                        <?php
-                          $data = $map->googleMap($customer->address);
-                        ?>
-
-                        @if($data['status'] != "NOT_FOUND" && $data['status'] != "ZERO_RESULTS")
-                            <?php 
-                            $customer_address = addslashes($data['routes'][0]['legs'][0]['end_address']);
-                            ?>                                 
-                            <a class="btn btn-primary btn-sm mt-2" href="javascript:void(0);" id="show-map" onclick="showMapModal('{{ $customer_address }}')">
-                                View Map
-                            </a>
-                        @endif
-
-                        @endforeach
+            
 
                     
                     </div>

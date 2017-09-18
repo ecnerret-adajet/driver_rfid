@@ -2,7 +2,7 @@
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('vendor_description') ? ' has-danger' : '' }}">
                             <label>Vendor Number</label>
-                            {!! Form::select('vendor_description', $vendors, $truck->vendor_description, ['placeholder' => 'Select Vendor','class' => 'form-control select2-vendor'] ) !!}
+                            {!! Form::select('vendor_description', $haulers, $truck->vendor_description, ['placeholder' => 'Select Vendor','class' => 'form-control select2-vendor'] ) !!}
                             @if ($errors->has('vendor_description'))
                                 <div class="form-control-feedback">
                                 <small>
@@ -15,7 +15,7 @@
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('subvendor_description') ? ' has-danger' : '' }}">
                             <label>Subvendor Number</label>
-                            {!! Form::select('subvendor_description', $subvendors,  $truck->subvendor_description, ['placeholder' => 'Select Subvendor', 'class' => 'form-control select2-subvendor'] ) !!}
+                            {!! Form::select('subvendor_description', $haulers_subcon,  $truck->subvendor_description, ['placeholder' => 'Select Subvendor', 'class' => 'form-control select2-subvendor'] ) !!}
                             @if ($errors->has('subvendor_description'))
                                 <div class="form-control-feedback">
                                 <small>

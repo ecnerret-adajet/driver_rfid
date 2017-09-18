@@ -13,7 +13,7 @@
                         Back
                         </a>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" id="form-truck">
                       
 
 

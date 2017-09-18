@@ -1,11 +1,8 @@
 @extends('layouts.app')
 @section('content')
 
-    <div class="row">
-        
-    <div class="col-sm-12">
-
-     <div class="card mx-auto">
+ 
+     <div class="card mx-auto mb-3">
         <div class="card-header">
          Add New Driver
 
@@ -27,8 +24,7 @@
         </div>
       </div>
 
-    </div>
-    </div><!-- end row -->
+ 
 
 
 @endsection

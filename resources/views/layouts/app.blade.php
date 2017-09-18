@@ -39,6 +39,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+
           <li class="nav-item {{ Request::is('home') ? 'active' : '' }}" data-toggle="tooltip" data-placement="right" title="Dashboard">
             <a class="nav-link" href="{{url('/home')}}">
               <i class="fa fa-fw fa-dashboard"></i>
@@ -50,6 +51,10 @@
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
             <a class="nav-link nav-link-collapse {{ (Request::is('trucks') || 
                                                      Request::is('trucks/*') ||
+                                                     Request::is('pickups') ||
+                                                     Request::is('pickups/*') ||
+                                                     Request::is('queues') ||
+                                                     Request::is('queues/*') ||
                                                      Request::is('drivers') ||
                                                      Request::is('drivers/*') ||           
                                                      Request::is('cards') || 
@@ -61,6 +66,10 @@
             <ul class="sidenav-second-level {{ (Request::is('trucks') || 
                                                      Request::is('trucks/*') ||
                                                      Request::is('drivers') ||
+                                                     Request::is('queues') ||
+                                                     Request::is('queues/*') ||
+                                                     Request::is('pickups') ||
+                                                     Request::is('pickups/*') ||
                                                      Request::is('drivers/*') ||           
                                                      Request::is('cards') || 
                                                      Request::is('bind/*')) ? '' : 'collapse' }}" id="collapseComponents">
@@ -74,11 +83,17 @@
                           ) ? 'active' : ''}}">
                 <a href="{{url('/drivers')}}">Drivers</a>
               </li>
-              <li class="{{ (Request::is('cards') ||
-                            Request::is('bind/*')
-                          ) ? 'active' : '' }}">
-                <a href="{{url('/cards')}}">Cards</a>
+               <li class="{{ (Request::is('pickups') ||
+                            Request::is('pickups/*')
+                          ) ? 'active' : ''}}">
+                <a href="{{url('/pickups')}}">Pickups</a>
               </li>
+              <li class="{{ (Request::is('queues') ||
+                            Request::is('queues/*')
+                          ) ? 'active' : ''}}">
+                <a href="{{url('/queues')}}">Queue</a>
+              </li>
+              
             </ul>
           </li>
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
@@ -124,7 +139,7 @@
               <li class="{{ (Request::is('settings') ||
                               Request::is('settings/*')
                             ) ? 'active' : '' }}">
-                <a href="{{url('/settings')}}">Approver's Email</a>
+                <a href="{{url('/settings')}}">Emails</a>
               </li>
                <li class="{{ (Request::is('activities')) ? 'active' : '' }}">
                 <a href="{{url('/activities')}}">System Logs</a>
@@ -161,6 +176,22 @@
                 <a href="{{url('/entries')}}">Truck Status Report</a>
               </li>
             </ul>
+          </li>
+
+           <li class="nav-item {{ Request::is('feed') ? 'active' : '' }}" data-toggle="tooltip" data-placement="right" title="livefeed">
+            <a class="nav-link" href="{{url('/feed')}}">
+               <i class="fa fa-fw fa-file"></i>
+              <span class="nav-link-text">
+                Ship Entries</span>
+            </a>
+          </li>
+
+           <li class="nav-item {{ Request::is('barrier') ? 'active' : '' }}" data-toggle="tooltip" data-placement="right" title="livebarrier">
+            <a class="nav-link" href="{{url('/barrier')}}">
+               <i class="fa fa-fw fa-file"></i>
+              <span class="nav-link-text">
+                Plant Entries</span>
+            </a>
           </li>
 
 

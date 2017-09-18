@@ -88,7 +88,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
         $roles = Role::pluck('display_name','id');
         $roles = Role::pluck('display_name','id');
