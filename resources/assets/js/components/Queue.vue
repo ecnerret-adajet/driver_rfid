@@ -22,10 +22,10 @@
                                                 {{hauler.name}}
                                             </span>
                                         </div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <span>{{ moment(queue.LocalTime) }}</span>
                                         </div>
-                                        <div class="col-sm-3 pull-right right">
+                                        <div class="col-sm-2 pull-right right">
                                             <a href="#" class="btn btn-primary pull-right btn-sm">Mark as done</a>                                            
                                         </div>
                                     </div>

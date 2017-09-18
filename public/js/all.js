@@ -65340,7 +65340,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         return _c('span', [_vm._v("\r\n                                                " + _vm._s(hauler.name) + "\r\n                                            ")])
       })], 2)
     }), _vm._v(" "), _c('div', {
-      staticClass: "col-sm-3"
+      staticClass: "col-sm-4"
     }, [_c('span', [_vm._v(_vm._s(_vm.moment(queue.LocalTime)))])]), _vm._v(" "), _vm._m(0, true)], 2)])
   }), _vm._v(" "), (_vm.queues.length == 0) ? _c('li', {
     staticClass: "list-group-item"
@@ -65373,7 +65373,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])]) : _vm._e()])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "col-sm-3 pull-right right"
+    staticClass: "col-sm-2 pull-right right"
   }, [_c('a', {
     staticClass: "btn btn-primary pull-right btn-sm",
     attrs: {
