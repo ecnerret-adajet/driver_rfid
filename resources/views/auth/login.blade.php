@@ -3,7 +3,11 @@
 @section('content')
 
 <div class="container">
-   <div class="card card-login mx-auto mt-5">
+<div class="card-login mx-auto mt-5">
+<img class="img-responsive center ml-4" src="{{ asset('img/logo.png') }}" style="height: 130px; width: auto;">
+</div>
+   <div class="card card-login mx-auto mt-2">
+        
         <div class="card-header">
           Login
         </div>

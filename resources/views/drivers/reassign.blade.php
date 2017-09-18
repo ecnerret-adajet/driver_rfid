@@ -31,21 +31,25 @@
                         <span class="text-muted">PLATE NUMBER</span><br/>
                           @foreach($driver->trucks as $truck)
                             {{$truck->plate_number}}
+                          @endforeach
 
                         <br/>
                         <br/>
                         <span class="text-muted">HAULER</span><br/>
-                            @if($truck->vendor_description == null)
-                                @foreach($driver->haulers as $hauler)
-                                        {{ $hauler->name }}
-                                @endforeach
-                            @else
-                                {{ $truck->vendor_description }}
-                            @endif
-                          @endforeach
+                        @foreach($driver->trucks as $truck)
+                             @foreach($truck->haulers as $hauler)
+                                {{ $hauler->name }}
+                        @endforeach
+                        @endforeach
+
+
+                        
 
                     </div>
                     <div class="col-sm-2">
+                        <span class="text-muted">SUBVENDOR</span><br/>
+                        
+
                         <span class="text-muted">STATUS</span><br/>
                         @if($driver->availability == 1)
                             <span class="badge badge-primary">

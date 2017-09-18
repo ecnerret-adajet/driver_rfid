@@ -33,14 +33,11 @@
 
                         <br/>
                         <br/>
-                        <span class="text-muted">HAULER</span><br/>
-                            @if($truck->vendor_description == null)
+                        <span class="text-muted">SUBHAULER</span><br/>
                                 @foreach($driver->haulers as $hauler)
                                         {{ $hauler->name }}
                                 @endforeach
-                            @else
-                                {{ $truck->vendor_description }}
-                            @endif
+                           
                           @endforeach
 
                     </div>

@@ -48,9 +48,9 @@ class TrucksController extends Controller
     public function create()
     {
 
-        $haulers = ['' => ''] + Hauler::pluck('name','vendor_number')->all();
+        $haulers = ['' => ''] + Hauler::pluck('name','name')->all();
 
-        $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','vendor_number')->all();
+        $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','id')->all();
 
         $cards = Card::orderBy('CardNo','DESC')->where('CardholderID','>=', 15)->pluck('CardNo','CardID');
 
@@ -83,6 +83,7 @@ class TrucksController extends Controller
             'contract_list' => 'required',
             'validity_start_date' => 'required',
             'hauler_list' => 'required',
+            'vendor_description' => 'required',
             'base_list' => 'required',
             'plant_list' => 'required',
         ],[
@@ -100,7 +101,7 @@ class TrucksController extends Controller
         $truck = Truck::create($request->all());
         $truck->contract_code = $request->input('contract_list');
         // from haulers ID
-        $truck->vendor_description = $request->input('hauler_list');
+        $truck->subvendor_description = $request->input('hauler_list');
         $truck->card()->associate($card_rfid);
         $truck->capacity()->associate($capacity_id);
         $truck->base()->associate($base_id);
@@ -126,11 +127,11 @@ class TrucksController extends Controller
     {
 
         $versions = Version::where('truck_id',$truck->id)->orderBy('created_at','DESC')->get();
-
+        $subcon = Hauler::all();
         $truck_subvendors = collect($this->vendorSubvendor())->where('vendor_number', $truck->vendor_description)->first();
         $truck_vendors = collect($this->vendorSubvendor())->where('vendor_number', $truck->subvendor_description)->first();
 
-        return view('trucks.show', compact('truck','versions','truck_vendors','truck_subvendors'));
+        return view('trucks.show', compact('truck','versions','truck_vendors','truck_subvendors','subcon'));
     }
 
     public function versionVendorName($x)
@@ -167,11 +168,11 @@ class TrucksController extends Controller
     {
         // $subvendors = collect($this->vendorSubvendor())->where('vendor_number', '!=', '0000002000')->pluck('vendor_name','vendor_number');
         // $vendors = collect($this->vendorSubvendor())->pluck('vendor_name','vendor_number');
-
+        $subcon = Hauler::all();
         $haulers = ['' => ''] + Hauler::pluck('name','vendor_number')->all();
         $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','vendor_number')->all();
 
-        return view('trucks.transfer', compact('haulers','haulers_subcon','truck'));
+        return view('trucks.transfer', compact('haulers','haulers_subcon','truck','subcon'));
     }
 
     // store tranfer truck to 3PL

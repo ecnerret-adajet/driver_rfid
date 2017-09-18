@@ -25,6 +25,16 @@ use DB;
 
 class DriversController extends Controller
 {
+
+    public function vendorSubvendor()
+    {
+        $url = "http://10.96.4.39/trucking/rfc_get_vendor.php?server=lfug";
+        $result = file_get_contents($url);
+        $data = json_decode($result,true);
+
+        return $data;
+    }
+
     /**
      * Display a listing of the resource.
      * * @return \Illuminate\Http\Response
@@ -167,18 +177,17 @@ class DriversController extends Controller
     */
     public function reassign(Driver $driver)
     {
-
-        foreach($driver->trucks as $truck){
-            foreach($truck->haulers as $hauler){
-                $x = $hauler->id;
-            }
+        foreach($driver->trucks as $truck) {
+           $y = $truck->subvendor_description;
         }
 
-        $trucks = Truck::whereHas('haulers',function($q) use ($x){
-            $q->where('id',$x);
+        // $x = Hauler::select('id')->where('name', $y)->first();
+
+        $trucks = Truck::whereHas('haulers',function($q) use ($y){
+            $q->where('id', $y);
         })->orderBy('id','DESC')->pluck('plate_number','id');
 
-        return view('drivers.reassign',compact('driver','trucks'));
+        return view('drivers.reassign',compact('driver','trucks','truck_subvendors'));
     }
 
     public function submitReassign(Request $request, Driver $driver)

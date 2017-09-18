@@ -108,7 +108,7 @@ export default {
         },
 
         moment(date) {
-            return moment(date).format('MMMM  d, Y h:m:s A');
+            return moment(date).format('MMMM D, Y h:m:s A');
         }
     },
 

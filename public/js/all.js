@@ -48704,7 +48704,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         moment: function moment(date) {
-            return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM  d, Y h:m:s A');
+            return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM D, Y h:m:s A');
         }
     },
 

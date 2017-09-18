@@ -52,7 +52,10 @@
                 <div class="col-sm-4">
 
                     <span class="text-muted">SUBVENDOR:</span><br/>
-                    {{ $truck->subvendor_description }}
+                        @foreach($subcon->where('id',$truck->subvendor_description)->take(1) as $x)
+                                {{ $x->name }}
+                        @endforeach
+
                     <br/>
                     <br/>
                     <span class="text-muted">START VALIDITY DATE</span><br/>
