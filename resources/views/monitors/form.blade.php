@@ -4,7 +4,7 @@
         <div class="col-md-12">
             <div class="form-group {{ $errors->has('remarks') ? ' has-danger' : '' }}">
                 <label>Remarks</label>
-                {{ Form::textarea('remarks', $monitor->remarks, ['class' => 'form-control', 'placeholder' => 'Enter Remarks']) }}
+                {{ Form::textarea('remarks', $monitor->remarks, ['class' => 'form-control', 'placeholder' => 'Enter Remarks','rows' => '3']) }}
                 @if ($errors->has('remarks'))
                         <div class="form-control-feedback">
                             <small>
