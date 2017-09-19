@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Spatie\Activitylog\Models\Activity;
 use App\User;
 use Auth;
 use App\Role;
@@ -65,7 +66,10 @@ class UsersController extends Controller
 
          $user->roles()->sync( (array) $request->input('roles_list') );
 
-        flashy()->success('User has successfully created!');
+         $activity = activity()
+         ->log('Created');
+        
+         flashy()->success('User has successfully created!');
 
         return redirect('users');
     }
@@ -116,8 +120,11 @@ class UsersController extends Controller
         $user->update($input);
         $user->roles()->sync( (array) $request->input('roles_list') );
 
-        flashy()->success('Driver has successfully updated!');
+        $activity = activity()
+        ->log('Updated');
 
+
+        flashy()->success('Driver has successfully updated!');
         return redirect('users');
     }
 
@@ -130,6 +137,9 @@ class UsersController extends Controller
     public function destroy($id)
     {
         User::find($id)->delete();
+        $activity = activity()
+        ->log('Deleted');
+
         return redirect()->route('users.index')
                         ->with('success','User deleted successfully');
     }

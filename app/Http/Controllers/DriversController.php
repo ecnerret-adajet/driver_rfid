@@ -102,8 +102,8 @@ class DriversController extends Controller
         $drivers_truck = DB::table('hauler_truck')->select('hauler_id')
                             ->where('truck_id',$request->input('truck_list'))->first();
 
-        $driver->haulers()->attach($drivers_truck);       
-
+        $driver->haulers()->attach($drivers_truck); 
+        
         //send email to supervisor for approval
         $setting = Setting::first();
         Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmDriver($driver));
@@ -224,8 +224,9 @@ class DriversController extends Controller
         
 
         $activity = activity()
-        ->log('Reassigned a driver to a plate number');
-
+        ->performedOn('App\Driver')        
+        ->log('Reassigned');
+        
 
         //send email to supervisor for approval
         $setting = Setting::first();
@@ -270,6 +271,7 @@ class DriversController extends Controller
         
         $driver->card()->associate($card_rfid);
         $driver->clasification()->associate($clasification_id);
+
 
         if($driver->clasification_id == 2) {
             $driver->print_status = 1;
@@ -342,6 +344,11 @@ class DriversController extends Controller
             });
 
         })->download('xlsx');
+
+        // $activity = activity()
+        // ->performedOn('App\Driver')
+        // ->causedBy(Auth::user()->id)
+        // ->log('Exported');
             
     }
 }

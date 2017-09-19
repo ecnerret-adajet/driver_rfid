@@ -18,7 +18,7 @@ mix.styles([
         'resources/assets/css/bootstrap/bootstrap.css',
         'resources/assets/css/select2.min.css',
         'resources/assets/css/select2-bootstrap.min.css',
-        'resources/assets/css/dataTables.bootstrap4.css',
+        // 'resources/assets/css/dataTables.bootstrap4.css',
         'resources/assets/css/lightbox.css',
         'resources/assets/css/font-awesome.min.css',
         'resources/assets/css/sb-admin.min.css',
@@ -34,7 +34,7 @@ mix.styles([
         'resources/assets/js/tether.min.js',
         'resources/assets/js/bootstrap.min.js',
         // 'resources/assets/js/popper/popper.min.js',
-        'resources/assets/js/jquery.dataTables.js',
-        'resources/assets/js/dataTables.bootstrap4.js',
+        // 'resources/assets/js/jquery.dataTables.js',
+        // 'resources/assets/js/dataTables.bootstrap4.js',
         'resources/assets/js/sb-admin.js',
     ], 'public/js/all.js');

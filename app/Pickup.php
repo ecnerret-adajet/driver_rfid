@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Pickup extends Model
 {
+
+    use LogsActivity;
 
     // use \Venturecraft\Revisionable\RevisionableTrait;
     
@@ -27,6 +30,14 @@ class Pickup extends Model
         'driver_name',
         'remarks'
     ];     
+
+    protected static $logAttributes = [
+        'plate_number', 
+        'company',
+        'driver_name',
+        'remarks',
+        'availability'
+    ];
 
     /**
         * driver model has a user authenticated belongsto relationship

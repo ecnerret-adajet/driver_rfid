@@ -17,7 +17,7 @@ class CreateQueuesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('LogID')->unsigned();
-            $table->boolean('availability')->default('0');
+            $table->boolean('availability')->default(1);
             $table->text('remarks');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

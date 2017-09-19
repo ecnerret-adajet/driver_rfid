@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Queue;
 use App\Log;
 use Flashy;
+use Carbon\Carbon;
 
 class QueuesController extends Controller
 {
@@ -17,8 +18,16 @@ class QueuesController extends Controller
      */
     public function index()
     {
+        $log_queues = Log::with(['drivers','drivers.trucks','drivers.haulers'])
+        ->where('ControllerID',1)
+        ->where('DoorID',0)
+        ->where('CardholderID', '>=', 15)
+        ->whereDate('LocalTime', Carbon::now())
+        ->orderBy('LogID','DESC')->get();
 
-        return view('queues.index');
+        $queues = Queue::all();
+        
+        return view('queues.index', compact('log_queues','queues'));
     }
 
     public function queueJson()
@@ -27,6 +36,7 @@ class QueuesController extends Controller
         ->where('ControllerID',1)
         ->where('DoorID',0)
         ->where('CardholderID', '>=', 15)
+        ->whereDate('LocalTime', Carbon::now())
         ->orderBy('LogID','DESC')->get();
 
         return $log_queues;
@@ -39,7 +49,7 @@ class QueuesController extends Controller
      */
     public function create($log)
     {
-        return view('queues.create');
+        return view('queues.create',compact('log'));
     }
 
     /**
@@ -50,19 +60,17 @@ class QueuesController extends Controller
      */
     public function store(Request $request, $log)
     {
-        $this->validate($request, [
-            'availability' => 'required'
-        ]);
+        
 
-        $log_id = Log::select('LogID')->where('LogID',$log)->first();
-
-        $queue = Auth::user()->queues()->create($request->all());
-        $queue->LogID = $log_id;
+        $queue = new Queue;
+        $queue->user_id = Auth::user()->id;
+        $queue->LogID = $log;
+        $queue->availability = 0;
         $queue->save();
+
 
         flashy()->success('Queue has successfully created!');
         return redirect('queues');
-
     }
 
     /**

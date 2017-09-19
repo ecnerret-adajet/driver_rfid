@@ -15,5 +15,10 @@ class Queue extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function log()
+    {
+        return $this->belongsTo('App\Log','LogID','LogID');
+    }
 }
 

@@ -2,6 +2,68 @@
 <div>
 
 
+ <!-- Icon Cards -->
+        <div class="row">
+          <div class="col-xl-6 col-sm-6 mb-3">
+            <div class="card text-white bg-primary o-hidden h-100">
+              <div class="card-body">
+                <div class="card-body-icon">
+                </div>
+                <div class="mr-5">
+                 Queue Count
+                </div>
+                <div v-if="!is_loading">
+                    <h3>
+                0
+                    </h3>
+                </div>
+                 <div v-if="is_loading">
+                  <div class="center-align" style="display: flex; align-items: center; justify-content: center;">
+                        <svg class="spinner" width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                        </svg>	
+                    </div>
+                </div>
+              </div>
+              <a href="#" class="card-footer text-white clearfix small z-1">
+                <span class="float-left">View Details</span>
+                <span class="float-right">
+                </span>
+              </a>
+            </div>
+          </div>
+          <div class="col-xl-6 col-sm-6 mb-3">
+            <div class="card text-white bg-warning o-hidden h-100">
+              <div class="card-body">
+                <div class="card-body-icon">
+                </div>
+                <div class="mr-5">
+                  Marked as done
+                </div>
+               <div v-if="!is_loading">
+                    <h3>
+                      0
+
+                    </h3>
+                </div>
+                 <div v-if="is_loading">
+                  <div class="center-align" style="display: flex; align-items: center; justify-content: center;">
+                        <svg class="spinner" width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                        </svg>	
+                    </div>
+                </div>
+              </div>
+              <a href="#" class="card-footer text-white clearfix small z-1">
+                <span class="float-left">View Details</span>
+                <span class="float-right">
+                </span>
+              </a>
+            </div>
+          </div>
+        </div><!-- end row -->
+
+<!-- 
    <div class="row">
                     <div class="col-sm-12">
                         <div v-if="!loading">
@@ -26,7 +88,7 @@
                                             <span>{{ moment(queue.LocalTime) }}</span>
                                         </div>
                                         <div class="col-sm-2 pull-right right">
-                                            <a href="#" class="btn btn-primary pull-right btn-sm">Mark as done</a>                                            
+                                            <a :href="queues_link + queue.LogID" class="btn btn-primary pull-right btn-sm">Mark as done</a>                                            
                                         </div>
                                     </div>
                                 </li>
@@ -45,7 +107,7 @@
                             </svg>	
                         </div>
                     </div>
-                </div>
+                </div> -->
 
 
 
@@ -57,7 +119,10 @@ import moment from 'moment';
 export default {
     data(){
         return {
+            searchString: '',
+            is_loading: false,
             loading: false,
+            queues_link: '/driver_rfid/public/queues/',
             avatar_link: 'http://localhost/driver_rfid/storage/app/',
             queues: []
         }

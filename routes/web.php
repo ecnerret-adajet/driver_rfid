@@ -143,12 +143,12 @@ Route::resource('monitors', 'MonitorsController', ['except' => [
 
 Route::get('/pickupsJson','PickupsController@pickupsJson');
 Route::get('/pickupsStatus','PickupsController@pickupsStatus');
+Route::get('/generatePickups','PickupsController@generatePickups');
 Route::resource('/pickups','PickupsController');
 
 
 Route::get('/feed','FeedsController@index');
 Route::get('/feed-content','FeedsController@feedContent');
-Route::get('/home-content','FeedsController@homeFeed');
 Route::get('/home-content','FeedsController@homeFeed');
 Route::get('/barrier','FeedsController@barrier');
 Route::get('/barrier-content','FeedsController@barrierContent');
@@ -156,6 +156,9 @@ Route::get('/barrier-content','FeedsController@barrierContent');
 //queues route setup
 Route::get('/queueJson','QueuesController@queueJson');
 Route::get('/queues','QueuesController@index');
+Route::get('/queues/{log}','QueuesController@create');
+Route::post('/queues/{log}','QueuesController@store');
+
 
 
 //activies logs

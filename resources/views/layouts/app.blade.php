@@ -25,6 +25,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/all.css') }}" rel="stylesheet" media="screen,projection">
+    <link href="{{ asset('css/dataTables.bootstrap4.css') }}" rel="stylesheet">
     </head>
 
     <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -32,7 +33,7 @@
     <div id="app">
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top pb-1" id="mainNav">
       <a class="navbar-brand" href="{{url('/home')}}">Truck Monitoring</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -200,7 +201,7 @@
 
 
         <ul class="navbar-nav sidenav-toggler">
-          {{--  <li class="nav-item">
+          <li class="nav-item">
             <a class="nav-link text-center" id="sidenavToggler">
               <i class="fa fa-fw fa-angle-left"></i>
             </a>
@@ -292,7 +293,7 @@
                 View all alerts
               </a>
             </div>
-          </li>  --}}
+          </li>
     
           <li class="nav-item">
             <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal">
@@ -364,6 +365,8 @@
     
        <!-- Scripts -->
         <script src="{{ asset('js/all.js') }}"></script>
+        <script src="{{ asset('js/jquery.dataTables.js') }}"></script>
+        <script src="{{ asset('js/dataTables.bootstrap4.js') }}"></script>
         @yield('script')
         @include('flashy::message')
 

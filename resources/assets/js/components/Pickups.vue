@@ -81,7 +81,7 @@
         </div>
 
 
-          <div clas="row">
+          <!-- <div clas="row">
 
                 <div id="custom-search-input">
                     <div class="input-group col-sm-12 col-md-12 col-lg-12 mb-2 p-0">
@@ -100,10 +100,10 @@
                          
 
                 </div>
-            </div> <!-- end row -->
+            </div>  -->
         
 
-                   <div class="row">
+                   <!-- <div class="row">
                     <div class="col-sm-12">
                         <div v-if="!loading">
                             <ul class="list-group">
@@ -150,14 +150,14 @@
                                     </div>
                                 </li>
                             </ul>
-                        </div><!-- end loading -->
+                        </div>
                          <div class="center-align" style="padding-top: 50px; display: flex; align-items: center; justify-content: center;" v-if="loading">
                             <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
                                 <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
                             </svg>	
                         </div>
                     </div>
-                </div>
+                </div> -->
 
     </div>
 </template>

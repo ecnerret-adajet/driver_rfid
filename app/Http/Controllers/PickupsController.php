@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Activitylog\Models\Activity;
 use Carbon\Carbon;
 use App\Cardholder;
 use App\Pickup;
@@ -18,7 +19,25 @@ class PickupsController extends Controller
      */
     public function index()
     {
-        return view('pickups.index');
+        $pickups = Pickup::where('created_at',Carbon::now())->orderBy('created_at','desc')->get();
+        return view('pickups.index',compact('pickups'));
+    }
+
+    public function generatePickups(Request $request)
+    {
+        $this->validate($request, [
+            'start_date' => 'required',
+            'end_date' => 'required',
+        ]);
+
+        $start_date = $request->get('start_date');
+        $end_date = $request->get('end_date');
+        
+        $pickups = Pickup::whereBetween('created_at', [Carbon::parse($start_date), Carbon::parse($end_date)])
+        ->orderBy('created_at','DESC')->get();
+
+        return view('pickups.index',compact('pickups'));
+
     }
 
     public function pickupsStatus()
@@ -92,6 +111,7 @@ class PickupsController extends Controller
         $pickup->cardholder()->associate($plate);
         $pickup->save();
 
+
         alert()->success('Pickup has been issued successfully');
         return redirect('pickups');
     }
@@ -147,6 +167,7 @@ class PickupsController extends Controller
         $pickup->cardholder()->associate($plate);
         $pickup->save();
 
+        
         alert()->success('Pickup has been update successfully');
         return redirect('pickups');
     }
@@ -164,6 +185,11 @@ class PickupsController extends Controller
          $pick = Pickup::findOrFail($id);
          $pick->availability = false;
          $pick->save();
+
+         $activity = activity()
+         ->performedOn('App\Pickup')
+         ->log('Deactivated');
+         
  
          alert()->success('Pickup successfully deactivated', 'Success Added!');
          return redirect('pickups');

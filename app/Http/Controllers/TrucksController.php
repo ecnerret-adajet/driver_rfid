@@ -200,7 +200,8 @@ class TrucksController extends Controller
         $truck->update($request->all());            
 
         $activity = activity()
-                    ->log('Transferred a Truck to 3PL');
+        ->performedOn('App\Truck')  
+        ->log('Transferred to 3PL');
 
         flashy()->success('Truck has successfully transferred!');
         return redirect('trucks');
