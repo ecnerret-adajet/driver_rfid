@@ -33,7 +33,7 @@
     <div id="app">
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top pb-1" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top pb-1 " style="background: url('../public/img/materializebg.jpg') no-repeat fixed; background-position: 20% 50%;"  id="mainNav">
       <a class="navbar-brand" href="{{url('/home')}}">Truck Monitoring</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -54,6 +54,8 @@
                                                      Request::is('trucks/*') ||
                                                      Request::is('pickups') ||
                                                      Request::is('pickups/*') ||
+                                                     Request::is('generatePickups') ||
+                                                     Request::is('generateQueues') ||
                                                      Request::is('queues') ||
                                                      Request::is('queues/*') ||
                                                      Request::is('drivers') ||
@@ -68,12 +70,16 @@
                                                      Request::is('trucks/*') ||
                                                      Request::is('drivers') ||
                                                      Request::is('queues') ||
+                                                     Request::is('generatePickups') ||
+                                                     Request::is('generateQueues') ||
                                                      Request::is('queues/*') ||
                                                      Request::is('pickups') ||
                                                      Request::is('pickups/*') ||
                                                      Request::is('drivers/*') ||           
                                                      Request::is('cards') || 
                                                      Request::is('bind/*')) ? '' : 'collapse' }}" id="collapseComponents">
+              @role((['Administrator','Monitoring']))
+
               <li class="{{ (Request::is('trucks') ||
                             Request::is('trucks/*')  
                         ) ? 'active' : '' }}">
@@ -84,19 +90,36 @@
                           ) ? 'active' : ''}}">
                 <a href="{{url('/drivers')}}">Drivers</a>
               </li>
+
+               @endrole
+
+               @role((['Administrator','Personnel']))
+
                <li class="{{ (Request::is('pickups') ||
+                            Request::is('generatePickups') ||
                             Request::is('pickups/*')
                           ) ? 'active' : ''}}">
                 <a href="{{url('/pickups')}}">Pickups</a>
               </li>
+
+              @endrole
+
+              @role((['Administrator','Queue']))
+
               <li class="{{ (Request::is('queues') ||
+                            Request::is('generateQueues') ||
                             Request::is('queues/*')
                           ) ? 'active' : ''}}">
                 <a href="{{url('/queues')}}">Queue</a>
               </li>
+
+              @endrole
+              
               
             </ul>
           </li>
+
+          @role(('Administrator'))
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
             <a class="nav-link nav-link-collapse {{ (Request::is('users') || 
                                                      Request::is('users/*') ||
@@ -122,8 +145,11 @@
               </li>
             </ul>
           </li>
+    
+
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
             <a class="nav-link nav-link-collapse {{ (Request::is('settings') || 
+                                                     Request::is('generateActivities') ||
                                                      Request::is('settings/*') ||
                                                      Request::is('handlers') ||
                                                      Request::is('handlers/*') ||
@@ -133,6 +159,7 @@
                 Admin</span>
             </a>
             <ul class="sidenav-second-level {{ (Request::is('settings') || 
+                                                     Request::is('generateActivities') ||
                                                      Request::is('settings/*') ||
                                                      Request::is('handlers') ||
                                                      Request::is('handlers/*') ||
@@ -140,9 +167,9 @@
               <li class="{{ (Request::is('settings') ||
                               Request::is('settings/*')
                             ) ? 'active' : '' }}">
-                <a href="{{url('/settings')}}">Emails</a>
+                <a href="{{url('/settings')}}">Email Notifications</a>
               </li>
-               <li class="{{ (Request::is('activities')) ? 'active' : '' }}">
+               <li class="{{ (Request::is('activities') || Request::is('generateActivities')) ? 'active' : '' }}">
                 <a href="{{url('/activities')}}">System Logs</a>
               </li>
               <li class="{{ (Request::is('handlers') || Request::is('handlers/*')) ? 'active' : '' }}">
@@ -151,7 +178,10 @@
             </ul>
           </li>
 
+          @endrole
 
+
+          @role((['Administrator','Monitoring']))
 
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reports">
             <a class="nav-link nav-link-collapse {{ (Request::is('prints') || 
@@ -179,6 +209,10 @@
             </ul>
           </li>
 
+          @endrole
+
+          @role(('Administrator'))
+
            <li class="nav-item {{ Request::is('feed') ? 'active' : '' }}" data-toggle="tooltip" data-placement="right" title="livefeed">
             <a class="nav-link" href="{{url('/feed')}}">
                <i class="fa fa-fw fa-file"></i>
@@ -195,20 +229,21 @@
             </a>
           </li>
 
-
+        @endrole
 
         </ul>
 
 
         <ul class="navbar-nav sidenav-toggler">
           <li class="nav-item">
-            <a class="nav-link text-center" id="sidenavToggler">
-              <i class="fa fa-fw fa-angle-left"></i>
+            <a class="nav-link text-center" href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal">
+              <i class="fa fa-fw fa-sign-out"></i>
+              Logout
             </a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item dropdown">
+        {{--  <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle mr-lg-2" href="#" id="messagesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-fw fa-envelope"></i>
               <span class="d-lg-none">Messages
@@ -244,63 +279,14 @@
                 View all messages
               </a>
             </div>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle mr-lg-2" href="#" id="alertsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-fw fa-bell"></i>
-              <span class="d-lg-none">Alerts
-                <span class="badge badge-pill badge-warning">6 New</span>
-              </span>
-              <span class="new-indicator text-warning d-none d-lg-block">
-                <i class="fa fa-fw fa-circle"></i>
-                <span class="number">6</span>
-              </span>
+          </li>    --}}
+          <li class="nav-item">
+            <a class="nav-link mr-lg-2" href="#">
+             Hello, {{ Auth::user()->name }}
             </a>
-            <div class="dropdown-menu" aria-labelledby="alertsDropdown">
-              <h6 class="dropdown-header">New Alerts:</h6>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">
-                <span class="text-success">
-                  <strong>
-                    <i class="fa fa-long-arrow-up"></i>
-                    Status Update</strong>
-                </span>
-                <span class="small float-right text-muted">11:21 AM</span>
-                <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">
-                <span class="text-danger">
-                  <strong>
-                    <i class="fa fa-long-arrow-down"></i>
-                    Status Update</strong>
-                </span>
-                <span class="small float-right text-muted">11:21 AM</span>
-                <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">
-                <span class="text-success">
-                  <strong>
-                    <i class="fa fa-long-arrow-up"></i>
-                    Status Update</strong>
-                </span>
-                <span class="small float-right text-muted">11:21 AM</span>
-                <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item small" href="#">
-                View all alerts
-              </a>
-            </div>
           </li>
     
-          <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal">
-              <i class="fa fa-fw fa-sign-out"></i>
-              Logout
-            </a>
-          </li>
+       
         </ul>
       </div>
     </nav>
@@ -365,6 +351,8 @@
     
        <!-- Scripts -->
         <script src="{{ asset('js/all.js') }}"></script>
+        {{--  <script src="{{ asset('js/bootstrap.min.js') }}"></script>  --}}
+        <script src="{{ asset('js/jquery.dataTables.js') }}"></script>
         <script src="{{ asset('js/jquery.dataTables.js') }}"></script>
         <script src="{{ asset('js/dataTables.bootstrap4.js') }}"></script>
         @yield('script')

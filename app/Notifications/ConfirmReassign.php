@@ -9,11 +9,9 @@ use Illuminate\Notifications\Messages\MailMessage;
 use App\Driver;
 use App\Truck;
 
-class ConfirmDriver extends Notification
+class ConfirmReassign extends Notification
 {
     use Queueable;
-
-    protected $driver;
 
     /**
      * Create a new notification instance.
@@ -44,7 +42,6 @@ class ConfirmDriver extends Notification
      */
     public function toMail($notifiable)
     {
-
         if(count($this->driver->clasification) == 0) {
             $status = 'added';
         } else {
@@ -57,17 +54,14 @@ class ConfirmDriver extends Notification
                 $hauler_name = $hauler->name;
             }
         }
-        
-  
-        return (new MailMessage)
-            ->success()
-            ->subject('Truck Monitoring: Driver RFID Confirmation')
-            ->greeting('Good day!')
-            ->line($this->driver->user->name. ' has '. $status .' a driver for your review, please see the details below.')
-            ->line($this->driver->name.' - '. $truck_name)
-            ->action('Confirm Now', url('/confirm/create/'.$this->driver->id))
-            ->line('This is a generated notification from the system');
 
+        return (new MailMessage)
+        ->success()
+        ->subject('Truck Monitoring: Reassign Confirmation')
+        ->greeting('Good day!')
+        ->line('A driver: '.$this->driver->name.' has now reassigned to '.$truck_name.' Please confirm by clicking the button below' )
+        ->action('Confirm Now', url('/confirm/create/'.$this->driver->id))
+        ->line('This is a generated notification from the system');
     }
 
     /**

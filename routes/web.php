@@ -155,7 +155,9 @@ Route::get('/barrier-content','FeedsController@barrierContent');
 
 //queues route setup
 Route::get('/queueJson','QueuesController@queueJson');
+Route::get('/markedJson','QueuesController@markedJson');
 Route::get('/queues','QueuesController@index');
+Route::get('/generateQueues','QueuesController@generateQueues');
 Route::get('/queues/{log}','QueuesController@create');
 Route::post('/queues/{log}','QueuesController@store');
 
@@ -163,6 +165,7 @@ Route::post('/queues/{log}','QueuesController@store');
 
 //activies logs
 Route::get('/activities','ActivitiesController@index');
+Route::get('/generateActivities','ActivitiesController@generateActivities');
 
 //handler's mapping route setup
 Route::resource('/handlers','handlerMappingsController');

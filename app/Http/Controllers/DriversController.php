@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\ConfirmDriver;
+use App\Notifications\ConfirmReassign;
 use Spatie\Activitylog\Models\Activity;
 use Carbon\Carbon;
 use App\Clasification;
@@ -81,6 +82,8 @@ class DriversController extends Controller
             'phone_number' => 'required|max:13|min:13',
             'nbi_number' => 'required|max:8|min:8',
             'driver_license' => 'required|max:13|min:13',
+            'start_validity_date' => 'required|before:end_validity_date',
+            'end_validity_date' => 'required'
                 
         ],[
             'truck_list.required' => 'Plate Number is required'
@@ -194,7 +197,9 @@ class DriversController extends Controller
     {
 
         $this->validate($request,[
-            'truck_list' => 'required'
+            'truck_list' => 'required',
+            'start_validity_date' => 'required|before:end_validity_date',
+            'end_validity_date' => 'required'
         ]);
 
         foreach($driver->trucks as $truck) {
@@ -230,7 +235,7 @@ class DriversController extends Controller
 
         //send email to supervisor for approval
         $setting = Setting::first();
-        Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmDriver($driver));
+        Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmReassign($driver));
 
         
         flashy()->success('Driver has successfully Reassigned!');
@@ -253,6 +258,8 @@ class DriversController extends Controller
                 'phone_number' => 'required',
                 'card_list' => 'required',
                 'clasification_list' => 'required',
+                'start_validity_date' => 'required|before:end_validity_date',
+                'end_validity_date' => 'required'
         ]);
 
         $card_rfid = $request->input('card_list');

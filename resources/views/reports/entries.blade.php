@@ -60,7 +60,7 @@
                             <div class="col-md-6">
                                 <div class="form-group {{ $errors->has('start_date') ? ' has-danger' : '' }}">
                                         <label>Start Date</label>
-                                        {!! Form::input('date','start_date', $sel_start, ['class' => 'form-control']) !!}
+                                        {!! Form::input('date','start_date', $sel_start, ['class' => 'form-control', 'max' => ''.date('Y-m-d', strtotime(Carbon\Carbon::now())).'' ]) !!}
                                         @if ($errors->has('start_date'))
                                             <div class="form-control-feedback">
                                             <small>

@@ -29,10 +29,10 @@ class Card extends Model
         'binders', 
     ];
 
-    // public function getCardHolderAttribute()
-    // {   
-    //     return $this->CardNo .' - '. $cardholder_name;
-    // }
+    public function getCardHolderAttribute()
+    {   
+        return $this->CardNo .' - '. ' Deploy '. $this->CardholderID;
+    }
 
     public function cardholder()
     {

@@ -14,7 +14,7 @@
         <div class="card-body">
 
             <div class="table-responsive">
-            <table class="table" width="100%" id="printTable" cellspacing="0">
+            <table class="table" width="100%" id="dataTable" cellspacing="0">
             <thead>
                 <tr>
                 <th>Driver Name</th>
@@ -36,7 +36,7 @@
                     {{ $driver->user->name }}
                 </td>
                 <td>
-                @forelse($driver->confirms->reverse()->take(1) as $confirm)
+                @foreach($driver->confirms->reverse()->take(1) as $confirm)
                         @if($confirm->status ==  "Approve")
                          {{--  <form method="POST" action="{{ url('/prints',$driver->id) }}">
                          {!! csrf_field() !!}
@@ -57,11 +57,7 @@
                     @endforelse
                 </td>
                 </tr>
-            @empty
-                <tr>
-                    <td rowspan="3" class="center">NO RECORD FOUND</td>                
-                </tr>
-            @endforelse
+            @endforeach
             </tbody>
             </table>
             </div>
@@ -73,7 +69,7 @@
 @section('script')
 <script>
   $(document).ready(function() {
-    $('#printTable').DataTable();
+    $('#dataTable').DataTable();
   });
 </script>
 @endsection

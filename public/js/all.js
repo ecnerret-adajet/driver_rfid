@@ -33666,15 +33666,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -34207,70 +34198,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            searchString: '',
-            is_loading: false,
             loading: false,
-            queues_link: '/driver_rfid/public/queues/',
-            avatar_link: 'http://localhost/driver_rfid/storage/app/',
-            queues: []
+            queues: [],
+            marked: []
         };
     },
     created: function created() {
         this.getQueues();
+        this.getMarked();
     },
 
 
@@ -34282,6 +34222,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get('http://localhost/driver_rfid/public/queueJson').then(function (response) {
                 _this.queues = response.data;
                 _this.loading = false;
+            });
+        },
+        getMarked: function getMarked() {
+            var _this2 = this;
+
+            this.loading = true;
+            axios.get('http://localhost/driver_rfid/public/markedJson').then(function (response) {
+                _this2.marked = response.data;
+                _this2.loading = false;
             });
         },
         moment: function moment(date) {
@@ -35961,7 +35910,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card-body-icon"
   }), _vm._v(" "), _c('div', {
     staticClass: "mr-5"
-  }, [_vm._v("\r\n                 Queue Count\r\n                ")]), _vm._v(" "), (!_vm.is_loading) ? _c('div', [_c('h3', [_vm._v("\r\n                0\r\n                    ")])]) : _vm._e(), _vm._v(" "), (_vm.is_loading) ? _c('div', [_c('div', {
+  }, [_vm._v("\r\n                 Queue Count\r\n                ")]), _vm._v(" "), (!_vm.loading) ? _c('div', [_c('h3', [_vm._v("\r\n                            " + _vm._s(_vm.queues.length) + "\r\n                    ")])]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', [_c('div', {
     staticClass: "center-align",
     staticStyle: {
       "display": "flex",
@@ -35996,7 +35945,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card-body-icon"
   }), _vm._v(" "), _c('div', {
     staticClass: "mr-5"
-  }, [_vm._v("\r\n                  Marked as done\r\n                ")]), _vm._v(" "), (!_vm.is_loading) ? _c('div', [_c('h3', [_vm._v("\r\n                      0\r\n\r\n                    ")])]) : _vm._e(), _vm._v(" "), (_vm.is_loading) ? _c('div', [_c('div', {
+  }, [_vm._v("\r\n                  Marked as done\r\n                ")]), _vm._v(" "), (!_vm.loading) ? _c('div', [_c('h3', [_vm._v("\r\n                    " + _vm._s(_vm.marked) + "\r\n\r\n                    ")])]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', [_c('div', {
     staticClass: "center-align",
     staticStyle: {
       "display": "flex",
@@ -36202,7 +36151,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card-body-icon"
   }), _vm._v(" "), _c('div', {
     staticClass: "mr-5"
-  }, [_vm._v("\n             All Pickup Logs\n            ")]), _vm._v(" "), (!_vm.is_loading) ? _c('div', [_c('h3', [_vm._v("\n             " + _vm._s(_vm.pickupValue.all_pickups) + "\n                ")])]) : _vm._e(), _vm._v(" "), (_vm.is_loading) ? _c('div', [_c('div', {
+  }, [_vm._v("\n             Pickup Logs for Today\n            ")]), _vm._v(" "), (!_vm.is_loading) ? _c('div', [_c('h3', [_vm._v("\n             " + _vm._s(_vm.pickupValue.all_pickups) + "\n                ")])]) : _vm._e(), _vm._v(" "), (_vm.is_loading) ? _c('div', [_c('div', {
     staticClass: "center-align",
     staticStyle: {
       "display": "flex",
@@ -36476,10 +36425,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "cy": "33",
       "r": "30"
     }
-  })])])]) : _vm._e()]), _vm._v(" "), _vm._m(0)])]), _vm._v(" "), _c('div', {
+  })])])]) : _vm._e()]), _vm._v(" "), _c('a', {
+    staticClass: "card-footer text-white clearfix small z-1",
+    attrs: {
+      "href": "#"
+    }
+  })])]), _vm._v(" "), _c('div', {
     staticClass: "col-xl-3 col-sm-6 mb-3"
   }, [_c('div', {
-    staticClass: "card text-white bg-warning o-hidden h-100"
+    staticClass: "card text-white bg-primary o-hidden h-100"
   }, [_c('div', {
     staticClass: "card-body"
   }, [_c('div', {
@@ -36511,10 +36465,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "cy": "33",
       "r": "30"
     }
-  })])])]) : _vm._e()]), _vm._v(" "), _vm._m(1)])]), _vm._v(" "), _c('div', {
+  })])])]) : _vm._e()]), _vm._v(" "), _c('a', {
+    staticClass: "card-footer text-white clearfix small z-1",
+    attrs: {
+      "href": "#"
+    }
+  })])]), _vm._v(" "), _c('div', {
     staticClass: "col-xl-3 col-sm-6 mb-3"
   }, [_c('div', {
-    staticClass: "card text-white bg-success o-hidden h-100"
+    staticClass: "card text-white bg-primary o-hidden h-100"
   }, [_c('div', {
     staticClass: "card-body"
   }, [_c('div', {
@@ -36546,10 +36505,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "cy": "33",
       "r": "30"
     }
-  })])])]) : _vm._e()]), _vm._v(" "), _vm._m(2)])]), _vm._v(" "), _c('div', {
+  })])])]) : _vm._e()]), _vm._v(" "), _c('a', {
+    staticClass: "card-footer text-white clearfix small z-1",
+    attrs: {
+      "href": "#"
+    }
+  })])]), _vm._v(" "), _c('div', {
     staticClass: "col-xl-3 col-sm-6 mb-3"
   }, [_c('div', {
-    staticClass: "card text-white bg-danger o-hidden h-100"
+    staticClass: "card text-white bg-primary o-hidden h-100"
   }, [_c('div', {
     staticClass: "card-body"
   }, [_c('div', {
@@ -36581,54 +36545,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "cy": "33",
       "r": "30"
     }
-  })])])]) : _vm._e()]), _vm._v(" "), _vm._m(3)])])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('a', {
+  })])])]) : _vm._e()]), _vm._v(" "), _c('a', {
     staticClass: "card-footer text-white clearfix small z-1",
     attrs: {
       "href": "#"
     }
-  }, [_c('span', {
-    staticClass: "float-left"
-  }, [_vm._v("View Details")]), _vm._v(" "), _c('span', {
-    staticClass: "float-right"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('a', {
-    staticClass: "card-footer text-white clearfix small z-1",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('span', {
-    staticClass: "float-left"
-  }, [_vm._v("View Details")]), _vm._v(" "), _c('span', {
-    staticClass: "float-right"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('a', {
-    staticClass: "card-footer text-white clearfix small z-1",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('span', {
-    staticClass: "float-left"
-  }, [_vm._v("View Details")]), _vm._v(" "), _c('span', {
-    staticClass: "float-right"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('a', {
-    staticClass: "card-footer text-white clearfix small z-1",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('span', {
-    staticClass: "float-left"
-  }, [_vm._v("View Details")]), _vm._v(" "), _c('span', {
-    staticClass: "float-right"
-  }, [_c('i', {
-    staticClass: "fa fa-angle-right"
-  })])])
-}]}
+  })])])])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

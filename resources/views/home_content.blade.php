@@ -1,6 +1,21 @@
    @extends('layouts.feeds')   
       @section('feed-section') 
       @inject('map', 'App\Http\Controllers\FeedsController')
+
+      <div class="row mb-3">
+        <div class="col-sm-4 text-center text-muted">
+            DRIVER'S INFORMATION
+        </div>
+        <div class="col-sm-3 text-center text-muted">
+            SHIPMENT IN/OUT
+        </div>
+        <div class="col-sm-3 text-center text-muted">
+           PLANT IN/OUT
+        </div>
+        <div class="col-sm-2 text-center text-muted">
+           CAMERA
+        </div>
+      </div>
     
       <div class="row pb-5">
         <div class="col-sm-12">
@@ -41,10 +56,10 @@
                     <div class="col-sm-3 right">
                         <?php $final_in = ''; ?>
                         @forelse($all_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
-                            <span class="badge badge-secondary"> SHIP-I: {{ $final_in = date('m/d/y h:i:s A', strtotime($in->LocalTime))}} </span>
+                            <span> I: {{ $final_in = date('m/d/y h:i:s A', strtotime($in->LocalTime))}} </span>
                         @empty
                             @forelse($all_in_2->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
-                                <span class="badge badge-secondary"> SHIP-I: {{ $final_in = date('m/d/y h:i:s A', strtotime($in->LocalTime))}} </span>
+                                <span> I: {{ $final_in = date('m/d/y h:i:s A', strtotime($in->LocalTime))}} </span>
                             @empty
                             <span>  NO IN </span>
                             @endforelse  
@@ -52,9 +67,9 @@
                         <br/>
                           <?php $final_out = ''; ?>                                     
                         @forelse($all_out->where('CardholderID', '==', $result->CardholderID)->take(1) as $out)
-                        <span class="badge badge-secondary"> SHIP-O: {{ $final_out = date('Y-m-d h:i:s A', strtotime($out->LocalTime))}} </span>
+                        <span> O: {{ $final_out = date('m/d/y h:i:s A', strtotime($out->LocalTime))}} </span>
                         @empty
-                        <span class="badge badge-secondary">NO OUT</span>
+                        <span>NO OUT</span>
                         @endforelse
                         <br/>
 
@@ -77,7 +92,7 @@
 
                     <?php $barrier_final_in = ''; ?>
                     @forelse($barrier_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
-                        <span class="badge badge-secondary"> PLANT-I: {{ $barrier_final_in = date('m/d/y h:i:s A', strtotime($in->LocalTime))}} </span>
+                        <span> I: {{ $barrier_final_in = date('m/d/y h:i:s A', strtotime($in->LocalTime))}} </span>
                     @empty
                         <span>  NO PLANT IN </span>
                     @endforelse
@@ -85,9 +100,9 @@
 
                     <?php $final_barrier_out = ''; ?>                                     
                     @forelse($barrier_out->where('CardholderID', '==', $result->CardholderID)->take(1) as $out)
-                    <span class="badge badge-secondary"> PLANT-O: {{ $final_barrier_out = date('Y-m-d h:i:s A', strtotime($out->LocalTime))}} </span>
+                    <span> O: {{ $final_barrier_out = date('Y-m-d h:i:s A', strtotime($out->LocalTime))}} </span>
                     @empty
-                    <span class="badge badge-secondary">NO PLANT OUT</span>
+                    <span>NO PLANT OUT</span>
                     @endforelse
                     <br/>
 
@@ -107,13 +122,13 @@
                     <div class="col-sm-2">
 
                          @forelse($all_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
-                            <a class="btn btn-sm btn-success mb-2" href="{{url('http://172.17.2.25:8080/RFID/'.date('Ymd',strtotime($in->LocalTime)).'/AC.'.date('Ymd',strtotime($in->LocalTime)).'.0000'.$in->LogID.'-1.jpg')}}" data-lightbox="{{$result->LogID}}" data-title="TIME IN - {{  date('Y-m-d h:i:s A', strtotime($in->LocalTime))}}">                      
-                               Snapshot - in
+                            <a class="btn btn-sm btn-outline-success mb-2" href="{{url('http://172.17.2.25:8080/RFID/'.date('Ymd',strtotime($in->LocalTime)).'/AC.'.date('Ymd',strtotime($in->LocalTime)).'.0000'.$in->LogID.'-1.jpg')}}" data-lightbox="{{$result->LogID}}" data-title="TIME IN - {{  date('Y-m-d h:i:s A', strtotime($in->LocalTime))}}">                      
+                               SNAPSHOT:IN
                             </a>
                         @empty
                             @forelse($all_in_2->where('CardholderID', '==', $result->CardholderID)->take(1) as $in2)
-                                <a class="btn btn-sm btn-success mb-2" href="{{url('http://172.17.2.25:8080/RFID/'.date('Ymd',strtotime($in2->LocalTime)).'/AC.'.date('Ymd',strtotime($in2->LocalTime)).'.0000'.$in2->LogID.'-1.jpg')}}" data-lightbox="{{$result->LogID}}" data-title="TIME IN - {{  date('Y-m-d h:i:s A', strtotime($in2->LocalTime))}}">                      
-                                    Snapshot - in
+                                <a class="btn btn-sm btn-outline-success mb-2" href="{{url('http://172.17.2.25:8080/RFID/'.date('Ymd',strtotime($in2->LocalTime)).'/AC.'.date('Ymd',strtotime($in2->LocalTime)).'.0000'.$in2->LogID.'-1.jpg')}}" data-lightbox="{{$result->LogID}}" data-title="TIME IN - {{  date('Y-m-d h:i:s A', strtotime($in2->LocalTime))}}">                      
+                                     SNAPSHOT:IN
                                 </a>
                             @empty
                             <span>  NO IN </span>
@@ -124,8 +139,8 @@
 
                          <?php $final_out = ''; ?>                                     
                         @forelse($all_out->where('CardholderID', '==', $result->CardholderID)->take(1) as $out)
-                            <a class="btn btn-sm btn-primary" href="{{url('http://172.17.2.25:8080/RFID/'.date('Ymd',strtotime($out->LocalTime)).'/AC.'.date('Ymd',strtotime($out->LocalTime)).'.0000'.$out->LogID.'-2.jpg')}}" data-lightbox="{{$result->LogID}}" data-title="TIME OUT - {{  date('Y-m-d h:i:s A', strtotime($out->LocalTime))}}">                      
-                                Snapshot - out
+                            <a class="btn btn-sm btn-outline-primary" href="{{url('http://172.17.2.25:8080/RFID/'.date('Ymd',strtotime($out->LocalTime)).'/AC.'.date('Ymd',strtotime($out->LocalTime)).'.0000'.$out->LogID.'-2.jpg')}}" data-lightbox="{{$result->LogID}}" data-title="TIME OUT - {{  date('Y-m-d h:i:s A', strtotime($out->LocalTime))}}">                      
+                                 SNAPSHOT:OUT
                             </a>
                         @empty
                         <span>NO OUT</span>

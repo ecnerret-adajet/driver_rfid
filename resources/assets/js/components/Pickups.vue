@@ -9,7 +9,7 @@
                 <div class="card-body-icon">
                 </div>
                 <div class="mr-5">
-                 All Pickup Logs
+                 Pickup Logs for Today
                 </div>
                 <div v-if="!is_loading">
                     <h3>

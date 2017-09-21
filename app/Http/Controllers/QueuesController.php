@@ -22,11 +22,39 @@ class QueuesController extends Controller
         ->where('ControllerID',1)
         ->where('DoorID',0)
         ->where('CardholderID', '>=', 15)
-        ->whereDate('LocalTime', Carbon::now())
+        ->where('LocalTime', '>=', Carbon::now())
         ->orderBy('LogID','DESC')->get();
 
         $queues = Queue::all();
         
+        return view('queues.index', compact('log_queues','queues'));
+    }
+
+    /**
+    *
+    *
+    * Generater Record form queue model database
+    *
+    */
+    public function generateQueues(Request $request)
+    {
+        $this->validate($request,[
+            'start_date' => 'required|before:end_date',
+            'end_date' => 'required'
+        ]);
+
+        $start_date = $request->get('start_date');
+        $end_date = $request->get('end_date');
+
+        $queues = Queue::all();
+
+        $log_queues = Log::with(['drivers','drivers.trucks','drivers.haulers'])
+        ->where('ControllerID',1)
+        ->where('DoorID',0)
+        ->where('CardholderID', '>=', 15)
+        ->whereBetween('LocalTime', [Carbon::parse($start_date), Carbon::parse($end_date)])
+        ->orderBy('LogID','DESC')->get();
+
         return view('queues.index', compact('log_queues','queues'));
     }
 
@@ -36,10 +64,16 @@ class QueuesController extends Controller
         ->where('ControllerID',1)
         ->where('DoorID',0)
         ->where('CardholderID', '>=', 15)
-        ->whereDate('LocalTime', Carbon::now())
+        ->where('LocalTime', '>=', Carbon::now())
         ->orderBy('LogID','DESC')->get();
 
         return $log_queues;
+    }
+
+    public function markedJson()
+    {
+        $marked = Queue::whereDate('created_at',Carbon::now())->count(); 
+        return $marked;
     }
 
     /**

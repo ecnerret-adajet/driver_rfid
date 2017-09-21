@@ -14,4 +14,10 @@ class Detail extends Model
 
     public function monitors(){
     	return $this->hasMany('App\Monitor');
-    }}
+    }
+
+    public function getFullDetailsAttribute()
+    {
+        return $this->code . ' - ' .$this->remarks;
+    }
+}

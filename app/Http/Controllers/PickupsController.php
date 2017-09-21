@@ -19,15 +19,15 @@ class PickupsController extends Controller
      */
     public function index()
     {
-        $pickups = Pickup::where('created_at',Carbon::now())->orderBy('created_at','desc')->get();
+        $pickups = Pickup::where('created_at', '>=', Carbon::now()->subDay())->orderBy('created_at','DESC')->get();
         return view('pickups.index',compact('pickups'));
     }
 
     public function generatePickups(Request $request)
     {
         $this->validate($request, [
-            'start_date' => 'required',
-            'end_date' => 'required',
+            'start_date' => 'required|before:end_date',
+            'end_date' => 'required'
         ]);
 
         $start_date = $request->get('start_date');
@@ -42,7 +42,7 @@ class PickupsController extends Controller
 
     public function pickupsStatus()
     {
-        $pickups_count = Pickup::all()->count();
+        $pickups_count = Pickup::where('created_at','>=',Carbon::now()->subDay())->count();
 
         $current_pickup = Pickup::select('cardholder_id')->where('availability',1)->count();
 

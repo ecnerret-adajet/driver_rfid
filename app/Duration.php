@@ -15,4 +15,10 @@ class Duration extends Model
     public function monitors()
     {
     	return $this->hasMany('App\Monitor');
-    }}
+    }
+
+    public function getFullDurationsAttribute()
+    {
+        return $this->days. ' - ' .$this->remarks;
+    }
+}

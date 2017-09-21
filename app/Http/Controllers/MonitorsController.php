@@ -50,8 +50,8 @@ class MonitorsController extends Controller
         // Defined all dropdown select values
         $locations = Location::pluck('region','id');
         $statuses = Status::pluck('status','id');
-        $durations = Duration::pluck('days','id');
-        $details = Detail::pluck('code','id');
+        $durations = Duration::all()->pluck('full_durations','id');
+        $details = Detail::all()->pluck('full_details','id');
 
         return view('monitors.create', compact(
         'locations',

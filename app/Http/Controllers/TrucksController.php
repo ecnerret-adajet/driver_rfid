@@ -16,6 +16,7 @@ use Flashy;
 use App\Version;
 use App\Base;
 use App\Plant;
+use App\Cardholder;
 
 class TrucksController extends Controller
 {
@@ -51,8 +52,16 @@ class TrucksController extends Controller
         $haulers = ['' => ''] + Hauler::pluck('name','name')->all();
 
         $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','id')->all();
+        
 
-        $cards = Card::orderBy('CardNo','DESC')->where('CardholderID','>=', 15)->pluck('CardNo','CardID');
+        $cards = Card::orderBy('CardNo','DESC')
+                ->where('CardholderID','>=', 15)
+                ->where('CardholderID','!=', 0)->pluck('CardNo','CardID');
+
+                // $cards = Card::all()
+                // ->where('CardholderID','>=', 15)
+                // ->where('CardholderID','!=', 0)
+                // ->pluck('card_holder','CardID');
 
         $capacities = Capacity::pluck('description','id');
 
@@ -77,8 +86,8 @@ class TrucksController extends Controller
     public function store(Request $request)
     {
          $this->validate($request, [
-            'plate_number' => 'required|max:8|unique:trucks',
-            // 'card_list' => 'required',
+            'plate_number' => 'required_without:reg_number|max:8|unique:trucks',
+            'card_list' => 'required',
             'capacity_list' => 'required',
             'contract_list' => 'required',
             'validity_start_date' => 'required',
@@ -86,6 +95,8 @@ class TrucksController extends Controller
             'vendor_description' => 'required',
             'base_list' => 'required',
             'plant_list' => 'required',
+            'validity_start_date' => 'required|before:validity_end_date',
+            'validity_end_date' => 'required',
         ],[
             'card_list.required' => 'RFID Number is required',
             'capacity_list.required' => 'Capacity Field is required',
@@ -179,8 +190,8 @@ class TrucksController extends Controller
     public function updateTransferHauler(Request $request, Truck $truck)
     {
         $this->validate($request, [
-            'validity_start_date' => 'required|date',
-            'validity_end_date' => 'required|date',
+            'validity_start_date' => 'required|before:validity_end_date',
+            'validity_end_date' => 'required',
             'vendor_description' => 'required',
         ]);
 
@@ -228,6 +239,8 @@ class TrucksController extends Controller
             'vendor_description' => 'required',
             'base_list' => 'required',
             'plant_list' => 'required',
+            'validity_start_date' => 'required|before:validity_end_date',
+            'validity_end_date' => 'required',
         ],[
             'card_list.required' => 'RFID Number is required',
             'capacity_list.required' => 'Capacity Field is required',

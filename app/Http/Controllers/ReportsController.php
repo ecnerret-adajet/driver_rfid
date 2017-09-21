@@ -38,8 +38,8 @@ class ReportsController extends Controller
     public function generateEntries(Request $request)
     {
         $this->validate($request, [
-			'start_date' => 'required',
-			'end_date' => 'required',
+			'start_date' => 'required|before:end_date',
+            'end_date' => 'required',
 			'hauler_list' => 'required',
         ]);
         

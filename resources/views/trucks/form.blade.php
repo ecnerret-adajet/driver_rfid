@@ -6,7 +6,7 @@
                  <div class="col-md-6">
                     <div class="form-group {{ $errors->has('plate_number') ? ' has-danger' : '' }}">
                         <label>Plate Number</label>
-                        {{ Form::text('plate_number', null, ['class' => 'form-control', 'id' => 'driverName', 'placeholder' => 'Enter Plate Number', "data-inputmask" => "'mask': 'AAA-9999'", 'data-mask']) }}
+                        {{ Form::text('plate_number', null, ['class' => 'form-control', 'id' => 'sPriceRewards', 'placeholder' => 'Enter Plate Number', "data-inputmask" => "'mask': 'AAA-9999'", 'data-mask']) }}
                         @if ($errors->has('plate_number'))
                             <div class="form-control-feedback">
                                 <small>
@@ -20,7 +20,7 @@
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('reg_number') ? ' has-danger' : '' }}">
                         <label>Registration Number</label>
-                        {{ Form::text('reg_number', null, ['class' => 'form-control', 'id' => 'driverName', 'placeholder' => 'Enter Registration Number']) }}
+                        {{ Form::text('reg_number', null, ['class' => 'form-control', 'id' => 'inputReward', 'placeholder' => 'Enter Registration Number']) }}
                         @if ($errors->has('reg_number'))
                             <div class="form-control-feedback">
                                 <small>
@@ -36,7 +36,7 @@
             <div class="form-row">
                    <div class="col-md-12">
                         <div class="form-group {{ $errors->has('card_list') ? ' has-danger' : '' }}">
-                                <label for="selectCard">RFID Sticker</label>
+                                <label for="selectCard">RFID Sticker {{$cards->count() }}</label>
                                 @if(!Request::is('trucks/create'))
                                 {!! Form::select('card_list', $cards, count($truck->card) == 0 ? 'null' : $truck->card->CardID, ['placeholder' => 'Select Deploy RFID',  'class' => 'form-control select2-card'] ) !!}
                                 @else
@@ -197,10 +197,16 @@
             placeholder: "Select Contract",
             allowClear: true
         });
-
-
         $(".select2-card").select2();
         $(".select2-plant").select2();
+
+        $('#sPriceRewards').on('input', function() {    
+            if($(this).val().length)
+            $('#inputReward').prop('disabled', true);
+            else
+            $('#inputReward').prop('disabled', false);
+        });
+
     </script>
   
 @endsection
