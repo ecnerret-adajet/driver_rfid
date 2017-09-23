@@ -32,9 +32,9 @@ mix.styles([
         'resources/assets/js/input-mask/jquery.inputmask.extensions.js',
         'resources/assets/js/lightbox.js',
         'resources/assets/js/tether.min.js',
-        'resources/assets/js/bootstrap.min.js',
+        // 'resources/assets/js/bootstrap.min.js',
         // 'resources/assets/js/popper/popper.min.js',
         // 'resources/assets/js/jquery.dataTables.js',
         // 'resources/assets/js/dataTables.bootstrap4.js',
-        'resources/assets/js/sb-admin.js',
+        // 'resources/assets/js/sb-admin.js',
     ], 'public/js/all.js');

@@ -33,7 +33,7 @@
     <div id="app">
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top pb-1 " style="background: url('../public/img/materializebg.jpg') no-repeat fixed; background-position: 20% 50%;"  id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top pb-1 " style="background: url({{ URL::asset('img/materializebg.jpg') }}) no-repeat fixed; background-position: 20% 50%;"  id="mainNav">
       <a class="navbar-brand" href="{{url('/home')}}">Truck Monitoring</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -49,7 +49,7 @@
             </a>
           </li>
 
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Master Data">
             <a class="nav-link nav-link-collapse {{ (Request::is('trucks') || 
                                                      Request::is('trucks/*') ||
                                                      Request::is('pickups') ||
@@ -120,35 +120,13 @@
           </li>
 
           @role(('Administrator'))
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
-            <a class="nav-link nav-link-collapse {{ (Request::is('users') || 
-                                                     Request::is('users/*') ||
-                                                     Request::is('roles') ||
-                                                     Request::is('roles/*')) ? '' : 'collapsed' }}" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
-              <i class="fa fa-fw fa-user"></i>
-              <span class="nav-link-text">
-                Users</span>
-            </a>
-            <ul class="sidenav-second-level {{ (Request::is('users') || 
-                                                     Request::is('users/*') ||
-                                                     Request::is('roles') ||
-                                                     Request::is('roles/*')) ? '' : 'collapse' }}" id="collapseExamplePages">
-              <li class="{{ (Request::is('users') ||
-                              Request::is('users/*')
-                            ) ? 'active' : '' }}">
-                <a href="{{url('/users')}}">All Users</a>
-              </li>
-              <li class="{{ (Request::is('roles') ||
-                              Request::is('roles/*')
-                            ) ? 'active' : '' }}">
-                <a href="#">Roles</a>
-              </li>
-            </ul>
-          </li>
+
     
 
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Admin">
             <a class="nav-link nav-link-collapse {{ (Request::is('settings') || 
+                                                     Request::is('users') ||
+                                                     Request::is('users/*') ||
                                                      Request::is('generateActivities') ||
                                                      Request::is('settings/*') ||
                                                      Request::is('handlers') ||
@@ -156,14 +134,21 @@
                                                      Request::is('activities')) ? '' : 'collapsed' }}" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
               <i class="fa fa-fw fa-file"></i>
               <span class="nav-link-text">
-                Admin</span>
+                Administrator</span>
             </a>
             <ul class="sidenav-second-level {{ (Request::is('settings') || 
                                                      Request::is('generateActivities') ||
+                                                     Request::is('users') ||
+                                                     Request::is('users/*') ||
                                                      Request::is('settings/*') ||
                                                      Request::is('handlers') ||
                                                      Request::is('handlers/*') ||
                                                      Request::is('activities')) ? '' : 'collapse' }}" id="collapseMulti">
+              <li class="{{ (Request::is('users') ||
+                              Request::is('users/*')
+                            ) ? 'active' : '' }}">
+                <a href="{{url('/users')}}">Users</a>
+              </li>
               <li class="{{ (Request::is('settings') ||
                               Request::is('settings/*')
                             ) ? 'active' : '' }}">
@@ -173,7 +158,7 @@
                 <a href="{{url('/activities')}}">System Logs</a>
               </li>
               <li class="{{ (Request::is('handlers') || Request::is('handlers/*')) ? 'active' : '' }}">
-                <a href="{{url('/handlers')}}">Handler Mappings</a>
+                <a href="{{url('/handlers')}}">Hauler Mapping</a>
               </li>
             </ul>
           </li>
@@ -213,7 +198,7 @@
 
           @role(('Administrator'))
 
-           <li class="nav-item {{ Request::is('feed') ? 'active' : '' }}" data-toggle="tooltip" data-placement="right" title="livefeed">
+           <li class="nav-item {{ Request::is('feed') ? 'active' : '' }}" data-toggle="tooltip" data-placement="right" title="Ship Entries">
             <a class="nav-link" href="{{url('/feed')}}">
                <i class="fa fa-fw fa-file"></i>
               <span class="nav-link-text">
@@ -221,7 +206,7 @@
             </a>
           </li>
 
-           <li class="nav-item {{ Request::is('barrier') ? 'active' : '' }}" data-toggle="tooltip" data-placement="right" title="livebarrier">
+           <li class="nav-item {{ Request::is('barrier') ? 'active' : '' }}" data-toggle="tooltip" data-placement="right" title="Plant Entries">
             <a class="nav-link" href="{{url('/barrier')}}">
                <i class="fa fa-fw fa-file"></i>
               <span class="nav-link-text">
@@ -235,15 +220,16 @@
 
 
         <ul class="navbar-nav sidenav-toggler">
-          <li class="nav-item">
-            <a class="nav-link text-center" href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal">
-              <i class="fa fa-fw fa-sign-out"></i>
-              Logout
+           <li class="nav-item">
+            <a class="nav-link text-center" id="sidenavToggler">
+              <i class="fa fa-fw fa-angle-left"></i>
             </a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-        {{--  <li class="nav-item dropdown">
+
+        
+         {{--  <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle mr-lg-2" href="#" id="messagesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-fw fa-envelope"></i>
               <span class="d-lg-none">Messages
@@ -279,10 +265,17 @@
                 View all messages
               </a>
             </div>
-          </li>    --}}
+          </li>        --}}
           <li class="nav-item">
             <a class="nav-link mr-lg-2" href="#">
              Hello, {{ Auth::user()->name }}
+            </a>
+          </li>
+
+             <li class="nav-item">
+            <a class="nav-link text-center" href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal">
+              <i class="fa fa-fw fa-sign-out"></i>
+              Logout
             </a>
           </li>
     
@@ -351,10 +344,12 @@
     
        <!-- Scripts -->
         <script src="{{ asset('js/all.js') }}"></script>
-        {{--  <script src="{{ asset('js/bootstrap.min.js') }}"></script>  --}}
+        <script src="{{ asset('js/popper.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('js/jquery.dataTables.js') }}"></script>
         <script src="{{ asset('js/jquery.dataTables.js') }}"></script>
         <script src="{{ asset('js/dataTables.bootstrap4.js') }}"></script>
+        <script src="{{ asset('js/sb-admin.js') }}"></script>
         @yield('script')
         @include('flashy::message')
 

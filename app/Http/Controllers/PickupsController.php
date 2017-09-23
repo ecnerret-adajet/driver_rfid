@@ -187,7 +187,6 @@ class PickupsController extends Controller
          $pick->save();
 
          $activity = activity()
-         ->performedOn('App\Pickup')
          ->log('Deactivated');
          
  

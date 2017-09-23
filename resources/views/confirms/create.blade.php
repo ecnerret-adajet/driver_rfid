@@ -17,7 +17,7 @@
                 
                       @if($driver->notif_status != 1)
 
-                        <form method="POST" action="{{ url('/confirm',$id) }}">
+                        <form method="POST" action="{{ url('/confirm/'.$id.'/'.$plate) }}">
                             {!! csrf_field() !!}
                             @include('confirms.form')
                         </form>

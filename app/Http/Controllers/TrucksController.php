@@ -53,15 +53,12 @@ class TrucksController extends Controller
 
         $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','id')->all();
         
+        $driver_card = Driver::select('cardholder_id')->where('availability',1)->get();
 
-        $cards = Card::orderBy('CardNo','DESC')
+        $cards = Card::orderBy('CardID','DESC')
+                ->whereNotIn('CardholderID',$driver_card)
                 ->where('CardholderID','>=', 15)
                 ->where('CardholderID','!=', 0)->pluck('CardNo','CardID');
-
-                // $cards = Card::all()
-                // ->where('CardholderID','>=', 15)
-                // ->where('CardholderID','!=', 0)
-                // ->pluck('card_holder','CardID');
 
         $capacities = Capacity::pluck('description','id');
 
@@ -70,9 +67,6 @@ class TrucksController extends Controller
         $bases = Base::pluck('origin','id');
 
         $plants = Plant::pluck('plant_name','id');
-
-        $subvendors = ['NO SUBVENDOR' => 'NO SUBVENDOR'] + collect($this->vendorSubvendor())->where('vendor_number', '!=', '0000002000')->pluck('vendor_name','vendor_number')->all();
-        $vendors = collect($this->vendorSubvendor())->pluck('vendor_name','vendor_number');
 
         return view('trucks.create', compact('haulers','cards','capacities','contracts','subvendors','vendors','bases','plants','haulers_subcon'));
     }
@@ -180,9 +174,9 @@ class TrucksController extends Controller
         // $subvendors = collect($this->vendorSubvendor())->where('vendor_number', '!=', '0000002000')->pluck('vendor_name','vendor_number');
         // $vendors = collect($this->vendorSubvendor())->pluck('vendor_name','vendor_number');
         $subcon = Hauler::all();
-        $haulers = ['' => ''] + Hauler::pluck('name','vendor_number')->all();
-        $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','vendor_number')->all();
-
+        $haulers = ['' => ''] + Hauler::pluck('name','id')->all();
+        $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','id')->all();
+        
         return view('trucks.transfer', compact('haulers','haulers_subcon','truck','subcon'));
     }
 
@@ -190,11 +184,13 @@ class TrucksController extends Controller
     public function updateTransferHauler(Request $request, Truck $truck)
     {
         $this->validate($request, [
+            'hauler_list' => 'required',
             'validity_start_date' => 'required|before:validity_end_date',
             'validity_end_date' => 'required',
-            'vendor_description' => 'required',
         ]);
 
+      
+            
         $version = new Version;
         $version->truck_id = $truck->id;
         $version->user_id = Auth::user()->id;
@@ -207,11 +203,18 @@ class TrucksController extends Controller
         $version->start_validity_date = $request->input('validity_end_date');
         $version->end_validity_date = Carbon::now();
         $version->save(); 
+
+        $hauler_name = Hauler::select('name')->where('id',$request->input('hauler_list'))->first();
     
-        $truck->update($request->all());            
+        $truck->update($request->all());  
+        $truck->vendor_description = $hauler_name->name;
+        $truck->subvendor_description = '';
+        $truck->save();
+
+        $truck->haulers()->sync( (array) $request->input('hauler_list'));      
+            
 
         $activity = activity()
-        ->performedOn('App\Truck')  
         ->log('Transferred to 3PL');
 
         flashy()->success('Truck has successfully transferred!');
@@ -262,6 +265,21 @@ class TrucksController extends Controller
         $truck->haulers()->sync( (array) $request->input('hauler_list'));
         
         flashy()->success('Truck has successfully updated!');
+        return redirect('trucks');
+    }
+
+    /*
+    *
+    * Deactivate a truck
+    *
+    */
+    public function deactivateTruck(Request $request, $id)
+    {
+        $truck = Truck::where('id',$id)->first();
+        $truck->availability = 0;
+        $truck->save();
+
+        flashy()->success('Truck has successfully deactivated!');
         return redirect('trucks');
     }
 

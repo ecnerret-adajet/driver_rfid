@@ -41,22 +41,19 @@
                     <br/>
                     <br/>
                     <span class="text-muted">VENDOR:</span><br/>
-                      @if($truck->vendor_description == null)
-                            @foreach($truck->haulers as $hauler)
-                                    {{ $hauler->name }}
-                            @endforeach
-                        @else
-                            {{ $truck->vendor_description }}
-                        @endif
+                        {{ $truck->vendor_description }}
 
                 </div>
 
                 <div class="col-sm-4">
 
                     <span class="text-muted">SUBVENDOR:</span><br/>
-                        @foreach($subcon->where('id',$truck->subvendor_description)->take(1) as $x)
-                                {{ $x->name }}
+                        @foreach($truck->haulers as $hauler)
+                            {{ $hauler->name }}
                         @endforeach
+                        {{--  @foreach($subcon->where('id',$truck->subvendor_description)->take(1) as $x)
+                                {{ $x->name }}
+                        @endforeach  --}}
                     
                     <br/>
                     <br/>

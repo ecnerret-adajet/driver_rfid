@@ -5,7 +5,7 @@
         setInterval(function(){
         $('#realtimeFeed').load('http://localhost/driver_rfid/public/home-content');
         $('#wait').hide();     
-        }, 1000);
+        }, 2000);
      
      
             

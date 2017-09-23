@@ -42,28 +42,54 @@
                                         
                                         </div>
                                         <div class="col-sm-5">
-                                           <a :href="truck_link + truck.id "> {{truck.plate_number}} </a> : <small class="badge badge-primary mr-2" v-for="driver in truck.drivers">{{ driver.cardholder.Name }}</small>
-                                            <span  v-for="hauler in truck.haulers">
+                                           <a :href="truck_link + truck.id "> 
+                                               <span v-if="truck.reg_number == null">
+                                                    {{ truck.plate_number }}
+                                                </span>
+                                                <span v-else>
+                                                    {{ truck.reg_number }}
+                                                </span>
+                                          </a> : <small class="badge badge-primary mr-2" v-for="driver in truck.drivers">{{ driver.cardholder.Name }}</small> <br/>
+                                            
+                                            <span class="text-muted"  v-for="hauler in truck.haulers">
                                                {{ hauler.name }}
                                             </span>
                                             <br/>
                                             <span v-for="driver in truck.drivers">
                                                  {{driver.name}}
                                             </span>
+                                            <span v-if="truck.drivers == 0" style="color: red">
+                                                NO DRIVER
+                                            </span>
+
                                         </div>
                                         <div class="col-sm-3">
                                             <span class="badge badge-primary" v-if="truck.card !=  null">
                                                 Sticker Assigned
                                             </span> 
+
+                                            <span v-if="truck.availability == 1">
+                                                <i class="fa fa-circle" style="color:green" aria-hidden="true"></i>                                            
+                                            </span>
+                                            <span v-if="truck.availability == 0">
+                                                <i class="fa fa-circle" style="color:red" aria-hidden="true"></i> 
+                                            </span>
+                                        
                                         </div>
                                         <div class="col-sm-3 pull-right right">
 
-                                            <div class="btn-group pull-right" role="group" aria-label="Basic example">
-                                                <a :href="truck_link + truck.id + '/transfer'" class="btn btn-secondary btn-sm">Trasnfer</a>
-                                                <a :href="truck_link + truck.id + '/edit'" class="btn btn-secondary btn-sm">Edit</a>
-                                            </div>
+                                                <a class="dropdown pull-right btn btn-outline-secondary" href="#" id="truckDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-ellipsis-v"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="truckDropdown">
+                                                    <a :href="truck_link + truck.id + '/transfer'" class="dropdown-item">Trasnfer</a>
+                                                    <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#truckModal-'+ truck.id">Deactivate</a>
+                                                    <a :href="truck_link + truck.id + '/edit'" class="dropdown-item">Edit</a>
+                                                </div><!-- end dropdown -->
                                             
                                         </div>
+
+                                        
                                     </div>
                                 </li>
                                 <li v-if="filteredTruck.length == 0"  class="list-group-item">
@@ -82,6 +108,44 @@
                         </div>
                     </div>
                 </div>
+
+
+        <div v-for="truck in filteredTruck">
+            <!-- Logout Modal -->
+            <div class="modal fade" :id="'truckModal-' + truck.id" tabindex="-1" role="dialog" aria-labelledby="truckModalLabel" aria-hidden="true">
+            <div class="modal-dialog" id="queueter">
+                <div class="modal-content">
+                <div class="modal-header">
+
+                    <h6 class="modal-title" id="truckModalLabel">Deactivate Truck</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                
+
+                </div>
+                <div class="modal-body text-center">
+
+                                           
+                    <em>Are you sure you want to proceed with this action?</em>
+                
+
+                </div>
+                <div class="modal-footer">  
+                    <form  method="POST" :action="'http://localhost/driver_rfid/public/trucks/deactivate/'+truck.id">
+                        <input type="hidden" name="_token" :value="csrf">  
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Confirm</button> 
+                    </form>  
+                </div>
+                    
+                </div>
+            </div>
+            </div>
+        </div><!-- end modal forloop -->
+
+
+        
   </div>
 
 </template>
@@ -94,9 +158,15 @@ export default {
             truck_link: '/driver_rfid/public/trucks/',
             export_link: 'http://localhost/driver_rfid/public/exportTrucks',
             trucks: [],
-            loading: false
+            loading: false,
+            csrf: '',
         }
     },
+
+    mounted() {
+        this.csrf = window.Laravel.csrfToken;
+    },
+
     created() {
         this.getTruck()
     },

@@ -53,6 +53,7 @@ class ConfirmDriver extends Notification
 
         foreach($this->driver->trucks as $truck){
             $truck_name = $truck->plate_number;
+            $truck_id = $truck->id;
             foreach($truck->haulers as $hauler){
                 $hauler_name = $hauler->name;
             }
@@ -65,7 +66,7 @@ class ConfirmDriver extends Notification
             ->greeting('Good day!')
             ->line($this->driver->user->name. ' has '. $status .' a driver for your review, please see the details below.')
             ->line($this->driver->name.' - '. $truck_name)
-            ->action('Confirm Now', url('/confirm/create/'.$this->driver->id))
+            ->action('Confirm Now', url('/confirm/create/'.$this->driver->id.'/'.$truck_id))
             ->line('This is a generated notification from the system');
 
     }

@@ -26,7 +26,7 @@
                             <div class="col-md-4">
                                 <div class="form-group {{ $errors->has('start_date') ? ' has-danger' : '' }}">
                                         <label>Start Date</label>
-                                        {!! Form::input('date','start_date', null, ['class' => 'form-control']) !!}
+                                        {!! Form::input('date','start_date', Carbon\Carbon::now()->format('Y-m-d'), ['class' => 'form-control']) !!}
                                         @if ($errors->has('start_date'))
                                             <div class="form-control-feedback">
                                             <small>
@@ -39,7 +39,7 @@
                             <div class="col-md-4">
                                 <div class="form-group {{ $errors->has('end_date') ? ' has-danger' : '' }}">
                                         <label>End Date</label>
-                                        {!! Form::input('date', 'end_date', null, ['class' => 'form-control', 'max' => ''.date('Y-m-d', strtotime(Carbon\Carbon::now())).'' ]) !!} 
+                                        {!! Form::input('date', 'end_date', Carbon\Carbon::now()->format('Y-m-d'), ['class' => 'form-control', 'max' => ''.date('Y-m-d', strtotime(Carbon\Carbon::now())).'' ]) !!} 
                                         @if ($errors->has('end_date'))
                                             <div class="form-control-feedback">
                                             <small>

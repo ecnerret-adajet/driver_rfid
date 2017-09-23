@@ -55,14 +55,16 @@ class DriversController extends Controller
         $clasifications = Clasification::pluck('name','id');
         $haulers = ['' => ''] +  Hauler::orderBy('id','DESC')->pluck('name','id')->all();
         // show only plate numbers without assigned driver
-        $trucks = ['' => ''] + Truck::doesntHave('drivers')->orderBy('id','DESC')->pluck('plate_number','id')->all();
+
+        $trucks = ['' => ''] + Truck::doesntHave('drivers')->where('availability',1)->orderBy('id','DESC')->pluck('plate_number','id')->all();
         
-
-        $cards = Card::orderBy('CardNo','DESC')->where('CardholderID','>=', 15)->pluck('CardNo','CardID');
-        // $cards =  Card::doesntHave('cardholder.drivers')->orderBy('CardNo','DESC')->pluck('CardNo','CardID');
-        // $cards =  Card::doesntHave('cardholder')->orderBy('CardNo','DESC')->pluck('CardNo','CardID');
-
-        // return $cards->count();
+        $driver_card = Driver::select('cardholder_id')->where('availability',1)->get();
+        
+        $cards = Card::orderBy('CardID','DESC')
+                ->whereNotIn('CardholderID',$driver_card)
+                ->where('CardholderID','>=', 15)
+                ->where('CardholderID','!=', 0)->pluck('CardNo','CardID');
+        
         return view('drivers.create',compact('clasifications','trucks','cards','haulers'));
     }
 
@@ -229,7 +231,6 @@ class DriversController extends Controller
         
 
         $activity = activity()
-        ->performedOn('App\Driver')        
         ->log('Reassigned');
         
 
@@ -257,13 +258,13 @@ class DriversController extends Controller
                 'truck_list' => 'required',
                 'phone_number' => 'required',
                 'card_list' => 'required',
-                'clasification_list' => 'required',
+                // 'clasification_list' => 'required',
                 'start_validity_date' => 'required|before:end_validity_date',
                 'end_validity_date' => 'required'
         ]);
 
         $card_rfid = $request->input('card_list');
-        $clasification_id = $request->input('clasification_list');
+        // $clasification_id = $request->input('clasification_list');
 
         $driver->update($request->all());
         if($request->hasFile('avatar')){
@@ -277,7 +278,7 @@ class DriversController extends Controller
         }
         
         $driver->card()->associate($card_rfid);
-        $driver->clasification()->associate($clasification_id);
+        // $driver->clasification()->associate($clasification_id);
 
 
         if($driver->clasification_id == 2) {
@@ -294,6 +295,21 @@ class DriversController extends Controller
         $driver->trucks()->sync( (array) $request->input('truck_list'));
 
         flashy()->success('Driver has successfully updated!');
+        return redirect('drivers');
+    }
+
+    /*
+    *
+    * Deactive driver rfid
+    *
+    */
+    public function deactivateRfid(Request $request, $id)
+    {
+        $driver = Driver::where('id',$id)->first();
+        $driver->availability = 0;
+        $driver->save();
+
+        flashy()->success('Driver has successfully deactivated!');
         return redirect('drivers');
     }
     

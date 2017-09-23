@@ -1,30 +1,30 @@
 <div class="form-row">
-                <div class="col-md-6">
-                    <div class="form-group {{ $errors->has('vendor_description') ? ' has-danger' : '' }}">
+                <div class="col-md-12">
+                    <div class="form-group {{ $errors->has('hauler_list') ? ' has-danger' : '' }}">
                             <label>Vendor Number</label>
-                            {!! Form::select('vendor_description', $haulers, $truck->vendor_description, ['placeholder' => 'Select Vendor','class' => 'form-control select2-vendor'] ) !!}
-                            @if ($errors->has('vendor_description'))
+                            {!! Form::select('hauler_list', $haulers_subcon, $truck->vendor_description, ['placeholder' => 'Select Vendor','class' => 'form-control select2-vendor'] ) !!}
+                            @if ($errors->has('hauler_list'))
                                 <div class="form-control-feedback">
                                 <small>
-                                    {{ $errors->first('vendor_description') }}
+                                    {{ $errors->first('hauler_list') }}
                                     </small>
                                 </div>
                             @endif
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group {{ $errors->has('subvendor_description') ? ' has-danger' : '' }}">
+                {{--  <div class="col-md-6">
+                    <div class="form-group {{ $errors->has('hauler_list') ? ' has-danger' : '' }}">
                             <label>Subvendor Number</label>
-                            {!! Form::select('subvendor_description', $haulers_subcon,  $truck->subvendor_description, ['placeholder' => 'Select Subvendor', 'class' => 'form-control select2-subvendor'] ) !!}
-                            @if ($errors->has('subvendor_description'))
+                            {!! Form::select('hauler_list', $haulers_subcon,  $truck->subvendor_description, ['placeholder' => 'Select Subvendor', 'class' => 'form-control select2-subvendor'] ) !!}
+                            @if ($errors->has('hauler_list'))
                                 <div class="form-control-feedback">
                                 <small>
-                                    {{ $errors->first('subvendor_description') }}
+                                    {{ $errors->first('hauler_list') }}
                                     </small>
                                 </div>
                             @endif
                     </div>
-                </div>
+                </div>  --}}
             </div>
 
             <div class="form-row">

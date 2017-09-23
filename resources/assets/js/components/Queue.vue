@@ -26,9 +26,6 @@
                 </div>
               </div>
               <a href="#" class="card-footer text-white clearfix small z-1">
-                <span class="float-left">View Details</span>
-                <span class="float-right">
-                </span>
               </a>
             </div>
           </div>
@@ -55,9 +52,6 @@
                 </div>
               </div>
               <a href="#" class="card-footer text-white clearfix small z-1">
-                <span class="float-left">View Details</span>
-                <span class="float-right">
-                </span>
               </a>
             </div>
           </div>

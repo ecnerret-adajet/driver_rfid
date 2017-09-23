@@ -28,10 +28,10 @@ class ConfirmsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create($id, $plate)
     {   
         $driver = Driver::findOrFail($id);
-        return view('confirms.create', compact('id','driver'));
+        return view('confirms.create', compact('id','driver','plate'));
     }
 
     /**
@@ -40,7 +40,7 @@ class ConfirmsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(Request $request, $id, $plate)
     {
         $this->validate($request, [
             'status'

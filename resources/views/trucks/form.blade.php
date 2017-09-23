@@ -36,7 +36,7 @@
             <div class="form-row">
                    <div class="col-md-12">
                         <div class="form-group {{ $errors->has('card_list') ? ' has-danger' : '' }}">
-                                <label for="selectCard">RFID Sticker {{$cards->count() }}</label>
+                                <label for="selectCard">RFID Sticker </label>
                                 @if(!Request::is('trucks/create'))
                                 {!! Form::select('card_list', $cards, count($truck->card) == 0 ? 'null' : $truck->card->CardID, ['placeholder' => 'Select Deploy RFID',  'class' => 'form-control select2-card'] ) !!}
                                 @else

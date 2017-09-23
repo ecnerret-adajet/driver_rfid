@@ -99,6 +99,11 @@ class Cardholder extends Model
                     ->where('Direction',2);
     }
 
+    public function oneDriver()
+    {
+        return $this->belongsTo('App\Driver','CardholderID','cardholder_id');
+    }
+
     public function drivers()
     {
         return $this->hasMany('App\Driver','cardholder_id','CardholderID');

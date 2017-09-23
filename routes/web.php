@@ -36,17 +36,21 @@ Route::resource('/drivers','DriversController');
 Route::get('/drivers/{driver}/reassign','DriversController@reassign');
 Route::patch('/reassign/{driver}',[  'as' => 'reassign.update' ,'uses' => 'DriversController@submitReassign']);
 Route::get('/exportDrivers','DriversController@exportDrivers');
+Route::post('/drivers/deactivate/{id}','DriversController@deactivateRfid');
+
 
 Route::resource('/trucks','TrucksController');
 Route::get('/trucks/{truck}/transfer','TrucksController@transferHauler');
 Route::patch('/transfer/{truck}',[  'as' => 'transfer.update' ,'uses' => 'TrucksController@updateTransferHauler']);
 Route::get('/exportTrucks','TrucksController@exportTrucks');
+Route::post('/trucks/deactivate/{id}','TrucksController@deactivateTruck');
+
 
 
 Route::resource('/haulers','HaulersController');
 
-Route::get('/confirm/create/{id}','ConfirmsController@create');
-Route::post('/confirm/{id}','ConfirmsController@store');
+Route::get('/confirm/create/{id}/{plate}','ConfirmsController@create');
+Route::post('/confirm/{id}/{plate}','ConfirmsController@store');
 
 Route::get('/driversJson', function () {
     $drivers = App\Driver::with(['haulers','trucks','cardholder','card','cardholder.logs'])->orderBy('id','DESC')->get();
@@ -57,7 +61,7 @@ Route::get('/driversJson', function () {
 // return Json results
 
 Route::get('/trucksJson', function() {
-    $trucks = App\Truck::where('availability',1)->with(['drivers','haulers','drivers.cardholder','card'])->orderBy('id','DESC')->get();
+    $trucks = App\Truck::with(['drivers','haulers','drivers.cardholder','card'])->orderBy('id','DESC')->get();
     return $trucks;
 });
 

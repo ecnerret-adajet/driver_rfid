@@ -1,6 +1,6 @@
       
 
-                @if(!Request::is('drivers/create'))
+                {{--  @if(!Request::is('drivers/create'))
                     <div class="form-group {{ $errors->has('clasification_list') ? ' has-danger' : '' }}">
                         <div class="form-row">
                             <div class="col-md-12">
@@ -20,7 +20,7 @@
                             </div> 
                         </div>
                     </div>
-                @endif
+                @endif  --}}
 
                 @if(!Request::is('drivers/create'))
                     <div class="form-group {{ $errors->has('availability') ? ' has-danger' : '' }}">
@@ -53,9 +53,9 @@
                  <div class="form-row">
                     <div class="col-md-12">
                         <div class="form-group {{ $errors->has('card_list') ? ' has-danger' : '' }}">
-                                <label>RFID Card</label>
+                                <label>RFID Card </label>
                                 @if(str_contains(Request::path(), 'edit'))
-                                {!! Form::select('card_list', $cards, count($driver->card) == 0 ? 'null' : $driver->card->CardID, ['placeholder' => 'Select Deploy RFID',  'class' => 'form-control select2-card'] ) !!}
+                                {!! Form::select('card_list', $cards, count($driver->card) == 0 ? 'null' : $driver->card->CardID, ['placeholder' => 'Select Deploy RFID',  'class' => 'form-control select2-card','disabled'] ) !!}
                                 @else
                                 {!! Form::select('card_list', $cards, null, ['placeholder' => 'Select Deploy RFID', 'class' => 'form-control select2-card'] ) !!}
                                 @endif

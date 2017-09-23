@@ -4,7 +4,7 @@
         <div class="form-group {{ $errors->has('cardholder_list') ? ' has-danger' : '' }}">
                 <label>RFID Card</label>
                 @if(str_contains(Request::path(), 'edit'))
-                {!! Form::select('cardholder_list', $cardholders, $pickup->cardholder->CardholderID, ['placeholder' => 'Select Pickup Number',  'class' => 'form-control select2-pickup'] ) !!}
+                {!! Form::select('cardholder_list', $cardholders, $pickup->cardholder->CardholderID, ['placeholder' => 'Select Pickup Number',  'class' => 'form-control select2-pickup','disabled'] ) !!}
                 @else
                 {!! Form::select('cardholder_list', $cardholders, null, ['placeholder' => 'Select Pickup Number', 'class' => 'form-control select2-pickup'] ) !!}
                 @endif

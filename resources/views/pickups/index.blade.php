@@ -28,7 +28,7 @@
                             <div class="col-md-4">
                                 <div class="form-group {{ $errors->has('start_date') ? ' has-danger' : '' }}">
                                         <label>Start Date</label>
-                                        {!! Form::input('date','start_date', null, ['class' => 'form-control']) !!}
+                                        {!! Form::input('date','start_date', Carbon\Carbon::now()->format('Y-m-d'), ['class' => 'form-control']) !!}
                                         @if ($errors->has('start_date'))
                                             <div class="form-control-feedback">
                                             <small>
@@ -41,7 +41,7 @@
                             <div class="col-md-4">
                                 <div class="form-group {{ $errors->has('end_date') ? ' has-danger' : '' }}">
                                         <label>End Date</label>
-                                        {!! Form::input('date', 'end_date', null, ['class' => 'form-control', 'max' => ''.date('Y-m-d', strtotime(Carbon\Carbon::now())).'' ]) !!} 
+                                        {!! Form::input('date', 'end_date', Carbon\Carbon::now()->format('Y-m-d'), ['class' => 'form-control', 'max' => ''.date('Y-m-d', strtotime(Carbon\Carbon::now())).'' ]) !!} 
                                         @if ($errors->has('end_date'))
                                             <div class="form-control-feedback">
                                             <small>
@@ -69,7 +69,6 @@
                         <table class="table" width="100%" id="dataTable" cellspacing="0" style="font-size:70%">
                             <thead>
                                 <tr style="text-transform: uppercase">
-                                    {{--  <th>Age</th>  --}}
                                     <th>Pickup #</th>
                                     <th>Plate #</th>
                                     <th>Driver Name</th>
@@ -77,16 +76,12 @@
                                     <th>TRUCKSCALE IN</th>
                                     <th>TRUCKSCALE OUT</th>
                                     <th>BETWEEN</th>
-                                    {{--  <th>Status</th>  --}}
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($pickups as $pick)
                                 <tr class="{{ $pick->availability == 1 ? 'table-danger' : 'table-success' }}">
-                                    {{--  <td>
-                                            {{ $pick->created_at->diffForHumans() }}      
-                                    </td>  --}}
                                     <td>
                                         {{$pick->cardholder->Name}}
                                     </td>
@@ -147,38 +142,22 @@
                                         @endforelse
 
                                     </td>
-                                    {{--  <td>
-                                        @if($pick->availability == 1)
-                                            <span class="inTransit">
-                                                <i class="ion ion-record"></i>
-                                            </span>
-                                        @else
-                                            <span class="inPlant">
-                                                <i class="ion ion-record"></i>
-                                            </span>
-                                        @endif
-                                    </td>  --}}
-                                    <td>
-                                        {{--  <div class="dropdown pull-right">
-                                            <a href="#" class="btn btn-action btn-sm btn-primary" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
-                                                <ul class="dropdown-menu">
-                                                <li><a href="{{url('/pickups/'.$pick->id.'/edit')}}"> <span>Edit Entry</span> </a></li>
-                                                @if($pick->availability == 1) 
-                                                <li><a data-toggle="modal" data-target=".bs-setInactive{{$pick->id}}-modal-lg" href=""> <span>Deactive RFID</span> </a></li>
-                                                @endif
-                                                </ul>   
-                                        </div>  --}}
-
-                                        <div class="btn-group">
-                                            <a class="btn btn-primary btn-sm" href="{{url('/pickups/'.$pick->id.'/edit')}}">Edit</a>
+                                    <td>                             
+                                         <a class="dropdown pull-right btn btn-outline-secondary" href="#" id="pickupDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-v"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="pickupDropdown">
+                                             <a class="dropdown-item" style="width: 70%;" href="{{url('/pickups/'.$pick->id.'/edit')}}">
+                                                <small>
+                                                Edit Entry
+                                                </small>
+                                             </a>
                                              @if($pick->availability == 1) 
-                                            <a data-toggle="modal" class="btn btn-secondary btn-sm" data-target=".bs-setInactive{{$pick->id}}-modal-lg" href="">
-                                                Deactivate
+                                            <a data-toggle="modal" class="dropdown-item"  style="width: 70%;" data-target=".bs-setInactive{{$pick->id}}-modal-lg" href="">
+                                              <small>  Deactivate </small>
                                             </a>
-                                             @endif
-                                        </div>
-
-                               
+                                            @endif
+                                        </div><!-- end dropdown -->                               
                                     </td>
                                 </tr>
                                 @endforeach                          

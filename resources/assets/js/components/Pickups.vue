@@ -34,7 +34,7 @@
                 <div class="card-body-icon">
                 </div>
                 <div class="mr-5">
-                    Current Pickup
+                    Ongoing Pickup
                 </div>
                <div v-if="!is_loading">
                     <h3>
