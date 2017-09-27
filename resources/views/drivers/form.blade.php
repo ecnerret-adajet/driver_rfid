@@ -21,6 +21,29 @@
                         </div>
                     </div>
                 @endif  --}}
+                
+
+                 {{--  <div class="form-row">
+                     <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="exampleInputFile">Upload Photo</label>
+                            <input type="file" name="avatar" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+                            <small id="fileHelp" class="form-text text-muted"></small>
+                        </div>
+                    </div>
+                </div>  --}}
+
+                     <div class="image-editor">
+                        <input type="file" name="avatar" class="cropit-image-input">
+                        <div class="cropit-preview"></div>
+                        <div class="image-size-label">
+                            Resize image
+                        </div>
+                        <input type="range" class="cropit-image-zoom-input">
+                        <button class="rotate-ccw">Rotate counterclockwise</button>
+                        <button class="rotate-cw">Rotate clockwise</button>
+                    </div>
+
 
                 @if(!Request::is('drivers/create'))
                     <div class="form-group {{ $errors->has('availability') ? ' has-danger' : '' }}">
@@ -40,15 +63,6 @@
                     </div>
                 @endif
          
-                <div class="form-row">
-                     <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="exampleInputFile">Upload Photo</label>
-                            <input type="file" name="avatar" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
-                            <small id="fileHelp" class="form-text text-muted"></small>
-                        </div>
-                    </div>
-                </div>
 
                  <div class="form-row">
                     <div class="col-md-12">
@@ -188,6 +202,21 @@
 
 
 @section('script')
+    <script>
+      $(function() {
+        $('.image-editor').cropit({
+          imageState: {
+            src: 'http://lorempixel.com/500/400/',
+          },
+        });
+        $('.rotate-cw').click(function() {
+          $('.image-editor').cropit('rotateCW');
+        });
+        $('.rotate-ccw').click(function() {
+          $('.image-editor').cropit('rotateCCW');
+        });
+      });
+    </script>
     <script>
         $("[data-mask]").inputmask();
         $(".select2-card").select2({

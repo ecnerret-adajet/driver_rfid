@@ -18,13 +18,12 @@
           <form>
           @include('drivers.form')
           </form>
-          {!! Form::close() !!}
+          {!! Form::close() !!}     
 
-          
+     
+
         </div>
-      </div>
-
- 
+      </div> 
 
 
 @endsection

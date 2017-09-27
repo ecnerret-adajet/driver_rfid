@@ -174,6 +174,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
         MercurySeries\Flashy\FlashyServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -238,6 +239,7 @@ return [
         'Toast' => Roksta\Toastr\Toast::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Flashy' => MercurySeries\Flashy\Flashy::class,
+        'Image' => Intervention\Image\Facades\Image::class,
 
     ],
 

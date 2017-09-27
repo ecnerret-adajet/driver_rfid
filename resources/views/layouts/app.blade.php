@@ -182,14 +182,14 @@
                                                      Request::is('generateEntries*') ||
                                                      Request::is('monitors/*')) ? '' : 'collapse' }}" id="collapseReports">
               <li class="{{ (Request::is('prints')) ? 'active' : '' }}">
-                <a href="{{url('/prints')}}">RFID Approval Status</a>
+                <a href="{{url('/prints')}}">Drivers Approval</a>
               </li>
 
                <li class=" {{ (Request::is('entries') ||
                                   Request::is('generateEntries*') ||
                                   Request::is('monitors/*')
                                 ) ? 'active' : '' }}">
-                <a href="{{url('/entries')}}">Truck Status Report</a>
+                <a href="{{url('/entries')}}">Vehicle Entries Report</a>
               </li>
             </ul>
           </li>
@@ -344,6 +344,7 @@
     
        <!-- Scripts -->
         <script src="{{ asset('js/all.js') }}"></script>
+        {{--  <script src="{{ asset('js/jquery.cropit.js') }}"></script>  --}}
         <script src="{{ asset('js/popper.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('js/jquery.dataTables.js') }}"></script>

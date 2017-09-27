@@ -1899,7 +1899,7 @@ function loadLocale(name) {
             module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
-            __webpack_require__(166)("./" + name);
+            __webpack_require__(167)("./" + name);
             // because defineLocale currently also sets the global locale, we
             // want to undo that for lazy loaded locales
             getSetGlobalLocale(oldLocale);
@@ -4534,7 +4534,7 @@ return hooks;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(200)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(125)(module)))
 
 /***/ }),
 /* 1 */
@@ -15167,7 +15167,7 @@ return jQuery;
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(2);
-var normalizeHeaderName = __webpack_require__(147);
+var normalizeHeaderName = __webpack_require__(148);
 
 var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 var DEFAULT_CONTENT_TYPE = {
@@ -15258,7 +15258,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(167)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(168)))
 
 /***/ }),
 /* 5 */
@@ -15268,12 +15268,12 @@ module.exports = defaults;
 
 
 var utils = __webpack_require__(2);
-var settle = __webpack_require__(139);
-var buildURL = __webpack_require__(142);
-var parseHeaders = __webpack_require__(148);
-var isURLSameOrigin = __webpack_require__(146);
+var settle = __webpack_require__(140);
+var buildURL = __webpack_require__(143);
+var parseHeaders = __webpack_require__(149);
+var isURLSameOrigin = __webpack_require__(147);
 var createError = __webpack_require__(8);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(141);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(142);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -15369,7 +15369,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(144);
+      var cookies = __webpack_require__(145);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -15489,7 +15489,7 @@ module.exports = function isCancel(value) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(138);
+var enhanceError = __webpack_require__(139);
 
 /**
  * Create an Error with the specified message, config, error code, and response.
@@ -26606,6 +26606,34 @@ return zhTw;
 
 /***/ }),
 /* 125 */
+/***/ (function(module, exports) {
+
+module.exports = function(module) {
+	if(!module.webpackPolyfill) {
+		module.deprecate = function() {};
+		module.paths = [];
+		// module.parent = undefined by default
+		if(!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
+
+/***/ }),
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -26614,9 +26642,9 @@ return zhTw;
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(165);
+__webpack_require__(166);
 
-window.Vue = __webpack_require__(198);
+window.Vue = __webpack_require__(199);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -26624,28 +26652,28 @@ window.Vue = __webpack_require__(198);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', __webpack_require__(171));
-Vue.component('drivers', __webpack_require__(170));
-Vue.component('trucks', __webpack_require__(180));
-Vue.component('haulers', __webpack_require__(173));
-Vue.component('settings', __webpack_require__(179));
-Vue.component('prints', __webpack_require__(177));
-Vue.component('home', __webpack_require__(174));
-Vue.component('cards', __webpack_require__(168));
-Vue.component('users', __webpack_require__(181));
-Vue.component('logs', __webpack_require__(175));
-Vue.component('pickups', __webpack_require__(176));
-Vue.component('vendor', __webpack_require__(182));
-Vue.component('driverdetails', __webpack_require__(169));
-Vue.component('handlers', __webpack_require__(172));
-Vue.component('queue', __webpack_require__(178));
+Vue.component('example', __webpack_require__(172));
+Vue.component('drivers', __webpack_require__(171));
+Vue.component('trucks', __webpack_require__(181));
+Vue.component('haulers', __webpack_require__(174));
+Vue.component('settings', __webpack_require__(180));
+Vue.component('prints', __webpack_require__(178));
+Vue.component('home', __webpack_require__(175));
+Vue.component('cards', __webpack_require__(169));
+Vue.component('users', __webpack_require__(182));
+Vue.component('logs', __webpack_require__(176));
+Vue.component('pickups', __webpack_require__(177));
+Vue.component('vendor', __webpack_require__(183));
+Vue.component('driverdetails', __webpack_require__(170));
+Vue.component('handlers', __webpack_require__(173));
+Vue.component('queue', __webpack_require__(179));
 
 var app = new Vue({
   el: '#app'
 });
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(module, exports) {
 
 /*
@@ -26772,7 +26800,7 @@ Optional extensions on the jquery.inputmask base
 })(jQuery);
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -28445,7 +28473,1292 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 })(jQuery);
 
 /***/ }),
-/* 128 */
+/* 129 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+/*! cropit - v0.5.1 <https://github.com/scottcheng/cropit> */
+(function webpackUniversalModuleDefinition(root, factory) {
+    if (( false ? 'undefined' : _typeof(exports)) === 'object' && ( false ? 'undefined' : _typeof(module)) === 'object') module.exports = factory(__webpack_require__(3));else if (true) !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(3)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));else if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object') exports["cropit"] = factory(require("jquery"));else root["cropit"] = factory(root["jQuery"]);
+})(this, function (__WEBPACK_EXTERNAL_MODULE_1__) {
+    return (/******/function (modules) {
+            // webpackBootstrap
+            /******/ // The module cache
+            /******/
+            var installedModules = {};
+
+            /******/ // The require function
+            /******/
+            function __webpack_require__(moduleId) {
+
+                /******/ // Check if module is in cache
+                /******/
+                if (installedModules[moduleId])
+                    /******/
+                    return installedModules[moduleId].exports;
+
+                /******/ // Create a new module (and put it into the cache)
+                /******/
+                var module = installedModules[moduleId] = {
+                    /******/
+                    exports: {},
+                    /******/
+                    id: moduleId,
+                    /******/
+                    loaded: false
+                    /******/
+                };
+
+                /******/ // Execute the module function
+                /******/
+                modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+
+                /******/ // Flag the module as loaded
+                /******/
+                module.loaded = true;
+
+                /******/ // Return the exports of the module
+                /******/
+                return module.exports;
+                /******/
+            }
+
+            /******/ // expose the modules object (__webpack_modules__)
+            /******/
+            __webpack_require__.m = modules;
+
+            /******/ // expose the module cache
+            /******/
+            __webpack_require__.c = installedModules;
+
+            /******/ // __webpack_public_path__
+            /******/
+            __webpack_require__.p = "";
+
+            /******/ // Load entry module and return exports
+            /******/
+            return __webpack_require__(0);
+            /******/
+        }(
+        /************************************************************************/
+        /******/
+        [
+        /* 0 */
+        /***/
+        function (module, exports, __webpack_require__) {
+
+            var _slice = Array.prototype.slice;
+
+            function _interopRequireDefault(obj) {
+                return obj && obj.__esModule ? obj : { 'default': obj };
+            }
+
+            var _jquery = __webpack_require__(1);
+
+            var _jquery2 = _interopRequireDefault(_jquery);
+
+            var _cropit = __webpack_require__(2);
+
+            var _cropit2 = _interopRequireDefault(_cropit);
+
+            var _constants = __webpack_require__(4);
+
+            var _utils = __webpack_require__(6);
+
+            var applyOnEach = function applyOnEach($el, callback) {
+                return $el.each(function () {
+                    var cropit = _jquery2['default'].data(this, _constants.PLUGIN_KEY);
+
+                    if (!cropit) {
+                        return;
+                    }
+                    callback(cropit);
+                });
+            };
+
+            var callOnFirst = function callOnFirst($el, method, options) {
+                var cropit = $el.first().data(_constants.PLUGIN_KEY);
+
+                if (!cropit || !_jquery2['default'].isFunction(cropit[method])) {
+                    return null;
+                }
+                return cropit[method](options);
+            };
+
+            var methods = {
+                init: function init(options) {
+                    return this.each(function () {
+                        // Only instantiate once per element
+                        if (_jquery2['default'].data(this, _constants.PLUGIN_KEY)) {
+                            return;
+                        }
+
+                        var cropit = new _cropit2['default'](_jquery2['default'], this, options);
+                        _jquery2['default'].data(this, _constants.PLUGIN_KEY, cropit);
+                    });
+                },
+
+                destroy: function destroy() {
+                    return this.each(function () {
+                        _jquery2['default'].removeData(this, _constants.PLUGIN_KEY);
+                    });
+                },
+
+                isZoomable: function isZoomable() {
+                    return callOnFirst(this, 'isZoomable');
+                },
+
+                'export': function _export(options) {
+                    return callOnFirst(this, 'getCroppedImageData', options);
+                }
+            };
+
+            var delegate = function delegate($el, fnName) {
+                return applyOnEach($el, function (cropit) {
+                    cropit[fnName]();
+                });
+            };
+
+            var prop = function prop($el, name, value) {
+                if ((0, _utils.exists)(value)) {
+                    return applyOnEach($el, function (cropit) {
+                        cropit[name] = value;
+                    });
+                } else {
+                    var cropit = $el.first().data(_constants.PLUGIN_KEY);
+                    return cropit[name];
+                }
+            };
+
+            _jquery2['default'].fn.cropit = function (method) {
+                if (methods[method]) {
+                    return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+                } else if (['imageState', 'imageSrc', 'offset', 'previewSize', 'imageSize', 'zoom', 'initialZoom', 'exportZoom', 'minZoom', 'maxZoom'].indexOf(method) >= 0) {
+                    return prop.apply(undefined, [this].concat(_slice.call(arguments)));
+                } else if (['rotateCW', 'rotateCCW', 'disable', 'reenable'].indexOf(method) >= 0) {
+                    return delegate.apply(undefined, [this].concat(_slice.call(arguments)));
+                } else {
+                    return methods.init.apply(this, arguments);
+                }
+            };
+
+            /***/
+        },
+        /* 1 */
+        /***/
+        function (module, exports) {
+
+            module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+
+            /***/
+        },
+        /* 2 */
+        /***/
+        function (module, exports, __webpack_require__) {
+
+            Object.defineProperty(exports, '__esModule', {
+                value: true
+            });
+
+            var _createClass = function () {
+                function defineProperties(target, props) {
+                    for (var i = 0; i < props.length; i++) {
+                        var descriptor = props[i];
+                        descriptor.enumerable = descriptor.enumerable || false;
+                        descriptor.configurable = true;
+                        if ('value' in descriptor) descriptor.writable = true;
+                        Object.defineProperty(target, descriptor.key, descriptor);
+                    }
+                }
+                return function (Constructor, protoProps, staticProps) {
+                    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+                };
+            }();
+
+            function _interopRequireDefault(obj) {
+                return obj && obj.__esModule ? obj : { 'default': obj };
+            }
+
+            function _classCallCheck(instance, Constructor) {
+                if (!(instance instanceof Constructor)) {
+                    throw new TypeError('Cannot call a class as a function');
+                }
+            }
+
+            var _jquery = __webpack_require__(1);
+
+            var _jquery2 = _interopRequireDefault(_jquery);
+
+            var _Zoomer = __webpack_require__(3);
+
+            var _Zoomer2 = _interopRequireDefault(_Zoomer);
+
+            var _constants = __webpack_require__(4);
+
+            var _options = __webpack_require__(5);
+
+            var _utils = __webpack_require__(6);
+
+            var Cropit = function () {
+                function Cropit(jQuery, element, options) {
+                    _classCallCheck(this, Cropit);
+
+                    this.$el = (0, _jquery2['default'])(element);
+
+                    var defaults = (0, _options.loadDefaults)(this.$el);
+                    this.options = _jquery2['default'].extend({}, defaults, options);
+
+                    this.init();
+                }
+
+                _createClass(Cropit, [{
+                    key: 'init',
+                    value: function init() {
+                        var _this = this;
+
+                        this.image = new Image();
+                        this.preImage = new Image();
+                        this.image.onload = this.onImageLoaded.bind(this);
+                        this.preImage.onload = this.onPreImageLoaded.bind(this);
+                        this.image.onerror = this.preImage.onerror = function () {
+                            _this.onImageError.call(_this, _constants.ERRORS.IMAGE_FAILED_TO_LOAD);
+                        };
+
+                        this.$preview = this.options.$preview.css('position', 'relative');
+                        this.$fileInput = this.options.$fileInput.attr({ accept: 'image/*' });
+                        this.$zoomSlider = this.options.$zoomSlider.attr({ min: 0, max: 1, step: 0.01 });
+
+                        this.previewSize = {
+                            width: this.options.width || this.$preview.innerWidth(),
+                            height: this.options.height || this.$preview.innerHeight()
+                        };
+
+                        this.$image = (0, _jquery2['default'])('<img />').addClass(_constants.CLASS_NAMES.PREVIEW_IMAGE).attr('alt', '').css({
+                            transformOrigin: 'top left',
+                            webkitTransformOrigin: 'top left',
+                            willChange: 'transform'
+                        });
+                        this.$imageContainer = (0, _jquery2['default'])('<div />').addClass(_constants.CLASS_NAMES.PREVIEW_IMAGE_CONTAINER).css({
+                            position: 'absolute',
+                            overflow: 'hidden',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%'
+                        }).append(this.$image);
+                        this.$preview.append(this.$imageContainer);
+
+                        if (this.options.imageBackground) {
+                            if (_jquery2['default'].isArray(this.options.imageBackgroundBorderWidth)) {
+                                this.bgBorderWidthArray = this.options.imageBackgroundBorderWidth;
+                            } else {
+                                this.bgBorderWidthArray = [0, 1, 2, 3].map(function () {
+                                    return _this.options.imageBackgroundBorderWidth;
+                                });
+                            }
+
+                            this.$bg = (0, _jquery2['default'])('<img />').addClass(_constants.CLASS_NAMES.PREVIEW_BACKGROUND).attr('alt', '').css({
+                                position: 'relative',
+                                left: this.bgBorderWidthArray[3],
+                                top: this.bgBorderWidthArray[0],
+                                transformOrigin: 'top left',
+                                webkitTransformOrigin: 'top left',
+                                willChange: 'transform'
+                            });
+                            this.$bgContainer = (0, _jquery2['default'])('<div />').addClass(_constants.CLASS_NAMES.PREVIEW_BACKGROUND_CONTAINER).css({
+                                position: 'absolute',
+                                zIndex: 0,
+                                top: -this.bgBorderWidthArray[0],
+                                right: -this.bgBorderWidthArray[1],
+                                bottom: -this.bgBorderWidthArray[2],
+                                left: -this.bgBorderWidthArray[3]
+                            }).append(this.$bg);
+                            if (this.bgBorderWidthArray[0] > 0) {
+                                this.$bgContainer.css('overflow', 'hidden');
+                            }
+                            this.$preview.prepend(this.$bgContainer);
+                        }
+
+                        this.initialZoom = this.options.initialZoom;
+
+                        this.imageLoaded = false;
+
+                        this.moveContinue = false;
+
+                        this.zoomer = new _Zoomer2['default']();
+
+                        if (this.options.allowDragNDrop) {
+                            // _jquery2['default'].event.props.push('dataTransfer');
+                            _jquery2['default'].event.props = [];
+                        }
+
+                        this.bindListeners();
+
+                        if (this.options.imageState && this.options.imageState.src) {
+                            this.loadImage(this.options.imageState.src);
+                        }
+                    }
+                }, {
+                    key: 'bindListeners',
+                    value: function bindListeners() {
+                        this.$fileInput.on('change.cropit', this.onFileChange.bind(this));
+                        this.$imageContainer.on(_constants.EVENTS.PREVIEW, this.onPreviewEvent.bind(this));
+                        this.$zoomSlider.on(_constants.EVENTS.ZOOM_INPUT, this.onZoomSliderChange.bind(this));
+
+                        if (this.options.allowDragNDrop) {
+                            this.$imageContainer.on('dragover.cropit dragleave.cropit', this.onDragOver.bind(this));
+                            this.$imageContainer.on('drop.cropit', this.onDrop.bind(this));
+                        }
+                    }
+                }, {
+                    key: 'unbindListeners',
+                    value: function unbindListeners() {
+                        this.$fileInput.off('change.cropit');
+                        this.$imageContainer.off(_constants.EVENTS.PREVIEW);
+                        this.$imageContainer.off('dragover.cropit dragleave.cropit drop.cropit');
+                        this.$zoomSlider.off(_constants.EVENTS.ZOOM_INPUT);
+                    }
+                }, {
+                    key: 'onFileChange',
+                    value: function onFileChange(e) {
+                        this.options.onFileChange(e);
+
+                        if (this.$fileInput.get(0).files) {
+                            this.loadFile(this.$fileInput.get(0).files[0]);
+                        }
+                    }
+                }, {
+                    key: 'loadFile',
+                    value: function loadFile(file) {
+                        var fileReader = new FileReader();
+                        if (file && file.type.match('image')) {
+                            fileReader.readAsDataURL(file);
+                            fileReader.onload = this.onFileReaderLoaded.bind(this);
+                            fileReader.onerror = this.onFileReaderError.bind(this);
+                        } else if (file) {
+                            this.onFileReaderError();
+                        }
+                    }
+                }, {
+                    key: 'onFileReaderLoaded',
+                    value: function onFileReaderLoaded(e) {
+                        this.loadImage(e.target.result);
+                    }
+                }, {
+                    key: 'onFileReaderError',
+                    value: function onFileReaderError() {
+                        this.options.onFileReaderError();
+                    }
+                }, {
+                    key: 'onDragOver',
+                    value: function onDragOver(e) {
+                        e.preventDefault();
+                        e.dataTransfer.dropEffect = 'copy';
+                        this.$preview.toggleClass(_constants.CLASS_NAMES.DRAG_HOVERED, e.type === 'dragover');
+                    }
+                }, {
+                    key: 'onDrop',
+                    value: function onDrop(e) {
+                        var _this2 = this;
+
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        var files = Array.prototype.slice.call(e.dataTransfer.files, 0);
+                        files.some(function (file) {
+                            if (!file.type.match('image')) {
+                                return false;
+                            }
+
+                            _this2.loadFile(file);
+                            return true;
+                        });
+
+                        this.$preview.removeClass(_constants.CLASS_NAMES.DRAG_HOVERED);
+                    }
+                }, {
+                    key: 'loadImage',
+                    value: function loadImage(imageSrc) {
+                        var _this3 = this;
+
+                        if (!imageSrc) {
+                            return;
+                        }
+
+                        this.options.onImageLoading();
+                        this.setImageLoadingClass();
+
+                        if (imageSrc.indexOf('data') === 0) {
+                            this.preImage.src = imageSrc;
+                        } else {
+                            var xhr = new XMLHttpRequest();
+                            xhr.onload = function (e) {
+                                if (e.target.status >= 300) {
+                                    _this3.onImageError.call(_this3, _constants.ERRORS.IMAGE_FAILED_TO_LOAD);
+                                    return;
+                                }
+
+                                _this3.loadFile(e.target.response);
+                            };
+                            xhr.open('GET', imageSrc);
+                            xhr.responseType = 'blob';
+                            xhr.send();
+                        }
+                    }
+                }, {
+                    key: 'onPreImageLoaded',
+                    value: function onPreImageLoaded() {
+                        if (this.shouldRejectImage({
+                            imageWidth: this.preImage.width,
+                            imageHeight: this.preImage.height,
+                            previewSize: this.previewSize,
+                            maxZoom: this.options.maxZoom,
+                            exportZoom: this.options.exportZoom,
+                            smallImage: this.options.smallImage
+                        })) {
+                            this.onImageError(_constants.ERRORS.SMALL_IMAGE);
+                            if (this.image.src) {
+                                this.setImageLoadedClass();
+                            }
+                            return;
+                        }
+
+                        this.image.src = this.preImage.src;
+                    }
+                }, {
+                    key: 'onImageLoaded',
+                    value: function onImageLoaded() {
+                        this.rotation = 0;
+                        this.setupZoomer(this.options.imageState && this.options.imageState.zoom || this._initialZoom);
+                        if (this.options.imageState && this.options.imageState.offset) {
+                            this.offset = this.options.imageState.offset;
+                        } else {
+                            this.centerImage();
+                        }
+
+                        this.options.imageState = {};
+
+                        this.$image.attr('src', this.image.src);
+                        if (this.options.imageBackground) {
+                            this.$bg.attr('src', this.image.src);
+                        }
+
+                        this.setImageLoadedClass();
+
+                        this.imageLoaded = true;
+
+                        this.options.onImageLoaded();
+                    }
+                }, {
+                    key: 'onImageError',
+                    value: function onImageError() {
+                        this.options.onImageError.apply(this, arguments);
+                        this.removeImageLoadingClass();
+                    }
+                }, {
+                    key: 'setImageLoadingClass',
+                    value: function setImageLoadingClass() {
+                        this.$preview.removeClass(_constants.CLASS_NAMES.IMAGE_LOADED).addClass(_constants.CLASS_NAMES.IMAGE_LOADING);
+                    }
+                }, {
+                    key: 'setImageLoadedClass',
+                    value: function setImageLoadedClass() {
+                        this.$preview.removeClass(_constants.CLASS_NAMES.IMAGE_LOADING).addClass(_constants.CLASS_NAMES.IMAGE_LOADED);
+                    }
+                }, {
+                    key: 'removeImageLoadingClass',
+                    value: function removeImageLoadingClass() {
+                        this.$preview.removeClass(_constants.CLASS_NAMES.IMAGE_LOADING);
+                    }
+                }, {
+                    key: 'getEventPosition',
+                    value: function getEventPosition(e) {
+                        if (e.originalEvent && e.originalEvent.touches && e.originalEvent.touches[0]) {
+                            e = e.originalEvent.touches[0];
+                        }
+                        if (e.clientX && e.clientY) {
+                            return { x: e.clientX, y: e.clientY };
+                        }
+                    }
+                }, {
+                    key: 'onPreviewEvent',
+                    value: function onPreviewEvent(e) {
+                        if (!this.imageLoaded) {
+                            return;
+                        }
+
+                        this.moveContinue = false;
+                        this.$imageContainer.off(_constants.EVENTS.PREVIEW_MOVE);
+
+                        if (e.type === 'mousedown' || e.type === 'touchstart') {
+                            this.origin = this.getEventPosition(e);
+                            this.moveContinue = true;
+                            this.$imageContainer.on(_constants.EVENTS.PREVIEW_MOVE, this.onMove.bind(this));
+                        } else {
+                            (0, _jquery2['default'])(document.body).focus();
+                        }
+
+                        e.stopPropagation();
+                        return false;
+                    }
+                }, {
+                    key: 'onMove',
+                    value: function onMove(e) {
+                        var eventPosition = this.getEventPosition(e);
+
+                        if (this.moveContinue && eventPosition) {
+                            this.offset = {
+                                x: this.offset.x + eventPosition.x - this.origin.x,
+                                y: this.offset.y + eventPosition.y - this.origin.y
+                            };
+                        }
+
+                        this.origin = eventPosition;
+
+                        e.stopPropagation();
+                        return false;
+                    }
+                }, {
+                    key: 'fixOffset',
+                    value: function fixOffset(offset) {
+                        if (!this.imageLoaded) {
+                            return offset;
+                        }
+
+                        var ret = { x: offset.x, y: offset.y };
+
+                        if (!this.options.freeMove) {
+                            if (this.imageWidth * this.zoom >= this.previewSize.width) {
+                                ret.x = Math.min(0, Math.max(ret.x, this.previewSize.width - this.imageWidth * this.zoom));
+                            } else {
+                                ret.x = Math.max(0, Math.min(ret.x, this.previewSize.width - this.imageWidth * this.zoom));
+                            }
+
+                            if (this.imageHeight * this.zoom >= this.previewSize.height) {
+                                ret.y = Math.min(0, Math.max(ret.y, this.previewSize.height - this.imageHeight * this.zoom));
+                            } else {
+                                ret.y = Math.max(0, Math.min(ret.y, this.previewSize.height - this.imageHeight * this.zoom));
+                            }
+                        }
+
+                        ret.x = (0, _utils.round)(ret.x);
+                        ret.y = (0, _utils.round)(ret.y);
+
+                        return ret;
+                    }
+                }, {
+                    key: 'centerImage',
+                    value: function centerImage() {
+                        if (!this.image.width || !this.image.height || !this.zoom) {
+                            return;
+                        }
+
+                        this.offset = {
+                            x: (this.previewSize.width - this.imageWidth * this.zoom) / 2,
+                            y: (this.previewSize.height - this.imageHeight * this.zoom) / 2
+                        };
+                    }
+                }, {
+                    key: 'onZoomSliderChange',
+                    value: function onZoomSliderChange() {
+                        if (!this.imageLoaded) {
+                            return;
+                        }
+
+                        this.zoomSliderPos = Number(this.$zoomSlider.val());
+                        var newZoom = this.zoomer.getZoom(this.zoomSliderPos);
+                        if (newZoom === this.zoom) {
+                            return;
+                        }
+                        this.zoom = newZoom;
+                    }
+                }, {
+                    key: 'enableZoomSlider',
+                    value: function enableZoomSlider() {
+                        this.$zoomSlider.removeAttr('disabled');
+                        this.options.onZoomEnabled();
+                    }
+                }, {
+                    key: 'disableZoomSlider',
+                    value: function disableZoomSlider() {
+                        this.$zoomSlider.attr('disabled', true);
+                        this.options.onZoomDisabled();
+                    }
+                }, {
+                    key: 'setupZoomer',
+                    value: function setupZoomer(zoom) {
+                        this.zoomer.setup({
+                            imageSize: this.imageSize,
+                            previewSize: this.previewSize,
+                            exportZoom: this.options.exportZoom,
+                            maxZoom: this.options.maxZoom,
+                            minZoom: this.options.minZoom,
+                            smallImage: this.options.smallImage
+                        });
+                        this.zoom = (0, _utils.exists)(zoom) ? zoom : this._zoom;
+
+                        if (this.isZoomable()) {
+                            this.enableZoomSlider();
+                        } else {
+                            this.disableZoomSlider();
+                        }
+                    }
+                }, {
+                    key: 'fixZoom',
+                    value: function fixZoom(zoom) {
+                        return this.zoomer.fixZoom(zoom);
+                    }
+                }, {
+                    key: 'isZoomable',
+                    value: function isZoomable() {
+                        return this.zoomer.isZoomable();
+                    }
+                }, {
+                    key: 'renderImage',
+                    value: function renderImage() {
+                        var transformation = '\n      translate(' + this.rotatedOffset.x + 'px, ' + this.rotatedOffset.y + 'px)\n      scale(' + this.zoom + ')\n      rotate(' + this.rotation + 'deg)';
+
+                        this.$image.css({
+                            transform: transformation,
+                            webkitTransform: transformation
+                        });
+                        if (this.options.imageBackground) {
+                            this.$bg.css({
+                                transform: transformation,
+                                webkitTransform: transformation
+                            });
+                        }
+                    }
+                }, {
+                    key: 'rotateCW',
+                    value: function rotateCW() {
+                        if (this.shouldRejectImage({
+                            imageWidth: this.image.height,
+                            imageHeight: this.image.width,
+                            previewSize: this.previewSize,
+                            maxZoom: this.options.maxZoom,
+                            exportZoom: this.options.exportZoom,
+                            smallImage: this.options.smallImage
+                        })) {
+                            this.rotation = (this.rotation + 180) % 360;
+                        } else {
+                            this.rotation = (this.rotation + 90) % 360;
+                        }
+                    }
+                }, {
+                    key: 'rotateCCW',
+                    value: function rotateCCW() {
+                        if (this.shouldRejectImage({
+                            imageWidth: this.image.height,
+                            imageHeight: this.image.width,
+                            previewSize: this.previewSize,
+                            maxZoom: this.options.maxZoom,
+                            exportZoom: this.options.exportZoom,
+                            smallImage: this.options.smallImage
+                        })) {
+                            this.rotation = (this.rotation + 180) % 360;
+                        } else {
+                            this.rotation = (this.rotation + 270) % 360;
+                        }
+                    }
+                }, {
+                    key: 'shouldRejectImage',
+                    value: function shouldRejectImage(_ref) {
+                        var imageWidth = _ref.imageWidth;
+                        var imageHeight = _ref.imageHeight;
+                        var previewSize = _ref.previewSize;
+                        var maxZoom = _ref.maxZoom;
+                        var exportZoom = _ref.exportZoom;
+                        var smallImage = _ref.smallImage;
+
+                        if (smallImage !== 'reject') {
+                            return false;
+                        }
+
+                        return imageWidth * maxZoom < previewSize.width * exportZoom || imageHeight * maxZoom < previewSize.height * exportZoom;
+                    }
+                }, {
+                    key: 'getCroppedImageData',
+                    value: function getCroppedImageData(exportOptions) {
+                        if (!this.image.src) {
+                            return;
+                        }
+
+                        var exportDefaults = {
+                            type: 'image/png',
+                            quality: 0.75,
+                            originalSize: false,
+                            fillBg: '#fff'
+                        };
+                        exportOptions = _jquery2['default'].extend({}, exportDefaults, exportOptions);
+
+                        var exportZoom = exportOptions.originalSize ? 1 / this.zoom : this.options.exportZoom;
+
+                        var zoomedSize = {
+                            width: this.zoom * exportZoom * this.image.width,
+                            height: this.zoom * exportZoom * this.image.height
+                        };
+
+                        var canvas = (0, _jquery2['default'])('<canvas />').attr({
+                            width: this.previewSize.width * exportZoom,
+                            height: this.previewSize.height * exportZoom
+                        }).get(0);
+                        var canvasContext = canvas.getContext('2d');
+
+                        if (exportOptions.type === 'image/jpeg') {
+                            canvasContext.fillStyle = exportOptions.fillBg;
+                            canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+                        }
+
+                        canvasContext.translate(this.rotatedOffset.x * exportZoom, this.rotatedOffset.y * exportZoom);
+                        canvasContext.rotate(this.rotation * Math.PI / 180);
+                        canvasContext.drawImage(this.image, 0, 0, zoomedSize.width, zoomedSize.height);
+
+                        return canvas.toDataURL(exportOptions.type, exportOptions.quality);
+                    }
+                }, {
+                    key: 'disable',
+                    value: function disable() {
+                        this.unbindListeners();
+                        this.disableZoomSlider();
+                        this.$el.addClass(_constants.CLASS_NAMES.DISABLED);
+                    }
+                }, {
+                    key: 'reenable',
+                    value: function reenable() {
+                        this.bindListeners();
+                        this.enableZoomSlider();
+                        this.$el.removeClass(_constants.CLASS_NAMES.DISABLED);
+                    }
+                }, {
+                    key: '$',
+                    value: function $(selector) {
+                        if (!this.$el) {
+                            return null;
+                        }
+                        return this.$el.find(selector);
+                    }
+                }, {
+                    key: 'offset',
+                    set: function set(position) {
+                        if (!position || !(0, _utils.exists)(position.x) || !(0, _utils.exists)(position.y)) {
+                            return;
+                        }
+
+                        this._offset = this.fixOffset(position);
+                        this.renderImage();
+
+                        this.options.onOffsetChange(position);
+                    },
+                    get: function get() {
+                        return this._offset;
+                    }
+                }, {
+                    key: 'zoom',
+                    set: function set(newZoom) {
+                        newZoom = this.fixZoom(newZoom);
+
+                        if (this.imageLoaded) {
+                            var oldZoom = this.zoom;
+
+                            var newX = this.previewSize.width / 2 - (this.previewSize.width / 2 - this.offset.x) * newZoom / oldZoom;
+                            var newY = this.previewSize.height / 2 - (this.previewSize.height / 2 - this.offset.y) * newZoom / oldZoom;
+
+                            this._zoom = newZoom;
+                            this.offset = { x: newX, y: newY }; // Triggers renderImage()
+                        } else {
+                            this._zoom = newZoom;
+                        }
+
+                        this.zoomSliderPos = this.zoomer.getSliderPos(this.zoom);
+                        this.$zoomSlider.val(this.zoomSliderPos);
+
+                        this.options.onZoomChange(newZoom);
+                    },
+                    get: function get() {
+                        return this._zoom;
+                    }
+                }, {
+                    key: 'rotatedOffset',
+                    get: function get() {
+                        return {
+                            x: this.offset.x + (this.rotation === 90 ? this.image.height * this.zoom : 0) + (this.rotation === 180 ? this.image.width * this.zoom : 0),
+                            y: this.offset.y + (this.rotation === 180 ? this.image.height * this.zoom : 0) + (this.rotation === 270 ? this.image.width * this.zoom : 0)
+                        };
+                    }
+                }, {
+                    key: 'rotation',
+                    set: function set(newRotation) {
+                        this._rotation = newRotation;
+
+                        if (this.imageLoaded) {
+                            // Change in image size may lead to change in zoom range
+                            this.setupZoomer();
+                        }
+                    },
+                    get: function get() {
+                        return this._rotation;
+                    }
+                }, {
+                    key: 'imageState',
+                    get: function get() {
+                        return {
+                            src: this.image.src,
+                            offset: this.offset,
+                            zoom: this.zoom
+                        };
+                    }
+                }, {
+                    key: 'imageSrc',
+                    get: function get() {
+                        return this.image.src;
+                    },
+                    set: function set(imageSrc) {
+                        this.loadImage(imageSrc);
+                    }
+                }, {
+                    key: 'imageWidth',
+                    get: function get() {
+                        return this.rotation % 180 === 0 ? this.image.width : this.image.height;
+                    }
+                }, {
+                    key: 'imageHeight',
+                    get: function get() {
+                        return this.rotation % 180 === 0 ? this.image.height : this.image.width;
+                    }
+                }, {
+                    key: 'imageSize',
+                    get: function get() {
+                        return {
+                            width: this.imageWidth,
+                            height: this.imageHeight
+                        };
+                    }
+                }, {
+                    key: 'initialZoom',
+                    get: function get() {
+                        return this.options.initialZoom;
+                    },
+                    set: function set(initialZoomOption) {
+                        this.options.initialZoom = initialZoomOption;
+                        if (initialZoomOption === 'min') {
+                            this._initialZoom = 0; // Will be fixed when image loads
+                        } else if (initialZoomOption === 'image') {
+                            this._initialZoom = 1;
+                        } else {
+                            this._initialZoom = 0;
+                        }
+                    }
+                }, {
+                    key: 'exportZoom',
+                    get: function get() {
+                        return this.options.exportZoom;
+                    },
+                    set: function set(exportZoom) {
+                        this.options.exportZoom = exportZoom;
+                        this.setupZoomer();
+                    }
+                }, {
+                    key: 'minZoom',
+                    get: function get() {
+                        return this.options.minZoom;
+                    },
+                    set: function set(minZoom) {
+                        this.options.minZoom = minZoom;
+                        this.setupZoomer();
+                    }
+                }, {
+                    key: 'maxZoom',
+                    get: function get() {
+                        return this.options.maxZoom;
+                    },
+                    set: function set(maxZoom) {
+                        this.options.maxZoom = maxZoom;
+                        this.setupZoomer();
+                    }
+                }, {
+                    key: 'previewSize',
+                    get: function get() {
+                        return this._previewSize;
+                    },
+                    set: function set(size) {
+                        if (!size || size.width <= 0 || size.height <= 0) {
+                            return;
+                        }
+
+                        this._previewSize = {
+                            width: size.width,
+                            height: size.height
+                        };
+                        this.$preview.innerWidth(this.previewSize.width).innerHeight(this.previewSize.height);
+
+                        if (this.imageLoaded) {
+                            this.setupZoomer();
+                        }
+                    }
+                }]);
+
+                return Cropit;
+            }();
+
+            exports['default'] = Cropit;
+            module.exports = exports['default'];
+
+            /***/
+        },
+        /* 3 */
+        /***/
+        function (module, exports) {
+
+            Object.defineProperty(exports, '__esModule', {
+                value: true
+            });
+
+            var _createClass = function () {
+                function defineProperties(target, props) {
+                    for (var i = 0; i < props.length; i++) {
+                        var descriptor = props[i];
+                        descriptor.enumerable = descriptor.enumerable || false;
+                        descriptor.configurable = true;
+                        if ('value' in descriptor) descriptor.writable = true;
+                        Object.defineProperty(target, descriptor.key, descriptor);
+                    }
+                }
+                return function (Constructor, protoProps, staticProps) {
+                    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+                };
+            }();
+
+            function _classCallCheck(instance, Constructor) {
+                if (!(instance instanceof Constructor)) {
+                    throw new TypeError('Cannot call a class as a function');
+                }
+            }
+
+            var Zoomer = function () {
+                function Zoomer() {
+                    _classCallCheck(this, Zoomer);
+
+                    this.minZoom = this.maxZoom = 1;
+                }
+
+                _createClass(Zoomer, [{
+                    key: 'setup',
+                    value: function setup(_ref) {
+                        var imageSize = _ref.imageSize;
+                        var previewSize = _ref.previewSize;
+                        var exportZoom = _ref.exportZoom;
+                        var maxZoom = _ref.maxZoom;
+                        var minZoom = _ref.minZoom;
+                        var smallImage = _ref.smallImage;
+
+                        var widthRatio = previewSize.width / imageSize.width;
+                        var heightRatio = previewSize.height / imageSize.height;
+
+                        if (minZoom === 'fit') {
+                            this.minZoom = Math.min(widthRatio, heightRatio);
+                        } else {
+                            this.minZoom = Math.max(widthRatio, heightRatio);
+                        }
+
+                        if (smallImage === 'allow') {
+                            this.minZoom = Math.min(this.minZoom, 1);
+                        }
+
+                        this.maxZoom = Math.max(this.minZoom, maxZoom / exportZoom);
+                    }
+                }, {
+                    key: 'getZoom',
+                    value: function getZoom(sliderPos) {
+                        if (!this.minZoom || !this.maxZoom) {
+                            return null;
+                        }
+
+                        return sliderPos * (this.maxZoom - this.minZoom) + this.minZoom;
+                    }
+                }, {
+                    key: 'getSliderPos',
+                    value: function getSliderPos(zoom) {
+                        if (!this.minZoom || !this.maxZoom) {
+                            return null;
+                        }
+
+                        if (this.minZoom === this.maxZoom) {
+                            return 0;
+                        } else {
+                            return (zoom - this.minZoom) / (this.maxZoom - this.minZoom);
+                        }
+                    }
+                }, {
+                    key: 'isZoomable',
+                    value: function isZoomable() {
+                        if (!this.minZoom || !this.maxZoom) {
+                            return null;
+                        }
+
+                        return this.minZoom !== this.maxZoom;
+                    }
+                }, {
+                    key: 'fixZoom',
+                    value: function fixZoom(zoom) {
+                        return Math.max(this.minZoom, Math.min(this.maxZoom, zoom));
+                    }
+                }]);
+
+                return Zoomer;
+            }();
+
+            exports['default'] = Zoomer;
+            module.exports = exports['default'];
+
+            /***/
+        },
+        /* 4 */
+        /***/
+        function (module, exports) {
+
+            Object.defineProperty(exports, '__esModule', {
+                value: true
+            });
+            var PLUGIN_KEY = 'cropit';
+
+            exports.PLUGIN_KEY = PLUGIN_KEY;
+            var CLASS_NAMES = {
+                PREVIEW: 'cropit-preview',
+                PREVIEW_IMAGE_CONTAINER: 'cropit-preview-image-container',
+                PREVIEW_IMAGE: 'cropit-preview-image',
+                PREVIEW_BACKGROUND_CONTAINER: 'cropit-preview-background-container',
+                PREVIEW_BACKGROUND: 'cropit-preview-background',
+                FILE_INPUT: 'cropit-image-input',
+                ZOOM_SLIDER: 'cropit-image-zoom-input',
+
+                DRAG_HOVERED: 'cropit-drag-hovered',
+                IMAGE_LOADING: 'cropit-image-loading',
+                IMAGE_LOADED: 'cropit-image-loaded',
+                DISABLED: 'cropit-disabled'
+            };
+
+            exports.CLASS_NAMES = CLASS_NAMES;
+            var ERRORS = {
+                IMAGE_FAILED_TO_LOAD: { code: 0, message: 'Image failed to load.' },
+                SMALL_IMAGE: { code: 1, message: 'Image is too small.' }
+            };
+
+            exports.ERRORS = ERRORS;
+            var eventName = function eventName(events) {
+                return events.map(function (e) {
+                    return '' + e + '.cropit';
+                }).join(' ');
+            };
+            var EVENTS = {
+                PREVIEW: eventName(['mousedown', 'mouseup', 'mouseleave', 'touchstart', 'touchend', 'touchcancel', 'touchleave']),
+                PREVIEW_MOVE: eventName(['mousemove', 'touchmove']),
+                ZOOM_INPUT: eventName(['mousemove', 'touchmove', 'change'])
+            };
+            exports.EVENTS = EVENTS;
+
+            /***/
+        },
+        /* 5 */
+        /***/
+        function (module, exports, __webpack_require__) {
+
+            Object.defineProperty(exports, '__esModule', {
+                value: true
+            });
+
+            var _constants = __webpack_require__(4);
+
+            var options = {
+                elements: [{
+                    name: '$preview',
+                    description: 'The HTML element that displays image preview.',
+                    defaultSelector: '.' + _constants.CLASS_NAMES.PREVIEW
+                }, {
+                    name: '$fileInput',
+                    description: 'File input element.',
+                    defaultSelector: 'input.' + _constants.CLASS_NAMES.FILE_INPUT
+                }, {
+                    name: '$zoomSlider',
+                    description: 'Range input element that controls image zoom.',
+                    defaultSelector: 'input.' + _constants.CLASS_NAMES.ZOOM_SLIDER
+                }].map(function (o) {
+                    o.type = 'jQuery element';
+                    o['default'] = '$imageCropper.find(\'' + o.defaultSelector + '\')';
+                    return o;
+                }),
+
+                values: [{
+                    name: 'width',
+                    type: 'number',
+                    description: 'Width of image preview in pixels. If set, it will override the CSS property.',
+                    'default': null
+                }, {
+                    name: 'height',
+                    type: 'number',
+                    description: 'Height of image preview in pixels. If set, it will override the CSS property.',
+                    'default': null
+                }, {
+                    name: 'imageBackground',
+                    type: 'boolean',
+                    description: 'Whether or not to display the background image beyond the preview area.',
+                    'default': false
+                }, {
+                    name: 'imageBackgroundBorderWidth',
+                    type: 'array or number',
+                    description: 'Width of background image border in pixels.\n        The four array elements specify the width of background image width on the top, right, bottom, left side respectively.\n        The background image beyond the width will be hidden.\n        If specified as a number, border with uniform width on all sides will be applied.',
+                    'default': [0, 0, 0, 0]
+                }, {
+                    name: 'exportZoom',
+                    type: 'number',
+                    description: 'The ratio between the desired image size to export and the preview size.\n        For example, if the preview size is `300px * 200px`, and `exportZoom = 2`, then\n        the exported image size will be `600px * 400px`.\n        This also affects the maximum zoom level, since the exported image cannot be zoomed to larger than its original size.',
+                    'default': 1
+                }, {
+                    name: 'allowDragNDrop',
+                    type: 'boolean',
+                    description: 'When set to true, you can load an image by dragging it from local file browser onto the preview area.',
+                    'default': true
+                }, {
+                    name: 'minZoom',
+                    type: 'string',
+                    description: 'This options decides the minimal zoom level of the image.\n        If set to `\'fill\'`, the image has to fill the preview area, i.e. both width and height must not go smaller than the preview area.\n        If set to `\'fit\'`, the image can shrink further to fit the preview area, i.e. at least one of its edges must not go smaller than the preview area.',
+                    'default': 'fill'
+                }, {
+                    name: 'maxZoom',
+                    type: 'number',
+                    description: 'Determines how big the image can be zoomed. E.g. if set to 1.5, the image can be zoomed to 150% of its original size.',
+                    'default': 1
+                }, {
+                    name: 'initialZoom',
+                    type: 'string',
+                    description: 'Determines the zoom when an image is loaded.\n        When set to `\'min\'`, image is zoomed to the smallest when loaded.\n        When set to `\'image\'`, image is zoomed to 100% when loaded.',
+                    'default': 'min'
+                }, {
+                    name: 'freeMove',
+                    type: 'boolean',
+                    description: 'When set to true, you can freely move the image instead of being bound to the container borders',
+                    'default': false
+                }, {
+                    name: 'smallImage',
+                    type: 'string',
+                    description: 'When set to `\'reject\'`, `onImageError` would be called when cropit loads an image that is smaller than the container.\n        When set to `\'allow\'`, images smaller than the container can be zoomed down to its original size, overiding `minZoom` option.\n        When set to `\'stretch\'`, the minimum zoom of small images would follow `minZoom` option.',
+                    'default': 'reject'
+                }],
+
+                callbacks: [{
+                    name: 'onFileChange',
+                    description: 'Called when user selects a file in the select file input.',
+                    params: [{
+                        name: 'event',
+                        type: 'object',
+                        description: 'File change event object'
+                    }]
+                }, {
+                    name: 'onFileReaderError',
+                    description: 'Called when `FileReader` encounters an error while loading the image file.'
+                }, {
+                    name: 'onImageLoading',
+                    description: 'Called when image starts to be loaded.'
+                }, {
+                    name: 'onImageLoaded',
+                    description: 'Called when image is loaded.'
+                }, {
+                    name: 'onImageError',
+                    description: 'Called when image cannot be loaded.',
+                    params: [{
+                        name: 'error',
+                        type: 'object',
+                        description: 'Error object.'
+                    }, {
+                        name: 'error.code',
+                        type: 'number',
+                        description: 'Error code. `0` means generic image loading failure. `1` means image is too small.'
+                    }, {
+                        name: 'error.message',
+                        type: 'string',
+                        description: 'A message explaining the error.'
+                    }]
+                }, {
+                    name: 'onZoomEnabled',
+                    description: 'Called when image the zoom slider is enabled.'
+                }, {
+                    name: 'onZoomDisabled',
+                    description: 'Called when image the zoom slider is disabled.'
+                }, {
+                    name: 'onZoomChange',
+                    description: 'Called when zoom changes.',
+                    params: [{
+                        name: 'zoom',
+                        type: 'number',
+                        description: 'New zoom.'
+                    }]
+                }, {
+                    name: 'onOffsetChange',
+                    description: 'Called when image offset changes.',
+                    params: [{
+                        name: 'offset',
+                        type: 'object',
+                        description: 'New offset, with `x` and `y` values.'
+                    }]
+                }].map(function (o) {
+                    o.type = 'function';
+                    return o;
+                })
+            };
+
+            var loadDefaults = function loadDefaults($el) {
+                var defaults = {};
+                if ($el) {
+                    options.elements.forEach(function (o) {
+                        defaults[o.name] = $el.find(o.defaultSelector);
+                    });
+                }
+                options.values.forEach(function (o) {
+                    defaults[o.name] = o['default'];
+                });
+                options.callbacks.forEach(function (o) {
+                    defaults[o.name] = function () {};
+                });
+
+                return defaults;
+            };
+
+            exports.loadDefaults = loadDefaults;
+            exports['default'] = options;
+
+            /***/
+        },
+        /* 6 */
+        /***/
+        function (module, exports) {
+
+            Object.defineProperty(exports, '__esModule', {
+                value: true
+            });
+            var exists = function exists(v) {
+                return typeof v !== 'undefined';
+            };
+
+            exports.exists = exists;
+            var round = function round(x) {
+                return +(Math.round(x * 100) + 'e-2');
+            };
+            exports.round = round;
+
+            /***/
+        }
+        /******/
+        ])
+    );
+});;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(125)(module)))
+
+/***/ }),
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -28597,7 +29910,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = ty
 });
 
 /***/ }),
-/* 129 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -29107,7 +30420,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 });
 
 /***/ }),
-/* 130 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -30200,772 +31513,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 });
 
 /***/ }),
-/* 131 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-!function (t, e) {
-     true ? !(__WEBPACK_AMD_DEFINE_FACTORY__ = (e),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
-				__WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : "object" == (typeof exports === "undefined" ? "undefined" : _typeof(exports)) ? module.exports = e(require, exports, module) : t.Tether = e();
-}(this, function (t, e, o) {
-    "use strict";
-
-    function i(t, e) {
-        if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
-    }
-
-    function n(t) {
-        var e = t.getBoundingClientRect(),
-            o = {};
-        for (var i in e) {
-            o[i] = e[i];
-        }if (t.ownerDocument !== document) {
-            var r = t.ownerDocument.defaultView.frameElement;
-            if (r) {
-                var s = n(r);
-                o.top += s.top, o.bottom += s.top, o.left += s.left, o.right += s.left;
-            }
-        }
-        return o;
-    }
-
-    function r(t) {
-        var e = getComputedStyle(t) || {},
-            o = e.position,
-            i = [];
-        if ("fixed" === o) return [t];
-        for (var n = t; (n = n.parentNode) && n && 1 === n.nodeType;) {
-            var r = void 0;
-            try {
-                r = getComputedStyle(n);
-            } catch (s) {}
-            if ("undefined" == typeof r || null === r) return i.push(n), i;
-            var a = r,
-                f = a.overflow,
-                l = a.overflowX,
-                h = a.overflowY;
-            /(auto|scroll)/.test(f + h + l) && ("absolute" !== o || ["relative", "absolute", "fixed"].indexOf(r.position) >= 0) && i.push(n);
-        }
-        return i.push(t.ownerDocument.body), t.ownerDocument !== document && i.push(t.ownerDocument.defaultView), i;
-    }
-
-    function s() {
-        A && document.body.removeChild(A), A = null;
-    }
-
-    function a(t) {
-        var e = void 0;
-        t === document ? (e = document, t = document.documentElement) : e = t.ownerDocument;
-        var o = e.documentElement,
-            i = n(t),
-            r = P();
-        return i.top -= r.top, i.left -= r.left, "undefined" == typeof i.width && (i.width = document.body.scrollWidth - i.left - i.right), "undefined" == typeof i.height && (i.height = document.body.scrollHeight - i.top - i.bottom), i.top = i.top - o.clientTop, i.left = i.left - o.clientLeft, i.right = e.body.clientWidth - i.width - i.left, i.bottom = e.body.clientHeight - i.height - i.top, i;
-    }
-
-    function f(t) {
-        return t.offsetParent || document.documentElement;
-    }
-
-    function l() {
-        if (M) return M;
-        var t = document.createElement("div");
-        t.style.width = "100%", t.style.height = "200px";
-        var e = document.createElement("div");
-        h(e.style, { position: "absolute", top: 0, left: 0, pointerEvents: "none", visibility: "hidden", width: "200px", height: "150px", overflow: "hidden" }), e.appendChild(t), document.body.appendChild(e);
-        var o = t.offsetWidth;
-        e.style.overflow = "scroll";
-        var i = t.offsetWidth;
-        o === i && (i = e.clientWidth), document.body.removeChild(e);
-        var n = o - i;
-        return M = { width: n, height: n };
-    }
-
-    function h() {
-        var t = arguments.length <= 0 || void 0 === arguments[0] ? {} : arguments[0],
-            e = [];
-        return Array.prototype.push.apply(e, arguments), e.slice(1).forEach(function (e) {
-            if (e) for (var o in e) {
-                ({}).hasOwnProperty.call(e, o) && (t[o] = e[o]);
-            }
-        }), t;
-    }
-
-    function d(t, e) {
-        if ("undefined" != typeof t.classList) e.split(" ").forEach(function (e) {
-            e.trim() && t.classList.remove(e);
-        });else {
-            var o = new RegExp("(^| )" + e.split(" ").join("|") + "( |$)", "gi"),
-                i = c(t).replace(o, " ");
-            g(t, i);
-        }
-    }
-
-    function p(t, e) {
-        if ("undefined" != typeof t.classList) e.split(" ").forEach(function (e) {
-            e.trim() && t.classList.add(e);
-        });else {
-            d(t, e);
-            var o = c(t) + (" " + e);
-            g(t, o);
-        }
-    }
-
-    function u(t, e) {
-        if ("undefined" != typeof t.classList) return t.classList.contains(e);var o = c(t);return new RegExp("(^| )" + e + "( |$)", "gi").test(o);
-    }
-
-    function c(t) {
-        return t.className instanceof t.ownerDocument.defaultView.SVGAnimatedString ? t.className.baseVal : t.className;
-    }
-
-    function g(t, e) {
-        t.setAttribute("class", e);
-    }
-
-    function m(t, e, o) {
-        o.forEach(function (o) {
-            e.indexOf(o) === -1 && u(t, o) && d(t, o);
-        }), e.forEach(function (e) {
-            u(t, e) || p(t, e);
-        });
-    }
-
-    function i(t, e) {
-        if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
-    }
-
-    function v(t, e) {
-        if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function, not " + (typeof e === "undefined" ? "undefined" : _typeof(e)));
-        t.prototype = Object.create(e && e.prototype, { constructor: { value: t, enumerable: !1, writable: !0, configurable: !0 } }), e && (Object.setPrototypeOf ? Object.setPrototypeOf(t, e) : t.__proto__ = e);
-    }
-
-    function y(t, e) {
-        var o = arguments.length <= 2 || void 0 === arguments[2] ? 1 : arguments[2];return t + o >= e && e >= t - o;
-    }
-
-    function b() {
-        return "undefined" != typeof performance && "undefined" != typeof performance.now ? performance.now() : +new Date();
-    }
-
-    function w() {
-        for (var t = { top: 0, left: 0 }, e = arguments.length, o = Array(e), i = 0; i < e; i++) {
-            o[i] = arguments[i];
-        }return o.forEach(function (e) {
-            var o = e.top,
-                i = e.left;
-            "string" == typeof o && (o = parseFloat(o, 10)), "string" == typeof i && (i = parseFloat(i, 10)), t.top += o, t.left += i;
-        }), t;
-    }
-
-    function C(t, e) {
-        return "string" == typeof t.left && t.left.indexOf("%") !== -1 && (t.left = parseFloat(t.left, 10) / 100 * e.width), "string" == typeof t.top && t.top.indexOf("%") !== -1 && (t.top = parseFloat(t.top, 10) / 100 * e.height), t;
-    }
-
-    function O(t, e) {
-        return "scrollParent" === e ? e = t.scrollParents[0] : "window" === e && (e = [pageXOffset, pageYOffset, innerWidth + pageXOffset, innerHeight + pageYOffset]), e === document && (e = e.documentElement), "undefined" != typeof e.nodeType && !function () {
-            var t = e,
-                o = a(e),
-                i = o,
-                n = getComputedStyle(e);
-            if (e = [i.left, i.top, o.width + i.left, o.height + i.top], t.ownerDocument !== document) {
-                var r = t.ownerDocument.defaultView;
-                e[0] += r.pageXOffset, e[1] += r.pageYOffset, e[2] += r.pageXOffset, e[3] += r.pageYOffset;
-            }
-            G.forEach(function (t, o) {
-                t = t[0].toUpperCase() + t.substr(1), "Top" === t || "Left" === t ? e[o] += parseFloat(n["border" + t + "Width"]) : e[o] -= parseFloat(n["border" + t + "Width"]);
-            });
-        }(), e;
-    }
-    var E = function () {
-        function t(t, e) {
-            for (var o = 0; o < e.length; o++) {
-                var i = e[o];
-                i.enumerable = i.enumerable || !1, i.configurable = !0, "value" in i && (i.writable = !0), Object.defineProperty(t, i.key, i);
-            }
-        }
-        return function (e, o, i) {
-            return o && t(e.prototype, o), i && t(e, i), e;
-        };
-    }(),
-        x = void 0;
-    "undefined" == typeof x && (x = { modules: [] });
-    var A = null,
-        T = function () {
-        var t = 0;return function () {
-            return ++t;
-        };
-    }(),
-        S = {},
-        P = function P() {
-        var t = A;
-        t && document.body.contains(t) || (t = document.createElement("div"), t.setAttribute("data-tether-id", T()), h(t.style, { top: 0, left: 0, position: "absolute" }), document.body.appendChild(t), A = t);
-        var e = t.getAttribute("data-tether-id");
-        return "undefined" == typeof S[e] && (S[e] = n(t), k(function () {
-            delete S[e];
-        })), S[e];
-    },
-        M = null,
-        W = [],
-        k = function k(t) {
-        W.push(t);
-    },
-        _ = function _() {
-        for (var t = void 0; t = W.pop();) {
-            t();
-        }
-    },
-        B = function () {
-        function t() {
-            i(this, t);
-        }
-        return E(t, [{ key: "on", value: function value(t, e, o) {
-                var i = !(arguments.length <= 3 || void 0 === arguments[3]) && arguments[3];"undefined" == typeof this.bindings && (this.bindings = {}), "undefined" == typeof this.bindings[t] && (this.bindings[t] = []), this.bindings[t].push({ handler: e, ctx: o, once: i });
-            } }, { key: "once", value: function value(t, e, o) {
-                this.on(t, e, o, !0);
-            } }, {
-            key: "off",
-            value: function value(t, e) {
-                if ("undefined" != typeof this.bindings && "undefined" != typeof this.bindings[t]) if ("undefined" == typeof e) delete this.bindings[t];else for (var o = 0; o < this.bindings[t].length;) {
-                    this.bindings[t][o].handler === e ? this.bindings[t].splice(o, 1) : ++o;
-                }
-            }
-        }, {
-            key: "trigger",
-            value: function value(t) {
-                if ("undefined" != typeof this.bindings && this.bindings[t]) {
-                    for (var e = 0, o = arguments.length, i = Array(o > 1 ? o - 1 : 0), n = 1; n < o; n++) {
-                        i[n - 1] = arguments[n];
-                    }for (; e < this.bindings[t].length;) {
-                        var r = this.bindings[t][e],
-                            s = r.handler,
-                            a = r.ctx,
-                            f = r.once,
-                            l = a;
-                        "undefined" == typeof l && (l = this), s.apply(l, i), f ? this.bindings[t].splice(e, 1) : ++e;
-                    }
-                }
-            }
-        }]), t;
-    }();
-    x.Utils = { getActualBoundingClientRect: n, getScrollParents: r, getBounds: a, getOffsetParent: f, extend: h, addClass: p, removeClass: d, hasClass: u, updateClasses: m, defer: k, flush: _, uniqueId: T, Evented: B, getScrollBarSize: l, removeUtilElements: s };
-    var z = function () {
-        function t(t, e) {
-            var o = [],
-                i = !0,
-                n = !1,
-                r = void 0;
-            try {
-                for (var s, a = t[Symbol.iterator](); !(i = (s = a.next()).done) && (o.push(s.value), !e || o.length !== e); i = !0) {}
-            } catch (f) {
-                n = !0, r = f;
-            } finally {
-                try {
-                    !i && a["return"] && a["return"]();
-                } finally {
-                    if (n) throw r;
-                }
-            }
-            return o;
-        }
-        return function (e, o) {
-            if (Array.isArray(e)) return e;if (Symbol.iterator in Object(e)) return t(e, o);throw new TypeError("Invalid attempt to destructure non-iterable instance");
-        };
-    }(),
-        E = function () {
-        function t(t, e) {
-            for (var o = 0; o < e.length; o++) {
-                var i = e[o];
-                i.enumerable = i.enumerable || !1, i.configurable = !0, "value" in i && (i.writable = !0), Object.defineProperty(t, i.key, i);
-            }
-        }
-        return function (e, o, i) {
-            return o && t(e.prototype, o), i && t(e, i), e;
-        };
-    }(),
-        j = function j(t, e, o) {
-        for (var i = !0; i;) {
-            var n = t,
-                r = e,
-                s = o;
-            i = !1, null === n && (n = Function.prototype);
-            var a = Object.getOwnPropertyDescriptor(n, r);
-            if (void 0 !== a) {
-                if ("value" in a) return a.value;var f = a.get;if (void 0 === f) return;return f.call(s);
-            }
-            var l = Object.getPrototypeOf(n);
-            if (null === l) return;
-            t = l, e = r, o = s, i = !0, a = l = void 0;
-        }
-    };
-    if ("undefined" == typeof x) throw new Error("You must include the utils.js file before tether.js");
-    var Y = x.Utils,
-        r = Y.getScrollParents,
-        a = Y.getBounds,
-        f = Y.getOffsetParent,
-        h = Y.extend,
-        p = Y.addClass,
-        d = Y.removeClass,
-        m = Y.updateClasses,
-        k = Y.defer,
-        _ = Y.flush,
-        l = Y.getScrollBarSize,
-        s = Y.removeUtilElements,
-        L = function () {
-        if ("undefined" == typeof document) return "";for (var t = document.createElement("div"), e = ["transform", "WebkitTransform", "OTransform", "MozTransform", "msTransform"], o = 0; o < e.length; ++o) {
-            var i = e[o];if (void 0 !== t.style[i]) return i;
-        }
-    }(),
-        D = [],
-        X = function X() {
-        D.forEach(function (t) {
-            t.position(!1);
-        }), _();
-    };
-    !function () {
-        var t = null,
-            e = null,
-            o = null,
-            i = function n() {
-            return "undefined" != typeof e && e > 16 ? (e = Math.min(e - 16, 250), void (o = setTimeout(n, 250))) : void ("undefined" != typeof t && b() - t < 10 || (null != o && (clearTimeout(o), o = null), t = b(), X(), e = b() - t));
-        };
-        "undefined" != typeof window && "undefined" != typeof window.addEventListener && ["resize", "scroll", "touchmove"].forEach(function (t) {
-            window.addEventListener(t, i);
-        });
-    }();
-    var F = { center: "center", left: "right", right: "left" },
-        H = { middle: "middle", top: "bottom", bottom: "top" },
-        N = { top: 0, left: 0, middle: "50%", center: "50%", bottom: "100%", right: "100%" },
-        U = function U(t, e) {
-        var o = t.left,
-            i = t.top;
-        return "auto" === o && (o = F[e.left]), "auto" === i && (i = H[e.top]), { left: o, top: i };
-    },
-        V = function V(t) {
-        var e = t.left,
-            o = t.top;
-        return "undefined" != typeof N[t.left] && (e = N[t.left]), "undefined" != typeof N[t.top] && (o = N[t.top]), { left: e, top: o };
-    },
-        R = function R(t) {
-        var e = t.split(" "),
-            o = z(e, 2),
-            i = o[0],
-            n = o[1];
-        return { top: i, left: n };
-    },
-        q = R,
-        I = function (t) {
-        function e(t) {
-            var o = this;
-            i(this, e), j(Object.getPrototypeOf(e.prototype), "constructor", this).call(this), this.position = this.position.bind(this), D.push(this), this.history = [], this.setOptions(t, !1), x.modules.forEach(function (t) {
-                "undefined" != typeof t.initialize && t.initialize.call(o);
-            }), this.position();
-        }
-        return v(e, t), E(e, [{
-            key: "getClass",
-            value: function value() {
-                var t = arguments.length <= 0 || void 0 === arguments[0] ? "" : arguments[0],
-                    e = this.options.classes;
-                return "undefined" != typeof e && e[t] ? this.options.classes[t] : this.options.classPrefix ? this.options.classPrefix + "-" + t : t;
-            }
-        }, {
-            key: "setOptions",
-            value: function value(t) {
-                var e = this,
-                    o = arguments.length <= 1 || void 0 === arguments[1] || arguments[1],
-                    i = { offset: "0 0", targetOffset: "0 0", targetAttachment: "auto auto", classPrefix: "tether" };
-                this.options = h(i, t);
-                var n = this.options,
-                    s = n.element,
-                    a = n.target,
-                    f = n.targetModifier;
-                if (this.element = s, this.target = a, this.targetModifier = f, "viewport" === this.target ? (this.target = document.body, this.targetModifier = "visible") : "scroll-handle" === this.target && (this.target = document.body, this.targetModifier = "scroll-handle"), ["element", "target"].forEach(function (t) {
-                    if ("undefined" == typeof e[t]) throw new Error("Tether Error: Both element and target must be defined");"undefined" != typeof e[t].jquery ? e[t] = e[t][0] : "string" == typeof e[t] && (e[t] = document.querySelector(e[t]));
-                }), p(this.element, this.getClass("element")), this.options.addTargetClasses !== !1 && p(this.target, this.getClass("target")), !this.options.attachment) throw new Error("Tether Error: You must provide an attachment");
-                this.targetAttachment = q(this.options.targetAttachment), this.attachment = q(this.options.attachment), this.offset = R(this.options.offset), this.targetOffset = R(this.options.targetOffset), "undefined" != typeof this.scrollParents && this.disable(), "scroll-handle" === this.targetModifier ? this.scrollParents = [this.target] : this.scrollParents = r(this.target), this.options.enabled !== !1 && this.enable(o);
-            }
-        }, {
-            key: "getTargetBounds",
-            value: function value() {
-                if ("undefined" == typeof this.targetModifier) return a(this.target);
-                if ("visible" === this.targetModifier) {
-                    if (this.target === document.body) return { top: pageYOffset, left: pageXOffset, height: innerHeight, width: innerWidth };
-                    var t = a(this.target),
-                        e = { height: t.height, width: t.width, top: t.top, left: t.left };
-                    return e.height = Math.min(e.height, t.height - (pageYOffset - t.top)), e.height = Math.min(e.height, t.height - (t.top + t.height - (pageYOffset + innerHeight))), e.height = Math.min(innerHeight, e.height), e.height -= 2, e.width = Math.min(e.width, t.width - (pageXOffset - t.left)), e.width = Math.min(e.width, t.width - (t.left + t.width - (pageXOffset + innerWidth))), e.width = Math.min(innerWidth, e.width), e.width -= 2, e.top < pageYOffset && (e.top = pageYOffset), e.left < pageXOffset && (e.left = pageXOffset), e;
-                }
-                if ("scroll-handle" === this.targetModifier) {
-                    var t = void 0,
-                        o = this.target;
-                    o === document.body ? (o = document.documentElement, t = { left: pageXOffset, top: pageYOffset, height: innerHeight, width: innerWidth }) : t = a(o);
-                    var i = getComputedStyle(o),
-                        n = o.scrollWidth > o.clientWidth || [i.overflow, i.overflowX].indexOf("scroll") >= 0 || this.target !== document.body,
-                        r = 0;
-                    n && (r = 15);
-                    var s = t.height - parseFloat(i.borderTopWidth) - parseFloat(i.borderBottomWidth) - r,
-                        e = { width: 15, height: .975 * s * (s / o.scrollHeight), left: t.left + t.width - parseFloat(i.borderLeftWidth) - 15 },
-                        f = 0;
-                    s < 408 && this.target === document.body && (f = -11e-5 * Math.pow(s, 2) - .00727 * s + 22.58), this.target !== document.body && (e.height = Math.max(e.height, 24));
-                    var l = this.target.scrollTop / (o.scrollHeight - s);
-                    return e.top = l * (s - e.height - f) + t.top + parseFloat(i.borderTopWidth), this.target === document.body && (e.height = Math.max(e.height, 24)), e;
-                }
-            }
-        }, { key: "clearCache", value: function value() {
-                this._cache = {};
-            } }, { key: "cache", value: function value(t, e) {
-                return "undefined" == typeof this._cache && (this._cache = {}), "undefined" == typeof this._cache[t] && (this._cache[t] = e.call(this)), this._cache[t];
-            } }, {
-            key: "enable",
-            value: function value() {
-                var t = this,
-                    e = arguments.length <= 0 || void 0 === arguments[0] || arguments[0];
-                this.options.addTargetClasses !== !1 && p(this.target, this.getClass("enabled")), p(this.element, this.getClass("enabled")), this.enabled = !0, this.scrollParents.forEach(function (e) {
-                    e !== t.target.ownerDocument && e.addEventListener("scroll", t.position);
-                }), e && this.position();
-            }
-        }, {
-            key: "disable",
-            value: function value() {
-                var t = this;
-                d(this.target, this.getClass("enabled")), d(this.element, this.getClass("enabled")), this.enabled = !1, "undefined" != typeof this.scrollParents && this.scrollParents.forEach(function (e) {
-                    e.removeEventListener("scroll", t.position);
-                });
-            }
-        }, {
-            key: "destroy",
-            value: function value() {
-                var t = this;
-                this.disable(), D.forEach(function (e, o) {
-                    e === t && D.splice(o, 1);
-                }), 0 === D.length && s();
-            }
-        }, {
-            key: "updateAttachClasses",
-            value: function value(t, e) {
-                var o = this;
-                t = t || this.attachment, e = e || this.targetAttachment;
-                var i = ["left", "top", "bottom", "right", "middle", "center"];
-                "undefined" != typeof this._addAttachClasses && this._addAttachClasses.length && this._addAttachClasses.splice(0, this._addAttachClasses.length), "undefined" == typeof this._addAttachClasses && (this._addAttachClasses = []);
-                var n = this._addAttachClasses;
-                t.top && n.push(this.getClass("element-attached") + "-" + t.top), t.left && n.push(this.getClass("element-attached") + "-" + t.left), e.top && n.push(this.getClass("target-attached") + "-" + e.top), e.left && n.push(this.getClass("target-attached") + "-" + e.left);
-                var r = [];
-                i.forEach(function (t) {
-                    r.push(o.getClass("element-attached") + "-" + t), r.push(o.getClass("target-attached") + "-" + t);
-                }), k(function () {
-                    "undefined" != typeof o._addAttachClasses && (m(o.element, o._addAttachClasses, r), o.options.addTargetClasses !== !1 && m(o.target, o._addAttachClasses, r), delete o._addAttachClasses);
-                });
-            }
-        }, {
-            key: "position",
-            value: function value() {
-                var t = this,
-                    e = arguments.length <= 0 || void 0 === arguments[0] || arguments[0];
-                if (this.enabled) {
-                    this.clearCache();
-                    var o = U(this.targetAttachment, this.attachment);
-                    this.updateAttachClasses(this.attachment, o);
-                    var i = this.cache("element-bounds", function () {
-                        return a(t.element);
-                    }),
-                        n = i.width,
-                        r = i.height;
-                    if (0 === n && 0 === r && "undefined" != typeof this.lastSize) {
-                        var s = this.lastSize;
-                        n = s.width, r = s.height;
-                    } else this.lastSize = { width: n, height: r };
-                    var h = this.cache("target-bounds", function () {
-                        return t.getTargetBounds();
-                    }),
-                        d = h,
-                        p = C(V(this.attachment), { width: n, height: r }),
-                        u = C(V(o), d),
-                        c = C(this.offset, { width: n, height: r }),
-                        g = C(this.targetOffset, d);
-                    p = w(p, c), u = w(u, g);
-                    for (var m = h.left + u.left - p.left, v = h.top + u.top - p.top, y = 0; y < x.modules.length; ++y) {
-                        var b = x.modules[y],
-                            O = b.position.call(this, { left: m, top: v, targetAttachment: o, targetPos: h, elementPos: i, offset: p, targetOffset: u, manualOffset: c, manualTargetOffset: g, scrollbarSize: S, attachment: this.attachment });
-                        if (O === !1) return !1;
-                        "undefined" != typeof O && "object" == (typeof O === "undefined" ? "undefined" : _typeof(O)) && (v = O.top, m = O.left);
-                    }
-                    var E = { page: { top: v, left: m }, viewport: { top: v - pageYOffset, bottom: pageYOffset - v - r + innerHeight, left: m - pageXOffset, right: pageXOffset - m - n + innerWidth } },
-                        A = this.target.ownerDocument,
-                        T = A.defaultView,
-                        S = void 0;
-                    return T.innerHeight > A.documentElement.clientHeight && (S = this.cache("scrollbar-size", l), E.viewport.bottom -= S.height), T.innerWidth > A.documentElement.clientWidth && (S = this.cache("scrollbar-size", l), E.viewport.right -= S.width), ["", "static"].indexOf(A.body.style.position) !== -1 && ["", "static"].indexOf(A.body.parentElement.style.position) !== -1 || (E.page.bottom = A.body.scrollHeight - v - r, E.page.right = A.body.scrollWidth - m - n), "undefined" != typeof this.options.optimizations && this.options.optimizations.moveElement !== !1 && "undefined" == typeof this.targetModifier && !function () {
-                        var e = t.cache("target-offsetparent", function () {
-                            return f(t.target);
-                        }),
-                            o = t.cache("target-offsetparent-bounds", function () {
-                            return a(e);
-                        }),
-                            i = getComputedStyle(e),
-                            n = o,
-                            r = {};
-                        if (["Top", "Left", "Bottom", "Right"].forEach(function (t) {
-                            r[t.toLowerCase()] = parseFloat(i["border" + t + "Width"]);
-                        }), o.right = A.body.scrollWidth - o.left - n.width + r.right, o.bottom = A.body.scrollHeight - o.top - n.height + r.bottom, E.page.top >= o.top + r.top && E.page.bottom >= o.bottom && E.page.left >= o.left + r.left && E.page.right >= o.right) {
-                            var s = e.scrollTop,
-                                l = e.scrollLeft;
-                            E.offset = { top: E.page.top - o.top + s - r.top, left: E.page.left - o.left + l - r.left };
-                        }
-                    }(), this.move(E), this.history.unshift(E), this.history.length > 3 && this.history.pop(), e && _(), !0;
-                }
-            }
-        }, {
-            key: "move",
-            value: function value(t) {
-                var e = this;
-                if ("undefined" != typeof this.element.parentNode) {
-                    var o = {};
-                    for (var i in t) {
-                        o[i] = {};
-                        for (var n in t[i]) {
-                            for (var r = !1, s = 0; s < this.history.length; ++s) {
-                                var a = this.history[s];if ("undefined" != typeof a[i] && !y(a[i][n], t[i][n])) {
-                                    r = !0;break;
-                                }
-                            }
-                            r || (o[i][n] = !0);
-                        }
-                    }
-                    var l = { top: "", left: "", right: "", bottom: "" },
-                        d = function d(t, o) {
-                        var i = "undefined" != typeof e.options.optimizations,
-                            n = i ? e.options.optimizations.gpu : null;
-                        if (n !== !1) {
-                            var r = void 0,
-                                s = void 0;
-                            if (t.top ? (l.top = 0, r = o.top) : (l.bottom = 0, r = -o.bottom), t.left ? (l.left = 0, s = o.left) : (l.right = 0, s = -o.right), window.matchMedia) {
-                                var a = window.matchMedia("only screen and (min-resolution: 1.3dppx)").matches || window.matchMedia("only screen and (-webkit-min-device-pixel-ratio: 1.3)").matches;
-                                a || (s = Math.round(s), r = Math.round(r));
-                            }
-                            l[L] = "translateX(" + s + "px) translateY(" + r + "px)", "msTransform" !== L && (l[L] += " translateZ(0)");
-                        } else t.top ? l.top = o.top + "px" : l.bottom = o.bottom + "px", t.left ? l.left = o.left + "px" : l.right = o.right + "px";
-                    },
-                        p = !1;
-                    if ((o.page.top || o.page.bottom) && (o.page.left || o.page.right) ? (l.position = "absolute", d(o.page, t.page)) : (o.viewport.top || o.viewport.bottom) && (o.viewport.left || o.viewport.right) ? (l.position = "fixed", d(o.viewport, t.viewport)) : "undefined" != typeof o.offset && o.offset.top && o.offset.left ? !function () {
-                        l.position = "absolute";
-                        var i = e.cache("target-offsetparent", function () {
-                            return f(e.target);
-                        });
-                        f(e.element) !== i && k(function () {
-                            e.element.parentNode.removeChild(e.element), i.appendChild(e.element);
-                        }), d(o.offset, t.offset), p = !0;
-                    }() : (l.position = "absolute", d({ top: !0, left: !0 }, t.page)), !p) if (this.options.bodyElement) this.options.bodyElement.appendChild(this.element);else {
-                        for (var u = !0, c = this.element.parentNode; c && 1 === c.nodeType && "BODY" !== c.tagName;) {
-                            if ("static" !== getComputedStyle(c).position) {
-                                u = !1;break;
-                            }
-                            c = c.parentNode;
-                        }
-                        u || (this.element.parentNode.removeChild(this.element), this.element.ownerDocument.body.appendChild(this.element));
-                    }
-                    var g = {},
-                        m = !1;
-                    for (var n in l) {
-                        var v = l[n],
-                            b = this.element.style[n];
-                        b !== v && (m = !0, g[n] = v);
-                    }
-                    m && k(function () {
-                        h(e.element.style, g), e.trigger("repositioned");
-                    });
-                }
-            }
-        }]), e;
-    }(B);
-    I.modules = [], x.position = X;
-    var $ = h(I, x),
-        z = function () {
-        function t(t, e) {
-            var o = [],
-                i = !0,
-                n = !1,
-                r = void 0;
-            try {
-                for (var s, a = t[Symbol.iterator](); !(i = (s = a.next()).done) && (o.push(s.value), !e || o.length !== e); i = !0) {}
-            } catch (f) {
-                n = !0, r = f;
-            } finally {
-                try {
-                    !i && a["return"] && a["return"]();
-                } finally {
-                    if (n) throw r;
-                }
-            }
-            return o;
-        }
-        return function (e, o) {
-            if (Array.isArray(e)) return e;if (Symbol.iterator in Object(e)) return t(e, o);throw new TypeError("Invalid attempt to destructure non-iterable instance");
-        };
-    }(),
-        Y = x.Utils,
-        a = Y.getBounds,
-        h = Y.extend,
-        m = Y.updateClasses,
-        k = Y.defer,
-        G = ["left", "top", "right", "bottom"];
-    x.modules.push({
-        position: function position(t) {
-            var e = this,
-                o = t.top,
-                i = t.left,
-                n = t.targetAttachment;
-            if (!this.options.constraints) return !0;
-            var r = this.cache("element-bounds", function () {
-                return a(e.element);
-            }),
-                s = r.height,
-                f = r.width;
-            if (0 === f && 0 === s && "undefined" != typeof this.lastSize) {
-                var l = this.lastSize;
-                f = l.width, s = l.height;
-            }
-            var d = this.cache("target-bounds", function () {
-                return e.getTargetBounds();
-            }),
-                p = d.height,
-                u = d.width,
-                c = [this.getClass("pinned"), this.getClass("out-of-bounds")];
-            this.options.constraints.forEach(function (t) {
-                var e = t.outOfBoundsClass,
-                    o = t.pinnedClass;
-                e && c.push(e), o && c.push(o);
-            }), c.forEach(function (t) {
-                ["left", "top", "right", "bottom"].forEach(function (e) {
-                    c.push(t + "-" + e);
-                });
-            });
-            var g = [],
-                v = h({}, n),
-                y = h({}, this.attachment);
-            return this.options.constraints.forEach(function (t) {
-                var r = t.to,
-                    a = t.attachment,
-                    l = t.pin;
-                "undefined" == typeof a && (a = "");
-                var h = void 0,
-                    d = void 0;
-                if (a.indexOf(" ") >= 0) {
-                    var c = a.split(" "),
-                        m = z(c, 2);
-                    d = m[0], h = m[1];
-                } else h = d = a;
-                var b = O(e, r);
-                "target" !== d && "both" !== d || (o < b[1] && "top" === v.top && (o += p, v.top = "bottom"), o + s > b[3] && "bottom" === v.top && (o -= p, v.top = "top")), "together" === d && ("top" === v.top && ("bottom" === y.top && o < b[1] ? (o += p, v.top = "bottom", o += s, y.top = "top") : "top" === y.top && o + s > b[3] && o - (s - p) >= b[1] && (o -= s - p, v.top = "bottom", y.top = "bottom")), "bottom" === v.top && ("top" === y.top && o + s > b[3] ? (o -= p, v.top = "top", o -= s, y.top = "bottom") : "bottom" === y.top && o < b[1] && o + (2 * s - p) <= b[3] && (o += s - p, v.top = "top", y.top = "top")), "middle" === v.top && (o + s > b[3] && "top" === y.top ? (o -= s, y.top = "bottom") : o < b[1] && "bottom" === y.top && (o += s, y.top = "top"))), "target" !== h && "both" !== h || (i < b[0] && "left" === v.left && (i += u, v.left = "right"), i + f > b[2] && "right" === v.left && (i -= u, v.left = "left")), "together" === h && (i < b[0] && "left" === v.left ? "right" === y.left ? (i += u, v.left = "right", i += f, y.left = "left") : "left" === y.left && (i += u, v.left = "right", i -= f, y.left = "right") : i + f > b[2] && "right" === v.left ? "left" === y.left ? (i -= u, v.left = "left", i -= f, y.left = "right") : "right" === y.left && (i -= u, v.left = "left", i += f, y.left = "left") : "center" === v.left && (i + f > b[2] && "left" === y.left ? (i -= f, y.left = "right") : i < b[0] && "right" === y.left && (i += f, y.left = "left"))), "element" !== d && "both" !== d || (o < b[1] && "bottom" === y.top && (o += s, y.top = "top"), o + s > b[3] && "top" === y.top && (o -= s, y.top = "bottom")), "element" !== h && "both" !== h || (i < b[0] && ("right" === y.left ? (i += f, y.left = "left") : "center" === y.left && (i += f / 2, y.left = "left")), i + f > b[2] && ("left" === y.left ? (i -= f, y.left = "right") : "center" === y.left && (i -= f / 2, y.left = "right"))), "string" == typeof l ? l = l.split(",").map(function (t) {
-                    return t.trim();
-                }) : l === !0 && (l = ["top", "left", "right", "bottom"]), l = l || [];
-                var w = [],
-                    C = [];
-                o < b[1] && (l.indexOf("top") >= 0 ? (o = b[1], w.push("top")) : C.push("top")), o + s > b[3] && (l.indexOf("bottom") >= 0 ? (o = b[3] - s, w.push("bottom")) : C.push("bottom")), i < b[0] && (l.indexOf("left") >= 0 ? (i = b[0], w.push("left")) : C.push("left")), i + f > b[2] && (l.indexOf("right") >= 0 ? (i = b[2] - f, w.push("right")) : C.push("right")), w.length && !function () {
-                    var t = void 0;
-                    t = "undefined" != typeof e.options.pinnedClass ? e.options.pinnedClass : e.getClass("pinned"), g.push(t), w.forEach(function (e) {
-                        g.push(t + "-" + e);
-                    });
-                }(), C.length && !function () {
-                    var t = void 0;
-                    t = "undefined" != typeof e.options.outOfBoundsClass ? e.options.outOfBoundsClass : e.getClass("out-of-bounds"), g.push(t), C.forEach(function (e) {
-                        g.push(t + "-" + e);
-                    });
-                }(), (w.indexOf("left") >= 0 || w.indexOf("right") >= 0) && (y.left = v.left = !1), (w.indexOf("top") >= 0 || w.indexOf("bottom") >= 0) && (y.top = v.top = !1), v.top === n.top && v.left === n.left && y.top === e.attachment.top && y.left === e.attachment.left || (e.updateAttachClasses(y, v), e.trigger("update", { attachment: y, targetAttachment: v }));
-            }), k(function () {
-                e.options.addTargetClasses !== !1 && m(e.target, g, c), m(e.element, g, c);
-            }), { top: o, left: i };
-        }
-    });
-    var Y = x.Utils,
-        a = Y.getBounds,
-        m = Y.updateClasses,
-        k = Y.defer;
-    x.modules.push({
-        position: function position(t) {
-            var e = this,
-                o = t.top,
-                i = t.left,
-                n = this.cache("element-bounds", function () {
-                return a(e.element);
-            }),
-                r = n.height,
-                s = n.width,
-                f = this.getTargetBounds(),
-                l = o + r,
-                h = i + s,
-                d = [];
-            o <= f.bottom && l >= f.top && ["left", "right"].forEach(function (t) {
-                var e = f[t];
-                e !== i && e !== h || d.push(t);
-            }), i <= f.right && h >= f.left && ["top", "bottom"].forEach(function (t) {
-                var e = f[t];
-                e !== o && e !== l || d.push(t);
-            });
-            var p = [],
-                u = [],
-                c = ["left", "top", "right", "bottom"];
-            return p.push(this.getClass("abutted")), c.forEach(function (t) {
-                p.push(e.getClass("abutted") + "-" + t);
-            }), d.length && u.push(this.getClass("abutted")), d.forEach(function (t) {
-                u.push(e.getClass("abutted") + "-" + t);
-            }), k(function () {
-                e.options.addTargetClasses !== !1 && m(e.target, u, p), m(e.element, u, p);
-            }), !0;
-        }
-    });
-    var z = function () {
-        function t(t, e) {
-            var o = [],
-                i = !0,
-                n = !1,
-                r = void 0;
-            try {
-                for (var s, a = t[Symbol.iterator](); !(i = (s = a.next()).done) && (o.push(s.value), !e || o.length !== e); i = !0) {}
-            } catch (f) {
-                n = !0, r = f;
-            } finally {
-                try {
-                    !i && a["return"] && a["return"]();
-                } finally {
-                    if (n) throw r;
-                }
-            }
-            return o;
-        }
-        return function (e, o) {
-            if (Array.isArray(e)) return e;if (Symbol.iterator in Object(e)) return t(e, o);throw new TypeError("Invalid attempt to destructure non-iterable instance");
-        };
-    }();
-    return x.modules.push({
-        position: function position(t) {
-            var e = t.top,
-                o = t.left;
-            if (this.options.shift) {
-                var i = this.options.shift;
-                "function" == typeof this.options.shift && (i = this.options.shift.call(this, { top: e, left: o }));
-                var n = void 0,
-                    r = void 0;
-                if ("string" == typeof i) {
-                    i = i.split(" "), i[1] = i[1] || i[0];
-                    var s = i,
-                        a = z(s, 2);
-                    n = a[0], r = a[1], n = parseFloat(n, 10), r = parseFloat(r, 10);
-                } else n = i.top, r = i.left;
-                return e += n, o += r, { top: e, left: o };
-            }
-        }
-    }), $;
-});
-
-/***/ }),
-/* 132 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(133);
-
-/***/ }),
 /* 133 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(134);
+
+/***/ }),
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30973,7 +31527,7 @@ module.exports = __webpack_require__(133);
 
 var utils = __webpack_require__(2);
 var bind = __webpack_require__(9);
-var Axios = __webpack_require__(135);
+var Axios = __webpack_require__(136);
 var defaults = __webpack_require__(4);
 
 /**
@@ -31008,14 +31562,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(6);
-axios.CancelToken = __webpack_require__(134);
+axios.CancelToken = __webpack_require__(135);
 axios.isCancel = __webpack_require__(7);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(149);
+axios.spread = __webpack_require__(150);
 
 module.exports = axios;
 
@@ -31024,7 +31578,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 134 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31088,7 +31642,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 135 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31096,10 +31650,10 @@ module.exports = CancelToken;
 
 var defaults = __webpack_require__(4);
 var utils = __webpack_require__(2);
-var InterceptorManager = __webpack_require__(136);
-var dispatchRequest = __webpack_require__(137);
-var isAbsoluteURL = __webpack_require__(145);
-var combineURLs = __webpack_require__(143);
+var InterceptorManager = __webpack_require__(137);
+var dispatchRequest = __webpack_require__(138);
+var isAbsoluteURL = __webpack_require__(146);
+var combineURLs = __webpack_require__(144);
 
 /**
  * Create a new instance of Axios
@@ -31180,7 +31734,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 136 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31239,14 +31793,14 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 137 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(2);
-var transformData = __webpack_require__(140);
+var transformData = __webpack_require__(141);
 var isCancel = __webpack_require__(7);
 var defaults = __webpack_require__(4);
 
@@ -31325,7 +31879,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 138 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31351,7 +31905,7 @@ module.exports = function enhanceError(error, config, code, response) {
 
 
 /***/ }),
-/* 139 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31383,7 +31937,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 140 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31410,7 +31964,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 141 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31453,7 +32007,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 142 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31528,7 +32082,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 143 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31547,7 +32101,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 144 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31607,7 +32161,7 @@ module.exports = (
 
 
 /***/ }),
-/* 145 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31628,7 +32182,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 146 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31703,7 +32257,7 @@ module.exports = (
 
 
 /***/ }),
-/* 147 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31722,7 +32276,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 148 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31766,7 +32320,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 149 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31800,7 +32354,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 150 */
+/* 151 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -31934,7 +32488,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 151 */
+/* 152 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -31975,7 +32529,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 152 */
+/* 153 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32197,7 +32751,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 153 */
+/* 154 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32226,7 +32780,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 154 */
+/* 155 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32350,7 +32904,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 155 */
+/* 156 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32475,7 +33029,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 156 */
+/* 157 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32624,7 +33178,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 157 */
+/* 158 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32751,7 +33305,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 158 */
+/* 159 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32994,7 +33548,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 159 */
+/* 160 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -33054,7 +33608,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 160 */
+/* 161 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -33164,7 +33718,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 161 */
+/* 162 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -33207,7 +33761,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 162 */
+/* 163 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -33424,7 +33978,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 163 */
+/* 164 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -33569,7 +34123,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 164 */
+/* 165 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -33691,7 +34245,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 165 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // window._ = require('lodash');
@@ -33711,7 +34265,7 @@ window.Laravel = { csrfToken: $('meta[name=csrf-token]').attr("content") };
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(132);
+window.axios = __webpack_require__(133);
 
 // window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.axios.defaults.headers.common = {
@@ -33749,7 +34303,7 @@ if (token) {
 // });
 
 /***/ }),
-/* 166 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -33998,10 +34552,10 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 166;
+webpackContext.id = 167;
 
 /***/ }),
-/* 167 */
+/* 168 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -34191,14 +34745,14 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 168 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(150),
+  __webpack_require__(151),
   /* template */
-  __webpack_require__(197),
+  __webpack_require__(198),
   /* scopeId */
   null,
   /* cssModules */
@@ -34225,14 +34779,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 169 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(151),
+  __webpack_require__(152),
   /* template */
-  __webpack_require__(186),
+  __webpack_require__(187),
   /* scopeId */
   null,
   /* cssModules */
@@ -34259,14 +34813,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 170 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(152),
+  __webpack_require__(153),
   /* template */
-  __webpack_require__(193),
+  __webpack_require__(194),
   /* scopeId */
   null,
   /* cssModules */
@@ -34293,14 +34847,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 171 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(153),
+  __webpack_require__(154),
   /* template */
-  __webpack_require__(184),
+  __webpack_require__(185),
   /* scopeId */
   null,
   /* cssModules */
@@ -34327,14 +34881,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 172 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(154),
+  __webpack_require__(155),
   /* template */
-  __webpack_require__(190),
+  __webpack_require__(191),
   /* scopeId */
   null,
   /* cssModules */
@@ -34361,14 +34915,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 173 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(155),
+  __webpack_require__(156),
   /* template */
-  __webpack_require__(194),
+  __webpack_require__(195),
   /* scopeId */
   null,
   /* cssModules */
@@ -34395,14 +34949,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 174 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(156),
+  __webpack_require__(157),
   /* template */
-  __webpack_require__(191),
+  __webpack_require__(192),
   /* scopeId */
   null,
   /* cssModules */
@@ -34429,14 +34983,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 175 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(157),
+  __webpack_require__(158),
   /* template */
-  __webpack_require__(187),
+  __webpack_require__(188),
   /* scopeId */
   null,
   /* cssModules */
@@ -34463,14 +35017,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 176 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(158),
+  __webpack_require__(159),
   /* template */
-  __webpack_require__(189),
+  __webpack_require__(190),
   /* scopeId */
   null,
   /* cssModules */
@@ -34497,14 +35051,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 177 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(159),
+  __webpack_require__(160),
   /* template */
-  __webpack_require__(192),
+  __webpack_require__(193),
   /* scopeId */
   null,
   /* cssModules */
@@ -34531,14 +35085,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 178 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(160),
+  __webpack_require__(161),
   /* template */
-  __webpack_require__(185),
+  __webpack_require__(186),
   /* scopeId */
   null,
   /* cssModules */
@@ -34565,14 +35119,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 179 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(161),
+  __webpack_require__(162),
   /* template */
-  __webpack_require__(195),
+  __webpack_require__(196),
   /* scopeId */
   null,
   /* cssModules */
@@ -34599,14 +35153,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 180 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(162),
+  __webpack_require__(163),
   /* template */
-  __webpack_require__(183),
+  __webpack_require__(184),
   /* scopeId */
   null,
   /* cssModules */
@@ -34633,14 +35187,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 181 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(163),
+  __webpack_require__(164),
   /* template */
-  __webpack_require__(196),
+  __webpack_require__(197),
   /* scopeId */
   null,
   /* cssModules */
@@ -34667,14 +35221,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 182 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(164),
+  __webpack_require__(165),
   /* template */
-  __webpack_require__(188),
+  __webpack_require__(189),
   /* scopeId */
   null,
   /* cssModules */
@@ -34701,7 +35255,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 183 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -34967,7 +35521,7 @@ if (false) {
 }
 
 /***/ }),
-/* 184 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -34996,7 +35550,7 @@ if (false) {
 }
 
 /***/ }),
-/* 185 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -35093,7 +35647,7 @@ if (false) {
 }
 
 /***/ }),
-/* 186 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -35108,7 +35662,7 @@ if (false) {
 }
 
 /***/ }),
-/* 187 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -35154,7 +35708,7 @@ if (false) {
 }
 
 /***/ }),
-/* 188 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -35225,7 +35779,7 @@ if (false) {
 }
 
 /***/ }),
-/* 189 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -35362,7 +35916,7 @@ if (false) {
 }
 
 /***/ }),
-/* 190 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -35474,7 +36028,7 @@ if (false) {
 }
 
 /***/ }),
-/* 191 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -35651,7 +36205,7 @@ if (false) {
 }
 
 /***/ }),
-/* 192 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -35699,7 +36253,7 @@ if (false) {
 }
 
 /***/ }),
-/* 193 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -35969,7 +36523,7 @@ if (false) {
 }
 
 /***/ }),
-/* 194 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -36072,7 +36626,7 @@ if (false) {
 }
 
 /***/ }),
-/* 195 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -36113,7 +36667,7 @@ if (false) {
 }
 
 /***/ }),
-/* 196 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -36251,7 +36805,7 @@ if (false) {
 }
 
 /***/ }),
-/* 197 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -36389,7 +36943,7 @@ if (false) {
 }
 
 /***/ }),
-/* 198 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46460,10 +47014,10 @@ Vue$3.compile = compileToFunctions;
 
 module.exports = Vue$3;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(199)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(200)))
 
 /***/ }),
-/* 199 */
+/* 200 */
 /***/ (function(module, exports) {
 
 var g;
@@ -46490,43 +47044,15 @@ module.exports = g;
 
 
 /***/ }),
-/* 200 */
-/***/ (function(module, exports) {
-
-module.exports = function(module) {
-	if(!module.webpackPolyfill) {
-		module.deprecate = function() {};
-		module.paths = [];
-		// module.parent = undefined by default
-		if(!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function() {
-				return module.i;
-			}
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-};
-
-
-/***/ }),
 /* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(125);
-__webpack_require__(128);
-__webpack_require__(130);
-__webpack_require__(127);
 __webpack_require__(126);
 __webpack_require__(129);
+__webpack_require__(130);
+__webpack_require__(132);
+__webpack_require__(128);
+__webpack_require__(127);
 module.exports = __webpack_require__(131);
 
 

@@ -23,6 +23,7 @@ use App\Driverversion;
 use Excel;
 use App\Log;
 use DB;
+use Image;
 
 class DriversController extends Controller
 {
@@ -77,7 +78,7 @@ class DriversController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            // 'avatar' => 'required',
+            // 'avatar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'name' => 'required|max:255|unique:drivers',
             'card_list' => 'required',
             'truck_list' => 'required',
@@ -93,9 +94,18 @@ class DriversController extends Controller
 
         $card_rfid = $request->input('card_list');
         $driver = Auth::user()->drivers()->create($request->all());
+
         if($request->hasFile('avatar')){
             $driver->avatar = $request->file('avatar')->store('drivers');
-        } 
+        }
+
+        // if($request->hasFile('avatar')){
+        //     $avatar = $request->file('avatar');
+        //     $filename = time() . '.' .$avatar->extension();
+        //     Image::make($avatar)->resize(256,256)->save( storage_path('app/drivers/' . $filename ) );  
+        //     $driver->avatar = 'drivers/'.$filename;
+        // } 
+
         $driver->print_status = 1;
         $driver->availability = 0;
         $driver->card()->associate($card_rfid);

@@ -26,12 +26,13 @@ mix.styles([
     ], 'public/css/all.css')
     .js([
         'resources/assets/js/app.js',
+        'resources/assets/js/jquery.cropit.js',
         'resources/assets/js/jquery.easing.js',
         'resources/assets/js/select2.min.js',
         'resources/assets/js/input-mask/jquery.inputmask.js',
         'resources/assets/js/input-mask/jquery.inputmask.extensions.js',
         'resources/assets/js/lightbox.js',
-        'resources/assets/js/tether.min.js',
+        // 'resources/assets/js/tether.min.js',
         // 'resources/assets/js/bootstrap.min.js',
         // 'resources/assets/js/popper/popper.min.js',
         // 'resources/assets/js/jquery.dataTables.js',

@@ -35,7 +35,7 @@ class ConfirmsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly stored resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -43,7 +43,8 @@ class ConfirmsController extends Controller
     public function store(Request $request, $id, $plate)
     {
         $this->validate($request, [
-            'status'
+            'status',
+            'remarks'
         ]);
 
         $confirm = new Confirm;
