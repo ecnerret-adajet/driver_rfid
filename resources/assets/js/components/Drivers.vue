@@ -37,11 +37,11 @@
                                              <img :src="avatar_link + driver.avatar" class="rounded-circle" style="height: 60px; width: auto;"  align="middle">
                                         </div>
                                         <div class="col-sm-5">
-                                            <a :href="'/driver_rfid/public/drivers/' + driver.id">{{driver.name}}</a> : <small>{{ driver.cardholder.Name }}</small>
+                                            <a :href="'/driver_rfid/public/drivers/' + driver.id"  style="text-transform: upppercase">{{driver.name}}</a> : <small>{{ driver.cardholder.Name }}</small>
                                             <br/>
                                             <span v-for="truck in driver.trucks">
                                                 <span v-if="truck.reg_number == null">
-                                                    {{ truck.plate_number }}
+                                                    {{ truck.plate_number }} 
                                                 </span>
                                                 <span v-else>
                                                     {{ truck.reg_number }}
@@ -68,20 +68,25 @@
                                         <div class="col-sm-3 pull-right right">
                                         
 
-                                         <span v-if="driver.availability == 1">
+                                         <span v-if="driver.availability == 1 || driver.print_status == 1 && driver.notif_status == 1">
                                           <a class="dropdown pull-right btn btn-outline-secondary" href="#" id="driverDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fa fa-ellipsis-v"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="driverDropdown">
                                                 <a :href="driver_link + driver.id + '/reassign'" class="dropdown-item">Reassign</a>
+                                                <span v-if="driver.availability == 1">
                                                 <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#driverModal-'+ driver.id">Deactivate</a>
+                                                </span>
+                                                <span v-if="driver.availability == 0">
+                                                <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#driverModalActivate-'+ driver.id">Activate</a>
+                                                </span>
                                                 <a  href="javascript:void(0);" class="dropdown-item">Lost Card</a>
                                                 <a :href="driver_link + driver.id + '/edit'" class="dropdown-item">Edit</a>
                                             </div><!-- end dropdown -->
                                         </span>
-                                        <span v-else>
+                                        <span v-if="driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 0">
                                               <div class="btn-group pull-right" role="group" aria-label="Basic example">
-                                                <button class="btn btn-outline-danger btn-sm disabled">DEACTIVATED</button>
+                                                <button class="btn btn-outline-danger btn-sm disabled">INACTIVE</button>
                                             </div>
                                         </span>
                                                                                         
@@ -117,7 +122,9 @@
 
 
         <div v-for="driver in filteredDriver">
-            <!-- Logout Modal -->
+
+
+            <!-- Deactivate Modal -->
             <div class="modal fade" :id="'driverModal-' + driver.id" tabindex="-1" role="dialog" aria-labelledby="driverModalLabel" aria-hidden="true">
             <div class="modal-dialog" id="queueter">
                 <div class="modal-content">
@@ -147,11 +154,45 @@
                     
                 </div>
             </div>
+            </div><!-- end modal -->
+
+
+            <!-- Activate Modal -->
+            <div class="modal fade" :id="'driverModalActivate-' + driver.id" tabindex="-1" role="dialog" aria-labelledby="driverModalLabel" aria-hidden="true">
+            <div class="modal-dialog" id="queueter">
+                <div class="modal-content">
+                <div class="modal-header">
+
+                    <h6 class="modal-title" id="driverModalLabel">Activate RFID</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                
+
+                </div>
+                <div class="modal-body text-center">
+
+                                           
+                    <em>Are you sure you want to proceed with this action?</em>
+                
+
+                </div>
+                <div class="modal-footer">  
+                    <form  method="POST" :action="'http://localhost/driver_rfid/public/drivers/activate/'+driver.id">
+                        <input type="hidden" name="_token" :value="csrf">  
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Confirm</button> 
+                    </form>  
+                </div>
+                    
+                </div>
             </div>
+            </div><!-- end modal -->
+
+
+
+
         </div><!-- end modal forloop -->
-
-
-
 
 
 

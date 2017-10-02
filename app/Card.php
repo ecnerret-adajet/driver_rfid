@@ -29,6 +29,10 @@ class Card extends Model
         'binders', 
     ];
 
+    public function getKeyName(){
+        return "CardID";
+    }
+
     public function getCardHolderAttribute()
     {   
         return $this->CardNo .' - '. $this->getCardholder->Name;

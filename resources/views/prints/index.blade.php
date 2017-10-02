@@ -36,7 +36,7 @@
                     {{ $driver->user->name }}
                 </td>
                 <td>
-                @foreach($driver->confirms->reverse()->take(1) as $confirm)
+                @forelse($driver->confirms->reverse()->take(1) as $confirm)
                         @if($confirm->status ==  "Approve")
                          {{--  <form method="POST" action="{{ url('/prints',$driver->id) }}">
                          {!! csrf_field() !!}

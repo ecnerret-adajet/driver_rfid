@@ -23,7 +23,7 @@
                 @endif  --}}
                 
 
-                 {{--  <div class="form-row">
+                 <div class="form-row">
                      <div class="col-md-12">
                         <div class="form-group">
                             <label for="exampleInputFile">Upload Photo</label>
@@ -31,9 +31,9 @@
                             <small id="fileHelp" class="form-text text-muted"></small>
                         </div>
                     </div>
-                </div>  --}}
+                </div>
 
-                     <div class="image-editor">
+                     {{--  <div class="image-editor">
                         <input type="file" name="avatar" class="cropit-image-input">
                         <div class="cropit-preview"></div>
                         <div class="image-size-label">
@@ -42,7 +42,7 @@
                         <input type="range" class="cropit-image-zoom-input">
                         <button class="rotate-ccw">Rotate counterclockwise</button>
                         <button class="rotate-cw">Rotate clockwise</button>
-                    </div>
+                    </div>  --}}
 
 
                 @if(!Request::is('drivers/create'))
@@ -102,10 +102,12 @@
                 </div>
 
             <div class="form-row">
+
+
                 <div class="col-md-12">
                     <div class="form-group {{ $errors->has('name') ? ' has-danger' : '' }}">
                         <label for="driverName">Full Name</label>
-                        {{ Form::text('name', null, ['class' => 'form-control', 'id' => 'driverName', 'placeholder' => 'Enter Name']) }}
+                        {{ Form::text('name', null, ['class' => 'form-control', 'id' => 'driverName', 'placeholder' => 'Enter Full Name']) }}
                         @if ($errors->has('name'))
                                 <div class="form-control-feedback">
                                     <small>
@@ -115,6 +117,8 @@
                             @endif
                     </div>
                 </div>
+
+
 
               </div>
 
@@ -152,7 +156,7 @@
 
             <div class="form-row">
                 <div class="col-md-12">
-                    <div class="form-group {{ $errors->has('hauler_list') ? ' has-danger' : '' }}">
+                    <div class="form-group {{ $errors->has('phone_number') ? ' has-danger' : '' }}">
                     <label>Phone Number</label>
                     {{Form::text('phone_number', null, ['class' => 'form-control','placeholder' => 'Phone Number', "data-inputmask" => "'mask': '+63[9999999999]'", 'data-mask'])}}
                        @if ($errors->has('phone_number'))
@@ -195,28 +199,13 @@
                 </div>
             </div>
             
-             <button type="submit"  class="btn btn-primary btn-block">Submit</button>
+             <button type="submit"  class="btn btn-primary btn-block">Publish</button>
     
 
  
 
 
 @section('script')
-    <script>
-      $(function() {
-        $('.image-editor').cropit({
-          imageState: {
-            src: 'http://lorempixel.com/500/400/',
-          },
-        });
-        $('.rotate-cw').click(function() {
-          $('.image-editor').cropit('rotateCW');
-        });
-        $('.rotate-ccw').click(function() {
-          $('.image-editor').cropit('rotateCCW');
-        });
-      });
-    </script>
     <script>
         $("[data-mask]").inputmask();
         $(".select2-card").select2({

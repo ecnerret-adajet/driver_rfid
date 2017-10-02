@@ -32694,6 +32694,47 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -36319,11 +36360,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-5"
     }, [_c('a', {
+      staticStyle: {
+        "text-transform": "upppercase"
+      },
       attrs: {
         "href": '/driver_rfid/public/drivers/' + driver.id
       }
     }, [_vm._v(_vm._s(driver.name))]), _vm._v(" : "), _c('small', [_vm._v(_vm._s(driver.cardholder.Name))]), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.trucks), function(truck) {
-      return _c('span', [(truck.reg_number == null) ? _c('span', [_vm._v("\n                                                  " + _vm._s(truck.plate_number) + "\n                                              ")]) : _c('span', [_vm._v("\n                                                  " + _vm._s(truck.reg_number) + "\n                                              ")])])
+      return _c('span', [(truck.reg_number == null) ? _c('span', [_vm._v("\n                                                  " + _vm._s(truck.plate_number) + " \n                                              ")]) : _c('span', [_vm._v("\n                                                  " + _vm._s(truck.reg_number) + "\n                                              ")])])
     }), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.haulers), function(hauler) {
       return _c('span', [_vm._v("\n                                              " + _vm._s(hauler.name) + "\n                                          ")])
     })], 2), _vm._v(" "), _c('div', {
@@ -36332,7 +36376,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "badge badge-primary"
     }, [_vm._v("\n                                              Card Assigned\n                                          ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                          COUNT LOGS: "), _c('strong', [_vm._v(" " + _vm._s(driver.cardholder.logs.length == null ? '0' : driver.cardholder.logs.length) + " ")])]), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                          COUNT UPDATE: "), _c('strong', [_vm._v(" " + _vm._s(driver.update_count == null ? 0 : driver.update_count) + " ")])])]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-3 pull-right right"
-    }, [(driver.availability == 1) ? _c('span', [_vm._m(1, true), _vm._v(" "), _c('div', {
+    }, [(driver.availability == 1 || driver.print_status == 1 && driver.notif_status == 1) ? _c('span', [_vm._m(1, true), _vm._v(" "), _c('div', {
       staticClass: "dropdown-menu dropdown-menu-right",
       attrs: {
         "aria-labelledby": "driverDropdown"
@@ -36342,14 +36386,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": _vm.driver_link + driver.id + '/reassign'
       }
-    }, [_vm._v("Reassign")]), _vm._v(" "), _c('a', {
+    }, [_vm._v("Reassign")]), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": "javascript:void(0);",
         "data-toggle": "modal",
         "data-target": '#driverModal-' + driver.id
       }
-    }, [_vm._v("Deactivate")]), _vm._v(" "), _c('a', {
+    }, [_vm._v("Deactivate")])]) : _vm._e(), _vm._v(" "), (driver.availability == 0) ? _c('span', [_c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#driverModalActivate-' + driver.id
+      }
+    }, [_vm._v("Activate")])]) : _vm._e(), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": "javascript:void(0);"
@@ -36359,7 +36410,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": _vm.driver_link + driver.id + '/edit'
       }
-    }, [_vm._v("Edit")])])]) : _c('span', [_vm._m(2, true)]), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('i', {
+    }, [_vm._v("Edit")])])]) : _vm._e(), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 0) ? _c('span', [_vm._m(2, true)]) : _vm._e(), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('i', {
       staticClass: "fa fa-circle",
       staticStyle: {
         "color": "green"
@@ -36447,6 +36498,48 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "type": "submit"
       }
+    }, [_vm._v("Confirm")])])])])])]), _vm._v(" "), _c('div', {
+      staticClass: "modal fade",
+      attrs: {
+        "id": 'driverModalActivate-' + driver.id,
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "driverModalLabel",
+        "aria-hidden": "true"
+      }
+    }, [_c('div', {
+      staticClass: "modal-dialog",
+      attrs: {
+        "id": "queueter"
+      }
+    }, [_c('div', {
+      staticClass: "modal-content"
+    }, [_vm._m(6, true), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _c('div', {
+      staticClass: "modal-footer"
+    }, [_c('form', {
+      attrs: {
+        "method": "POST",
+        "action": 'http://localhost/driver_rfid/public/drivers/activate/' + driver.id
+      }
+    }, [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_token"
+      },
+      domProps: {
+        "value": _vm.csrf
+      }
+    }), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-secondary",
+      attrs: {
+        "type": "button",
+        "data-dismiss": "modal"
+      }
+    }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-primary",
+      attrs: {
+        "type": "submit"
+      }
     }, [_vm._v("Confirm")])])])])])])])
   })], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -36482,7 +36575,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('button', {
     staticClass: "btn btn-outline-danger btn-sm disabled"
-  }, [_vm._v("DEACTIVATED")])])
+  }, [_vm._v("INACTIVE")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
@@ -36498,6 +36591,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "driverModalLabel"
     }
   }, [_vm._v("Deactivate RFID")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body text-center"
+  }, [_c('em', [_vm._v("Are you sure you want to proceed with this action?")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('h6', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "driverModalLabel"
+    }
+  }, [_vm._v("Activate RFID")]), _vm._v(" "), _c('button', {
     staticClass: "close",
     attrs: {
       "type": "button",

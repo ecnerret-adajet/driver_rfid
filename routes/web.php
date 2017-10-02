@@ -37,6 +37,7 @@ Route::get('/drivers/{driver}/reassign','DriversController@reassign');
 Route::patch('/reassign/{driver}',[  'as' => 'reassign.update' ,'uses' => 'DriversController@submitReassign']);
 Route::get('/exportDrivers','DriversController@exportDrivers');
 Route::post('/drivers/deactivate/{id}','DriversController@deactivateRfid');
+Route::post('/drivers/activate/{id}','DriversController@activateRfid');
 
 
 Route::resource('/trucks','TrucksController');

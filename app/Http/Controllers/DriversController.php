@@ -64,7 +64,7 @@ class DriversController extends Controller
         $cards = Card::orderBy('CardID','DESC')
                 ->whereNotIn('CardholderID',$driver_card)
                 ->where('CardholderID','>=', 15)
-                ->where('CardholderID','!=', 0)->pluck('CardNo','CardID');
+                ->where('CardholderID','!=', 0)->pluck('CardNo','CardID')->take(2);
         
         return view('drivers.create',compact('clasifications','trucks','cards','haulers'));
     }
@@ -92,37 +92,42 @@ class DriversController extends Controller
             'truck_list.required' => 'Plate Number is required'
         ]);
 
-        $card_rfid = $request->input('card_list');
-        $driver = Auth::user()->drivers()->create($request->all());
 
-        if($request->hasFile('avatar')){
-            $driver->avatar = $request->file('avatar')->store('drivers');
-        }
+            $card_rfid = $request->input('card_list');
+            $driver = Auth::user()->drivers()->create($request->all());
+    
+            if($request->hasFile('avatar')){
+                $driver->avatar = $request->file('avatar')->store('drivers');
+            }
+    
+            // if($request->hasFile('avatar')){
+            //     $avatar = $request->file('avatar');
+            //     $filename = time() . '.' .$avatar->extension();
+            //     Image::make($avatar)->resize(256,256)->save( storage_path('app/drivers/' . $filename ) );  
+            //     $driver->avatar = 'drivers/'.$filename;
+            // } 
+            
+            $driver->name = strtoupper($request->input('name'));
+            $driver->print_status = 1;
+            $driver->availability = 0;
+            $driver->card()->associate($card_rfid);
+            $driver->cardholder()->associate($driver->card->CardholderID);
+            $driver->save();
+    
+            $driver->trucks()->attach($request->input('truck_list'));
+    
+            $drivers_truck = DB::table('hauler_truck')->select('hauler_id')
+                                ->where('truck_id',$request->input('truck_list'))->first();
+    
+            $driver->haulers()->attach($drivers_truck); 
+            
+            //send email to supervisor for approval
+            $setting = Setting::first();
+            Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmDriver($driver));
 
-        // if($request->hasFile('avatar')){
-        //     $avatar = $request->file('avatar');
-        //     $filename = time() . '.' .$avatar->extension();
-        //     Image::make($avatar)->resize(256,256)->save( storage_path('app/drivers/' . $filename ) );  
-        //     $driver->avatar = 'drivers/'.$filename;
-        // } 
 
-        $driver->print_status = 1;
-        $driver->availability = 0;
-        $driver->card()->associate($card_rfid);
-        $driver->cardholder()->associate($driver->card->CardholderID);
-        $driver->save();
-
-        $driver->trucks()->attach($request->input('truck_list'));
-
-        $drivers_truck = DB::table('hauler_truck')->select('hauler_id')
-                            ->where('truck_id',$request->input('truck_list'))->first();
-
-        $driver->haulers()->attach($drivers_truck); 
-        
-        //send email to supervisor for approval
-        $setting = Setting::first();
-        Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmDriver($driver));
-
+  
+  
 
         flashy()->success('Driver has successfully created!');
         return redirect('drivers');
@@ -319,7 +324,31 @@ class DriversController extends Controller
         $driver->availability = 0;
         $driver->save();
 
+        $card = Card::where('CardID',$driver->card_id)->first();
+        $card->CardStatus = 1;
+        $card->save();
+
         flashy()->success('Driver has successfully deactivated!');
+        return redirect('drivers');
+    }
+
+    /*
+    *
+    *
+    * Enable driver RFID
+    *
+    */
+    public function activateRfid(Request $request, $id)
+    {
+        $driver = Driver::where('id',$id)->first();
+        $driver->availability = 1;
+        $driver->save();
+
+        $card = Card::where('CardID',$driver->card_id)->first();
+        $card->CardStatus = 0;
+        $card->save();
+
+        flashy()->success('Driver has successfully activated!');
         return redirect('drivers');
     }
     

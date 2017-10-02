@@ -88,7 +88,7 @@
 
 
             <div class="form-row">
-                     <div class="col-md-6">
+                     <div class="col-md-12">
                     <div class="form-group {{ $errors->has('plant_list') ? ' has-danger' : '' }}">
                             <label>Plant Truck</label>
                             {!! Form::select('plant_list[]', $plants, null, ['placeholder' => 'Select Plant', 'class' => 'form-control select2-plant','multiple'] ) !!}
@@ -102,7 +102,7 @@
                     </div>
                 </div>
 
-                    <div class="col-md-6">
+                    {{--  <div class="col-md-6">
                     <div class="form-group {{ $errors->has('base_list') ? ' has-danger' : '' }}">
                             <label>Base Truck</label>
                             {!! Form::select('base_list', $bases, null, ['placeholder' => 'Select Capacity', 'class' => 'form-control'] ) !!}
@@ -114,7 +114,7 @@
                                 </div>
                             @endif
                     </div>
-                </div>
+                </div>  --}}
             </div>
 
             

@@ -11,11 +11,11 @@
                 <div class="card-body-icon">
                 </div>
                 <div class="mr-5">
-                  CURRENT ENTRIES
+                  TRUCKS IN PLANT
                 </div>
                <div v-if="!is_loading">
                     <h3>
-                    {{ $barrier_results->count() }}
+                    {{ $barrier_in->count() - $barrier_out->count() }}
                     </h3>
                 </div>
     
@@ -33,11 +33,11 @@
                 <div class="card-body-icon">
                 </div>
                 <div class="mr-5">
-                  TRUCKS IN PLANT
+                  TRUCKS IN TRANSIT
                 </div>
                 <div v-if="!is_loading">
                     <h3>
-                        {{ $barrier_in->count() }}
+                        {{ $barrier_out->count() }}
                     </h3>
                 </div>
               
@@ -88,7 +88,7 @@
 
 
                     </div>
-                    <div class="col-sm-6 right">
+                    <div class="col-sm-4 right">
                         <?php $barrier_final_in = ''; ?>
                         @forelse($barrier_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
                             <span> IN: {{ $barrier_final_in = date('Y-m-d h:i:s A', strtotime($in->LocalTime))}} </span>
@@ -118,6 +118,23 @@
                         <span>NO PAIRED TIME OUT </span> 
                         @endforelse
 
+                    </div>
+
+                    <div class="col-sm-2">
+
+                        @foreach($result->drivers as $driver)
+                                STATUS:
+                            @if($driver->availability == 0)
+                                <span style="color: red">
+                                    INACTIVE
+                                </span> 
+                            @else
+                                 <span style="color: green">
+                                    ACTIVE
+                                </span> 
+                            @endif
+                        @endforeach
+                       
                     </div>
             
                 </div>

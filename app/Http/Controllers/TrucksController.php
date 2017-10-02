@@ -58,7 +58,7 @@ class TrucksController extends Controller
         $cards = Card::orderBy('CardID','DESC')
                 ->whereNotIn('CardholderID',$driver_card)
                 ->where('CardholderID','>=', 15)
-                ->where('CardholderID','!=', 0)->pluck('CardNo','CardID');
+                ->where('CardholderID','!=', 0)->pluck('CardNo','CardID')->take(2);
 
         $capacities = Capacity::pluck('description','id');
 
@@ -87,7 +87,7 @@ class TrucksController extends Controller
             'validity_start_date' => 'required',
             'hauler_list' => 'required',
             'vendor_description' => 'required',
-            'base_list' => 'required',
+            // 'base_list' => 'required',
             'plant_list' => 'required',
             'validity_start_date' => 'required|before:validity_end_date',
             'validity_end_date' => 'required',
@@ -100,7 +100,7 @@ class TrucksController extends Controller
 
         $card_rfid = $request->input('card_list');
         $capacity_id = $request->input('capacity_list');
-        $base_id = $request->input('base_list');
+        // $base_id = $request->input('base_list');
         // $plant_id = $request->input('plant_list');
 
         $truck = Truck::create($request->all());
@@ -109,7 +109,7 @@ class TrucksController extends Controller
         $truck->subvendor_description = $request->input('hauler_list');
         $truck->card()->associate($card_rfid);
         $truck->capacity()->associate($capacity_id);
-        $truck->base()->associate($base_id);
+        // $truck->base()->associate($base_id);
         // $truck->plant()->associate($plant_id);
         $truck->save();
 
@@ -199,7 +199,7 @@ class TrucksController extends Controller
         $version->vendor_description = $truck->vendor_description;
         $version->subvendor_description = $truck->subvendor_description;
         $version->contract_code = $truck->contract_code;
-        $version->base_id = $truck->base_id;
+        // $version->base_id = $truck->base_id;
         $version->start_validity_date = $request->input('validity_end_date');
         $version->end_validity_date = Carbon::now();
         $version->save(); 
@@ -240,7 +240,7 @@ class TrucksController extends Controller
             'hauler_list' => 'required',
             'validity_start_date' => 'required',
             'vendor_description' => 'required',
-            'base_list' => 'required',
+            // 'base_list' => 'required',
             'plant_list' => 'required',
             'validity_start_date' => 'required|before:validity_end_date',
             'validity_end_date' => 'required',
@@ -252,13 +252,13 @@ class TrucksController extends Controller
 
         $card_rfid = $request->input('card_list');
         $capacity_id = $request->input('capacity_list');
-        $base_id = $request->input('base_list');
+        // $base_id = $request->input('base_list');
         $plant_id = $request->input('plant_list');
 
         $truck->update($request->all());
         $truck->card()->associate($card_rfid);
         $truck->capacity()->associate($capacity_id);
-        $truck->base()->associate($base_id);
+        // $truck->base()->associate($base_id);
         $truck->plant()->associate($plant_id);
         $truck->save();
 

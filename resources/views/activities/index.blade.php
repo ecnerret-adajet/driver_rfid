@@ -83,7 +83,28 @@
                         </td>
                         <td>{{ $activity->description }}</td>
                         <td>{{ $activity->subject_type }}</td>
-                        <td>{{ $activity->subject_id }}</td>
+                        <td>
+                        
+                        @if($activity->subject_type == 'App\Driver')
+                            <a href="{{ url('/drivers/'.$activity->subject_id) }}">
+                                {{ $activity->subject_id }}
+                            </a>
+                        @elseif($activity->subject_type == 'App\Truck')
+                            <a href="{{ url('/trucks/'.$activity->subject_id) }}">
+                                {{ $activity->subject_id }}
+                            </a>
+                        @elseif($activity->subject_type == 'App\Pickup')
+                            <a href="{{ url('/pickups/'.$activity->subject_id) }}">
+                                {{ $activity->subject_id }}
+                            </a>
+                        @else
+                    
+                        @endif
+                        
+                        </td>
+
+
+
                         {{--  <td>{{ $activity->properties }}</td>  --}}
                     
                     </tr>

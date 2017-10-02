@@ -1,6 +1,6 @@
    @extends('layouts.feeds')   
       @section('feed-section') 
-      @inject('map', 'App\Http\Controllers\FeedsController')
+      @inject('feed', 'App\Http\Controllers\FeedsController')
 
       <div class="row mb-3">
         <div class="col-sm-4 text-center text-muted">
@@ -122,9 +122,14 @@
                     <div class="col-sm-2">
 
                          @forelse($all_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
-                            <a class="btn btn-sm btn-outline-success mb-2" href="{{url('http://172.17.2.25:8080/RFID/'.date('Ymd',strtotime($in->LocalTime)).'/AC.'.date('Ymd',strtotime($in->LocalTime)).'.0000'.$in->LogID.'-1.jpg')}}" data-lightbox="{{$result->LogID}}" data-title="TIME IN - {{  date('Y-m-d h:i:s A', strtotime($in->LocalTime))}}">                      
-                               SNAPSHOT:IN
-                            </a>
+
+                        <!-- test code for checking image if exist -->
+
+                                <a class="btn btn-sm btn-outline-success mb-2" href="{{url('http://172.17.2.25:8080/RFID/'.date('Ymd',strtotime($in->LocalTime)).'/AC.'.date('Ymd',strtotime($in->LocalTime)).'.0000'.$in->LogID.'-1.jpg')}}" data-lightbox="{{$result->LogID}}" data-title="TIME IN - {{  date('Y-m-d h:i:s A', strtotime($in->LocalTime))}}">                      
+                                SNAPSHOT:IN
+                                </a>
+                         
+
                         @empty
                             @forelse($all_in_2->where('CardholderID', '==', $result->CardholderID)->take(1) as $in2)
                                 <a class="btn btn-sm btn-outline-success mb-2" href="{{url('http://172.17.2.25:8080/RFID/'.date('Ymd',strtotime($in2->LocalTime)).'/AC.'.date('Ymd',strtotime($in2->LocalTime)).'.0000'.$in2->LogID.'-1.jpg')}}" data-lightbox="{{$result->LogID}}" data-title="TIME IN - {{  date('Y-m-d h:i:s A', strtotime($in2->LocalTime))}}">                      

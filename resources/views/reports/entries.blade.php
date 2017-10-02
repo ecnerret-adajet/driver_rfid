@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="alert alert-danger" role="alert">
-                        <strong>Oh snap!</strong> Change a few things up and try submitting again.
+                        <strong>Oh snap!</strong> select date range should not be more than 7 days, please try again.
                     </div>
                 </div>
             </div>

@@ -13,6 +13,11 @@ use App\Customer;
 class FeedsController extends Controller
 {
 
+    public function imgRfid($cardholder, $logid)
+    {
+        return 'http://172.17.2.25:8080/RFID/'.date('Ymd',strtotime($cardholder)).'/AC.'.date('Ymd',strtotime($cardholder)).'.0000'.$logid.'-1.jpg';
+    }
+
     public function index() 
     {
         return view('feed');
@@ -58,6 +63,7 @@ class FeedsController extends Controller
         ->where('Direction', 1)
         ->whereDate('LocalTime', Carbon::now())
         ->orderBy('LocalTime','DESC')->get();
+
 
         $today_result = $logs->unique('CardholderID');
 
