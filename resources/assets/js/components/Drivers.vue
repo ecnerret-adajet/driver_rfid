@@ -48,8 +48,10 @@
                                                 </span>
                                             </span>
                                             <br/>
-                                            <span v-for="hauler in driver.haulers">
-                                                {{hauler.name}}
+                                            <span v-for="(hauler, index) in driver.haulers">
+                                                <span v-if="index == 0">
+                                                    {{ hauler.name }} <br/>
+                                                </span>
                                             </span>
                                         </div>
                                         <div class="col-sm-3">

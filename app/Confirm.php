@@ -9,7 +9,8 @@ class Confirm extends Model
     protected $connection = "sqlsrv";
     protected $fillable = [
         'status',
-        'remarks'
+        'remarks',
+        'classification'
     ];
 
     public function driver()

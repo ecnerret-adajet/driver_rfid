@@ -50,6 +50,7 @@ class ConfirmReassign extends Notification
 
         foreach($this->driver->trucks as $truck){
             $truck_name = $truck->plate_number;
+            $truck_id = $truck->id;
             foreach($truck->haulers as $hauler){
                 $hauler_name = $hauler->name;
             }
@@ -60,7 +61,7 @@ class ConfirmReassign extends Notification
         ->subject('Truck Monitoring: Reassign Confirmation')
         ->greeting('Good day!')
         ->line('A driver: '.$this->driver->name.' has now reassigned to '.$truck_name.' Please confirm by clicking the button below' )
-        ->action('Confirm Now', url('/confirm/create/'.$this->driver->id.'/'.$this->truck_id))
+        ->action('Confirm Now', url('/confirm/create/'.$this->driver->id.'/'.$truck_id))
         ->line('This is a generated notification from the system');
     }
 

@@ -10,6 +10,7 @@ use App\Setting;
 use App\Driver;
 use App\Confirm;
 use App\User;
+use App\Card;
 
 class ConfirmsController extends Controller
 {
@@ -21,6 +22,20 @@ class ConfirmsController extends Controller
     public function index()
     {
         //
+    }
+
+    /*
+    *
+    * Show all pendin for approval drivers
+    *
+    */
+    public function pending()
+    {
+        $confirms = Confirm::where('user_id',Auth::user()->id)
+                            ->orderBy('created_at','DESC')
+                            ->get();
+
+        return view('confirms.pending',compact('confirms'));
     }
 
     /**
@@ -47,17 +62,33 @@ class ConfirmsController extends Controller
             'remarks'
         ]);
 
+        $driver = Driver::findOrFail($id);
+
         $confirm = new Confirm;
         $confirm->fill($request->all());
         $confirm->driver()->associate($id);
         $confirm->user()->associate(Auth::user()->id);
+
+        if($driver->availability == 0 && $driver->print_status == 1 && $driver->notif_status == 0) {
+            $confirm->classification = 'New Driver';
+        }
+
+        if($driver->created_at != $driver->updated_at) {
+            $confirm->classification = 'Update Driver';
+        }
+
         $confirm->save();
 
         if($confirm->status == 'Approve') {
 
-            $driver = Driver::findOrFail($id);
             $driver->notif_status = 1;
             $driver->availability = 1;
+
+            if(!empty($driver->card_id)) {
+                $card = Card::where('CardID',$driver->card_id)->first();
+                $card->CardStatus = 0; 
+            }
+
             $driver->save();
 
              //send email to supervisor for approval

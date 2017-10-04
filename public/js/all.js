@@ -32735,6 +32735,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -36118,7 +36120,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])]), _vm._v(" "), _c('div', {
     staticClass: "col-xl-3 col-sm-6 mb-3"
   }, [_c('div', {
-    staticClass: "card text-white bg-primary o-hidden h-100"
+    staticClass: "card text-white bg-success o-hidden h-100"
   }, [_c('div', {
     staticClass: "card-body"
   }, [_c('div', {
@@ -36158,7 +36160,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])]), _vm._v(" "), _c('div', {
     staticClass: "col-xl-3 col-sm-6 mb-3"
   }, [_c('div', {
-    staticClass: "card text-white bg-primary o-hidden h-100"
+    staticClass: "card text-white bg-warning o-hidden h-100"
   }, [_c('div', {
     staticClass: "card-body"
   }, [_c('div', {
@@ -36198,7 +36200,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])]), _vm._v(" "), _c('div', {
     staticClass: "col-xl-3 col-sm-6 mb-3"
   }, [_c('div', {
-    staticClass: "card text-white bg-primary o-hidden h-100"
+    staticClass: "card text-white bg-danger o-hidden h-100"
   }, [_c('div', {
     staticClass: "card-body"
   }, [_c('div', {
@@ -36368,8 +36370,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v(_vm._s(driver.name))]), _vm._v(" : "), _c('small', [_vm._v(_vm._s(driver.cardholder.Name))]), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.trucks), function(truck) {
       return _c('span', [(truck.reg_number == null) ? _c('span', [_vm._v("\n                                                  " + _vm._s(truck.plate_number) + " \n                                              ")]) : _c('span', [_vm._v("\n                                                  " + _vm._s(truck.reg_number) + "\n                                              ")])])
-    }), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.haulers), function(hauler) {
-      return _c('span', [_vm._v("\n                                              " + _vm._s(hauler.name) + "\n                                          ")])
+    }), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.haulers), function(hauler, index) {
+      return _c('span', [(index == 0) ? _c('span', [_vm._v("\n                                                  " + _vm._s(hauler.name) + " "), _c('br')]) : _vm._e()])
     })], 2), _vm._v(" "), _c('div', {
       staticClass: "col-sm-3"
     }, [(driver.card != null) ? _c('span', {

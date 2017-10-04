@@ -16,11 +16,13 @@
     </div>
 </div>
 
+
+
 <div class="form-row">
     <div class="col-md-12">
         <div class="form-group {{ $errors->has('remarks') ? ' has-danger' : '' }}">
                 <label>Remarks</label>
-                {!! Form::textarea('remarks', null, ['placeholder' => 'Enter Remarks','class' => 'form-control'] ) !!}
+                {!! Form::textarea('remarks', null, ['placeholder' => 'Enter Remarks','class' => 'form-control','rows' => '3'] ) !!}
                 @if ($errors->has('remarks'))
                     <div class="form-control-feedback">
                     <small>

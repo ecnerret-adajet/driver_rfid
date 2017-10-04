@@ -174,9 +174,16 @@ class DriversController extends Controller
 
         $haulers = Hauler::orderBy('id','DESC')->pluck('name','id');
 
-        $trucks = Truck::whereHas('haulers',function($q) use ($x){
-            $q->where('id',$x);
-        })->orderBy('id','DESC')->pluck('plate_number','id');
+        if(count($driver->trucks) == 0) {
+            
+            $trucks = Truck::whereHas('haulers',function($q) use ($x){
+                $q->where('id',$x);
+            })->orderBy('id','DESC')->pluck('plate_number','id');
+
+        } else {
+
+            $trucks =  Truck::orderBy('id','DESC')->pluck('plate_number','id');
+        }
 
         // $cards = ['' => ''] + Card::orderBy('CardNo','DESC')->pluck('CardNo','CardID')->all();
         $cards =  Card::orderBy('CardNo','DESC')->pluck('CardNo','CardID');
@@ -203,9 +210,12 @@ class DriversController extends Controller
 
         // $x = Hauler::select('id')->where('name', $y)->first();
 
-        $trucks = Truck::whereHas('haulers',function($q) use ($y){
-            $q->where('id', $y);
-        })->orderBy('id','DESC')->pluck('plate_number','id');
+        // $trucks = Truck::whereHas('haulers',function($q) use ($y){
+        //     $q->where('id', $y);
+        // })->orderBy('id','DESC')->pluck('plate_number','id');
+
+
+        $trucks = Truck::pluck('plate_number','id');
 
         return view('drivers.reassign',compact('driver','trucks','truck_subvendors'));
     }
@@ -241,6 +251,13 @@ class DriversController extends Controller
         
         $driver->update($request->all());
         $driver->availability = 0;
+        $driver->notif_status = 0;
+
+        if(!empty($driver->card_id)) {
+        $card = Card::where('CardID',$driver->card_id)->first();
+        $card->CardStatus = 1; 
+        }
+
         $driver->save();
         $driver->trucks()->sync( (array) $request->input('truck_list'));
         
@@ -269,16 +286,18 @@ class DriversController extends Controller
     {
         $this->validate($request, [
                 'name' => 'required',
-                'hauler_list' => 'required',
+                // 'hauler_list' => 'required',
                 'truck_list' => 'required',
                 'phone_number' => 'required',
-                'card_list' => 'required',
+                // 'card_list' => 'required',
                 // 'clasification_list' => 'required',
                 'start_validity_date' => 'required|before:end_validity_date',
                 'end_validity_date' => 'required'
+        ],[
+            'truck_list.required' => 'Plate Number is required'
         ]);
 
-        $card_rfid = $request->input('card_list');
+        // $card_rfid = $request->input('card_list');
         // $clasification_id = $request->input('clasification_list');
 
         $driver->update($request->all());
@@ -292,22 +311,19 @@ class DriversController extends Controller
             $driver->update_count += 1;
         }
         
-        $driver->card()->associate($card_rfid);
+        // $driver->card()->associate($card_rfid);
         // $driver->clasification()->associate($clasification_id);
 
-
-        if($driver->clasification_id == 2) {
-            $driver->print_status = 1;
-
-            // send email to supervisor for approval
-            $setting = Setting::first();
-            Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmDriver($driver));
-        }
+        $driver->name = strtoupper($request->input('name'));
 
         $driver->save();
 
-        $driver->haulers()->sync( (array) $request->input('hauler_list'));
         $driver->trucks()->sync( (array) $request->input('truck_list'));
+
+        $drivers_truck = DB::table('hauler_truck')->select('hauler_id')
+                ->where('truck_id',$request->input('truck_list'))->first();
+
+        $driver->haulers()->attach($drivers_truck); 
 
         flashy()->success('Driver has successfully updated!');
         return redirect('drivers');

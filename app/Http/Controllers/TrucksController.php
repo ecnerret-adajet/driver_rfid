@@ -190,7 +190,6 @@ class TrucksController extends Controller
         ]);
 
       
-            
         $version = new Version;
         $version->truck_id = $truck->id;
         $version->user_id = Auth::user()->id;
