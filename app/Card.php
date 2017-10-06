@@ -33,9 +33,9 @@ class Card extends Model
         return "CardID";
     }
 
-    public function getCardHolderAttribute()
+    public function getDeployAttribute()
     {   
-        return $this->CardNo .' - '. $this->getCardholder->Name;
+        return $this->CardNo .' - '. $this->getCardholder;
     }
 
     public function getCardholder()

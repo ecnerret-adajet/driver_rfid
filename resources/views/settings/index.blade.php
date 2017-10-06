@@ -20,7 +20,7 @@
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-12">
-                            <label>Approver's Email</label>                            
+                            <label>Driver's Approver</label>                            
                         
                             <select class="form-control" disabled>
                                 <option value="0" selected="selected">{{ $setting->user->name }}</option>
@@ -36,7 +36,7 @@
 
         @endforeach
 
-                @foreach($settings->where('id',2) as $setting)
+        @foreach($settings->where('id',2) as $setting)
 
                 <form class="mb-3">
 
@@ -44,6 +44,29 @@
                         <div class="form-row">
                             <div class="col-md-12">
                             <label>Admin's Email</label>                            
+                        
+                            <select class="form-control" disabled>
+                                <option value="0" selected="selected">{{ $setting->user->name }}</option>
+                            </select>
+
+                            </div> 
+                        </div>
+                    </div>
+
+                <a href="{{url('/settings/'.$setting->id.'/edit')}}" class="btn btn-secondary btn-block">Edit</a>
+
+                </form>
+
+        @endforeach
+
+        @foreach($settings->where('id',3) as $setting)
+
+                <form class="mb-3">
+
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-12">
+                            <label>Hauler's Approver</label>                            
                         
                             <select class="form-control" disabled>
                                 <option value="0" selected="selected">{{ $setting->user->name }}</option>

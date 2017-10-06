@@ -58,7 +58,7 @@ class TrucksController extends Controller
         $cards = Card::orderBy('CardID','DESC')
                 ->whereNotIn('CardholderID',$driver_card)
                 ->where('CardholderID','>=', 15)
-                ->where('CardholderID','!=', 0)->pluck('CardNo','CardID')->take(2);
+                ->where('CardholderID','!=', 0)->pluck('CardNo','CardID')->take(5);
 
         $capacities = Capacity::pluck('description','id');
 

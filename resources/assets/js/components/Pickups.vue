@@ -63,7 +63,7 @@
                 </div>
                  <div v-if="!is_loading">
                     <h3>
-                   {{ pickupValue.available_card }}
+                   {{ pickupValue.available_card - pickupValue.current_pickup }}
                     </h3>
                 </div>
                  <div v-if="is_loading">

@@ -31,9 +31,14 @@ class Log extends Model
     	return $this->hasMany('App\Driver','cardholder_id','CardholderID');
     }
 
-    public function queues()
+    public function driver()
     {
-        return $this->hasMany('App\Queue','LogID','LogID');
+    	return $this->hasOne('App\Driver','cardholder_id','CardholderID');
+    }
+
+    public function lineups()
+    {
+        return $this->hasMany('App\Lineup','LogID','LogID');
     }
 
     public function customers()

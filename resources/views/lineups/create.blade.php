@@ -13,10 +13,10 @@
         <div class="card-body">
           
     
-          {!! Form::model($queue = new \App\Driver, ['url' => 'queues/'.$log, 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
+          {!! Form::model($lineup = new \App\Lineup, ['url' => 'lineups/'.$log, 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
           {!! csrf_field() !!}
             <form>
-            @include('queues.form')
+            @include('lineups.form')
             </form>
           {!! Form::close() !!}
 

@@ -10,11 +10,11 @@
                 <div class="card-body-icon">
                 </div>
                 <div class="mr-5">
-                 Queue Count
+                 Queue Trucks
                 </div>
                 <div v-if="!loading">
                     <h3>
-                            {{ queues.length }}
+                        {{ lineups.length }}
                     </h3>
                 </div>
                  <div v-if="loading">
@@ -35,7 +35,7 @@
                 <div class="card-body-icon">
                 </div>
                 <div class="mr-5">
-                  Marked as done
+                  Hustling Truck(s)
                 </div>
                <div v-if="!loading">
                     <h3>
@@ -65,22 +65,27 @@ export default {
     data(){
         return {
             loading: false,
-            queues: [],
+            lineups: [],
             marked: [],
+            csrf: '',
         }
     },
 
+    mounted() {
+        this.csrf = window.Laravel.csrfToken;
+    },
+
     created() {
-        this.getQueues()
+        this.getLineups()
         this.getMarked()
     },
 
     methods: {
-        getQueues() {
+        getLineups() {
             this.loading = true
-            axios.get('http://localhost/driver_rfid/public/queueJson')
+            axios.get('http://localhost/driver_rfid/public/lineupJson')
             .then(response => {
-                this.queues = response.data
+                this.lineups = response.data
                 this.loading = false
             });
         },

@@ -69,9 +69,9 @@ class User extends Authenticatable
     * Get all associate user from queue model
     *
     */
-    public function queues()
+    public function lineups()
     {
-        return $this->hasMany('App\Queue');
+        return $this->hasMany('App\Lineup');
     }
     
     /**

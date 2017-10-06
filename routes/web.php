@@ -159,14 +159,15 @@ Route::get('/home-content','FeedsController@homeFeed');
 Route::get('/barrier','FeedsController@barrier');
 Route::get('/barrier-content','FeedsController@barrierContent');
 
-//queues route setup
-Route::get('/queueJson','QueuesController@queueJson');
-Route::get('/markedJson','QueuesController@markedJson');
-Route::get('/queues','QueuesController@index');
-Route::get('/generateQueues','QueuesController@generateQueues');
-Route::get('/queues/{log}','QueuesController@create');
-Route::post('/queues/{log}','QueuesController@store');
-
+//lineups route setup
+Route::get('/lineupJson','LineupsController@lineupJson');
+Route::get('/markedJson','LineupsController@markedJson');
+Route::get('/lineups','LineupsController@index');
+Route::get('/generateLineups','LineupsController@generateLineups');
+Route::get('/lineups/{log}','LineupsController@create');
+Route::post('/lineups/{log}','LineupsController@store');
+Route::get('/lineups/approval/{id}','LineupsController@hustlingApproval');
+Route::post('/lineups/approval/{id}','LineupsController@hustlingApprovalStore');
 
 
 //activies logs

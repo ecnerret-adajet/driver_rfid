@@ -26657,16 +26657,16 @@ Vue.component('drivers', __webpack_require__(171));
 Vue.component('trucks', __webpack_require__(181));
 Vue.component('haulers', __webpack_require__(174));
 Vue.component('settings', __webpack_require__(180));
-Vue.component('prints', __webpack_require__(178));
+Vue.component('prints', __webpack_require__(179));
 Vue.component('home', __webpack_require__(175));
 Vue.component('cards', __webpack_require__(169));
 Vue.component('users', __webpack_require__(182));
-Vue.component('logs', __webpack_require__(176));
-Vue.component('pickups', __webpack_require__(177));
+Vue.component('logs', __webpack_require__(177));
+Vue.component('pickups', __webpack_require__(178));
 Vue.component('vendor', __webpack_require__(183));
 Vue.component('driverdetails', __webpack_require__(170));
 Vue.component('handlers', __webpack_require__(173));
-Vue.component('queue', __webpack_require__(179));
+Vue.component('lineup', __webpack_require__(176));
 
 var app = new Vue({
   el: '#app'
@@ -33272,6 +33272,120 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            loading: false,
+            lineups: [],
+            marked: [],
+            csrf: ''
+        };
+    },
+    mounted: function mounted() {
+        this.csrf = window.Laravel.csrfToken;
+    },
+    created: function created() {
+        this.getLineups();
+        this.getMarked();
+    },
+
+
+    methods: {
+        getLineups: function getLineups() {
+            var _this = this;
+
+            this.loading = true;
+            axios.get('http://localhost/driver_rfid/public/lineupJson').then(function (response) {
+                _this.lineups = response.data;
+                _this.loading = false;
+            });
+        },
+        getMarked: function getMarked() {
+            var _this2 = this;
+
+            this.loading = true;
+            axios.get('http://localhost/driver_rfid/public/markedJson').then(function (response) {
+                _this2.marked = response.data;
+                _this2.loading = false;
+            });
+        },
+        moment: function moment(date) {
+            return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM D, Y h:m:s A');
+        }
+    }
+});
+
+/***/ }),
+/* 159 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -33348,7 +33462,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 159 */
+/* 160 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -33591,7 +33705,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 160 */
+/* 161 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -33646,116 +33760,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (err) {
                 return console.error(err);
             });
-        }
-    }
-});
-
-/***/ }),
-/* 161 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            loading: false,
-            queues: [],
-            marked: []
-        };
-    },
-    created: function created() {
-        this.getQueues();
-        this.getMarked();
-    },
-
-
-    methods: {
-        getQueues: function getQueues() {
-            var _this = this;
-
-            this.loading = true;
-            axios.get('http://localhost/driver_rfid/public/queueJson').then(function (response) {
-                _this.queues = response.data;
-                _this.loading = false;
-            });
-        },
-        getMarked: function getMarked() {
-            var _this2 = this;
-
-            this.loading = true;
-            axios.get('http://localhost/driver_rfid/public/markedJson').then(function (response) {
-                _this2.marked = response.data;
-                _this2.loading = false;
-            });
-        },
-        moment: function moment(date) {
-            return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM D, Y h:m:s A');
         }
     }
 });
@@ -34829,7 +34833,7 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(152),
   /* template */
-  __webpack_require__(187),
+  __webpack_require__(186),
   /* scopeId */
   null,
   /* cssModules */
@@ -35033,6 +35037,40 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(158),
   /* template */
+  __webpack_require__(187),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Lineup.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Lineup.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5270cd86", Component.options)
+  } else {
+    hotAPI.reload("data-v-5270cd86", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 177 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(159),
+  /* template */
   __webpack_require__(188),
   /* scopeId */
   null,
@@ -35060,12 +35098,12 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 177 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(159),
+  __webpack_require__(160),
   /* template */
   __webpack_require__(190),
   /* scopeId */
@@ -35094,12 +35132,12 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 178 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(160),
+  __webpack_require__(161),
   /* template */
   __webpack_require__(193),
   /* scopeId */
@@ -35121,40 +35159,6 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-9d0630d8", Component.options)
   } else {
     hotAPI.reload("data-v-9d0630d8", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 179 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(161),
-  /* template */
-  __webpack_require__(186),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Queue.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Queue.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2a113bd3", Component.options)
-  } else {
-    hotAPI.reload("data-v-2a113bd3", Component.options)
   }
 })()}
 
@@ -35597,6 +35601,21 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c("div")
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-3e6ab13c", module.exports)
+  }
+}
+
+/***/ }),
+/* 187 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
     staticClass: "row"
   }, [_c('div', {
@@ -35609,7 +35628,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card-body-icon"
   }), _vm._v(" "), _c('div', {
     staticClass: "mr-5"
-  }, [_vm._v("\r\n                 Queue Count\r\n                ")]), _vm._v(" "), (!_vm.loading) ? _c('div', [_c('h3', [_vm._v("\r\n                            " + _vm._s(_vm.queues.length) + "\r\n                    ")])]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', [_c('div', {
+  }, [_vm._v("\r\n                 Queue Trucks\r\n                ")]), _vm._v(" "), (!_vm.loading) ? _c('div', [_c('h3', [_vm._v("\r\n                        " + _vm._s(_vm.lineups.length) + "\r\n                    ")])]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', [_c('div', {
     staticClass: "center-align",
     staticStyle: {
       "display": "flex",
@@ -35649,7 +35668,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card-body-icon"
   }), _vm._v(" "), _c('div', {
     staticClass: "mr-5"
-  }, [_vm._v("\r\n                  Marked as done\r\n                ")]), _vm._v(" "), (!_vm.loading) ? _c('div', [_c('h3', [_vm._v("\r\n                    " + _vm._s(_vm.marked) + "\r\n\r\n                    ")])]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', [_c('div', {
+  }, [_vm._v("\r\n                  Hustling Truck(s)\r\n                ")]), _vm._v(" "), (!_vm.loading) ? _c('div', [_c('h3', [_vm._v("\r\n                    " + _vm._s(_vm.marked) + "\r\n\r\n                    ")])]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', [_c('div', {
     staticClass: "center-align",
     staticStyle: {
       "display": "flex",
@@ -35685,22 +35704,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-2a113bd3", module.exports)
-  }
-}
-
-/***/ }),
-/* 187 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c("div")
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-3e6ab13c", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-5270cd86", module.exports)
   }
 }
 
@@ -35918,7 +35922,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card-body-icon"
   }), _vm._v(" "), _c('div', {
     staticClass: "mr-5"
-  }, [_vm._v("\n               Available Card\n            ")]), _vm._v(" "), (!_vm.is_loading) ? _c('div', [_c('h3', [_vm._v("\n               " + _vm._s(_vm.pickupValue.available_card) + "\n                ")])]) : _vm._e(), _vm._v(" "), (_vm.is_loading) ? _c('div', [_c('div', {
+  }, [_vm._v("\n               Available Card\n            ")]), _vm._v(" "), (!_vm.is_loading) ? _c('div', [_c('h3', [_vm._v("\n               " + _vm._s(_vm.pickupValue.available_card - _vm.pickupValue.current_pickup) + "\n                ")])]) : _vm._e(), _vm._v(" "), (_vm.is_loading) ? _c('div', [_c('div', {
     staticClass: "center-align",
     staticStyle: {
       "display": "flex",

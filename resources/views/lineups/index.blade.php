@@ -14,12 +14,12 @@
         </div>
         <div class="card-body">
 
-            <queue></queue>
+            <lineup></lineup>
 
             
                 <div class="row mb-3">
                 <div class="col-sm-12">
-                     {{ Form::open(array('url' => '/generateQueues', 'method' => 'get')) }}
+                     {{ Form::open(array('url' => '/generateLineups', 'method' => 'get')) }}
                         <form>
 
                         <div class="form-row">
@@ -77,10 +77,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($log_queues as $queue)
-                                    @if(count($queue->drivers) != 0)
+                                @foreach($log_lineups as $lineup)
+                                    @if(count($lineup->drivers) != 0)
                                     <tr>
-                                    @foreach($queue->drivers as $driver)
+                                    @foreach($lineup->drivers as $driver)
                                             <td>
                                                 <img class="rounded-circle" style="height: 60px; width: auto;" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}" align="top">
                                             </td>
@@ -99,18 +99,18 @@
                                             </td>
                                     @endforeach
                                             <td>
-                                            {{ date('m/d/y h:i:s A',strtotime($queue->LocalTime)) }}
+                                            {{ date('m/d/y h:i:s A',strtotime($lineup->LocalTime)) }}
                                             </td>
                                             <td>
 
-                                              @forelse($queues->where('LogID',$queue->LogID) as $x)
+                                              @forelse($lineups->where('LogID',$lineup->LogID) as $x)
                                                
                                                 <a class="btn btn-secondary btn-sm disabled" href="javascript:void(0);">
                                                     Done
                                                 </a>
                                              @empty
-                                                 <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#queueModal-{{$queue->LogID}}" href="javascript:void(0);">
-                                                    Mark as done
+                                                 <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#lineupModal-{{$lineup->LogID}}" href="javascript:void(0);">
+                                                    Hustling
                                                 </a>
                                              @endforelse
 
@@ -133,14 +133,14 @@
         </div><!-- end card-body -->
     </div> <!-- end card -->
 
-    @foreach($log_queues as $queue)
+    @foreach($log_lineups as $lineup)
      <!-- Logout Modal -->
-        <div class="modal fade" id="queueModal-{{$queue->LogID}}" tabindex="-1" role="dialog" aria-labelledby="queueModalLabel" aria-hidden="true">
-        <div class="modal-dialog" id="queueter">
+        <div class="modal fade" id="lineupModal-{{$lineup->LogID}}" tabindex="-1" role="dialog" aria-labelledby="lineupModalLabel" aria-hidden="true">
+        <div class="modal-dialog" id="lineupter">
             <div class="modal-content">
             <div class="modal-header">
 
-                <h5 class="modal-title" id="queueModalLabel">Queue Turn</h5>
+                <h5 class="modal-title" id="lineupModalLabel">Assign To Hustling</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -155,7 +155,7 @@
 
             </div>
             <div class="modal-footer">                
-            <form id="queue-form" method="POST" action="{{url('/queues/'.$queue->LogID)}}">
+            <form id="lineup-form" method="POST" action="{{url('/lineups/'.$lineup->LogID)}}">
                 {{ csrf_field() }}
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button type="submit" class="btn btn-primary">Confirm</button> 

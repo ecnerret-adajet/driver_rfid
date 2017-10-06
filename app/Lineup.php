@@ -4,11 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Queue extends Model
+class Lineup extends Model
 {
     protected $fillable = [
         'availability',
-        'remarks'
+        'remarks',
+        'hustling',
+        'approval_notif',
+        'status',
+        'availability'
     ];
 
     public function user()
@@ -21,4 +25,3 @@ class Queue extends Model
         return $this->belongsTo('App\Log','LogID','LogID');
     }
 }
-

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateQueuesTable extends Migration
+class CreateLineupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,16 @@ class CreateQueuesTable extends Migration
      */
     public function up()
     {
-        Schema::create('queues', function (Blueprint $table) {
+        Schema::create('lineups', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('LogID')->unsigned();
+			$table->boolean('hustling')->nullable();
+			$table->boolean('approval_notif')->nullable();
+            $table->integer('approved_by')->unsigned()->nullable();
+            $table->boolean('status')->nullable();
+            $table->string('remarks')->nullable();
             $table->boolean('availability')->default(1);
-            $table->text('remarks');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
@@ -32,6 +36,6 @@ class CreateQueuesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('queues');
+        Schema::dropIfExists('lineups');
     }
 }

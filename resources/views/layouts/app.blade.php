@@ -55,9 +55,9 @@
                                                      Request::is('pickups') ||
                                                      Request::is('pickups/*') ||
                                                      Request::is('generatePickups') ||
-                                                     Request::is('generateQueues') ||
-                                                     Request::is('queues') ||
-                                                     Request::is('queues/*') ||
+                                                     Request::is('generateLineups') ||
+                                                     Request::is('lineups') ||
+                                                     Request::is('lineups/*') ||
                                                      Request::is('drivers') ||
                                                      Request::is('drivers/*') ||           
                                                      Request::is('cards') || 
@@ -69,10 +69,10 @@
             <ul class="sidenav-second-level {{ (Request::is('trucks') || 
                                                      Request::is('trucks/*') ||
                                                      Request::is('drivers') ||
-                                                     Request::is('queues') ||
+                                                     Request::is('lineups') ||
                                                      Request::is('generatePickups') ||
-                                                     Request::is('generateQueues') ||
-                                                     Request::is('queues/*') ||
+                                                     Request::is('generateLineups') ||
+                                                     Request::is('lineups/*') ||
                                                      Request::is('pickups') ||
                                                      Request::is('pickups/*') ||
                                                      Request::is('drivers/*') ||           
@@ -106,11 +106,11 @@
 
               @role((['Administrator','Queue']))
 
-              <li class="{{ (Request::is('queues') ||
-                            Request::is('generateQueues') ||
-                            Request::is('queues/*')
+              <li class="{{ (Request::is('lineups') ||
+                            Request::is('generateLineups') ||
+                            Request::is('lineups/*')
                           ) ? 'active' : ''}}">
-                <a href="{{url('/queues')}}">Queue</a>
+                <a href="{{url('/lineups')}}">Queue</a>
               </li>
 
               @endrole
