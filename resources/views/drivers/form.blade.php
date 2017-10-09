@@ -69,7 +69,11 @@
                         <div class="form-group {{ $errors->has('card_list') ? ' has-danger' : '' }}">
                                 <label>RFID Card </label>
                                 @if(str_contains(Request::path(), 'edit'))
-                                {!! Form::select('card_list', $cards, count($driver->card) == 0 ? 'null' : $driver->card->CardID, ['placeholder' => 'Select Deploy RFID',  'class' => 'form-control select2-card','disabled'] ) !!}
+                                    @if(empty($driver->card_id))
+                                        {!! Form::select('card_list', $cards, count($driver->card) == 0 ? 'null' : $driver->card->CardID, ['placeholder' => 'Select Deploy RFID',  'class' => 'form-control select2-card'] ) !!}
+                                    @else
+                                        {!! Form::select('card_list', $card_driver, count($driver->card) == 0 ? 'null' : $driver->card->CardID, ['placeholder' => 'Select Deploy RFID',  'class' => 'form-control select2-card'] ) !!}
+                                    @endif
                                 @else
                                 {!! Form::select('card_list', $cards, null, ['placeholder' => 'Select Deploy RFID', 'class' => 'form-control select2-card'] ) !!}
                                 @endif

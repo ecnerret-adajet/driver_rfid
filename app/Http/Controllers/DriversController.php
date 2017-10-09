@@ -186,11 +186,25 @@ class DriversController extends Controller
         }
 
         // $cards = ['' => ''] + Card::orderBy('CardNo','DESC')->pluck('CardNo','CardID')->all();
-        $cards =  Card::orderBy('CardNo','DESC')->pluck('CardNo','CardID');
+        // $cards =  Card::orderBy('CardNo','DESC')->pluck('CardNo','CardID');
+
+        // if a driver has no assign card
+        $driver_card = Driver::where('id',$driver->id)
+        ->where('availability',1)->first();
+
+        $cards = Card::orderBy('CardID','DESC')
+        ->whereIn('CardholderID',[$driver_card->cardholder_id])
+        ->where('CardID', '!=', $driver_card->card_id)
+        ->where('CardholderID','>=', 15)
+        ->where('CardholderID','!=', 0)->pluck('CardNo','CardID');
+
+        // when a driver has a card assigned
+        $card_driver = Card::orderBy('CardNo','DESC')->pluck('CardNo','CardID');
         
         return view('drivers.edit',compact(
             'driver',
             'clasifications',
+            'card_driver',
             'haulers',
             'cards',
             'trucks'));

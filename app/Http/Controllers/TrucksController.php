@@ -156,7 +156,20 @@ class TrucksController extends Controller
         $haulers = ['' => ''] + Hauler::pluck('name','vendor_number')->all();
         $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','vendor_number')->all();
 
-         $cards =  Card::orderBy('CardNo','DESC')->pluck('CardNo','CardID')->all();
+        // $cards =  Card::orderBy('CardNo','DESC')->pluck('CardNo','CardID')->all();
+
+        foreach($truck->drivers as $driver) {
+            $driver_card = Driver::where('id',$driver->id)
+                            ->where('availability',1)->first();
+        }
+
+        $cards = Card::orderBy('CardID','DESC')
+         ->whereIn('CardholderID',[$driver_card->cardholder_id])
+         ->where('CardID', '!=', $driver_card->card_id)
+         ->where('CardholderID','>=', 15)
+         ->where('CardholderID','!=', 0)->pluck('CardNo','CardID');
+         
+         
          $capacities = Capacity::pluck('description','id');
          $contracts = Contract::all()->pluck('contract','id');
          $bases = Base::pluck('origin','id');
