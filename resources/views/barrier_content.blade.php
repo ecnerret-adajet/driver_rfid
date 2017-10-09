@@ -1,9 +1,8 @@
    @extends('layouts.feeds')   
-
       @section('feed-section') 
 
        <!-- Icon Cards -->
-        <div class="row">
+        {{--  <div class="row">
     
           <div class="col-xl-6 col-sm-6 mb-3">
             <div class="card text-white bg-warning o-hidden h-100">
@@ -48,102 +47,95 @@
               </a>
             </div>
           </div>
-        </div>
+        </div>  --}}
 
 
 
     <div class="row pb-5">
         <div class="col-sm-12">
                   <ul class="list-group">
-            @foreach($barrier_results as $index => $result)
-            <li class="list-group-item">
 
-                <div class="row">
-                    <div class="col-sm-1">
-                        @foreach($result->drivers as $driver)
-                            <img class="rounded-circle" style="height: 60px; width: auto;" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}" align="middle">
-                        @endforeach
+            @foreach($barrier_results as $index => $result)
+
+             
+
+             @foreach($result->drivers as $driver)
+
+                @if(count($result->drivers) != 0)
+
+
+                <li class="list-group-item pb-0" style="border-color: #28a745">
+                <div class="row text-center mb-3">
+                    <div class="col-sm-12">
+
+                        @if($driver->availability == 1)
+                            <a class="btn btn-sm btn-success pull-right btn-outline disabled" href="#">
+                                ACTIVE
+                            </a>
+                        @else
+                             <a class="btn btn-sm btn-danger pull-right btn-outline disabled" href="#">
+                                INACTIVE
+                            </a>
+                        @endif
+
+                        <img class="img-responsive" style="height: 150px; width: auto; padding-left: 80px;" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}" align="middle">
+                
                     </div>
-                    <div class="col-sm-5">
-                         @foreach($result->drivers as $driver)
-                        <span class="title" style="text-transform: uppercase">{{$driver->name}} </span>
-                        @endforeach
-                        <br/>
-                        @foreach($result->drivers as $driver)
-                            @foreach($driver->trucks as $truck)
+                </div>
+                <div class="row text-center"> 
+                <table class="table table-bordered mb-0">
+                    <tr>
+                        <td colspan="2">
+                            <small class="text-muted">DRIVER NAME:</small><br/>
+                            {{$driver->name}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%">
+                            <small class="text-muted">PLATE NUMBER:</small><br/>
+                             @foreach($driver->trucks as $truck)
                                 {{$truck->plate_number}}
                             @endforeach
-                        @endforeach
-                        <br/>
-                        @foreach($result->drivers as $driver)
+                        </td>
+                         <td width="50%">
+                            <small class="text-muted">DRIVER NAME:</small><br/>
                             @foreach($driver->haulers as $hauler)
                                 {{$hauler->name}}
                             @endforeach
-                        @endforeach 
-                        <br/>
-
-                      @foreach($result->customers as $customer)
-                            {{  str_limit(title_case($customer->address),35) }}<br/>
-                        @endforeach
-
-
-                    </div>
-                    <div class="col-sm-4 right">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%">
+                        <small class="text-muted">PLANT IN:</small><br/>
                         <?php $barrier_final_in = ''; ?>
                         @forelse($barrier_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
-                            <span> IN: {{ $barrier_final_in = date('Y-m-d h:i:s A', strtotime($in->LocalTime))}} </span>
+                            {{ $barrier_final_in = date('Y-m-d h:i:s A', strtotime($in->LocalTime))}} 
                         @empty
-                          <span>  NO IN </span> 
+                            NO IN  
                         @endforelse
-                        <br/>
-                          <?php $barrier_final_out = ''; ?>                                     
+                        </td>
+                     <td width="50%">
+                      <small class="text-muted">PLANT OUT:</small><br/>
+                         <?php $barrier_final_out = ''; ?>                                     
                         @forelse($barrier_out->where('CardholderID', '==', $result->CardholderID)->take(1) as $out)
-                        <span> OUT: {{ $barrier_final_out = date('Y-m-d h:i:s A', strtotime($out->LocalTime))}} </span>
+                        {{ $barrier_final_out = date('Y-m-d h:i:s A', strtotime($out->LocalTime))}} 
                         @empty
-                        <span>NO OUT</span>
+                        NO OUT
                         @endforelse
-                        <br/>
-
-                        @forelse($barrier_out->where('CardholderID', '==', $result->CardholderID)->take(1) as $out )
-                        @forelse($barrier_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in )
-                        <span> {{  $in->LocalTime->diffInHours($out->LocalTime)}} Hour(s) </span> 
-                        @empty
-                            @forelse($barrier_in_2->where('CardholderID', '==', $result->CardholderID)->take(1) as $in2)
-                                <span> {{  $in2->LocalTime->diffInHours($out->LocalTime)}} Hour(s) </span>
-                            @empty
-                            <span>  NO PAIRED TIME IN </span>
-                            @endforelse                         
-                        @endforelse
-                        @empty
-                        <span>NO PAIRED TIME OUT </span> 
-                        @endforelse
-
-                    </div>
-
-                    <div class="col-sm-2">
-
-                        @foreach($result->drivers as $driver)
-                                STATUS:
-                            @if($driver->availability == 0)
-                                <span style="color: red">
-                                    INACTIVE
-                                </span> 
-                            @else
-                                 <span style="color: green">
-                                    ACTIVE
-                                </span> 
-                            @endif
-                        @endforeach
-                       
-                    </div>
-            
+                        </td>
+                    </tr>
+                </table>
                 </div>
-
-              
-                
-                
             </li>
-            @endforeach
+            @endif
+
+
+      
+
+
+         @endforeach
+         @endforeach
+            
             </ul>
         </div>
       </div>
