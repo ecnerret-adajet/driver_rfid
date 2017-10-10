@@ -46,13 +46,13 @@ class LineupsController extends Controller
     public function checkLastTrip($plate_number)
     {
         $x = str_replace('-',' ',$plate_number);
-        $last_trip = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP($x,'deploy')");
+        $last_trip = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$x','deploy')");
         
         foreach($last_trip as $trip) {
             $last_trip_plate_number = $trip->do_status;
         }
 
-        return $last_trip;
+        return $last_trip_plate_number;
     }
 
     /**

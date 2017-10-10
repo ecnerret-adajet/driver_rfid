@@ -107,7 +107,7 @@
 
                                             @foreach($driver->trucks as $truck)
 
-                                                @if( $drf->checkLastTrip($truck->plate_number) === 'received' )
+                                                @if( $drfp->checkLastTrip($truck->plate_number) === 'RECEIVED' )
                                                                                   
                                                 @forelse($lineups->where('LogID',$lineup->LogID) as $x)
                                                     <a class="btn btn-secondary btn-sm disabled" href="javascript:void(0);">
