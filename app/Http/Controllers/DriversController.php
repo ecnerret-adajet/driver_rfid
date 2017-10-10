@@ -60,11 +60,15 @@ class DriversController extends Controller
         $trucks = ['' => ''] + Truck::doesntHave('drivers')->where('availability',1)->orderBy('id','DESC')->pluck('plate_number','id')->all();
         
         $driver_card = Driver::select('cardholder_id')->where('availability',1)->get();
+        $truck_card = Truck::select('card_id')->whereNotNull('card_id')->get();
         
         $cards = Card::orderBy('CardID','DESC')
                 ->whereNotIn('CardholderID',$driver_card)
+                ->whereNotIn('CardID',$truck_card)
                 ->where('CardholderID','>=', 15)
                 ->where('CardholderID','!=', 0)->pluck('CardNo','CardID')->take(10);
+
+
         
         return view('drivers.create',compact('clasifications','trucks','cards','haulers'));
     }

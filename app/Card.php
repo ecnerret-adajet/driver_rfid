@@ -60,7 +60,7 @@ class Card extends Model
 
     public function truck()
     {
-        return $this->hasOne('App\Truck','CardID','card_id');
+        return $this->hasOne('App\Truck','card_id','CardID');
     }
 
 }
