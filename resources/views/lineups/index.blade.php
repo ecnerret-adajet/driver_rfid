@@ -106,20 +106,27 @@
                                             <td>
 
                                             @foreach($driver->trucks as $truck)
-                                                {{ $drf->checkLastTrip($truck->plate_number) }}
-                                            @endforeach
 
-                                        
-                                            @forelse($lineups->where('LogID',$lineup->LogID) as $x)
-                                               
-                                                <a class="btn btn-secondary btn-sm disabled" href="javascript:void(0);">
-                                                    Done
-                                                </a>
-                                            @empty
-                                                 <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#lineupModal-{{$lineup->LogID}}" href="javascript:void(0);">
-                                                    Hustling
-                                                </a>
-                                            @endforelse
+                                                @if( $drf->checkLastTrip($truck->plate_number) === 'received' )
+                                                                                  
+                                                @forelse($lineups->where('LogID',$lineup->LogID) as $x)
+                                                    <a class="btn btn-secondary btn-sm disabled" href="javascript:void(0);">
+                                                        On Hustling
+                                                    </a>
+                                                @empty
+                                                    <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#lineupModal-{{$lineup->LogID}}" href="javascript:void(0);">
+                                                        Hustling
+                                                    </a>
+                                                @endforelse
+
+
+                                                @else
+
+                                                    NO STATUS
+
+                                                @endif
+
+                                            @endforeach
 
 
                                             </td>
