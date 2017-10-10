@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+@inject('drfp', 'App\Http\Controllers\LineupsController') 
 
 
 
@@ -101,18 +102,24 @@
                                             <td>
                                             {{ date('m/d/y h:i:s A',strtotime($lineup->LocalTime)) }}
                                             </td>
+
                                             <td>
 
-                                              @forelse($lineups->where('LogID',$lineup->LogID) as $x)
+                                            @foreach($driver->trucks as $truck)
+                                                {{ $drf->checkLastTrip($truck->plate_number) }}
+                                            @endforeach
+
+                                        
+                                            @forelse($lineups->where('LogID',$lineup->LogID) as $x)
                                                
                                                 <a class="btn btn-secondary btn-sm disabled" href="javascript:void(0);">
                                                     Done
                                                 </a>
-                                             @empty
+                                            @empty
                                                  <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#lineupModal-{{$lineup->LogID}}" href="javascript:void(0);">
                                                     Hustling
                                                 </a>
-                                             @endforelse
+                                            @endforelse
 
 
                                             </td>

@@ -52,6 +52,7 @@ return [
             'prefix' => '',
             'strict' => true,
             'engine' => null,
+            'pooling'  => false,
         ],
 
         'pgsql' => [
@@ -76,6 +77,7 @@ return [
             'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
+            'pooling'  => false,
         ],
 
         'sqlsrv_two' => [
@@ -87,6 +89,7 @@ return [
             'password' => env('DB_TWO_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
+            'pooling'  => false,
         ],
 
         'sqlsrv_three' => [
@@ -98,17 +101,23 @@ return [
             'password' => env('DB_THREE_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
+            'pooling'  => false,
         ],
 
-        'sqlsrv_four' => [
-            'driver' => 'sqlsrv',
-            'host' => env('DB_FOUR_HOST', 'localhost'),
-            'port' => env('DB_FOUR_PORT', '1433'),
-            'database' => env('DB_FOUR_DATABASE', 'forge'),
-            'username' => env('DB_FOUR_USERNAME', 'forge'),
-            'password' => env('DB_FOUR_PASSWORD', ''),
-            'charset' => 'utf8',
+        'dr_fp_database' => [
+            'driver' => 'mysql',
+            'host' => env('DB_DR_HOST', '127.0.0.1'),
+            'port' => env('DB_DR_PORT', '3306'),
+            'database' => env('DB_DR_DATABASE', 'forge'),
+            'username' => env('DB_DR_USERNAME', 'forge'),
+            'password' => env('DB_DR_PASSWORD', ''),
+            'unix_socket' => env('DB_DR_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+            'pooling'  => false,
         ],
 
     ],

@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use App\Driver;
 use App\Setting;
 use App\User;
+use DB;
 
 class LineupsController extends Controller
 {
@@ -21,21 +22,38 @@ class LineupsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function index()
-     {
-         $result_lineups = Log::with(['drivers','drivers.trucks','drivers.haulers'])
-         ->where('ControllerID',1)
-         ->where('DoorID',0)
-         ->where('CardholderID', '>=', 15)
-         ->where('LocalTime', '>=', Carbon::now())
-         ->orderBy('LogID','DESC')->get();
- 
-         $log_lineups = $result_lineups->unique('CardholderID');
- 
-         $lineups = Lineup::all();
-         
-         return view('lineups.index', compact('log_lineups','lineups'));
-     }
+    public function index()
+    {
+        $result_lineups = Log::with(['drivers','drivers.trucks','drivers.haulers'])
+        ->where('ControllerID',1)
+        ->where('DoorID',0)
+        ->where('CardholderID', '>=', 15)
+        ->where('LocalTime', '>=', Carbon::now())
+        ->orderBy('LogID','DESC')->get();
+
+        $log_lineups = $result_lineups->unique('CardholderID');
+
+        $lineups = Lineup::all();
+        
+        return view('lineups.index', compact('log_lineups','lineups'));
+    }
+
+    /**
+     * Check truck last trip in DR Fastpay
+     *
+     * 
+     */
+    public function checkLastTrip($plate_number)
+    {
+        $x = str_replace('-',' ',$plate_number);
+        $last_trip = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP($x,'deploy')");
+        
+        foreach($last_trip as $trip) {
+            $last_trip_plate_number = $trip->do_status;
+        }
+
+        return $last_trip;
+    }
 
     /**
     *
