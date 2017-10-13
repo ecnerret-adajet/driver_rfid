@@ -244,23 +244,24 @@ class TrucksController extends Controller
     public function update(Request $request, Truck $truck)
     {
 
-         $this->validate($request, [
-            // 'plate_number' => 'required|max:8|min:8',
-            'card_list' => 'required',
-            'capacity_list' => 'required',
-            'contract_list' => 'required',
-            'hauler_list' => 'required',
-            'validity_start_date' => 'required',
-            'vendor_description' => 'required',
-            // 'base_list' => 'required',
-            'plant_list' => 'required',
-            'validity_start_date' => 'required|before:validity_end_date',
-            'validity_end_date' => 'required',
-        ],[
-            'card_list.required' => 'RFID Number is required',
-            'capacity_list.required' => 'Capacity Field is required',
-            'contract_list.required' => 'Contract Code is required',
-        ]);
+        // Commented Temporarily
+        //  $this->validate($request, [
+        //     // 'plate_number' => 'required|max:8|min:8',
+        //     'card_list' => 'required',
+        //     'capacity_list' => 'required',
+        //     'contract_list' => 'required',
+        //     'hauler_list' => 'required',
+        //     'validity_start_date' => 'required',
+        //     'vendor_description' => 'required',
+        //     // 'base_list' => 'required',
+        //     'plant_list' => 'required',
+        //     'validity_start_date' => 'required|before:validity_end_date',
+        //     'validity_end_date' => 'required',
+        // ],[
+        //     'card_list.required' => 'RFID Number is required',
+        //     'capacity_list.required' => 'Capacity Field is required',
+        //     'contract_list.required' => 'Contract Code is required',
+        // ]);
 
         $card_rfid = $request->input('card_list');
         $capacity_id = $request->input('capacity_list');

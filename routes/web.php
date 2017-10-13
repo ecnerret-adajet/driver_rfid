@@ -16,6 +16,9 @@ Route::get('/', function () {
     return view('home');
 })->middleware('auth');
 
+Route::get('/barrier','FeedsController@barrier');
+Route::get('/barrier-content','FeedsController@barrierContent');
+
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
@@ -150,14 +153,15 @@ Route::resource('monitors', 'MonitorsController', ['except' => [
 Route::get('/pickupsJson','PickupsController@pickupsJson');
 Route::get('/pickupsStatus','PickupsController@pickupsStatus');
 Route::get('/generatePickups','PickupsController@generatePickups');
+Route::post('/pickups/deactivate/{id}','PickupsController@deactive');
 Route::resource('/pickups','PickupsController');
 
 
 Route::get('/feed','FeedsController@index');
 Route::get('/feed-content','FeedsController@feedContent');
 Route::get('/home-content','FeedsController@homeFeed');
-Route::get('/barrier','FeedsController@barrier');
-Route::get('/barrier-content','FeedsController@barrierContent');
+// Route::get('/barrier','FeedsController@barrier');
+// Route::get('/barrier-content','FeedsController@barrierContent');
 
 //lineups route setup
 Route::get('/lineupJson','LineupsController@lineupJson');

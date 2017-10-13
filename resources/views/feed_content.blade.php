@@ -16,7 +16,7 @@
                 </div>
                <div v-if="!is_loading">
                     <h3>
-                    {{ $all_in_2->count() - $all_out->count() }}
+                    {{ abs($all_in_2->count() -  $all_out->count())  }}
                     </h3>
                 </div>
     

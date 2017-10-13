@@ -21,28 +21,29 @@
         <div class="col-sm-12">
                   <ul class="list-group">
             @foreach($today_result as $index => $result)
-            <li class="list-group-item">
+                 @if(count($result->drivers) != 0)
 
+            <li class="list-group-item">
                 <div class="row">
                     <div class="col-sm-1">
                         @foreach($result->drivers as $driver)
                             <img class="rounded-circle" style="height: 60px; width: auto;" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}" align="middle">
                         @endforeach
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-3 pt-0 mt-0">
                          @foreach($result->drivers as $driver)
-                        <span class="title" style="text-transform: uppercase">{{$driver->name}} </span>
+                        <span style="text-transform: uppercase">{{$driver->name}} </span>
                         @endforeach
                         <br/>
                         @foreach($result->drivers as $driver)
                             @foreach($driver->trucks as $truck)
-                                {{$truck->plate_number}}
+                             <small class="text-muted"> {{$truck->plate_number}} </small>
                             @endforeach
                         @endforeach
                         <br/>
                         @foreach($result->drivers as $driver)
                             @foreach($driver->haulers as $hauler)
-                                {{$hauler->name}}
+                                 <small class="text-muted">  {{$hauler->name}} </small>
                             @endforeach
                         @endforeach 
                         <br/>
@@ -53,25 +54,61 @@
 
 
                     </div>
+                    <div class="col-sm-3">
+
+                    
+                    <small class="text-muted">PLANT IN:</small></br>
+                    <?php $barrier_final_in = ''; ?>
+                    @forelse($barrier_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
+                        <span> {{ $barrier_final_in = date('m/d/y h:i:s A', strtotime($in->LocalTime))}} </span>
+                    @empty
+                        <span>  NO IN </span>
+                    @endforelse
+                    <br/>
+                    <small class="text-muted">PLANT OUT:</small></br>
+                    <?php $final_barrier_out = ''; ?>                                     
+                    @forelse($barrier_out->where('CardholderID', '==', $result->CardholderID)->take(1) as $out)
+                    <span> {{ $final_barrier_out = date('Y-m-d h:i:s A', strtotime($out->LocalTime))}} </span>
+                    @empty
+                    <span>NO OUT</span>
+                    @endforelse
+                    <br/>
+                     <small class="text-muted">TIME BETWEEN:</small></br>
+                     @forelse($barrier_out->where('CardholderID', '==', $result->CardholderID)->take(1) as $out )
+                    @forelse($barrier_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in )
+                    <span> {{  $in->LocalTime->diffInHours($out->LocalTime)}} Hour(s) </span> 
+                    @empty
+                    <span>  NO PLANT TIME IN </span>                        
+                    @endforelse
+                    @empty
+                    <span>NO PLANT TIME OUT </span> 
+                    @endforelse
+
+                    
+
+                    </div>
                     <div class="col-sm-3 right">
+                        <small class="text-muted">SHIP IN:</small></br>
                         <?php $final_in = ''; ?>
                         @forelse($all_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
-                            <span> I: {{ $final_in = date('m/d/y h:i:s A', strtotime($in->LocalTime))}} </span>
+                            <span> {{ $final_in = date('m/d/y h:i:s A', strtotime($in->LocalTime))}} </span>
                         @empty
                             @forelse($all_in_2->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
-                                <span> I: {{ $final_in = date('m/d/y h:i:s A', strtotime($in->LocalTime))}} </span>
+                                <span> {{ $final_in = date('m/d/y h:i:s A', strtotime($in->LocalTime))}} </span>
                             @empty
-                            <span>  NO IN </span>
+                            <span> NO IN </span>
                             @endforelse  
                         @endforelse
                         <br/>
+                         <small class="text-muted">SHIP OUT:</small></br>
                           <?php $final_out = ''; ?>                                     
                         @forelse($all_out->where('CardholderID', '==', $result->CardholderID)->take(1) as $out)
-                        <span> O: {{ $final_out = date('m/d/y h:i:s A', strtotime($out->LocalTime))}} </span>
+                        <span> {{ $final_out = date('m/d/y h:i:s A', strtotime($out->LocalTime))}} </span>
                         @empty
                         <span>NO OUT</span>
                         @endforelse
                         <br/>
+                         <small class="text-muted">TIME BETWEEN:</small></br>
 
                         @forelse($all_out->where('CardholderID', '==', $result->CardholderID)->take(1) as $out )
                         @forelse($all_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in )
@@ -88,52 +125,22 @@
                         @endforelse
 
                     </div>
-                    <div class="col-sm-3">
-
-                    <?php $barrier_final_in = ''; ?>
-                    @forelse($barrier_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
-                        <span> I: {{ $barrier_final_in = date('m/d/y h:i:s A', strtotime($in->LocalTime))}} </span>
-                    @empty
-                        <span>  NO PLANT IN </span>
-                    @endforelse
-                    <br/>
-
-                    <?php $final_barrier_out = ''; ?>                                     
-                    @forelse($barrier_out->where('CardholderID', '==', $result->CardholderID)->take(1) as $out)
-                    <span> O: {{ $final_barrier_out = date('Y-m-d h:i:s A', strtotime($out->LocalTime))}} </span>
-                    @empty
-                    <span>NO PLANT OUT</span>
-                    @endforelse
-                    <br/>
-
-                     @forelse($barrier_out->where('CardholderID', '==', $result->CardholderID)->take(1) as $out )
-                    @forelse($barrier_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in )
-                    <span> {{  $in->LocalTime->diffInHours($out->LocalTime)}} Hour(s) </span> 
-                    @empty
-                    <span>  NO PLANT TIME IN </span>                        
-                    @endforelse
-                    @empty
-                    <span>NO PLANT TIME OUT </span> 
-                    @endforelse
-
-                    
-
-                    </div>
+            
                     <div class="col-sm-2">
-
+                        <small class="text-muted">CAMERA IN:</small></br>
                          @forelse($all_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
 
                         <!-- test code for checking image if exist -->
 
                                 <a class="btn btn-sm btn-outline-success mb-2" href="{{url('http://172.17.2.25:8080/RFID/'.date('Ymd',strtotime($in->LocalTime)).'/AC.'.date('Ymd',strtotime($in->LocalTime)).'.0000'.$in->LogID.'-1.jpg')}}" data-lightbox="{{$result->LogID}}" data-title="TIME IN - {{  date('Y-m-d h:i:s A', strtotime($in->LocalTime))}}">                      
-                                SNAPSHOT:IN
+                               <i class="fa fa-camera" aria-hidden="true"></i>
                                 </a>
                          
 
                         @empty
                             @forelse($all_in_2->where('CardholderID', '==', $result->CardholderID)->take(1) as $in2)
                                 <a class="btn btn-sm btn-outline-success mb-2" href="{{url('http://172.17.2.25:8080/RFID/'.date('Ymd',strtotime($in2->LocalTime)).'/AC.'.date('Ymd',strtotime($in2->LocalTime)).'.0000'.$in2->LogID.'-1.jpg')}}" data-lightbox="{{$result->LogID}}" data-title="TIME IN - {{  date('Y-m-d h:i:s A', strtotime($in2->LocalTime))}}">                      
-                                     SNAPSHOT:IN
+                                     <i class="fa fa-camera" aria-hidden="true"></i>
                                 </a>
                             @empty
                             <span>  NO IN </span>
@@ -141,17 +148,32 @@
                         @endforelse
 
                         <br/>
-
+                         <small class="text-muted">CAMERA OUT:</small></br>   
                          <?php $final_out = ''; ?>                                     
                         @forelse($all_out->where('CardholderID', '==', $result->CardholderID)->take(1) as $out)
                             <a class="btn btn-sm btn-outline-primary" href="{{url('http://172.17.2.25:8080/RFID/'.date('Ymd',strtotime($out->LocalTime)).'/AC.'.date('Ymd',strtotime($out->LocalTime)).'.0000'.$out->LogID.'-2.jpg')}}" data-lightbox="{{$result->LogID}}" data-title="TIME OUT - {{  date('Y-m-d h:i:s A', strtotime($out->LocalTime))}}">                      
-                                 SNAPSHOT:OUT
+                                  <i class="fa fa-camera" aria-hidden="true"></i>
                             </a>
                         @empty
                         <span>NO OUT</span>
                         @endforelse
 
                         <br/>
+
+                        @foreach($result->drivers as $driver)
+                        <?php
+                        $card = App\Log::match($result->LogID)->pluck('CardholderID','CardholderID');
+                        ?>
+                        @if(array_has($card,$result->CardholderID))
+                            <span class="btn btn-sm btn-outline-success btn-xs mt-2 disabled">
+                                MATCHED
+                            </span>
+                        @else
+                            <span class="btn btn-sm btn-outline-danger btn-xs mt-2 disabled">
+                                NO FOUND
+                            </span>
+                        @endif
+                        @endforeach
 
             
 
@@ -164,6 +186,7 @@
                 
                 
             </li>
+             @endif
             @endforeach
             </ul>
         </div>

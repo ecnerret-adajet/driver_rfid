@@ -19,9 +19,6 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
     <!-- Styles -->
     <link href="{{ asset('css/all.css') }}" rel="stylesheet" media="screen,projection">
     <link href="{{ asset('css/dataTables.bootstrap4.css') }}" rel="stylesheet">

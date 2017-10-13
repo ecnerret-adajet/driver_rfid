@@ -58,8 +58,8 @@ class ConfirmsController extends Controller
     public function store(Request $request, $id, $plate)
     {
         $this->validate($request, [
-            'status',
-            'remarks'
+            'status' => 'required',
+            'remarks' => 'required'
         ]);
 
         $driver = Driver::findOrFail($id);

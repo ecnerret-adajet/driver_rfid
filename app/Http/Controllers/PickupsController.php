@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\Cardholder;
 use App\Pickup;
 use App\Log;
+use Flashy;
 
 class PickupsController extends Controller
 {
@@ -36,6 +37,7 @@ class PickupsController extends Controller
         $pickups = Pickup::whereBetween('created_at', [Carbon::parse($start_date), Carbon::parse($end_date)])
         ->orderBy('created_at','DESC')->get();
 
+        flashy()->success('Generate successfully!');
         return view('pickups.index',compact('pickups'));
 
     }
@@ -112,7 +114,7 @@ class PickupsController extends Controller
         $pickup->save();
 
 
-        alert()->success('Pickup has been issued successfully');
+        flashy()->success('Pickup has successfully created!');
         return redirect('pickups');
     }
 
@@ -168,7 +170,7 @@ class PickupsController extends Controller
         $pickup->save();
 
         
-        alert()->success('Pickup has been update successfully');
+        flashy()->success('Pickup has successfully update!');
         return redirect('pickups');
     }
 
@@ -189,8 +191,8 @@ class PickupsController extends Controller
          $activity = activity()
          ->log('Deactivated');
          
- 
-         alert()->success('Pickup successfully deactivated', 'Success Added!');
+
+         flashy()->success('Pickup has successfully deactivated!');
          return redirect('pickups');
      }
 

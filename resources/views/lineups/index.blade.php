@@ -104,31 +104,21 @@
                                             </td>
 
                                             <td>
-
-                                            @foreach($driver->trucks as $truck)
-
-                                                @if( $drfp->checkLastTrip($truck->plate_number) === 'RECEIVED' )
-                                                                                  
-                                                @forelse($lineups->where('LogID',$lineup->LogID) as $x)
-                                                    <a class="btn btn-secondary btn-sm disabled" href="javascript:void(0);">
-                                                        On Hustling
-                                                    </a>
-                                                @empty
-                                                    <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#lineupModal-{{$lineup->LogID}}" href="javascript:void(0);">
-                                                        Hustling
-                                                    </a>
-                                                @endforelse
-
-
-                                                @else
-
-                                                    NO STATUS
-
-                                                @endif
-
-                                            @endforeach
-
-
+                                                @foreach($driver->trucks as $truck)
+                                                    @if( $drfp->checkLastTrip($truck->plate_number) === 'RECEIVED' )
+                                                            @forelse($lineups->where('LogID',$lineup->LogID) as $x)
+                                                                <a class="btn btn-secondary btn-sm disabled" href="javascript:void(0);">
+                                                                    On Hustling
+                                                                </a>
+                                                            @empty
+                                                                <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#lineupModal-{{$lineup->LogID}}" href="javascript:void(0);">
+                                                                    Hustling
+                                                                </a>
+                                                            @endforelse
+                                                    @else
+                                                        UNPROCESS
+                                                    @endif
+                                                @endforeach
                                             </td>
                                      </tr>
                                      @endif

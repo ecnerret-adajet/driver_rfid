@@ -63,7 +63,7 @@
                     </div>
                 @endif
          
-
+                 @if(Request::is('drivers/create'))
                  <div class="form-row">
                     <div class="col-md-12">
                         <div class="form-group {{ $errors->has('card_list') ? ' has-danger' : '' }}">
@@ -87,6 +87,7 @@
                         </div>
                     </div>
                 </div>
+                 @endif
 
                 <div class="form-row">
                     <div class="col-md-12">

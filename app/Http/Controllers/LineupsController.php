@@ -24,6 +24,7 @@ class LineupsController extends Controller
      */
     public function index()
     {
+        
         $result_lineups = Log::with(['drivers','drivers.trucks','drivers.haulers'])
         ->where('ControllerID',1)
         ->where('DoorID',0)
@@ -48,8 +49,12 @@ class LineupsController extends Controller
         $x = str_replace('-',' ',$plate_number);
         $last_trip = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$x','deploy')");
         
-        foreach($last_trip as $trip) {
-            $last_trip_plate_number = $trip->do_status;
+        if(!empty($last_trip)) {
+            foreach($last_trip as $trip) {
+                $last_trip_plate_number = $trip->do_status;                
+            }
+        } else {
+            $last_trip_plate_number = 'NOPE';
         }
 
         return $last_trip_plate_number;

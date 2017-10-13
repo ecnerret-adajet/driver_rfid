@@ -44,6 +44,7 @@ class FeedsController extends Controller
 
         $logs = Log::whereNotIn('ControllerID',[1])
         ->whereNotIn('CardholderID',$pickup_cards)
+        ->whereNotIn('DoorID',[3])
         ->where('CardholderID', '>=', 1)
         ->whereDate('LocalTime', '>=', Carbon::now())
         ->orderBy('LocalTime','DESC')->get();
@@ -67,25 +68,24 @@ class FeedsController extends Controller
 
         $today_result = $logs->unique('CardholderID');
 
-
-        // return logs from barrier
-        $barriers = Log::whereIn('DoorID',[3])
-        ->whereNotIn('CardholderID',$pickup_cards)
-        ->where('CardholderID', '>=', 15)
-        ->whereDate('LocalTime', '>=', Carbon::now())
-        ->orderBy('LocalTime','DESC')->get();
-
-        $barrier_in = Log::whereIn('DoorID',[3])
-        ->where('CardholderID', '>=', 15)
-        ->where('Direction', 1)
-        ->whereBetween('LocalTime', [Carbon::now()->subDays(1), Carbon::now()])
-        ->orderBy('LocalTime','DESC')->get();
-
-        $barrier_out = Log::whereIn('DoorID',[3])
-        ->where('CardholderID', '>=', 15)
-        ->where('Direction', 2)
-        ->whereDate('LocalTime', Carbon::now())
-        ->orderBy('LocalTime','DESC')->get();
+         // return logs from barrier
+         $barriers = Log::whereIn('DoorID',[3])
+         ->whereNotIn('CardholderID',$pickup_cards)
+         ->where('CardholderID', '>=', 15)
+         ->whereDate('LocalTime', '>=', Carbon::now())
+         ->orderBy('LocalTime','DESC')->get();
+ 
+         $barrier_in = Log::where('DoorID',3)
+         ->where('CardholderID', '>=', 15)
+         ->where('Direction', 1)
+         ->whereDate('LocalTime', Carbon::now())
+         ->orderBy('LocalTime','DESC')->get();
+ 
+         $barrier_out = Log::where('DoorID',3)
+         ->where('CardholderID', '>=', 15)
+         ->where('Direction', 2)
+         ->whereDate('LocalTime', Carbon::now())
+         ->orderBy('LocalTime','DESC')->get();
 
         return view('home_content', compact('logs','today_result','barrier_in','barrier_out','barriers',
 		'all_out','all_in','all_in_2','loading'));
@@ -146,13 +146,13 @@ class FeedsController extends Controller
          ->whereDate('LocalTime', '>=', Carbon::now())
          ->orderBy('LocalTime','DESC')->get();
  
-         $barrier_in = Log::whereIn('DoorID',[3])
+         $barrier_in = Log::where('DoorID',3)
          ->where('CardholderID', '>=', 15)
          ->where('Direction', 1)
-         ->whereBetween('LocalTime', [Carbon::now()->subDays(1), Carbon::now()])
+         ->whereDate('LocalTime', Carbon::now())
          ->orderBy('LocalTime','DESC')->get();
  
-         $barrier_out = Log::whereIn('DoorID',[3])
+         $barrier_out = Log::where('DoorID',3)
          ->where('CardholderID', '>=', 15)
          ->where('Direction', 2)
          ->whereDate('LocalTime', Carbon::now())

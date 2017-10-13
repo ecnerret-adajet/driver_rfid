@@ -54,21 +54,16 @@
     <div class="row pb-5">
         <div class="col-sm-12">
                   <ul class="list-group">
-
             @foreach($barrier_results as $index => $result)
-
-             
-
              @foreach($result->drivers as $driver)
-
                 @if(count($result->drivers) != 0)
 
 
-                <li class="list-group-item pb-0" style="border-color: #28a745">
-                <div class="row text-center mb-3">
-                    <div class="col-sm-12">
+ <li class="list-group-item pb-0 pt-0" style="border-color:{{ $driver->availability == 1 ? '#28a745' : '#d58393' }} ">
+                <div class="row">
+                    <div class="col-sm-6 p-2" style="border-right: 1px solid {{ $driver->availability == 1 ? '#28a745' : '#d58393' }}">
 
-                        @if($driver->availability == 1)
+                         @if($driver->availability == 1)
                             <a class="btn btn-sm btn-success pull-right btn-outline disabled" href="#">
                                 ACTIVE
                             </a>
@@ -78,10 +73,11 @@
                             </a>
                         @endif
 
-                        <img class="img-responsive" style="height: 150px; width: auto; padding-left: 80px;" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}" align="middle">
-                
+                        <img class="img-responsive" style="height: 300px; width: auto; padding-left: 150px;" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}" align="middle">
+                    
                     </div>
-                </div>
+                    <div class="col-sm-6">
+           
                 <div class="row text-center"> 
                 <table class="table table-bordered mb-0">
                     <tr>
@@ -126,13 +122,18 @@
                     </tr>
                 </table>
                 </div>
-            </li>
+           
+                    </div>
+                </div><!--end row -->
+
+                 </li>
+
+
+     
+
+
+
             @endif
-
-
-      
-
-
          @endforeach
          @endforeach
             

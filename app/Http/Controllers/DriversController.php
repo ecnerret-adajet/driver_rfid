@@ -309,8 +309,8 @@ class DriversController extends Controller
                 'phone_number' => 'required',
                 // 'card_list' => 'required',
                 // 'clasification_list' => 'required',
-                'start_validity_date' => 'required|before:end_validity_date',
-                'end_validity_date' => 'required'
+                // 'start_validity_date' => 'required|before:end_validity_date',
+                // 'end_validity_date' => 'required'
         ],[
             'truck_list.required' => 'Plate Number is required'
         ]);
@@ -323,11 +323,11 @@ class DriversController extends Controller
             $driver->avatar = $request->file('avatar')->store('drivers');
         }        
 
-        if(empty($driver->update_count)) {
-            $driver->update_count = 1;
-        } else {
-            $driver->update_count += 1;
-        }
+        // if(empty($driver->update_count)) {
+        //     $driver->update_count = 1;
+        // } else {
+        //     $driver->update_count += 1;
+        // }
         
         // $driver->card()->associate($card_rfid);
         // $driver->clasification()->associate($clasification_id);
@@ -339,10 +339,10 @@ class DriversController extends Controller
         $driver->trucks()->sync( (array) $request->input('truck_list'));
 
         $drivers_truck = DB::table('hauler_truck')->select('hauler_id')
-                ->where('truck_id',$request->input('truck_list'))->first();
+        ->where('truck_id',$request->input('truck_list'))->first();
 
-        $driver->haulers()->attach($drivers_truck); 
-
+        $driver->haulers()->sync( (array) $drivers_truck); 
+ 
         flashy()->success('Driver has successfully updated!');
         return redirect('drivers');
     }
