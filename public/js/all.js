@@ -32735,8 +32735,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -36409,7 +36407,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("Activate")])]) : _vm._e(), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",
       attrs: {
-        "href": "javascript:void(0);"
+        "href": _vm.driver_link + 'lostCard/' + driver.id
       }
     }, [_vm._v("Lost Card")]), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",

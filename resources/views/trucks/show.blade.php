@@ -101,9 +101,7 @@
             <tr>
                 <th>Plate #</th>
                 <th>Reg #</th>
-                <th>Vendor</th>
-                <th>Subvendor</th>
-                <th>Base</th>
+                <th>Last Vendor</th>
                 <th>Start Date</th>
                 <th>End Date</th>
             </tr>
@@ -118,12 +116,8 @@
                 {{$version->reg_number}}
             </td>
             <td>
-               {{ $version_vendor->versionVendorName($version->vendor_description)['vendor_name'] }}
+                {{$version->vendor_description}}
             </td>
-            <td>
-                 {{ $version_vendor->versionVendorName($version->subvendor_description)['vendor_name'] }}
-            </td>
-            <td>{{$version->base_id}}</td>
             <td>
                 {{ date('m/d/Y', strtotime($version->start_validity_date))}}
             </td>

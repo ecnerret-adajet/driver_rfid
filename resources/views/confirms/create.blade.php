@@ -21,8 +21,7 @@
                                 <table class="table table-bordered text-center">
                                 <tr>
                                     <td colspan="2">
-                                                        <img class="img-responsive" style="height: 150px; width: auto; display:block; margin: 10px auto;" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}" align="middle">
-
+                                        <img class="img-responsive" style="height: 150px; width: auto; display:block; margin: 10px auto;" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}" align="middle">
                                     </td>
                                 </tr>
                                   <tr>
@@ -45,6 +44,15 @@
                                             @foreach($driver->trucks as $truck)
                                             {{ $truck->plate_number }}
                                             @endforeach
+                                        </td>
+                                    </tr>
+                                     <tr>
+                                        <td width="50%">
+                                            <small class="text-muted">NBI NUMBER:</small><br/>
+                                            {{ $driver->nbi_number }}
+                                        <td>
+                                            <small class="text-muted">LICENSE NUMBER:</small><br/>
+                                             {{ $driver->driver_license }}
                                         </td>
                                     </tr>
                                     <tr>

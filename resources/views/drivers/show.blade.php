@@ -126,6 +126,7 @@
         <table class="table">
         <thead>
             <tr>
+                <th>CardID</th>
                 <th>Plate #</th>
                 <th>Vendor</th>
                 <th>Start Date</th>
@@ -135,6 +136,9 @@
         <tbody>
         @foreach($versions as $version)
             <tr>
+            <td>
+                 {{$version->card_no}}
+            </td>
             <td>
                 {{$version->plate_number}}
             </td>

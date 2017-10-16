@@ -12,6 +12,10 @@
     }
 ?>
 @extends('layouts.app')
+@section('top-script')
+    <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+@endsection
 @section('content')
 
 

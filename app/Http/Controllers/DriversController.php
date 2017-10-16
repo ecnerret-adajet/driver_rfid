@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\ConfirmDriver;
 use App\Notifications\ConfirmReassign;
+use App\Notifications\ConfirmLostCard;
 use Spatie\Activitylog\Models\Activity;
 use Carbon\Carbon;
 use App\Clasification;
@@ -86,11 +87,11 @@ class DriversController extends Controller
             'name' => 'required|max:255|unique:drivers',
             'card_list' => 'required',
             'truck_list' => 'required',
-            'phone_number' => 'required|max:13|min:13',
-            'nbi_number' => 'required|max:8|min:8',
-            'driver_license' => 'required|max:13|min:13',
-            'start_validity_date' => 'required|before:end_validity_date',
-            'end_validity_date' => 'required'
+            // 'phone_number' => 'required|max:13|min:13',
+            // 'nbi_number' => 'required|max:8|min:8',
+            // 'driver_license' => 'required|max:13|min:13',
+            // 'start_validity_date' => 'required|before:end_validity_date',
+            // 'end_validity_date' => 'required'
                 
         ],[
             'truck_list.required' => 'Plate Number is required'
@@ -259,6 +260,7 @@ class DriversController extends Controller
 
         $version =  new Driverversion;
         $version->driver_id = $driver->id;
+        $version->card_no = $driver->card_id;
         $version->user_id = Auth::user()->id;
         $version->plate_number = $plate;
         $version->vendor = $hauler;
@@ -271,9 +273,10 @@ class DriversController extends Controller
         $driver->availability = 0;
         $driver->notif_status = 0;
 
+        // Deactivating RFID card from ASManager itself
         if(!empty($driver->card_id)) {
-        $card = Card::where('CardID',$driver->card_id)->first();
-        $card->CardStatus = 1; 
+            $card = Card::where('CardID',$driver->card_id)->first();
+            $card->CardStatus = 1; 
         }
 
         $driver->save();
@@ -383,6 +386,65 @@ class DriversController extends Controller
         $card->save();
 
         flashy()->success('Driver has successfully activated!');
+        return redirect('drivers');
+    }
+
+    /*
+    *
+    * Lost Card Function
+    *
+    */
+    public function lostCardCreate($id)
+    {
+        $driver = Driver::findOrFail($id);
+        $cards = Card::orderBy('CardNo','DESC')->pluck('CardNo','CardID');
+        return view('drivers.lost',compact('driver','cards'));
+    }
+
+    public function lostCardStore(Request $request, $id)
+    {
+        $card_rfid = $request->input('card_list');
+
+        $driver = Driver::findOrFail($id);
+
+        foreach($driver->trucks as $truck) {
+            $plate = $truck->plate_number;
+        }
+        foreach($driver->haulers as $hauler) {
+            $hauler = $hauler->name;
+        }
+
+        $version =  new Driverversion;
+        $version->driver_id = $driver->id;
+        $version->card_no = $driver->card_id;
+        $version->user_id = Auth::user()->id;
+        $version->plate_number = $plate;
+        $version->vendor = $hauler;
+        $version->start_date = $driver->start_validity_date;
+        $version->end_date = $driver->end_validity_date;
+        $version->save();
+        
+        $driver->print_status = 1;
+        $driver->availability = 0;
+        $driver->notif_status = 0;
+        $driver->card()->associate($card_rfid);
+        $driver->cardholder()->associate($driver->card->CardholderID);
+        
+        // if(!empty($driver->card_id)) {
+        //     $card = Card::where('CardID',$driver->card_id)->first();
+        //     $card->CardStatus = 1; 
+        // }
+        
+        $driver->save();
+
+        $activity = activity()
+        ->log('Lost RFID Card');
+
+        //send email to supervisor for approval
+        $setting = Setting::first();
+        Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmLostCard($driver));
+        
+        flashy()->success('Driver has successfully requested for lost card!');
         return redirect('drivers');
     }
     
