@@ -85,7 +85,7 @@ class DriversController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'avatar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'avatar' => 'required|image|mimes:jpeg,png,jpg|size:2048',
             'name' => 'required|max:255|unique:drivers',
             'card_list' => 'required',
             'truck_list' => 'required',

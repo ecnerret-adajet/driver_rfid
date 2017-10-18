@@ -25,10 +25,16 @@
 
                  <div class="form-row">
                      <div class="col-md-12">
-                        <div class="form-group">
+                        <div class="form-group {{ $errors->has('avatar') ? ' has-danger' : '' }}">
                             <label for="exampleInputFile">Upload Photo</label>
                             <input type="file" name="avatar" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
-                            <small id="fileHelp" class="form-text text-muted"></small>
+                            @if ($errors->has('avatar'))
+                                <div class="form-control-feedback">
+                                    <small>
+                                    {{ $errors->first('avatar') }}
+                                    </small>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
