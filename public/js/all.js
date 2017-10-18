@@ -34012,8 +34012,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: {
+        role: String
+    },
+
     data: function data() {
         return {
             auth: [],
@@ -34021,6 +34027,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             truck_link: '/driver_rfid/public/trucks/',
             export_link: '/driver_rfid/public/exportTrucks',
             trucks: [],
+            user_role: this.role,
             loading: false,
             csrf: ''
         };
@@ -35474,7 +35481,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-toggle": "modal",
         "data-target": '#truckModal-' + truck.id
       }
-    }, [_vm._v("Deactivate")]), _vm._v(" "), (_vm.auth.role.name == 'Administrator') ? _c('span', [_c('a', {
+    }, [_vm._v("Deactivate")]), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.truck_link + truck.id + '/edit'

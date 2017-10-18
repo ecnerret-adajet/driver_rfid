@@ -23,64 +23,68 @@
                             </a>
                         @endif
 
-                        <img class="img-responsive" style="height: 300px; width: auto; padding-left: 150px;" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}" align="middle">
+                        <img class="img-responsive rounded" style="height: 500px; width: auto; margin-left: 50px;" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}" align="middle">
                     
                     </div>
                     <div class="col-sm-6">
            
-                <div class="row text-center"> 
+                <div class="row"> 
                 <table class="table table-bordered mb-0">
                     <tr>
                         <td colspan="2">
                             <small class="text-muted">DRIVER NAME:</small><br/>
-                            <strong>
+                            <span style="font-size: 35px;">
                             {{$driver->name}}
-                            </strong>
+                            </span>
                         </td>
                     </tr>
                     <tr>
-                        <td width="50%">
+                        <td>
                             <small class="text-muted">PLATE NUMBER:</small><br/>
                              @foreach($driver->trucks as $truck)
-                             <strong>
+                            <span style="font-size: 35px;">
                                 {{$truck->plate_number}}
-                            </strong>
-                            @endforeach
-                        </td>
-                         <td width="50%">
-                            <small class="text-muted">DRIVER NAME:</small><br/>
-                            @foreach($driver->haulers as $hauler)
-                            <strong>
-                                {{$hauler->name}}
-                             </strong>
+                            </span>
                             @endforeach
                         </td>
                     </tr>
                     <tr>
                         <td width="50%">
+                            <small class="text-muted">DRIVER NAME:</small><br/>
+                            @foreach($driver->haulers as $hauler)
+                            <span style="font-size: 35px;">
+                                {{$hauler->name}}
+                             </span>
+                            @endforeach
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                         <small class="text-muted">PLANT IN:</small><br/>
                         <?php $barrier_final_in = ''; ?>
                         @forelse($barrier_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
-                        <strong>
+                         <span style="font-size: 35px;">
                             {{ $barrier_final_in = date('Y-m-d h:i:s A', strtotime($in->LocalTime))}} 
-                        </strong>
+                        </span>
                         @empty
-                         <strong>
+                          <span style="font-size: 35px;">
                             NO IN  
-                        </strong>
+                        </span>
                         @endforelse
                         </td>
-                     <td width="50%">
+                    </tr>
+                    <tr>
+                     <td>
                       <small class="text-muted">PLANT OUT:</small><br/>
                          <?php $barrier_final_out = ''; ?>                                     
                         @forelse($barrier_out->where('CardholderID', '==', $result->CardholderID)->take(1) as $out)
-                        <strong>
+                         <span style="font-size: 35px;">
                         {{ $barrier_final_out = date('Y-m-d h:i:s A', strtotime($out->LocalTime))}} 
-                        </strong>
+                        </span>
                         @empty
-                         <strong>
+                         <span style="font-size: 35px;">
                         NO OUT
-                        </strong>
+                        </span>
                         @endforelse
                         </td>
                     </tr>
