@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Handler;
+use App\Hauler;
 use JavaScript;
 
 class HandlerMappingsController extends Controller
@@ -52,6 +53,7 @@ class HandlerMappingsController extends Controller
     {
         $lfug = collect($this->lfugServer())->pluck('vendor_name','vendor_number');
         $pfmc = collect($this->pfmcServer())->pluck('vendor_name','vendor_number');
+
         return view('handlers.create', compact('lfug','pfmc'));
     }
 
@@ -68,16 +70,28 @@ class HandlerMappingsController extends Controller
             'pfmc_server' => 'required',
         ]);
 
+        $lfug = (object)collect($this->lfugServer())->where('vendor_number','0400000305')->first();
+        
+        $hauler = new Hauler;
+        $hauler->name = $lfug->vendor_name;
+        $hauler->vendor_number  = $request->input('lfug_server');
+        $hauler->save();
+
+
        $handler = Handler::insert([
             [
+             'hauler_id' => $hauler->id,
              'vendor_number'=> $request->input('lfug_server'),
              'server_id'=> '1'
              ],
              [
+             'hauler_id' => $hauler->id,
              'vendor_number'=> $request->input('pfmc_server'),
              'server_id'=> '2'
              ]
             ]);
+
+      
 
         flashy()->success('Handler Mapping has successfully created!');
         return redirect('handlers');

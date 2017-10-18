@@ -280,8 +280,12 @@ class DriversController extends Controller
 
         $driver->save();
         $driver->trucks()->sync( (array) $request->input('truck_list'));
-        
 
+        $drivers_truck = DB::table('hauler_truck')->select('hauler_id')
+        ->where('truck_id',$request->input('truck_list'))->first();
+
+        $driver->haulers()->sync( (array) $drivers_truck); 
+        
         $activity = activity()
         ->log('Reassigned');
         
