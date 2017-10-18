@@ -94,7 +94,7 @@ export default {
     methods: {
         getCards() {
             this.loading = true
-            axios.get('http://localhost/driver_rfid/public/cardsJson')
+            axios.get('/driver_rfid/public/cardsJson')
             .then(response => {
                 this.cards = response.data
                 this.loading = false

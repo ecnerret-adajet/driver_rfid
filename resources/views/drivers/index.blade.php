@@ -16,7 +16,11 @@
         </a>
         </div>
         <div class="card-body">
-            <drivers></drivers>
+
+        @foreach(Auth::user()->roles as $role)
+                <drivers role="{{ $role->name }}"></drivers>
+        @endforeach
+        
         </div><!-- end card-body -->
     </div> <!-- end card -->
 

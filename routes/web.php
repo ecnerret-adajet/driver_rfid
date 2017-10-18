@@ -22,7 +22,7 @@ Route::get('/barrier-content','FeedsController@barrierContent');
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
-
+    
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/logs','LogsController@index');
@@ -50,6 +50,7 @@ Route::get('/trucks/{truck}/transfer','TrucksController@transferHauler');
 Route::patch('/transfer/{truck}',[  'as' => 'transfer.update' ,'uses' => 'TrucksController@updateTransferHauler']);
 Route::get('/exportTrucks','TrucksController@exportTrucks');
 Route::post('/trucks/deactivate/{id}','TrucksController@deactivateTruck');
+Route::post('/trucks/remove/{id}','TrucksController@removeDriver');
 
 
 
@@ -66,6 +67,11 @@ Route::get('/driversJson', function () {
 });
 
 // return Json results
+
+Route::get('/appUrl', function() {
+    $url = config('app.url');
+    return $url;
+});
 
 Route::get('/trucksJson', function() {
     $trucks = App\Truck::with(['drivers','haulers','drivers.cardholder','card'])->orderBy('id','DESC')->get();

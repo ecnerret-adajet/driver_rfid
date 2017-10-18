@@ -83,8 +83,12 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="truckDropdown">
                                                     <a :href="truck_link + truck.id + '/transfer'" class="dropdown-item">Trasnfer</a>
+                                                    <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#removeDriver-'+ truck.id">Remove Driver</a>
                                                     <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#truckModal-'+ truck.id">Deactivate</a>
-                                                    <a :href="truck_link + truck.id + '/edit'" class="dropdown-item">Edit</a>
+                                                    
+                                                    <span v-if="user_role == 'Administrator'">
+                                                        <a :href="truck_link + truck.id + '/edit'" class="dropdown-item">Edit</a>
+                                                    </span>
                                                 </div><!-- end dropdown -->
                                             
                                         </div>
@@ -111,7 +115,8 @@
 
 
         <div v-for="truck in filteredTruck">
-            <!-- Logout Modal -->
+
+            <!-- Deactivate Modal -->
             <div class="modal fade" :id="'truckModal-' + truck.id" tabindex="-1" role="dialog" aria-labelledby="truckModalLabel" aria-hidden="true">
             <div class="modal-dialog" id="queueter">
                 <div class="modal-content">
@@ -132,7 +137,7 @@
 
                 </div>
                 <div class="modal-footer">  
-                    <form  method="POST" :action="'http://localhost/driver_rfid/public/trucks/deactivate/'+truck.id">
+                    <form  method="POST" :action="'/driver_rfid/public/trucks/deactivate/'+truck.id">
                         <input type="hidden" name="_token" :value="csrf">  
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Confirm</button> 
@@ -142,6 +147,41 @@
                 </div>
             </div>
             </div>
+
+
+              <!-- Remove Driver Modal -->
+            <div class="modal fade" :id="'removeDriver-' + truck.id" tabindex="-1" role="dialog" aria-labelledby="truckModalLabel" aria-hidden="true">
+            <div class="modal-dialog" id="queueter">
+                <div class="modal-content">
+                <div class="modal-header">
+
+                    <h6 class="modal-title" id="truckModalLabel">Remove Driver</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                
+
+                </div>
+                <div class="modal-body text-center">
+
+                                           
+                    <em>Are you sure you want to proceed with this action?</em>
+                
+
+                </div>
+                <div class="modal-footer">  
+                    <form  method="POST" :action="'/driver_rfid/public/trucks/remove/'+truck.id">
+                        <input type="hidden" name="_token" :value="csrf">  
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Confirm</button> 
+                    </form>  
+                </div>
+                    
+                </div>
+            </div>
+            </div>
+
+
         </div><!-- end modal forloop -->
 
 
@@ -152,12 +192,19 @@
 
 <script>
 export default {
+
+    props: {
+        role: String,
+    },
+
     data() {
         return {
+            auth: [],
             searchString: '',
             truck_link: '/driver_rfid/public/trucks/',
-            export_link: 'http://localhost/driver_rfid/public/exportTrucks',
+            export_link: '/driver_rfid/public/exportTrucks',
             trucks: [],
+            user_role: this.role,
             loading: false,
             csrf: '',
         }
@@ -172,9 +219,14 @@ export default {
     },
 
     methods: {
+        getAuth() {
+            axios.get('/driver_rfid/public/getAuth')
+            .then(response => this.auth = response.data);
+        },
+
         getTruck() {
             this.loading = true
-            axios.get('http://localhost/driver_rfid/public/trucksJson')
+            axios.get('/driver_rfid/public/trucksJson')
             .then(response => {
                  this.trucks = response.data
                  this.loading = false

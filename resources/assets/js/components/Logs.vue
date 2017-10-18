@@ -64,7 +64,7 @@ export default {
     methods: {
         getLogs(){
             this.loading = true
-            axios.get('http://localhost/driver_rfid/public/logs')
+            axios.get('/driver_rfid/public/logs')
             .then(response => {
                 this.logs = response.data
                 this.loading = false
@@ -73,7 +73,7 @@ export default {
 
         getIn() {
             this.loading = true
-            axios.get('http://localhost/driver_rfid/public/entriesIn')
+            axios.get('/driver_rfid/public/entriesIn')
             .then(response => {
                 this.in = response.data
                 this.loading = false
@@ -82,7 +82,7 @@ export default {
 
         getOut() {
             this.loading = true
-            axios.get('http://localhost/driver_rfid/public/entriesOut')
+            axios.get('/driver_rfid/public/entriesOut')
             .then(response => {
                 this.out = response.data
                 this.loading = false

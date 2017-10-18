@@ -183,7 +183,7 @@ export default {
     methods: {
         getPickups() {
             this.loading = true
-            axios.get('http://localhost/driver_rfid/public/pickupsJson')
+            axios.get('/driver_rfid/public/pickupsJson')
             .then(response => {
                 this.pickups = response.data
                 this.loading = false
@@ -193,7 +193,7 @@ export default {
         getPickupValue()
         {
             this.is_loading = true
-            axios.get('http://localhost/driver_rfid/public/pickupsStatus')
+            axios.get('/driver_rfid/public/pickupsStatus')
             .then(response => {
                 this.pickupValue = response.data
                 this.is_loading = false

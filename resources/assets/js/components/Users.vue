@@ -100,7 +100,7 @@ export default {
     methods: {
         getUsers() {
             this.loading = true
-            axios.get('http://localhost/driver_rfid/public/usersJson')
+            axios.get('/driver_rfid/public/usersJson')
             .then(response => {
                 this.users = response.data
                 this.loading = false

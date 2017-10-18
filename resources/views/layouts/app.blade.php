@@ -75,7 +75,7 @@
                                                      Request::is('drivers/*') ||           
                                                      Request::is('cards') || 
                                                      Request::is('bind/*')) ? '' : 'collapse' }}" id="collapseComponents">
-              @role((['Administrator','Monitoring']))
+              @role((['Administrator','Monitoring','Approver']))
 
               <li class="{{ (Request::is('trucks') ||
                             Request::is('trucks/*')  
@@ -163,7 +163,7 @@
           @endrole
 
 
-          @role((['Administrator','Monitoring']))
+          @role((['Administrator','Monitoring','Approver']))
 
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reports">
             <a class="nav-link nav-link-collapse {{ (Request::is('prints') || 

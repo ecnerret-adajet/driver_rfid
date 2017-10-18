@@ -20,7 +20,7 @@ export default {
     methods: {
         getDriver() {
             this.loading = true
-            axios.get('http://localhost/driver_rfid/public/drivers/{driver}')
+            axios.get('/driver_rfid/public/drivers/{driver}')
             .then(response => {
                 this.data = response.data
                 this.loading = false

@@ -25,6 +25,7 @@ use Excel;
 use App\Log;
 use DB;
 use Image;
+use JavaScript;
 
 class DriversController extends Controller
 {
@@ -43,7 +44,7 @@ class DriversController extends Controller
      * * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {  
         return view('drivers.index');
     }
 
@@ -62,15 +63,16 @@ class DriversController extends Controller
         
         $driver_card = Driver::select('cardholder_id')->where('availability',1)->get();
         $truck_card = Truck::select('card_id')->whereNotNull('card_id')->get();
+        $cardholder_from_truck = Card::select('CardID')->whereIn('CardID',$truck_card)->get();
+        $cardholder_card = Card::select('CardID')->whereIn('CardholderID',$driver_card)->get();
+        $merged = $cardholder_card->merge($cardholder_from_truck);
         
-        $cards = Card::orderBy('CardID','DESC')
-                ->whereNotIn('CardholderID',$driver_card)
-                ->whereNotIn('CardID',$truck_card)
+        $cards = Card::orderBy('CardholderID','DESC')
+                ->whereNotIn('CardholderID', $driver_card)
+                ->whereNotIn('CardID', $truck_card)
                 ->where('CardholderID','>=', 15)
-                ->where('CardholderID','!=', 0)->pluck('CardNo','CardID')->take(10);
-
-
-        
+                ->where('CardholderID','!=', 0)->pluck('CardNo','CardID')->take(20);
+                
         return view('drivers.create',compact('clasifications','trucks','cards','haulers'));
     }
 
@@ -83,15 +85,15 @@ class DriversController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            // 'avatar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'avatar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'name' => 'required|max:255|unique:drivers',
             'card_list' => 'required',
             'truck_list' => 'required',
-            // 'phone_number' => 'required|max:13|min:13',
-            // 'nbi_number' => 'required|max:8|min:8',
-            // 'driver_license' => 'required|max:13|min:13',
-            // 'start_validity_date' => 'required|before:end_validity_date',
-            // 'end_validity_date' => 'required'
+            'phone_number' => 'required|max:13|min:13',
+            'nbi_number' => 'required|max:8|min:8',
+            'driver_license' => 'required|max:13|min:13',
+            'start_validity_date' => 'required|before:end_validity_date',
+            'end_validity_date' => 'required'
                 
         ],[
             'truck_list.required' => 'Plate Number is required'
@@ -129,11 +131,7 @@ class DriversController extends Controller
             //send email to supervisor for approval
             $setting = Setting::first();
             Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmDriver($driver));
-
-
   
-  
-
         flashy()->success('Driver has successfully created!');
         return redirect('drivers');
     }

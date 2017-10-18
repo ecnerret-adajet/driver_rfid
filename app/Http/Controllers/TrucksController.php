@@ -55,10 +55,10 @@ class TrucksController extends Controller
         
         $driver_card = Driver::select('cardholder_id')->where('availability',1)->get();
 
-        $cards = Card::orderBy('CardID','DESC')
+        $cards = Card::orderBy('CardholderID','DESC')
                 ->whereNotIn('CardholderID',$driver_card)
                 ->where('CardholderID','>=', 15)
-                ->where('CardholderID','!=', 0)->pluck('CardNo','CardID')->take(5);
+                ->where('CardholderID','!=', 0)->pluck('CardNo','CardID')->take(20);
 
         $capacities = Capacity::pluck('description','id');
 
@@ -163,7 +163,7 @@ class TrucksController extends Controller
                             ->where('availability',1)->first();
         }
 
-        $cards = Card::orderBy('CardID','DESC')
+        $cards = Card::orderBy('CardholderID','DESC')
          ->whereIn('CardholderID',[$driver_card->cardholder_id])
          ->where('CardID', '!=', $driver_card->card_id)
          ->where('CardholderID','>=', 15)
@@ -232,6 +232,20 @@ class TrucksController extends Controller
         flashy()->success('Truck has successfully transferred!');
         return redirect('trucks');
     }
+
+    /*
+    *
+    * Remove Driver
+    *
+    */
+    public function removeDriver(Request $request, $id)
+    {
+        $truck = Truck::findOrFail($id);
+        $truck->drivers()->sync((array) null);
+
+        flashy()->success('Driver successfully removed!');
+        return redirect('trucks');
+    }
     
 
     /**
@@ -275,7 +289,7 @@ class TrucksController extends Controller
         $truck->plant()->associate($plant_id);
         $truck->save();
 
-        $truck->haulers()->sync( (array) $request->input('hauler_list'));
+        // $truck->haulers()->sync( (array) $request->input('hauler_list'));
         
         flashy()->success('Truck has successfully updated!');
         return redirect('trucks');

@@ -3,7 +3,7 @@
     <script>
    
         setInterval(function(){
-        $('#realtimeFeed').load('http://localhost/driver_rfid/public/home-content');
+        $('#realtimeFeed').load('{{ config('app.url') }}/driver_rfid/public/home-content');
         $('#wait').hide();     
         }, 2000);
      

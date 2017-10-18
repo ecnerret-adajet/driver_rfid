@@ -55,11 +55,11 @@ export default {
     },
     methods: {
         getVendor() {
-             axios.get('http://localhost/driver_rfid/public/vendorsJson')
+             axios.get('/driver_rfid/public/vendorsJson')
             .then(response => this.vendors = response.data);
         },
         getSubvendor() {
-             axios.get('http://localhost/driver_rfid/public/subvendorJson')
+             axios.get('/driver_rfid/public/subvendorJson')
             .then(response => this.subvendors = response.data);
         }
     },

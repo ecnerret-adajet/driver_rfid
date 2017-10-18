@@ -32457,7 +32457,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.loading = true;
-            axios.get('http://localhost/driver_rfid/public/cardsJson').then(function (response) {
+            axios.get('/driver_rfid/public/cardsJson').then(function (response) {
                 _this.cards = response.data;
                 _this.loading = false;
             });
@@ -32519,7 +32519,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.loading = true;
-            axios.get('http://localhost/driver_rfid/public/drivers/{driver}').then(function (response) {
+            axios.get('/driver_rfid/public/drivers/{driver}').then(function (response) {
                 _this.data = response.data;
                 _this.loading = false;
             });
@@ -32735,15 +32735,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: {
+        role: String
+    },
+
     data: function data() {
         return {
             searchString: '',
             driver_link: '/driver_rfid/public/drivers/',
-            avatar_link: 'http://localhost/driver_rfid/storage/app/',
-            export_link: 'http://localhost/driver_rfid/public/exportDrivers',
+            avatar_link: '/driver_rfid/storage/app/',
+            export_link: '/driver_rfid/public/exportDrivers',
             drivers: [],
+            user_role: this.role,
             loading: false,
             csrf: ''
         };
@@ -32761,7 +32771,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.loading = true;
-            axios.get('http://localhost/driver_rfid/public/driversJson').then(function (response) {
+            axios.get('/driver_rfid/public/driversJson').then(function (response) {
                 _this.drivers = response.data;
                 _this.loading = false;
             });
@@ -32914,7 +32924,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.loading = true;
-            axios.get('http://localhost/driver_rfid/public/handlerJson').then(function (response) {
+            axios.get('/driver_rfid/public/handlerJson').then(function (response) {
                 _this.handlers = response.data;
                 _this.loading = false;
             });
@@ -33040,7 +33050,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.loading = true;
-            axios.get('http://localhost/driver_rfid/public/haulersJson').then(function (response) {
+            axios.get('/driver_rfid/public/haulersJson').then(function (response) {
                 _this.haulers = response.data;
                 _this.loading = false;
             });
@@ -33210,7 +33220,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.is_loading = true;
-            axios.get('http://localhost/driver_rfid/public/homeJson').then(function (response) {
+            axios.get('/driver_rfid/public/homeJson').then(function (response) {
                 _this.home = response.data;
                 _this.is_loading = false;
             });
@@ -33312,7 +33322,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.loading = true;
-            axios.get('http://localhost/driver_rfid/public/lineupJson').then(function (response) {
+            axios.get('/driver_rfid/public/lineupJson').then(function (response) {
                 _this.lineups = response.data;
                 _this.loading = false;
             });
@@ -33321,7 +33331,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             this.loading = true;
-            axios.get('http://localhost/driver_rfid/public/markedJson').then(function (response) {
+            axios.get('/driver_rfid/public/markedJson').then(function (response) {
                 _this2.marked = response.data;
                 _this2.loading = false;
             });
@@ -33408,7 +33418,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.loading = true;
-            axios.get('http://localhost/driver_rfid/public/logs').then(function (response) {
+            axios.get('/driver_rfid/public/logs').then(function (response) {
                 _this.logs = response.data;
                 _this.loading = false;
             });
@@ -33417,7 +33427,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             this.loading = true;
-            axios.get('http://localhost/driver_rfid/public/entriesIn').then(function (response) {
+            axios.get('/driver_rfid/public/entriesIn').then(function (response) {
                 _this2.in = response.data;
                 _this2.loading = false;
             });
@@ -33426,7 +33436,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this3 = this;
 
             this.loading = true;
-            axios.get('http://localhost/driver_rfid/public/entriesOut').then(function (response) {
+            axios.get('/driver_rfid/public/entriesOut').then(function (response) {
                 _this3.out = response.data;
                 _this3.loading = false;
             });
@@ -33654,7 +33664,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.loading = true;
-            axios.get('http://localhost/driver_rfid/public/pickupsJson').then(function (response) {
+            axios.get('/driver_rfid/public/pickupsJson').then(function (response) {
                 _this.pickups = response.data;
                 _this.loading = false;
             });
@@ -33663,7 +33673,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             this.is_loading = true;
-            axios.get('http://localhost/driver_rfid/public/pickupsStatus').then(function (response) {
+            axios.get('/driver_rfid/public/pickupsStatus').then(function (response) {
                 _this2.pickupValue = response.data;
                 _this2.is_loading = false;
             });
@@ -33746,14 +33756,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         fetchDrivers: function fetchDrivers() {
             var _this = this;
 
-            axios.get('http://localhost/driver_rfid/public/forPrint').then(function (response) {
+            axios.get('/driver_rfid/public/forPrint').then(function (response) {
                 return _this.drivers = response.data;
             });
         },
         updateItem: function updateItem(id) {
             var _this2 = this;
 
-            axios.put('http://localhost/driver_rfid/public/prints/' + id).then(function (res) {
+            axios.put('/driver_rfid/public/prints/' + id).then(function (res) {
                 _this2.fetchDrivers();
             }).catch(function (err) {
                 return console.error(err);
@@ -33799,7 +33809,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var _this = this;
 
-        axios.get('http://localhost/driver_rfid/public/settingsJson').then(function (response) {
+        axios.get('/driver_rfid/public/settingsJson').then(function (response) {
             return _this.settings = response.data;
         });
     }
@@ -33963,13 +33973,53 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            auth: [],
             searchString: '',
             truck_link: '/driver_rfid/public/trucks/',
-            export_link: 'http://localhost/driver_rfid/public/exportTrucks',
+            export_link: '/driver_rfid/public/exportTrucks',
             trucks: [],
             loading: false,
             csrf: ''
@@ -33984,13 +34034,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     methods: {
-        getTruck: function getTruck() {
+        getAuth: function getAuth() {
             var _this = this;
 
+            axios.get('/driver_rfid/public/getAuth').then(function (response) {
+                return _this.auth = response.data;
+            });
+        },
+        getTruck: function getTruck() {
+            var _this2 = this;
+
             this.loading = true;
-            axios.get('http://localhost/driver_rfid/public/trucksJson').then(function (response) {
-                _this.trucks = response.data;
-                _this.loading = false;
+            axios.get('/driver_rfid/public/trucksJson').then(function (response) {
+                _this2.trucks = response.data;
+                _this2.loading = false;
             });
         }
     },
@@ -34134,7 +34191,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.loading = true;
-            axios.get('http://localhost/driver_rfid/public/usersJson').then(function (response) {
+            axios.get('/driver_rfid/public/usersJson').then(function (response) {
                 _this.users = response.data;
                 _this.loading = false;
             });
@@ -34233,14 +34290,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getVendor: function getVendor() {
             var _this = this;
 
-            axios.get('http://localhost/driver_rfid/public/vendorsJson').then(function (response) {
+            axios.get('/driver_rfid/public/vendorsJson').then(function (response) {
                 return _this.vendors = response.data;
             });
         },
         getSubvendor: function getSubvendor() {
             var _this2 = this;
 
-            axios.get('http://localhost/driver_rfid/public/subvendorJson').then(function (response) {
+            axios.get('/driver_rfid/public/subvendorJson').then(function (response) {
                 return _this2.subvendors = response.data;
             });
         }
@@ -35408,14 +35465,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": "javascript:void(0);",
         "data-toggle": "modal",
+        "data-target": '#removeDriver-' + truck.id
+      }
+    }, [_vm._v("Remove Driver")]), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
         "data-target": '#truckModal-' + truck.id
       }
-    }, [_vm._v("Deactivate")]), _vm._v(" "), _c('a', {
+    }, [_vm._v("Deactivate")]), _vm._v(" "), (_vm.auth.role.name == 'Administrator') ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.truck_link + truck.id + '/edit'
       }
-    }, [_vm._v("Edit")])])])])])
+    }, [_vm._v("Edit")])]) : _vm._e()])])])])
   }), _vm._v(" "), (_vm.filteredTruck.length == 0) ? _c('li', {
     staticClass: "list-group-item"
   }, [_vm._m(3)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
@@ -35466,7 +35530,49 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('form', {
       attrs: {
         "method": "POST",
-        "action": 'http://localhost/driver_rfid/public/trucks/deactivate/' + truck.id
+        "action": '/driver_rfid/public/trucks/deactivate/' + truck.id
+      }
+    }, [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_token"
+      },
+      domProps: {
+        "value": _vm.csrf
+      }
+    }), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-secondary",
+      attrs: {
+        "type": "button",
+        "data-dismiss": "modal"
+      }
+    }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-primary",
+      attrs: {
+        "type": "submit"
+      }
+    }, [_vm._v("Confirm")])])])])])]), _vm._v(" "), _c('div', {
+      staticClass: "modal fade",
+      attrs: {
+        "id": 'removeDriver-' + truck.id,
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "truckModalLabel",
+        "aria-hidden": "true"
+      }
+    }, [_c('div', {
+      staticClass: "modal-dialog",
+      attrs: {
+        "id": "queueter"
+      }
+    }, [_c('div', {
+      staticClass: "modal-content"
+    }, [_vm._m(6, true), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _c('div', {
+      staticClass: "modal-footer"
+    }, [_c('form', {
+      attrs: {
+        "method": "POST",
+        "action": '/driver_rfid/public/trucks/remove/' + truck.id
       }
     }, [_c('input', {
       attrs: {
@@ -35541,6 +35647,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "truckModalLabel"
     }
   }, [_vm._v("Deactivate Truck")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body text-center"
+  }, [_c('em', [_vm._v("Are you sure you want to proceed with this action?")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('h6', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "truckModalLabel"
+    }
+  }, [_vm._v("Remove Driver")]), _vm._v(" "), _c('button', {
     staticClass: "close",
     attrs: {
       "type": "button",
@@ -36409,12 +36539,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": _vm.driver_link + 'lostCard/' + driver.id
       }
-    }, [_vm._v("Lost Card")]), _vm._v(" "), _c('a', {
+    }, [_vm._v("Lost Card")]), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.driver_link + driver.id + '/edit'
       }
-    }, [_vm._v("Edit")])])]) : _vm._e(), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 0) ? _c('span', [_vm._m(2, true)]) : _vm._e(), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('i', {
+    }, [_vm._v("Edit")])]) : _vm._e()])]) : _vm._e(), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 0) ? _c('span', [_vm._m(2, true)]) : _vm._e(), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('i', {
       staticClass: "fa fa-circle",
       staticStyle: {
         "color": "green"
@@ -36481,7 +36611,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('form', {
       attrs: {
         "method": "POST",
-        "action": 'http://localhost/driver_rfid/public/drivers/deactivate/' + driver.id
+        "action": '/driver_rfid/public/drivers/deactivate/' + driver.id
       }
     }, [_c('input', {
       attrs: {
@@ -36523,7 +36653,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('form', {
       attrs: {
         "method": "POST",
-        "action": 'http://localhost/driver_rfid/public/drivers/activate/' + driver.id
+        "action": '/driver_rfid/public/drivers/activate/' + driver.id
       }
     }, [_c('input', {
       attrs: {

@@ -83,7 +83,11 @@
                                                 <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#driverModalActivate-'+ driver.id">Activate</a>
                                                 </span>
                                                 <a :href="driver_link + 'lostCard/' + driver.id" class="dropdown-item">Lost Card</a>
-                                                <a :href="driver_link + driver.id + '/edit'" class="dropdown-item">Edit</a>
+
+                                                <span v-if="user_role == 'Administrator'">
+                                                    <a :href="driver_link + driver.id + '/edit'" class="dropdown-item">Edit</a>
+                                                </span>
+
                                             </div><!-- end dropdown -->
                                         </span>
                                         <span v-if="driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 0">
@@ -147,7 +151,7 @@
 
                 </div>
                 <div class="modal-footer">  
-                    <form  method="POST" :action="'http://localhost/driver_rfid/public/drivers/deactivate/'+driver.id">
+                    <form  method="POST" :action="'/driver_rfid/public/drivers/deactivate/'+driver.id">
                         <input type="hidden" name="_token" :value="csrf">  
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Confirm</button> 
@@ -180,7 +184,7 @@
 
                 </div>
                 <div class="modal-footer">  
-                    <form  method="POST" :action="'http://localhost/driver_rfid/public/drivers/activate/'+driver.id">
+                    <form  method="POST" :action="'/driver_rfid/public/drivers/activate/'+driver.id">
                         <input type="hidden" name="_token" :value="csrf">  
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Confirm</button> 
@@ -201,13 +205,19 @@
 
 <script>
 export default {
+    
+    props: {
+        role: String,
+    },
+
     data() {
         return {
             searchString: '',
             driver_link: '/driver_rfid/public/drivers/',
-            avatar_link: 'http://localhost/driver_rfid/storage/app/',
-            export_link: 'http://localhost/driver_rfid/public/exportDrivers',
+            avatar_link: '/driver_rfid/storage/app/',
+            export_link: '/driver_rfid/public/exportDrivers',
             drivers: [],
+            user_role: this.role,
             loading: false,
             csrf: '',
         }
@@ -224,7 +234,7 @@ export default {
     methods: {
         getDrivers() {
             this.loading = true
-             axios.get('http://localhost/driver_rfid/public/driversJson')
+             axios.get('/driver_rfid/public/driversJson')
             .then(response => {
                 this.drivers = response.data
                 this.loading = false

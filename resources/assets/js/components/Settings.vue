@@ -27,7 +27,7 @@ export default {
         }
     },
     created() {
-        axios.get('http://localhost/driver_rfid/public/settingsJson')
+        axios.get('/driver_rfid/public/settingsJson')
         .then(response => this.settings = response.data);
     }
 

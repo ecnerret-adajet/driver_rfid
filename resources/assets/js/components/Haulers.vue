@@ -86,7 +86,7 @@ export default {
     methods: {
         getHauler() {
             this.loading = true
-            axios.get('http://localhost/driver_rfid/public/haulersJson')
+            axios.get('/driver_rfid/public/haulersJson')
             .then(response => {
                 this.haulers = response.data
                 this.loading = false

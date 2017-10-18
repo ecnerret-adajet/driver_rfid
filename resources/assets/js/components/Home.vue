@@ -131,7 +131,7 @@ export default {
     methods: {
         getHome() {
             this.is_loading = true
-            axios.get('http://localhost/driver_rfid/public/homeJson')
+            axios.get('/driver_rfid/public/homeJson')
             .then(response => {
                 this.home = response.data
                 this.is_loading = false
