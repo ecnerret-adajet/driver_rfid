@@ -191,9 +191,8 @@ class DriversController extends Controller
         // $cards = ['' => ''] + Card::orderBy('CardNo','DESC')->pluck('CardNo','CardID')->all();
         // $cards =  Card::orderBy('CardNo','DESC')->pluck('CardNo','CardID');
 
-        // if a driver has no assign card
-        $driver_card = Driver::where('id',$driver->id)
-        ->where('availability',1)->first();
+        // if a driver has no assign card // removed where availability
+        $driver_card = Driver::where('id',$driver->id)->first();
 
         $cards = Card::orderBy('CardID','DESC')
         ->whereIn('CardholderID',[$driver_card->cardholder_id])
@@ -246,12 +245,14 @@ class DriversController extends Controller
             'end_validity_date' => 'required'
         ]);
 
-        foreach($driver->trucks as $truck) {
-            $plate = $truck->plate_number;
-            $start = $truck->start_validity_date;
-            $end = $truck->end_validity_date;
+        if(!count($driver->trucks) == 0) {
+            foreach($driver->trucks as $truck) {
+                $plate = $truck->plate_number;
+            }
+        } else {
+            $plate = 'NO PLATE';
         }
-
+      
         foreach($driver->haulers as $hauler){
             $hauler = $hauler->name;
         }
