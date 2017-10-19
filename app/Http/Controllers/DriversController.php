@@ -324,7 +324,7 @@ class DriversController extends Controller
             'truck_list.required' => 'Plate Number is required'
         ]);
 
-        // $card_rfid = $request->input('card_list');
+        $card_rfid = $request->input('card_list');
         // $clasification_id = $request->input('clasification_list');
 
         $driver->update($request->all());
@@ -338,7 +338,7 @@ class DriversController extends Controller
         //     $driver->update_count += 1;
         // }
         
-        // $driver->card()->associate($card_rfid);
+        $driver->card()->associate($card_rfid);
         // $driver->clasification()->associate($clasification_id);
 
         $driver->name = strtoupper($request->input('name'));

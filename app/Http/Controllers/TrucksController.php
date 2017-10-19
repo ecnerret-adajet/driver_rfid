@@ -325,13 +325,15 @@ class TrucksController extends Controller
 
         $truck->update($request->all());
         $truck->contract_code = $request->input('contract_list');
+        $truck->subvendor_description = $request->input('hauler_list');
+        $truck->vendor_description = $request->input('vendor_description');
         $truck->card()->associate($card_rfid);
         $truck->capacity()->associate($capacity_id);
         $truck->save();
 
-        $truck->contracts()->sync(  (array) $request->input('contract_list'));
-        $truck->plants()->sync(  (array) $request->input('plant_list'));
-        $truck->haulers()->sync(  (array) $request->input('hauler_list'));
+        $truck->haulers()->sync((array) $request->input('hauler_list'));
+        // $truck->contracts()->sync((array) $request->input('contract_list'));
+        // $truck->plants()->sync((array) $request->input('plant_list'));
 
 
         flashy()->success('Truck has successfully updated!');
