@@ -82,7 +82,7 @@
                                                 <span v-if="driver.availability == 0">
                                                 <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#driverModalActivate-'+ driver.id">Activate</a>
                                                 </span>
-                                                <a :href="driver_link + 'lostCard/' + driver.id" class="dropdown-item">Lost Card</a>
+                                                <a :href="driver_link + 'lostCard/' + driver.id" class="dropdown-item">Reprint Card</a>
 
                                                 <span v-if="user_role == 'Administrator'">
                                                     <a :href="driver_link + driver.id + '/edit'" class="dropdown-item">Edit</a>
