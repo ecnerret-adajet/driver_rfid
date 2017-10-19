@@ -34022,7 +34022,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            auth: [],
             searchString: '',
             truck_link: '/driver_rfid/public/trucks/',
             export_link: '/driver_rfid/public/exportTrucks',

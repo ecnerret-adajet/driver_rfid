@@ -16,7 +16,9 @@
         </a>
         </div>
         <div class="card-body">
-            <trucks></trucks>
+         @foreach(Auth::user()->roles as $role)
+                <trucks role="{{ $role->name }}"></trucks>
+         @endforeach
         </div><!-- end card-body -->
     </div> <!-- end card -->
 

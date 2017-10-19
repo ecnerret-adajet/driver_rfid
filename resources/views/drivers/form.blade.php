@@ -69,7 +69,7 @@
                     </div>
                 @endif
          
-                 @if(Request::is('drivers/create'))
+                 
                  <div class="form-row">
                     <div class="col-md-12">
                         <div class="form-group {{ $errors->has('card_list') ? ' has-danger' : '' }}">
@@ -78,7 +78,7 @@
                                     @if(empty($driver->card_id))
                                         {!! Form::select('card_list', $cards, count($driver->card) == 0 ? 'null' : $driver->card->CardID, ['placeholder' => 'Select Deploy RFID',  'class' => 'form-control select2-card'] ) !!}
                                     @else
-                                        {!! Form::select('card_list', $card_driver, count($driver->card) == 0 ? 'null' : $driver->card->CardID, ['placeholder' => 'Select Deploy RFID',  'class' => 'form-control select2-card'] ) !!}
+                                        {!! Form::select('card_list', $cards, count($driver->card) == 0 ? 'null' : $driver->card->CardID, ['placeholder' => 'Select Deploy RFID',  'class' => 'form-control select2-card'] ) !!}
                                     @endif
                                 @else
                                 {!! Form::select('card_list', $cards, null, ['placeholder' => 'Select Deploy RFID', 'class' => 'form-control select2-card'] ) !!}
@@ -93,7 +93,6 @@
                         </div>
                     </div>
                 </div>
-                 @endif
 
                 <div class="form-row">
                     <div class="col-md-12">

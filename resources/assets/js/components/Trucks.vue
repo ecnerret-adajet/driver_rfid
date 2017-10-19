@@ -199,7 +199,6 @@ export default {
 
     data() {
         return {
-            auth: [],
             searchString: '',
             truck_link: '/driver_rfid/public/trucks/',
             export_link: '/driver_rfid/public/exportTrucks',

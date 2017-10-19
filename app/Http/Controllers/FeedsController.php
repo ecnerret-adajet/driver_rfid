@@ -134,7 +134,6 @@ class FeedsController extends Controller
 
     public function barrierContent()
     {
-
         $pickup_cards = Cardholder::select('CardholderID')
         ->where('Name', 'LIKE', '%Pickup%')
         ->get();
@@ -143,24 +142,21 @@ class FeedsController extends Controller
          $barriers = Log::whereIn('DoorID',[3])
          ->whereNotIn('CardholderID',$pickup_cards)
          ->where('CardholderID', '>=', 15)
-         ->whereDate('LocalTime', '>=', Carbon::now())
-         ->orderBy('LocalTime','DESC')->get();
+         ->orderBy('LocalTime','DESC')
+         ->take(5)
+         ->get();
  
          $barrier_in = Log::where('DoorID',3)
          ->where('CardholderID', '>=', 15)
          ->where('Direction', 1)
-         ->whereDate('LocalTime', Carbon::now())
          ->orderBy('LocalTime','DESC')->get();
  
          $barrier_out = Log::where('DoorID',3)
          ->where('CardholderID', '>=', 15)
          ->where('Direction', 2)
-         ->whereDate('LocalTime', Carbon::now())
          ->orderBy('LocalTime','DESC')->get();
 
-         $barrier_results = $barriers->unique('CardholderID');
-
-         return view('barrier_content',compact('barriers','barrier_in','barrier_out','barrier_results'));
+         return view('barrier_content',compact('barriers','barrier_in','barrier_out'));
 
     }
 }

@@ -4,7 +4,7 @@
     <div class="row pb-5">
         <div class="col-sm-12">
                   <ul class="list-group">
-            @foreach($barrier_results as $index => $result)
+            @foreach($barriers as $index => $result)
              @foreach($result->drivers as $driver)
                 @if(count($result->drivers) != 0)
 

@@ -62,16 +62,15 @@ class DriversController extends Controller
         $trucks = ['' => ''] + Truck::doesntHave('drivers')->where('availability',1)->orderBy('id','DESC')->pluck('plate_number','id')->all();
         
         $driver_card = Driver::select('cardholder_id')->where('availability',1)->get();
-        $truck_card = Truck::select('card_id')->whereNotNull('card_id')->get();
-        $cardholder_from_truck = Card::select('CardID')->whereIn('CardID',$truck_card)->get();
-        $cardholder_card = Card::select('CardID')->whereIn('CardholderID',$driver_card)->get();
-        $merged = $cardholder_card->merge($cardholder_from_truck);
         
-        $cards = Card::orderBy('CardholderID','DESC')
-                ->whereNotIn('CardholderID', $driver_card)
-                ->whereNotIn('CardID', $truck_card)
-                ->where('CardholderID','>=', 15)
-                ->where('CardholderID','!=', 0)->pluck('CardNo','CardID')->take(20);
+        $cards = Card::select(DB::raw("CONCAT(CardNo,' - RFID Number ', CardholderID) AS deploy_number"),'CardID')
+                    ->orderBy('CardholderID','DESC')
+                    ->whereNotIn('CardholderID', $driver_card)
+                    ->where('AccessgroupID', 1) // card type
+                    ->where('CardholderID','>=', 15)
+                    ->where('CardholderID','!=', 0)
+                    ->get()
+                    ->pluck('deploy_number','CardID');
                 
         return view('drivers.create',compact('clasifications','trucks','cards','haulers'));
     }
@@ -178,31 +177,35 @@ class DriversController extends Controller
         $haulers = Hauler::orderBy('id','DESC')->pluck('name','id');
 
         if(count($driver->trucks) == 0) {
-            
             $trucks = Truck::whereHas('haulers',function($q) use ($x){
                 $q->where('id',$x);
             })->orderBy('id','DESC')->pluck('plate_number','id');
-
         } else {
-
             $trucks =  Truck::orderBy('id','DESC')->pluck('plate_number','id');
         }
+       
+        $cards = Card::select(DB::raw("CONCAT(CardNo,' - RFID Number ', CardholderID) AS deploy_number"),'CardID')
+            ->orderBy('CardholderID','DESC')
+            ->whereIn('CardholderID',[$driver->cardholder_id])
+            ->where('AccessgroupID', 1) // card type 
+            ->where('CardholderID','>=', 15)
+            ->get()
+            ->pluck('deploy_number','CardID');
 
-        // $cards = ['' => ''] + Card::orderBy('CardNo','DESC')->pluck('CardNo','CardID')->all();
-        // $cards =  Card::orderBy('CardNo','DESC')->pluck('CardNo','CardID');
-
-        // if a driver has no assign card // removed where availability
-        $driver_card = Driver::where('id',$driver->id)->first();
-
-        $cards = Card::orderBy('CardID','DESC')
-        ->whereIn('CardholderID',[$driver_card->cardholder_id])
-        ->where('CardID', '!=', $driver_card->card_id)
-        ->where('CardholderID','>=', 15)
-        ->where('CardholderID','!=', 0)->pluck('CardNo','CardID');
-
-        // when a driver has a card assigned
-        $card_driver = Card::orderBy('CardNo','DESC')->pluck('CardNo','CardID');
         
+        // when a driver has no cardholder assigned
+        $driver_card = Driver::select('cardholder_id')->where('availability',1)->get();
+        
+        $card_driver = Card::select(DB::raw("CONCAT(CardNo,' - RFID Number ', CardholderID) AS deploy_number"),'CardID')
+                    ->orderBy('CardholderID','DESC')
+                    ->whereNotIn('CardholderID', $driver_card)
+                    ->where('AccessgroupID', 1) // card type
+                    ->where('CardholderID','>=', 15)
+                    ->where('CardholderID','!=', 0)
+                    ->get()
+                    ->pluck('deploy_number','CardID');
+
+
         return view('drivers.edit',compact(
             'driver',
             'clasifications',

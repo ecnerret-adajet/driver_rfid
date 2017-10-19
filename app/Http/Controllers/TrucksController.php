@@ -17,6 +17,7 @@ use App\Version;
 use App\Base;
 use App\Plant;
 use App\Cardholder;
+use DB;
 
 class TrucksController extends Controller
 {
@@ -42,6 +43,19 @@ class TrucksController extends Controller
     }
 
     /**
+     * 
+     * 
+     *  Search Cardholder Name for cards 
+     * 
+     */
+    public function displayCardholder($x)
+    {
+        $cardholder = Cardholder::where('CardholderID',$x)->first();
+        return $cardholder->Name;
+    }
+
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -55,10 +69,13 @@ class TrucksController extends Controller
         
         $driver_card = Driver::select('cardholder_id')->where('availability',1)->get();
 
-        $cards = Card::orderBy('CardholderID','DESC')
-                ->whereNotIn('CardholderID',$driver_card)
-                ->where('CardholderID','>=', 15)
-                ->where('CardholderID','!=', 0)->pluck('CardNo','CardID')->take(20);
+        $cards = Card::select(DB::raw("CONCAT(CardNo,' - RFID Number ', CardholderID) AS deploy_number"),'CardID')
+                    ->orderBy('CardholderID','DESC')
+                    ->whereNotIn('CardholderID',$driver_card)
+                    ->where('AccessgroupID', 2) // sticker type
+                    ->where('CardholderID','>=', 15)
+                    ->get()
+                    ->pluck('deploy_number','CardID');
 
         $capacities = Capacity::pluck('description','id');
 
@@ -68,7 +85,7 @@ class TrucksController extends Controller
 
         $plants = Plant::pluck('plant_name','id');
 
-        return view('trucks.create', compact('haulers','cards','capacities','contracts','subvendors','vendors','bases','plants','haulers_subcon'));
+        return view('trucks.create', compact('card_test','haulers','cards','capacities','contracts','subvendors','vendors','bases','plants','haulers_subcon'));
     }
 
     /**
@@ -100,8 +117,6 @@ class TrucksController extends Controller
 
         $card_rfid = $request->input('card_list');
         $capacity_id = $request->input('capacity_list');
-        // $base_id = $request->input('base_list');
-        // $plant_id = $request->input('plant_list');
 
         $truck = Truck::create($request->all());
         $truck->contract_code = $request->input('contract_list');
@@ -109,8 +124,6 @@ class TrucksController extends Controller
         $truck->subvendor_description = $request->input('hauler_list');
         $truck->card()->associate($card_rfid);
         $truck->capacity()->associate($capacity_id);
-        // $truck->base()->associate($base_id);
-        // $truck->plant()->associate($plant_id);
         $truck->save();
 
 
@@ -145,6 +158,22 @@ class TrucksController extends Controller
         return $truck_vendors;
     }
 
+    public function vendorHauler($x) 
+    {
+        $hauler = Hauler::where('vendor_number',$x)->first();
+        return $hauler->name;
+    }
+
+    public function truckHauler($x)
+    {
+        $truck = Truck::where('id',$x)->first();
+        foreach($truck->haulers as $hauler)
+        {
+            $hauler_name = $hauler->vendor_number;
+        }
+        return $hauler_name;
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -153,22 +182,36 @@ class TrucksController extends Controller
      */
     public function edit(Truck $truck)
     {
-        $haulers = ['' => ''] + Hauler::pluck('name','vendor_number')->all();
+        $haulers = ['' => ''] + Hauler::orderBy('vendor_number','ASC')->pluck('name','vendor_number')->all();
         $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','vendor_number')->all();
 
-        // $cards =  Card::orderBy('CardNo','DESC')->pluck('CardNo','CardID')->all();
+        if(!count($truck->drivers) == null) {
+            foreach($truck->drivers as $driver) {
+                $driver_card = Driver::where('id',$driver->id)
+                ->where('availability',1)->first();
+            }
+            
+            $cards = Card::select(DB::raw("CONCAT(CardNo,' - RFID Number ', CardholderID) AS deploy_number"),'CardID')
+                ->orderBy('CardholderID','DESC')
+                ->whereIn('CardholderID',[$driver_card->cardholder_id])
+                ->where('AccessgroupID', 2) // sticker type
+                ->where('CardholderID','>=', 15)
+                ->where('CardholderID','!=', 0)
+                ->get()
+                ->pluck('deploy_number','CardID');
 
-        foreach($truck->drivers as $driver) {
-            $driver_card = Driver::where('id',$driver->id)
-                            ->where('availability',1)->first();
+        } else {
+            $has_driver = Driver::select('cardholder_id')->where('availability',1)->get();
+            // show all RFID when there is no driver
+            $cards =  Card::select(DB::raw("CONCAT(CardNo,' - RFID Number ', CardholderID) AS deploy_number"),'CardID')
+                    ->orderBy('CardholderID','DESC')
+                    ->whereNotIn('CardholderID',$has_driver)
+                    ->where('AccessgroupID', 2)
+                    ->where('CardholderID','>=', 15)
+                    ->where('CardholderID','!=', 0)
+                    ->get()
+                    ->pluck('deploy_number','CardID');
         }
-
-        $cards = Card::orderBy('CardholderID','DESC')
-         ->whereIn('CardholderID',[$driver_card->cardholder_id])
-         ->where('CardID', '!=', $driver_card->card_id)
-         ->where('CardholderID','>=', 15)
-         ->where('CardholderID','!=', 0)->pluck('CardNo','CardID');
-         
          
          $capacities = Capacity::pluck('description','id');
          $contracts = Contract::all()->pluck('contract','id');
@@ -279,18 +322,18 @@ class TrucksController extends Controller
 
         $card_rfid = $request->input('card_list');
         $capacity_id = $request->input('capacity_list');
-        // $base_id = $request->input('base_list');
-        $plant_id = $request->input('plant_list');
 
         $truck->update($request->all());
+        $truck->contract_code = $request->input('contract_list');
         $truck->card()->associate($card_rfid);
         $truck->capacity()->associate($capacity_id);
-        // $truck->base()->associate($base_id);
-        $truck->plant()->associate($plant_id);
         $truck->save();
 
-        // $truck->haulers()->sync( (array) $request->input('hauler_list'));
-        
+        $truck->contracts()->sync(  (array) $request->input('contract_list'));
+        $truck->plants()->sync(  (array) $request->input('plant_list'));
+        $truck->haulers()->sync(  (array) $request->input('hauler_list'));
+
+
         flashy()->success('Truck has successfully updated!');
         return redirect('trucks');
     }

@@ -1,46 +1,54 @@
-
-
+@inject('search', 'App\Http\Controllers\TrucksController')
   
              @if(Request::is('trucks/create'))
-            <div class="form-row">
-                 <div class="col-md-6">
-                    <div class="form-group {{ $errors->has('plate_number') ? ' has-danger' : '' }}">
-                        <label>Plate Number</label>
-                        {{ Form::text('plate_number', null, ['class' => 'form-control', 'id' => 'sPriceRewards', 'placeholder' => 'Enter Plate Number', "data-inputmask" => "'mask': 'AAA-9999'", 'data-mask']) }}
-                        @if ($errors->has('plate_number'))
-                            <div class="form-control-feedback">
-                                <small>
-                                {{ $errors->first('plate_number') }}
-                                </small>
-                            </div>
-                        @endif
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group {{ $errors->has('plate_number') ? ' has-danger' : '' }}">
+                            <label>Plate Number</label>
+                            {{ Form::text('plate_number', null, ['class' => 'form-control', 'id' => 'sPriceRewards', 'placeholder' => 'Enter Plate Number', "data-inputmask" => "'mask': 'AAA-9999'", 'data-mask']) }}
+                            @if ($errors->has('plate_number'))
+                                <div class="form-control-feedback">
+                                    <small>
+                                    {{ $errors->first('plate_number') }}
+                                    </small>
+                                </div>
+                            @endif
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-md-6">
-                    <div class="form-group {{ $errors->has('reg_number') ? ' has-danger' : '' }}">
-                        <label>Registration Number</label>
-                        {{ Form::text('reg_number', null, ['class' => 'form-control', 'id' => 'inputReward', 'placeholder' => 'Enter Registration Number']) }}
-                        @if ($errors->has('reg_number'))
-                            <div class="form-control-feedback">
-                                <small>
-                                {{ $errors->first('reg_number') }}
-                                </small>
-                            </div>
-                        @endif
+                    <div class="col-md-6">
+                        <div class="form-group {{ $errors->has('reg_number') ? ' has-danger' : '' }}">
+                            <label>Registration Number</label>
+                            {{ Form::text('reg_number', null, ['class' => 'form-control', 'id' => 'inputReward', 'placeholder' => 'Enter Registration Number']) }}
+                            @if ($errors->has('reg_number'))
+                                <div class="form-control-feedback">
+                                    <small>
+                                    {{ $errors->first('reg_number') }}
+                                    </small>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                 </div>
-            </div>
             @endif
 
             <div class="form-row">
                    <div class="col-md-12">
                         <div class="form-group {{ $errors->has('card_list') ? ' has-danger' : '' }}">
-                                <label for="selectCard">RFID Sticker </label>
+                                <label for="selectCard">RFID Sticker {{ $cards->count() }}</label>
                                 @if(!Request::is('trucks/create'))
-                                {!! Form::select('card_list', $cards, count($truck->card) == 0 ? 'null' : $truck->card->CardID, ['placeholder' => 'Select Deploy RFID',  'class' => 'form-control select2-card'] ) !!}
+                                    {!! Form::select('card_list', $cards, count($truck->card) == 0 ? 'null' : $truck->card->CardID, ['placeholder' => 'Select Deploy RFID',  'class' => 'form-control select2-card'] ) !!}
+                                    @if(count($truck->drivers) == null)
+                                         <div class="form-control-feedback">
+                                            <small style="color: red">
+                                                <em>
+                                                    This truck has no driver assigned
+                                                </em>
+                                            </small>
+                                         </div>
+                                    @endif
                                 @else
-                                {!! Form::select('card_list', $cards, null, ['placeholder' => 'Select Deploy RFID', 'class' => 'form-control select2-card'] ) !!}
+                                    {!! Form::select('card_list', $cards, null, ['placeholder' => 'Select Deploy RFID', 'class' => 'form-control select2-card'] ) !!}
                                 @endif
                                 @if ($errors->has('card_list'))
                                     <div class="form-control-feedback">
@@ -117,40 +125,53 @@
                 </div>  --}}
             </div>
 
-            
-           
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group {{ $errors->has('vendor_description') ? ' has-danger' : '' }}">
+                                <label>Vendor Number</label>
 
-             @if(Request::is('trucks/create'))
-            <div class="form-row">
-                <div class="col-md-6">
-                    <div class="form-group {{ $errors->has('vendor_description') ? ' has-danger' : '' }}">
-                            <label>Vendor Number</label>
-                            {!! Form::select('vendor_description', $haulers, null, ['placeholder' => 'Select Vendor','class' => 'form-control select2-vendor'] ) !!}
-                            @if ($errors->has('vendor_description'))
-                                <div class="form-control-feedback">
-                                <small>
-                                    {{ $errors->first('vendor_description') }}
-                                    </small>
-                                </div>
-                            @endif
+                                @if(Request::is('trucks/create'))
+                                    {!! Form::select('vendor_description', $haulers, null, ['placeholder' => 'Select Vendor','class' => 'form-control select2-vendor'] ) !!}
+                                @else
+                                    @if($truck->vendor_description == null)
+                                    {!! Form::select('vendor_description', $haulers, '0000002000', ['placeholder' => 'Select Vendor','class' => 'form-control select2-vendor'] ) !!}
+                                    @else
+                                    {!! Form::select('vendor_description', $haulers, $search->vendorHauler($truck->vendor_description), ['placeholder' => 'Select Vendor','class' => 'form-control select2-vendor'] ) !!}
+                                    @endif
+                                @endif
+
+                                @if ($errors->has('vendor_description'))
+                                    <div class="form-control-feedback">
+                                    <small>
+                                        {{ $errors->first('vendor_description') }}
+                                        </small>
+                                    </div>
+                                @endif
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group {{ $errors->has('hauler_list') ? ' has-danger' : '' }}">
+                                <label>Subvendor Number</label>
+                                 @if(Request::is('trucks/create'))
+                                        {!! Form::select('hauler_list', $haulers_subcon, null, ['placeholder' => 'Select Subvendor', 'class' => 'form-control select2-subvendor'] ) !!}
+                                @else
+                                    @if($truck->subvendor_description == null)
+                                        {!! Form::select('hauler_list', $haulers_subcon, $search->truckhauler($truck->id), ['placeholder' => 'Select Subvendor', 'class' => 'form-control select2-subvendor'] ) !!}
+                                    @else
+                                        {!! Form::select('hauler_list', $haulers_subcon, $truck->subvendor_description, ['placeholder' => 'Select Subvendor', 'class' => 'form-control select2-subvendor'] ) !!}
+                                    @endif
+                                @endif
+                                @if ($errors->has('hauler_list'))
+                                    <div class="form-control-feedback">
+                                    <small>
+                                        {{ $errors->first('hauler_list') }}
+                                        </small>
+                                    </div>
+                                @endif
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group {{ $errors->has('hauler_list') ? ' has-danger' : '' }}">
-                            <label>Subvendor Number</label>
-                            {!! Form::select('hauler_list', $haulers_subcon, null, ['placeholder' => 'Select Subvendor', 'class' => 'form-control select2-subvendor'] ) !!}
-                            @if ($errors->has('hauler_list'))
-                                <div class="form-control-feedback">
-                                <small>
-                                    {{ $errors->first('hauler_list') }}
-                                    </small>
-                                </div>
-                            @endif
-                    </div>
-                </div>
-            </div>
-             @endif
-           
+        
 
             <div class="form-row">
                 <div class="col-md-6">
