@@ -75,7 +75,13 @@
                                             <i class="fa fa-ellipsis-v"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="driverDropdown">
-                                                <a :href="driver_link + driver.id + '/reassign'" class="dropdown-item">Reassign Truck</a>
+
+                                                 <span v-for="hauler in driver.haulers">
+                                                     <span v-if="hauler.length != 0">
+                                                    <a :href="driver_link + driver.id + '/reassign'" class="dropdown-item">Reassign Truck</a>
+                                                     </span>
+                                                 </span> 
+
                                                 <a :href="driver_link + 'lostCard/' + driver.id" class="dropdown-item">Reprint Card</a>
                                                 <span v-if="driver.availability == 1">
                                                 <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#driverModal-'+ driver.id" style="color: red">Deactivate</a>

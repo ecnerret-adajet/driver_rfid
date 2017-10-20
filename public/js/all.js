@@ -32828,6 +32828,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -36613,12 +36619,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "aria-labelledby": "driverDropdown"
       }
-    }, [_c('a', {
-      staticClass: "dropdown-item",
-      attrs: {
-        "href": _vm.driver_link + driver.id + '/reassign'
-      }
-    }, [_vm._v("Reassign Truck")]), _vm._v(" "), _c('a', {
+    }, [_vm._l((driver.haulers), function(hauler) {
+      return _c('span', [(hauler.length != 0) ? _c('span', [_c('a', {
+        staticClass: "dropdown-item",
+        attrs: {
+          "href": _vm.driver_link + driver.id + '/reassign'
+        }
+      }, [_vm._v("Reassign Truck")])]) : _vm._e()])
+    }), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.driver_link + 'lostCard/' + driver.id
@@ -36645,7 +36653,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": _vm.driver_link + driver.id + '/edit'
       }
-    }, [_vm._v("Edit")])]) : _vm._e()])]) : _vm._e(), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 0) ? _c('span', [_vm._m(2, true)]) : _vm._e(), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('i', {
+    }, [_vm._v("Edit")])]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 0) ? _c('span', [_vm._m(2, true)]) : _vm._e(), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('i', {
       staticClass: "fa fa-circle",
       staticStyle: {
         "color": "green"
