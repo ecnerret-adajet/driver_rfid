@@ -1,33 +1,9 @@
-      
-
-                {{--  @if(!Request::is('drivers/create'))
-                    <div class="form-group {{ $errors->has('clasification_list') ? ' has-danger' : '' }}">
-                        <div class="form-row">
-                            <div class="col-md-12">
-                            <label>Clasification</label>
-                            @if(count($driver->clasification) == 0)
-                            {{ Form::select('clasification_list', $clasifications, null, ['class' => 'form-control', 'placeholder' => 'Select Clasification']) }}
-                            @else
-                            {{ Form::select('clasification_list', $clasifications, null, ['class' => 'form-control select2-clasification', 'placeholder' => 'Select Clasification']) }}
-                            @endif
-                            @if ($errors->has('clasification_list'))
-                                <div class="form-control-feedback">
-                                    <small>
-                                    {{ $errors->first('clasification_list') }}
-                                    </small>
-                                </div>
-                            @endif
-                            </div> 
-                        </div>
-                    </div>
-                @endif  --}}
-                
 
                  <div class="form-row">
                      <div class="col-md-12">
                         <div class="form-group {{ $errors->has('avatar') ? ' has-danger' : '' }}">
                             <label for="exampleInputFile">Upload Photo</label>
-                            <input type="file" name="avatar" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+                            <input type="file" name="avatar" class="form-control-file filestyle"  data-size="sm" data-btnClass="btn-primary" data-buttonBefore="true" data-size="lg" id="exampleInputFile">
                             @if ($errors->has('avatar'))
                                 <div class="form-control-feedback">
                                     <small>
@@ -38,18 +14,6 @@
                         </div>
                     </div>
                 </div>
-
-                     {{--  <div class="image-editor">
-                        <input type="file" name="avatar" class="cropit-image-input">
-                        <div class="cropit-preview"></div>
-                        <div class="image-size-label">
-                            Resize image
-                        </div>
-                        <input type="range" class="cropit-image-zoom-input">
-                        <button class="rotate-ccw">Rotate counterclockwise</button>
-                        <button class="rotate-cw">Rotate clockwise</button>
-                    </div>  --}}
-
 
                 @if(!Request::is('drivers/create'))
                     <div class="form-group {{ $errors->has('availability') ? ' has-danger' : '' }}">
@@ -233,5 +197,6 @@
             placeholder: "Select Operator",
             allowClear: true,
         });
+        $(":file").filestyle({btnClass: "btn-primary", buttonBefore: true, size: "sm"});
     </script>
 @endsection

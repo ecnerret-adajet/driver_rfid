@@ -32,6 +32,7 @@ mix.styles([
         'resources/assets/js/input-mask/jquery.inputmask.js',
         'resources/assets/js/input-mask/jquery.inputmask.extensions.js',
         'resources/assets/js/lightbox.js',
+        'resources/assets/js/bootstrap-filestyle.min.js',
         // 'resources/assets/js/tether.min.js',
         // 'resources/assets/js/bootstrap.min.js',
         // 'resources/assets/js/popper/popper.min.js',

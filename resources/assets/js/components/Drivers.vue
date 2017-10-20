@@ -75,15 +75,14 @@
                                             <i class="fa fa-ellipsis-v"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="driverDropdown">
-                                                <a :href="driver_link + driver.id + '/reassign'" class="dropdown-item">Reassign</a>
+                                                <a :href="driver_link + driver.id + '/reassign'" class="dropdown-item">Reassign Truck</a>
+                                                <a :href="driver_link + 'lostCard/' + driver.id" class="dropdown-item">Reprint Card</a>
                                                 <span v-if="driver.availability == 1">
-                                                <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#driverModal-'+ driver.id">Deactivate</a>
+                                                <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#driverModal-'+ driver.id" style="color: red">Deactivate</a>
                                                 </span>
                                                 <span v-if="driver.availability == 0">
                                                 <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#driverModalActivate-'+ driver.id">Activate</a>
                                                 </span>
-                                                <a :href="driver_link + 'lostCard/' + driver.id" class="dropdown-item">Reprint Card</a>
-
                                                 <span v-if="user_role == 'Administrator'">
                                                     <a :href="driver_link + driver.id + '/edit'" class="dropdown-item">Edit</a>
                                                 </span>

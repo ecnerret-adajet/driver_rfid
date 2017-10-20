@@ -22,15 +22,59 @@ use DB;
 class TrucksController extends Controller
 {
 
+    /**
+     * 
+     *  Custom Function
+     * 
+     */
+
+     // return vendor from SAP server
+    public function versionVendorName($x)
+    {
+        $truck_vendors = collect($this->vendorSubvendor())->where('vendor_number', $x)->first();
+        return $truck_vendors;
+    }
+
+    // return array from SAP server
     public function vendorSubvendor()
     {
         $url = "http://10.96.4.39/trucking/rfc_get_vendor.php?server=lfug";
         $result = file_get_contents($url);
         $data = json_decode($result,true);
-
         return $data;
     }
 
+    // return haulers vendor number for edit method
+    public function vendorHauler($x) 
+    {
+        $hauler = Hauler::where('id',$x)->first();
+        return $hauler->vendor_number;
+    }
+
+    // returns hauler vendor number for edit method
+    public function truckHauler($x)
+    {
+        $truck = Truck::where('id',$x)->first();
+        foreach($truck->haulers as $hauler)
+        {
+            $hauler_name = $hauler->id;
+        }
+        return $hauler_name;
+    }
+
+    //returns hauler vendor number for edit method
+    public function subvendorHauler($x)
+    {
+        $hauler = Hauler::where('id',$x)->first();
+        return $hauler->vendor_number;
+    }
+
+    //return vendor name from hauler's table
+    public function haulerName($x)
+    {
+        $hauler = Hauler::where('id', $x)->first();
+        return $hauler->name;
+    }
 
     /**
      * Display a listing of the resource.
@@ -63,7 +107,7 @@ class TrucksController extends Controller
     public function create()
     {
 
-        $haulers = ['' => ''] + Hauler::pluck('name','name')->all();
+        $haulers = ['' => ''] + Hauler::pluck('name','id')->all();
 
         $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','id')->all();
         
@@ -104,7 +148,7 @@ class TrucksController extends Controller
             'validity_start_date' => 'required',
             'hauler_list' => 'required',
             'vendor_description' => 'required',
-            // 'base_list' => 'required',
+            'documents' => 'required',
             'plant_list' => 'required',
             'validity_start_date' => 'required|before:validity_end_date',
             'validity_end_date' => 'required',
@@ -119,8 +163,10 @@ class TrucksController extends Controller
         $capacity_id = $request->input('capacity_list');
 
         $truck = Truck::create($request->all());
+        if($request->hasFile('documents')){
+            $truck->documents = $request->file('documents')->store('trucks_docs');
+        }   
         $truck->contract_code = $request->input('contract_list');
-        // from haulers ID
         $truck->subvendor_description = $request->input('hauler_list');
         $truck->card()->associate($card_rfid);
         $truck->capacity()->associate($capacity_id);
@@ -152,28 +198,6 @@ class TrucksController extends Controller
         return view('trucks.show', compact('truck','versions','truck_vendors','truck_subvendors','subcon'));
     }
 
-    public function versionVendorName($x)
-    {
-        $truck_vendors = collect($this->vendorSubvendor())->where('vendor_number', $x)->first();
-        return $truck_vendors;
-    }
-
-    public function vendorHauler($x) 
-    {
-        $hauler = Hauler::where('vendor_number',$x)->first();
-        return $hauler->name;
-    }
-
-    public function truckHauler($x)
-    {
-        $truck = Truck::where('id',$x)->first();
-        foreach($truck->haulers as $hauler)
-        {
-            $hauler_name = $hauler->vendor_number;
-        }
-        return $hauler_name;
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -182,8 +206,8 @@ class TrucksController extends Controller
      */
     public function edit(Truck $truck)
     {
-        $haulers = ['' => ''] + Hauler::orderBy('vendor_number','ASC')->pluck('name','vendor_number')->all();
-        $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','vendor_number')->all();
+        $haulers = ['' => ''] + Hauler::orderBy('vendor_number','ASC')->pluck('name','id')->all();
+        $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','id')->all();
 
         if(!count($truck->drivers) == null) {
             foreach($truck->drivers as $driver) {
@@ -227,13 +251,10 @@ class TrucksController extends Controller
     // Transfer truck to 3PL
     public function transferHauler(Truck $truck) 
     {
-        // $subvendors = collect($this->vendorSubvendor())->where('vendor_number', '!=', '0000002000')->pluck('vendor_name','vendor_number');
-        // $vendors = collect($this->vendorSubvendor())->pluck('vendor_name','vendor_number');
-        $subcon = Hauler::all();
         $haulers = ['' => ''] + Hauler::pluck('name','id')->all();
         $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','id')->all();
         
-        return view('trucks.transfer', compact('haulers','haulers_subcon','truck','subcon'));
+        return view('trucks.transfer', compact('haulers','haulers_subcon','truck'));
     }
 
     // store tranfer truck to 3PL
@@ -245,7 +266,6 @@ class TrucksController extends Controller
             'validity_end_date' => 'required',
         ]);
 
-      
         $version = new Version;
         $version->truck_id = $truck->id;
         $version->user_id = Auth::user()->id;
@@ -262,13 +282,12 @@ class TrucksController extends Controller
         $hauler_name = Hauler::select('name')->where('id',$request->input('hauler_list'))->first();
     
         $truck->update($request->all());  
-        $truck->vendor_description = $hauler_name->name;
-        $truck->subvendor_description = '';
+        $truck->vendor_description = $request->input('vendor_description');
+        $truck->subvendor_description = $request->input('hauler_list');
         $truck->save();
-
-        $truck->haulers()->sync( (array) $request->input('hauler_list'));      
+        
+        $truck->haulers()->sync((array) $request->input('hauler_list'));      
             
-
         $activity = activity()
         ->log('Transferred to 3PL');
 
@@ -324,6 +343,9 @@ class TrucksController extends Controller
         $capacity_id = $request->input('capacity_list');
 
         $truck->update($request->all());
+        if($request->hasFile('documents')){
+            $truck->documents = $request->file('documents')->store('trucks_docs');
+        }
         $truck->contract_code = $request->input('contract_list');
         $truck->subvendor_description = $request->input('hauler_list');
         $truck->vendor_description = $request->input('vendor_description');

@@ -24,6 +24,7 @@ class Truck extends Model
         'subvendor_description',
         'validity_start_date',
         'validity_end_date',
+        'documents',
     ];
 
     protected static $logAttributes = [

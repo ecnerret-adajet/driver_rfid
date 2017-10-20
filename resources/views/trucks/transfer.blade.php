@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+@inject('search', 'App\Http\Controllers\TrucksController')
 
        
     <div class="card mx-aut mb-3">
@@ -33,28 +34,28 @@
                     <br/> 
                     <br/>
                     <span class="text-muted">DRIVER NAME:</span><br/>
-                        @foreach($truck->drivers as $driver)
+                        @forelse($truck->drivers as $driver)
                             {{$driver->name}}
-                        @endforeach
+                        @empty
+                            <em style="color: red">NO DRIVER</em>
+                        @endforelse
                     <br/>
                     <br/>
                     <span class="text-muted">VENDOR:</span><br/>
-                     @if($truck->vendor_description == null)
-                        @foreach($truck->haulers as $hauler)
-                                {{ $hauler->name }}
-                        @endforeach
-                    @else
-                        {{ $truck->vendor_description }}
-                    @endif
+                     {{ $search->haulerName($truck->vendor_description) }}
 
                 </div>
 
                 <div class="col-sm-4">
 
                     <span class="text-muted">SUBVENDOR:</span><br/>
-                        @foreach($subcon->where('id',$truck->subvendor_description)->take(1) as $x)
-                                {{ $x->name }}
+                        @if(!count($truck->haulers) == 0)
+                        @foreach($truck->haulers as $hauler)
+                            {{ $hauler->name }}
                         @endforeach
+                        @else
+                            {{ $search->haulerName($truck->subvendor_description) }}
+                        @endif
 
                     <br/>
                     <br/>

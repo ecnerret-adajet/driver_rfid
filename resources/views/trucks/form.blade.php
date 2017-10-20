@@ -32,10 +32,12 @@
                 </div>
             @endif
 
+            
+
             <div class="form-row">
                    <div class="col-md-12">
                         <div class="form-group {{ $errors->has('card_list') ? ' has-danger' : '' }}">
-                                <label for="selectCard">RFID Sticker {{ $cards->count() }}</label>
+                                <label for="selectCard">RFID Sticker</label>
                                 @if(!Request::is('trucks/create'))
                                     {!! Form::select('card_list', $cards, count($truck->card) == 0 ? 'null' : $truck->card->CardID, ['placeholder' => 'Select Deploy RFID',  'class' => 'form-control select2-card'] ) !!}
                                     @if(count($truck->drivers) == null)
@@ -80,7 +82,7 @@
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('capacity_list') ? ' has-danger' : '' }}">
                             <label>Capacity</label>
-                            {!! Form::select('capacity_list', $capacities, null, ['placeholder' => 'Select Capacity', 'class' => 'form-control select2-capacity'] ) !!}
+                            {!! Form::select('capacity_list', $capacities, $truck->capacity_id == null ? null : $truck->capacity_id, ['placeholder' => 'Select Capacity', 'class' => 'form-control select2-capacity'] ) !!}                           
                             @if ($errors->has('capacity_list'))
                                 <div class="form-control-feedback">
                                 <small>
@@ -134,9 +136,9 @@
                                     {!! Form::select('vendor_description', $haulers, null, ['placeholder' => 'Select Vendor','class' => 'form-control select2-vendor'] ) !!}
                                 @else
                                     @if($truck->vendor_description == null)
-                                    {!! Form::select('vendor_description', $haulers, '0000002000', ['placeholder' => 'Select Vendor','class' => 'form-control select2-vendor'] ) !!}
-                                    @else
-                                    {!! Form::select('vendor_description', $haulers, $search->vendorHauler($truck->vendor_description), ['placeholder' => 'Select Vendor','class' => 'form-control select2-vendor'] ) !!}
+                                        {!! Form::select('vendor_description', $haulers, '0000002000', ['placeholder' => 'Select Vendor','class' => 'form-control select2-vendor'] ) !!}
+                                    @else                                       
+                                        {!! Form::select('vendor_description', $haulers, $truck->vendor_description, ['placeholder' => 'Select Vendor','class' => 'form-control select2-vendor'] ) !!}
                                     @endif
                                 @endif
 
@@ -154,11 +156,16 @@
                                 <label>Subvendor Number</label>
                                  @if(Request::is('trucks/create'))
                                         {!! Form::select('hauler_list', $haulers_subcon, null, ['placeholder' => 'Select Subvendor', 'class' => 'form-control select2-subvendor'] ) !!}
-                                @else
-                                    @if($truck->subvendor_description == null)
-                                        {!! Form::select('hauler_list', $haulers_subcon, $search->truckhauler($truck->id), ['placeholder' => 'Select Subvendor', 'class' => 'form-control select2-subvendor'] ) !!}
-                                    @else
-                                        {!! Form::select('hauler_list', $haulers_subcon, $truck->subvendor_description, ['placeholder' => 'Select Subvendor', 'class' => 'form-control select2-subvendor'] ) !!}
+                                @else                                   
+                                    {!! Form::select('hauler_list', $haulers_subcon, $truck->subvendor_description, ['placeholder' => 'Select Subvendor', 'class' => 'form-control select2-subvendor'] ) !!}
+                                     @if($truck->subvendor_description == null)
+                                    <div class="form-control-feedback">
+                                        <small style="color: red">
+                                            <em>
+                                                NO HAULER ASSIGNED
+                                            </em>
+                                        </small>
+                                    </div>
                                     @endif
                                 @endif
                                 @if ($errors->has('hauler_list'))
@@ -168,6 +175,22 @@
                                         </small>
                                     </div>
                                 @endif
+                        </div>
+                    </div>
+                </div>
+
+                     <div class="form-row">
+                     <div class="col-md-12">
+                        <div class="form-group {{ $errors->has('documents') ? ' has-danger' : '' }}">
+                            <label for="exampleInputFile">Upload Documents</label>
+                            <input type="file" name="documents" class="form-control-file filestyle"  data-size="sm" data-btnClass="btn-primary" data-buttonBefore="true" data-size="lg" id="exampleInputFile">
+                            @if ($errors->has('documents'))
+                                <div class="form-control-feedback">
+                                    <small>
+                                    {{ $errors->first('documents') }}
+                                    </small>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

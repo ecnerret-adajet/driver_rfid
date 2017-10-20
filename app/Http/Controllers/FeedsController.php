@@ -143,7 +143,7 @@ class FeedsController extends Controller
          ->whereNotIn('CardholderID',$pickup_cards)
          ->where('CardholderID', '>=', 15)
          ->orderBy('LocalTime','DESC')
-         ->take(5)
+         ->take(50)
          ->get();
  
          $barrier_in = Log::where('DoorID',3)
