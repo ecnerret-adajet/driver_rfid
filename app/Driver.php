@@ -177,4 +177,14 @@ class Driver extends Model
         return $this->hasOne('App\Monitor');
     }
 
+    /**
+     * 
+     *  Driver version
+     * 
+     */
+    public function driverversion()
+    {
+        return $this->belongsTo('App\Driverversion');
+    }
+
 }

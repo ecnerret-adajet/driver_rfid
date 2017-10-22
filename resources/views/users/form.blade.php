@@ -31,6 +31,22 @@
     </div>
 </div>
 
+    <div class="form-row">
+        <div class="col-md-12">
+            <div class="form-group {{ $errors->has('phone_number') ? ' has-danger' : '' }}">
+            <label>Phone Number</label>
+            {{Form::text('phone_number', null, ['class' => 'form-control','placeholder' => 'Phone Number', "data-inputmask" => "'mask': '+63[9999999999]'", 'data-mask'])}}
+                @if ($errors->has('phone_number'))
+                    <div class="form-control-feedback">
+                            <small>
+                            {{ $errors->first('phone_number') }}
+                            </small>
+                        </div>
+                @endif
+            </div>
+        </div>
+    </div>
+
 
 <div class="form-row">
     <div class="col-md-6">
@@ -87,7 +103,10 @@
 
 <button type="submit"  class="btn btn-primary btn-block">Submit</button>
 
-    
-    
+@section('script')
+<script>
+ $("[data-mask]").inputmask();
+</script>
+@endsection
 
 

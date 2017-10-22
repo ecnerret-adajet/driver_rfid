@@ -26,9 +26,25 @@ use App\Log;
 use DB;
 use Image;
 use JavaScript;
+use Ixudra\Curl\Facades\Curl;
 
 class DriversController extends Controller
 {
+
+    /**
+     * 
+     *  Testing SMS to notify approvers
+     * 
+     */
+    public function sendSms($phone, $driver) 
+    {
+        foreach($driver->trucks as $truck) {
+            $plate = $truck->plate_number;
+        }
+        $message = $driver->name . ' is requesting for reassigning truck from '.$driver->driverversion->plate_number. ' to ' .$plate .'. Kindly replay "APPROVE" to confirm or "REJECT" to disapprove';
+        $response = Curl::to('http://10.96.2.20/sendsms?username=truckingsms&password=P@ssw0rd123&phonenumber='.$phone.'&message='.$message)->get();
+        return $response;
+    }
 
     public function vendorSubvendor()
     {
@@ -71,7 +87,7 @@ class DriversController extends Controller
                     ->where('CardholderID','!=', 0)
                     ->get()
                     ->pluck('deploy_number','CardID');
-                
+
         return view('drivers.create',compact('clasifications','trucks','cards','haulers'));
     }
 
@@ -84,7 +100,7 @@ class DriversController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'avatar' => 'required|image|mimes:jpeg,png,jpg|size:2048',
+            'avatar' => 'required|image|mimes:jpeg,png,jpg',
             'name' => 'required|max:255|unique:drivers',
             'card_list' => 'required',
             'truck_list' => 'required',
@@ -295,8 +311,9 @@ class DriversController extends Controller
 
         //send email to supervisor for approval
         $setting = Setting::first();
-        Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmReassign($driver));
+        // Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmReassign($driver));
 
+        $this->sendSms($setting->user->phone_number, $driver);
         
         flashy()->success('Driver has successfully Reassigned!');
         return redirect('drivers');

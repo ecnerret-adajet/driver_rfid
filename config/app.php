@@ -175,6 +175,7 @@ return [
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
         MercurySeries\Flashy\FlashyServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Ixudra\Curl\CurlServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -240,6 +241,7 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Flashy' => MercurySeries\Flashy\Flashy::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Curl' => Ixudra\Curl\Facades\Curl::class,
 
     ],
 
