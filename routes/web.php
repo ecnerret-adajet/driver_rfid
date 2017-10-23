@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('home');
 })->middleware('auth');
 
-Route::get('/reassignApproval','SmsController@receiveReassign');
+// Route::get('/reassignApproval','SmsController@receiveReassign');
 
 Route::get('/barrier','FeedsController@barrier');
 Route::get('/barrier-content','FeedsController@barrierContent');

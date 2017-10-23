@@ -50,7 +50,10 @@
                                             <br/>
                                             <span v-for="(hauler, index) in driver.haulers">
                                                 <span v-if="index == 0">
-                                                    {{ hauler.name }} <br/>
+                                                    {{ hauler.name }} 
+                                                    <span v-if="hauler.name == null">
+                                                        NO HAULER ASSIGNED
+                                                    </span>
                                                 </span>
                                             </span>
                                         </div>
@@ -77,9 +80,11 @@
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="driverDropdown">
 
                                                  <span v-for="hauler in driver.haulers">
-                                                     <span v-if="hauler.length != 0">
-                                                    <a :href="driver_link + driver.id + '/reassign'" class="dropdown-item">Reassign Truck</a>
-                                                     </span>
+                                                    <span v-for="truck in driver.trucks">
+                                                        <span v-if="hauler.length != 0 || truck.length != 0">
+                                                            <a :href="driver_link + driver.id + '/reassign'" class="dropdown-item">Reassign Truck</a>
+                                                        </span>
+                                                    </span>
                                                  </span> 
 
                                                 <a :href="driver_link + 'lostCard/' + driver.id" class="dropdown-item">Reprint Card</a>
