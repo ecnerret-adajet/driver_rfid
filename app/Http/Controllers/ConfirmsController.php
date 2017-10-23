@@ -11,6 +11,8 @@ use App\Driver;
 use App\Confirm;
 use App\User;
 use App\Card;
+use App\Truck;
+use App\Driverversion;
 
 class ConfirmsController extends Controller
 {
@@ -46,7 +48,14 @@ class ConfirmsController extends Controller
     public function create($id, $plate)
     {   
         $driver = Driver::findOrFail($id);
-        return view('confirms.create', compact('id','driver','plate'));
+        
+        $from = Driverversion::where('driver_id',$driver->id)->orderBy('id','DESC')->first();
+        
+        $to = Truck::whereHas('drivers', function($q) use ($driver){
+            $q->where('id',$driver->id);
+        })->first();
+        
+        return view('confirms.create', compact('id','driver','plate','from','to'));
     }
 
     /**
