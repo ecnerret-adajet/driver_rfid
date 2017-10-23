@@ -36,13 +36,17 @@ class DriversController extends Controller
      *  Testing SMS to notify approvers
      * 
      */
-    public function sendSms($phone, $driver) 
+    public function sendSms($driver) 
     {
-        foreach($driver->trucks as $truck) {
-            $plate = $truck->plate_number;
-        }
-        $message = $driver->name . ' is requesting for reassigning truck from '.$driver->driverversion->plate_number. ' to ' .$plate .'. Kindly replay "APPROVE" to confirm or "REJECT" to disapprove';
-        $response = Curl::to('http://10.96.2.20/sendsms?username=truckingsms&password=P@ssw0rd123&phonenumber='.$phone.'&message='.$message)->get();
+        $to = Truck::whereHas('drivers', function($q) use ($driver) {
+            $q->where('id',$driver->id);
+        })->first();
+
+        $from = Driverversion::where('driver_id',$driver->id)->orderBy('id','DESC')->first();
+
+        $message = urlencode(mb_convert_encoding('Driver Reassign: '.$driver->id.' Driver Name: '.$driver->name.' from '.$from.' to '.$to.'. [Ref Id] APPROVE or REJECT to submit.','utf-8','gb2312'));
+        $response = Curl::to('http://10.96.2.20/sendsms?username=truckingsms&password=P@ssw0rd123&phonenumber=09175699879&message='.$message)->get();
+        
         return $response;
     }
 
@@ -144,8 +148,8 @@ class DriversController extends Controller
             $driver->haulers()->attach($drivers_truck); 
             
             //send email to supervisor for approval
-            $setting = Setting::first();
-            Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmDriver($driver));
+            // $setting = Setting::first();
+            // Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmDriver($driver));
   
         flashy()->success('Driver has successfully created!');
         return redirect('drivers');
@@ -187,6 +191,8 @@ class DriversController extends Controller
                 $x = $hauler->id;
             }
         }
+
+   
     
         $clasifications = Clasification::pluck('name','id');
 
@@ -220,7 +226,6 @@ class DriversController extends Controller
                     ->where('CardholderID','!=', 0)
                     ->get()
                     ->pluck('deploy_number','CardID');
-
 
         return view('drivers.edit',compact(
             'driver',
@@ -311,9 +316,9 @@ class DriversController extends Controller
 
         //send email to supervisor for approval
         $setting = Setting::first();
-        // Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmReassign($driver));
+        Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmReassign($driver));
 
-        $this->sendSms($setting->user->phone_number, $driver);
+        // $this->sendSms($driver);
         
         flashy()->success('Driver has successfully Reassigned!');
         return redirect('drivers');

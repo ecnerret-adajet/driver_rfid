@@ -1,6 +1,5 @@
 <?php
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +15,8 @@ Route::get('/', function () {
     return view('home');
 })->middleware('auth');
 
+Route::get('/reassignApproval','SmsController@receiveReassign');
+
 Route::get('/barrier','FeedsController@barrier');
 Route::get('/barrier-content','FeedsController@barrierContent');
 
@@ -28,8 +29,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/logs','LogsController@index');
 Route::get('/entriesIn','LogsController@entriesIn');
 Route::get('/entriesOut','LogsController@entriesOut');
-
-
 
 Route::get('/prints','PrintController@index');
 Route::get('/forPrint','PrintController@getForPrint');
@@ -44,15 +43,12 @@ Route::post('/drivers/activate/{id}','DriversController@activateRfid');
 Route::get('/drivers/lostCard/{id}','DriversController@lostCardCreate');
 Route::patch('/drivers/lostCard/{id}','DriversController@lostCardStore');
 
-
 Route::resource('/trucks','TrucksController');
 Route::get('/trucks/{truck}/transfer','TrucksController@transferHauler');
 Route::patch('/transfer/{truck}',[  'as' => 'transfer.update' ,'uses' => 'TrucksController@updateTransferHauler']);
 Route::get('/exportTrucks','TrucksController@exportTrucks');
 Route::post('/trucks/deactivate/{id}','TrucksController@deactivateTruck');
 Route::post('/trucks/remove/{id}','TrucksController@removeDriver');
-
-
 
 Route::resource('/haulers','HaulersController');
 

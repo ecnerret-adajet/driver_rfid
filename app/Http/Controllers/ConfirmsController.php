@@ -84,6 +84,7 @@ class ConfirmsController extends Controller
             $driver->notif_status = 1;
             $driver->availability = 1;
 
+            // Activating Card form ASManager
             if(!empty($driver->card_id)) {
                 $card = Card::where('CardID',$driver->card_id)->first();
                 $card->CardStatus = 0; 

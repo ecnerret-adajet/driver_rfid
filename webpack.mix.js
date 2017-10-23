@@ -23,6 +23,7 @@ mix.styles([
         'resources/assets/css/font-awesome.min.css',
         'resources/assets/css/sb-admin.min.css',
         'public/css/style.css',
+        'node_modules/croppie/croppie.css',
     ], 'public/css/all.css')
     .js([
         'resources/assets/js/app.js',
@@ -33,6 +34,7 @@ mix.styles([
         'resources/assets/js/input-mask/jquery.inputmask.extensions.js',
         'resources/assets/js/lightbox.js',
         'resources/assets/js/bootstrap-filestyle.min.js',
+        'node_modules/croppie/croppie.js',
         // 'resources/assets/js/tether.min.js',
         // 'resources/assets/js/bootstrap.min.js',
         // 'resources/assets/js/popper/popper.min.js',
