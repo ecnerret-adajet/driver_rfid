@@ -11,7 +11,7 @@
 
    <div class="card mx-auto mt-3">
         <div class="card-header">
-            Truck Entries 
+            Truckscale Entries 
         </div>
         <div class="card-body">
 

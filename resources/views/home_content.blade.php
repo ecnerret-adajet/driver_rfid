@@ -88,7 +88,7 @@
 
                     </div>
                     <div class="col-sm-3 right">
-                        <small class="text-muted">SHIP IN:</small></br>
+                        <small class="text-muted">TRUCKSCALE IN:</small></br>
                         <?php $final_in = ''; ?>
                         @forelse($all_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
                             <span> {{ $final_in = date('m/d/y h:i:s A', strtotime($in->LocalTime))}} </span>
@@ -100,7 +100,7 @@
                             @endforelse  
                         @endforelse
                         <br/>
-                         <small class="text-muted">SHIP OUT:</small></br>
+                         <small class="text-muted">TRUCKSCALE OUT:</small></br>
                           <?php $final_out = ''; ?>                                     
                         @forelse($all_out->where('CardholderID', '==', $result->CardholderID)->take(1) as $out)
                         <span> {{ $final_out = date('m/d/y h:i:s A', strtotime($out->LocalTime))}} </span>

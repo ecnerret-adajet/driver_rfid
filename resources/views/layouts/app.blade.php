@@ -199,7 +199,7 @@
             <a class="nav-link" href="{{url('/feed')}}">
                <i class="fa fa-fw fa-file"></i>
               <span class="nav-link-text">
-                Ship Entries</span>
+                Truckscale Entries</span>
             </a>
           </li>
 
