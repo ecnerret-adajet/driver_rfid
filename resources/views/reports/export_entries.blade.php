@@ -67,7 +67,7 @@
                                     @if($value == 0)
                                             @if(empty($trip->monitors()->count()))
                                             <td class="no-trip">
-                                            NO REPORT 
+                                             HAS TRIP 
                                             </td>
                                             @else
 
@@ -87,7 +87,7 @@
                                                 </td>
                                             @empty
                                                 <td class="no-trip">
-                                                    NO REPORT 
+                                                    NO TRIP 
                                                       
                                                 </td>
                                             @endforelse
