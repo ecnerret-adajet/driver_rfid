@@ -31,6 +31,7 @@ Vue.component('vendor', require('./components/Vendor.vue'));
 Vue.component('driverdetails', require('./components/DriverDetails.vue'));
 Vue.component('handlers', require('./components/Handlers.vue'));
 Vue.component('lineup', require('./components/Lineup.vue'));
+Vue.component('Graph', require('./components/Graph.vue'));
 
 
 const app = new Vue({

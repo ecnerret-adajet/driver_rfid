@@ -136,6 +136,7 @@ class DriversController extends Controller
             $driver->name = strtoupper($request->input('name'));
             $driver->print_status = 1;
             $driver->availability = 0;
+            $driver->notif_status = 1;
             $driver->card()->associate($card_rfid);
             $driver->cardholder()->associate($driver->card->CardholderID);
             $driver->save();
@@ -148,8 +149,8 @@ class DriversController extends Controller
             $driver->haulers()->attach($drivers_truck); 
             
             //send email to supervisor for approval
-            // $setting = Setting::first();
-            // Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmDriver($driver));
+            $setting = Setting::first();
+            Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmDriver($driver));
   
         flashy()->success('Driver has successfully created!');
         return redirect('drivers');
@@ -294,7 +295,7 @@ class DriversController extends Controller
         
         $driver->update($request->all());
         $driver->availability = 0;
-        $driver->notif_status = 0;
+        $driver->notif_status = 1;
 
         // Deactivating RFID card from ASManager itself
         if(!empty($driver->card_id)) {

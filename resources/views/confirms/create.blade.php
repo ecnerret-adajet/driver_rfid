@@ -13,11 +13,13 @@
             <div class="row">
                 <div class="col-sm-12">
                 
-                    @if ($driver->notif_status != 1)
+                    @if ($driver->notif_status == 1)
 
-                        @if ($driver->notif_status == 0 && $driver->availability == 0 && $driver->print_status == 1)
+                        @if($driver->notif_status == 1 && $driver->availability == 0 && $driver->print_status == 1)
                             @include('confirms.new')         
-                        @else 
+                        @endif 
+
+                         @if($driver->notif_status == 1 && $driver->availability == 0 && $driver->print_status == 0)
                             @include('confirms.reassign') 
                         @endif           
 

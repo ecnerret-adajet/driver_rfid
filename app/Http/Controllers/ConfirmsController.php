@@ -78,8 +78,12 @@ class ConfirmsController extends Controller
         $confirm->driver()->associate($id);
         $confirm->user()->associate(Auth::user()->id);
 
-        if($driver->availability == 0 && $driver->print_status == 1 && $driver->notif_status == 0) {
+        if($driver->availability == 0 && $driver->print_status == 1 && $driver->notif_status == 1) {
             $confirm->classification = 'New Driver';
+        }
+
+        if($driver->availability == 0 && $driver->print_status == 0 && $driver->notif_status == 1) {
+            $confirm->classification = 'Reassigned Driver';
         }
 
         if($driver->created_at != $driver->updated_at) {
@@ -90,7 +94,7 @@ class ConfirmsController extends Controller
 
         if($confirm->status == 'Approve') {
 
-            $driver->notif_status = 1;
+            $driver->notif_status = 0;
             $driver->availability = 1;
 
             // Activating Card form ASManager

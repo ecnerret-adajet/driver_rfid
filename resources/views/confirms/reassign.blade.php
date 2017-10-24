@@ -7,20 +7,17 @@
                                         <img class="img-responsive" style="height: 150px; width: auto; display:block; margin: 10px auto;" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}" align="middle">
                                     </td>
                                 </tr>
-                                  <tr>
-                                        <td colspan="2">
-
-                                        <small class="text-muted">DRIVER NAME:</small><br/>
-                                            {{ $driver->name }}
-                                            </td>
-                                    </tr>
                                     <tr>
+                                        <td>
+                                            <small class="text-muted">DRIVER NAME:</small><br/>
+                                            {{ $driver->name }}
+                                        </td>
                                         <td>
                                             <small class="text-muted">HAULER NAME:</small><br/>
                                             @foreach($driver->haulers as $hauler)
                                             {{ $hauler->name }}
                                             @endforeach
-                                        <td>
+                                        </td>
                                     </tr>
                                      <tr>
                                         <td width="50%">

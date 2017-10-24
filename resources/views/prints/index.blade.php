@@ -5,7 +5,7 @@
 
    <div class="card mx-auto">
         <div class="card-header">
-        RFID Cards for Approval 
+        For Approval Drivers
 
         <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
         Back

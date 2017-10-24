@@ -26,8 +26,15 @@ class PrintController extends Controller
 
     public function index()
     {
-        $print = Driver::orderBy('updated_at','DESC')->where('print_status',1)
+        /**
+         *  Check for new or reassign drivers for approval
+         * 
+         */
+        $print = Driver::orderBy('id','DESC')
+                ->where('print_status',1)
+                ->orWhere('notif_status',1)
                 ->with(['haulers','trucks','clasification','user','confirms'])->get();
+                
         return view('prints.index', compact('print'));
     }
 

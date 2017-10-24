@@ -73,7 +73,7 @@
                                         <div class="col-sm-3 pull-right right">
                                         
 
-                                         <span v-if="driver.availability == 1 || driver.print_status == 1 && driver.notif_status == 1">
+                                         <span v-if="driver.availability == 1 || driver.print_status == 1 && driver.notif_status == 0">
                                           <a class="dropdown pull-right btn btn-outline-secondary" href="#" id="driverDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fa fa-ellipsis-v"></i>
                                             </a>
@@ -100,7 +100,7 @@
 
                                             </div><!-- end dropdown -->
                                         </span>
-                                        <span v-if="driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 0">
+                                        <span v-if="driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1">
                                               <div class="btn-group pull-right" role="group" aria-label="Basic example">
                                                 <button class="btn btn-outline-danger btn-sm disabled">INACTIVE</button>
                                             </div>
