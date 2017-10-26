@@ -166,6 +166,7 @@ Route::get('/feed-content','FeedsController@feedContent');
 Route::get('/home-content','FeedsController@homeFeed');
 // Route::get('/barrier','FeedsController@barrier');
 // Route::get('/barrier-content','FeedsController@barrierContent');
+// Route::get('/pass-content','FeedsController@driverPass');
 
 //lineups route setup
 Route::get('/lineupJson','LineupsController@lineupJson');
@@ -177,6 +178,8 @@ Route::post('/lineups/{log}','LineupsController@store');
 Route::get('/lineups/approval/{id}','LineupsController@hustlingApproval');
 Route::post('/lineups/approval/{id}','LineupsController@hustlingApprovalStore');
 
+// Routes for driver's passes
+Route::post('/passes/{driver}/{log}', 'PassesController@store');
 
 //activies logs
 Route::get('/activities','ActivitiesController@index');
@@ -186,6 +189,22 @@ Route::get('/generateActivities','ActivitiesController@generateActivities');
 Route::resource('/handlers','handlerMappingsController');
 Route::get('/handlerJson','handlerMappingsController@getHandlerJson');
 
+/**
+ *  Generate Analytics JSON results
+ */
+
+ Route::get('/analytics','AnalyticsController@index');
+ Route::get('/driverandtrucks','AnalyticsController@driversVsTrucks');
+
+ /**
+  *
+  * Route setup for dates entries for analytics reports 
+  *
+  */
+Route::get('/dailyEntries','AnalyticsController@dailyEntries');
+Route::get('/weeklyEntries','AnalyticsController@weeklyEntries');
+Route::get('/monthlyEntries','AnalyticsController@monthlyEntries');
+Route::get('/topHaulers','AnalyticsController@topHaulers');
 
 });
 

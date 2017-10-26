@@ -18,6 +18,7 @@
         "vuejs-paginator-axios": "^2.0.1"
     },
     "dependencies": {
+        "chart.js": "^2.7.0",
         "croppie": "^2.5.1",
         "materialize-css": "^0.100.0",
         "moment": "^2.18.1",

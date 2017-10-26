@@ -31,7 +31,9 @@ Vue.component('vendor', require('./components/Vendor.vue'));
 Vue.component('driverdetails', require('./components/DriverDetails.vue'));
 Vue.component('handlers', require('./components/Handlers.vue'));
 Vue.component('lineup', require('./components/Lineup.vue'));
-Vue.component('Graph', require('./components/Graph.vue'));
+Vue.component('graph', require('./components/Graph.vue'));
+Vue.component('dates', require('./components/Dateentries.vue'));
+Vue.component('top', require('./components/Tophauler.vue'));
 
 
 const app = new Vue({
