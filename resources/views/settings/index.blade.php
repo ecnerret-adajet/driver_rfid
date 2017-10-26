@@ -43,7 +43,7 @@
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-12">
-                            <label>Admin's Email</label>                            
+                            <label>Printing Email</label>                            
                         
                             <select class="form-control" disabled>
                                 <option value="0" selected="selected">{{ $setting->user->name }}</option>
@@ -59,7 +59,7 @@
 
         @endforeach
 
-        @foreach($settings->where('id',3) as $setting)
+        {{--  @foreach($settings->where('id',3) as $setting)
 
                 <form class="mb-3">
 
@@ -80,7 +80,7 @@
 
                 </form>
 
-        @endforeach
+        @endforeach  --}}
 
            
 

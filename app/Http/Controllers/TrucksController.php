@@ -112,10 +112,13 @@ class TrucksController extends Controller
         $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','id')->all();
         
         $driver_card = Driver::select('cardholder_id')->where('availability',1)->get();
+        $truck_card = Truck::select('card_id')->whereNotNull('card_id')->get();
+
 
         $cards = Card::select(DB::raw("CONCAT(CardNo,' - RFID Number ', CardholderID) AS deploy_number"),'CardID')
                     ->orderBy('CardholderID','DESC')
                     ->whereNotIn('CardholderID',$driver_card)
+                    // ->whereNotIn('CardID',$truck_card)
                     ->where('AccessgroupID', 2) // sticker type
                     ->where('CardholderID','>=', 15)
                     ->get()

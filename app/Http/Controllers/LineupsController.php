@@ -14,6 +14,8 @@ use App\Driver;
 use App\Setting;
 use App\User;
 use DB;
+use App\Cardholder;
+use App\Pass;
 
 class LineupsController extends Controller
 {
@@ -24,7 +26,32 @@ class LineupsController extends Controller
      */
     public function index()
     {
-        
+
+        $pickup_cards = Cardholder::select('CardholderID')
+        ->where('Name', 'LIKE', '%Pickup%')
+        ->get();
+
+         // return logs from barrier
+         $barriers = Log::whereIn('DoorID',[3])
+         ->whereNotIn('CardholderID',$pickup_cards)
+         ->where('CardholderID', '>=', 15)
+         ->orderBy('LocalTime','DESC')
+         ->whereDate('LocalTime', '>=', Carbon::now()) // for a day
+         ->take(20)
+         ->get();
+ 
+         $barrier_in = Log::where('DoorID',3)
+         ->where('CardholderID', '>=', 15)
+         ->where('Direction', 1)
+         ->orderBy('LocalTime','DESC')->get();
+ 
+         $barrier_out = Log::where('DoorID',3)
+         ->where('CardholderID', '>=', 15)
+         ->where('Direction', 2)
+         ->orderBy('LocalTime','DESC')->get();
+
+         $barrier_unique = $barriers->unique('CardholderID');
+
         $result_lineups = Log::with(['drivers','drivers.trucks','drivers.haulers'])
         ->where('ControllerID',1)
         ->where('DoorID',0)
@@ -34,10 +61,21 @@ class LineupsController extends Controller
 
         $log_lineups = $result_lineups->unique('CardholderID');
 
+        $passes = Pass::with('log')->get();
+
         $lineups = Lineup::all();
+
         
-        return view('lineups.index', compact('log_lineups','lineups'));
+        return view('lineups.index', compact('log_lineups','lineups','barrier_unique','barrier_in','barrier_out','passes'));
     }
+
+    public function checkDriver($log)
+    {
+        $pass = Pass::where('LogID',$log)->first();
+        return $pass;
+    }
+
+
 
     /**
      * Check truck last trip in DR Fastpay
@@ -60,6 +98,24 @@ class LineupsController extends Controller
         return $last_trip_plate_number;
     }
 
+    public function checkSubmissionDate($plate_number)
+    {
+        $x = str_replace('-',' ',$plate_number);
+        $last_trip = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$x','deploy')");
+        
+        if(!empty($last_trip)) {
+            foreach($last_trip as $trip) {
+                $submission = $trip->submission_date;                
+            }
+        } else {
+            $submission = 'UNPROCESS';
+        }
+
+        return $submission;
+    }
+
+
+
     /**
     *
     *
@@ -76,6 +132,42 @@ class LineupsController extends Controller
         $start_date = $request->get('start_date');
         $end_date = $request->get('end_date');
 
+        $pickup_cards = Cardholder::select('CardholderID')
+        ->where('Name', 'LIKE', '%Pickup%')
+        ->get();
+
+         // return logs from barrier
+         $barriers = Log::whereIn('DoorID',[3])
+         ->whereNotIn('CardholderID',$pickup_cards)
+         ->where('CardholderID', '>=', 15)
+         ->orderBy('LocalTime','DESC')
+         ->whereDate('LocalTime', '>=', Carbon::now()) // for a day
+         ->take(20)
+         ->get();
+ 
+         $barrier_in = Log::where('DoorID',3)
+         ->where('CardholderID', '>=', 15)
+         ->where('Direction', 1)
+         ->orderBy('LocalTime','DESC')->get();
+ 
+         $barrier_out = Log::where('DoorID',3)
+         ->where('CardholderID', '>=', 15)
+         ->where('Direction', 2)
+         ->orderBy('LocalTime','DESC')->get();
+
+         $barrier_unique = $barriers->unique('CardholderID');
+
+        $result_lineups = Log::with(['drivers','drivers.trucks','drivers.haulers'])
+        ->where('ControllerID',1)
+        ->where('DoorID',0)
+        ->where('CardholderID', '>=', 15)
+        ->where('LocalTime', '>=', Carbon::now())
+        ->orderBy('LogID','DESC')->get();
+
+        $log_lineups = $result_lineups->unique('CardholderID');
+
+        $passes = Pass::with('log')->get();
+
         $lineups = Lineup::all();
 
         $result_lineups = Log::with(['drivers','drivers.trucks','drivers.haulers'])
@@ -87,7 +179,7 @@ class LineupsController extends Controller
 
         $log_lineups = $result_lineups->unique('CardholderID');
 
-        return view('lineups.index', compact('log_lineups','lineups'));
+        return view('lineups.index', compact('log_lineups','lineups','barrier_unique','barrier_in','barrier_out','passes'));
     }
 
     public function lineupJson()

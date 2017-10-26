@@ -66,9 +66,9 @@
                                             COUNT LOGS: <strong> {{ driver.cardholder.logs.length == null ? '0' : driver.cardholder.logs.length }} </strong>
                                             </span>
                                             <br/>
-                                            <span>
+                                            <!-- <span>
                                             COUNT UPDATE: <strong> {{ driver.update_count == null ? 0 : driver.update_count  }} </strong>
-                                            </span>
+                                            </span> -->
                                         </div>
                                         <div class="col-sm-3 pull-right right">
                                         

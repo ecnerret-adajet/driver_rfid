@@ -148,4 +148,19 @@ class Truck extends Model
     {
         return $this->plants()->pluck('id')->all();
     }
+
+    /**
+     * 
+     *  Get all truck for current month
+     *
+     */
+    public function scopeThisMonth($query)
+    {
+        return $query->whereMonth('created_at', Carbon::now()->month);
+    }
+
+    public function scopeThisWeek($query)
+    {
+        return $query->whereBetween('created_at', [Carbon::now()->startOfWeek()->toDateString(), Carbon::now()->endOfWeek()->toDateString()]);
+    }
 }

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+@inject('search', 'App\Http\Controllers\PickupsController')
 
 
    <div class="card mx-auto mb-3">
@@ -98,15 +99,20 @@
 
                                     <td>
 
-                                        @forelse(App\Log::pickupIn($pick->cardholder_id, $pick->created_at)->get() as $logIn)
+                                        {{--  @forelse(App\Log::pickupIn($pick->cardholder_id, $pick->created_at)->get() as $logIn)
                                             {{ $pick_in = date('m/d/y h:i:s A',strtotime($logIn->LocalTime))}}<br/>
                                         @empty
                                             NO IN
-                                        @endforelse
+                                        @endforelse  --}}
+                                     
+
+                                        @foreach($search->getTruckscaleIn($pick->cardholder_id, $pick->created_at) as $pick_in )
+                                            {{ $pickin = date('m/d/y h:i:s A',strtotime($pick_in->LocalTime))}}<br/>
+                                        @endforeach
 
                                     </td>
                                     <td>
-                                        @forelse(App\Log::pickupOut($pick->cardholder_id, $pick->created_at)->get() as $logOut)
+                                        {{--  @forelse(App\Log::pickupOut($pick->cardholder_id, $pick->created_at)->get() as $logOut)
 
                                         @forelse(App\Log::pickupIn($pick->cardholder_id, $pick->created_at)->get() as $logIn)
 
@@ -121,10 +127,17 @@
                                         @endforelse
                                         @empty
                                                 NO OUT
-                                        @endforelse
+                                        @endforelse  --}}
+
+                                        @foreach($search->getTruckscaleOut($pick->cardholder_id, $pick->created_at) as $pick_in )
+                                            {{ $pickout = date('m/d/y h:i:s A',strtotime($pick_in->LocalTime))}}<br/>
+                                        @endforeach
+
+                                        
+
                                     </td>
                                     <td>
-                                        @forelse(App\Log::pickupOut($pick->cardholder_id, $pick->created_at)->get() as $logOut)
+                                        {{--  @forelse(App\Log::pickupOut($pick->cardholder_id, $pick->created_at)->get() as $logOut)
 
                                         @forelse(App\Log::pickupIn($pick->cardholder_id, $pick->created_at)->get() as $logIn)
 
@@ -139,7 +152,13 @@
                                         @endforelse
                                         @empty
                                                 N/A
-                                        @endforelse
+                                        @endforelse  --}}
+
+                                         @foreach($search->getTruckscaleIn($pick->cardholder_id, $pick->created_at) as $pick_in )
+                                            @foreach($search->getTruckscaleOut($pick->cardholder_id, $pick->created_at) as $pick_out )
+                                             {{  $pick_in->LocalTime->diffInHours($pick_out->LocalTime)}} Hour(s)
+                                            @endforeach
+                                        @endforeach
 
                                     </td>
                                     <td>                             

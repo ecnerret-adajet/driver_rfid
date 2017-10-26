@@ -5,7 +5,7 @@
 
    <div class="card mx-auto">
         <div class="card-header">
-        For Approval Drivers
+        Driver for approval
 
         <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
         Back

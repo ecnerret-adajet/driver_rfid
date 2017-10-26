@@ -7,7 +7,7 @@
             DRIVER'S INFORMATION
         </div>
         <div class="col-sm-3 text-center text-muted">
-            SHIPMENT IN/OUT
+            TRUCSCALE IN/OUT
         </div>
         <div class="col-sm-3 text-center text-muted">
            PLANT IN/OUT
@@ -48,8 +48,9 @@
                         @endforeach 
                         <br/>
 
-                      @foreach($result->customers as $customer)
-                            {{  str_limit(title_case($customer->address),35) }}<br/>
+                        <!-- show all customer-->
+                        @foreach($result->customers as $customer)
+                            {{  str_limit(title_case($customer->name),35) }}<br/>
                         @endforeach
 
 

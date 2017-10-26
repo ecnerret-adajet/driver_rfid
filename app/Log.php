@@ -46,6 +46,11 @@ class Log extends Model
         return $this->hasMany('App\Customer','log_ID','LogID');
     }
 
+    public function passes()
+    {
+        return $this->hasMany('App\Pass','LogID','LogID');
+    }
+
     public function monitors()
     {
         return $this->hasMany('App\Monitor','log_ID','LogID');

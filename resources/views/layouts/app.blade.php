@@ -154,9 +154,9 @@
                <li class="{{ (Request::is('activities') || Request::is('generateActivities')) ? 'active' : '' }}">
                 <a href="{{url('/activities')}}">System Logs</a>
               </li>
-              <li class="{{ (Request::is('handlers') || Request::is('handlers/*')) ? 'active' : '' }}">
+              {{--  <li class="{{ (Request::is('handlers') || Request::is('handlers/*')) ? 'active' : '' }}">
                 <a href="{{url('/handlers')}}">Hauler Mapping</a>
-              </li>
+              </li>  --}}
             </ul>
           </li>
 
@@ -167,6 +167,7 @@
 
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reports">
             <a class="nav-link nav-link-collapse {{ (Request::is('prints') || 
+                                                     Request::is('analytics') ||
                                                      Request::is('entries') ||
                                                      Request::is('generateEntries*') ||
                                                      Request::is('monitors/*'))  ? '' : 'collapsed' }}" data-toggle="collapse" href="#collapseReports" data-parent="#exampleAccordion">
@@ -175,9 +176,15 @@
                 Reports</span>
             </a>
             <ul class="sidenav-second-level {{ (Request::is('prints') || 
+                                                     Request::is('analytics') ||
                                                      Request::is('entries') ||
                                                      Request::is('generateEntries*') ||
                                                      Request::is('monitors/*')) ? '' : 'collapse' }}" id="collapseReports">
+
+              <li class=" {{ (Request::is('analytics')) ? 'active' : '' }}">
+                <a href="{{url('/analytics')}}">Status Report</a>
+              </li>
+
               <li class="{{ (Request::is('prints')) ? 'active' : '' }}">
                 <a href="{{url('/prints')}}">Drivers Approval</a>
               </li>
@@ -188,6 +195,7 @@
                                 ) ? 'active' : '' }}">
                 <a href="{{url('/entries')}}">Vehicle Entries Report</a>
               </li>
+          
             </ul>
           </li>
 

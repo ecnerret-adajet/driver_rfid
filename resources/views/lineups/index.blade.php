@@ -1,5 +1,14 @@
 @extends('layouts.app')
-
+@section('top-script')
+    <script>
+   
+        setInterval(function(){
+        $('#realtimeFeed').load('{{ config('app.url') }}/driver_rfid/public/pass-content');
+        $('#wait').hide();     
+        }, 2000);
+            
+    </script>
+@endsection
 @section('content')
 @inject('drfp', 'App\Http\Controllers\LineupsController') 
 
@@ -17,7 +26,20 @@
 
             <lineup></lineup>
 
+            <div class="row">
+                <div class="col-sm-12">
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Queues</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Driver Pass</a>
+                </li>
             
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                           
                 <div class="row mb-3">
                 <div class="col-sm-12">
                      {{ Form::open(array('url' => '/generateLineups', 'method' => 'get')) }}
@@ -62,6 +84,9 @@
                 </div>             
              </div>
 
+
+
+
             <div class="row">
                 <div class="col-sm-12">
 
@@ -74,6 +99,7 @@
                                     <th>Plate Number</th>
                                     <th>Hauler</th>
                                     <th>Date/Time</th>
+                                    <th>Submission Date</th>
                                     <th>Option</th>
                                 </tr>
                             </thead>
@@ -104,6 +130,12 @@
                                             </td>
 
                                             <td>
+                                                 @foreach($driver->trucks as $truck)
+                                                   {{ $drfp->checkSubmissionDate($truck->plate_number) }}
+                                                @endforeach
+                                            </td>
+
+                                            <td>
                                                 @foreach($driver->trucks as $truck)
                                                     @if( $drfp->checkLastTrip($truck->plate_number) === 'RECEIVED' )
                                                             @forelse($lineups->where('LogID',$lineup->LogID) as $x)
@@ -112,11 +144,11 @@
                                                                 </a>
                                                             @empty
                                                                 <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#lineupModal-{{$lineup->LogID}}" href="javascript:void(0);">
-                                                                    Hustling
+                                                                    Open for Hustling
                                                                 </a>
                                                             @endforelse
                                                     @else
-                                                        UNPROCESS
+                                                        NOT RECEIVE
                                                     @endif
                                                 @endforeach
                                             </td>
@@ -131,6 +163,18 @@
 
                 </div>
             </div>
+                
+                </div>
+                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+
+                        @include('lineups.pass')
+                
+                </div><!-- end section -->
+                </div>                
+                </div>
+            </div>
+
+         
         
         
         

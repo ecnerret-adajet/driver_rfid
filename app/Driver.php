@@ -187,4 +187,30 @@ class Driver extends Model
         return $this->belongsTo('App\Driverversion');
     }
 
+    /**
+     *  
+     *  Generate From this month
+     * 
+     */
+    public function scopeThisMonth($query)
+    {
+        return $query->whereMonth('created_at', Carbon::now()->month);
+    }
+
+    public function scopeThisWeek($query)
+    {
+        return $query->whereBetween('created_at', [Carbon::now()->startOfWeek()->toDateString(), Carbon::now()->endOfWeek()->toDateString()]);
+    }
+
+    /**
+     * 
+     *  Driver's assocaited with driver's pass
+     * 
+     */
+    public function passes()
+    {
+        return $this->hasMany(Pass::class);
+    }
+
+
 }

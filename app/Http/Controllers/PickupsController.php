@@ -24,6 +24,28 @@ class PickupsController extends Controller
         return view('pickups.index',compact('pickups'));
     }
 
+    public function getTruckscaleIn($cardholder, $created)
+    {
+        $pick = Log::where('CardholderID', $cardholder)
+            ->where('Direction', 1)
+            ->where('LocalTime', '>=', Carbon::parse($created))
+            ->take(1)
+            ->get();
+
+        return $pick;      
+    }
+
+    public function getTruckscaleOut($cardholder, $created)
+    {
+        $pick = Log::where('CardholderID', $cardholder)
+        ->where('Direction', 2)
+        ->whereDate('LocalTime', Carbon::parse($created))
+        ->take(1)
+        ->get();
+
+        return $pick;
+    }
+
     public function generatePickups(Request $request)
     {
         $this->validate($request, [

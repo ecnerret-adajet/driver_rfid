@@ -85,4 +85,15 @@ class User extends Authenticatable
     }
 
 
+    /**
+     * 
+     *  Driver's Pass Accepted By 
+     * 
+     */
+    public function passes()
+    {
+        return $this->hasMany(Pass::class);
+    }
+
+
 }

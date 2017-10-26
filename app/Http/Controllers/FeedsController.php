@@ -143,7 +143,7 @@ class FeedsController extends Controller
          ->whereNotIn('CardholderID',$pickup_cards)
          ->where('CardholderID', '>=', 15)
          ->orderBy('LocalTime','DESC')
-         ->take(50)
+         ->take(10)
          ->get();
  
          $barrier_in = Log::where('DoorID',3)
@@ -159,4 +159,36 @@ class FeedsController extends Controller
          return view('barrier_content',compact('barriers','barrier_in','barrier_out'));
 
     }
+
+    // public function driverPass()
+    // {
+    //     $loading = 1;
+
+    //     $pickup_cards = Cardholder::select('CardholderID')
+    //     ->where('Name', 'LIKE', '%Pickup%')
+    //     ->get();
+
+    //      // return logs from barrier
+    //      $barriers = Log::whereIn('DoorID',[3])
+    //      ->whereNotIn('CardholderID',$pickup_cards)
+    //      ->where('CardholderID', '>=', 15)
+    //      ->orderBy('LocalTime','DESC')
+    //      ->whereDate('LocalTime', '>=', Carbon::now()) // for a day
+    //      ->take(20)
+    //      ->get();
+ 
+    //      $barrier_in = Log::where('DoorID',3)
+    //      ->where('CardholderID', '>=', 15)
+    //      ->where('Direction', 1)
+    //      ->orderBy('LocalTime','DESC')->get();
+ 
+    //      $barrier_out = Log::where('DoorID',3)
+    //      ->where('CardholderID', '>=', 15)
+    //      ->where('Direction', 2)
+    //      ->orderBy('LocalTime','DESC')->get();
+
+    //      $barrier_unique = $barriers->unique('CardholderID');
+
+    //      return view('lineups.pass', compact('barrier_unique','barrier_in','barrier_out','loading'));
+    // }
 }
