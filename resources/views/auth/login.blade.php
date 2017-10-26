@@ -1,53 +1,148 @@
 @extends('layouts.full')
+@section('top-script')
+<style>
+body{
+    background-color:#f5f5f5 ! important;
+}
+.form-signin
+{
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.form-signin .form-control
+{
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.form-signin .form-control:focus
+{
+    z-index: 2;
+}
+.form-signin input[type="text"]
+{
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.form-signin input[type="password"]
+{
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.account-wall
+{
+    padding: 40px 0px 20px 0px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+}
+.login-title
+{
+    color: #555;
+    font-size: 22px;
+    font-weight: 400;
+    display: block;
+}
+.profile-img
+{
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+.select-img
+{
+	border-radius: 50%;
+    display: block;
+    height: 75px;
+    margin: 0 30px 10px;
+    width: 75px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+.select-name
+{
+    display: block;
+    margin: 30px 10px 10px;
+}
 
+.logo-img
+{
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+</style>
+@endsection
 @section('content')
-
 <div class="container">
-{{--  <div class="card-login mx-auto mt-5">
-<img class="img-responsive center ml-4" src="{{ asset('img/logo.png') }}" style="height: 130px; width: auto;">
-</div>  --}}
-   <div class="card card-login mx-auto mt-2">
-        
-        <div class="card-header">
-          Login
-        </div>
+   <div class="card-login mx-auto">
         <div class="card-body">
-          <form class="form-horizontal" method="POST" action="{{ route('login') }}">
-           {{ csrf_field() }}
-            <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
-              <label>Email address</label>
-              <input id="email" type="email" name="email" value="{{ old('email') }}" require placeholder="Enter Email" class="form-control">
-                 @if ($errors->has('email'))
-                    <div class="form-control-feedback">
-                            <small>
-                            {{ $errors->first('email') }}
-                            </small>
-                        </div>
-                @endif
-            </div>
-            <div class="form-group">
-              <label>Password</label>
-               <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
-                @if ($errors->has('password'))
-                    <div class="form-control-feedback">
-                            <small>
-                            {{ $errors->first('password') }}
-                            </small>
-                        </div>
-                @endif
-            </div>
-              <div class="form-group">
-                    <div class="col-md-6 col-md-offset-4">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                            </label>
-                        </div>
-                    </div>
+
+                @if ($errors->has('email'))
+                <div class="alert alert-danger" role="alert">
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                    <strong>Oh snap!</strong>  {{ $errors->first('email') }}.
                 </div>
-          
-            <button type="submit" class="btn btn-primary btn-block">Login</button>
-          </form>
+                @endif
+
+
+             
+            <div class="account-wall">
+                <div id="my-tab-content" class="tab-content">
+						<div class="tab-pane active" id="login">
+               		    <img class="profile-img" src="{{ asset('img/logo.jpg') }}">
+
+
+                         <form class="form-horizontal form-signin" method="POST" action="{{ route('login') }}">
+                          {{ csrf_field() }}
+               				<input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Email" required autofocus>
+               				
+                            <input type="password" class="form-control" name="password"  placeholder="Password" required>
+               				
+                               <input type="submit" class="btn btn-lg btn-default btn-block" value="Sign In" />
+               			
+
+               			<div id="tabs" data-tabs="tabs">
+               				<p class="text-center">
+
+                                <div class="checkbox text-center">
+                                    <label>
+                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}><a href="#select" data-toggle="tab"> Remember Me</a>
+                                    </label>
+                                </div>
+
+                            </p>
+
+              				</div>
+						</div>
+
+                        </form>
+
+
+			
+					</div>
+            </div>
+
+
+
         </div>
       </div>
     </div>

@@ -25,7 +25,7 @@
     <link href="{{ asset('css/all.css') }}" rel="stylesheet" media="screen,projection">
     </head>
 
-    <body class="fixed-nav sticky-footer {{ Request::is('login') ? 'bg-dark' : '' }}" id="page-top">
+    <body class="fixed-nav sticky-footer" id="page-top">
         <div id="app">
 
 
