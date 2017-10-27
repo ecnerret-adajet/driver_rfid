@@ -54,7 +54,11 @@
                                             <span class="text-muted"  v-for="hauler in truck.haulers">
                                                {{ hauler.name }}
                                             </span>
+
+                                            <!-- {{ truck.hauler.map(a => a.name) }} -->
+
                                             <br/>
+                                            
                                             <span v-for="driver in truck.drivers">
                                                  {{driver.name}}
                                             </span>
@@ -84,7 +88,7 @@
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="truckDropdown">
                                                     <a :href="truck_link + truck.id + '/transfer'" class="dropdown-item">Transfer to 3PL</a>
                                                     <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#removeDriver-'+ truck.id">Remove Driver</a>
-                                                    <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#truckModal-'+ truck.id" style="color: red">Deactivate</a>
+                                                    <!-- <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#truckModal-'+ truck.id" style="color: red">Deactivate</a> -->
                                                     
                                                     <span v-if="user_role == 'Administrator'">
                                                         <a :href="truck_link + truck.id + '/edit'" class="dropdown-item">Edit</a>
@@ -243,14 +247,10 @@ export default {
             }
 
             searchString = searchString.trim().toLowerCase();
+
+            // hauler_name = item.hauler.map(a => a.name);
     
             trucks_array = trucks_array.filter(function(item){
-
-                var cardholder = item['drivers'].map((driver) => {
-                    return driver.cardholder.Name.toLowerCase().indexOf(searchString) !== -1
-                })
-
-
                 if(item.plate_number.toLowerCase().indexOf(searchString) !== -1){
                     return item;
                 }

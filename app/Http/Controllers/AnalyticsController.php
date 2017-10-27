@@ -20,15 +20,14 @@ class AnalyticsController extends Controller
         $stats = $this->driversVsTrucks();
        
         // Top Hauler;
-
-        $label = array();
-        $value = array();
+        $labels = array();
+        $values = array();
         foreach($this->topHaulers() as $top) {
-            $label[] = $top->name;
-            $value[] = "".$top->drivers->count()."";
+            $labels[] = $top->name;
+            $values[] = $top->drivers->count();
         }
-        
-        return view('visuals.analytics',compact('stats','label','value'));
+
+        return view('visuals.analytics',compact('stats','labels','values'));
     }
 
     public function driversVsTrucks()

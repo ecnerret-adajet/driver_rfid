@@ -36202,10 +36202,69 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            loading: false,
             daily: [],
             weekly: [],
             monthly: []
@@ -36222,22 +36281,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getDaily: function getDaily() {
             var _this = this;
 
+            this.loading = true;
             axios.get('/driver_rfid/public/dailyEntries').then(function (response) {
-                return _this.daily = response.data;
+                _this.daily = response.data;
+                _this.loading = false;
             });
         },
         getWeekly: function getWeekly() {
             var _this2 = this;
 
+            this.loading = true;
             axios.get('/driver_rfid/public/weeklyEntries').then(function (response) {
-                return _this2.weekly = response.data;
+                _this2.weekly = response.data;
+                _this2.loading = false;
             });
         },
         getMonthly: function getMonthly() {
             var _this3 = this;
 
+            this.loading = true;
             axios.get('/driver_rfid/public/monthlyEntries').then(function (response) {
-                return _this3.monthly = response.data;
+                _this3.monthly = response.data;
+                _this3.loading = false;
             });
         }
     }
@@ -37669,13 +37734,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         var ctx = document.getElementById("topHauler");
         var topHauler = new __WEBPACK_IMPORTED_MODULE_0_chart_js___default.a(ctx, {
-            type: 'doughnut',
+            type: 'horizontalBar',
             data: {
                 labels: this.labels,
                 datasets: [{
+                    label: ['Top Haulers'],
                     data: this.values,
-                    backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#8e44ad", "#2ecc71", "#2ecc71", "#2ecc71", "#2ecc71", "#2ecc71", "#2ecc71"],
-                    hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#8e44ad", "#2ecc71", "#2ecc71", "#2ecc71", "#2ecc71", "#2ecc71", "#2ecc71"]
+                    fill: false,
+                    backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)"],
+                    borderColor: ["rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(201, 203, 207)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)"],
+                    borderWidth: 1
                 }]
             },
             options: {
@@ -37683,7 +37751,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     animateScale: true
                 },
                 legend: {
-                    position: 'right'
+                    position: 'top'
                 }
             }
         });
@@ -37698,6 +37766,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
 //
 //
 //
@@ -37946,12 +38018,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             searchString = searchString.trim().toLowerCase();
 
+            // hauler_name = item.hauler.map(a => a.name);
+
             trucks_array = trucks_array.filter(function (item) {
-
-                var cardholder = item['drivers'].map(function (driver) {
-                    return driver.cardholder.Name.toLowerCase().indexOf(searchString) !== -1;
-                });
-
                 if (item.plate_number.toLowerCase().indexOf(searchString) !== -1) {
                     return item;
                 }
@@ -52130,17 +52199,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-toggle": "modal",
         "data-target": '#removeDriver-' + truck.id
       }
-    }, [_vm._v("Remove Driver")]), _vm._v(" "), _c('a', {
-      staticClass: "dropdown-item",
-      staticStyle: {
-        "color": "red"
-      },
-      attrs: {
-        "href": "javascript:void(0);",
-        "data-toggle": "modal",
-        "data-target": '#truckModal-' + truck.id
-      }
-    }, [_vm._v("Deactivate")]), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('a', {
+    }, [_vm._v("Remove Driver")]), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.truck_link + truck.id + '/edit'
@@ -52370,7 +52429,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "topHauler",
       "width": "400",
-      "height": "50"
+      "height": "150"
     }
   })
 },staticRenderFns: []}
@@ -53094,11 +53153,9 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
     staticClass: "card mx-auto mb-3"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_vm._v("\r\n       Entries Report\r\n\r\n            \r\n        ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
   }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
     staticClass: "tab-content",
     attrs: {
       "id": "pills-tabContent"
@@ -53116,30 +53173,111 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-sm-4 text-center"
   }, [_c('small', {
     staticClass: "text-muted"
-  }, [_vm._v("TOTAL TRUCK ENTRIES")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("TOTAL TRUCK ENTRIES")]), _vm._v(" "), (!_vm.loading) ? _c('span', [_c('p', {
     staticClass: "card-text text-center",
     staticStyle: {
       "font-size": "80px"
     }
-  }, [_vm._v("\r\n                                        " + _vm._s(_vm.daily.trucks) + "\r\n                                    ")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\r\n                                        " + _vm._s(_vm.daily.trucks) + "\r\n                                    ")])]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('span', {
+    staticClass: "mt-3"
+  }, [_c('div', {
+    staticClass: "center-align",
+    staticStyle: {
+      "display": "flex",
+      "align-items": "center",
+      "justify-content": "center"
+    }
+  }, [_c('svg', {
+    staticClass: "spinner",
+    attrs: {
+      "width": "80px",
+      "height": "80px",
+      "viewBox": "0 0 66 66",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('circle', {
+    staticClass: "path",
+    attrs: {
+      "fill": "none",
+      "stroke-width": "6",
+      "stroke-linecap": "round",
+      "cx": "33",
+      "cy": "33",
+      "r": "30"
+    }
+  })])])]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "col-sm-4 text-center"
   }, [_c('small', {
     staticClass: "text-muted"
-  }, [_vm._v("TOTAL PICKUP ENTRIES")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("TOTAL PICKUP ENTRIES")]), _vm._v(" "), (!_vm.loading) ? _c('span', [_c('p', {
     staticClass: "card-text text-center",
     staticStyle: {
       "font-size": "80px"
     }
-  }, [_vm._v("\r\n                                         " + _vm._s(_vm.daily.pickups) + "\r\n                                    ")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\r\n                                         " + _vm._s(_vm.daily.pickups) + "\r\n                                    ")])]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('span', {
+    staticClass: "mt-3"
+  }, [_c('div', {
+    staticClass: "center-align",
+    staticStyle: {
+      "display": "flex",
+      "align-items": "center",
+      "justify-content": "center"
+    }
+  }, [_c('svg', {
+    staticClass: "spinner",
+    attrs: {
+      "width": "80px",
+      "height": "80px",
+      "viewBox": "0 0 66 66",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('circle', {
+    staticClass: "path",
+    attrs: {
+      "fill": "none",
+      "stroke-width": "6",
+      "stroke-linecap": "round",
+      "cx": "33",
+      "cy": "33",
+      "r": "30"
+    }
+  })])])]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "col-sm-4 text-center"
   }, [_c('small', {
     staticClass: "text-muted"
-  }, [_vm._v("TOTAL REASSIGNS")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("TOTAL REASSIGNS")]), _vm._v(" "), (!_vm.loading) ? _c('span', [_c('p', {
     staticClass: "card-text text-center",
     staticStyle: {
       "font-size": "80px"
     }
-  }, [_vm._v("\r\n                                        " + _vm._s(_vm.daily.reassigns) + "\r\n                                    ")])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\r\n                                        " + _vm._s(_vm.daily.reassigns) + "\r\n                                    ")])]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('span', {
+    staticClass: "mt-3"
+  }, [_c('div', {
+    staticClass: "center-align",
+    staticStyle: {
+      "display": "flex",
+      "align-items": "center",
+      "justify-content": "center"
+    }
+  }, [_c('svg', {
+    staticClass: "spinner",
+    attrs: {
+      "width": "80px",
+      "height": "80px",
+      "viewBox": "0 0 66 66",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('circle', {
+    staticClass: "path",
+    attrs: {
+      "fill": "none",
+      "stroke-width": "6",
+      "stroke-linecap": "round",
+      "cx": "33",
+      "cy": "33",
+      "r": "30"
+    }
+  })])])]) : _vm._e()])])]), _vm._v(" "), _c('div', {
     staticClass: "tab-pane fade",
     attrs: {
       "id": "pills-profile",
@@ -53152,30 +53290,111 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-sm-4 text-center"
   }, [_c('small', {
     staticClass: "text-muted"
-  }, [_vm._v("TOTAL TRUCK ENTRIES")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("TOTAL TRUCK ENTRIES")]), _vm._v(" "), (!_vm.loading) ? _c('span', [_c('p', {
     staticClass: "card-text text-center",
     staticStyle: {
       "font-size": "80px"
     }
-  }, [_vm._v("\r\n                                        " + _vm._s(_vm.weekly.trucks) + "\r\n                                    ")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\r\n                                " + _vm._s(_vm.weekly.trucks) + "\r\n                            ")])]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('span', {
+    staticClass: "mt-3"
+  }, [_c('div', {
+    staticClass: "center-align",
+    staticStyle: {
+      "display": "flex",
+      "align-items": "center",
+      "justify-content": "center"
+    }
+  }, [_c('svg', {
+    staticClass: "spinner",
+    attrs: {
+      "width": "80px",
+      "height": "80px",
+      "viewBox": "0 0 66 66",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('circle', {
+    staticClass: "path",
+    attrs: {
+      "fill": "none",
+      "stroke-width": "6",
+      "stroke-linecap": "round",
+      "cx": "33",
+      "cy": "33",
+      "r": "30"
+    }
+  })])])]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "col-sm-4 text-center"
   }, [_c('small', {
     staticClass: "text-muted"
-  }, [_vm._v("TOTAL PICKUP ENTRIES")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("TOTAL PICKUP ENTRIES")]), _vm._v(" "), (!_vm.loading) ? _c('span', [_c('p', {
     staticClass: "card-text text-center",
     staticStyle: {
       "font-size": "80px"
     }
-  }, [_vm._v("\r\n                                         " + _vm._s(_vm.weekly.pickups) + "\r\n                                    ")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\r\n                                    " + _vm._s(_vm.weekly.pickups) + "\r\n                            ")])]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('span', {
+    staticClass: "mt-3"
+  }, [_c('div', {
+    staticClass: "center-align",
+    staticStyle: {
+      "display": "flex",
+      "align-items": "center",
+      "justify-content": "center"
+    }
+  }, [_c('svg', {
+    staticClass: "spinner",
+    attrs: {
+      "width": "80px",
+      "height": "80px",
+      "viewBox": "0 0 66 66",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('circle', {
+    staticClass: "path",
+    attrs: {
+      "fill": "none",
+      "stroke-width": "6",
+      "stroke-linecap": "round",
+      "cx": "33",
+      "cy": "33",
+      "r": "30"
+    }
+  })])])]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "col-sm-4 text-center"
   }, [_c('small', {
     staticClass: "text-muted"
-  }, [_vm._v("TOTAL REASSIGNS")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("TOTAL REASSIGNS")]), _vm._v(" "), (!_vm.loading) ? _c('span', [_c('p', {
     staticClass: "card-text text-center",
     staticStyle: {
       "font-size": "80px"
     }
-  }, [_vm._v("\r\n                                        " + _vm._s(_vm.weekly.reassigns) + "\r\n                                    ")])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\r\n                                " + _vm._s(_vm.weekly.reassigns) + "\r\n                            ")])]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('span', {
+    staticClass: "mt-3"
+  }, [_c('div', {
+    staticClass: "center-align",
+    staticStyle: {
+      "display": "flex",
+      "align-items": "center",
+      "justify-content": "center"
+    }
+  }, [_c('svg', {
+    staticClass: "spinner",
+    attrs: {
+      "width": "80px",
+      "height": "80px",
+      "viewBox": "0 0 66 66",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('circle', {
+    staticClass: "path",
+    attrs: {
+      "fill": "none",
+      "stroke-width": "6",
+      "stroke-linecap": "round",
+      "cx": "33",
+      "cy": "33",
+      "r": "30"
+    }
+  })])])]) : _vm._e()])])]), _vm._v(" "), _c('div', {
     staticClass: "tab-pane fade",
     attrs: {
       "id": "pills-contact",
@@ -53188,41 +53407,122 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-sm-4 text-center"
   }, [_c('small', {
     staticClass: "text-muted"
-  }, [_vm._v("TOTAL TRUCK ENTRIES")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("TOTAL TRUCK ENTRIES")]), _vm._v(" "), (!_vm.loading) ? _c('span', [_c('p', {
     staticClass: "card-text text-center",
     staticStyle: {
       "font-size": "80px"
     }
-  }, [_vm._v("\r\n                                        " + _vm._s(_vm.monthly.trucks) + "\r\n                                    ")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\r\n                                        " + _vm._s(_vm.monthly.trucks) + "\r\n                                    ")])]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('span', {
+    staticClass: "mt-3"
+  }, [_c('div', {
+    staticClass: "center-align",
+    staticStyle: {
+      "display": "flex",
+      "align-items": "center",
+      "justify-content": "center"
+    }
+  }, [_c('svg', {
+    staticClass: "spinner",
+    attrs: {
+      "width": "80px",
+      "height": "80px",
+      "viewBox": "0 0 66 66",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('circle', {
+    staticClass: "path",
+    attrs: {
+      "fill": "none",
+      "stroke-width": "6",
+      "stroke-linecap": "round",
+      "cx": "33",
+      "cy": "33",
+      "r": "30"
+    }
+  })])])]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "col-sm-4 text-center"
   }, [_c('small', {
     staticClass: "text-muted"
-  }, [_vm._v("TOTAL PICKUP ENTRIES")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("TOTAL PICKUP ENTRIES")]), _vm._v(" "), (!_vm.loading) ? _c('span', [_c('p', {
     staticClass: "card-text text-center",
     staticStyle: {
       "font-size": "80px"
     }
-  }, [_vm._v("\r\n                                         " + _vm._s(_vm.monthly.pickups) + "\r\n                                    ")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\r\n                                         " + _vm._s(_vm.monthly.pickups) + "\r\n                                    ")])]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('span', {
+    staticClass: "mt-3"
+  }, [_c('div', {
+    staticClass: "center-align",
+    staticStyle: {
+      "display": "flex",
+      "align-items": "center",
+      "justify-content": "center"
+    }
+  }, [_c('svg', {
+    staticClass: "spinner",
+    attrs: {
+      "width": "80px",
+      "height": "80px",
+      "viewBox": "0 0 66 66",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('circle', {
+    staticClass: "path",
+    attrs: {
+      "fill": "none",
+      "stroke-width": "6",
+      "stroke-linecap": "round",
+      "cx": "33",
+      "cy": "33",
+      "r": "30"
+    }
+  })])])]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "col-sm-4 text-center"
   }, [_c('small', {
     staticClass: "text-muted"
-  }, [_vm._v("TOTAL REASSIGNS")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("TOTAL REASSIGNS")]), _vm._v(" "), (!_vm.loading) ? _c('span', [_c('p', {
     staticClass: "card-text text-center",
     staticStyle: {
       "font-size": "80px"
     }
-  }, [_vm._v("\r\n                                        " + _vm._s(_vm.monthly.reassigns) + "\r\n                                    ")])])])])])])])])
+  }, [_vm._v("\r\n                                        " + _vm._s(_vm.monthly.reassigns) + "\r\n                                    ")])]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('span', {
+    staticClass: "mt-3"
+  }, [_c('div', {
+    staticClass: "center-align",
+    staticStyle: {
+      "display": "flex",
+      "align-items": "center",
+      "justify-content": "center"
+    }
+  }, [_c('svg', {
+    staticClass: "spinner",
+    attrs: {
+      "width": "80px",
+      "height": "80px",
+      "viewBox": "0 0 66 66",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('circle', {
+    staticClass: "path",
+    attrs: {
+      "fill": "none",
+      "stroke-width": "6",
+      "stroke-linecap": "round",
+      "cx": "33",
+      "cy": "33",
+      "r": "30"
+    }
+  })])])]) : _vm._e()])])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('ul', {
-    staticClass: "nav nav-pills mb-3",
+  return _c('div', {
+    staticClass: "card-header"
+  }, [_vm._v("\r\n       Entries Report\r\n\r\n            "), _c('ul', {
+    staticClass: "nav pull-right btn-group",
     attrs: {
       "id": "pills-tab",
       "role": "tablist"
     }
-  }, [_c('li', {
-    staticClass: "nav-item"
   }, [_c('a', {
-    staticClass: "nav-link active",
+    staticClass: "btn btn-secondary btn-sm active",
     attrs: {
       "id": "pills-home-tab",
       "data-toggle": "pill",
@@ -53231,10 +53531,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "aria-controls": "pills-home",
       "aria-selected": "true"
     }
-  }, [_vm._v("Daily")])]), _vm._v(" "), _c('li', {
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link",
+  }, [_vm._v("Daily")]), _vm._v(" "), _c('a', {
+    staticClass: "btn btn-secondary btn-sm",
     attrs: {
       "id": "pills-profile-tab",
       "data-toggle": "pill",
@@ -53243,10 +53541,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "aria-controls": "pills-profile",
       "aria-selected": "false"
     }
-  }, [_vm._v("Weekly")])]), _vm._v(" "), _c('li', {
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link",
+  }, [_vm._v("Weekly")]), _vm._v(" "), _c('a', {
+    staticClass: "btn btn-secondary btn-sm",
     attrs: {
       "id": "pills-contact-tab",
       "data-toggle": "pill",
@@ -53255,7 +53551,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "aria-controls": "pills-contact",
       "aria-selected": "false"
     }
-  }, [_vm._v("Montly")])])])
+  }, [_vm._v("Monthly")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

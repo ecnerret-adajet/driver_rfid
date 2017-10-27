@@ -70,7 +70,7 @@ Route::get('/appUrl', function() {
 });
 
 Route::get('/trucksJson', function() {
-    $trucks = App\Truck::with(['drivers','haulers','drivers.cardholder','card'])->orderBy('id','DESC')->get();
+    $trucks = App\Truck::with(['drivers','haulers','drivers.cardholder','card','hauler'])->orderBy('id','DESC')->get();
     return $trucks;
 });
 

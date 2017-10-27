@@ -22,17 +22,17 @@
     <dates></dates>
 
 
-   {{--  <div class="card mx-auto mb-3">
+   <div class="card mx-auto mb-3">
         <div class="card-header">
        Top Haulers
        
         </div>
         <div class="card-body">
-            
-            <top :labels="{{ $label }}" :values="{{ $value }}"></top>
+
+            <top :labels="{{ json_encode(array_values($labels)) }}" :values=" {{ json_encode(array_values($values)) }}"></top>
 
         </div><!-- end card-body -->
-    </div> <!-- end card -->  --}}
+    </div> <!-- end card -->
 
 
 

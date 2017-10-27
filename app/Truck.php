@@ -41,6 +41,10 @@ class Truck extends Model
         'validity_end_date'
     ];
 
+    protected $hidden = [
+        'pivot'
+    ];
+
     /**
      * Dates configuration for validity_start_date
      */
@@ -81,6 +85,17 @@ class Truck extends Model
     public function getHaulerListAttribute()
     {
         return $this->haulers->pluck('id')->all();
+    }
+
+    // Search by one hauler only
+    public function hauler()
+    {
+        return $this->belongsToMany('App\Hauler')->select('name');
+    }
+
+    public function getHaulerAttribute()
+    {
+        return $this->hauler()->first();
     }
 
     //list all assicaited contract code in truck 

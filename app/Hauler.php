@@ -18,6 +18,10 @@ class Hauler extends Model
         'subconvendor_name',
         'subconvendor_number'
     ];
+
+    protected $hidden = [
+        'pivot'
+    ];
     
     public function drivers()
     {
