@@ -466,14 +466,15 @@ class DriversController extends Controller
         
         $driver->print_status = 1;
         $driver->availability = 0;
-        $driver->notif_status = 0;
+        $driver->notif_status = 1;
         $driver->card()->associate($card_rfid);
         $driver->cardholder()->associate($driver->card->CardholderID);
         
-        // if(!empty($driver->card_id)) {
-        //     $card = Card::where('CardID',$driver->card_id)->first();
-        //     $card->CardStatus = 1; 
-        // }
+       // Deactivating RFID card from ASManager itself
+       if(!empty($driver->card_id)) {
+            $card = Card::where('CardID',$driver->card_id)->first();
+            $card->CardStatus = 1; 
+        }
         
         $driver->save();
 
