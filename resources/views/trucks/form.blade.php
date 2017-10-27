@@ -19,7 +19,7 @@
                     <div class="col-md-6">
                         <div class="form-group {{ $errors->has('reg_number') ? ' has-danger' : '' }}">
                             <label>Registration Number</label>
-                            {{ Form::text('reg_number', null, ['class' => 'form-control', 'id' => 'inputReward', 'placeholder' => 'Enter Registration Number']) }}
+                            {{ Form::text('reg_number', null, ['class' => 'form-control', 'id' => 'inputReward', 'placeholder' => 'Enter Registration Number', "data-inputmask" => "'mask': 'MV999999'", 'data-mask']) }}
                             @if ($errors->has('reg_number'))
                                 <div class="form-control-feedback">
                                     <small>
