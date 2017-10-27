@@ -426,7 +426,18 @@ class DriversController extends Controller
     public function lostCardCreate($id)
     {
         $driver = Driver::findOrFail($id);
-        $cards = Card::orderBy('CardNo','DESC')->pluck('CardNo','CardID');
+        
+        $driver_card = Driver::select('cardholder_id')->where('availability',1)->get();
+        
+        $cards = Card::select(DB::raw("CONCAT(CardNo,' - RFID Number ', CardholderID) AS deploy_number"),'CardID')
+                    ->orderBy('CardholderID','DESC')
+                    ->whereNotIn('CardholderID', $driver_card)
+                    ->where('AccessgroupID', 1) // card type
+                    ->where('CardholderID','>=', 15)
+                    ->where('CardholderID','!=', 0)
+                    ->get()
+                    ->pluck('deploy_number','CardID');
+
         return view('drivers.lost',compact('driver','cards'));
     }
 
