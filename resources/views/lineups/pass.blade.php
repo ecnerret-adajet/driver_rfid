@@ -24,7 +24,7 @@
                             {{ $hauler->name }}
                             @endforeach
                         </div> 
-                        <div class="col-sm-4">
+                        <div class="col-sm-6 pull-right right">
                                 <small class="text-muted">PLANT IN:</small><br/>
                                 <?php $barrier_final_in = ''; ?>
                                 @forelse($barrier_in->where('CardholderID', '==', $result->CardholderID)->take(1) as $in)
@@ -51,14 +51,7 @@
 
                         </div> 
 
-                        <div class="col-sm-2">
-                                
-                                    <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#driverPass-{{$result->LogID}}" href="javascript:void(0);">
-                                        Accept Driver Pass
-                                    </a>
-
-                        
-                        </div>  
+                      
                     
                     </div><!-- end row -->
                     <span class="badge badge-default badge-pill">14</span>

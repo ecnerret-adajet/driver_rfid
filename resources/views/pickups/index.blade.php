@@ -71,9 +71,9 @@
                             <thead>
                                 <tr style="text-transform: uppercase">
                                     <th>Pickup #</th>
-                                    <th>Plate #</th>
-                                    <th>Driver Name</th>
-                                    <th>Company</th>
+                                    <th>Driver Details</th>
+                                    <th>Created Date</th>
+                                    <th>Checkout Date</th>
                                     <th>TRUCKSCALE IN</th>
                                     <th>TRUCKSCALE OUT</th>
                                     <th>BETWEEN</th>
@@ -84,18 +84,23 @@
                                 @foreach($pickups as $pick)
                                 <tr class="{{ $pick->availability == 1 ? 'table-danger' : 'table-success' }}">
                                     <td>
-                                        {{$pick->cardholder->Name}}
+                                        {{$pick->cardholder->Name}} <br/>
                                     </td>
                                     <td>
-                                        {{$pick->plate_number}}
-                                    </td>
-                                    <td>
-                                        {{$pick->driver_name}}
-                                    </td>
-                                    <td>
+                                        {{$pick->driver_name}}<br/>
+                                        {{$pick->plate_number}}<br/>
                                         {{$pick->company}}
                                     </td>
+                               
+                                    <td>
 
+                                    {{ date('m/d/y h:i:s A', strtotime($pick->created_at))}}
+                                  
+
+                                    </td>
+                                    <td>
+                                      {{ date('m/d/y h:i:s A', strtotime($pick->updated_at))}}
+                                    </td>
 
                                     <td>
 
@@ -161,11 +166,13 @@
                                         @endforeach
 
                                     </td>
-                                    <td>                             
+                                    <td>    
+                                    @if($pick->availability == 1)                          
                                          <a class="dropdown pull-right btn btn-outline-secondary" href="#" id="pickupDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-ellipsis-v"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="pickupDropdown">
+                                            
                                              <a class="dropdown-item" style="width: 70%;" href="{{url('/pickups/'.$pick->id.'/edit')}}">
                                                 <small>
                                                 Edit Entry
@@ -176,7 +183,8 @@
                                               <small>  Deactivate </small>
                                             </a>
                                             @endif
-                                        </div><!-- end dropdown -->                               
+                                        </div><!-- end dropdown --> 
+                                    @endif                              
                                     </td>
                                 </tr>
                                 @endforeach                          
