@@ -75,7 +75,9 @@
                <tbody>
                 @foreach($activities as $activity)
                     <tr>
-                        <td>{{ $activity->created_at->diffForHumans() }}</td>
+                        <td>
+                            {{ date('m/d/y h:i:s A', strtotime($activity->created_at)) }}
+                        </td>
                         <td>
                             @foreach($users->where('id',$activity->causer_id) as $user)
                                     {{ $user->name }} 
