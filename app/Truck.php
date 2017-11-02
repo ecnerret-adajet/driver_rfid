@@ -46,6 +46,14 @@ class Truck extends Model
     ];
 
     /**
+     * Add User who added a truck
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    /**
      * Dates configuration for validity_start_date
      */
      public function setValidityStartDateAttribute($date)

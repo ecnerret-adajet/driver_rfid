@@ -95,5 +95,13 @@ class User extends Authenticatable
         return $this->hasMany(Pass::class);
     }
 
+    /**
+     * User can create a truck
+     */
+    public function trucks()
+    {
+        return $this->hasMany('App\Truck');
+    }
+
 
 }

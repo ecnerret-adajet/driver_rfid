@@ -165,10 +165,13 @@ class TrucksController extends Controller
         $card_rfid = $request->input('card_list');
         $capacity_id = $request->input('capacity_list');
 
-        $truck = Truck::create($request->all());
+        $truck = Auth::user()->trucks()->create($request->all());
         if($request->hasFile('documents')){
             $truck->documents = $request->file('documents')->store('trucks_docs');
         }   
+        if(empty($request->input('plate_number'))){
+            $truck->plate_number = $request->input('reg_number');
+        }
         $truck->contract_code = $request->input('contract_list');
         $truck->subvendor_description = $request->input('hauler_list');
         $truck->card()->associate($card_rfid);
