@@ -9,6 +9,7 @@ class Log extends Model
 {
     protected $connection = "sqlsrv_three";
     protected $table = "AccessLog2";
+    public $timestamps = false;
 
     protected $dates = ['LocalTime'];
 
@@ -20,6 +21,10 @@ class Log extends Model
         'DoorID',
         'Invalid',
     ];
+
+    public function getKeyName(){
+        return "CardholderID";
+    }
 
     public function cardholders()
     {
@@ -34,6 +39,11 @@ class Log extends Model
     public function driver()
     {
     	return $this->hasOne('App\Driver','cardholder_id','CardholderID');
+    }
+
+    public function getDriverAttribute()
+    {
+        return $this->driver()->first();
     }
 
     public function lineups()
@@ -167,5 +177,11 @@ class Log extends Model
                     ->whereDate('LocalTime', Carbon::now())
                     ->orderBy('LocalTime','DESC')->get();
 
+    }
+
+    public function scopeThisDay($query)
+    {
+        return $query->whereDate('LocalTime', '>=', Carbon::now());
+        
     }
 }

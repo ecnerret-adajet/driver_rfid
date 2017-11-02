@@ -144,6 +144,61 @@
                 </div>
             </div>
 
+
+              <div class="form-row">
+
+
+                <div class="col-md-12">
+                    <div class="form-group {{ $errors->has('address') ? ' has-danger' : '' }}">
+                        <label for="driverName">Address</label>
+                        {{ Form::text('address', null, ['class' => 'form-control', 'id' => 'driverName', 'placeholder' => 'Enter Address']) }}
+                        @if ($errors->has('address'))
+                                <div class="form-control-feedback">
+                                    <small>
+                                    {{ $errors->first('address') }}
+                                    </small>
+                                </div>
+                            @endif
+                    </div>
+                </div>
+
+
+              </div>
+
+
+            <div class="form-row">
+               
+                <div class="col-md-6">
+                    <div class="form-group {{ $errors->has('contact_person') ? ' has-danger' : '' }}">
+                        <label for="driverName">Contact Person</label>
+                        {{ Form::text('contact_person', null, ['class' => 'form-control', 'id' => 'driverName', 'placeholder' => 'Enter Contact Person']) }}
+                        @if ($errors->has('contact_person'))
+                                <div class="form-control-feedback">
+                                    <small>
+                                    {{ $errors->first('contact_person') }}
+                                    </small>
+                                </div>
+                            @endif
+                    </div>
+                </div>
+
+
+                    <div class="col-md-6">
+                    <div class="form-group {{ $errors->has('contact_phone') ? ' has-danger' : '' }}">
+                    <label>Phone Number</label>
+                    {{Form::text('contact_phone', null, ['class' => 'form-control','placeholder' => 'Contact Phone Number', "data-inputmask" => "'mask': '+63[9999999999]'", 'data-mask'])}}
+                       @if ($errors->has('contact_phone'))
+                            <div class="form-control-feedback">
+                                    <small>
+                                    {{ $errors->first('contact_phone') }}
+                                    </small>
+                                </div>
+                        @endif
+                    </div>
+                </div>
+
+                </div>
+
             <div class="form-row">
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('start_validity_date') ? ' has-danger' : '' }}">

@@ -9,7 +9,7 @@ use Carbon\Carbon;
 class Driver extends Model
 {
 
-     use LogsActivity;
+    use LogsActivity;
 
     protected $connection = "sqlsrv";
     protected $fillable = [
@@ -25,6 +25,9 @@ class Driver extends Model
         'notif_status',
         'driver_license',
         'nbi_number',
+        'address',
+        'contact_person',
+        'contact_phone',
         'start_validity_date',
         'end_validity_date'
     ];
