@@ -11,6 +11,7 @@ use App\Log;
 use App\Cardholder;
 use App\Pickup;
 use App\Hauler;
+use DB;
 
 class AnalyticsController extends Controller
 {
@@ -146,6 +147,155 @@ class AnalyticsController extends Controller
         // }
 
         return $top_hauler;
+    }
+
+
+    /**
+     *  Driver top entries
+     */
+
+    public function detailEntries()
+    {
+        $pickup_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%pickup%')
+        ->pluck('CardholderID'); 
+
+        $guard_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%GUARD%')
+        ->pluck('CardholderID'); 
+
+        $executive_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%EXECUTIVE%')
+        ->pluck('CardholderID'); 
+
+        // Remove all cardholder without driver assigned
+        $not_driver = array_collapse([$pickup_cards, $guard_cards, $executive_cards]);
+
+        // All Plant in 
+        $plant_in = Log::select('CardholderID','Direction','LocalTime')
+        ->whereIn('DoorID',[3]) // barrier
+        ->whereNotIn('CardholderID',$not_driver)
+        ->where('CardholderID', '>=', 15)
+        ->where('Direction', 1)
+        ->orderBy('LocalTime','DESC')
+        ->whereBetween('LocalTime', [Carbon::now()->subDays(1), Carbon::now()])
+        // ->with('driver')
+        ->get();
+
+        // All Plant out
+        $plant_out = Log::select('CardholderID','Direction','LocalTime')
+        ->whereIn('DoorID',[3]) // barrier
+        ->whereNotIn('CardholderID',$not_driver)
+        ->where('CardholderID', '>=', 15)
+        ->where('Direction', 2)
+        ->orderBy('LocalTime','DESC')
+        ->whereDate('LocalTime', '>=', Carbon::now())
+        // ->with('driver')
+        ->get();
+
+        $all_entries = Log::select('LogID','CardholderID','ControllerID')
+        ->whereIn('DoorID',[3]) // barrier
+        ->whereNotIn('CardholderID',$not_driver)
+        ->where('CardholderID', '>=', 15)
+        ->whereDate('LocalTime', '>=', Carbon::now())
+        ->orderBy('LocalTime','DESC')
+        ->with('driver')
+        ->get();
+
+        $filtered_entries = $all_entries->unique('CardholderID');
+
+        $arr = array();
+
+        foreach($filtered_entries as $entry){
+            foreach($entry->drivers as $driver) {
+                        
+                        $data = array(
+                        'LogID' =>  $entry->LogID,
+                        'CardholderID' =>  $entry->CardholderID,
+                        'driver' => $driver->name,
+                        'plate_number' => $driver->truck->plate_number,
+                        'inLocalTime' =>  $this->plantIn($entry->CardholderID),
+                        'outLocalTime' =>  $this->plantOut($entry->CardholderID),
+                        );
+
+                        array_push($arr, $data);
+                    }
+        }        
+        return $arr;
+    }
+
+    public function plantIn($cardholder) 
+    {
+        $pickup_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%pickup%')
+        ->pluck('CardholderID'); 
+
+        $guard_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%GUARD%')
+        ->pluck('CardholderID'); 
+
+        $executive_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%EXECUTIVE%')
+        ->pluck('CardholderID'); 
+
+        // Remove all cardholder without driver assigned
+        $not_driver = array_collapse([$pickup_cards, $guard_cards, $executive_cards]);
+
+        // All Plant in 
+        $plant_in = Log::select('CardholderID','Direction','LocalTime')
+                    ->where('CardholderID',$cardholder)
+                    ->whereIn('DoorID',[3]) // barrier
+                    ->whereNotIn('CardholderID',$not_driver)
+                    ->where('CardholderID', '>=', 15)
+                    ->where('Direction', 1)
+                    ->orderBy('LocalTime','DESC')
+                    ->whereBetween('LocalTime', [Carbon::now()->subDays(1), Carbon::now()])
+                    ->first();
+
+        if(empty($plant_in)) {
+            $x = null;
+        } else {
+            $x = $plant_in->LocalTime;
+        }
+
+        return $x;
+    }
+
+    public function plantOut($cardholder)
+    {
+        $pickup_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%pickup%')
+        ->pluck('CardholderID'); 
+
+        $guard_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%GUARD%')
+        ->pluck('CardholderID'); 
+
+        $executive_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%EXECUTIVE%')
+        ->pluck('CardholderID'); 
+
+        // Remove all cardholder without driver assigned
+        $not_driver = array_collapse([$pickup_cards, $guard_cards, $executive_cards]);
+
+        // All Plant out
+        $plant_out = Log::select('CardholderID','Direction','LocalTime')
+                    ->whereIn('DoorID',[3]) // barrier
+                    ->where('CardholderID',$cardholder)
+                    ->whereNotIn('CardholderID',$not_driver)
+                    ->where('CardholderID', '>=', 15)
+                    ->where('Direction', 2)
+                    ->orderBy('LocalTime','DESC')
+                    ->whereDate('LocalTime', '>=', Carbon::now())
+                    ->first();
+        
+        if(empty($plant_out)) {
+            $x = null;
+        } else {
+            $x = $plant_out->LocalTime;
+        }
+        
+        return $x;
     }
 
 }

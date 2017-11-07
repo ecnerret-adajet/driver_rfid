@@ -34,6 +34,7 @@ Vue.component('lineup', require('./components/Lineup.vue'));
 Vue.component('graph', require('./components/Graph.vue'));
 Vue.component('dates', require('./components/Dateentries.vue'));
 Vue.component('top', require('./components/Tophauler.vue'));
+Vue.component('topentries', require('./components/TopEntries.vue'));
 
 
 const app = new Vue({

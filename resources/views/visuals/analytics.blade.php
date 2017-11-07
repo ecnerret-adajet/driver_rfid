@@ -24,6 +24,19 @@
 
    <div class="card mx-auto mb-3">
         <div class="card-header">
+       Top Entries
+       
+        </div>
+        <div class="card-body">
+
+            <topentries></topentries>
+
+        </div><!-- end card-body -->
+    </div> <!-- end card -->
+
+
+   <div class="card mx-auto mb-3">
+        <div class="card-header">
        Top Haulers
        
         </div>

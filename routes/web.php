@@ -195,6 +195,7 @@ Route::get('/handlerJson','handlerMappingsController@getHandlerJson');
 
  Route::get('/analytics','AnalyticsController@index');
  Route::get('/driverandtrucks','AnalyticsController@driversVsTrucks');
+ Route::get('/detailEntries','AnalyticsController@detailEntries');
 
  /**
   *
@@ -205,6 +206,14 @@ Route::get('/dailyEntries','AnalyticsController@dailyEntries');
 Route::get('/weeklyEntries','AnalyticsController@weeklyEntries');
 Route::get('/monthlyEntries','AnalyticsController@monthlyEntries');
 Route::get('/topHaulers','AnalyticsController@topHaulers');
+
+
+/**
+ * 
+ * Route Setup for pickup list
+ * 
+ */
+Route::get('/picklist/{driver_id}/{log}','PickListsController@pickList');
 
 });
 
