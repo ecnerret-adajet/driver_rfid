@@ -148,7 +148,7 @@
                                                                 </a>
                                                             @endforelse
                                                     @else
-                                                        NOT RECEIVE
+                                                        NOT YET RECEIVE
                                                     @endif
                                                 @endforeach
                                             </td>
