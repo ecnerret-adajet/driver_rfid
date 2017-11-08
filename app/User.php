@@ -103,5 +103,14 @@ class User extends Authenticatable
         return $this->hasMany('App\Truck');
     }
 
+    /**
+     *   Assocaite User who request a RFID re-printing
+     * 
+     */
+    public function losts()
+    {
+        return $this->hasMany('App\Lost');
+    }
+
 
 }

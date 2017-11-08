@@ -111,6 +111,21 @@ class Driver extends Model
     }
 
     /**
+     * get driver with one hauler only
+     */
+    public function hauler()
+    {
+        return $this->belongsToMany('App\Hauler');
+    }
+
+    public function getHaulerAttribute()
+    {
+        return $this->hauler()->first();
+    }
+
+
+
+    /**
      * driver wiill assign a truck plate number
      */
     public function trucks()
@@ -121,6 +136,19 @@ class Driver extends Model
     public function getTruckListAttribute()
     {
         return $this->trucks->pluck('id')->all();
+    }
+
+    /**
+     * get driver with one truck only
+     */
+    public function truck()
+    {
+        return $this->belongsToMany('App\Truck');
+    }
+
+    public function getTruckAttribute()
+    {
+        return $this->truck()->first();
     }
 
     /**
@@ -213,6 +241,25 @@ class Driver extends Model
     public function passes()
     {
         return $this->hasMany(Pass::class);
+    }
+
+    /**
+     *  Assign Image to driver
+     * 
+     */
+    public function image()
+    {
+        return $this->hasOne('App\Image');
+    }
+
+    /**
+     *  
+     * Associated Driver who request LOST rfid
+     * 
+     */
+    public function lost()
+    {
+        return $this->hasOne('App\Lost');
     }
 
 

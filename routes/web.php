@@ -42,6 +42,8 @@ Route::post('/drivers/deactivate/{id}','DriversController@deactivateRfid');
 Route::post('/drivers/activate/{id}','DriversController@activateRfid');
 Route::get('/drivers/lostCard/{id}','DriversController@lostCardCreate');
 Route::patch('/drivers/lostCard/{id}','DriversController@lostCardStore');
+Route::get('/drivers/reprint/{driver}/','LostCardController@create');
+Route::post('/drivers/reprint/{driver}/','LostCardController@store');
 
 Route::resource('/trucks','TrucksController');
 Route::get('/trucks/{truck}/transfer','TrucksController@transferHauler');
