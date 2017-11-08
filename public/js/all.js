@@ -36571,6 +36571,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -54259,7 +54265,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",
       attrs: {
-        "href": _vm.driver_link + 'lostCard/' + driver.id
+        "href": _vm.driver_link + 'reprint/' + driver.id
       }
     }, [_vm._v("Reprint Card")]), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
@@ -54283,7 +54289,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": _vm.driver_link + driver.id + '/edit'
       }
-    }, [_vm._v("Edit")])]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1) ? _c('span', [_vm._m(2, true)]) : _vm._e(), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('i', {
+    }, [_vm._v("Edit")])]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1) ? _c('span', [_c('div', {
+      staticClass: "btn-group pull-right",
+      attrs: {
+        "role": "group",
+        "aria-label": "Basic example"
+      }
+    }, [(_vm.user_role == 'Administrator' || _vm.user_role == 'Approver') ? _c('span', [_c('a', {
+      staticClass: "btn btn-outline-primary btn-sm",
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#driverModalActivate-' + driver.id
+      }
+    }, [_vm._v("Activate")])]) : _c('span', [_c('button', {
+      staticClass: "btn btn-outline-danger btn-sm disabled"
+    }, [_vm._v("INACTIVE")])])])]) : _vm._e(), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('i', {
       staticClass: "fa fa-circle",
       staticStyle: {
         "color": "green"
@@ -54302,7 +54323,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })]) : _vm._e()])])])
   }), _vm._v(" "), (_vm.filteredDriver.length == 0) ? _c('li', {
     staticClass: "list-group-item"
-  }, [_vm._m(3)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
+  }, [_vm._m(2)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
     staticClass: "center-align",
     staticStyle: {
       "padding-top": "50px",
@@ -54345,7 +54366,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(4, true), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(3, true), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -54387,7 +54408,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(6, true), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(5, true), _vm._v(" "), _vm._m(6, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -54439,16 +54460,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "fa fa-ellipsis-v"
   })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "btn-group pull-right",
-    attrs: {
-      "role": "group",
-      "aria-label": "Basic example"
-    }
-  }, [_c('button', {
-    staticClass: "btn btn-outline-danger btn-sm disabled"
-  }, [_vm._v("INACTIVE")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"

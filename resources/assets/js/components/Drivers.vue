@@ -87,7 +87,8 @@
                                                     </span>
                                                  </span> 
 
-                                                <a :href="driver_link + 'lostCard/' + driver.id" class="dropdown-item">Reprint Card</a>
+                                                <!-- <a :href="driver_link + 'lostCard/' + driver.id" class="dropdown-item">Reprint Card</a> -->
+                                                <a :href="driver_link + 'reprint/' + driver.id" class="dropdown-item">Reprint Card</a>
                                                 <span v-if="driver.availability == 1">
                                                 <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#driverModal-'+ driver.id" style="color: red">Deactivate</a>
                                                 </span>
@@ -102,8 +103,13 @@
                                         </span>
                                         <span v-if="driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1">
                                               <div class="btn-group pull-right" role="group" aria-label="Basic example">
-                                                <button class="btn btn-outline-danger btn-sm disabled">INACTIVE</button>
-                                            </div>
+                                                 <span v-if="user_role == 'Administrator' || user_role == 'Approver'">
+                                                    <a  href="javascript:void(0);" class="btn btn-outline-primary btn-sm" data-toggle="modal" :data-target="'#driverModalActivate-'+ driver.id">Activate</a>
+                                                 </span>
+                                                 <span v-else>
+                                                    <button class="btn btn-outline-danger btn-sm disabled">INACTIVE</button>
+                                                 </span>
+                                              </div>
                                         </span>
                                                                                         
 

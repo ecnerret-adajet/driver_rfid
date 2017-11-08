@@ -351,6 +351,9 @@ class DriversController extends Controller
         // $clasification_id = $request->input('clasification_list');
 
         $driver->update($request->all());
+        
+        $driver->availability = $request->input('availability');
+
         if($request->hasFile('avatar')){
             $driver->avatar = $request->file('avatar')->store('drivers');
         }        
