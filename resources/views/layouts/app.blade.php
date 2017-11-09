@@ -328,6 +328,19 @@
         <script src="{{ asset('js/sb-admin.js') }}"></script>
         @yield('script')
         @include('flashy::message')
+        <script>
+          $(".navbar-sidenav").addClass("thin");
+            // If user has Javascript disabled, the thick scrollbar is shown
+            $(".navbar-sidenav").mouseover(function(){
+              $(this).removeClass("thin");
+            });
+            $(".navbar-sidenav").mouseout(function(){
+              $(this).addClass("thin");
+            });
+            $(".navbar-sidenav").scroll(function () {
+              $("body").addClass("thin");
+            });
+        </script>
 
     </body>
   </html>
