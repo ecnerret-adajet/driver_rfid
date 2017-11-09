@@ -447,22 +447,15 @@ class DriversController extends Controller
     public function lostCardStore(Request $request, $id)
     {
         $card_rfid = $request->input('card_list');
-
         $driver = Driver::findOrFail($id);
 
-        foreach($driver->trucks as $truck) {
-            $plate = $truck->plate_number;
-        }
-        foreach($driver->haulers as $hauler) {
-            $hauler = $hauler->name;
-        }
-
+        // Driver Revision
         $version =  new Driverversion;
         $version->driver_id = $driver->id;
         $version->card_no = $driver->card_id;
         $version->user_id = Auth::user()->id;
-        $version->plate_number = $plate;
-        $version->vendor = $hauler;
+        $version->plate_number = $driver->truck->plate_number;
+        $version->vendor = $driver->hauler->name;
         $version->start_date = $driver->start_validity_date;
         $version->end_date = $driver->end_validity_date;
         $version->save();
@@ -470,16 +463,14 @@ class DriversController extends Controller
         $driver->print_status = 1;
         $driver->availability = 0;
         $driver->notif_status = 1;
-        $driver->card()->associate($card_rfid);
         $driver->cardholder()->associate($driver->card->CardholderID);
-        
-       // Deactivating RFID card from ASManager itself
-       if(!empty($driver->card_id)) {
+        $driver->card()->associate($card_rfid);
+        $driver->save();
+        // Deactivating RFID card from ASManager itself
+        if(!empty($driver->card_id)) {
             $card = Card::where('CardID',$driver->card_id)->first();
             $card->CardStatus = 1; 
         }
-        
-        $driver->save();
 
         $activity = activity()
         ->log('Lost RFID Card');
