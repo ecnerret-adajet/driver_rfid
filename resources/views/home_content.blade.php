@@ -53,6 +53,10 @@
                             {{  str_limit(title_case($customer->name),35) }}<br/>
                         @endforeach
 
+                        {{--  <a class="btn btn-outline-primary btn-sm" href="{{ url('/picklist/'.$driver->id.'/'.$result->LogID) }}" >
+                            PICK LIST
+                        </a>  --}}
+
 
                     </div>
                     <div class="col-sm-3">

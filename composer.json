@@ -17,6 +17,7 @@
         "laravelcollective/html": "^5.4.0",
         "maatwebsite/excel": "^2.1",
         "mercuryseries/flashy": "^1.0",
+        "psy/psysh": "0.8.11",
         "roksta/toast": "^1.0",
         "spatie/laravel-activitylog": "^1.15",
         "venturecraft/revisionable": "^1.28",
