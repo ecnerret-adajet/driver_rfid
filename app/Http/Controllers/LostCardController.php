@@ -74,7 +74,6 @@ class LostCardController extends Controller
         $lost->user()->associate(Auth::user()->id);
         $lost->save();
 
-
         // Driver Revision
         $version =  new Driverversion;
         $version->driver_id = $driver->id;
@@ -91,17 +90,14 @@ class LostCardController extends Controller
         $driver->availability = 0;
         $driver->notif_status = 1;
         $driver->card()->associate($card_rfid);
-        $driver->cardholder()->associate($driver->card->CardholderID);
-        
-        // Deactivating RFID card from ASManager
-        // if(!empty($driver->card_id)) {
-        //     $card = Card::where('CardID',$driver->card_id)->first();
-        //     $card->CardStatus = 1; 
-        // }
-        
+        $driver->cardholder()->associate($driver->card->CardholderID);    
         $driver->save();
 
-    
+        //Deactivating RFID card from ASManager
+        if(!empty($driver->card_id)) {
+            $card = Card::where('CardID',$driver->card_id)->first();
+            $card->CardStatus = 1; 
+        }
 
         //send email to supervisor for approval
         $setting = Setting::first();

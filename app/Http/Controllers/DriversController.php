@@ -32,9 +32,28 @@ class DriversController extends Controller
 {
 
     /**
-     * 
+     *  Driver revision method
+     */
+    public function driverRevision($id, $end_validity)
+    {
+        $driver = Driver::findOrFail($id);
+
+        $version =  new Driverversion;
+        $version->driver_id = $driver->id;
+        $version->card_no = $driver->card_id;
+        $version->cardholder_id = $driver->cardholder_id;
+        $version->user_id = Auth::user()->id;
+        $version->plate_number = $driver->truck->plate_number;
+        $version->vendor = $driver->hauler->name;
+        $version->start_date = $end_validity;
+        $version->end_date = Carbon::now();
+        $version->save();
+
+        return $version;
+    }
+
+    /**
      *  Testing SMS to notify approvers
-     * 
      */
     public function sendSms($driver) 
     {
@@ -270,32 +289,14 @@ class DriversController extends Controller
             'end_validity_date' => 'required'
         ]);
 
-        if(!count($driver->trucks) == 0) {
-            foreach($driver->trucks as $truck) {
-                $plate = $truck->plate_number;
-            }
-        } else {
-            $plate = 'NO PLATE';
-        }
-      
-        foreach($driver->haulers as $hauler){
-            $hauler = $hauler->name;
-        }
-
-        $version =  new Driverversion;
-        $version->driver_id = $driver->id;
-        $version->card_no = $driver->card_id;
-        $version->user_id = Auth::user()->id;
-        $version->plate_number = $plate;
-        $version->vendor = $hauler;
-        $version->start_date = $request->input('end_validity_date');
-        $version->end_date = Carbon::now();
-        $version->save();
-
+        // Driver's Revision model
+        $this->driverRevision($driver->id, $request->input('end_validity_date'));
         
+        // Change driver's status upon submitting reassign
         $driver->update($request->all());
         $driver->availability = 0;
         $driver->notif_status = 1;
+        $driver->save();
 
         // Deactivating RFID card from ASManager itself
         if(!empty($driver->card_id)) {
@@ -303,24 +304,23 @@ class DriversController extends Controller
             $card->CardStatus = 1; 
         }
 
-        $driver->save();
-        $driver->trucks()->sync( (array) $request->input('truck_list'));
-
+        // Sync Truck Plate Number
+        $driver->trucks()->sync((array) $request->input('truck_list'));
+        
+        // Sync Hauler Name 
         $drivers_truck = DB::table('hauler_truck')->select('hauler_id')
         ->where('truck_id',$request->input('truck_list'))->first();
-
-        $driver->haulers()->sync( (array) $drivers_truck); 
+        $driver->haulers()->sync((array) $drivers_truck); 
         
+        // Record Activity to system logs
         $activity = activity()
         ->log('Reassigned');
         
-
-        //send email to supervisor for approval
+        //Send email to supervisor for approval
         $setting = Setting::first();
         Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmReassign($driver));
 
-        // $this->sendSms($driver);
-        
+        // Redirect flash animation after the form is process
         flashy()->success('Driver has successfully Reassigned!');
         return redirect('drivers');
     }
@@ -348,16 +348,15 @@ class DriversController extends Controller
         ]);
 
         $card_rfid = $request->input('card_list');
-        // $clasification_id = $request->input('clasification_list');
 
         $driver->update($request->all());
-        
         $driver->availability = $request->input('availability');
 
         if($request->hasFile('avatar')){
             $driver->avatar = $request->file('avatar')->store('drivers');
         }        
 
+        // This block is commented for the reason that only super admin uses this edit method
         // if(empty($driver->update_count)) {
         //     $driver->update_count = 1;
         // } else {
@@ -449,36 +448,32 @@ class DriversController extends Controller
         $card_rfid = $request->input('card_list');
         $driver = Driver::findOrFail($id);
 
-        // Driver Revision
-        $version =  new Driverversion;
-        $version->driver_id = $driver->id;
-        $version->card_no = $driver->card_id;
-        $version->user_id = Auth::user()->id;
-        $version->plate_number = $driver->truck->plate_number;
-        $version->vendor = $driver->hauler->name;
-        $version->start_date = $driver->start_validity_date;
-        $version->end_date = $driver->end_validity_date;
-        $version->save();
-        
+        // Driver's Revision model
+        $this->driverRevision($driver->id, $driver->end_validity_date);
+                
+        // Driver's status upon submitting lost card
         $driver->print_status = 1;
         $driver->availability = 0;
         $driver->notif_status = 1;
         $driver->cardholder()->associate($driver->card->CardholderID);
         $driver->card()->associate($card_rfid);
         $driver->save();
-        // Deactivating RFID card from ASManager itself
-        if(!empty($driver->card_id)) {
-            $card = Card::where('CardID',$driver->card_id)->first();
-            $card->CardStatus = 1; 
-        }
 
+        // Deactivating RFID card from ASManager itself
+        // if(!empty($driver->card_id)) {
+        //     $card = Card::where('CardID',$driver->card_id)->first();
+        //     $card->CardStatus = 1; 
+        // }
+
+        // Record the driver's record to system logs
         $activity = activity()
         ->log('Lost RFID Card');
 
-        //send email to supervisor for approval
+        //Send email to supervisor for approval
         $setting = Setting::first();
         Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmLostCard($driver));
         
+        // Redirection animation upon submitting the form
         flashy()->success('Driver has successfully requested for lost card!');
         return redirect('drivers');
     }
@@ -536,12 +531,6 @@ class DriversController extends Controller
 
             });
 
-        })->download('xlsx');
-
-        // $activity = activity()
-        // ->performedOn('App\Driver')
-        // ->causedBy(Auth::user()->id)
-        // ->log('Exported');
-            
+        })->download('xlsx');            
     }
 }
