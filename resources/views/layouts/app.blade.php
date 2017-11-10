@@ -203,7 +203,7 @@
 
           @role(('Administrator'))
 
-           <li class="nav-item {{ Request::is('feed') ? 'active' : '' }}" data-toggle="tooltip" data-placement="right" title="Ship Entries">
+           {{--  <li class="nav-item {{ Request::is('feed') ? 'active' : '' }}" data-toggle="tooltip" data-placement="right" title="Ship Entries">
             <a class="nav-link" href="{{url('/feed')}}">
                <i class="fa fa-fw fa-file"></i>
               <span class="nav-link-text">
@@ -217,7 +217,7 @@
               <span class="nav-link-text">
                 Plant Entries</span>
             </a>
-          </li>
+          </li>  --}}
 
         @endrole
 
