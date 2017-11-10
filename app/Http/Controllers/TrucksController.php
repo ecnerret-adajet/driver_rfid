@@ -254,26 +254,26 @@ class TrucksController extends Controller
                 ->where('availability',1)->first();
             }
             
-            $cards = Card::select(DB::raw("CONCAT(CardNo,' - RFID Number ', CardholderID) AS deploy_number"),'CardID')
-                ->orderBy('CardholderID','DESC')
-                ->whereIn('CardholderID',[$driver_card->cardholder_id])
-                ->where('AccessgroupID', 2) // sticker type
-                ->where('CardholderID','>=', 15)
-                ->where('CardholderID','!=', 0)
-                ->get()
-                ->pluck('deploy_number','CardID');
+            $cards = Card::orderBy('CardholderID','DESC')
+            ->whereNotIn('CardholderID', $this->removedCardholder())
+            ->where('AccessgroupID', 2) // card type
+            ->where('CardholderID','>=', 15)
+            ->where('CardholderID','!=', 0)
+            ->get()
+            ->pluck('full_deploy','CardID');
+
 
         } else {
             $has_driver = Driver::select('cardholder_id')->where('availability',1)->get();
             // show all RFID when there is no driver
-            $cards =  Card::select(DB::raw("CONCAT(CardNo,' - RFID Number ', CardholderID) AS deploy_number"),'CardID')
-                    ->orderBy('CardholderID','DESC')
-                    ->whereNotIn('CardholderID',$has_driver)
-                    ->where('AccessgroupID', 2)
-                    ->where('CardholderID','>=', 15)
-                    ->where('CardholderID','!=', 0)
-                    ->get()
-                    ->pluck('deploy_number','CardID');
+            $cards = Card::orderBy('CardholderID','DESC')
+            ->whereNotIn('CardholderID', $this->removedCardholder())
+            ->where('AccessgroupID', 2) // card type
+            ->where('CardholderID','>=', 15)
+            ->where('CardholderID','!=', 0)
+            ->get()
+            ->pluck('full_deploy','CardID');
+
         }
          
          $capacities = Capacity::pluck('description','id');

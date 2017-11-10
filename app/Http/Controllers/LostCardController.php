@@ -14,6 +14,7 @@ use App\Card;
 use App\Driverversion;
 use App\Setting;
 use App\User;
+use App\Cardholder;
 use DB;
 
 class LostCardController extends Controller
