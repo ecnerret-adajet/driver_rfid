@@ -29,6 +29,33 @@ class LostCardController extends Controller
     }
 
     /**
+     * Show all cardholder should not be displayed on card list 
+     */
+    public function removedCardholder()
+    {
+        $pickup_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%pickup%')
+        ->pluck('CardholderID'); 
+
+        $guard_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%GUARD%')
+        ->pluck('CardholderID'); 
+
+        $executive_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%EXECUTIVE%')
+        ->pluck('CardholderID'); 
+
+        $driver_card = Driver::select('cardholder_id')
+        ->where('availability',1)
+        ->pluck('cardholder_id');
+
+        // Remove all cardholder without driver assigned
+        $not_driver = array_collapse([$pickup_cards, $guard_cards, $executive_cards, $driver_card]);
+
+        return $not_driver;
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -39,14 +66,13 @@ class LostCardController extends Controller
 
         $driver_card = Driver::select('cardholder_id')->where('availability',1)->get();
         
-        $cards = Card::select(DB::raw("CONCAT(CardNo,' - RFID Number ', CardholderID) AS deploy_number"),'CardID')
-                    ->orderBy('CardholderID','DESC')
-                    ->whereNotIn('CardholderID', $driver_card)
-                    ->where('AccessgroupID', 1) // card type
-                    ->where('CardholderID','>=', 15)
-                    ->where('CardholderID','!=', 0)
-                    ->get()
-                    ->pluck('deploy_number','CardID');
+        $cards = Card::orderBy('CardholderID','DESC')
+                ->whereNotIn('CardholderID', $this->removedCardholder())
+                ->where('AccessgroupID', 1) // card type
+                ->where('CardholderID','>=', 15)
+                ->where('CardholderID','!=', 0)
+                ->get()
+                ->pluck('full_deploy','CardID');
 
         return view('losts.create', compact('driver_card','cards','driver'));
     }
@@ -78,6 +104,7 @@ class LostCardController extends Controller
         $version =  new Driverversion;
         $version->driver_id = $driver->id;
         $version->card_no = $driver->card_id;
+        $version->cardholder_id = $driver->cardholder_id;
         $version->user_id = Auth::user()->id;
         $version->plate_number = $driver->truck->plate_number;
         $version->vendor = $driver->hauler->name;

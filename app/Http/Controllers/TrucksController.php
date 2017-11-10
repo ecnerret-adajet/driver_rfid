@@ -99,6 +99,41 @@ class TrucksController extends Controller
     }
 
 
+
+    /**
+     * Show all cardholder should not be displayed on card list 
+     */
+    public function removedCardholder()
+    {
+        $pickup_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%pickup%')
+        ->pluck('CardholderID'); 
+
+        $guard_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%GUARD%')
+        ->pluck('CardholderID'); 
+
+        $executive_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%EXECUTIVE%')
+        ->pluck('CardholderID'); 
+
+        $driver_card = Driver::select('cardholder_id')
+        ->where('availability',1)
+        ->pluck('cardholder_id');
+
+        $get_truck = Truck::select('card_id')
+        ->whereNotNull('card_id')
+        ->pluck('card_id');
+
+        $truck_card = Card::whereIn('CardID',$get_truck)->pluck('CardholderID');
+
+        // Remove all cardholder without driver assigned
+        $not_driver = array_collapse([$pickup_cards, $guard_cards, $executive_cards, $driver_card, $truck_card]);
+
+        return $not_driver;
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -114,15 +149,13 @@ class TrucksController extends Controller
         $driver_card = Driver::select('cardholder_id')->where('availability',1)->get();
         $truck_card = Truck::select('card_id')->whereNotNull('card_id')->get();
 
-
-        $cards = Card::select(DB::raw("CONCAT(CardNo,' - RFID Number ', CardholderID) AS deploy_number"),'CardID')
-                    ->orderBy('CardholderID','DESC')
-                    ->whereNotIn('CardholderID',$driver_card)
-                    // ->whereNotIn('CardID',$truck_card)
-                    ->where('AccessgroupID', 2) // sticker type
+        $cards = Card::orderBy('CardholderID','DESC')
+                    ->whereNotIn('CardholderID', $this->removedCardholder())
+                    ->where('AccessgroupID', 2) // card type
                     ->where('CardholderID','>=', 15)
+                    ->where('CardholderID','!=', 0)
                     ->get()
-                    ->pluck('deploy_number','CardID');
+                    ->pluck('full_deploy','CardID');
 
         $capacities = Capacity::pluck('description','id');
 

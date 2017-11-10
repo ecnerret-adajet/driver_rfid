@@ -33,14 +33,9 @@ class Card extends Model
         return "CardID";
     }
 
-    public function getDeployAttribute()
+    public function getFullDeployAttribute()
     {   
-        return $this->CardNo .' - '. $this->CardholderID;
-    }
-
-    public function getCardholder()
-    {
-        return  $this->belongsTo(Cardholder::class,'CardholderID','CardholderID')->select('Name');
+        return $this->CardNo .' - '. $this->cardholder['Name'];
     }
 
     public function cardholder()
