@@ -35,6 +35,8 @@ Vue.component('graph', require('./components/Graph.vue'));
 Vue.component('dates', require('./components/Dateentries.vue'));
 Vue.component('top', require('./components/Tophauler.vue'));
 Vue.component('topentries', require('./components/TopEntries.vue'));
+Vue.component('hauleronline', require('./components/HaulerOnline.vue'));
+Vue.component('hauleronlinetruck', require('./components/HaulerOnlineTruck.vue'));
 
 
 const app = new Vue({

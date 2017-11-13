@@ -31,6 +31,24 @@
     </div>
 </div>
 
+@if(!Request::is('users/create'))
+ <div class="form-row">
+        <div class="col-md-12">
+            <div class="form-group {{ $errors->has('hauler_list') ? ' has-danger' : '' }}">
+                    <label>Hauler</label>
+                    {!! Form::select('hauler_list', $haulers, $user->hauler_id, ['placeholder' => 'Select Hauler', 'class' => 'form-control select2-hauler'] ) !!}
+                    @if ($errors->has('hauler_list'))
+                        <div class="form-control-feedback">
+                        <small>
+                            {{ $errors->first('hauler_list') }}
+                            </small>
+                        </div>
+                    @endif
+            </div>
+        </div>
+    </div>
+@endif
+
     <div class="form-row">
         <div class="col-md-12">
             <div class="form-group {{ $errors->has('phone_number') ? ' has-danger' : '' }}">
@@ -105,7 +123,12 @@
 
 @section('script')
 <script>
- $("[data-mask]").inputmask();
+    $("[data-mask]").inputmask();
+
+    $(".select2-hauler").select2({
+        placeholder: "Select Plate Number",
+        allowClear: true,
+    });
 </script>
 @endsection
 

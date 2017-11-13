@@ -29,7 +29,7 @@
         <div id="app">
 
 
-   @if(Request::is('barrier'))
+   @if(Request::is('barrier') || Request::is('users/hauler/online'))
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="mainNav">
       <a class="navbar-brand" href="{{url('/home')}}">Truck Monitoring</a>

@@ -40,4 +40,13 @@ class Hauler extends Model
         return $this->belongsTo('App\Server');
     }
 
+    /**
+     *  List user where has a hauler_id assigned
+     * 
+     */
+    public function user()
+    {
+        return $this->hasOne('App\User');
+    }
+
 }

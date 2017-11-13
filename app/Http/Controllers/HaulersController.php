@@ -9,6 +9,18 @@ use App\Server;
 
 class HaulersController extends Controller
 {
+
+    /**
+     * 
+     *  Hauler officer will only access assigned company
+     * 
+     */
+    public function haulerOnline()
+    {
+        return view();
+    }
+
+
     /**
      * Display a listing of the resource.
      *

@@ -130,6 +130,9 @@ Route::post('/bind/{CardID}','BindersController@store');
 Route::resource('/cardholders','CardholdersController');
 
 Route::resource('users','UsersController');
+Route::get('/users/driver/hauler/{user}','UsersController@userDriverHauler');
+Route::get('/users/truck/hauler/{user}','UsersController@userTruckHauler');
+Route::get('/users/hauler/online','UsersController@haulerOnline');
 Route::resource('roles', 'RolesController');
 
 

@@ -112,5 +112,13 @@ class User extends Authenticatable
         return $this->hasMany('App\Lost');
     }
 
+    /**
+     * Assigned Hauler where a user assigned
+     */
+    public function hauler()
+    {
+        return $this->belongsTo('App\Hauler');
+    }
+
 
 }

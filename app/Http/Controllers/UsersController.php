@@ -13,6 +13,9 @@ use Image;
 use Hash;
 use App\Permission;
 use Flashy;
+use App\Hauler;
+use App\Driver;
+use App\Truck;
 
 class UsersController extends Controller
 {
@@ -74,6 +77,7 @@ class UsersController extends Controller
         return redirect('users');
     }
 
+
     /**
      * Display the specified resource.
      *
@@ -97,8 +101,9 @@ class UsersController extends Controller
         $roles = Role::pluck('display_name','id');
         $roles = Role::pluck('display_name','id');
         $userRole = $user->roles->pluck('id','id')->toArray();
+        $haulers = Hauler::pluck('name','id');
 
-        return view('users.edit',compact('user','roles','userRole'));
+        return view('users.edit',compact('user','roles','userRole','haulers'));
     }
 
     /**
@@ -118,11 +123,12 @@ class UsersController extends Controller
         }
 
         $user->update($input);
-        $user->roles()->sync( (array) $request->input('roles_list') );
+        $user->roles()->sync( (array) $request->input('roles_list'));
+        $user->hauler()->associate($request->input('hauler_list'));
+        $user->save();
 
         $activity = activity()
         ->log('Updated');
-
 
         flashy()->success('Driver has successfully updated!');
         return redirect('users');
@@ -142,5 +148,41 @@ class UsersController extends Controller
 
         return redirect()->route('users.index')
                         ->with('success','User deleted successfully');
+    }
+
+    public function haulerOnline()
+    {
+        return view('users.haulers-online');
+    }
+
+    public function userDriverHauler($id)
+    {
+        $user = User::findOrFail($id);
+
+        if(!empty($user->hauler_id)) {
+            $drivers = Driver::whereHas('haulers', function($q) use ($user) {
+                $q->where('id',$user->hauler_id);
+            })->with(['haulers','trucks','cardholder','card','cardholder.logs'])
+            ->orderBy('id','DESC')
+            ->get();
+    
+        }
+        
+        return $drivers;
+    }
+
+    public function userTruckHauler($id)
+    {
+        $user = User::findOrFail($id);
+
+        if(!empty($user->hauler_id)){
+            $trucks = Truck::whereHas('haulers', function($q) use ($user) {
+                $q->where('id',$user->hauler_id);
+            })->with(['drivers','haulers','drivers.cardholder','card','hauler'])
+            ->orderBy('id','DESC')
+            ->get();
+        }
+
+        return $trucks;
     }
 }
