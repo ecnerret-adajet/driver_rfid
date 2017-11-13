@@ -91,10 +91,12 @@ class DriversController extends Controller
     /**
      *  Search Cardholder Deploy Name
      */
-    public function getCardholderName($carholder)
+    public function getCardholderName($cardholder)
     {
-        $cardholder = Cardholder::where('CardholderID',$cardholder)->first();
-        return $cardholder->Name;
+       $cardholder = Cardholder::select('CardholderID','Name')
+                                 ->where('CardholderID',$cardholder)
+                                 ->first();
+       return $cardholder->Name;
     }
 
     /**
@@ -226,11 +228,19 @@ class DriversController extends Controller
      */
     public function show(Driver $driver)
     {
+        // $logs = Log::with('customers')
+        //             ->whereNotIn('ControllerID',[1])
+        //             ->where('CardholderID','=',$driver->cardholder->CardholderID)
+        //             ->orderBy('LocalTime','DESC')
+        //             ->get();
+
+        $get_version_cardholder = Driverversion::where('driver_id',$driver->id)->pluck('cardholder_id');
+                    
         $logs = Log::with('customers')
-                    ->whereNotIn('ControllerID',[1])
-                    ->where('CardholderID','=',$driver->cardholder->CardholderID)
-                    ->orderBy('LocalTime','DESC')
-                    ->get();
+               ->whereNotIn('ControllerID',[1])
+               ->whereIn('CardholderId',$get_version_cardholder)
+               ->orderBy('LocalTime','DESC')
+               ->get();
 
         $versions = Driverversion::where('driver_id',$driver->id)->orderBy('created_at','DESC')->get();
 
@@ -317,8 +327,13 @@ class DriversController extends Controller
         //     $q->where('id', $y);
         // })->orderBy('id','DESC')->pluck('plate_number','id');
 
+        
+        $trucks = Truck::whereHas('haulers',function($q) use ($driver){
+            $q->where('name', $driver->hauler->name);
+        })->orderBy('id','DESC')->pluck('plate_number','id');
 
-        $trucks = Truck::pluck('plate_number','id');
+
+        // $trucks = Truck::pluck('plate_number','id');
 
         return view('drivers.reassign',compact('driver','trucks','truck_subvendors'));
     }

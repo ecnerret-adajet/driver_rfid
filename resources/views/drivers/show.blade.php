@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+@inject('search', 'App\Http\Controllers\DriversController')
 
    <div class="card mx-auto mb-3">
         <div class="card-header">
@@ -28,7 +29,7 @@
                         <span class="text-muted">PHONE NUMBER</span><br/>
                         {{ $driver->phone_number }}
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <span class="text-muted">PLATE NUMBER</span><br/>
                           @foreach($driver->trucks as $truck)
                             {{$truck->plate_number}}
@@ -43,7 +44,7 @@
                           @endforeach
 
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <span class="text-muted">STATUS</span><br/>
                         @if($driver->availability == 1)
                             <span class="badge badge-primary">
@@ -53,7 +54,13 @@
                             <span class="badge badge-warning">
                                 INACTIVE
                             </span>
+                             
                         @endif
+                        <br/>
+                        <br/>
+                       
+                        <span class="text-muted">ASSIGNED CARD</span><br/>
+                        {{ $driver->card->full_deploy }}
                     </div>            
             </div>
         </div><!-- end card-body -->
@@ -130,10 +137,10 @@
             <tr>
                 <th>CardholderID</th>
                 <th>CardID</th>
+                <th>Name</th>
                 <th>Plate #</th>
                 <th>Vendor</th>
-                <th>Start Date</th>
-                <th>End Date</th>
+                <th>Update Date</th>
             </tr>
         </thead>
         <tbody>
@@ -145,6 +152,9 @@
             <td>
                  {{$version->card_no}}
             </td>
+             <td>
+                {{ $search->getCardholderName($version->cardholder_id) }}
+            </td>
             <td>
                 {{$version->plate_number}}
             </td>
@@ -152,10 +162,7 @@
                 {{$version->vendor}}
             </td>
             <td>
-                {{ date('m/d/Y', strtotime($version->start_date))}}
-            </td>
-            <td>
-                {{ date('m/d/Y', strtotime($version->end_date))}}
+                {{ date('m/d/Y h:i:s A', strtotime($version->created_at))}}
             </td>
             </tr>
         @endforeach

@@ -24,7 +24,7 @@
                         <span class="text-muted">PHONE NUMBER</span><br/>
                         {{ $driver->phone_number }}
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <span class="text-muted">PLATE NUMBER</span><br/>
                           @foreach($driver->trucks as $truck)
                             {{$truck->plate_number}}
@@ -43,7 +43,7 @@
                         
 
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <span class="text-muted">SUBVENDOR</span><br/>
                         
 
@@ -57,6 +57,11 @@
                                 INACTIVE
                             </span>
                         @endif
+
+                        <br/>
+                        <br/>
+                        <span class="text-muted">ASSIGNED CARD</span><br/>
+                        {{ $driver->card->full_deploy }}
                     </div>            
             </div>
         </div><!-- end card-body -->
