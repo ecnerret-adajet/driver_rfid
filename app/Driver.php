@@ -87,6 +87,11 @@ class Driver extends Model
         return $this->belongsTo('App\Card','card_id','CardID');
     }
 
+    public function getFirstCardAttribute()
+    {
+        return $this->card->CardholderID;
+    }
+
     // public function getCardholderListAttribute()
     // {
     //     return $this->cardholder->pluck('CardholderID')->all();

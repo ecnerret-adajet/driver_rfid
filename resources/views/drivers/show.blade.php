@@ -153,7 +153,9 @@
                  {{$version->card_no}}
             </td>
              <td>
-                {{ $search->getCardholderName($version->cardholder_id) }}
+                @if(!empty($version->cardholder_id))
+                    {{ $search->getCardholderName($version->cardholder_id) }}                    
+                @endif
             </td>
             <td>
                 {{$version->plate_number}}

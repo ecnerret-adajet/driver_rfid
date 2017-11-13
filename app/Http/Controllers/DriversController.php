@@ -235,10 +235,14 @@ class DriversController extends Controller
         //             ->get();
 
         $get_version_cardholder = Driverversion::where('driver_id',$driver->id)->pluck('cardholder_id');
+        $get_driver_cardholder = Card::where('CardholderID',$driver->first_card)
+                                     ->where('AccessgroupID', 1)->pluck('CardholderID');
+
+        $all_cardholder = array_collapse([$get_version_cardholder, $get_driver_cardholder]);
+        
                     
         $logs = Log::with('customers')
-               ->whereNotIn('ControllerID',[1])
-               ->whereIn('CardholderId',$get_version_cardholder)
+               ->whereIn('CardholderId', $all_cardholder)
                ->orderBy('LocalTime','DESC')
                ->get();
 
