@@ -98,7 +98,6 @@
                                                 <span v-if="user_role == 'Administrator'">
                                                     <a :href="driver_link + driver.id + '/edit'" class="dropdown-item">Edit</a>
                                                 </span>
-                                                    <a :href="driver_link + 'transfer-hauler/' + driver.id" class="dropdown-item" style="color: red">Transfer Hauler</a>
 
                                             </div><!-- end dropdown -->
                                         </span>
@@ -111,6 +110,14 @@
                                                     <button class="btn btn-outline-danger btn-sm disabled">INACTIVE</button>
                                                  </span>
                                               </div>
+                                        </span>
+                                        <span v-if="driver.availability == 0 && driver.print_status == 0 && driver.notif_status == 0">
+                                            <a class="dropdown pull-right btn btn-outline-secondary" href="#" id="driverDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-ellipsis-v"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="driverDropdown">
+                                                    <a :href="driver_link + 'transfer-hauler/' + driver.id" class="dropdown-item" style="color: red">Transfer Hauler</a>
+                                            </div><!-- end dropdown -->
                                         </span>
                                                                                         
 

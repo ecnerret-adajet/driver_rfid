@@ -504,6 +504,7 @@ class DriversController extends Controller
     {
         $driver = Driver::where('id',$id)->first();
         $driver->availability = 0;
+        $driver->notif_status = 0;
         $driver->save();
 
         $card = Card::where('CardID',$driver->card_id)->first();

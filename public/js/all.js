@@ -36580,6 +36580,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -54926,15 +54933,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": _vm.driver_link + driver.id + '/edit'
       }
-    }, [_vm._v("Edit")])]) : _vm._e(), _vm._v(" "), _c('a', {
-      staticClass: "dropdown-item",
-      staticStyle: {
-        "color": "red"
-      },
-      attrs: {
-        "href": _vm.driver_link + 'transfer-hauler/' + driver.id
-      }
-    }, [_vm._v("Transfer Hauler")])], 2)]) : _vm._e(), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1) ? _c('span', [_c('div', {
+    }, [_vm._v("Edit")])]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1) ? _c('span', [_c('div', {
       staticClass: "btn-group pull-right",
       attrs: {
         "role": "group",
@@ -54949,7 +54948,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("Activate")])]) : _c('span', [_c('button', {
       staticClass: "btn btn-outline-danger btn-sm disabled"
-    }, [_vm._v("INACTIVE")])])])]) : _vm._e(), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('i', {
+    }, [_vm._v("INACTIVE")])])])]) : _vm._e(), _vm._v(" "), (driver.availability == 0 && driver.print_status == 0 && driver.notif_status == 0) ? _c('span', [_vm._m(2, true), _vm._v(" "), _c('div', {
+      staticClass: "dropdown-menu dropdown-menu-right",
+      attrs: {
+        "aria-labelledby": "driverDropdown"
+      }
+    }, [_c('a', {
+      staticClass: "dropdown-item",
+      staticStyle: {
+        "color": "red"
+      },
+      attrs: {
+        "href": _vm.driver_link + 'transfer-hauler/' + driver.id
+      }
+    }, [_vm._v("Transfer Hauler")])])]) : _vm._e(), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('i', {
       staticClass: "fa fa-circle",
       staticStyle: {
         "color": "green"
@@ -54968,7 +54980,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })]) : _vm._e()])])])
   }), _vm._v(" "), (_vm.filteredDriver.length == 0) ? _c('li', {
     staticClass: "list-group-item"
-  }, [_vm._m(2)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
+  }, [_vm._m(3)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
     staticClass: "center-align",
     staticStyle: {
       "padding-top": "50px",
@@ -55011,7 +55023,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(3, true), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(4, true), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -55053,7 +55065,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(5, true), _vm._v(" "), _vm._m(6, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(6, true), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -55092,6 +55104,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "fa fa-search"
   })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
+    staticClass: "dropdown pull-right btn btn-outline-secondary",
+    attrs: {
+      "href": "#",
+      "id": "driverDropdown",
+      "data-toggle": "dropdown",
+      "aria-haspopup": "true",
+      "aria-expanded": "false"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-ellipsis-v"
+  })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
     staticClass: "dropdown pull-right btn btn-outline-secondary",
