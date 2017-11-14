@@ -387,6 +387,58 @@ class DriversController extends Controller
         return redirect('drivers');
     }
 
+
+    /**
+     * 
+     *   Transfer driver to different Hauler
+     * 
+     */
+    public function transferHauler(Driver $driver)
+    {
+        $haulers = Hauler::pluck('name','id');
+        $trucks = Truck::pluck('plate_number','id');
+        return view('drivers.transfer', compact('driver','haulers','trucks'));
+    }
+
+    public function transferHaulerSubmit(Request $request, Driver $driver)
+    {
+        $this->validate($request,[
+            'hauler_list' => 'required',
+            'truck_list' => 'required'
+        ]);
+
+        // Driver's Revision model
+        $this->driverRevision($driver->id, $driver->end_validity_date);
+
+
+        $driver->availability = 0;
+        $driver->notif_status = 1;
+        $driver->save();
+
+        // Deactivating RFID card from ASManager itself
+        if(!empty($driver->card_id)) {
+            $card = Card::where('CardID',$driver->card_id)->first();
+            $card->CardStatus = 1; 
+        }
+
+        $driver->haulers()->sync((array) $request->input('hauler_list'));
+        $driver->trucks()->sync((array) $request->input('truck_list'));
+
+         // Record Activity to system logs
+         $activity = activity()
+         ->log('Reassigned');
+         
+         //Send email to supervisor for approval
+         $setting = Setting::first();
+         Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmReassign($driver));
+
+        
+         // Redirect flash animation after the form is process
+         flashy()->success('Driver has successfully Reassigned!');
+         return redirect('drivers');
+        
+    }
+
     /**
      * Update the specified resource in storage.
      *

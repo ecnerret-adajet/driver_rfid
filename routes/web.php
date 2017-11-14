@@ -44,6 +44,8 @@ Route::get('/drivers/lostCard/{id}','DriversController@lostCardCreate');
 Route::patch('/drivers/lostCard/{id}','DriversController@lostCardStore');
 Route::get('/drivers/reprint/{driver}/','LostCardController@create');
 Route::post('/drivers/reprint/{driver}/','LostCardController@store');
+Route::get('/drivers/transfer-hauler/{driver}','DriversController@transferHauler');
+Route::patch('/drivers/trasnfer-hauler/{driver}',[  'as' => 'transfer-hauler.update' ,'uses' => 'DriversController@transferHaulerSubmit']);
 
 Route::resource('/trucks','TrucksController');
 Route::get('/trucks/{truck}/transfer','TrucksController@transferHauler');
@@ -135,6 +137,10 @@ Route::get('/users/truck/hauler/{user}','UsersController@userTruckHauler');
 Route::get('/users/hauler/online','UsersController@haulerOnline');
 Route::resource('roles', 'RolesController');
 
+//Hauler Route Online setup
+Route::get('hauler/online/home','HaulerOnlineController@index');
+Route::get('drivers/{driver}/online/reassign','HaulerOnlineController@haulerOnlineReassign');
+Route::patch('online/reassign/{driver}',[  'as' => 'online-reassign.update' ,'uses' => 'HaulerOnlineController@haulerOnlineReassignSubmit']);
 
 Route::get('/entries','ReportsController@entries');
 Route::get('/generateEntries','ReportsController@generateEntries');
