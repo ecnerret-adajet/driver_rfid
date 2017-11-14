@@ -54926,12 +54926,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": _vm.driver_link + driver.id + '/edit'
       }
-    }, [_vm._v("Edit")]), _vm._v(" "), _c('a', {
+    }, [_vm._v("Edit")])]) : _vm._e(), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",
+      staticStyle: {
+        "color": "red"
+      },
       attrs: {
         "href": _vm.driver_link + 'transfer-hauler/' + driver.id
       }
-    }, [_vm._v("Transfer Hauler")])]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1) ? _c('span', [_c('div', {
+    }, [_vm._v("Transfer Hauler")])], 2)]) : _vm._e(), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1) ? _c('span', [_c('div', {
       staticClass: "btn-group pull-right",
       attrs: {
         "role": "group",

@@ -97,8 +97,8 @@
                                                 </span>
                                                 <span v-if="user_role == 'Administrator'">
                                                     <a :href="driver_link + driver.id + '/edit'" class="dropdown-item">Edit</a>
-                                                    <a :href="driver_link + 'transfer-hauler/' + driver.id" class="dropdown-item">Transfer Hauler</a>
                                                 </span>
+                                                    <a :href="driver_link + 'transfer-hauler/' + driver.id" class="dropdown-item" style="color: red">Transfer Hauler</a>
 
                                             </div><!-- end dropdown -->
                                         </span>
