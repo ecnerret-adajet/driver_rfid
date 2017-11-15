@@ -49,7 +49,11 @@
                                                 <span v-else>
                                                     {{ truck.reg_number }}
                                                 </span>
-                                          </a> : <small class="badge badge-primary mr-2" v-for="driver in truck.drivers">{{ driver.cardholder.Name }}</small> <br/>
+                                          </a> : <small class="badge badge-primary mr-2" v-for="driver in truck.drivers">
+                                                    <span v-if="driver.cardholder">
+                                                        {{ driver.cardholder.Name }}
+                                                    </span>
+                                                </small> <br/>
                                             
                                             <span class="text-muted"  v-for="hauler in truck.haulers">
                                                {{ hauler.name }}
@@ -81,9 +85,13 @@
                                         
                                         </div>
                                         <div class="col-sm-3 pull-right right">
-
-                                                <!-- option button removed -->
-                                            
+                                              <div class="btn-group pull-right" role="group" aria-label="Basic example"  v-for="driver in truck.drivers">
+                                                    <span v-if="!driver.cardholder">
+                                                        <button class="btn btn-sm btn-outline-danger disabled">
+                                                            PENDING FOR APPROVAL
+                                                        </button>
+                                                    </span>
+                                                </div>
                                         </div>
 
                                         

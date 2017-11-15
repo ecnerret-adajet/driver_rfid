@@ -38,7 +38,8 @@
                                              <img :src="avatar_link + driver.avatar" class="rounded-circle" style="height: 60px; width: auto;"  align="middle">
                                         </div>
                                         <div class="col-sm-5">
-                                            <a :href="'/driver_rfid/public/drivers/' + driver.id"  style="text-transform: upppercase">{{driver.name}}</a> : <small>{{ driver.cardholder.Name }}</small>
+                                            <a :href="'/driver_rfid/public/drivers/' + driver.id"  style="text-transform: upppercase">{{driver.name}}</a> : 
+                                            <small v-if="driver.cardholder">{{ driver.cardholder.Name }}</small>
                                             <br/>
                                             <span v-for="truck in driver.trucks">
                                                 <span v-if="truck.reg_number == null">
@@ -64,7 +65,7 @@
                                             </span> 
                                             <br/> 
                                             <span>
-                                            COUNT LOGS: <strong> {{ driver.cardholder.logs.length == null ? '0' : driver.cardholder.logs.length }} </strong>
+                                            COUNT LOGS: <strong v-if="driver.cardholder"> {{ driver.cardholder.logs.length == null ? '0' : driver.cardholder.logs.length }} </strong>
                                             </span>
                                             <br/>
                                             <!-- <span>
@@ -83,7 +84,7 @@
                                                  <span v-for="hauler in driver.haulers">
                                                     <span v-for="truck in driver.trucks">
                                                         <span v-if="hauler.length != 0 || truck.length != 0">
-                                                            <a :href="driver_link + driver.id + '/reassign'" class="dropdown-item">Reassign Truck</a>
+                                                            <a :href="driver_link + driver.id + '/online/reassign'" class="dropdown-item">Reassign Truck</a>
                                                         </span>
                                                     </span>
                                                  </span> 
@@ -93,7 +94,10 @@
                                         </span>
                                         <span v-if="driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1">
                                               <div class="btn-group pull-right" role="group" aria-label="Basic example">
-                                                    <a  href="javascript:void(0);" class="btn btn-outline-primary btn-sm" data-toggle="modal" :data-target="'#driverModalActivate-'+ driver.id">Activate</a>
+                                                  <button class="btn btn-sm btn-outline-danger disabled">
+                                                    PENDING FOR APPROVAL
+                                                </button>
+                                                    <!-- <a  href="javascript:void(0);" class="btn btn-outline-primary btn-sm" data-toggle="modal" :data-target="'#driverModalActivate-'+ driver.id">Activate</a> -->
                                               </div>
                                         </span>
                                                                                         

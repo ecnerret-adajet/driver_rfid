@@ -139,8 +139,12 @@ Route::resource('roles', 'RolesController');
 
 //Hauler Route Online setup
 Route::get('hauler/online/home','HaulerOnlineController@index');
+Route::get('hauler/online/create','HaulerOnlineController@haulerDriverCreate');
+Route::post('hauler/online/store','HaulerOnlineController@haulerDriverStore');
 Route::get('drivers/{driver}/online/reassign','HaulerOnlineController@haulerOnlineReassign');
 Route::patch('online/reassign/{driver}',[  'as' => 'online-reassign.update' ,'uses' => 'HaulerOnlineController@haulerOnlineReassignSubmit']);
+
+
 
 Route::get('/entries','ReportsController@entries');
 Route::get('/generateEntries','ReportsController@generateEntries');

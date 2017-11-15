@@ -1,5 +1,4 @@
 @extends('layouts.fullonline')
-
 @section('content')
 
 
@@ -8,6 +7,9 @@
         <div class="card-header">
         Hauler's Managed
 
+        <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
+        Back
+        </a>
         </div>
         <div class="card-body">
 

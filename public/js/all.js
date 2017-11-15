@@ -37005,6 +37005,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['user'],
@@ -37070,6 +37074,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -53935,7 +53947,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": '/driver_rfid/public/drivers/' + driver.id
       }
-    }, [_vm._v(_vm._s(driver.name))]), _vm._v(" : "), _c('small', [_vm._v(_vm._s(driver.cardholder.Name))]), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.trucks), function(truck) {
+    }, [_vm._v(_vm._s(driver.name))]), _vm._v(" : \n                                          "), (driver.cardholder) ? _c('small', [_vm._v(_vm._s(driver.cardholder.Name))]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.trucks), function(truck) {
       return _c('span', [(truck.reg_number == null) ? _c('span', [_vm._v("\n                                                  " + _vm._s(truck.plate_number) + " \n                                              ")]) : _c('span', [_vm._v("\n                                                  " + _vm._s(truck.reg_number) + "\n                                              ")])])
     }), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.haulers), function(hauler, index) {
       return _c('span', [(index == 0) ? _c('span', [_vm._v("\n                                                  " + _vm._s(hauler.name) + " \n                                                  "), (hauler.name == null) ? _c('span', [_vm._v("\n                                                      NO HAULER ASSIGNED\n                                                  ")]) : _vm._e()]) : _vm._e()])
@@ -53943,7 +53955,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "col-sm-3"
     }, [(driver.card != null) ? _c('span', {
       staticClass: "badge badge-primary"
-    }, [_vm._v("\n                                              Card Assigned\n                                          ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                          COUNT LOGS: "), _c('strong', [_vm._v(" " + _vm._s(driver.cardholder.logs.length == null ? '0' : driver.cardholder.logs.length) + " ")])]), _vm._v(" "), _c('br')]), _vm._v(" "), _c('div', {
+    }, [_vm._v("\n                                              Card Assigned\n                                          ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                          COUNT LOGS: "), (driver.cardholder) ? _c('strong', [_vm._v(" " + _vm._s(driver.cardholder.logs.length == null ? '0' : driver.cardholder.logs.length) + " ")]) : _vm._e()]), _vm._v(" "), _c('br')]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-3 pull-right right"
     }, [(driver.availability == 1 || driver.print_status == 1 && driver.notif_status == 0) ? _c('span', [_vm._m(1, true), _vm._v(" "), _c('div', {
       staticClass: "dropdown-menu dropdown-menu-right",
@@ -53959,20 +53971,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }, [_vm._v("Reassign Truck")])]) : _vm._e()])
       }))
-    }))]) : _vm._e(), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1) ? _c('span', [_c('div', {
-      staticClass: "btn-group pull-right",
-      attrs: {
-        "role": "group",
-        "aria-label": "Basic example"
-      }
-    }, [_c('a', {
-      staticClass: "btn btn-outline-primary btn-sm",
-      attrs: {
-        "href": "javascript:void(0);",
-        "data-toggle": "modal",
-        "data-target": '#driverModalActivate-' + driver.id
-      }
-    }, [_vm._v("Activate")])])]) : _vm._e(), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('i', {
+    }))]) : _vm._e(), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1) ? _c('span', [_vm._m(2, true)]) : _vm._e(), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('i', {
       staticClass: "fa fa-circle",
       staticStyle: {
         "color": "green"
@@ -53991,7 +53990,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })]) : _vm._e()])])])
   }), _vm._v(" "), (_vm.filteredDriver.length == 0) ? _c('li', {
     staticClass: "list-group-item"
-  }, [_vm._m(2)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
+  }, [_vm._m(3)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
     staticClass: "center-align",
     staticStyle: {
       "padding-top": "50px",
@@ -54042,6 +54041,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "fa fa-ellipsis-v"
   })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "btn-group pull-right",
+    attrs: {
+      "role": "group",
+      "aria-label": "Basic example"
+    }
+  }, [_c('button', {
+    staticClass: "btn btn-sm btn-outline-danger disabled"
+  }, [_vm._v("\n                                                  PENDING FOR APPROVAL\n                                              ")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
@@ -55536,7 +55545,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [(truck.reg_number == null) ? _c('span', [_vm._v("\n                                                   " + _vm._s(truck.plate_number) + "\n                                               ")]) : _c('span', [_vm._v("\n                                                   " + _vm._s(truck.reg_number) + "\n                                               ")])]), _vm._v(" : "), _vm._l((truck.drivers), function(driver) {
       return _c('small', {
         staticClass: "badge badge-primary mr-2"
-      }, [_vm._v(_vm._s(driver.cardholder.Name))])
+      }, [(driver.cardholder) ? _c('span', [_vm._v("\n                                                       " + _vm._s(driver.cardholder.Name) + "\n                                                   ")]) : _vm._e()])
     }), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((truck.haulers), function(hauler) {
       return _c('span', {
         staticClass: "text-muted"
@@ -55569,7 +55578,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })]) : _vm._e()]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-3 pull-right right"
-    })])])
+    }, _vm._l((truck.drivers), function(driver) {
+      return _c('div', {
+        staticClass: "btn-group pull-right",
+        attrs: {
+          "role": "group",
+          "aria-label": "Basic example"
+        }
+      }, [(!driver.cardholder) ? _c('span', [_c('button', {
+        staticClass: "btn btn-sm btn-outline-danger disabled"
+      }, [_vm._v("\n                                                           PENDING FOR APPROVAL\n                                                       ")])]) : _vm._e()])
+    }))])])
   }), _vm._v(" "), (_vm.filteredTruck.length == 0) ? _c('li', {
     staticClass: "list-group-item"
   }, [_vm._m(2)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
