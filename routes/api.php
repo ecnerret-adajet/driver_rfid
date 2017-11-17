@@ -18,8 +18,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Driver's API JSON
-// Route::middleware('auth:api')->get('/driversJson', function () {
-//     $drivers = App/Driver::with('haulers')->get();
-//     return $drivers;
-// });
+Route::get('/queues','LineupApiController@getDriverQue');
+Route::get('/checkSubmissionDate/{plate_number}','LineupApiController@checkSubmissionDate');

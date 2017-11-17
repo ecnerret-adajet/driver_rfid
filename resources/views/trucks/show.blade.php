@@ -43,17 +43,16 @@
                     <br/>
                     <br/>
                     <span class="text-muted">VENDOR:</span><br/>
+                        @if(!empty($truck->vendor_description))
                         {{ $search->haulerName($truck->vendor_description) }}
-
+                        @endif
                 </div>
 
                 <div class="col-sm-4">
 
                     <span class="text-muted">SUBVENDOR:</span><br/>
-                        @if(!count($truck->haulers) == 0)
-                        @foreach($truck->haulers as $hauler)
-                            {{ $hauler->name }}
-                        @endforeach
+                        @if(!empty($truck->hauler))
+                        {{ $truck->hauler->name }}
                         @else
                         {{ $search->haulerName($truck->subvendor_description) }}
                         @endif

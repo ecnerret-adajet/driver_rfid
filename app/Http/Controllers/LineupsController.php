@@ -19,6 +19,17 @@ use App\Pass;
 
 class LineupsController extends Controller
 {
+
+    /**
+     * Driver monitoring for que outside trucscale office
+     * 
+     */
+    public function DriversQue()
+    {
+        return view('lineups.driversQue');
+    }
+
+
     /**
      * Display a listing of the resource.
      *

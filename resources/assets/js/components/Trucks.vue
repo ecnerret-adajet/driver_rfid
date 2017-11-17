@@ -49,7 +49,7 @@
                                                 <span v-else>
                                                     {{ truck.reg_number }}
                                                 </span>
-                                          </a> : <small class="badge badge-primary mr-2" v-for="driver in truck.drivers">{{ driver.cardholder.Name }}</small> <br/>
+                                          </a> : <small class="badge badge-primary mr-2" v-for="driver in truck.drivers" v-if="driver.cardholder">{{ driver.cardholder.Name }}</small> <br/>
                                             
                                             <span class="text-muted"  v-for="hauler in truck.haulers">
                                                {{ hauler.name }}

@@ -37,7 +37,7 @@
                                              <img :src="avatar_link + driver.avatar" class="rounded-circle" style="height: 60px; width: auto;"  align="middle">
                                         </div>
                                         <div class="col-sm-5">
-                                            <a :href="'/driver_rfid/public/drivers/' + driver.id"  style="text-transform: upppercase">{{driver.name}}</a> : <small>{{ driver.cardholder.Name }}</small>
+                                            <a :href="'/driver_rfid/public/drivers/' + driver.id"  style="text-transform: upppercase">{{driver.name}}</a> : <small v-if="driver.cardholder">{{ driver.cardholder.Name }}</small>
                                             <br/>
                                             <span v-for="truck in driver.trucks">
                                                 <span v-if="truck.reg_number == null">
@@ -63,7 +63,7 @@
                                             </span> 
                                             <br/> 
                                             <span>
-                                            COUNT LOGS: <strong> {{ driver.cardholder.logs.length == null ? '0' : driver.cardholder.logs.length }} </strong>
+                                            COUNT LOGS: <strong v-if="driver.cardholder"> {{ driver.cardholder.logs.length == null ? '0' : driver.cardholder.logs.length }} </strong>
                                             </span>
                                             <br/>
                                             <!-- <span>
