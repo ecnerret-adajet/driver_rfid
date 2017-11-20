@@ -12,8 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('home');
+    if(\Auth::user()->roles->first()->name == 'Hauler') {
+        return redirect('hauler/online/home');
+    } else {
+        return view('home');
+    }
 })->middleware('auth');
+
 
 // Route::get('/reassignApproval','SmsController@receiveReassign');
 
