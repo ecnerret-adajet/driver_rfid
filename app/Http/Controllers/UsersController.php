@@ -37,7 +37,8 @@ class UsersController extends Controller
     public function create()
     {
         $roles = Role::pluck('display_name','id');
-        return view('users.create',compact('roles'));  
+        $haulers = Hauler::pluck('name','id');
+        return view('users.create',compact('roles','haulers'));  
     }
 
     /**
@@ -64,7 +65,7 @@ class UsersController extends Controller
         if($request->hasFile('avatar')){
         $user->avatar = $request->file('avatar')->store('users');
         }
-
+        $user->hauler()->associate($request->input('hauler_list'));
         $user->save();
 
          $user->roles()->sync( (array) $request->input('roles_list') );
