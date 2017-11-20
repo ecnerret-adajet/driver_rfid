@@ -70,7 +70,7 @@ class HandlerMappingsController extends Controller
             'pfmc_server' => 'required',
         ]);
 
-        $lfug = (object)collect($this->lfugServer())->where('vendor_number','0400000305')->first();
+        $lfug = (object)collect($this->lfugServer())->where('vendor_number',$request->input('lfug_server'))->first();
         
         $hauler = new Hauler;
         $hauler->name = $lfug->vendor_name;
