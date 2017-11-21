@@ -17,10 +17,9 @@ class LineupApiController extends Controller
    public function getDriverQue()
    {
         $result_lineups = Log::with(['drivers','drivers.trucks','drivers.haulers'])
-        ->where('ControllerID',1)
         ->where('DoorID',0)
         ->where('CardholderID', '>=', 15)
-        ->where('LocalTime', '>=', Carbon::now()->subDay())
+        ->whereDate('LocalTime', Carbon::now())
         ->orderBy('LogID','DESC')->get();
 
         $log_lineups = $result_lineups->unique('CardholderID');
