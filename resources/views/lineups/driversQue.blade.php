@@ -1,10 +1,10 @@
-@extends('layouts.fullonline')   
+@extends('layouts.online')   
 @section('content') 
 
 
    <div class="card mx-auto mb-3">
         <div class="card-header">
-        On Que Driver
+        Driver List
 
         </div>
         <div class="card-body">

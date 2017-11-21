@@ -1,4 +1,4 @@
-@extends('layouts.fullonline')
+@extends('layouts.online')
 @section('top-script')
     <!-- Import sytyle for hover animation -->
      <link href="{{ asset('css/set1.css') }}" rel="stylesheet">
@@ -16,18 +16,7 @@
             <div class="row">
 
                 <div class="col-md-6 col-sm-6 col-xs-12 mb-3">
-                    {{--  <a href="{{ url('/users/hauler/online') }}" >
-                        <div class="card bg-light p-5 rounded mb-2">
-                            <div class="card-body mx-auto">
-                                <i class="material-icons" style="font-size: 50px;">account_circle</i>
-                            </div>
-                        </div>
-                        <span>
-                            <strong class="text-muted">
-                                Reassign Drivers
-                            </strong>
-                        </span>
-                    </a>  --}}
+ 
 
                     <div class="grid">
                     	<figure class="effect-ruby">
@@ -42,25 +31,15 @@
 
 
                 <div class="col-md-6 col-sm-6 col-xs-12 mb-3">
-                    {{--  <a href="{{ url('/hauler/online/create') }}">
-                        <div class="card bg-light p-5 rounded mb-2">
-                            <div class="card-body mx-auto">
-                                <i class="material-icons" style="font-size: 50px;">add_circle</i>
-                            </div>
-                        </div>
-                        <span>
-                            <strong class="text-muted">
-                                Add New Drivers
-                            </strong>
-                        </span>
-                    </a>  --}}
+          
 
                     <div class="grid">
-                        <figure class="effect-ruby">
-                            <img src="{{ asset('img/driver.jpg') }}" alt="img14"/>
-                            <figcaption>
+                        <figure class="effect">
+                            <img style="filter: grayscale(100%); -webkit-filter: grayscale(100%);" src="{{ asset('img/driver.jpg') }}" alt="img14"/>
+                            <figcaption class="pt-5 mt-5">
                                 <h2>ADD NEW <span>DRIVER</span></h2>
-                                <a href="{{ url('/hauler/online/create') }}">View more</a>
+                                <span>COMING SOON</span>
+                                {{--  <a href="{{ url('/hauler/online/create') }}">View more</a>  --}}
                             </figcaption>			
                         </figure>
                     </div>

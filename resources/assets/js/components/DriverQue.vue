@@ -28,7 +28,7 @@
                                                 {{ truck.plate_number }}
                                         </td>
                                         <td v-for="hauler in driver.haulers">
-                                                {{ $hauler.name }}
+                                                {{ hauler.name }}
                                         </td>
                                         <td>
                                             {{ moment(queue.LocalTime) }}
@@ -54,30 +54,44 @@
         data() {
             return {
                 avatar_link: '/driver_rfid/storage/app/',
-                queues: [],
-                checkSubmission: []
+                queues: null,
+                checkSubmission: null
             }
         },
 
-        mounted() {
-            setInterval(function () {
-                this.getQueues();
-            }.bind(this), 30000); 
-        },
-
         created() {
-            this.getQueues()
+            this.getQueues();
         },
 
         methods: {
             getQueues() {
-                axios.get('/driver_rfid/public/api/queues')
-                .then(response => this.queues = response.data)
+                let es = new EventSource('http://localhost/driver_rfid/public/api/queues');
+                es.addEventListener('message', event => {
+                    let data = JSON.parse(event.data);
+                    this.queues = data.queues;
+                }, false);
+
+                es.addEventListener('error', event => {
+                    if (event.readyState == EventSource.CLOSED) {
+                        console.log('Event was closed');
+                        console.log(EventSource);
+                    }
+                }, false);
             },
 
             getCheckSubmission(plate_number) {
-                axios.get('/driver_rfid/public/api/checkSubmissionDate/' + plate_number)
-                .then(response => this.queues = response.data)
+                let es = new EventSource('http://localhost/driver_rfid/public/api/checkSubmissionDate' + plate_number);
+                es.addEventListener('message', event => {
+                    let data = JSON.parse(event.data);
+                    this.checkSubmission = data.checkSubmission;
+                }, false);
+
+                es.addEventListener('error', event => {
+                    if (event.readyState == EventSource.CLOSED) {
+                        console.log('Event was closed');
+                        console.log(EventSource);
+                    }
+                }, false);
             },
 
             moment(date) {

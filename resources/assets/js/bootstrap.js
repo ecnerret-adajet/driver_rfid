@@ -49,5 +49,5 @@ if (token) {
 
 // window.Echo = new Echo({
 //     broadcaster: 'pusher',
-//     key: 'your-pusher-key'
+//     key: '111be59c0676b98ecba4'
 // });

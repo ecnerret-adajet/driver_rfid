@@ -36417,14 +36417,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             avatar_link: '/driver_rfid/storage/app/',
-            queues: [],
-            checkSubmission: []
+            queues: null,
+            checkSubmission: null
         };
-    },
-    mounted: function mounted() {
-        setInterval(function () {
-            this.getQueues();
-        }.bind(this), 30000);
     },
     created: function created() {
         this.getQueues();
@@ -36435,16 +36430,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getQueues: function getQueues() {
             var _this = this;
 
-            axios.get('/driver_rfid/public/api/queues').then(function (response) {
-                return _this.queues = response.data;
-            });
+            var es = new EventSource('http://localhost/driver_rfid/public/api/queues');
+            es.addEventListener('message', function (event) {
+                var data = JSON.parse(event.data);
+                _this.queues = data.queues;
+            }, false);
+
+            es.addEventListener('error', function (event) {
+                if (event.readyState == EventSource.CLOSED) {
+                    console.log('Event was closed');
+                    console.log(EventSource);
+                }
+            }, false);
         },
         getCheckSubmission: function getCheckSubmission(plate_number) {
             var _this2 = this;
 
-            axios.get('/driver_rfid/public/api/checkSubmissionDate/' + plate_number).then(function (response) {
-                return _this2.queues = response.data;
-            });
+            var es = new EventSource('http://localhost/driver_rfid/public/api/checkSubmissionDate' + plate_number);
+            es.addEventListener('message', function (event) {
+                var data = JSON.parse(event.data);
+                _this2.checkSubmission = data.checkSubmission;
+            }, false);
+
+            es.addEventListener('error', function (event) {
+                if (event.readyState == EventSource.CLOSED) {
+                    console.log('Event was closed');
+                    console.log(EventSource);
+                }
+            }, false);
         },
         moment: function moment(date) {
             return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM D, Y h:m:s A');
@@ -39141,7 +39154,7 @@ if (token) {
 
 // window.Echo = new Echo({
 //     broadcaster: 'pusher',
-//     key: 'your-pusher-key'
+//     key: '111be59c0676b98ecba4'
 // });
 
 /***/ }),
@@ -53047,7 +53060,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       })]), _vm._v(" "), _c('td', [_vm._v("\n                                        " + _vm._s(driver.name) + " \n                                    ")]), _vm._v(" "), _vm._l((driver.trucks), function(truck) {
         return _c('td', [_vm._v("\n                                            " + _vm._s(truck.plate_number) + "\n                                    ")])
       }), _vm._v(" "), _vm._l((driver.haulers), function(hauler) {
-        return _c('td', [_vm._v("\n                                            " + _vm._s(_vm.$hauler.name) + "\n                                    ")])
+        return _c('td', [_vm._v("\n                                            " + _vm._s(hauler.name) + "\n                                    ")])
       }), _vm._v(" "), _c('td', [_vm._v("\n                                        " + _vm._s(_vm.moment(queue.LocalTime)) + "\n                                    ")]), _vm._v(" "), _vm._l((driver.trucks), function(truck) {
         return _c('td', [(truck) ? _c('span', [_vm._v("\n                                            " + _vm._s(_vm.getCheckSubmission(truck.plate_number)) + "\n                                        ")]) : _vm._e()])
       })], 2)

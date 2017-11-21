@@ -1,4 +1,4 @@
-@extends('layouts.fullonline')
+@extends('layouts.online')
 @section('content')
 
 
