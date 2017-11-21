@@ -9,6 +9,8 @@ use App\Card;
 use Carbon\Carbon;
 use App\Log;
 use DB;
+use Illuminate\Support\Facades\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class LineupApiController extends Controller
 {
@@ -23,7 +25,19 @@ class LineupApiController extends Controller
 
         $log_lineups = $result_lineups->unique('CardholderID');
 
-        return $log_lineups;
+        $response = new StreamedResponse(function() use ($log_lineups) {
+            while(true) {
+                echo 'data: ' . json_encode($log_lineups) . "\n\n";
+                ob_flush();
+                flush();
+                usleep(200000);
+            }
+        });
+        $response->headers->set('Content-Type', 'text/event-stream');
+        $response->headers->set('X-Accel-Buffering', 'no');
+        $response->headers->set('Cache-Control', 'no-cache');
+
+        return $response;
    }
 
    public function checkSubmissionDate($plate_number)
@@ -39,7 +53,19 @@ class LineupApiController extends Controller
            $submission = 'UNPROCESS';
        }
 
-       return $submission;
+       $response = new StreamedResponse(function() use ($submission) {
+        while(true) {
+            echo 'data: ' . json_encode($submission) . "\n\n";
+            ob_flush();
+            flush();
+            usleep(200000);
+            }
+        });
+        $response->headers->set('Content-Type', 'text/event-stream');
+        $response->headers->set('X-Accel-Buffering', 'no');
+        $response->headers->set('Cache-Control', 'no-cache');
+
+       return $response;
    }
 
 }

@@ -54,8 +54,8 @@
         data() {
             return {
                 avatar_link: '/driver_rfid/storage/app/',
-                queues: null,
-                checkSubmission: null
+                queues: [],
+                checkSubmission: []
             }
         },
 

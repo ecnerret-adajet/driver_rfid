@@ -36417,8 +36417,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             avatar_link: '/driver_rfid/storage/app/',
-            queues: null,
-            checkSubmission: null
+            queues: [],
+            checkSubmission: []
         };
     },
     created: function created() {
