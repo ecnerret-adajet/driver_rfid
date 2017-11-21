@@ -36430,34 +36430,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getQueues: function getQueues() {
             var _this = this;
 
-            var es = new EventSource('/driver_rfid/public/api/queues');
-            es.addEventListener('message', function (event) {
-                var data = JSON.parse(event.data);
-                _this.queues = data.queues;
-            }, false);
+            axios.get('/driver_rfid/public/api/queues').then(function (response) {
+                return _this.queues = response.data;
+            });
 
-            es.addEventListener('error', function (event) {
-                if (event.readyState == EventSource.CLOSED) {
-                    console.log('Event was closed');
-                    console.log(EventSource);
-                }
-            }, false);
+            // let es = new EventSource('/driver_rfid/public/api/queues');
+            // es.addEventListener('message', event => {
+            //     let data = JSON.parse(event.data);
+            //     this.queues = data.queues;
+            // }, false);
+
+            // es.addEventListener('error', event => {
+            //     if (event.readyState == EventSource.CLOSED) {
+            //         console.log('Event was closed');
+            //         console.log(EventSource);
+            //     }
+            // }, false);
         },
         getCheckSubmission: function getCheckSubmission(plate_number) {
             var _this2 = this;
 
-            var es = new EventSource('/driver_rfid/public/api/checkSubmissionDate' + plate_number);
-            es.addEventListener('message', function (event) {
-                var data = JSON.parse(event.data);
-                _this2.checkSubmission = data.checkSubmission;
-            }, false);
+            axios.get('/driver_rfid/public/api/checkSubmissionDate' + plate_number).then(function (response) {
+                return _this2.checkSubmission = response.data;
+            });
 
-            es.addEventListener('error', function (event) {
-                if (event.readyState == EventSource.CLOSED) {
-                    console.log('Event was closed');
-                    console.log(EventSource);
-                }
-            }, false);
+            // let es = new EventSource('/driver_rfid/public/api/checkSubmissionDate' + plate_number);
+            // es.addEventListener('message', event => {
+            //     let data = JSON.parse(event.data);
+            //     this.checkSubmission = data.checkSubmission;
+            // }, false);
+
+            // es.addEventListener('error', event => {
+            //     if (event.readyState == EventSource.CLOSED) {
+            //         console.log('Event was closed');
+            //         console.log(EventSource);
+            //     }
+            // }, false);
         },
         moment: function moment(date) {
             return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM D, Y h:m:s A');

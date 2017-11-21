@@ -16,13 +16,13 @@ class LineupApiController extends Controller
 {
    public function getDriverQue()
    {
-        $result_lineups = Log::with(['drivers','drivers.trucks','drivers.haulers'])
-        ->where('DoorID',0)
-        ->where('CardholderID', '>=', 15)
-        ->whereDate('LocalTime', Carbon::now())
-        ->orderBy('LogID','DESC')->get();
+            $result_lineups = Log::with(['drivers','drivers.trucks','drivers.haulers'])
+            ->where('DoorID',0)
+            ->where('CardholderID', '>=', 15)
+            ->whereDate('LocalTime', Carbon::now())
+            ->orderBy('LogID','DESC')->get();
 
-        $log_lineups = $result_lineups->unique('CardholderID');
+            $log_lineups = $result_lineups->unique('CardholderID');
 
         $response = new StreamedResponse(function() use ($log_lineups) {
             while(true) {

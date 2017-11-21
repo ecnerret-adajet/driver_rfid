@@ -65,33 +65,40 @@
 
         methods: {
             getQueues() {
-                let es = new EventSource('/driver_rfid/public/api/queues');
-                es.addEventListener('message', event => {
-                    let data = JSON.parse(event.data);
-                    this.queues = data.queues;
-                }, false);
+                axios.get('/driver_rfid/public/api/queues')
+                .then(response => this.queues = response.data);
 
-                es.addEventListener('error', event => {
-                    if (event.readyState == EventSource.CLOSED) {
-                        console.log('Event was closed');
-                        console.log(EventSource);
-                    }
-                }, false);
+
+                // let es = new EventSource('/driver_rfid/public/api/queues');
+                // es.addEventListener('message', event => {
+                //     let data = JSON.parse(event.data);
+                //     this.queues = data.queues;
+                // }, false);
+
+                // es.addEventListener('error', event => {
+                //     if (event.readyState == EventSource.CLOSED) {
+                //         console.log('Event was closed');
+                //         console.log(EventSource);
+                //     }
+                // }, false);
             },
 
             getCheckSubmission(plate_number) {
-                let es = new EventSource('/driver_rfid/public/api/checkSubmissionDate' + plate_number);
-                es.addEventListener('message', event => {
-                    let data = JSON.parse(event.data);
-                    this.checkSubmission = data.checkSubmission;
-                }, false);
+                axios.get('/driver_rfid/public/api/checkSubmissionDate' + plate_number)
+                .then(response => this.checkSubmission = response.data);
 
-                es.addEventListener('error', event => {
-                    if (event.readyState == EventSource.CLOSED) {
-                        console.log('Event was closed');
-                        console.log(EventSource);
-                    }
-                }, false);
+                // let es = new EventSource('/driver_rfid/public/api/checkSubmissionDate' + plate_number);
+                // es.addEventListener('message', event => {
+                //     let data = JSON.parse(event.data);
+                //     this.checkSubmission = data.checkSubmission;
+                // }, false);
+
+                // es.addEventListener('error', event => {
+                //     if (event.readyState == EventSource.CLOSED) {
+                //         console.log('Event was closed');
+                //         console.log(EventSource);
+                //     }
+                // }, false);
             },
 
             moment(date) {
