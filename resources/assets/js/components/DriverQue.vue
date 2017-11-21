@@ -19,7 +19,7 @@
                         <tbody v-for="queue in queues">
                                 <tr v-for="driver in queue.drivers">
                                         <td>
-                                            <img class="rounded-circle" style="height: 60px; width: auto;" :src="avatar_link + driver.id" align="top">
+                                             <img :src="avatar_link + driver.avatar" class="rounded-circle" style="height: 60px; width: auto;"  align="middle">
                                         </td>
                                         <td>
                                             {{ driver.name }} 
@@ -84,7 +84,7 @@
             },
 
             getCheckSubmission(plate_number) {
-                axios.get('/driver_rfid/public/api/checkSubmissionDate' + plate_number)
+                axios.get('/driver_rfid/public/api/checkSubmissionDate/' + plate_number)
                 .then(response => this.checkSubmission = response.data);
 
                 // let es = new EventSource('/driver_rfid/public/api/checkSubmissionDate' + plate_number);

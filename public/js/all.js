@@ -36450,7 +36450,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getCheckSubmission: function getCheckSubmission(plate_number) {
             var _this2 = this;
 
-            axios.get('/driver_rfid/public/api/checkSubmissionDate' + plate_number).then(function (response) {
+            axios.get('/driver_rfid/public/api/checkSubmissionDate/' + plate_number).then(function (response) {
                 return _this2.checkSubmission = response.data;
             });
 
@@ -53062,8 +53062,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           "width": "auto"
         },
         attrs: {
-          "src": _vm.avatar_link + driver.id,
-          "align": "top"
+          "src": _vm.avatar_link + driver.avatar,
+          "align": "middle"
         }
       })]), _vm._v(" "), _c('td', [_vm._v("\n                                        " + _vm._s(driver.name) + " \n                                    ")]), _vm._v(" "), _vm._l((driver.trucks), function(truck) {
         return _c('td', [_vm._v("\n                                            " + _vm._s(truck.plate_number) + "\n                                    ")])
