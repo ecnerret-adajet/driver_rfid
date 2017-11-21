@@ -11,6 +11,11 @@ class Capacity extends Model
         'capacity',
     ];
 
+    public function getDates()
+    {
+        return [];
+    }
+
     public function truck()
     {
         return $this->hasOne('App\Truck');

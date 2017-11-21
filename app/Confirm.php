@@ -13,6 +13,11 @@ class Confirm extends Model
         'classification'
     ];
 
+    public function getDates()
+    {
+        return [];
+    }
+
     public function driver()
     {
         return $this->belongsTo('App\Driver');

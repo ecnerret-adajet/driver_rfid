@@ -15,6 +15,11 @@ class Lineup extends Model
         'availability'
     ];
 
+    public function getDates()
+    {
+        return [];
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User');

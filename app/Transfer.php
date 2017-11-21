@@ -20,6 +20,11 @@ class Transfer extends Model
     	'transfer_date'
     ];
 
+    public function getDates()
+    {
+        return [];
+    }
+
     public function driver()
     {
     	return $this->belongsTo('App\Driver');

@@ -36,6 +36,11 @@ class Truck extends Model
         'validity_end_date',
     ];
 
+    public function getDates()
+    {
+        return [];
+    }
+
     protected $dates = [
         'validity_start_date',
         'validity_end_date'

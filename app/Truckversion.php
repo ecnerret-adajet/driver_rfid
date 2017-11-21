@@ -4,15 +4,20 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Handler extends Model
+class Truckversion extends Model
 {
-    protected $table = "handler_mapping";
     protected $fillable = [
-        'vendor_number',
-        'server_id'
+        'cardholder_id',
+        'card_id',
+        'driver_name',
+        'plate_number',
+        'hauler'
     ];
+    
     public function getDates()
     {
         return [];
     }
+
+    
 }

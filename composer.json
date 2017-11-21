@@ -18,6 +18,7 @@
         "maatwebsite/excel": "^2.1",
         "mercuryseries/flashy": "^1.0",
         "psy/psysh": "0.8.11",
+        "pusher/pusher-php-server": "~3.0",
         "roksta/toast": "^1.0",
         "spatie/laravel-activitylog": "^1.15",
         "venturecraft/revisionable": "^1.28",

@@ -14,6 +14,11 @@ class Binder extends Model
         'rfid_id',
         'cardholder_id'
     ];
+
+    public function getDates()
+    {
+        return [];
+    }
     
     public function card()
     {

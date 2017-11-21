@@ -12,6 +12,13 @@ class Status extends Model
     	'status'
     ];
 
+    public function getDates()
+    {
+        return [];
+    }
+
     public function monitors(){
     	return $this->hasMany('App\Monitor');
-    }}
+    }
+
+}

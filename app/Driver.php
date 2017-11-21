@@ -42,6 +42,11 @@ class Driver extends Model
         'end_validity_date'
     ];
 
+    public function getDates()
+    {
+        return [];
+    }
+
 
       /**
      * Dates configuration for validity_start_date

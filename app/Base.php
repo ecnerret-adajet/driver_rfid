@@ -16,4 +16,9 @@ class Base extends Model
     {
         return $this->hasOne('App\Truck');
     }
+
+    public function getDates()
+    {
+        return [];
+    }
 }

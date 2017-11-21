@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
     protected $connection = "sqlsrv";
+
+    public function getDates()
+    {
+        return [];
+    }
     
     public function Log()
     {

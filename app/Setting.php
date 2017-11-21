@@ -12,5 +12,10 @@ class Setting extends Model
     {
         return $this->belongsTo(User::class);
     }
+    
+    public function getDates()
+    {
+        return [];
+    }
 
 }

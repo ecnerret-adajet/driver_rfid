@@ -73,7 +73,10 @@ class Cardholder extends Model
         'FacialPrivilege',
     ];
 
-  
+    public function getDates()
+    {
+        return [];
+    }
 
     public function cards()
     {

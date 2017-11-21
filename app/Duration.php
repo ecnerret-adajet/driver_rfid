@@ -12,6 +12,11 @@ class Duration extends Model
     	'remarks'
     ];
 
+    public function getDates()
+    {
+        return [];
+    }
+
     public function monitors()
     {
     	return $this->hasMany('App\Monitor');

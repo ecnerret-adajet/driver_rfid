@@ -15,6 +15,11 @@ class Lost extends Model
         'reason'
     ];
 
+    public function getDates()
+    {
+        return [];
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User');

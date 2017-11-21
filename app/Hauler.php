@@ -28,6 +28,11 @@ class Hauler extends Model
     	return $this->belongsToMany(Driver::class);
     }
 
+    public function getDates()
+    {
+        return [];
+    }
+
 
     // list all hauler with associated trucks
     public function trucks()

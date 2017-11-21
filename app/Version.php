@@ -20,6 +20,11 @@ class Version extends Model
         'end_validity_date',
     ];
 
+    public function getDates()
+    {
+        return [];
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User');

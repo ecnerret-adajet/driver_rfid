@@ -31,6 +31,11 @@ class Pickup extends Model
         'remarks'
     ];     
 
+    public function getDates()
+    {
+        return [];
+    }
+
     protected static $logAttributes = [
         'plate_number', 
         'company',

@@ -10,4 +10,9 @@ class Role extends EntrustRole
     {
         return $this->belongsToMany('App\Permission');
     }
+
+    public function getDates()
+    {
+        return [];
+    }
 }

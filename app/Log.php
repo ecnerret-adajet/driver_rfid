@@ -21,6 +21,11 @@ class Log extends Model
         'DoorID',
         'Invalid',
     ];
+    
+    public function getDates()
+    {
+        return [];
+    }
 
     public function getKeyName(){
         return "CardholderID";

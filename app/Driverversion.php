@@ -19,6 +19,11 @@ class Driverversion extends Model
         'end_date',
     ];
 
+    public function getDates()
+    {
+        return [];
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User');

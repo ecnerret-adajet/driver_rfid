@@ -11,6 +11,11 @@ class Rfid extends Model
         'name'
     ];
 
+    public function getDates()
+    {
+        return [];
+    }
+
     public function cards()
     {
         return $this->hasMany('App\Card','CardID','id');

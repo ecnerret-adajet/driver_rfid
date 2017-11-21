@@ -25,6 +25,11 @@ class Card extends Model
         'DisableLockCard',
     ];
 
+    public function getDates()
+    {
+        return [];
+    }
+
     protected static $logAttributes = [
         'binders', 
     ];
