@@ -65,7 +65,7 @@
 
         methods: {
             getQueues() {
-                let es = new EventSource('http://localhost/driver_rfid/public/api/queues');
+                let es = new EventSource('/driver_rfid/public/api/queues');
                 es.addEventListener('message', event => {
                     let data = JSON.parse(event.data);
                     this.queues = data.queues;
@@ -80,7 +80,7 @@
             },
 
             getCheckSubmission(plate_number) {
-                let es = new EventSource('http://localhost/driver_rfid/public/api/checkSubmissionDate' + plate_number);
+                let es = new EventSource('/driver_rfid/public/api/checkSubmissionDate' + plate_number);
                 es.addEventListener('message', event => {
                     let data = JSON.parse(event.data);
                     this.checkSubmission = data.checkSubmission;

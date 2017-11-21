@@ -36430,7 +36430,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getQueues: function getQueues() {
             var _this = this;
 
-            var es = new EventSource('http://localhost/driver_rfid/public/api/queues');
+            var es = new EventSource('/driver_rfid/public/api/queues');
             es.addEventListener('message', function (event) {
                 var data = JSON.parse(event.data);
                 _this.queues = data.queues;
@@ -36446,7 +36446,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getCheckSubmission: function getCheckSubmission(plate_number) {
             var _this2 = this;
 
-            var es = new EventSource('http://localhost/driver_rfid/public/api/checkSubmissionDate' + plate_number);
+            var es = new EventSource('/driver_rfid/public/api/checkSubmissionDate' + plate_number);
             es.addEventListener('message', function (event) {
                 var data = JSON.parse(event.data);
                 _this2.checkSubmission = data.checkSubmission;
