@@ -69,7 +69,7 @@ class ReportsController extends Controller
 	    $col_count = $between + 1;
 	    $index =0;
         
-        if($count_days <= 7){
+        if($count_days <= 6){ // change from 7
             
             return view('reports.entries', 
             compact('start_date',
