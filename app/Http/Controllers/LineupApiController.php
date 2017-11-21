@@ -16,27 +16,29 @@ class LineupApiController extends Controller
 {
    public function getDriverQue()
    {
-            $result_lineups = Log::with(['drivers','drivers.trucks','drivers.haulers'])
-            ->where('DoorID',0)
-            ->where('CardholderID', '>=', 15)
-            ->whereDate('LocalTime', Carbon::now())
-            ->orderBy('LogID','DESC')->get();
+        $result_lineups = Log::with(['drivers','drivers.trucks','drivers.haulers'])
+        ->where('DoorID',0)
+        ->where('CardholderID', '>=', 15)
+        ->whereDate('LocalTime', Carbon::now())
+        ->orderBy('LogID','DESC')->get();
 
-            $log_lineups = $result_lineups->unique('CardholderID');
+        $log_lineups = $result_lineups->unique('CardholderID');
 
-        $response = new StreamedResponse(function() use ($log_lineups) {
-            while(true) {
-                echo 'data: ' . json_encode($log_lineups) . "\n\n";
-                ob_flush();
-                flush();
-                usleep(200000);
-            }
-        });
-        $response->headers->set('Content-Type', 'text/event-stream');
-        $response->headers->set('X-Accel-Buffering', 'no');
-        $response->headers->set('Cache-Control', 'no-cache');
+        return $log_lineups;
 
-        return $response;
+        // $response = new StreamedResponse(function() use ($log_lineups) {
+        //     while(true) {
+        //         echo 'data: ' . json_encode($log_lineups) . "\n\n";
+        //         ob_flush();
+        //         flush();
+        //         usleep(200000);
+        //     }
+        // });
+        // $response->headers->set('Content-Type', 'text/event-stream');
+        // $response->headers->set('X-Accel-Buffering', 'no');
+        // $response->headers->set('Cache-Control', 'no-cache');
+
+        // return $response;
    }
 
    public function checkSubmissionDate($plate_number)
@@ -52,19 +54,21 @@ class LineupApiController extends Controller
            $submission = 'UNPROCESS';
        }
 
-       $response = new StreamedResponse(function() use ($submission) {
-        while(true) {
-            echo 'data: ' . json_encode($submission) . "\n\n";
-            ob_flush();
-            flush();
-            usleep(200000);
-            }
-        });
-        $response->headers->set('Content-Type', 'text/event-stream');
-        $response->headers->set('X-Accel-Buffering', 'no');
-        $response->headers->set('Cache-Control', 'no-cache');
+       return $submission;
 
-       return $response;
+    //    $response = new StreamedResponse(function() use ($submission) {
+    //     while(true) {
+    //         echo 'data: ' . json_encode($submission) . "\n\n";
+    //         ob_flush();
+    //         flush();
+    //         usleep(200000);
+    //         }
+    //     });
+    //     $response->headers->set('Content-Type', 'text/event-stream');
+    //     $response->headers->set('X-Accel-Buffering', 'no');
+    //     $response->headers->set('Cache-Control', 'no-cache');
+
+    //    return $response;
    }
 
 }
