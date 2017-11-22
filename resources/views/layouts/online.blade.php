@@ -57,9 +57,12 @@
             <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="messagesDropdown">
               <h6 class="dropdown-header">Options:</h6>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal">
-                <strong>Logout</strong>
-              </a>
+                  <a class="dropdown-item" href="{{ url('online/users/'.Auth::user()->id.'/edit') }}">
+                    <strong>Profile</strong>
+                  </a>
+                   <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal">
+                    <strong>Logout</strong>
+                  </a>
             </div>
           </li>      
 

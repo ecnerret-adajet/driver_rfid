@@ -54,12 +54,13 @@ class UsersController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed',
             'roles_list' => 'required',
+            'phone_number' => 'required'
         ]);
 
         $user = new User;
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        // $user->position = $request->input('position');
+        $user->phone_number = $request->input('phone_number');
         $user->password = Hash::make($request->input('password'));
         
         if($request->hasFile('avatar')){
@@ -99,7 +100,6 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        $roles = Role::pluck('display_name','id');
         $roles = Role::pluck('display_name','id');
         $userRole = $user->roles->pluck('id','id')->toArray();
         $haulers = Hauler::pluck('name','id');

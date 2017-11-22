@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\ConfirmReassign;
 use App\Notifications\ConfirmDriver;
+use Illuminate\Support\Facades\Gate;
 use Carbon\Carbon;
 use App\Driver;
 use App\Truck;
@@ -163,5 +164,38 @@ class HaulerOnlineController extends Controller
         flashy()->success('Driver has successfully created!');
         return redirect('users/hauler/online');
     }
+
+    public function haulerEditUser(User $user)
+    {   
+
+        if(Gate::denies('view', $user)) {
+            flashy()->error('Nope, You Cannot Do That!');
+            return redirect('users/hauler/online');
+        }
+
+        return view('haulerOnline.hauler-edit-user',compact('user'));
+    }
+
+    public function haulerUpdateUser(Request $request, User $user)
+    {
+
+        if(Gate::denies('view', $user)) {
+            return redirect('users/hauler/online');
+        }
+
+        $input = $request->all();
+        if(!empty($input['password'])){ 
+            $input['password'] = Hash::make($input['password']);
+        }else{
+            $input = array_except($input,array('password'));    
+        }
+
+        $user->update($input);
+        $user->save();
+
+        flashy()->success('Driver has successfully updated!');
+        return redirect('users/hauler/online');
+    }
+
 
 }

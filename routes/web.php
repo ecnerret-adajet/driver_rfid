@@ -148,7 +148,8 @@ Route::get('hauler/online/create','HaulerOnlineController@haulerDriverCreate');
 Route::post('hauler/online/store','HaulerOnlineController@haulerDriverStore');
 Route::get('drivers/{driver}/online/reassign','HaulerOnlineController@haulerOnlineReassign');
 Route::patch('online/reassign/{driver}',[  'as' => 'online-reassign.update' ,'uses' => 'HaulerOnlineController@haulerOnlineReassignSubmit']);
-
+Route::get('online/users/{user}/edit','HaulerOnlineController@haulerEditUser');
+Route::patch('online/users/update/{user}',[  'as' => 'haulerUsers.update' ,'uses' => 'HaulerOnlineController@haulerUpdateUser']);
 
 
 Route::get('/entries','ReportsController@entries');
