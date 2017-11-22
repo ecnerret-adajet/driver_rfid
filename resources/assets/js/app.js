@@ -39,7 +39,6 @@ Vue.component('hauleronline', require('./components/HaulerOnline.vue'));
 Vue.component('hauleronlinetruck', require('./components/HaulerOnlineTruck.vue'));
 Vue.component('driverque', require('./components/DriverQue.vue'));
 
-
 const app = new Vue({
     el: '#app'
 });

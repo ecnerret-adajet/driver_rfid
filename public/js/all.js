@@ -36411,14 +36411,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             avatar_link: '/driver_rfid/storage/app/',
-            queues: [],
-            checkSubmission: []
+            queues: []
         };
     },
     created: function created() {
@@ -36434,38 +36457,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return _this.queues = response.data;
             });
 
-            // let es = new EventSource('/driver_rfid/public/api/queues');
-            // es.addEventListener('message', event => {
-            //     let data = JSON.parse(event.data);
-            //     this.queues = data.queues;
-            // }, false);
-
-            // es.addEventListener('error', event => {
-            //     if (event.readyState == EventSource.CLOSED) {
-            //         console.log('Event was closed');
-            //         console.log(EventSource);
-            //     }
-            // }, false);
-        },
-        getCheckSubmission: function getCheckSubmission(plate_number) {
-            var _this2 = this;
-
-            axios.get('/driver_rfid/public/api/checkSubmissionDate/' + plate_number).then(function (response) {
-                return _this2.checkSubmission = response.data;
-            });
-
-            // let es = new EventSource('/driver_rfid/public/api/checkSubmissionDate' + plate_number);
-            // es.addEventListener('message', event => {
-            //     let data = JSON.parse(event.data);
-            //     this.checkSubmission = data.checkSubmission;
-            // }, false);
-
-            // es.addEventListener('error', event => {
-            //     if (event.readyState == EventSource.CLOSED) {
-            //         console.log('Event was closed');
-            //         console.log(EventSource);
-            //     }
-            // }, false);
+            setTimeout(this.getQueues, 1000);
         },
         moment: function moment(date) {
             return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM D, Y h:m:s A');
@@ -53065,13 +53057,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           "src": _vm.avatar_link + driver.avatar,
           "align": "middle"
         }
-      })]), _vm._v(" "), _c('td', [_vm._v("\n                                        " + _vm._s(driver.name) + " \n                                    ")]), _vm._v(" "), _vm._l((driver.trucks), function(truck) {
+      })]), _vm._v(" "), _c('td', [(driver.name) ? _c('span', [_vm._v("\n                                            " + _vm._s(driver.name) + " \n                                        ")]) : _c('span', [_vm._v("\n                                            NO DRIVER\n                                        ")])]), _vm._v(" "), _vm._l((driver.trucks), function(truck) {
         return _c('td', [_vm._v("\n                                            " + _vm._s(truck.plate_number) + "\n                                    ")])
-      }), _vm._v(" "), _vm._l((driver.haulers), function(hauler) {
+      }), _vm._v(" "), (driver.trucks.length == 0) ? _c('td', [_c('span', {
+        staticClass: "text-danger"
+      }, [_vm._v("NO TRUCK")])]) : _vm._e(), _vm._v(" "), _vm._l((driver.haulers), function(hauler) {
         return _c('td', [_vm._v("\n                                            " + _vm._s(hauler.name) + "\n                                    ")])
-      }), _vm._v(" "), _c('td', [_vm._v("\n                                        " + _vm._s(_vm.moment(queue.LocalTime)) + "\n                                    ")]), _vm._v(" "), _vm._l((driver.trucks), function(truck) {
-        return _c('td', [(truck) ? _c('span', [_vm._v("\n                                            " + _vm._s(_vm.getCheckSubmission(truck.plate_number)) + "\n                                        ")]) : _vm._e()])
-      })], 2)
+      }), _vm._v(" "), (driver.haulers.length == 0) ? _c('td', [_c('span', {
+        staticClass: "text-danger"
+      }, [_vm._v("NO HAULER")])]) : _vm._e(), _vm._v(" "), _c('td', [(_vm.moment(queue.LocalTime)) ? _c('span', [_vm._v("\n                                            " + _vm._s(_vm.moment(queue.LocalTime)) + "\n                                        ")]) : _c('span', [_vm._v("\n                                            NO TIME\n                                        ")])]), _vm._v(" "), _c('td', [(driver.availability == 1) ? _c('span', [_c('button', {
+        staticClass: "btn btn-success btn-sm disabled"
+      }, [_vm._v("\n                                                 ACTIVE\n                                             ")])]) : _c('span', [_c('button', {
+        staticClass: "btn btn-danger btn-sm disabled"
+      }, [_vm._v("\n                                                 INACTIVE\n                                             ")])])])], 2)
     }))
   })], 2)])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -53079,7 +53077,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "text-transform": "uppercase"
     }
-  }, [_c('th'), _vm._v(" "), _c('th', [_vm._v("Driver Name")]), _vm._v(" "), _c('th', [_vm._v("Plate Number")]), _vm._v(" "), _c('th', [_vm._v("Hauler")]), _vm._v(" "), _c('th', [_vm._v("Date/Time")]), _vm._v(" "), _c('th', [_vm._v("Submission Date")]), _vm._v(" "), _c('th', [_vm._v("Option")])])])
+  }, [_c('th'), _vm._v(" "), _c('th', [_vm._v("Driver Name")]), _vm._v(" "), _c('th', [_vm._v("Plate Number")]), _vm._v(" "), _c('th', [_vm._v("Hauler")]), _vm._v(" "), _c('th', [_vm._v("Date/Time")]), _vm._v(" "), _c('th', [_vm._v("Status")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

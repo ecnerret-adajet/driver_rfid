@@ -54,7 +54,11 @@ class LineupApiController extends Controller
            $submission = 'UNPROCESS';
        }
 
-       return $submission;
+       $data = array(
+           'result' => $submission
+       );
+
+       return $data;
 
     //    $response = new StreamedResponse(function() use ($submission) {
     //     while(true) {

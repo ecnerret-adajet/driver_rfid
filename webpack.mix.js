@@ -24,6 +24,7 @@ mix.styles([
         'resources/assets/css/sb-admin.min.css',
         'public/css/style.css',
         'node_modules/croppie/croppie.css',
+        'node_modules/animate.css/animate.min.css',
     ], 'public/css/all.css')
     .js([
         'resources/assets/js/app.js',
