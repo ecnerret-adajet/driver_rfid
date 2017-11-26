@@ -313,7 +313,6 @@ class TrucksController extends Controller
         $version->vendor_description = $truck->vendor_description;
         $version->subvendor_description = $truck->subvendor_description;
         $version->contract_code = $truck->contract_code;
-        // $version->base_id = $truck->base_id;
         $version->start_validity_date = $request->input('validity_end_date');
         $version->end_validity_date = Carbon::now();
         $version->save(); 

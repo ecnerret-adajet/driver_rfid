@@ -27,6 +27,7 @@ use DB;
 use Image;
 use JavaScript;
 use Ixudra\Curl\Facades\Curl;
+use App\Truckversion;
 
 class DriversController extends Controller
 {
@@ -51,6 +52,25 @@ class DriversController extends Controller
 
         return $version;
     }
+
+    /**
+     *  Trucks revision method
+     */
+    public function truckRevision($id)
+    {
+        $driver = Driver::findOrFail($id);
+
+        $version = new Truckversion;
+        $version->user_id = Auth::user()->id;
+        $version->cardholder_id = $driver->cardholder_id;
+        $version->card_id = $driver->card_id;
+        $version->driver_name = $driver->name;
+        $version->plate_number = $driver->truck->plate_number;
+        $version->hauler = $driver->hauler->name;
+        $version->save();
+
+        return $version;
+     }
 
     /**
      *  Testing SMS to notify approvers
@@ -353,6 +373,8 @@ class DriversController extends Controller
 
         // Driver's Revision model
         $this->driverRevision($driver->id, $request->input('end_validity_date'));
+        // Truck's Revision model
+        $this->truckRevision($driver->id);
         
         // Change driver's status upon submitting reassign
         $driver->update($request->all());

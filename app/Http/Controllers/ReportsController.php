@@ -48,7 +48,8 @@ class ReportsController extends Controller
 		$hauler_list = $request->input('hauler_list');
         $count_days = Carbon::parse($start_date)->diffInDays(Carbon::parse($end_date));
         
-        $logs = Log::where('CardholderID', '>=', 1)
+		$logs = Log::where('CardholderID', '>=', 1)
+				->whereNotIn('DoorID',['0'])
 				->whereBetween('LocalTime', [Carbon::parse($start_date), Carbon::parse($end_date)])
 				->orderBy('LocalTime','ASC')
 				->with(['drivers.haulers' => function($q) use ($hauler_list){

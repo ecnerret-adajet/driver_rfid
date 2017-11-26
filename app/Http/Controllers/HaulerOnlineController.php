@@ -170,7 +170,12 @@ class HaulerOnlineController extends Controller
 
         if(Gate::denies('view', $user)) {
             flashy()->error('Nope, You Cannot Do That!');
-            return redirect('users/hauler/online');
+            if(Auth::user()->hasRole('Hauler')){
+                return redirect('users/hauler/online');
+            } else {
+                return redirect('pickups/online');
+            }
+            
         }
 
         return view('haulerOnline.hauler-edit-user',compact('user'));
