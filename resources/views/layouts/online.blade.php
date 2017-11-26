@@ -32,7 +32,10 @@
     {{--  style="background: url({{ URL::asset('img/materializebg.jpg') }}) no-repeat fixed; background-position: 20% 50%;"   --}}
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="mainNav">
-      <a class="navbar-brand" href="{{url('/home')}}">Truck Monitoring</a>
+      <a class="navbar-brand" href="{{url('/')}}">
+        <img class="rounded-circle" src="{{ asset('img/logo.jpg') }}" style=" width: 30px; height: auto;">
+        Truck Monitoring
+      </a>
 
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

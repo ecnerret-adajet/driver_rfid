@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+@section('top-script')
+    <style>
+        .help-block {
+            color: red;
+            margin-left: 150px;
+        }
+    </style>
+@endsection
+
 @section('content')
 @inject('search', 'App\Http\Controllers\PickupsController')
 
@@ -84,7 +93,7 @@
                                 @foreach($pickups as $pick)
                                 <tr class="{{ $pick->availability == 1 ? 'table-danger' : 'table-success' }}">
                                     <td>
-                                        {{$pick->cardholder->Name}} <br/>
+                                        {{ !empty($pick->cardholder->Name) ? $pick->cardholder->Name : 'UNPROCESS' }} <br/>
                                     </td>
                                     <td>
                                         {{$pick->driver_name}}<br/>
@@ -172,7 +181,13 @@
                                         <i class="fa fa-ellipsis-v"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="pickupDropdown">
-                                            
+                                            @if(empty($pick->cardholder->Name))
+                                            <a class="dropdown-item bootstrap-modal-form-open" data-toggle="modal" data-target=".assign-rfid-{{$pick->id}}" style="width: 70%;" href="javascript:void(0);">
+                                                <small>
+                                                Assign RFID
+                                                </small>
+                                             </a>
+                                             @endif
                                              <a class="dropdown-item" style="width: 70%;" href="{{url('/pickups/'.$pick->id.'/edit')}}">
                                                 <small>
                                                 Edit Entry
@@ -221,6 +236,69 @@
                     <button type="submit" class="btn btn-primary">Confirm</button> 
                 </form>  
             </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- Assign RFID to pickup modal -->
+        <div class="modal fade assign-rfid-{{$pick->id}}">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Assign RFID</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {!! Form::model($pick, ['method' => 'PATCH','route' => ['pickups-assign.update', $pick->id], 'class' => 'bootstrap-modal-form', 'enctype'=>'multipart/form-data']) !!}
+            <div class="modal-body">
+             {!! csrf_field() !!}
+
+             <div class="row">
+                <div class="col">
+                    <small class="text-muted" style="text-transform:uppercase">
+                        Driver Name:
+                    </small><br/>
+                    {{ $pick->driver_name }}
+                </div>
+                <div class="col">
+                    <small class="text-muted" style="text-transform:uppercase">
+                        Plate Number:
+                    </small><br/>
+                    {{ $pick->plate_number }}
+                </div>
+                <div class="col">
+                    <small class="text-muted" style="text-transform:uppercase">
+                        Company:
+                    </small><br/>
+                    {{ $pick->company }}
+                </div>
+             </div>
+
+             <hr/>
+
+                    <div class="form-group row {{ $errors->has('cardholder_list') ? ' has-danger' : '' }}">
+                            <label class="col-md-2">RFID Card</label>
+                            <div class="col-md-10">
+                            {!! Form::select('cardholder_list', $search->cardholderAvailability(), null, ['placeholder' => 'Select Pickup Number', 'class' => 'form-control select2-pickup'] ) !!}
+                            @if ($errors->has('cardholder_list'))
+                                <div class="form-control-feedback">
+                                <small>
+                                    {{ $errors->first('cardholder_list') }}
+                                    </small>
+                                </div>
+                            @endif
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Confirm</button> 
+            </div>
+            {!! Form::close() !!} 
             </div>
         </div>
         </div>

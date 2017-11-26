@@ -11,12 +11,20 @@
 |
 */
 
-Route::get('/', function () {
-    if(\Auth::user()->roles->first()->name == 'Hauler') {
+
+Route::get('/', function()
+{
+    // check the current user
+    if (Entrust::hasRole('Hauler')) {
         return redirect('hauler/online/home');
-    } else {
-        return view('home');
+    } 
+    
+    if (Entrust::hasRole('Pickup')) {
+        return redirect('pickups/online');
     }
+
+    return view('home');
+    
 })->middleware('auth');
 
 
@@ -151,6 +159,15 @@ Route::patch('online/reassign/{driver}',[  'as' => 'online-reassign.update' ,'us
 Route::get('online/users/{user}/edit','HaulerOnlineController@haulerEditUser');
 Route::patch('online/users/update/{user}',[  'as' => 'haulerUsers.update' ,'uses' => 'HaulerOnlineController@haulerUpdateUser']);
 
+// Route setup for online pickup
+Route::get('/pickups/online','PickupOnlineController@index');
+Route::get('/getPickupData','PickupOnlineController@getPickupData');
+Route::post('/storePickup','PickupOnlineController@storePickup');
+Route::patch('pickups/assign/{pickup}',[  'as' => 'pickups-assign.update' ,'uses' => 'PickupsController@assignCardholder']);
+
+// Route setup to check last dr submission
+Route::get('/checkSubmissionDate/{plate_number}','LineupApiController@checkSubmissionDate');
+Route::get('/queues','LineupApiController@getDriverQue');
 
 Route::get('/entries','ReportsController@entries');
 Route::get('/generateEntries','ReportsController@generateEntries');

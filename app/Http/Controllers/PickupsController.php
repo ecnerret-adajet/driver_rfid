@@ -96,6 +96,35 @@ class PickupsController extends Controller
         return $pickups;
     }
 
+    public function cardholderAvailability()
+    {
+        $pickup_cards = Pickup::select('cardholder_id')->where('availability',1)->get();
+        
+        $cardholders = Cardholder::whereNotIn('CardholderID', $pickup_cards)
+                                    ->where('Name', 'LIKE', '%Pickup%')
+                                    ->pluck('Name','CardholderID');
+        return $cardholders;
+    }
+
+
+    public function assignCardholder(Request $request, Pickup $pickup)
+    {
+
+        $this->validate($request, [
+            'cardholder_list' => 'required'
+        ]);
+
+        // Set the cardholder value
+        $plate = $request->input('cardholder_list');
+
+        // Assign rfid to pickup record
+        $pickup->cardholder()->associate($plate);
+        $pickup->save();
+
+        flashy()->success('Pickup has successfully assgined a rfid!');
+        return redirect('pickups');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -175,7 +204,7 @@ class PickupsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Pickup $pickup)
     {
         $this->validate($request, [
             'cardholder_list' => 'required',

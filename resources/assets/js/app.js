@@ -38,6 +38,7 @@ Vue.component('topentries', require('./components/TopEntries.vue'));
 Vue.component('hauleronline', require('./components/HaulerOnline.vue'));
 Vue.component('hauleronlinetruck', require('./components/HaulerOnlineTruck.vue'));
 Vue.component('driverque', require('./components/DriverQue.vue'));
+Vue.component('pickupOnline', require('./components/PickupOnline.vue'));
 
 const app = new Vue({
     el: '#app'

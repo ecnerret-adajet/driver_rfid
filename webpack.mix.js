@@ -28,6 +28,7 @@ mix.styles([
     ], 'public/css/all.css')
     .js([
         'resources/assets/js/app.js',
+        'resources/assets/js/laravel-bootstrap-modal-form.js',
         'resources/assets/js/jquery.cropit.js',
         'resources/assets/js/jquery.easing.js',
         'resources/assets/js/select2.min.js',
