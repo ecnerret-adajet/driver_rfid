@@ -31,7 +31,7 @@
     <!-- Navigation -->
     {{--  style="background: url({{ URL::asset('img/materializebg.jpg') }}) no-repeat fixed; background-position: 20% 50%;"   --}}
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top pb-1" id="mainNav">
-      <a class="navbar-brand" href="{{url('/home')}}">
+      <a class="navbar-brand" href="{{url('/')}}">
         <img class="rounded-circle" src="{{ asset('img/logo.jpg') }}" style=" width: 30px; height: auto;">
         Truck Monitoring
       </a>

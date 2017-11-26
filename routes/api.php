@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
-use App\Driver;
+// use Illuminate\Http\Request;
+// use App\Driver;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,5 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/queues','LineupApiController@getDriverQue');
-Route::get('/checkSubmissionDate/{plate_number}','LineupApiController@checkSubmissionDate');
+// API setup for Hauler Online
+
+
+
+// API setup for Pickup Online

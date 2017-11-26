@@ -43,7 +43,7 @@ class Log extends Model
 
     public function driver()
     {
-    	return $this->hasOne('App\Driver','cardholder_id','CardholderID');
+    	return $this->hasMany('App\Driver','cardholder_id','CardholderID');
     }
 
     public function getDriverAttribute()

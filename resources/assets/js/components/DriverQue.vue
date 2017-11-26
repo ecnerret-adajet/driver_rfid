@@ -12,44 +12,42 @@
                                 <th>Plate Number</th>
                                 <th>Hauler</th>
                                 <th>Date/Time</th>
+                                <th>DR SUBMISSION</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
-                        <tbody v-for="queue in queues">
-                                <tr v-for="driver in queue.drivers">
+                        <tbody>
+                                <tr v-for="queue in queues">
                                         <td>
-                                             <img :src="avatar_link + driver.avatar" class="rounded-circle" style="height: 60px; width: auto;"  align="middle">
+                                             <img :src="avatar_link + queue.driver_avatar" class="rounded-circle" style="height: 60px; width: auto;"  align="middle">
                                         </td>
                                         <td>
-                                            <span v-if="driver.name">
-                                                {{ driver.name }} 
+                                            {{ queue.driver_name }} 
+                                        </td>
+                                        <td>
+                                            {{ queue.plate_number }}
+                                        </td>
+                                        <td>
+                                            <span v-if="queue.hauler == 'NO HAULER'" class="text-danger">
+                                                 {{ queue.hauler }}
                                             </span>
                                             <span v-else>
-                                                NO DRIVER
+                                                 {{ queue.hauler }}
                                             </span>
-                                        </td>
-                                        <td v-for="truck in driver.trucks">
-                                                {{ truck.plate_number }}
-                                        </td>
-                                         <td v-if="driver.trucks.length == 0">
-                                            <span class="text-danger">NO TRUCK</span>
-                                        </td>
-                                        <td v-for="hauler in driver.haulers">
-                                                {{ hauler.name }}
-                                        </td>
-                                        <td v-if="driver.haulers.length == 0">
-                                            <span class="text-danger">NO HAULER</span>
+                                           
                                         </td>
                                         <td>
-                                            <span v-if="moment(queue.LocalTime)">
-                                                {{ moment(queue.LocalTime) }}
-                                            </span>
-                                            <span v-else>
-                                                NO TIME
+                                            {{ moment(queue.log_time.date) }}
+                                        </td>
+                                        <td>
+                                            <span v-for="(status, index) in queue.dr_status">
+                                                <span v-if="index == 0">
+                                                    {{ status.submission_date }}
+                                                </span>                                            
                                             </span>
                                         </td>
                                         <td>
-                                             <span v-if="driver.availability == 1">
+                                             <span v-if="queue.driver_status == 1">
                                                  <button class="btn btn-success btn-sm disabled">
                                                      ACTIVE
                                                  </button>
@@ -80,6 +78,7 @@
             return {
                 avatar_link: '/driver_rfid/storage/app/',
                 queues: [],
+                checkSubmission: []
             }
         },
 
@@ -89,12 +88,10 @@
 
         methods: {
             getQueues() {
-                axios.get('/driver_rfid/public/api/queues')
+                axios.get('/driver_rfid/public/queues')
                 .then(response => this.queues = response.data);
-
                 setTimeout(this.getQueues, 1000);
             },
-
         
             moment(date) {
                 return moment(date).format('MMMM D, Y h:m:s A');
