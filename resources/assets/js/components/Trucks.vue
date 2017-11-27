@@ -141,7 +141,7 @@
 
                 </div>
                 <div class="modal-footer">  
-                    <form  method="POST" :action="'/driver_rfid/public/trucks/deactivate/'+truck.id">
+                    <form  method="POST" :action="'/trucks/deactivate/'+truck.id">
                         <input type="hidden" name="_token" :value="csrf">  
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Confirm</button> 
@@ -174,7 +174,7 @@
 
                 </div>
                 <div class="modal-footer">  
-                    <form  method="POST" :action="'/driver_rfid/public/trucks/remove/'+truck.id">
+                    <form  method="POST" :action="'/trucks/remove/'+truck.id">
                         <input type="hidden" name="_token" :value="csrf">  
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Confirm</button> 
@@ -204,8 +204,8 @@ export default {
     data() {
         return {
             searchString: '',
-            truck_link: '/driver_rfid/public/trucks/',
-            export_link: '/driver_rfid/public/exportTrucks',
+            truck_link: '/trucks/',
+            export_link: '/exportTrucks',
             trucks: [],
             user_role: this.role,
             loading: false,
@@ -223,13 +223,13 @@ export default {
 
     methods: {
         getAuth() {
-            axios.get('/driver_rfid/public/getAuth')
+            axios.get('/getAuth')
             .then(response => this.auth = response.data);
         },
 
         getTruck() {
             this.loading = true
-            axios.get('/driver_rfid/public/trucksJson')
+            axios.get('/trucksJson')
             .then(response => {
                  this.trucks = response.data
                  this.loading = false

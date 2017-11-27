@@ -38,7 +38,7 @@
                                              <img :src="avatar_link + driver.avatar" class="rounded-circle" style="height: 60px; width: auto;"  align="middle">
                                         </div>
                                         <div class="col-sm-5">
-                                            <a :href="'/driver_rfid/public/drivers/' + driver.id"  style="text-transform: upppercase">{{driver.name}}</a> : 
+                                            <a :href="'/drivers/' + driver.id"  style="text-transform: upppercase">{{driver.name}}</a> : 
                                             <small v-if="driver.cardholder">{{ driver.cardholder.Name }}</small>
                                             <br/>
                                             <span v-for="truck in driver.trucks">
@@ -139,9 +139,9 @@
          data() {
              return {
                 searchString: '',
-                driver_link: '/driver_rfid/public/drivers/',
+                driver_link: '/drivers/',
                 avatar_link: '/driver_rfid/storage/app/',
-                export_link: '/driver_rfid/public/exportDrivers',
+                export_link: '/exportDrivers',
                 loading: false,
                 drivers: [],
                 csrf: '',
@@ -159,7 +159,7 @@
          methods: {
              getDriversHauler(){
                  this.loading = true
-                 axios.get('/driver_rfid/public/users/driver/hauler/'+ this.user)
+                 axios.get('/users/driver/hauler/'+ this.user)
                  .then(response => {
                      this.drivers = response.data
                      this.loading = false

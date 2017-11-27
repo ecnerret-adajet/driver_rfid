@@ -83,7 +83,7 @@ export default {
     methods: {
         getLineups() {
             this.loading = true
-            axios.get('/driver_rfid/public/lineupJson')
+            axios.get('/lineupJson')
             .then(response => {
                 this.lineups = response.data
                 this.loading = false
@@ -92,7 +92,7 @@ export default {
 
         getMarked() {
             this.loading = true
-            axios.get('/driver_rfid/public/markedJson')
+            axios.get('/markedJson')
             .then(response => {
                 this.marked = response.data
                 this.loading = false

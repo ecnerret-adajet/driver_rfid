@@ -125,8 +125,8 @@
         data(){
             return {
                 searchString: '',
-                truck_link: '/driver_rfid/public/trucks/',
-                export_link: '/driver_rfid/public/exportTrucks',
+                truck_link: '/trucks/',
+                export_link: '/exportTrucks',
                 trucks: [],
                 loading: false,
                 csrf: '',
@@ -144,7 +144,7 @@
     methods: {
         getTruck() {
             this.loading = true
-            axios.get('/driver_rfid/public/users/truck/hauler/' + this.user)
+            axios.get('/users/truck/hauler/' + this.user)
             .then(response => {
                  this.trucks = response.data
                  this.loading = false

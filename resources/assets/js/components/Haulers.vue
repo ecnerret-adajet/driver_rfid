@@ -73,7 +73,7 @@ export default {
     data() {
         return {
             searchString: '',
-            hauler_link: '/driver_rfid/public/haulers/',
+            hauler_link: '/haulers/',
             haulers: [],
             loading: false
         }
@@ -86,7 +86,7 @@ export default {
     methods: {
         getHauler() {
             this.loading = true
-            axios.get('/driver_rfid/public/haulersJson')
+            axios.get('/haulersJson')
             .then(response => {
                 this.haulers = response.data
                 this.loading = false

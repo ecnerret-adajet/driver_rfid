@@ -241,7 +241,7 @@ export default {
     methods: {
         getTopEntries() {
             this.loading = true
-            axios.get('/driver_rfid/public/detailEntries')
+            axios.get('/detailEntries')
             .then(response => {
                 this.topEntries = response.data
                 this.loading = false

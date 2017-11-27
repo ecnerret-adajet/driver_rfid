@@ -33,11 +33,11 @@ export default {
     },
     methods: {
         fetchDrivers() {
-            axios.get('/driver_rfid/public/forPrint')
+            axios.get('/forPrint')
             .then(response => this.drivers = response.data);
         },
         updateItem(id) {
-            axios.put('/driver_rfid/public/prints/' + id)
+            axios.put('/prints/' + id)
                 .then((res) => {
                     this.fetchDrivers()
                 })

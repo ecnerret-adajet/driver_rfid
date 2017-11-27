@@ -81,7 +81,7 @@ export default {
     data() {
         return {
             searchString: '',
-            cards_link: '/driver_rfid/public/bind/create/',
+            cards_link: '/bind/create/',
             cards:[],
             loading: false
         }
@@ -94,7 +94,7 @@ export default {
     methods: {
         getCards() {
             this.loading = true
-            axios.get('/driver_rfid/public/cardsJson')
+            axios.get('/cardsJson')
             .then(response => {
                 this.cards = response.data
                 this.loading = false

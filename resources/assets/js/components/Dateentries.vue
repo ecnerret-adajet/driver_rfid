@@ -201,7 +201,7 @@ export default {
     methods: {
         getDaily() {
             this.loading = true
-            axios.get('/driver_rfid/public/dailyEntries')
+            axios.get('/dailyEntries')
             .then(response => {
                 this.daily = response.data
                 this.loading = false
@@ -210,7 +210,7 @@ export default {
 
         getWeekly() {
             this.loading = true
-            axios.get('/driver_rfid/public/weeklyEntries')
+            axios.get('/weeklyEntries')
             .then(response => {
                 this.weekly = response.data
                 this.loading = false
@@ -219,7 +219,7 @@ export default {
 
         getMonthly() {
             this.loading = true
-            axios.get('/driver_rfid/public/monthlyEntries')
+            axios.get('/monthlyEntries')
             .then(response => {
                 this.monthly = response.data
                 this.loading = false

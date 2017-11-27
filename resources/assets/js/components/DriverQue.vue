@@ -88,7 +88,7 @@
 
         methods: {
             getQueues() {
-                axios.get('/driver_rfid/public/queues')
+                axios.get('/queues')
                 .then(response => this.queues = response.data);
                 setTimeout(this.getQueues, 1000);
             },

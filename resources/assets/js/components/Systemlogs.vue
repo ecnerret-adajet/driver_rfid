@@ -75,7 +75,7 @@ export default {
     methods: {
         getActivies() {
             this.loading = true
-            axios.get('/driver_rfid/public/activities')
+            axios.get('/activities')
             .then(response => {
                 this.activities = response.data
                 this.loading = false

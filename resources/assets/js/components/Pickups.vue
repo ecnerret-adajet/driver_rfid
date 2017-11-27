@@ -171,7 +171,7 @@ export default {
             is_loading: false,
             pickups: [],
             pickupValue: [],
-            pickup_link: '/driver_rfid/public/pickups/',
+            pickup_link: '/pickups/',
         }
     },
 
@@ -183,7 +183,7 @@ export default {
     methods: {
         getPickups() {
             this.loading = true
-            axios.get('/driver_rfid/public/pickupsJson')
+            axios.get('/pickupsJson')
             .then(response => {
                 this.pickups = response.data
                 this.loading = false
@@ -193,7 +193,7 @@ export default {
         getPickupValue()
         {
             this.is_loading = true
-            axios.get('/driver_rfid/public/pickupsStatus')
+            axios.get('/pickupsStatus')
             .then(response => {
                 this.pickupValue = response.data
                 this.is_loading = false

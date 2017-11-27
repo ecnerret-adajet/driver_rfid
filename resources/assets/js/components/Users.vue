@@ -89,7 +89,7 @@ export default {
             searchUser: '',
             loading: false,
             users: [],
-            users_link: '/driver_rfid/public/users/',
+            users_link: '/users/',
         }
     },
 
@@ -100,7 +100,7 @@ export default {
     methods: {
         getUsers() {
             this.loading = true
-            axios.get('/driver_rfid/public/usersJson')
+            axios.get('/usersJson')
             .then(response => {
                 this.users = response.data
                 this.loading = false

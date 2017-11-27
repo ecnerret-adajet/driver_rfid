@@ -22,12 +22,12 @@
 export default {
     data() {
         return {
-            setting_link: '/driver_rfid/public/settings/',
+            setting_link: '/settings/',
             settings: []
         }
     },
     created() {
-        axios.get('/driver_rfid/public/settingsJson')
+        axios.get('/settingsJson')
         .then(response => this.settings = response.data);
     }
 

@@ -37,7 +37,7 @@
                                              <img :src="avatar_link + driver.avatar" class="rounded-circle" style="height: 60px; width: auto;"  align="middle">
                                         </div>
                                         <div class="col-sm-5">
-                                            <a :href="'/driver_rfid/public/drivers/' + driver.id"  style="text-transform: upppercase">{{driver.name}}</a> : <small v-if="driver.cardholder">{{ driver.cardholder.Name }}</small>
+                                            <a :href="'/drivers/' + driver.id"  style="text-transform: upppercase">{{driver.name}}</a> : <small v-if="driver.cardholder">{{ driver.cardholder.Name }}</small>
                                             <br/>
                                             <span v-for="truck in driver.trucks">
                                                 <span v-if="truck.reg_number == null">
@@ -175,7 +175,7 @@
 
                 </div>
                 <div class="modal-footer">  
-                    <form  method="POST" :action="'/driver_rfid/public/drivers/deactivate/'+driver.id">
+                    <form  method="POST" :action="'/drivers/deactivate/'+driver.id">
                         <input type="hidden" name="_token" :value="csrf">  
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Confirm</button> 
@@ -208,7 +208,7 @@
 
                 </div>
                 <div class="modal-footer">  
-                    <form  method="POST" :action="'/driver_rfid/public/drivers/activate/'+driver.id">
+                    <form  method="POST" :action="'/drivers/activate/'+driver.id">
                         <input type="hidden" name="_token" :value="csrf">  
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Confirm</button> 
@@ -237,9 +237,9 @@ export default {
     data() {
         return {
             searchString: '',
-            driver_link: '/driver_rfid/public/drivers/',
+            driver_link: '/drivers/',
             avatar_link: '/driver_rfid/storage/app/',
-            export_link: '/driver_rfid/public/exportDrivers',
+            export_link: '/exportDrivers',
             drivers: [],
             user_role: this.role,
             loading: false,
@@ -258,7 +258,7 @@ export default {
     methods: {
         getDrivers() {
             this.loading = true
-             axios.get('/driver_rfid/public/driversJson')
+             axios.get('/driversJson')
             .then(response => {
                 this.drivers = response.data
                 this.loading = false

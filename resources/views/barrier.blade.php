@@ -3,7 +3,7 @@
     <script>
         setInterval(
         function(){
-            $('#realtimePlant').load('{{ config('app.url') }}/driver_rfid/public/barrier-content');
+            $('#realtimePlant').load('{{ config('app.url') }}/barrier-content');
         }, 2000);
     </script>
 @endsection
