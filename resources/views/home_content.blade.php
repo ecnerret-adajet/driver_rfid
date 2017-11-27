@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-sm-1">
                         @foreach($result->drivers as $driver)
-                            <img class="rounded-circle" style="height: 60px; width: auto;" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}" align="middle">
+                            <img class="rounded-circle" style="height: 60px; width: auto;" src="{{ asset('storage/'.$driver->avatar)}}" align="middle">
                         @endforeach
                     </div>
                     <div class="col-sm-3 pt-0 mt-0">
