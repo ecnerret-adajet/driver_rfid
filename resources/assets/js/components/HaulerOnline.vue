@@ -140,7 +140,7 @@
              return {
                 searchString: '',
                 driver_link: '/drivers/',
-                avatar_link: '/storage/',
+                avatar_link: '/storage',
                 export_link: '/exportDrivers',
                 loading: false,
                 drivers: [],

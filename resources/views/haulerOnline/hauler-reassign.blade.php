@@ -14,7 +14,7 @@
 
             <div class="row p-2">
                     <div class="col-sm-2">
-                        <img class="img-responsive rounded-circle" style="height: 150px; width: auto;" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}">
+                        <img class="img-responsive rounded-circle" style="height: 150px; width: auto;" src="{{ asset('storage/'.$driver->avatar)}}">
                     </div>
                     <div class="col-sm-4">
                         <span class="text-muted">DRIVER NAME</span><br/>
