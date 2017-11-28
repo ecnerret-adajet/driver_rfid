@@ -326,8 +326,11 @@ class TrucksController extends Controller
         
         $truck->haulers()->sync((array) $request->input('hauler_list'));      
             
+        // Record Log Activity
         $activity = activity()
-        ->log('Transferred to 3PL');
+        ->performedOn($truck)
+        ->withProperties(['hauler' => $truck->hauler->name])
+        ->log('Transfer Truck Hauler');
 
         flashy()->success('Truck has successfully transferred!');
         return redirect('trucks');
@@ -342,6 +345,11 @@ class TrucksController extends Controller
     {
         $truck = Truck::findOrFail($id);
         $truck->drivers()->sync((array) null);
+
+        // Record Log Activity
+        $activity = activity()
+        ->performedOn($truck)
+        ->log('Removed driver');
 
         flashy()->success('Driver successfully removed!');
         return redirect('trucks');
@@ -410,6 +418,10 @@ class TrucksController extends Controller
         $truck = Truck::where('id',$id)->first();
         $truck->availability = 0;
         $truck->save();
+
+        $activity = activity()
+        ->performedOn($truck)
+        ->log('Deactivated a truck');
 
         flashy()->success('Truck has successfully deactivated!');
         return redirect('trucks');

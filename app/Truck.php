@@ -89,6 +89,17 @@ class Truck extends Model
     	return $this->belongsToMany(Driver::class);
     }
 
+    public function driver()
+    {
+    	return $this->belongsToMany(Driver::class);
+    }
+
+    public function getDriverListAttribute()
+    {
+        return $this->driver()->first();
+    }
+
+
     // list all associated hauler in trucks
     public function haulers()
     {

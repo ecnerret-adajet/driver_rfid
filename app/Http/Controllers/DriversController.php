@@ -398,8 +398,10 @@ class DriversController extends Controller
         
         // Record Activity to system logs
         $activity = activity()
+        ->performedOn($driver)
+        ->withProperties(['plate_number' => $driver->truck->plate_number])
         ->log('Reassigned');
-        
+            
         //Send email to supervisor for approval
         $setting = Setting::first();
         Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmReassign($driver));
@@ -445,10 +447,13 @@ class DriversController extends Controller
 
         $driver->haulers()->sync((array) $request->input('hauler_list'));
         $driver->trucks()->sync((array) $request->input('truck_list'));
+ 
 
-         // Record Activity to system logs
-         $activity = activity()
-         ->log('Reassigned');
+        // Record Activity to system logs
+        $activity = activity()
+        ->performedOn($driver)
+        ->withProperties(['hauler_name' => $driver->hauler->name])
+        ->log('Transfer Hauler');
          
          //Send email to supervisor for approval
          $setting = Setting::first();
@@ -533,6 +538,12 @@ class DriversController extends Controller
         $card->CardStatus = 1;
         $card->save();
 
+        // Record Log Activity
+        $activity = activity()
+        ->performedOn($driver)
+        ->withProperties(['card_no' => $driver->card->CardNo])
+        ->log('Deactivate Card');
+
         flashy()->success('Driver has successfully deactivated!');
         return redirect('drivers');
     }
@@ -552,6 +563,12 @@ class DriversController extends Controller
         $card = Card::where('CardID',$driver->card_id)->first();
         $card->CardStatus = 0;
         $card->save();
+
+         // Record Log Activity
+         $activity = activity()
+         ->performedOn($driver)
+         ->withProperties(['card_no' => $driver->card->CardNo])
+         ->log('Activate Card');
 
         flashy()->success('Driver has successfully activated!');
         return redirect('drivers');
@@ -597,14 +614,16 @@ class DriversController extends Controller
         $driver->save();
 
         // Deactivating RFID card from ASManager itself
-        // if(!empty($driver->card_id)) {
-        //     $card = Card::where('CardID',$driver->card_id)->first();
-        //     $card->CardStatus = 1; 
-        // }
+        if(!empty($driver->card_id)) {
+            $card = Card::where('CardID',$driver->card_id)->first();
+            $card->CardStatus = 1; 
+        }
 
-        // Record the driver's record to system logs
+        // Record Activity to system logs
         $activity = activity()
-        ->log('Lost RFID Card');
+        ->performedOn($driver)
+        ->withProperties(['card_no' => $card_rfid])
+        ->log('Reprint Card');
 
         //Send email to supervisor for approval
         $setting = Setting::first();

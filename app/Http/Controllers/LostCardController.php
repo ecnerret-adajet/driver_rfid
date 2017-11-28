@@ -127,6 +127,12 @@ class LostCardController extends Controller
             $card->CardStatus = 1; 
         }
 
+        // Records to system log
+        $activity = activity()
+        ->performedOn($driver)
+        ->withProperties(['card_no' => $driver->card_id])
+        ->log('Reprint Card');
+
         //send email to supervisor for approval
         $setting = Setting::first();
         Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmLostCard($driver, $lost));

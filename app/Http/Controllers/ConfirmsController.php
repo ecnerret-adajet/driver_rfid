@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
+use Spatie\Activitylog\Models\Activity;
 use App\Notifications\ConfirmAdmin;
 use App\Setting;
 use App\Driver;
@@ -80,6 +81,9 @@ class ConfirmsController extends Controller
 
         if($driver->availability == 0 && $driver->print_status == 1 && $driver->notif_status == 1) {
             $confirm->classification = 'New Driver';
+            //send email to supervisor for approval
+            $setting = Setting::with('user')->where('id',2)->first();
+            Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmAdmin($confirm,$driver));
         }
 
         if($driver->availability == 0 && $driver->print_status == 0 && $driver->notif_status == 1) {
@@ -102,12 +106,7 @@ class ConfirmsController extends Controller
                 $card = Card::where('CardID',$driver->card_id)->first();
                 $card->CardStatus = 0; 
             }
-
-            $driver->save();
-
-             //send email to supervisor for approval
-            $setting = Setting::with('user')->where('id',2)->first();
-            Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmAdmin($confirm,$driver));
+            $driver->save();      
 
         }
 

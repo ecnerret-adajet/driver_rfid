@@ -121,6 +121,12 @@ class PickupsController extends Controller
         $pickup->cardholder()->associate($plate);
         $pickup->save();
 
+        // Record Log Activity
+        $activity = activity()
+        ->performedOn($pickup)
+        ->withProperties(['cardholder' => $plate])
+        ->log('Assigned Pickup RFID');
+
         flashy()->success('Pickup has successfully assgined a rfid!');
         return redirect('pickups');
     }
@@ -239,10 +245,12 @@ class PickupsController extends Controller
          $pick->availability = false;
          $pick->save();
 
-         $activity = activity()
-         ->log('Deactivated');
+        // Record Log Activity
+        $activity = activity()
+        ->performedOn($pick)
+        ->withProperties(['cardholder' => $pick->cardholder_id])
+        ->log('Deactivated Pickup RFID');
          
-
          flashy()->success('Pickup has successfully deactivated!');
          return redirect('pickups');
      }
