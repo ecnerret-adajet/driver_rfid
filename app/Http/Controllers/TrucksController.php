@@ -200,7 +200,7 @@ class TrucksController extends Controller
 
         $truck = Auth::user()->trucks()->create($request->all());
         if($request->hasFile('documents')){
-            $truck->documents = $request->file('documents')->store('trucks_docs');
+            $truck->documents = $request->file('documents')->store('trucks_docs','public');
         }   
         if(empty($request->input('plate_number'))){
             $truck->plate_number = $request->input('reg_number');
@@ -390,7 +390,7 @@ class TrucksController extends Controller
 
         $truck->update($request->all());
         if($request->hasFile('documents')){
-            $truck->documents = $request->file('documents')->store('trucks_docs');
+            $truck->documents = $request->file('documents')->store('trucks_docs','public');
         }
         $truck->contract_code = $request->input('contract_list');
         $truck->subvendor_description = $request->input('hauler_list');

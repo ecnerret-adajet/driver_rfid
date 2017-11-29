@@ -9,6 +9,7 @@ use App\Notifications\ConfirmDriver;
 use App\Notifications\ConfirmReassign;
 use App\Notifications\ConfirmLostCard;
 use Spatie\Activitylog\Models\Activity;
+use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use App\Clasification;
 use App\Cardholder;
@@ -158,15 +159,6 @@ class DriversController extends Controller
         // show only plate numbers without assigned driver
 
         $trucks = ['' => ''] + Truck::doesntHave('drivers')->where('availability',1)->orderBy('id','DESC')->pluck('plate_number','id')->all();
-        
-        // $cards = Card::select(DB::raw("CONCAT(CardNo,' - RFID Number ', CardholderID) AS deploy_number"),'CardID')
-        //             ->orderBy('CardholderID','DESC')
-        //             ->whereNotIn('CardholderID', $driver_card)
-        //             ->where('AccessgroupID', 1) // card type
-        //             ->where('CardholderID','>=', 15)
-        //             ->where('CardholderID','!=', 0)
-        //             ->get()
-        //             ->pluck('deploy_number','CardID');
 
         $cards = Card::orderBy('CardholderID','DESC')
                     ->whereNotIn('CardholderID', $this->removedCardholder())
@@ -207,15 +199,8 @@ class DriversController extends Controller
             $driver = Auth::user()->drivers()->create($request->all());
     
             if($request->hasFile('avatar')){
-                $driver->avatar = $request->file('avatar')->store('drivers');
+                $driver->avatar = $request->file('avatar')->store('drivers','public');
             }
-    
-            // if($request->hasFile('avatar')){
-            //     $avatar = $request->file('avatar');
-            //     $filename = time() . '.' .$avatar->extension();
-            //     Image::make($avatar)->resize(256,256)->save( storage_path('app/drivers/' . $filename ) );  
-            //     $driver->avatar = 'drivers/'.$filename;
-            // } 
             
             $driver->name = strtoupper($request->input('name'));
             $driver->print_status = 1;
@@ -494,7 +479,7 @@ class DriversController extends Controller
         $driver->availability = $request->input('availability');
 
         if($request->hasFile('avatar')){
-            $driver->avatar = $request->file('avatar')->store('drivers');
+            $driver->avatar = $request->file('avatar')->store('drivers','public');
         }        
 
         // This block is commented for the reason that only super admin uses this edit method

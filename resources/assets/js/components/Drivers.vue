@@ -238,7 +238,7 @@ export default {
         return {
             searchString: '',
             driver_link: '/driver_rfid/public/drivers/',
-            avatar_link: '/driver_rfid/storage/app/',
+            avatar_link: '/driver_rfid/public/storage/',
             export_link: '/driver_rfid/public/exportDrivers',
             drivers: [],
             user_role: this.role,
