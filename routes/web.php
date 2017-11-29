@@ -31,7 +31,7 @@ Route::get('/', function()
 // Route::get('/reassignApproval','SmsController@receiveReassign');
 
 Route::get('/barrier','FeedsController@barrier');
-Route::get('/barrier-content','FeedsController@barrierContent');
+Route::get('/barrierApi','FeedsController@barrierApi');
 
 Auth::routes();
 
