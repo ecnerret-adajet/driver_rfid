@@ -28,6 +28,10 @@ Route::get('/', function()
 })->middleware('auth');
 
 
+//test route
+Route::get('/apha','AlphaController@index');
+//end test route
+
 // Route::get('/reassignApproval','SmsController@receiveReassign');
 
 Route::get('/barrier','FeedsController@barrier');
