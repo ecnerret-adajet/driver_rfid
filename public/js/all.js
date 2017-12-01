@@ -32091,7 +32091,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     Sanitize Title
     If the caption data is trusted, for example you are hardcoding it in, then leave this to false.
     This will free you to add html tags, such as links, in the caption.
-     If the caption data is user submitted or from some other untrusted source, then set this to true
+      If the caption data is user submitted or from some other untrusted source, then set this to true
     to prevent xss and other injection attacks.
      */
     sanitizeTitle: false
@@ -32193,10 +32193,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
     /*
       Show context menu for image on right-click
-       There is a div containing the navigation that spans the entire image and lives above of it. If
+        There is a div containing the navigation that spans the entire image and lives above of it. If
       you right-click, you are right clicking this div and not the image. This prevents users from
       saving the image or using other context menu actions with the image.
-       To fix this, when we detect the right mouse button is pressed down, but not yet clicked, we
+        To fix this, when we detect the right mouse button is pressed down, but not yet clicked, we
       set pointer-events to none on the nav div. This is so that the upcoming right-click event on
       the next mouseup will bubble down to the image. Once the right-click/contextmenu event occurs
       we set the pointer events back to auto for the nav div so it can capture hover and left-click
@@ -36192,7 +36192,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return _this.entries = response.data;
             });
 
-            setTimeout(this.getEntries, 1000);
+            setTimeout(this.getEntries, 2000);
         },
         moment: function moment(date) {
             return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM D, Y h:m:s A');

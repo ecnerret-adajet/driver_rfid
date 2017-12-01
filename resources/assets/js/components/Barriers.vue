@@ -112,7 +112,7 @@
                 axios.get('/driver_rfid/public/barrierApi')
                 .then(response => this.entries = response.data);
 
-                setTimeout(this.getEntries, 1000);
+                setTimeout(this.getEntries, 2000);
             },
 
             moment(date) {
