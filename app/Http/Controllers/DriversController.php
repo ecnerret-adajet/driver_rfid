@@ -542,6 +542,7 @@ class DriversController extends Controller
     public function activateRfid(Request $request, $id)
     {
         $driver = Driver::where('id',$id)->first();
+        $driver->notif_status = 0;
         $driver->availability = 1;
         $driver->save();
 
