@@ -249,16 +249,10 @@ class TrucksController extends Controller
         $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','id')->all();
 
         if(!count($truck->drivers) == null) {
-            foreach($truck->drivers as $driver) {
-                $driver_card = Driver::where('id',$driver->id)
-                ->where('availability',1)->first();
-            }
-            
+        
             $cards = Card::orderBy('CardholderID','DESC')
-            ->whereNotIn('CardholderID', $this->removedCardholder())
+            ->where('CardholderID', $truck->drivers->first()->cardholder_id)
             ->where('AccessGroupID', 2) // card type
-            ->where('CardholderID','>=', 15)
-            ->where('CardholderID','!=', 0)
             ->get()
             ->pluck('full_deploy','CardID');
 
@@ -285,6 +279,7 @@ class TrucksController extends Controller
          $vendors = collect($this->vendorSubvendor())->pluck('vendor_name','vendor_number');
 
         return view('trucks.edit', compact('truck','haulers','cards','capacities','contracts','subvendors','vendors','bases','plants','haulers_subcon'));
+        // return $truck->card->CardID;
     }
 
     // Transfer truck to 3PL
