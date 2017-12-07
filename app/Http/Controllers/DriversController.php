@@ -162,7 +162,7 @@ class DriversController extends Controller
 
         $cards = Card::orderBy('CardholderID','DESC')
                     ->whereNotIn('CardholderID', $this->removedCardholder())
-                    ->where('AccessgroupID', 1) // card type
+                    ->where('AccessGroupID', 1) // card type
                     ->where('CardholderID','>=', 15)
                     ->where('CardholderID','!=', 0)
                     ->get()
@@ -241,7 +241,7 @@ class DriversController extends Controller
 
         $get_version_cardholder = Driverversion::where('driver_id',$driver->id)->pluck('cardholder_id');
         $get_driver_cardholder = Card::where('CardholderID',$driver->first_card)
-                                     ->where('AccessgroupID', 1)->pluck('CardholderID');
+                                     ->where('AccessGroupID', 1)->pluck('CardholderID');
 
         $all_cardholder = array_collapse([$get_version_cardholder, $get_driver_cardholder]);
         
@@ -291,7 +291,7 @@ class DriversController extends Controller
         $cards = Card::select(DB::raw("CONCAT(CardNo,' - RFID Number ', CardholderID) AS deploy_number"),'CardID')
             ->orderBy('CardholderID','DESC')
             ->whereIn('CardholderID',[$driver->cardholder_id])
-            ->where('AccessgroupID', 1) // card type 
+            ->where('AccessGroupID', 1) // card type 
             ->where('CardholderID','>=', 15)
             ->get()
             ->pluck('deploy_number','CardID');
@@ -303,7 +303,7 @@ class DriversController extends Controller
         $card_driver = Card::select(DB::raw("CONCAT(CardNo,' - RFID Number ', CardholderID) AS deploy_number"),'CardID')
                     ->orderBy('CardholderID','DESC')
                     ->whereNotIn('CardholderID', $driver_card)
-                    ->where('AccessgroupID', 1) // card type
+                    ->where('AccessGroupID', 1) // card type
                     ->where('CardholderID','>=', 15)
                     ->where('CardholderID','!=', 0)
                     ->get()
@@ -574,7 +574,7 @@ class DriversController extends Controller
         $cards = Card::select(DB::raw("CONCAT(CardNo,' - RFID Number ', CardholderID) AS deploy_number"),'CardID')
                     ->orderBy('CardholderID','DESC')
                     ->whereNotIn('CardholderID', $driver_card)
-                    ->where('AccessgroupID', 1) // card type
+                    ->where('AccessGroupID', 1) // card type
                     ->where('CardholderID','>=', 15)
                     ->where('CardholderID','!=', 0)
                     ->get()

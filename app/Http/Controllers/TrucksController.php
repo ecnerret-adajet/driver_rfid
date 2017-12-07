@@ -151,7 +151,7 @@ class TrucksController extends Controller
 
         $cards = Card::orderBy('CardholderID','DESC')
                     ->whereNotIn('CardholderID', $this->removedCardholder())
-                    ->where('AccessgroupID', 2) // card type
+                    ->where('AccessGroupID', 2) // card type
                     ->where('CardholderID','>=', 15)
                     ->where('CardholderID','!=', 0)
                     ->get()
@@ -256,7 +256,7 @@ class TrucksController extends Controller
             
             $cards = Card::orderBy('CardholderID','DESC')
             ->whereNotIn('CardholderID', $this->removedCardholder())
-            ->where('AccessgroupID', 2) // card type
+            ->where('AccessGroupID', 2) // card type
             ->where('CardholderID','>=', 15)
             ->where('CardholderID','!=', 0)
             ->get()
@@ -268,7 +268,7 @@ class TrucksController extends Controller
             // show all RFID when there is no driver
             $cards = Card::orderBy('CardholderID','DESC')
             ->whereNotIn('CardholderID', $this->removedCardholder())
-            ->where('AccessgroupID', 2) // card type
+            ->where('AccessGroupID', 2) // card type
             ->where('CardholderID','>=', 15)
             ->where('CardholderID','!=', 0)
             ->get()
