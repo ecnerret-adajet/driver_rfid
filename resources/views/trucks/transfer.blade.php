@@ -34,16 +34,16 @@
                     <br/> 
                     <br/>
                     <span class="text-muted">DRIVER NAME:</span><br/>
-                       @if(!empty($truck->driver)) 
-                           {{ $truck->driver->name }}
-                       @else
-                            <em style="color: red">NO DRIVER</em>
-                       @endif
+                      {{ $truck->drivers->first()->name }}
                     <br/>
                     <br/>
                     <span class="text-muted">VENDOR:</span><br/>
-                     {{ $truck->hauler->name }}
-
+                     @if(!count($truck->haulers) == 0)
+                            {{ $truck->hauler->name }}
+                    @else
+                        {{ $search->haulerName($truck->vendor_description) }}
+                    @endif
+                    
                 </div>
 
                 <div class="col-sm-4">
