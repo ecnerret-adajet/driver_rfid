@@ -34,15 +34,15 @@
                     <br/> 
                     <br/>
                     <span class="text-muted">DRIVER NAME:</span><br/>
-                        @forelse($truck->drivers as $driver)
-                            {{$driver->name}}
-                        @empty
+                       @if(!empty($truck->driver)) 
+                           {{ $truck->driver->name }}
+                       @else
                             <em style="color: red">NO DRIVER</em>
-                        @endforelse
+                       @endif
                     <br/>
                     <br/>
                     <span class="text-muted">VENDOR:</span><br/>
-                     {{ $search->haulerName($truck->vendor_description) }}
+                     {{ $truck->hauler->name }}
 
                 </div>
 
@@ -50,9 +50,7 @@
 
                     <span class="text-muted">SUBVENDOR:</span><br/>
                         @if(!count($truck->haulers) == 0)
-                        @foreach($truck->haulers as $hauler)
-                            {{ $hauler->name }}
-                        @endforeach
+                            {{ $truck->hauler->name }}
                         @else
                             {{ $search->haulerName($truck->subvendor_description) }}
                         @endif
