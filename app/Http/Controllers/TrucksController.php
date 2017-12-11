@@ -291,6 +291,28 @@ class TrucksController extends Controller
         return view('trucks.transfer', compact('haulers','haulers_subcon','truck'));
     }
 
+    public function truckVersion($id, $start_date)
+    {
+        $truck = Truck::findOrFail($id);
+    
+        if(!empty($truck->card_id)) {
+            $card = Card::where('CardID',$truck->card_id)->pluck('CardholderID')->first();
+        }
+        
+        $version = new Version;
+        $version->truck_id = $truck->id;
+        $version->user_id = Auth::user()->id;
+        $version->plate_number = empty($truck->plate_number) ? $truck->reg_number : $truck->plate_number;
+        $version->hauler = $truck->hauler->name;
+        $version->card_id = $truck->card_id;
+        $version->cardholder_id = empty($card) ? '' : $card; 
+        $version->start_validity_date = $start_date;
+        $version->end_validity_date = Carbon::now();
+        $version->save(); 
+
+        return $version;
+    }
+
     // store tranfer truck to 3PL
     public function updateTransferHauler(Request $request, Truck $truck)
     {
@@ -300,17 +322,7 @@ class TrucksController extends Controller
             'validity_end_date' => 'required',
         ]);
 
-        $version = new Version;
-        $version->truck_id = $truck->id;
-        $version->user_id = Auth::user()->id;
-        $version->plate_number = $truck->plate_number;
-        $version->reg_number = $truck->reg_number;
-        $version->vendor_description = $truck->vendor_description;
-        $version->subvendor_description = $truck->subvendor_description;
-        $version->contract_code = $truck->contract_code;
-        $version->start_validity_date = $request->input('validity_end_date');
-        $version->end_validity_date = Carbon::now();
-        $version->save(); 
+        $this->truckVersion($truck->id, $request->input('validity_end_date'));
 
         $hauler_name = Hauler::select('name')->where('id',$request->input('hauler_list'))->first();
     

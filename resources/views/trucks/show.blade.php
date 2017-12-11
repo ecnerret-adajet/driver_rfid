@@ -101,8 +101,8 @@
         <table class="table">
         <thead>
             <tr>
+                <th>Sticker ID</th>
                 <th>Plate #</th>
-                <th>Reg #</th>
                 <th>Last Vendor</th>
                 <th>Start Date</th>
                 <th>End Date</th>
@@ -112,13 +112,13 @@
         @foreach($versions as $version)
             <tr>
             <td>
+                {{ $version->card_id }}
+            </td>
+            <td>
                 {{$version->plate_number}}
             </td>
             <td>
-                {{$version->reg_number}}
-            </td>
-            <td>
-             {{ $search->haulerName($version->vendor_description) }}
+             {{ $version->hauler }}
             </td>
             <td>
                 {{ date('m/d/Y', strtotime($version->start_validity_date))}}
