@@ -65,6 +65,7 @@ class LineupsController extends Controller
 
         $result_lineups = Log::with(['drivers','drivers.trucks','drivers.haulers'])
         ->where('DoorID',0)
+        ->where('DoorID', '!=', '2')
         ->where('CardholderID', '>=', 15)
         ->whereDate('LocalTime', Carbon::now())
         ->orderBy('LogID','DESC')->get();

@@ -36697,7 +36697,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            avatar_link: '/driver_rfid/storage/app/',
+            avatar_link: '/driver_rfid/public/storage/',
             queues: [],
             checkSubmission: []
         };
@@ -36714,7 +36714,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get('/driver_rfid/public/queues').then(function (response) {
                 return _this.queues = response.data;
             });
-            setTimeout(this.getQueues, 1000);
+            setTimeout(this.getQueues, 2000);
         },
         moment: function moment(date) {
             return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM D, Y h:m:s A');
@@ -53550,7 +53550,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })]), _vm._v(" "), _c('td', [_vm._v("\n                                        " + _vm._s(queue.driver_name) + " \n                                    ")]), _vm._v(" "), _c('td', [_vm._v("\n                                        " + _vm._s(queue.plate_number) + "\n                                    ")]), _vm._v(" "), _c('td', [(queue.hauler == 'NO HAULER') ? _c('span', {
       staticClass: "text-danger"
     }, [_vm._v("\n                                             " + _vm._s(queue.hauler) + "\n                                        ")]) : _c('span', [_vm._v("\n                                             " + _vm._s(queue.hauler) + "\n                                        ")])]), _vm._v(" "), _c('td', [_vm._v("\n                                        " + _vm._s(_vm.moment(queue.log_time.date)) + "\n                                    ")]), _vm._v(" "), _c('td', _vm._l((queue.dr_status), function(status, index) {
-      return _c('span', [(index == 0) ? _c('span', [_vm._v("\n                                                " + _vm._s(status.submission_date) + "\n                                            ")]) : _vm._e()])
+      return (queue.dr_status) ? _c('span', [(index == 0) ? _c('span', [_vm._v("\n                                                " + _vm._s(status.submission_date) + "\n                                            ")]) : _vm._e()]) : _vm._e()
     })), _vm._v(" "), _c('td', [(queue.driver_status == 1) ? _c('span', [_c('button', {
       staticClass: "btn btn-success btn-sm disabled"
     }, [_vm._v("\n                                                 ACTIVE\n                                             ")])]) : _c('span', [_c('button', {

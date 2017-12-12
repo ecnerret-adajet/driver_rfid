@@ -40,7 +40,7 @@
                                             {{ moment(queue.log_time.date) }}
                                         </td>
                                         <td>
-                                            <span v-for="(status, index) in queue.dr_status">
+                                            <span v-if="queue.dr_status" v-for="(status, index) in queue.dr_status">
                                                 <span v-if="index == 0">
                                                     {{ status.submission_date }}
                                                 </span>                                            
@@ -76,7 +76,7 @@
 
         data() {
             return {
-                avatar_link: '/driver_rfid/storage/app/',
+                avatar_link: '/driver_rfid/public/storage/',
                 queues: [],
                 checkSubmission: []
             }
@@ -90,7 +90,7 @@
             getQueues() {
                 axios.get('/driver_rfid/public/queues')
                 .then(response => this.queues = response.data);
-                setTimeout(this.getQueues, 1000);
+                setTimeout(this.getQueues, 2000);
             },
         
             moment(date) {
