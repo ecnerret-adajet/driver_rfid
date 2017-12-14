@@ -31,51 +31,43 @@
     <!-- Navigation -->
     {{--  style="background: url({{ URL::asset('img/materializebg.jpg') }}) no-repeat fixed; background-position: 20% 50%;"   --}}
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="mainNav">
-      <a class="navbar-brand" href="{{url('/')}}">
-        <img class="rounded-circle" src="{{ asset('img/logo.jpg') }}" style=" width: 30px; height: auto;">
-        Truck Monitoring
-      </a>
 
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-   <div class="collapse navbar-collapse" id="navbarResponsive">
-
-
-        <ul class="navbar-nav ml-auto">
-
-
-          <li class="nav-item">
-            <a class="nav-link mr-lg-2" href="#">
-             Hello, {{ Auth::user()->name }}
-            </a>
-          </li>
-        
-         <li class="dropdown">
-            <a class="nav-link  mr-lg-2" href="#" id="messagesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-fw fa-ellipsis-v"></i>
-            </a>
-            <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="messagesDropdown">
-              <h6 class="dropdown-header">Options:</h6>
-              <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="{{ url('online/users/'.Auth::user()->id.'/edit') }}">
-                    <strong>Profile</strong>
-                  </a>
-                   <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal">
-                    <strong>Logout</strong>
-                  </a>
-            </div>
-          </li>      
-
-          
-       
-        </ul>
-
-</div>
-
-    </nav>
+    @if(!Request::is('driver/queues'))
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="mainNav">
+        <a class="navbar-brand" href="{{url('/')}}">
+          <img class="rounded-circle" src="{{ asset('img/logo.jpg') }}" style=" width: 30px; height: auto;">
+          Truck Monitoring
+        </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                  <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                      <a class="nav-link mr-lg-2" href="#">
+                      Hello, {{ Auth::user()->name }}
+                      </a>
+                    </li>
+                  
+                  <li class="dropdown">
+                      <a class="nav-link  mr-lg-2" href="#" id="messagesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-fw fa-ellipsis-v"></i>
+                      </a>
+                      <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="messagesDropdown">
+                        <h6 class="dropdown-header">Options:</h6>
+                        <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ url('online/users/'.Auth::user()->id.'/edit') }}">
+                              <strong>Profile</strong>
+                            </a>
+                            <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal">
+                              <strong>Logout</strong>
+                            </a>
+                      </div>
+                    </li>      
+                  </ul>
+          </div>
+      </nav>
+    @endif
 
     <div class="content pt-3">
 

@@ -64,6 +64,7 @@ class LineupsController extends Controller
          $barrier_unique = $barriers->unique('CardholderID');
 
         $result_lineups = Log::with(['drivers','drivers.trucks','drivers.haulers'])
+         ->where('ControllerID', 1)
         ->where('DoorID',0)
         ->where('DoorID', '!=', '2')
         ->where('CardholderID', '>=', 15)

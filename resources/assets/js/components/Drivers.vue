@@ -39,22 +39,23 @@
                                         <div class="col-sm-5">
                                             <a :href="'/driver_rfid/public/drivers/' + driver.id"  style="text-transform: upppercase">{{driver.name}}</a> : <small v-if="driver.cardholder">{{ driver.cardholder.Name }}</small>
                                             <br/>
-                                            <span v-for="truck in driver.trucks">
-                                                <span v-if="truck.reg_number == null">
-                                                    {{ truck.plate_number }} 
+                                            <span v-for="truckx in driver.truck">
+                                                <span v-if="truckx.reg_number == null">
+                                                    {{ truckx.plate_number }} 
                                                 </span>
                                                 <span v-else>
-                                                    {{ truck.reg_number }}
+                                                    {{ truckx.reg_number }}
                                                 </span>
                                             </span>
+                                             <span class="text-danger" v-if="driver.truck.length == 0">
+                                                    NO TRUCK
+                                            </span>
                                             <br/>
-                                            <span v-for="(hauler, index) in driver.haulers">
-                                                <span v-if="index == 0">
-                                                    {{ hauler.name }} 
-                                                    <span v-if="hauler.name == null">
-                                                        NO HAULER ASSIGNED
-                                                    </span>
-                                                </span>
+                                            <span v-for="(haulerx, index) in driver.hauler">
+                                                    {{ haulerx.name }} 
+                                            </span>
+                                             <span class="text-danger" v-if="driver.hauler.length == 0">
+                                                    NO HAULER
                                             </span>
                                         </div>
                                         <div class="col-sm-3">

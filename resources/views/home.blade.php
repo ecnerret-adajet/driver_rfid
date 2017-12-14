@@ -2,11 +2,11 @@
 @section('top-script')
     <script>
    
+
         setInterval(function(){
         $('#realtimeFeed').load('{{ config('app.url') }}/driver_rfid/public/home-content');
         $('#wait').hide();     
-        }, 2000);
-     
+        }, 2000); 
      
             
     </script>

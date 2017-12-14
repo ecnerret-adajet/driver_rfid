@@ -17,9 +17,9 @@ class LineupApiController extends Controller
    public function getDriverQue()
    {
         $result_lineups = Log::with(['drivers','drivers.truck','drivers.hauler'])
+        ->where('ControllerID', 1)
         ->where('DoorID',0)
-        ->where('DoorID', '!=', '2')
-        ->where('CardholderID', '>=', 15)
+        ->whereNotIn('DoorID',['2'])
         ->whereDate('LocalTime', Carbon::now())
         ->orderBy('LogID','DESC')->get();
 
@@ -32,7 +32,8 @@ class LineupApiController extends Controller
 
                 if(!empty($driver->truck->plate_number)) {
                     $x = str_replace('-',' ',strtoupper($driver->truck->plate_number));
-                    $y = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$x','deploy')");
+                    $z = str_replace('_','',$x);
+                    $y = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$z','deploy')");
                 }
 
                 $data = array(

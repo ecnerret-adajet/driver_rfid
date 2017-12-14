@@ -1,5 +1,35 @@
 <template>
     <div>
+
+
+           <div class="row mb-4">
+            <div class="col">
+                <div class="card">
+                <div class="card-body text-center">
+                    <h1 class="card-title" style="font-weight: 100">
+                        {{ queues.length }}
+                    </h1>
+                    <p class="card-text">
+                        Current In The Plant
+                    </p>
+                </div>
+                </div>
+            </div>
+            <div class="col">
+                     <div class="card">
+                <div class="card-body text-center">
+                    <h1 class="card-title" style="font-weight: 100">
+                        0
+                    </h1>
+                    <p class="card-text">
+                        Currently Serving
+                    </p>
+                </div>
+                </div>
+            </div>
+        </div>
+
+
         <div class="row">
             <div class="col-sm-12">
 
@@ -78,6 +108,7 @@
             return {
                 avatar_link: '/driver_rfid/public/storage/',
                 queues: [],
+                currentlyServing: [],
                 checkSubmission: []
             }
         },

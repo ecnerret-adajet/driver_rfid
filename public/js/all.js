@@ -36691,6 +36691,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -36699,6 +36729,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             avatar_link: '/driver_rfid/public/storage/',
             queues: [],
+            currentlyServing: [],
             checkSubmission: []
         };
     },
@@ -36729,6 +36760,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -53522,6 +53554,21 @@ module.exports = Component.exports
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
+    staticClass: "row mb-4"
+  }, [_c('div', {
+    staticClass: "col"
+  }, [_c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-body text-center"
+  }, [_c('h1', {
+    staticClass: "card-title",
+    staticStyle: {
+      "font-weight": "100"
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.queues.length) + "\n                ")]), _vm._v(" "), _c('p', {
+    staticClass: "card-text"
+  }, [_vm._v("\n                    Current In The Plant\n                ")])])])]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-sm-12"
@@ -53536,7 +53583,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "width": "100%",
       "cellspacing": "0"
     }
-  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.queues), function(queue) {
+  }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.queues), function(queue) {
     return _c('tr', [_c('td', [_c('img', {
       staticClass: "rounded-circle",
       staticStyle: {
@@ -53558,6 +53605,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n                                                 INACTIVE\n                                             ")])])])])
   }))])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col"
+  }, [_c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-body text-center"
+  }, [_c('h1', {
+    staticClass: "card-title",
+    staticStyle: {
+      "font-weight": "100"
+    }
+  }, [_vm._v("\n                    0\n                ")]), _vm._v(" "), _c('p', {
+    staticClass: "card-text"
+  }, [_vm._v("\n                    Currently Serving\n                ")])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', {
     staticStyle: {
       "text-transform": "uppercase"
@@ -55892,11 +55954,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": '/driver_rfid/public/drivers/' + driver.id
       }
-    }, [_vm._v(_vm._s(driver.name))]), _vm._v(" : "), (driver.cardholder) ? _c('small', [_vm._v(_vm._s(driver.cardholder.Name))]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.trucks), function(truck) {
-      return _c('span', [(truck.reg_number == null) ? _c('span', [_vm._v("\n                                                  " + _vm._s(truck.plate_number) + " \n                                              ")]) : _c('span', [_vm._v("\n                                                  " + _vm._s(truck.reg_number) + "\n                                              ")])])
-    }), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.haulers), function(hauler, index) {
-      return _c('span', [(index == 0) ? _c('span', [_vm._v("\n                                                  " + _vm._s(hauler.name) + " \n                                                  "), (hauler.name == null) ? _c('span', [_vm._v("\n                                                      NO HAULER ASSIGNED\n                                                  ")]) : _vm._e()]) : _vm._e()])
-    })], 2), _vm._v(" "), _c('div', {
+    }, [_vm._v(_vm._s(driver.name))]), _vm._v(" : "), (driver.cardholder) ? _c('small', [_vm._v(_vm._s(driver.cardholder.Name))]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.truck), function(truckx) {
+      return _c('span', [(truckx.reg_number == null) ? _c('span', [_vm._v("\n                                                  " + _vm._s(truckx.plate_number) + " \n                                              ")]) : _c('span', [_vm._v("\n                                                  " + _vm._s(truckx.reg_number) + "\n                                              ")])])
+    }), _vm._v(" "), (driver.truck.length == 0) ? _c('span', {
+      staticClass: "text-danger"
+    }, [_vm._v("\n                                                  NO TRUCK\n                                          ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.hauler), function(haulerx, index) {
+      return _c('span', [_vm._v("\n                                                  " + _vm._s(haulerx.name) + " \n                                          ")])
+    }), _vm._v(" "), (driver.hauler.length == 0) ? _c('span', {
+      staticClass: "text-danger"
+    }, [_vm._v("\n                                                  NO HAULER\n                                          ")]) : _vm._e()], 2), _vm._v(" "), _c('div', {
       staticClass: "col-sm-3"
     }, [(driver.card != null) ? _c('span', {
       staticClass: "badge badge-primary"
