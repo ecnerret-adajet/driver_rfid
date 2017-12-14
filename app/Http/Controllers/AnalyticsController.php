@@ -211,11 +211,11 @@ class AnalyticsController extends Controller
                         
                         $data = array(
                         'LogID' =>  $entry->LogID,
-                        'CardholderID' =>  $entry->CardholderID,
-                        'driver' => $driver->name,
-                        'plate_number' => $driver->truck->plate_number,
-                        'inLocalTime' =>  $this->plantIn($entry->CardholderID),
-                        'outLocalTime' =>  $this->plantOut($entry->CardholderID),
+                        'CardholderID' =>  empty($entry->CardholderID) ? '' : $entry->CardholderID,
+                        'driver' => empty($driver->name) ? '' : $driver->name,
+                        'plate_number' => empty($driver->truck->plate_number) ? '' : $driver->truck->plate_number,
+                        'inLocalTime' =>  empty($this->plantIn($entry->CardholderID)) ? '' : $this->plantIn($entry->CardholderID),
+                        'outLocalTime' =>  empty($this->plantOut($entry->CardholderID)) ? '' : $this->plantOut($entry->CardholderID),
                         );
 
                         array_push($arr, $data);

@@ -478,9 +478,9 @@ class DriversController extends Controller
         $driver->update($request->all());
         $driver->availability = $request->input('availability');
 
-        if($request->hasFile('avatar')){
-            $driver->avatar = $request->file('avatar')->store('drivers','public');
-        }        
+        // if($request->hasFile('avatar')){
+        //     $driver->avatar = $request->file('avatar')->store('drivers','public');
+        // }        
 
         // This block is commented for the reason that only super admin uses this edit method
         // if(empty($driver->update_count)) {

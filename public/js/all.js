@@ -53624,7 +53624,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "text-transform": "uppercase"
     }
-  }, [_c('th'), _vm._v(" "), _c('th', [_vm._v("Driver Name")]), _vm._v(" "), _c('th', [_vm._v("Plate Number")]), _vm._v(" "), _c('th', [_vm._v("Hauler")]), _vm._v(" "), _c('th', [_vm._v("Date/Time")]), _vm._v(" "), _c('th', [_vm._v("DR SUBMISSION")]), _vm._v(" "), _c('th', [_vm._v("Status")])])])
+  }, [_c('th'), _vm._v(" "), _c('th', [_vm._v("Driver Name")]), _vm._v(" "), _c('th', [_vm._v("Plate Number")]), _vm._v(" "), _c('th', [_vm._v("Hauler")]), _vm._v(" "), _c('th', [_vm._v("Date/Time")]), _vm._v(" "), _c('th', [_vm._v("LAST DR SUBMISSION")]), _vm._v(" "), _c('th', [_vm._v("Status")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

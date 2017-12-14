@@ -42,7 +42,7 @@
                                 <th>Plate Number</th>
                                 <th>Hauler</th>
                                 <th>Date/Time</th>
-                                <th>DR SUBMISSION</th>
+                                <th>LAST DR SUBMISSION</th>
                                 <th>Status</th>
                             </tr>
                         </thead>

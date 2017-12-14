@@ -82,7 +82,7 @@
                                     <th>Pickup #</th>
                                     <th>Driver Details</th>
                                     <th>Created Date</th>
-                                    <th>Checkout Date</th>
+                                    {{--  <th>Checkout Date</th>  --}}
                                     <th>TRUCKSCALE IN</th>
                                     <th>TRUCKSCALE OUT</th>
                                     <th>BETWEEN</th>
@@ -101,12 +101,12 @@
                                         {{$pick->company}}
                                     </td>
                                
-                                    <td>
+                                    {{--  <td>
 
                                     {{ date('m/d/y h:i:s A', strtotime($pick->created_at))}}
                                   
 
-                                    </td>
+                                    </td>  --}}
                                     <td>
                                       {{ date('m/d/y h:i:s A', strtotime($pick->updated_at))}}
                                     </td>
