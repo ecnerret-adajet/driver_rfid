@@ -55973,9 +55973,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "aria-labelledby": "driverDropdown"
       }
-    }, [_vm._l((driver.haulers), function(hauler) {
-      return _c('span', _vm._l((driver.trucks), function(truck) {
-        return _c('span', [(hauler.length != 0 || truck.length != 0) ? _c('span', [_c('a', {
+    }, [_vm._l((driver.hauler), function(haulerx) {
+      return _c('span', _vm._l((driver.truck), function(truckx) {
+        return _c('span', [(haulerx.length != 0 || truckx.length != 0) ? _c('span', [_c('a', {
           staticClass: "dropdown-item",
           attrs: {
             "href": _vm.driver_link + driver.id + '/reassign'
