@@ -80,9 +80,9 @@
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="driverDropdown">
 
-                                                 <span v-for="hauler in driver.haulers">
-                                                    <span v-for="truck in driver.trucks">
-                                                        <span v-if="hauler.length != 0 || truck.length != 0">
+                                                 <span v-for="haulerx in driver.hauler">
+                                                    <span v-for="truckx in driver.truck">
+                                                        <span v-if="haulerx.length != 0 || truckx.length != 0">
                                                             <a :href="driver_link + driver.id + '/reassign'" class="dropdown-item">Reassign Truck</a>
                                                         </span>
                                                     </span>
