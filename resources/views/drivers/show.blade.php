@@ -61,6 +61,12 @@
                        
                         <span class="text-muted">ASSIGNED CARD</span><br/>
                         {{ $driver->card->full_deploy }}
+
+                        <br/>
+                        <br/>
+                        <span class="text-muted">REGISTERED BY</span><br/>
+                        {{ $driver->user->name }}
+
                     </div>            
             </div>
         </div><!-- end card-body -->

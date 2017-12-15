@@ -22,6 +22,7 @@
     <!--Import Google Icon Font-->
 
     <!-- Styles -->
+    <link rel="shortcut icon" type="image/png" href="{{ asset('img/lfuggoc.ico') }}">
     <link href="{{ asset('css/all.css') }}" rel="stylesheet" media="screen,projection">
       <style type="text/css">
         body{

@@ -53738,14 +53738,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": _vm.truck_link + truck.id + '/transfer'
       }
-    }, [_vm._v("Transfer to 3PL")]) : _vm._e(), _vm._v(" "), _c('a', {
-      staticClass: "dropdown-item",
-      attrs: {
-        "href": "javascript:void(0);",
-        "data-toggle": "modal",
-        "data-target": '#removeDriver-' + truck.id
-      }
-    }, [_vm._v("Remove Driver")]), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('a', {
+    }, [_vm._v("Transfer to 3PL")]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.truck_link + truck.id + '/edit'

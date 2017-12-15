@@ -20,6 +20,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
+    <link rel="shortcut icon" type="image/png" href="{{ asset('img/lfuggoc.ico') }}">
     <link href="{{ asset('css/all.css') }}" rel="stylesheet" media="screen,projection">
     <link href="{{ asset('css/dataTables.bootstrap4.css') }}" rel="stylesheet">
     </head>

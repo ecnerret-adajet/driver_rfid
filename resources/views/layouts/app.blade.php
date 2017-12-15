@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
 
 
     <!-- CSRF Token -->
@@ -17,9 +18,10 @@
 
     @yield('top-script')
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Truck Monitoring</title>
 
     <!-- Styles -->
+    <link rel="shortcut icon" type="image/png" href="{{ asset('img/lfuggoc.ico') }}">
     <link href="{{ asset('css/all.css') }}" rel="stylesheet" media="screen,projection">
     <link href="{{ asset('css/dataTables.bootstrap4.css') }}" rel="stylesheet">
     </head>
