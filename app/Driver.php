@@ -254,15 +254,6 @@ class Driver extends Model
     }
 
     /**
-     *  Assign Image to driver
-     * 
-     */
-    public function image()
-    {
-        return $this->hasOne('App\Image');
-    }
-
-    /**
      *  
      * Associated Driver who request LOST rfid
      * 
@@ -272,5 +263,14 @@ class Driver extends Model
         return $this->hasOne('App\Lost');
     }
 
+    /**
+     * 
+     *  Driver's Image
+     * 
+     */
+    public function image()
+    {
+        return $this->belongsTo('App\Image');
+    }
 
 }

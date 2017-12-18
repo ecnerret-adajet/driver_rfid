@@ -59,6 +59,9 @@ Route::get('/drivers/reprint/{driver}/','LostCardController@create');
 Route::post('/drivers/reprint/{driver}/','LostCardController@store');
 Route::get('/drivers/transfer-hauler/{driver}','DriversController@transferHauler');
 Route::patch('/drivers/trasnfer-hauler/{driver}',[  'as' => 'transfer-hauler.update' ,'uses' => 'DriversController@transferHaulerSubmit']);
+Route::post('/driver-image','ImagesController@driverImage');
+Route::get('/getImage','ImagesController@getImage');
+
 
 Route::resource('/trucks','TrucksController');
 Route::get('/trucks/{truck}/transfer','TrucksController@transferHauler');

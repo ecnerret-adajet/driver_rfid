@@ -40,6 +40,7 @@ Vue.component('hauleronlinetruck', require('./components/HaulerOnlineTruck.vue')
 Vue.component('driverque', require('./components/DriverQue.vue'));
 Vue.component('pickupOnline', require('./components/PickupOnline.vue'));
 Vue.component('barriers', require('./components/Barriers.vue'));
+Vue.component('driverupload', require('./components/DriverUpload.vue'));
 
 const app = new Vue({
     el: '#app'

@@ -25,7 +25,7 @@ use App\Driverversion;
 use Excel;
 use App\Log;
 use DB;
-use Image;
+use App\Image;
 use JavaScript;
 use Ixudra\Curl\Facades\Curl;
 use App\Truckversion;
@@ -180,7 +180,7 @@ class DriversController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'avatar' => 'required|image|mimes:jpeg,png,jpg',
+            // 'avatar' => 'required|image|mimes:jpeg,png,jpg',
             'name' => 'required|max:255|unique:drivers',
             'card_list' => 'required',
             'truck_list' => 'required',
@@ -193,8 +193,8 @@ class DriversController extends Controller
         ],[
             'truck_list.required' => 'Plate Number is required'
         ]);
-
-
+            
+            $image = Image::doesntHave('driver')->orderBy('id','DESC')->first()->id;
             $card_rfid = $request->input('card_list');
             $driver = Auth::user()->drivers()->create($request->all());
     
@@ -206,6 +206,7 @@ class DriversController extends Controller
             $driver->print_status = 1;
             $driver->availability = 0;
             $driver->notif_status = 1;
+            $driver->image_id = $image;
             $driver->card()->associate($card_rfid);
             $driver->cardholder()->associate($driver->card->CardholderID);
             $driver->save();

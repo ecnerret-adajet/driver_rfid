@@ -11,8 +11,11 @@
          </a>
         </div>
         <div class="card-body">
-          
-    
+
+        <div class="mx-auto mb-3">
+                <driverupload img-url="{{ asset('/img/avatar.png') }}"></driverupload>
+        </div>
+            
           {!! Form::model($driver = new \App\Driver, ['url' => 'drivers', 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
           {!! csrf_field() !!}
           <form>

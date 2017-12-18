@@ -1,5 +1,5 @@
 
-                 <div class="form-row">
+                 {{--  <div class="form-row">
                      <div class="col-md-12">
                         <div class="form-group {{ $errors->has('avatar') ? ' has-danger' : '' }}">
                             <label for="exampleInputFile">Upload Photo</label>
@@ -13,7 +13,7 @@
                             @endif
                         </div>
                     </div>
-                </div>
+                </div>  --}}
 
                 @if(!Request::is('drivers/create'))
                     <div class="form-group {{ $errors->has('availability') ? ' has-danger' : '' }}">
