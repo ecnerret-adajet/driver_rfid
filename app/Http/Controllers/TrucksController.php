@@ -303,10 +303,11 @@ class TrucksController extends Controller
         $version->truck_id = $truck->id;
         $version->user_id = Auth::user()->id;
         $version->plate_number = empty($truck->plate_number) ? $truck->reg_number : $truck->plate_number;
-        $version->hauler = $truck->hauler->name;
-        $version->card_id = $truck->card_id;
-        $version->cardholder_id = empty($card) ? '' : $card; 
-        $version->start_validity_date = $start_date;
+        $version->hauler = empty($truck->hauler->name) ? null : $truck->hauler->name;
+        $version->card_id = empty($truck->card_id) ? null : $truck->card_id;
+        $version->cardholder_id = empty($card) ? null : $card; 
+        $version->driver_name = empty($truck->drivers->first()->name) ? null : $truck->drivers->first()->name; 
+        $version->start_validity_date = empty($start_date) ? null : $start_date;
         $version->end_validity_date = Carbon::now();
         $version->save(); 
 
@@ -350,6 +351,8 @@ class TrucksController extends Controller
     */
     public function removeDriver(Request $request, $id)
     {
+        $this->truckVersion($id, Carbon::now());
+
         $truck = Truck::findOrFail($id);
         $truck->drivers()->sync((array) null);
 

@@ -87,7 +87,7 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="truckDropdown">
                                                     <a :href="truck_link + truck.id + '/transfer'" class="dropdown-item" v-if="truck.card !=  null">Transfer to 3PL</a>
-                                                    <!-- <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#removeDriver-'+ truck.id">Remove Driver</a> -->
+                                                    <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#removeDriver-'+ truck.id">Remove Driver</a>
                                                     <!-- <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#truckModal-'+ truck.id" style="color: red">Deactivate</a> -->
                                                     
                                                     <span v-if="user_role == 'Administrator'">
