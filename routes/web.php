@@ -77,7 +77,7 @@ Route::post('/confirm/{id}/{plate}','ConfirmsController@store');
 Route::get('/confirm/pending','ConfirmsController@pending');
 
 Route::get('/driversJson', function () {
-    $drivers = App\Driver::with(['hauler','truck','cardholder','card','cardholder.logs'])->orderBy('id','DESC')->get();
+    $drivers = App\Driver::with(['hauler','truck','cardholder','card','cardholder.logs','image'])->orderBy('id','DESC')->get();
     // $drivers = App\Driver::where('availability',1)->with(['haulers','trucks','cardholder','card','cardholder.logs'])->orderBy('id','DESC')->get();
     return $drivers;
 });

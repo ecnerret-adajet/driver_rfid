@@ -34,7 +34,14 @@
                                 <li v-for="driver in filteredDriver" class="list-group-item">
                                     <div class="row">   
                                         <div class="col-sm-1">
-                                             <img :src="avatar_link + driver.avatar" class="rounded-circle" style="height: 60px; width: auto;"  align="middle">
+
+                                            <span v-if="driver.image">
+                                                <img :src="avatar_link + driver.image.avatar" class="rounded-circle" style="height: 60px; width: auto;"  align="middle">
+                                            </span>
+                                            <span v-else>
+                                                <img :src="avatar_link + driver.avatar" class="rounded-circle" style="height: 60px; width: auto;"  align="middle">
+                                            </span>
+                                        
                                         </div>
                                         <div class="col-sm-5">
                                             <a :href="'/driver_rfid/public/drivers/' + driver.id"  style="text-transform: upppercase">{{driver.name}}</a> : <small v-if="driver.cardholder">{{ driver.cardholder.Name }}</small>
