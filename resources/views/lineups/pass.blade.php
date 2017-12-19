@@ -11,7 +11,13 @@
                 <li class="list-group-item justify-content-between">
                     <div class="row">
                         <div class="col-sm-1">
-                            <img class="rounded-circle" style="height: 60px; width: auto;" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}" align="middle">
+
+                            @if(!empty($driver->image))
+                                <img class="img-responsive rounded-circle"  style="height: 60px; width: auto;" src="{{asset('/storage/'. $driver->image->avatar)}}" align="middle">
+                            @else
+                                <img class="img-responsive rounded-circle"  style="height: 60px; width: auto;" src="{{asset('/storage/'. $driver->avatar)}}" align="middle">
+                            @endif
+                        
                         </div>                
                         <div class="col-sm-5">
                             <span style="text-transfer: uppercase"> {{ $driver->name }} </span>

@@ -4,7 +4,11 @@
                                 <table class="table table-bordered text-center">
                                 <tr>
                                     <td colspan="2">
-                                        <img class="img-responsive" style="height: 150px; width: auto; display:block; margin: 10px auto;" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}" align="middle">
+                                        @if(!empty($driver->image))
+                                            <img class="img-responsive rounded-circle" style="height: 150px; width: auto; display:block; margin: 10px auto;" src="{{asset('/storage/'. $driver->image->avatar)}}" align="middle">
+                                        @else
+                                            <img class="img-responsive rounded-circle" style="height: 150px; width: auto; display:block; margin: 10px auto;" src="{{asset('/storage/'. $driver->avatar)}}" align="middle">
+                                        @endif
                                     </td>
                                 </tr>
                                   <tr>

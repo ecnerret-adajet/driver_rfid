@@ -23,8 +23,12 @@
                             </a>
                         @endif
 
-                        <img class="img-responsive rounded" style="height: 500px; width: auto; margin-left: 50px;" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}" align="middle">
-                    
+                        @if(!empty($driver->image))
+                            <img class="img-responsive rounded-circle" style="height: 500px; width: auto; margin-left: 50px;" src="{{asset('/storage/'. $driver->image->avatar)}}" align="middle">
+                        @else
+                            <img class="img-responsive rounded-circle" style="height: 500px; width: auto; margin-left: 50px;" src="{{asset('/storage/'. $driver->avatar)}}" align="middle">
+                        @endif
+
                     </div>
                     <div class="col-sm-6">
            

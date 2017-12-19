@@ -13,7 +13,11 @@
 
                         
                             <div class="col s2">
-                                <img alt="" class="circle responsive-img" src="{{ str_replace( 'public/','', asset('/storage/app/'.$driver->avatar))}}">
+                                @if(!empty($driver->image))
+                                    <img class="img-responsive rounded-circle" src="{{asset('/storage/'. $driver->image->avatar)}}" align="middle">
+                                @else
+                                    <img class="img-responsive rounded-circle" src="{{asset('/storage/'. $driver->avatar)}}" align="middle">
+                                @endif
                             </div>
 
                             <div class="col s3">
