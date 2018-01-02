@@ -241,20 +241,40 @@ class DriversController extends Controller
         //             ->get();
 
         $get_version_cardholder = Driverversion::where('driver_id',$driver->id)->pluck('cardholder_id');
-        $get_driver_cardholder = Card::where('CardholderID',$driver->first_card)
-                                     ->where('AccessGroupID', 1)->pluck('CardholderID');
+        $get_driver_cardholder = $driver->cardholder->CardholderID;
 
-        $all_cardholder = array_collapse([$get_version_cardholder, $get_driver_cardholder]);
+        $all_cardholder = array_collapse([$get_version_cardholder, $driver->cardholder->CardholderID]);
         
                     
-        $logs = Log::with('customers')
-               ->whereIn('CardholderId', $all_cardholder)
-               ->orderBy('LocalTime','DESC')
-               ->get();
+        // $logs = Log::with('customers')
+        //        ->whereIn('CardholderId', $all_cardholder)
+        //        ->orderBy('LocalTime','DESC')
+        //        ->get();
+
+        $logs = Log::where('CardholderID',$driver->cardholder->CardholderID)
+                ->orderBy('LocalTime','DESC')
+                ->get();
+
+        // add logs from history logs
+        //// code here ////
 
         $versions = Driverversion::where('driver_id',$driver->id)->orderBy('created_at','DESC')->get();
 
         return view('drivers.show', compact('driver','logs','versions'));
+    }
+
+    /**
+     * 
+     *  Search From Driver History When no plant number from logs history
+     * 
+     */
+    public function findFromHistory($CardholderID)
+    {
+         $versions = Driverversion::select('plate_number','vendor','driver_id')
+                    ->where('cardholder_id',$CardholderID)
+                    ->orderBy('created_at','DESC')->get();
+
+         return $versions;
     }
 
     /**

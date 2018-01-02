@@ -37,6 +37,7 @@
                     </div>
                     <div class="col-sm-3">
                         <span class="text-muted">PLATE NUMBER</span><br/>
+
                           @foreach($driver->trucks as $truck)
                             {{$truck->plate_number}}
 
@@ -48,6 +49,10 @@
                                 @endforeach
                            
                           @endforeach
+                        <br/>
+                        <br/>
+                        <span class="text-muted">CREATED DATE</span><br/>
+                         {{  date('F d, Y h:i:s A', strtotime($driver->created_at))}}
 
                     </div>
                     <div class="col-sm-3">
@@ -104,16 +109,22 @@
                                 {{$log->LogID}}
                             </td>
                             <td>
+
                                 @foreach($log->drivers->take(1)->reverse() as $driver)
                                     @foreach($driver->trucks as $truck)
                                         {{$truck->plate_number}}
                                     @endforeach
                                 @endforeach  
+
+                                {{--  {{ $search->findFromHistory($log->CardholderID)->first() }}  --}}
+
                             </td>
                             <td>
+
                                 @foreach($log->drivers->take(1) as $driver)
                                     {{$driver->cardholder_id}}
                                 @endforeach
+                                
                             </td>
                             <td>
                                 {{ $log->Direction == 1 ? 'IN' : 'OUT' }}
