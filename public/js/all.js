@@ -56236,16 +56236,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "aria-labelledby": "driverDropdown"
       }
-    }, [_vm._l((driver.hauler), function(haulerx) {
-      return _c('span', _vm._l((driver.truck), function(truckx) {
-        return _c('span', [(haulerx.length != 0 || truckx.length != 0) ? _c('span', [_c('a', {
-          staticClass: "dropdown-item",
-          attrs: {
-            "href": _vm.driver_link + driver.id + '/reassign'
-          }
-        }, [_vm._v("Reassign Truck")])]) : _vm._e()])
-      }))
-    }), _vm._v(" "), _c('a', {
+    }, [_c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": _vm.driver_link + driver.id + '/reassign'
+      }
+    }, [_vm._v("Reassign Truck")]), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.driver_link + 'reprint/' + driver.id
@@ -56272,7 +56268,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": _vm.driver_link + driver.id + '/edit'
       }
-    }, [_vm._v("Edit")])]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1) ? _c('span', [_c('div', {
+    }, [_vm._v("Edit")])]) : _vm._e()])]) : _vm._e(), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1) ? _c('span', [_c('div', {
       staticClass: "btn-group pull-right",
       attrs: {
         "role": "group",

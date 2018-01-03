@@ -87,13 +87,13 @@
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="driverDropdown">
 
-                                                 <span v-for="haulerx in driver.hauler">
+                                                 <!-- <span v-for="haulerx in driver.hauler">
                                                     <span v-for="truckx in driver.truck">
-                                                        <span v-if="haulerx.length != 0 || truckx.length != 0">
+                                                        <span v-if="haulerx.length != 0 || truckx.length != 0"> -->
                                                             <a :href="driver_link + driver.id + '/reassign'" class="dropdown-item">Reassign Truck</a>
-                                                        </span>
+                                                        <!-- </span>
                                                     </span>
-                                                 </span> 
+                                                 </span>  -->
 
                                                 <!-- <a :href="driver_link + 'lostCard/' + driver.id" class="dropdown-item">Reprint Card</a> -->
                                                 <a :href="driver_link + 'reprint/' + driver.id" class="dropdown-item">Reprint Card</a>

@@ -29,6 +29,7 @@ use App\Image;
 use JavaScript;
 use Ixudra\Curl\Facades\Curl;
 use App\Truckversion;
+use App\Version;
 
 class DriversController extends Controller
 {
@@ -38,14 +39,21 @@ class DriversController extends Controller
      */
     public function driverRevision($id, $end_validity)
     {
+        // search ID from Driver model
         $driver = Driver::findOrFail($id);
+
+        //search frorm driver history truck when no truck found from reassignment 
+        $last_driver_truck =  Version::select('plate_number')
+                                        ->where('driver_id',$id)
+                                        ->orderBy('id','desc')
+                                        ->first();
 
         $version =  new Driverversion;
         $version->driver_id = $driver->id;
         $version->card_no = $driver->card_id;
         $version->cardholder_id = $driver->cardholder_id;
         $version->user_id = Auth::user()->id;
-        $version->plate_number = $driver->truck->plate_number;
+        $version->plate_number = empty($driver->truck->plate_number) ? $last_driver_truck->plate_number : null;
         $version->vendor = $driver->hauler->name;
         $version->start_date = $end_validity;
         $version->end_date = Carbon::now();

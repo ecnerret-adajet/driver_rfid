@@ -302,6 +302,7 @@ class TrucksController extends Controller
         $version = new Version;
         $version->truck_id = $truck->id;
         $version->user_id = Auth::user()->id;
+        $version->driver_id = $truck->driver->id;
         $version->plate_number = empty($truck->plate_number) ? $truck->reg_number : $truck->plate_number;
         $version->hauler = empty($truck->hauler->name) ? null : $truck->hauler->name;
         $version->card_id = empty($truck->card_id) ? null : $truck->card_id;
