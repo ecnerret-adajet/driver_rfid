@@ -30,12 +30,12 @@
                     </div>
                     <div class="col-sm-3">
                         <span class="text-muted">PLATE NUMBER</span><br/>
-                          {{ $driver->trucks->first()->plate_number }}
+                        {{ empty($driver->trucks->first()->plate_number) ? 'NO PLATE NUMBER' : $driver->truck->first()->plate_number }} 
 
                         <br/>
                         <br/>
                         <span class="text-muted">HAULER</span><br/>
-                        {{ $driver->haulers->first()->name }}
+                        {{ empty($driver->haulers->first()->name) ? 'NO HAULER' : $driver->haulers->first()->name }}
 
 
                     </div>
