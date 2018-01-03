@@ -298,11 +298,12 @@ class TrucksController extends Controller
         if(!empty($truck->card_id)) {
             $card = Card::where('CardID',$truck->card_id)->pluck('CardholderID')->first();
         }
+
         
         $version = new Version;
         $version->truck_id = $truck->id;
         $version->user_id = Auth::user()->id;
-        $version->driver_id = $truck->driver->id;
+        $version->driver_id = empty($truck->drivers->first()->id) ? null : $truck->drivers->first()->id;
         $version->plate_number = empty($truck->plate_number) ? $truck->reg_number : $truck->plate_number;
         $version->hauler = empty($truck->hauler->name) ? null : $truck->hauler->name;
         $version->card_id = empty($truck->card_id) ? null : $truck->card_id;
