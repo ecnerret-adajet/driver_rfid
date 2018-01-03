@@ -160,6 +160,15 @@ class DriversController extends Controller
 
         $trucks = ['' => ''] + Truck::doesntHave('drivers')->where('availability',1)->orderBy('id','DESC')->pluck('plate_number','id')->all();
 
+
+        // test query
+        $driver_with_cardholder = Cardholder::select('Name')
+                                ->with('drivers')
+                                ->orderBy('CardholderID','desc')
+                                ->take(5)
+                                ->get();
+
+
         $cards = Card::orderBy('CardholderID','DESC')
                     ->whereNotIn('CardholderID', $this->removedCardholder())
                     ->where('AccessGroupID', 1) // card type

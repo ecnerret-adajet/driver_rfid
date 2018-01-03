@@ -71,8 +71,13 @@
                         <br/>
                        
                         <span class="text-muted">ASSIGNED CARD</span><br/>
-                        {{ $driver->card->full_deploy }}
-
+                        
+                        @if($driver->card->CardholderID == $driver->cardholder->CardholderID)
+                            {{ $driver->card->full_deploy }} <br/>
+                        @else
+                            <span class="text-danger">No Card Assign</span>
+                        @endif
+                     
                         <br/>
                         <br/>
                         <span class="text-muted">REGISTERED BY</span><br/>
