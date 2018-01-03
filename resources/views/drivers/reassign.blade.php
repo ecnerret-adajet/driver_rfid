@@ -30,27 +30,16 @@
                     </div>
                     <div class="col-sm-3">
                         <span class="text-muted">PLATE NUMBER</span><br/>
-                          @foreach($driver->trucks as $truck)
-                            {{$truck->plate_number}}
-                          @endforeach
+                          {{ $driver->trucks->first()->plate_number }}
 
                         <br/>
                         <br/>
                         <span class="text-muted">HAULER</span><br/>
-                        @foreach($driver->trucks as $truck)
-                             @foreach($truck->haulers as $hauler)
-                                {{ $hauler->name }}
-                        @endforeach
-                        @endforeach
+                        {{ $driver->haulers->first()->name }}
 
-
-                        
 
                     </div>
-                    <div class="col-sm-3">
-                        <span class="text-muted">SUBVENDOR</span><br/>
-                        
-
+                    <div class="col-sm-3">                        
                         <span class="text-muted">STATUS</span><br/>
                         @if($driver->availability == 1)
                             <span class="badge badge-primary">
@@ -65,7 +54,11 @@
                         <br/>
                         <br/>
                         <span class="text-muted">ASSIGNED CARD</span><br/>
-                        {{ $driver->card->full_deploy }}
+                            @if($driver->card->CardholderID == $driver->cardholder->CardholderID)
+                                {{ $driver->card->full_deploy }} <br/>
+                            @else
+                                <span class="text-danger">No Card Assign</span>
+                            @endif
                     </div>            
             </div>
         </div><!-- end card-body -->
