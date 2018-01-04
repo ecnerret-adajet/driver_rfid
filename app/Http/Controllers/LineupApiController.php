@@ -37,7 +37,7 @@ class LineupApiController extends Controller
                 }
 
                 $data = array(
-                    'driver_avatar' => $driver->avatar,
+                    'driver_avatar' => $driver->avatar = 'drivers/avatar.png' ? $driver->image->avatar : $driver->avatar,
                     'driver_name' => $driver->name,
                     'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
                     'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
