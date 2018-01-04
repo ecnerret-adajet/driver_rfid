@@ -34,6 +34,9 @@ Route::get('/barrier','FeedsController@barrier');
 Route::get('/barrierApi','FeedsController@barrierApi');
 //Route Setup for driver monitoring
 Route::get('/driver/queues','LineupsController@DriversQue');
+// Route setup to check last dr submission
+Route::get('/checkSubmissionDate/{plate_number}','LineupApiController@checkSubmissionDate');
+Route::get('/queues','LineupApiController@getDriverQue');
 
 Auth::routes();
 
@@ -171,9 +174,7 @@ Route::get('/getPickupData','PickupOnlineController@getPickupData');
 Route::post('/storePickup','PickupOnlineController@storePickup');
 Route::patch('pickups/assign/{pickup}',[  'as' => 'pickups-assign.update' ,'uses' => 'PickupsController@assignCardholder']);
 
-// Route setup to check last dr submission
-Route::get('/checkSubmissionDate/{plate_number}','LineupApiController@checkSubmissionDate');
-Route::get('/queues','LineupApiController@getDriverQue');
+
 
 Route::get('/entries','ReportsController@entries');
 Route::get('/generateEntries','ReportsController@generateEntries');
