@@ -32,9 +32,12 @@ Route::get('/', function()
 
 Route::get('/barrier','FeedsController@barrier');
 Route::get('/barrierApi','FeedsController@barrierApi');
+//Route Setup for driver monitoring
+Route::get('/driver/queues','LineupsController@DriversQue');
 
 Auth::routes();
 
+// secure auth
 Route::group(['middleware' => 'auth'], function () {
     
 Route::get('/home', 'HomeController@index')->name('home');
@@ -218,8 +221,7 @@ Route::get('/lineups/{log}','LineupsController@create');
 Route::post('/lineups/{log}','LineupsController@store');
 Route::get('/lineups/approval/{id}','LineupsController@hustlingApproval');
 Route::post('/lineups/approval/{id}','LineupsController@hustlingApprovalStore');
-//Route Setup for driver monitoring
-Route::get('/driver/queues','LineupsController@DriversQue');
+
 
 
 // Routes for driver's passes
