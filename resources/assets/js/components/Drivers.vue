@@ -89,9 +89,14 @@
 
                                                  <!-- <span v-for="haulerx in driver.hauler">
                                                     <span v-for="truckx in driver.truck">
-                                                        <span v-if="haulerx.length != 0 || truckx.length != 0"> -->
+                                                -->
+                                                        <span v-if="driver.card !=  null">
                                                             <a :href="driver_link + driver.id + '/reassign'" class="dropdown-item">Reassign Truck</a>
-                                                        <!-- </span>
+                                                        </span>
+                                                        <span v-if="driver.card ==  null">
+                                                           <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#noCardAssigned-'+ driver.id" style="color: red">Reassign Truck</a>
+                                                        </span>
+                                                  <!-- 
                                                     </span>
                                                  </span>  -->
 
@@ -125,6 +130,9 @@
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="driverDropdown">
                                                     <a :href="driver_link + 'transfer-hauler/' + driver.id" class="dropdown-item" style="color: red">Transfer Hauler</a>
+                                                    <span v-if="user_role == 'Administrator' || user_role == 'Approver'">
+                                                        <a  href="javascript:void(0);" class="dropdown-item" style="color: red" data-toggle="modal" :data-target="'#driverModalActivate-'+ driver.id">Activate</a>
+                                                    </span>
                                             </div><!-- end dropdown -->
                                         </span>
                                                                                         
@@ -226,6 +234,35 @@
                 </div>
             </div>
             </div><!-- end modal -->
+
+
+            <!-- No Card Modal -->
+            <div class="modal fade" :id="'noCardAssigned-' + driver.id" tabindex="-1" role="dialog" aria-labelledby="driverModalLabel" aria-hidden="true">
+            <div class="modal-dialog" id="queueter">
+                <div class="modal-content">
+                <div class="modal-header">
+
+                    <h6 class="modal-title" id="driverModalLabel">No Card Assigned</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                
+
+                </div>
+                <div class="modal-body text-center">
+
+                                           
+                    <em>The selected driver has no card assigned, Please contact support for assistance.</em>
+                
+
+                </div>
+                <div class="modal-footer">  
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Confirm</button>
+                </div>
+                    
+                </div>
+            </div>
+            </div><!-- end no card assigned -->
 
 
         </div><!-- end modal forloop -->

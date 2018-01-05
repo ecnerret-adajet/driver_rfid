@@ -35544,6 +35544,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -35832,6 +35869,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -55278,16 +55350,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "aria-labelledby": "driverDropdown"
       }
-    }, _vm._l((driver.haulers), function(hauler) {
-      return _c('span', _vm._l((driver.trucks), function(truck) {
-        return _c('span', [(hauler.length != 0 || truck.length != 0) ? _c('span', [_c('a', {
-          staticClass: "dropdown-item",
-          attrs: {
-            "href": _vm.driver_link + driver.id + '/online/reassign'
-          }
-        }, [_vm._v("Reassign Truck")])]) : _vm._e()])
-      }))
-    }))]) : _vm._e(), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1) ? _c('span', [_vm._m(2, true)]) : _vm._e(), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('i', {
+    }, [(driver.card != null) ? _c('span', [_c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": _vm.driver_link + driver.id + '/online/reassign'
+      }
+    }, [_vm._v("Reassign Truck")])]) : _vm._e(), _vm._v(" "), (driver.card == null) ? _c('span', [_c('a', {
+      staticClass: "dropdown-item",
+      staticStyle: {
+        "color": "red"
+      },
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#noCardAssigned-' + driver.id
+      }
+    }, [_vm._v("Reassign Truck")])]) : _vm._e()])]) : _vm._e(), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1) ? _c('span', [_vm._m(2, true)]) : _vm._e(), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('i', {
       staticClass: "fa fa-circle",
       staticStyle: {
         "color": "green"
@@ -55332,7 +55410,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "cy": "33",
       "r": "30"
     }
-  })])]) : _vm._e()])])])
+  })])]) : _vm._e()])]), _vm._v(" "), _vm._l((_vm.filteredDriver), function(driver) {
+    return _c('div', [_c('div', {
+      staticClass: "modal fade",
+      attrs: {
+        "id": 'noCardAssigned-' + driver.id,
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "driverModalLabel",
+        "aria-hidden": "true"
+      }
+    }, [_vm._m(4, true)])])
+  })], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "input-group-btn"
@@ -55373,6 +55462,43 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "col-sm-12 center"
   }, [_c('span', [_vm._v("NO DRIVER FOUND")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "id": "queueter"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h6', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "driverModalLabel"
+    }
+  }, [_vm._v("No Card Assigned")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body text-center"
+  }, [_c('em', [_vm._v("The selected driver has no card assigned, Please contact support for assistance.")])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("Confirm")])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -56236,12 +56362,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "aria-labelledby": "driverDropdown"
       }
-    }, [_c('a', {
+    }, [(driver.card != null) ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.driver_link + driver.id + '/reassign'
       }
-    }, [_vm._v("Reassign Truck")]), _vm._v(" "), _c('a', {
+    }, [_vm._v("Reassign Truck")])]) : _vm._e(), _vm._v(" "), (driver.card == null) ? _c('span', [_c('a', {
+      staticClass: "dropdown-item",
+      staticStyle: {
+        "color": "red"
+      },
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#noCardAssigned-' + driver.id
+      }
+    }, [_vm._v("Reassign Truck")])]) : _vm._e(), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.driver_link + 'reprint/' + driver.id
@@ -56296,7 +56432,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": _vm.driver_link + 'transfer-hauler/' + driver.id
       }
-    }, [_vm._v("Transfer Hauler")])])]) : _vm._e(), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('i', {
+    }, [_vm._v("Transfer Hauler")]), _vm._v(" "), (_vm.user_role == 'Administrator' || _vm.user_role == 'Approver') ? _c('span', [_c('a', {
+      staticClass: "dropdown-item",
+      staticStyle: {
+        "color": "red"
+      },
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#driverModalActivate-' + driver.id
+      }
+    }, [_vm._v("Activate")])]) : _vm._e()])]) : _vm._e(), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('i', {
       staticClass: "fa fa-circle",
       staticStyle: {
         "color": "green"
@@ -56426,7 +56572,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "type": "submit"
       }
-    }, [_vm._v("Confirm")])])])])])])])
+    }, [_vm._v("Confirm")])])])])])]), _vm._v(" "), _c('div', {
+      staticClass: "modal fade",
+      attrs: {
+        "id": 'noCardAssigned-' + driver.id,
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "driverModalLabel",
+        "aria-hidden": "true"
+      }
+    }, [_vm._m(8, true)])])
   })], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
@@ -56519,6 +56674,43 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "modal-body text-center"
   }, [_c('em', [_vm._v("Are you sure you want to proceed with this action?")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "id": "queueter"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h6', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "driverModalLabel"
+    }
+  }, [_vm._v("No Card Assigned")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body text-center"
+  }, [_c('em', [_vm._v("The selected driver has no card assigned, Please contact support for assistance.")])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("Confirm")])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
