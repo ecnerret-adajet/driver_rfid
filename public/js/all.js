@@ -36038,6 +36038,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['user'],
@@ -55328,14 +55330,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-5"
-    }, [_c('a', {
+    }, [_c('span', {
       staticStyle: {
         "text-transform": "upppercase"
-      },
-      attrs: {
-        "href": '/driver_rfid/public/drivers/' + driver.id
       }
-    }, [_vm._v(_vm._s(driver.name))]), _vm._v(" : \n                                          "), (driver.cardholder) ? _c('small', [_vm._v(_vm._s(driver.cardholder.Name))]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.trucks), function(truck) {
+    }, [_vm._v(_vm._s(driver.name))]), _vm._v(" : \n\n                                          "), (driver.cardholder) ? _c('small', [_vm._v(_vm._s(driver.cardholder.Name))]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.trucks), function(truck) {
       return _c('span', [(truck.reg_number == null) ? _c('span', [_vm._v("\n                                                  " + _vm._s(truck.plate_number) + " \n                                              ")]) : _c('span', [_vm._v("\n                                                  " + _vm._s(truck.reg_number) + "\n                                              ")])])
     }), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.haulers), function(hauler, index) {
       return _c('span', [(index == 0) ? _c('span', [_vm._v("\n                                                  " + _vm._s(hauler.name) + " \n                                                  "), (hauler.name == null) ? _c('span', [_vm._v("\n                                                      NO HAULER ASSIGNED\n                                                  ")]) : _vm._e()]) : _vm._e()])

@@ -38,7 +38,9 @@
                                              <img :src="avatar_link + driver.avatar" class="rounded-circle" style="height: 60px; width: auto;"  align="middle">
                                         </div>
                                         <div class="col-sm-5">
-                                            <a :href="'/driver_rfid/public/drivers/' + driver.id"  style="text-transform: upppercase">{{driver.name}}</a> : 
+                                            <!-- <a :href="'/driver_rfid/public/drivers/' + driver.id"  style="text-transform: upppercase">{{driver.name}}</a> :  -->
+                                            <span style="text-transform: upppercase">{{driver.name}}</span> : 
+
                                             <small v-if="driver.cardholder">{{ driver.cardholder.Name }}</small>
                                             <br/>
                                             <span v-for="truck in driver.trucks">
