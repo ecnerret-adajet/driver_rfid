@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Carbon\Carbon;
 
 class Pickup extends Model
 {
@@ -28,13 +29,32 @@ class Pickup extends Model
         'plate_number',
         'company',
         'driver_name',
-        'remarks'
-    ];     
+        'remarks',
+        'deactivated_date'
+    ];
+    
+    protected $dates = ['deactivated_date'];
+
 
     public function getDates()
     {
         return [];
     }
+
+    /**
+     * Dates configuration for deactivated_date
+     */
+     public function setDeactivatedDateAttribute($date)
+     {
+         $this->attributes['deactivated_date'] = Carbon::parse($date);
+     }
+ 
+     public function getDeactivatedDateAttribute($date)
+     {
+         return Carbon::parse($date)->format('Y-m-d');
+     }
+
+
 
     protected static $logAttributes = [
         'plate_number', 

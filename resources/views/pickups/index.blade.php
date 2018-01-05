@@ -82,7 +82,7 @@
                                     <th>Pickup #</th>
                                     <th>Driver Details</th>
                                     <th>Created Date</th>
-                                    {{--  <th>Checkout Date</th>  --}}
+                                    <th>Checkout Date</th>
                                     <th>TRUCKSCALE IN</th>
                                     <th>TRUCKSCALE OUT</th>
                                     <th>BETWEEN</th>
@@ -101,14 +101,19 @@
                                         {{$pick->company}}
                                     </td>
                                
-                                    {{--  <td>
+                                    <td>
 
                                     {{ date('m/d/y h:i:s A', strtotime($pick->created_at))}}
                                   
 
-                                    </td>  --}}
+                                    </td>
+
                                     <td>
-                                      {{ date('m/d/y h:i:s A', strtotime($pick->updated_at))}}
+                                        @if( date('m/d/y h:i:s A', strtotime($pick->created_at))  != date('m/d/y h:i:s A', strtotime($pick->updated_at)) )
+                                             {{ date('m/d/y h:i:s A', strtotime($pick->updated_at))  }}
+                                        @else
+                                            NO TIME OUT
+                                        @endif
                                     </td>
 
                                     <td>
@@ -277,10 +282,11 @@
 
              <hr/>
 
+
                     <div class="form-group row {{ $errors->has('cardholder_list') ? ' has-danger' : '' }}">
                             <label class="col-md-2">RFID Card</label>
                             <div class="col-md-10">
-                            {!! Form::select('cardholder_list', $search->cardholderAvailability(), null, ['placeholder' => 'Select Pickup Number', 'class' => 'form-control select2-pickup'] ) !!}
+                                {!! Form::select('cardholder_list', $search->cardholderAvailability(), null, ['placeholder' => 'Select Pickup Number', 'class' => 'form-control select2-pickup'] ) !!}
                             @if ($errors->has('cardholder_list'))
                                 <div class="form-control-feedback">
                                 <small>

@@ -98,11 +98,19 @@ class PickupsController extends Controller
 
     public function cardholderAvailability()
     {
-        $pickup_cards = Pickup::select('cardholder_id')->where('availability',1)->get();
-        
+         $guard_cards = Cardholder::select('CardholderID')
+            ->where('Name', 'LIKE', '%PICKUP CONFIRM%')
+            ->pluck('CardholderID'); 
+
+        $pickup_cards = Pickup::select('cardholder_id')
+                            ->whereNotNull('cardholder_id')                
+                            ->where('availability',1)->get();       
+
         $cardholders = Cardholder::whereNotIn('CardholderID', $pickup_cards)
+                                    ->whereNotIn('CardholderID', $guard_cards)
                                     ->where('Name', 'LIKE', '%Pickup%')
                                     ->pluck('Name','CardholderID');
+                                    
         return $cardholders;
     }
 
@@ -138,9 +146,16 @@ class PickupsController extends Controller
      */
     public function create()
     {
-        $pickup_cards = Pickup::select('cardholder_id')->where('availability',1)->get();
-        
+        $guard_cards = Cardholder::select('CardholderID')
+            ->where('Name', 'LIKE', '%PICKUP CONFIRM%')
+            ->pluck('CardholderID'); 
+
+        $pickup_cards = Pickup::select('cardholder_id')
+                            ->whereNotNull('cardholder_id')                
+                            ->where('availability',1)->get();       
+
         $cardholders = Cardholder::whereNotIn('CardholderID', $pickup_cards)
+                                    ->whereNotIn('CardholderID', $guard_cards)
                                     ->where('Name', 'LIKE', '%Pickup%')
                                     ->pluck('Name','CardholderID');
                                     
@@ -243,6 +258,7 @@ class PickupsController extends Controller
      {
          $pick = Pickup::findOrFail($id);
          $pick->availability = false;
+         $pick->deactivated_date = Carbon::now();
          $pick->save();
 
         // Record Log Activity

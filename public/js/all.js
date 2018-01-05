@@ -36040,6 +36040,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['user'],
@@ -36048,7 +36055,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             searchString: '',
             driver_link: '/driver_rfid/public/drivers/',
-            avatar_link: '/driver_rfid/storage/app/',
+            avatar_link: '/driver_rfid/public/storage/',
             export_link: '/driver_rfid/public/exportDrivers',
             loading: false,
             drivers: [],
@@ -55009,7 +55016,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticStyle: {
         "text-transform": "uppercase"
       }
-    }, [_vm._v("\n                                        Checkout Date:\n                                    ")]), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                         " + _vm._s(_vm.moment(pickup.updated_at)) + "\n                                    ")]), _vm._v(" "), _c('br')]), _vm._v(" "), _c('div', {
+    }, [_vm._v("\n                                        Checkout Date:\n                                    ")]), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                         " + _vm._s(_vm.moment(pickup.deactivated_date)) + "\n                                    ")]), _vm._v(" "), _c('br')]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-2"
     }, [_c('small', {
       staticClass: "text-muted",
@@ -55318,7 +55325,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "row"
     }, [_c('div', {
       staticClass: "col-sm-1"
-    }, [_c('img', {
+    }, [(driver.image) ? _c('span', [_c('img', {
+      staticClass: "rounded-circle",
+      staticStyle: {
+        "height": "60px",
+        "width": "auto"
+      },
+      attrs: {
+        "src": _vm.avatar_link + driver.image.avatar,
+        "align": "middle"
+      }
+    })]) : _c('span', [_c('img', {
       staticClass: "rounded-circle",
       staticStyle: {
         "height": "60px",
@@ -55328,7 +55345,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "src": _vm.avatar_link + driver.avatar,
         "align": "middle"
       }
-    })]), _vm._v(" "), _c('div', {
+    })])]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-5"
     }, [_c('span', {
       staticStyle: {

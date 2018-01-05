@@ -47,7 +47,7 @@
                                             Checkout Date:
                                         </small><br/>
                                         <span>
-                                             {{ moment(pickup.updated_at) }}
+                                             {{ moment(pickup.deactivated_date) }}
                                         </span>
                                         <br/>
                                     </div>
