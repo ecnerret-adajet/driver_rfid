@@ -41,6 +41,8 @@ Vue.component('driverque', require('./components/DriverQue.vue'));
 Vue.component('pickupOnline', require('./components/PickupOnline.vue'));
 Vue.component('barriers', require('./components/Barriers.vue'));
 Vue.component('driverupload', require('./components/DriverUpload.vue'));
+Vue.component('monitorQueuePickups', require('./components/MonitorQueuePickup.vue'));
+Vue.component('monitorQueueDeliveries', require('./components/MonitorQueueDeliveries.vue'));
 
 const app = new Vue({
     el: '#app'

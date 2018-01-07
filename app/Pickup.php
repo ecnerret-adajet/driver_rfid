@@ -33,27 +33,11 @@ class Pickup extends Model
         'deactivated_date'
     ];
     
-    protected $dates = ['deactivated_date'];
-
 
     public function getDates()
     {
         return [];
     }
-
-    /**
-     * Dates configuration for deactivated_date
-     */
-     public function setDeactivatedDateAttribute($date)
-     {
-         $this->attributes['deactivated_date'] = Carbon::parse($date);
-     }
- 
-     public function getDeactivatedDateAttribute($date)
-     {
-         return Carbon::parse($date)->format('Y-m-d');
-     }
-
 
 
     protected static $logAttributes = [

@@ -23,6 +23,14 @@ Route::get('/', function()
         return redirect('pickups/online');
     }
 
+    if (Entrust::hasRole('Pickup-level-2')) {
+        return redirect('monitor/feed');
+    }
+
+    if (Entrust::hasRole('Queue-monitoring')) {
+        return redirect('monitor/feed');
+    }
+
     return view('home');
     
 })->middleware('auth');
@@ -206,6 +214,12 @@ Route::post('/pickups/deactivate/{id}','PickupsController@deactive');
 Route::resource('/pickups','PickupsController');
 
 
+//Route for pickup monitoring and deliveries monitoring
+Route::get('/monitor/feed','QueuesController@index');
+Route::get('/monitor/pickups', 'QueuesController@pickups');
+Route::get('/monitor/deliveries','QueuesController@deliveries');
+
+
 Route::get('/feed','FeedsController@index');
 Route::get('/feed-content','FeedsController@feedContent');
 Route::get('/home-content','FeedsController@homeFeed');
@@ -222,6 +236,8 @@ Route::get('/lineups/{log}','LineupsController@create');
 Route::post('/lineups/{log}','LineupsController@store');
 Route::get('/lineups/approval/{id}','LineupsController@hustlingApproval');
 Route::post('/lineups/approval/{id}','LineupsController@hustlingApprovalStore');
+
+
 
 
 

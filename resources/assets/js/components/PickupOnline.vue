@@ -47,7 +47,9 @@
                                             Checkout Date:
                                         </small><br/>
                                         <span>
-                                             {{ moment(pickup.deactivated_date) }}
+                                            <span v-if="pickup.deactivated_date">
+                                                {{ moment(pickup.deactivated_date) }}
+                                             </span>
                                         </span>
                                         <br/>
                                     </div>
