@@ -2,7 +2,7 @@
   <div>
 
 
-           <div class="row mb-4">
+           <div class="row mb-4 mt-3">
             <div class="col">
                 <div class="card">
                 <div class="card-body text-center">
@@ -122,7 +122,6 @@
             getQueues() {
                 axios.get('/driver_rfid/public/monitor/deliveries')
                 .then(response => this.queues = response.data);
-                setTimeout(this.getQueues, 2000);
             },
         
             moment(date) {

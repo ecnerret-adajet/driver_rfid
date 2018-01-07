@@ -36941,7 +36941,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get('/driver_rfid/public/monitor/deliveries').then(function (response) {
                 return _this.queues = response.data;
             });
-            setTimeout(this.getQueues, 2000);
         },
         moment: function moment(date) {
             return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM D, Y h:m:s A');
@@ -55221,7 +55220,7 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
-    staticClass: "row mb-4"
+    staticClass: "row mb-4 mt-3"
   }, [_c('div', {
     staticClass: "col"
   }, [_c('div', {

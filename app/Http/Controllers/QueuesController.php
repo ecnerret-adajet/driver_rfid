@@ -17,7 +17,7 @@ class QueuesController extends Controller
 
     public function index()
     {
-        return view('queue.index');
+        return view('queues.index');
     }
 
     public function pickups()
