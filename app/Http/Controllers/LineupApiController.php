@@ -16,10 +16,16 @@ class LineupApiController extends Controller
 {
    public function getDriverQue()
    {
-        $result_lineups = Log::with(['drivers','drivers.truck','drivers.hauler'])
+        $check_truckscale_out = Log::select('CardholderID')
+                                    ->where('ControllerID', 4)
+                                    ->where('Direction',2)
+                                    ->whereDate('LocalTime', Carbon::now())
+                                    ->pluck('CardholderID');
+
+        $result_lineups = Log::with(['drivers','drivers.truck','drivers.hauler','driver.serves'])
         ->where('ControllerID', 1)
         ->where('DoorID',0)
-        ->whereNotIn('DoorID',['2'])
+        ->whereNotIn('CardholderID',$check_truckscale_out)
         ->whereDate('LocalTime', Carbon::now())
         ->orderBy('LogID','DESC')->get();
 
@@ -37,13 +43,15 @@ class LineupApiController extends Controller
                 }
 
                 $data = array(
+                    'driver_id' => $driver->id,
                     'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
                     'driver_name' => $driver->name,
                     'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
                     'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
                     'log_time' => $log->LocalTime,
                     'dr_status' => empty($y) ? 'UNPROCESS' : $y, 
-                    'driver_status' => $driver->availability
+                    // 'driver_status' => $driver->availability,
+                    'on_serving' => empty($driver->serves->first()->on_serving) ? null : $driver->serves->first()->on_serving,
                 );
 
                 array_push($arr, $data);

@@ -218,6 +218,8 @@ Route::resource('/pickups','PickupsController');
 Route::get('/monitor/feed','QueuesController@index');
 Route::get('/monitor/pickups', 'QueuesController@pickups');
 Route::get('/monitor/deliveries','QueuesController@deliveries');
+Route::get('/serving','ServingController@currentlyServing');
+Route::post('/storeCurrentlyServing/{id}','ServingController@storeCurrentlyServing');
 
 
 Route::get('/feed','FeedsController@index');

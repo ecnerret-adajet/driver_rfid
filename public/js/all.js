@@ -35126,6 +35126,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -35140,6 +35165,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     created: function created() {
         this.getQueues();
+        this.getCurrentlyServing();
     },
 
 
@@ -35151,6 +35177,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return _this.queues = response.data;
             });
             setTimeout(this.getQueues, 2000);
+        },
+        getCurrentlyServing: function getCurrentlyServing() {
+            var _this2 = this;
+
+            axios.get('/driver_rfid/public/serving').then(function (response) {
+                return _this2.currentlyServing = response.data;
+            });
+            setTimeout(this.getQueues, 5000);
         },
         moment: function moment(date) {
             return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM D, Y h:m:s A');
@@ -36917,6 +36951,89 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -36926,11 +37043,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             avatar_link: '/driver_rfid/public/storage/',
             queues: [],
             currentlyServing: [],
-            checkSubmission: []
+            checkSubmission: [],
+            loadingDeliveries: false,
+            loadingServing: false,
+            csrf: ''
         };
+    },
+    mounted: function mounted() {
+        this.csrf = window.Laravel.csrfToken;
     },
     created: function created() {
         this.getQueues();
+        this.getCurrentlyServing();
     },
 
 
@@ -36938,8 +37062,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getQueues: function getQueues() {
             var _this = this;
 
+            this.loadingDeliveries = true;
             axios.get('/driver_rfid/public/monitor/deliveries').then(function (response) {
-                return _this.queues = response.data;
+                _this.queues = response.data;
+                _this.loadingDeliveries = false;
+            });
+        },
+        getCurrentlyServing: function getCurrentlyServing() {
+            var _this2 = this;
+
+            this.loadingServing = true;
+            axios.get('/driver_rfid/public/serving').then(function (response) {
+                _this2.currentlyServing = response.data;
+                _this2.loadingServing = false;
             });
         },
         moment: function moment(date) {
@@ -36957,6 +37092,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -54285,17 +54431,58 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "col"
   }, [_c('div', {
-    staticClass: "card"
+    staticClass: "card card bg-light rounded-0"
   }, [_c('div', {
     staticClass: "card-body text-center"
   }, [_c('h1', {
-    staticClass: "card-title",
+    staticClass: "card-title pb-1 pt-2 display-2",
     staticStyle: {
       "font-weight": "100"
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.queues.length) + "\n                ")]), _vm._v(" "), _c('p', {
-    staticClass: "card-text"
-  }, [_vm._v("\n                    Current In The Plant\n                ")])])])]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                        " + _vm._s(_vm.queues.length) + "\n                    ")]), _vm._v(" "), _c('p', {
+    staticClass: "card-text small text-uppercase text-muted pt-5"
+  }, [_vm._v("\n                        Current In The Plant\n                    ")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col"
+  }, [_c('div', {
+    staticClass: "card bg-light rounded-0"
+  }, [_c('div', {
+    staticClass: "card-body text-center"
+  }, [_vm._l((_vm.currentlyServing), function(serving) {
+    return (!_vm.currentlyServing.length == 0) ? _c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "col-6"
+    }, [_c('img', {
+      staticClass: "rounded-circle",
+      staticStyle: {
+        "height": "150px",
+        "width": "auto"
+      },
+      attrs: {
+        "src": _vm.avatar_link + serving.driver.avatar,
+        "align": "right"
+      }
+    })]), _vm._v(" "), _c('div', {
+      staticClass: "col-6 text-left"
+    }, [_c('span', {
+      staticClass: "small text-muted text-uppercase"
+    }, [_vm._v("\n                                    Driver Name:\n                                ")]), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                    " + _vm._s(serving.driver.name) + "\n                                ")]), _c('br'), _vm._v(" "), _c('span', {
+      staticClass: "small text-muted text-uppercase"
+    }, [_vm._v("\n                                    Plate Number:\n                                ")]), _c('br'), _vm._v(" "), _vm._l((serving.driver.truck), function(truckx) {
+      return _c('span', [_vm._v("\n                                    " + _vm._s(truckx.plate_number) + "\n                                ")])
+    }), _c('br'), _vm._v(" "), _c('span', {
+      staticClass: "small text-muted text-uppercase"
+    }, [_vm._v("\n                                    Hauler Name:\n                                ")]), _c('br'), _vm._v(" "), _vm._l((serving.driver.hauler), function(haulerx) {
+      return _c('span', [_vm._v("\n                                    " + _vm._s(haulerx.name) + "\n                                ")])
+    })], 2)]) : _vm._e()
+  }), _vm._v(" "), (_vm.currentlyServing == 0) ? _c('h1', {
+    staticClass: "card-title text-muted pb-1 pt-2 pb-5 display-2",
+    staticStyle: {
+      "font-weight": "100"
+    }
+  }, [_vm._v("\n                            OPEN\n                        ")]) : _vm._e(), _vm._v(" "), _c('p', {
+    staticClass: "card-text mt-3 small text-uppercase text-muted"
+  }, [_vm._v("\n                            Currently Serving\n                        ")])], 2)])])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-sm-12"
@@ -54310,7 +54497,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "width": "100%",
       "cellspacing": "0"
     }
-  }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.queues), function(queue) {
+  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.queues), function(queue) {
     return _c('tr', [_c('td', [_c('img', {
       staticClass: "rounded-circle",
       staticStyle: {
@@ -54325,28 +54512,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "text-danger"
     }, [_vm._v("\n                                             " + _vm._s(queue.hauler) + "\n                                        ")]) : _c('span', [_vm._v("\n                                             " + _vm._s(queue.hauler) + "\n                                        ")])]), _vm._v(" "), _c('td', [_vm._v("\n                                        " + _vm._s(_vm.moment(queue.log_time.date)) + "\n                                    ")]), _vm._v(" "), _c('td', _vm._l((queue.dr_status), function(status, index) {
       return (queue.dr_status) ? _c('span', [(index == 0) ? _c('span', [_vm._v("\n                                                " + _vm._s(status.submission_date) + "\n                                            ")]) : _vm._e()]) : _vm._e()
-    })), _vm._v(" "), _c('td', [(queue.driver_status == 1) ? _c('span', [_c('button', {
-      staticClass: "btn btn-success btn-sm disabled"
-    }, [_vm._v("\n                                                 ACTIVE\n                                             ")])]) : _c('span', [_c('button', {
+    })), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
+      staticClass: "btn btn-success btn-sm",
+      attrs: {
+        "href": "javascript:void(0);"
+      }
+    }, [_vm._v("\n                                                 OPEN\n                                             ")])]) : _c('span', [_c('button', {
       staticClass: "btn btn-danger btn-sm disabled"
-    }, [_vm._v("\n                                                 INACTIVE\n                                             ")])])])])
+    }, [_vm._v("\n                                                 NOW SERVING\n                                             ")])])])])
   }))])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "col"
-  }, [_c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-body text-center"
-  }, [_c('h1', {
-    staticClass: "card-title",
-    staticStyle: {
-      "font-weight": "100"
-    }
-  }, [_vm._v("\n                    0\n                ")]), _vm._v(" "), _c('p', {
-    staticClass: "card-text"
-  }, [_vm._v("\n                    Currently Serving\n                ")])])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', {
     staticStyle: {
       "text-transform": "uppercase"
@@ -55224,17 +55399,84 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "col"
   }, [_c('div', {
-    staticClass: "card"
+    staticClass: "card card bg-light rounded-0"
   }, [_c('div', {
     staticClass: "card-body text-center"
   }, [_c('h1', {
-    staticClass: "card-title",
+    staticClass: "card-title pb-1 pt-2 display-2",
     staticStyle: {
       "font-weight": "100"
     }
   }, [_vm._v("\n                      " + _vm._s(_vm.queues.length) + "\n                  ")]), _vm._v(" "), _c('p', {
-    staticClass: "card-text"
-  }, [_vm._v("\n                      Current In The Plant\n                  ")])])])]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
+    staticClass: "card-text small text-uppercase text-muted pt-5"
+  }, [_vm._v("\n                      Current In The Plant\n                  ")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col"
+  }, [(!_vm.loadingServing) ? _c('div', [_c('div', {
+    staticClass: "card bg-light rounded-0"
+  }, [_c('div', {
+    staticClass: "card-body text-center"
+  }, [_vm._l((_vm.currentlyServing), function(serving) {
+    return (!_vm.currentlyServing.length == 0) ? _c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "col-6"
+    }, [_c('img', {
+      staticClass: "rounded-circle",
+      staticStyle: {
+        "height": "150px",
+        "width": "auto"
+      },
+      attrs: {
+        "src": _vm.avatar_link + serving.driver.avatar,
+        "align": "right"
+      }
+    })]), _vm._v(" "), _c('div', {
+      staticClass: "col-6 text-left"
+    }, [_c('span', {
+      staticClass: "small text-muted text-uppercase"
+    }, [_vm._v("\n                                      Driver Name:\n                                  ")]), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                      " + _vm._s(serving.driver.name) + "\n                                  ")]), _c('br'), _vm._v(" "), _c('span', {
+      staticClass: "small text-muted text-uppercase"
+    }, [_vm._v("\n                                      Plate Number:\n                                  ")]), _c('br'), _vm._v(" "), _vm._l((serving.driver.truck), function(truckx) {
+      return _c('span', [_vm._v("\n                                      " + _vm._s(truckx.plate_number) + "\n                                  ")])
+    }), _c('br'), _vm._v(" "), _c('span', {
+      staticClass: "small text-muted text-uppercase"
+    }, [_vm._v("\n                                      Hauler Name:\n                                  ")]), _c('br'), _vm._v(" "), _vm._l((serving.driver.hauler), function(haulerx) {
+      return _c('span', [_vm._v("\n                                      " + _vm._s(haulerx.name) + "\n                                  ")])
+    })], 2)]) : _vm._e()
+  }), _vm._v(" "), (_vm.currentlyServing == 0) ? _c('h1', {
+    staticClass: "card-title text-muted pb-1 pt-2 pb-5 display-2",
+    staticStyle: {
+      "font-weight": "100"
+    }
+  }, [_vm._v("\n                              OPEN\n                          ")]) : _vm._e(), _vm._v(" "), _c('p', {
+    staticClass: "card-text mt-3 small text-uppercase text-muted"
+  }, [_vm._v("\n                              Currently Serving\n                          ")])], 2)])]) : _vm._e(), _vm._v(" "), (_vm.loadingServing) ? _c('div', [_c('div', {
+    staticClass: "center-align",
+    staticStyle: {
+      "padding-top": "50px",
+      "display": "flex",
+      "align-items": "center",
+      "justify-content": "center"
+    }
+  }, [_c('svg', {
+    staticClass: "spinner",
+    attrs: {
+      "width": "65px",
+      "height": "65px",
+      "viewBox": "0 0 66 66",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('circle', {
+    staticClass: "path",
+    attrs: {
+      "fill": "none",
+      "stroke-width": "6",
+      "stroke-linecap": "round",
+      "cx": "33",
+      "cy": "33",
+      "r": "30"
+    }
+  })])])]) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-sm-12"
@@ -55249,7 +55491,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "width": "100%",
       "cellspacing": "0"
     }
-  }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.queues), function(queue) {
+  }, [_vm._m(0), _vm._v(" "), (!_vm.loadingDeliveries) ? _c('tbody', _vm._l((_vm.queues), function(queue) {
     return _c('tr', [_c('td', [_c('img', {
       staticClass: "rounded-circle",
       staticStyle: {
@@ -55264,33 +55506,121 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "text-danger"
     }, [_vm._v("\n                                               " + _vm._s(queue.hauler) + "\n                                          ")]) : _c('span', [_vm._v("\n                                               " + _vm._s(queue.hauler) + "\n                                          ")])]), _vm._v(" "), _c('td', [_vm._v("\n                                          " + _vm._s(_vm.moment(queue.log_time.date)) + "\n                                      ")]), _vm._v(" "), _c('td', _vm._l((queue.dr_status), function(status, index) {
       return (queue.dr_status) ? _c('span', [(index == 0) ? _c('span', [_vm._v("\n                                                  " + _vm._s(status.submission_date) + "\n                                              ")]) : _vm._e()]) : _vm._e()
-    })), _vm._v(" "), _c('td', [(queue.driver_status == 1) ? _c('span', [_c('button', {
-      staticClass: "btn btn-success btn-sm disabled"
-    }, [_vm._v("\n                                                   ACTIVE\n                                               ")])]) : _c('span', [_c('button', {
+    })), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
+      staticClass: "btn btn-success btn-sm",
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#servingModal-' + queue.driver_id
+      }
+    }, [_vm._v("\n                                                   OPEN\n                                               ")])]) : _c('span', [_c('button', {
       staticClass: "btn btn-danger btn-sm disabled"
-    }, [_vm._v("\n                                                   INACTIVE\n                                               ")])])])])
-  }))])])])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "col"
-  }, [_c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-body text-center"
-  }, [_c('h1', {
-    staticClass: "card-title",
-    staticStyle: {
-      "font-weight": "100"
+    }, [_vm._v("\n                                                   NOW SERVING\n                                               ")])])])])
+  })) : _vm._e(), _vm._v(" "), (_vm.loadingDeliveries) ? _c('tbody', [_c('tr', [_c('td', {
+    attrs: {
+      "colspan": "7 text-center"
     }
-  }, [_vm._v("\n                      0\n                  ")]), _vm._v(" "), _c('p', {
-    staticClass: "card-text"
-  }, [_vm._v("\n                      Currently Serving\n                  ")])])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  }, [_c('div', {
+    staticClass: "center-align",
+    staticStyle: {
+      "padding-top": "50px",
+      "display": "flex",
+      "align-items": "center",
+      "justify-content": "center"
+    }
+  }, [_c('svg', {
+    staticClass: "spinner",
+    attrs: {
+      "width": "65px",
+      "height": "65px",
+      "viewBox": "0 0 66 66",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('circle', {
+    staticClass: "path",
+    attrs: {
+      "fill": "none",
+      "stroke-width": "6",
+      "stroke-linecap": "round",
+      "cx": "33",
+      "cy": "33",
+      "r": "30"
+    }
+  })])])])])]) : _vm._e()])])])]), _vm._v(" "), _vm._l((_vm.queues), function(queue) {
+    return _c('div', [_c('div', {
+      staticClass: "modal fade",
+      attrs: {
+        "id": 'servingModal-' + queue.driver_id,
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "driverModalLabel",
+        "aria-hidden": "true"
+      }
+    }, [_c('div', {
+      staticClass: "modal-dialog",
+      attrs: {
+        "id": "queueter"
+      }
+    }, [_c('div', {
+      staticClass: "modal-content"
+    }, [_vm._m(1, true), _vm._v(" "), _vm._m(2, true), _vm._v(" "), _c('div', {
+      staticClass: "modal-footer"
+    }, [_c('form', {
+      attrs: {
+        "method": "POST",
+        "action": '/driver_rfid/public/storeCurrentlyServing/' + queue.driver_id
+      }
+    }, [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_token"
+      },
+      domProps: {
+        "value": _vm.csrf
+      }
+    }), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-secondary",
+      attrs: {
+        "type": "button",
+        "data-dismiss": "modal"
+      }
+    }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-primary",
+      attrs: {
+        "type": "submit"
+      }
+    }, [_vm._v("Confirm")])])])])])])])
+  })], 2)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', {
     staticStyle: {
       "text-transform": "uppercase"
     }
   }, [_c('th'), _vm._v(" "), _c('th', [_vm._v("Driver Name")]), _vm._v(" "), _c('th', [_vm._v("Plate Number")]), _vm._v(" "), _c('th', [_vm._v("Hauler")]), _vm._v(" "), _c('th', [_vm._v("Date/Time")]), _vm._v(" "), _c('th', [_vm._v("LAST DR SUBMISSION")]), _vm._v(" "), _c('th', [_vm._v("Status")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('h6', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "driverModalLabel"
+    }
+  }, [_vm._v("Serving Truck")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body text-center"
+  }, [_c('em', [_vm._v("Are you sure you want to proceed with this action?")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -55662,19 +55992,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "row"
     }, [_vm._m(1, true), _vm._v(" "), _c('div', {
       staticClass: "col-sm-5"
-    }, [_c('span', [_vm._v(" \n                                                  " + _vm._s(pickup.plate_number) + "\n                                        ")]), _vm._v(" : \n                                              "), (pickup.cardholder.Name) ? _c('small', {
+    }, [_c('span', [_vm._v(" \n                                                  " + _vm._s(pickup.plate_number) + "\n                                        ")]), _vm._v(" : \n                                              "), (pickup.cardholder) ? _c('small', {
       staticClass: "badge badge-primary mr-2"
-    }, [_vm._v("\n                                                      " + _vm._s(pickup.cardholder.Name) + "\n                                              ")]) : _vm._e(), _vm._v(" "), (!pickup.cardholder.Name) ? _c('small', {
+    }, [_vm._v("\n                                                      " + _vm._s(pickup.cardholder.Name) + "\n                                              ")]) : _vm._e(), _vm._v(" "), (!pickup.cardholder) ? _c('small', {
       staticClass: "badge badge-danger mr-2"
     }, [_vm._v("\n                                                      NOT YET SERVE\n                                              ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', {
       staticClass: "text-muted"
     }, [_vm._v("\n                                             " + _vm._s(pickup.driver_name) + "\n                                          ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                               " + _vm._s(pickup.company) + "\n                                          ")])]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-3"
-    }, [_c('span', [_vm._v("\n                                              " + _vm._s(_vm.moment(pickup.created_date)) + "                                         \n                                          ")]), _vm._v(" "), _c('br'), _vm._v(" "), (pickup.deactivated_date) ? _c('span', [_vm._v("\n                                              " + _vm._s(_vm.moment(pickup.deactivated_date)) + "\n                                          ")]) : _c('span', {
+    }, [_c('span', {
+      staticClass: "text-muted text-uppercase"
+    }, [_vm._v("\n                                             Created Date\n                                         ")]), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                              " + _vm._s(_vm.moment(pickup.created_at)) + "                                         \n                                          ")]), _c('br'), _vm._v(" "), _c('span', {
+      staticClass: "text-muted text-uppercase"
+    }, [_vm._v("\n                                             Plant Out Date\n                                         ")]), _c('br'), _vm._v(" "), (pickup.deactivated_date) ? _c('span', [_vm._v("\n                                              " + _vm._s(_vm.moment(pickup.deactivated_date)) + "\n                                          ")]) : _c('span', {
       staticClass: "text-danger"
     }, [_vm._v("\n                                              NOT YET SERVE\n                                          ")])]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-3 pull-right right"
-    }, [(pickup.deactivated_date) ? _c('span', [_vm._v("\n                                                  " + _vm._s(_vm.dateDiff(pickup.created_date, pickup.deactivated_date)) + " hour(s)\n                                          ")]) : _c('span', [_vm._v("\n                                              NOT YET SERVE\n                                          ")])])])])
+    }, [_c('span', {
+      staticClass: "text-muted text-uppercase"
+    }, [_vm._v("\n                                             DO NUMBER:\n                                         ")]), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                              " + _vm._s(pickup.do_number) + "                                         \n                                          ")]), _c('br'), _vm._v(" "), (pickup.deactivated_date) ? _c('span', [_vm._v("\n                                                  " + _vm._s(_vm.dateDiff(pickup.created_at, pickup.deactivated_date)) + " hour(s)\n                                          ")]) : _c('span', [_vm._v("\n                                              NOT YET SERVE\n                                          ")])])])])
   }), _vm._v(" "), (_vm.filteredPickups.length == 0) ? _c('li', {
     staticClass: "list-group-item"
   }, [_vm._m(2)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {

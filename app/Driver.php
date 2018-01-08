@@ -273,4 +273,11 @@ class Driver extends Model
         return $this->belongsTo('App\Image');
     }
 
+
+    public function serves()
+    {
+        return $this->hasMany(Serve::class)
+                    ->whereDate('served_start_date',Carbon::now());
+    }
+
 }

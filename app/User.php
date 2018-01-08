@@ -125,5 +125,13 @@ class User extends Authenticatable
         return $this->belongsTo('App\Hauler');
     }
 
+    /**
+     * For deliveries serving queues
+     */
+    public function serves()
+    {
+        return $this->hasMany(Serve::class);
+    }
+
 
 }

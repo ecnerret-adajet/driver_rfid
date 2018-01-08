@@ -40,10 +40,10 @@
                                            <span> 
                                                     {{ pickup.plate_number }}
                                           </span> : 
-                                                <small class="badge badge-primary mr-2" v-if="pickup.cardholder.Name">
+                                                <small class="badge badge-primary mr-2" v-if="pickup.cardholder">
                                                         {{ pickup.cardholder.Name }}
                                                 </small> 
-                                                 <small class="badge badge-danger mr-2" v-if="!pickup.cardholder.Name">
+                                                 <small class="badge badge-danger mr-2" v-if="!pickup.cardholder">
                                                         NOT YET SERVE
                                                 </small> 
                                                 <br/>
@@ -62,10 +62,15 @@
                                         </div>
 
                                         <div class="col-sm-3">
+                                           <span class="text-muted text-uppercase">
+                                               Created Date
+                                           </span><br/>
                                            <span>
-                                                {{ moment(pickup.created_date) }}                                         
-                                            </span>
-                                            <br/>
+                                                {{ moment(pickup.created_at) }}                                         
+                                            </span><br/>
+                                             <span class="text-muted text-uppercase">
+                                               Plant Out Date
+                                           </span><br/>
                                             <span v-if="pickup.deactivated_date">
                                                 {{ moment(pickup.deactivated_date) }}
                                             </span>
@@ -77,8 +82,14 @@
 
 
                                         <div class="col-sm-3 pull-right right">
+                                            <span class="text-muted text-uppercase">
+                                               DO NUMBER:
+                                           </span><br/>  
+                                           <span>
+                                                {{ pickup.do_number }}                                         
+                                            </span><br/>
                                             <span v-if="pickup.deactivated_date">
-                                                    {{ dateDiff(pickup.created_date, pickup.deactivated_date) }} hour(s)
+                                                    {{ dateDiff(pickup.created_at, pickup.deactivated_date) }} hour(s)
                                             </span>
                                             <span v-else>
                                                 NOT YET SERVE
@@ -135,7 +146,7 @@
                 });
             },
 
-             moment(date) {
+            moment(date) {
                 return moment(date).format('MMMM D, Y h:m:s A');
             },
 
