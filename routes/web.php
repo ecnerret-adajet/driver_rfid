@@ -45,6 +45,7 @@ Route::get('/driver/queues','LineupsController@DriversQue');
 // Route setup to check last dr submission
 Route::get('/checkSubmissionDate/{plate_number}','LineupApiController@checkSubmissionDate');
 Route::get('/queues','LineupApiController@getDriverQue');
+Route::get('/serving','ServingController@currentlyServing');
 
 Auth::routes();
 
@@ -218,7 +219,6 @@ Route::resource('/pickups','PickupsController');
 Route::get('/monitor/feed','QueuesController@index');
 Route::get('/monitor/pickups', 'QueuesController@pickups');
 Route::get('/monitor/deliveries','QueuesController@deliveries');
-Route::get('/serving','ServingController@currentlyServing');
 Route::post('/storeCurrentlyServing/{id}','ServingController@storeCurrentlyServing');
 
 
