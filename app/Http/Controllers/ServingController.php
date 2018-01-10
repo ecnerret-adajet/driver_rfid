@@ -24,6 +24,45 @@ class ServingController extends Controller
         return $serving;
     }
 
+    public function servedToday()
+    {
+
+         $current_serving = Serve::with('driver','driver.truck','driver.hauler','user')
+                            ->orderBy('id','DESC')
+                            ->where('on_serving',1)
+                            ->take(1)
+                            ->pluck('id');
+
+          $served = Serve::with('driver','driver.truck','driver.hauler','user')
+                            ->orderBy('id','DESC')
+                            ->whereNotIn('id',$current_serving)
+                            ->where('on_serving',1)
+                            ->take(4)
+                            ->get();
+        
+          $arr = array();
+
+           foreach($served as $x) {
+                $data = array(
+                    'served_id' => $x->id,
+                    'driver_id' => $x->driver->id,
+                    'avatar' => $x->driver->avatar,
+                    'on_servering' => $x->on_serving,
+                    'served_start' => $x->served_start_date,
+                    'served_end_date' => $x->served_end_date,
+                    'driver_name' => empty($x->driver->name) ? null : $x->driver->name,
+                    'plate_number' => empty($x->driver->truck) ? null : $x->driver->truck->first()->plate_number,
+                    'hauler_name' => empty($x->driver->hauler) ? null : $x->driver->hauler->first()->name,
+                    'user_name' => empty($x->user->name) ? null : $x->user->name,
+                );
+
+                array_push($arr, $data);
+           }
+        
+           return $arr;
+
+    }
+
     public function storeCurrentlyServing(Request $request, $id)
     {
         $serving = new Serve;

@@ -35151,6 +35151,99 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -35160,12 +35253,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             avatar_link: '/driver_rfid/public/storage/',
             queues: [],
             currentlyServing: [],
-            checkSubmission: []
+            todayServed: [],
+            checkSubmission: [],
+            totalentries: [],
+            lastDriver: []
         };
     },
     created: function created() {
         this.getQueues();
         this.getCurrentlyServing();
+        this.getTodayServed();
+        this.getTotalQueueToday();
+        this.getLastDriver();
     },
 
 
@@ -35176,15 +35275,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get('/driver_rfid/public/queues').then(function (response) {
                 return _this.queues = response.data;
             });
-            setTimeout(this.getQueues, 2000);
+            setTimeout(this.getQueues, 10000);
         },
-        getCurrentlyServing: function getCurrentlyServing() {
+        getTotalQueueToday: function getTotalQueueToday() {
             var _this2 = this;
 
-            axios.get('/driver_rfid/public/serving').then(function (response) {
-                return _this2.currentlyServing = response.data;
+            axios.get('/driver_rfid/public/getTotalQueueToday').then(function (response) {
+                return _this2.totalentries = response.data;
             });
-            setTimeout(this.getQueues, 5000);
+            setTimeout(this.getTotalQueueToday, 5000);
+        },
+        getCurrentlyServing: function getCurrentlyServing() {
+            var _this3 = this;
+
+            axios.get('/driver_rfid/public/serving').then(function (response) {
+                return _this3.currentlyServing = response.data;
+            });
+            setTimeout(this.getCurrentlyServing, 3000);
+        },
+        getTodayServed: function getTodayServed() {
+            var _this4 = this;
+
+            axios.get('/driver_rfid/public/servedToday').then(function (response) {
+                return _this4.todayServed = response.data;
+            });
+            setTimeout(this.getTodayServed, 4000);
+        },
+        getLastDriver: function getLastDriver() {
+            var _this5 = this;
+
+            axios.get('/driver_rfid/public/getLastDriver').then(function (response) {
+                return _this5.lastDriver = response.data;
+            });
+            setTimeout(this.getLastDriver, 2000);
         },
         moment: function moment(date) {
             return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM D, Y h:m:s A');
@@ -54435,13 +54558,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "card-body text-center"
   }, [_c('h1', {
-    staticClass: "card-title pb-1 pt-2 display-2",
+    staticClass: "card-title pb-1 pt-2 display-3",
     staticStyle: {
       "font-weight": "100"
     }
-  }, [_vm._v("\n                        " + _vm._s(_vm.queues.length) + "\n                    ")]), _vm._v(" "), _c('p', {
-    staticClass: "card-text small text-uppercase text-muted pt-5"
-  }, [_vm._v("\n                        Current In The Plant\n                    ")])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                        " + _vm._s(_vm.totalentries.total) + "\n                    ")])]), _vm._v(" "), _vm._m(0)])]), _vm._v(" "), _c('div', {
     staticClass: "col"
   }, [_c('div', {
     staticClass: "card bg-light rounded-0"
@@ -54451,11 +54572,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return (!_vm.currentlyServing.length == 0) ? _c('div', {
       staticClass: "row"
     }, [_c('div', {
-      staticClass: "col-6"
+      staticClass: "col-3"
     }, [_c('img', {
       staticClass: "rounded-circle",
       staticStyle: {
-        "height": "150px",
+        "height": "100px",
         "width": "auto"
       },
       attrs: {
@@ -54463,14 +54584,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "align": "right"
       }
     })]), _vm._v(" "), _c('div', {
-      staticClass: "col-6 text-left"
+      staticClass: "col-3 text-left"
     }, [_c('span', {
       staticClass: "small text-muted text-uppercase"
     }, [_vm._v("\n                                    Driver Name:\n                                ")]), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                    " + _vm._s(serving.driver.name) + "\n                                ")]), _c('br'), _vm._v(" "), _c('span', {
       staticClass: "small text-muted text-uppercase"
     }, [_vm._v("\n                                    Plate Number:\n                                ")]), _c('br'), _vm._v(" "), _vm._l((serving.driver.truck), function(truckx) {
       return _c('span', [_vm._v("\n                                    " + _vm._s(truckx.plate_number) + "\n                                ")])
-    }), _c('br'), _vm._v(" "), _c('span', {
+    }), _c('br')], 2), _vm._v(" "), _c('div', {
+      staticClass: "col-6 text-left"
+    }, [_c('span', {
       staticClass: "small text-muted text-uppercase"
     }, [_vm._v("\n                                    Hauler Name:\n                                ")]), _c('br'), _vm._v(" "), _vm._l((serving.driver.hauler), function(haulerx) {
       return _c('span', [_vm._v("\n                                    " + _vm._s(haulerx.name) + "\n                                ")])
@@ -54480,25 +54603,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-weight": "100"
     }
-  }, [_vm._v("\n                            OPEN\n                        ")]) : _vm._e(), _vm._v(" "), _c('p', {
-    staticClass: "card-text mt-3 small text-uppercase text-muted"
-  }, [_vm._v("\n                            Currently Serving\n                        ")])], 2)])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                            OPEN\n                        ")]) : _vm._e()], 2), _vm._v(" "), _vm._m(1)])])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-sm-12"
-  }, [_c('div', {
-    staticClass: "table-responsive"
-  }, [_c('table', {
-    staticClass: "table",
+    staticClass: "col-6"
+  }, [_c('ul', {
+    staticClass: "list-group rounded-0",
     staticStyle: {
-      "font-size": "70%"
-    },
-    attrs: {
-      "width": "100%",
-      "cellspacing": "0"
+      "border-radius": "0 ! important"
     }
-  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.queues), function(queue) {
-    return _c('tr', [_c('td', [_c('img', {
+  }, _vm._l((_vm.queues), function(queue) {
+    return _c('li', {
+      staticClass: "list-group-item rounded-0"
+    }, [_c('div', {
+      staticClass: "row",
+      staticStyle: {
+        "font-size": "70%"
+      }
+    }, [_c('div', {
+      staticClass: "col-2"
+    }, [_c('img', {
       staticClass: "rounded-circle",
       staticStyle: {
         "height": "60px",
@@ -54508,25 +54632,140 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "src": _vm.avatar_link + queue.driver_avatar,
         "align": "middle"
       }
-    })]), _vm._v(" "), _c('td', [_vm._v("\n                                        " + _vm._s(queue.driver_name) + " \n                                    ")]), _vm._v(" "), _c('td', [_vm._v("\n                                        " + _vm._s(queue.plate_number) + "\n                                    ")]), _vm._v(" "), _c('td', [(queue.hauler == 'NO HAULER') ? _c('span', {
+    })]), _vm._v(" "), _c('div', {
+      staticClass: "col-6"
+    }, [_c('p', {
+      staticClass: "p-0 m-0"
+    }, [_vm._v("\n                         " + _vm._s(queue.driver_name) + " \n                    ")]), _vm._v(" "), _c('p', {
+      staticClass: "p-0 m-0"
+    }, [_vm._v("\n                         " + _vm._s(queue.plate_number) + " \n                    ")]), _vm._v(" "), _c('p', {
+      staticClass: "p-0 m-0"
+    }, [(queue.hauler == 'NO HAULER') ? _c('span', {
       staticClass: "text-danger"
-    }, [_vm._v("\n                                             " + _vm._s(queue.hauler) + "\n                                        ")]) : _c('span', [_vm._v("\n                                             " + _vm._s(queue.hauler) + "\n                                        ")])]), _vm._v(" "), _c('td', [_vm._v("\n                                        " + _vm._s(_vm.moment(queue.log_time.date)) + "\n                                    ")]), _vm._v(" "), _c('td', _vm._l((queue.dr_status), function(status, index) {
-      return (queue.dr_status) ? _c('span', [(index == 0) ? _c('span', [_vm._v("\n                                                " + _vm._s(status.submission_date) + "\n                                            ")]) : _vm._e()]) : _vm._e()
-    })), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
-      staticClass: "btn btn-success btn-sm",
-      attrs: {
-        "href": "javascript:void(0);"
-      }
-    }, [_vm._v("\n                                                 OPEN\n                                             ")])]) : _c('span', [_c('button', {
-      staticClass: "btn btn-danger btn-sm disabled"
-    }, [_vm._v("\n                                                 NOW SERVING\n                                             ")])])])])
-  }))])])])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', {
+    }, [_vm._v("\n                                " + _vm._s(queue.hauler) + "\n                        ")]) : _c('span', [_vm._v("\n                                " + _vm._s(queue.hauler) + "\n                        ")])])]), _vm._v(" "), _c('div', {
+      staticClass: "col-4"
+    }, [_c('span', {
+      staticClass: "small text-uppercase text-muted"
+    }, [_vm._v("\n                        QUEUE TIME:\n                    ")]), _vm._v(" "), _c('p', {
+      staticClass: "p-0 m-0"
+    }, [_vm._v("\n                        " + _vm._s(_vm.moment(queue.log_time.date)) + "\n                    ")]), _vm._v(" "), _c('span', {
+      staticClass: "small text-uppercase text-muted"
+    }, [_vm._v("\n                        LAST DR SUBMISSION:\n                    ")]), _vm._v(" "), _c('p', {
+      staticClass: "p-0 m-0"
+    }, [(queue.dr_status != 'UNPROCESS') ? _c('span', [_vm._v("\n                            " + _vm._s(queue.dr_status.submission_date) + "\n                        ")]) : _c('span', [_vm._v("\n                            UNPROCESS\n                        ")])])])])])
+  }))]), _vm._v(" "), _c('div', {
+    staticClass: "col-6"
+  }, [_c('ul', {
+    staticClass: "list-group rounded-0",
     staticStyle: {
-      "text-transform": "uppercase"
+      "border-radius": "0 ! important"
     }
-  }, [_c('th'), _vm._v(" "), _c('th', [_vm._v("Driver Name")]), _vm._v(" "), _c('th', [_vm._v("Plate Number")]), _vm._v(" "), _c('th', [_vm._v("Hauler")]), _vm._v(" "), _c('th', [_vm._v("Date/Time")]), _vm._v(" "), _c('th', [_vm._v("LAST DR SUBMISSION")]), _vm._v(" "), _c('th', [_vm._v("Status")])])])
+  }, _vm._l((_vm.todayServed), function(served) {
+    return _c('li', {
+      staticClass: "list-group-item rounded-0"
+    }, [_c('div', {
+      staticClass: "row",
+      staticStyle: {
+        "font-size": "70%"
+      }
+    }, [_c('div', {
+      staticClass: "col-2"
+    }, [_c('img', {
+      staticClass: "rounded-circle",
+      staticStyle: {
+        "height": "60px",
+        "width": "auto"
+      },
+      attrs: {
+        "src": _vm.avatar_link + served.avatar,
+        "align": "middle"
+      }
+    })]), _vm._v(" "), _c('div', {
+      staticClass: "col-6"
+    }, [_c('p', {
+      staticClass: "p-0 m-0"
+    }, [_vm._v("\n                                " + _vm._s(served.driver_name) + "\n                            ")]), _vm._v(" "), _c('p', {
+      staticClass: "p-0 m-0"
+    }, [_vm._v("\n                                " + _vm._s(served.plate_number) + "\n                            ")]), _vm._v(" "), _c('p', {
+      staticClass: "p-0 m-0"
+    }, [_vm._v("\n                                " + _vm._s(served.hauler_name) + "\n                            ")])]), _vm._v(" "), _vm._m(2, true)])])
+  })), _vm._v(" "), _c('div', {
+    staticClass: "card mt-4 rounded-0 border border-danger"
+  }, [_vm._m(3), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, _vm._l((_vm.lastDriver), function(queue) {
+    return _c('div', {
+      staticClass: "row",
+      staticStyle: {
+        "font-size": "70%"
+      }
+    }, [_c('div', {
+      staticClass: "col-2"
+    }, [_c('img', {
+      staticClass: "rounded-circle",
+      staticStyle: {
+        "height": "60px",
+        "width": "auto"
+      },
+      attrs: {
+        "src": _vm.avatar_link + queue.driver_avatar,
+        "align": "middle"
+      }
+    })]), _vm._v(" "), _c('div', {
+      staticClass: "col-6"
+    }, [_c('p', {
+      staticClass: "p-0 m-0"
+    }, [_vm._v("\n                                " + _vm._s(queue.driver_name) + " \n                            ")]), _vm._v(" "), _c('p', {
+      staticClass: "p-0 m-0"
+    }, [_vm._v("\n                                " + _vm._s(queue.plate_number) + " \n                            ")]), _vm._v(" "), _c('p', {
+      staticClass: "p-0 m-0"
+    }, [(queue.hauler == 'NO HAULER') ? _c('span', {
+      staticClass: "text-danger"
+    }, [_vm._v("\n                                        " + _vm._s(queue.hauler) + "\n                                ")]) : _c('span', [_vm._v("\n                                        " + _vm._s(queue.hauler) + "\n                                ")])])]), _vm._v(" "), _c('div', {
+      staticClass: "col-4"
+    }, [_c('span', {
+      staticClass: "small text-uppercase text-muted"
+    }, [_vm._v("\n                                QUEUE TIME:\n                            ")]), _vm._v(" "), _c('p', {
+      staticClass: "p-0 m-0"
+    }, [_vm._v("\n                                " + _vm._s(_vm.moment(queue.log_time.date)) + "\n                            ")]), _vm._v(" "), _c('span', {
+      staticClass: "small text-uppercase text-muted"
+    }, [_vm._v("\n                                LAST DR SUBMISSION:\n                            ")]), _vm._v(" "), _c('p', {
+      staticClass: "p-0 m-0"
+    }, [(queue.dr_status != 'UNPROCESS') ? _c('span', [_vm._v("\n                                    " + _vm._s(queue.dr_status.submission_date) + "\n                                ")]) : _c('span', [_vm._v("\n                                    UNPROCESS\n                                ")])])])])
+  }))])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "card-footer bg-primary text-center"
+  }, [_c('span', {
+    staticClass: "text-small text-uppercase text-white",
+    staticStyle: {
+      "font-weight": "100"
+    }
+  }, [_vm._v("\n                    Current In The Plant\n                ")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "card-footer bg-primary text-center mt-1"
+  }, [_c('span', {
+    staticClass: "text-small text-uppercase text-white",
+    staticStyle: {
+      "font-weight": "100"
+    }
+  }, [_vm._v("\n                            Currently Serving\n                        ")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-4"
+  }, [_c('button', {
+    staticClass: "float-right btn btn-sm btn-outline-danger"
+  }, [_vm._v("\n                                SERVED\n                            ")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "card-header bg-danger text-white rounded-0"
+  }, [_c('span', {
+    staticClass: "small text-uppercase",
+    staticStyle: {
+      "font-weight": "100"
+    }
+  }, [_vm._v("\n                        Last Driver Tapped:\n                        ")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

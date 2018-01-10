@@ -45,7 +45,10 @@ Route::get('/driver/queues','LineupsController@DriversQue');
 // Route setup to check last dr submission
 Route::get('/checkSubmissionDate/{plate_number}','LineupApiController@checkSubmissionDate');
 Route::get('/queues','LineupApiController@getDriverQue');
+Route::get('/getLastDriver','LineupApiController@getLastDriver');
 Route::get('/serving','ServingController@currentlyServing');
+Route::get('/servedToday','ServingController@servedToday');
+Route::get('/getTotalQueueToday','LineupApiController@getTotalQueueToday');
 
 Auth::routes();
 

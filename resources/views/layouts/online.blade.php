@@ -25,7 +25,7 @@
     <link href="{{ asset('css/dataTables.bootstrap4.css') }}" rel="stylesheet">
     </head>
 
-    <body class="fixed-nav sticky-footer" id="page-top">
+    <body class="{{ Request::is('driver/queues') ? '' : 'fixed-nav sticky-footer' }}" id="page-top">
 
     <div id="app">
 

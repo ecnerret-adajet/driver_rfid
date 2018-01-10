@@ -274,10 +274,18 @@ class Driver extends Model
     }
 
 
-    public function serves()
+    public function serve()
     {
         return $this->hasMany(Serve::class)
                     ->whereDate('served_start_date',Carbon::now());
     }
+
+    public function serves()
+    {
+        
+        return $this->hasMany(Serve::class);
+
+    }
+
 
 }
