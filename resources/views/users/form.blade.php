@@ -47,6 +47,24 @@
         </div>
     </div>
 
+    @if(!Request::is('users/create'))
+     <div class="form-row">
+        <div class="col-md-12">
+            <div class="form-group {{ $errors->has('company_list') ? ' has-danger' : '' }}">
+                    <label>Company</label>
+                    {!! Form::select('company_list', $companies, $user->company_id, ['placeholder' => 'Select Company', 'class' => 'form-control select2-company'] ) !!}
+                    @if ($errors->has('company_list'))
+                        <div class="form-control-feedback">
+                        <small>
+                            {{ $errors->first('company_list') }}
+                            </small>
+                        </div>
+                    @endif
+            </div>
+        </div>
+    </div>
+    @endif
+
     <div class="form-row">
         <div class="col-md-12">
             <div class="form-group {{ $errors->has('phone_number') ? ' has-danger' : '' }}">
@@ -125,6 +143,11 @@
 
     $(".select2-hauler").select2({
         placeholder: "Select Plate Number",
+        allowClear: true,
+    });
+
+    $(".select2-company").select2({
+        placeholder: "Select Company",
         allowClear: true,
     });
 </script>

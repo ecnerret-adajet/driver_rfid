@@ -16,6 +16,7 @@ use Flashy;
 use App\Hauler;
 use App\Driver;
 use App\Truck;
+use App\Company;
 
 class UsersController extends Controller
 {
@@ -103,8 +104,9 @@ class UsersController extends Controller
         $roles = Role::pluck('display_name','id');
         $userRole = $user->roles->pluck('id','id')->toArray();
         $haulers = Hauler::pluck('name','id');
+        $companies = Company::pluck('name','id');
 
-        return view('users.edit',compact('user','roles','userRole','haulers'));
+        return view('users.edit',compact('user','roles','userRole','haulers','companies'));
     }
 
     /**
@@ -126,6 +128,7 @@ class UsersController extends Controller
         $user->update($input);
         $user->roles()->sync( (array) $request->input('roles_list'));
         $user->hauler()->associate($request->input('hauler_list'));
+        $user->company()->associate($request->input('company_list'));
         $user->save();
 
         $activity = activity()

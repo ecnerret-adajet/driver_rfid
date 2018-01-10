@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','phone_number'
+        'name', 'email', 'password','phone_number','company',
     ];
 
     protected static $logAttributes = [
@@ -131,6 +131,14 @@ class User extends Authenticatable
     public function serves()
     {
         return $this->hasMany(Serve::class);
+    }
+
+    /**
+     * record the user's company
+     */
+    public function company()
+    {
+        return $this->belongsTo('App\Company');
     }
 
 
