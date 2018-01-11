@@ -20,10 +20,25 @@ class PickupOnlineController extends Controller
 
     public function getPickupData()
     {
-        $pickups = Pickup::where('user_id',Auth::user()->id)
-                        ->where('created_at', '>=', Carbon::now()->subDay())
+        $pickups = Pickup::whereHas('user', function($q) {
+                            $q->where('company_id', Auth::user()->company_id);
+                        })
                         ->orderBy('created_at','DESC')
-                        ->with('cardholder')
+                        ->whereNull('cardholder_id')
+                        ->with('cardholder','user')
+                        ->get();
+        
+        return $pickups;
+    }
+
+    public function getPickupWithCardholder()
+    {
+         $pickups = Pickup::whereHas('user', function($q) {
+                            $q->where('company_id', Auth::user()->company_id);
+                        })
+                        ->orderBy('created_at','DESC')
+                        ->whereNotNull('cardholder_id')
+                        ->with('cardholder','user')
                         ->get();
         
         return $pickups;

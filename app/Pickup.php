@@ -57,6 +57,14 @@ class Pickup extends Model
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * 
+     */
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
     public function cardholder()
     {
         return $this->belongsTo('App\Cardholder','cardholder_id','CardholderID');

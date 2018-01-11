@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div>        
             <div clas="row">
                 <div id="custom-search-input mx-auto">
                     <div class="input-group col-sm-12 col-md-12 col-lg-12 mb-2 p-0">
@@ -34,8 +34,15 @@
                                         <span style="text-transform: uppercase">{{ pickup.plate_number }}</span>
                                         <br/>
                                         <span style="text-transform: uppercase">{{ pickup.company }}</span>
+                                        <br/>
+                                        <small class="text-muted" style="text-transform: uppercase">
+                                            Created By:  
+                                        </small>
+                                        <br/>
+                                        <span style="text-transform: uppercase">{{pickup.user.name}}</span> 
                                     </div>
                                     <div class="col-sm-4">
+                                        <br/>
                                         <small class="text-muted" style="text-transform:uppercase">
                                             Created Date: 
                                         </small> <br/>
@@ -53,6 +60,7 @@
                                         </span>
                                         <br/>
                                     </div>
+
                                     <div class="col-sm-2">
                                         <small class="text-muted" style="text-transform: uppercase">
                                             Cardholder:
@@ -72,8 +80,8 @@
                                             NOT YET SERVE
                                             </button>
                                         </small>
-
                                     </div>
+
                                     <div class="col-sm-1 pull-right right">
                                         <span>
                                             <a class="dropdown pull-right btn btn-outline-secondary disabled" href="#" id="driverDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -84,6 +92,8 @@
                                             </div><!-- end dropdown -->
                                         </span>
                                     </div>
+
+
                                 </div>
                             </li>
                             <li v-if="filteredPickup.length == 0"  class="list-group-item">
@@ -102,6 +112,7 @@
                     </div>
                 </div>
             </div><!-- end row -->
+
     </div>
 </template>
 <script>

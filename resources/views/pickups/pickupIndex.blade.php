@@ -1,25 +1,50 @@
 @extends('layouts.online')
 @section('content')
 
-
-   <div class="card mx-auto mb-3">
+      <div class="card mx-auto mb-3">
         <div class="card-header">
-            One Time Vendor
-            
-            <a class="btn btn-danger btn-sm pull-right bootstrap-modal-form-open" href="javascript:void(0);" data-toggle="modal" data-target="#addPickup">
+            Pickup Entries
+
+             <a class="btn btn-danger btn-sm pull-right bootstrap-modal-form-open" href="javascript:void(0);" data-toggle="modal" data-target="#addPickup">
                 Add New Pickup
             </a>
-
         </div>
         <div class="card-body">
 
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Not Yet Serve</a>
+                    </li>
 
-            <pickup-online></pickup-online>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#profile" role="tab"> Served </a>
+                    </li>
+            </ul>
 
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active pt-3" id="home" role="tabpanel">
+                     <pickup-unserve></pickup-unserve>
+                </div>
             
+                <div class="tab-pane pt-3" id="profile" role="tabpanel">
+                    <pickup-served></pickup-served>
+                </div>
+
+            </div>
+
+             
         
         </div><!-- end card-body -->
     </div> <!-- end card -->
+
+
+
+
+
+
 
 
      <!-- Add New Pickup Modal -->

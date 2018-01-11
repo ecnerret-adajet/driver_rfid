@@ -183,6 +183,8 @@ Route::patch('online/users/update/{user}',[  'as' => 'haulerUsers.update' ,'uses
 // Route setup for online pickup
 Route::get('/pickups/online','PickupOnlineController@index');
 Route::get('/getPickupData','PickupOnlineController@getPickupData');
+Route::get('/getPickupWithCardholder','PickupOnlineController@getPickupWithCardholder');
+
 Route::post('/storePickup','PickupOnlineController@storePickup');
 Route::patch('pickups/assign/{pickup}',[  'as' => 'pickups-assign.update' ,'uses' => 'PickupsController@assignCardholder']);
 
