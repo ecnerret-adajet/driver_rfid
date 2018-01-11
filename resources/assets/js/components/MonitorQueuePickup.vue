@@ -1,25 +1,27 @@
 <template>
   <div>
-               <div clas="row">
+            <div clas="row mt-3">
 
-                <div id="custom-search-input">
-                    <div class="input-group col-sm-12 col-md-12 col-lg-12 mb-2 p-0">
 
-                        <input type="text" class="  search-query form-control"  v-model="searchString" placeholder="Search" />
-                        <span class="input-group-btn">
-                        <button class="btn btn-danger" type="button">
-                        <i class="fa fa-search"></i>
+        
+
+                <div class="input-group mt-3 mb-3">
+                <input type="text" class="form-control" placeholder="Search Entry" aria-describedby="basic-addon2" v-model="searchString">
+                  <div class="btn-group" role="group" aria-label="First group">
+                        <button type="button" class="btn btn-danger rounded-0">
+                            <small class="text-uppercase text-white">
+                                Served
+                            </small>
                         </button>
-                       
-                        </span>
-
-
-
+                        <button type="button" class="btn btn-warning rounded-right">
+                            <small class="text-uppercase text-white">
+                                Unserved
+                            </small>
+                        </button>
                     </div>
-                       
-                         
-
                 </div>
+
+
             </div> <!-- end row -->
 
                 <div class="row">
@@ -57,6 +59,16 @@
                                             <span>
                                                  {{pickup.company}}
                                             </span>
+
+                                            <br/>
+
+                                            <small class="tex-muted text-uppercase">
+                                                CREATED BY:
+                                            </small>
+                                            <br/>
+                                            <small class="text-muted">
+                                                {{ pickup.user.name }}
+                                            </small>
 
 
                                         </div>

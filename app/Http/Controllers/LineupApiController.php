@@ -140,7 +140,7 @@ class LineupApiController extends Controller
                         ->whereNotIn('CardholderID',$check_truckscale_out)
                         ->whereDate('LocalTime', Carbon::now())
                         ->orderBy('LogID','ASC')
-                        ->take(12)
+                        ->take(20)
                         ->get();
 
         $log_lineups = $result_lineups->unique('CardholderID');

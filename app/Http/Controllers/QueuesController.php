@@ -23,14 +23,22 @@ class QueuesController extends Controller
 
     public function pickups()
     {
-        $pickups = Pickup::where('created_at', '>=', Carbon::now()->subDay())
-                                ->orderBy('created_at','DESC')
-                                ->with('cardholder')
-                                ->get();
+        // $pickups = Pickup::where('created_at', '>=', Carbon::now()->subDay())
+        //                         ->orderBy('created_at','DESC')
+        //                         ->with('cardholder','user')
+        //                         ->
+        //                         ->get();
+        
+        $pickups = Pickup::where('created_at', '>=', Carbon::now()->subDay(3))
+                    ->orderBy('created_at','DESC')
+                    // ->whereNull('cardholder_id')
+                    ->with('cardholder','user')
+                    ->get();
 
         return $pickups;
 
     }
+
 
     public function deliveries()
     {

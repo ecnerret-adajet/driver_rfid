@@ -37337,6 +37337,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -53826,7 +53838,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Barriers.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Barriers.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Barriers.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -53860,7 +53872,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Cards.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Cards.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Cards.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -53894,7 +53906,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Dateentries.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Dateentries.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Dateentries.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -53928,7 +53940,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\DriverDetails.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\DriverDetails.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] DriverDetails.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -53962,7 +53974,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\DriverQue.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\DriverQue.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] DriverQue.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54000,7 +54012,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\DriverUpload.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\DriverUpload.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] DriverUpload.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54034,7 +54046,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Drivers.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Drivers.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Drivers.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54068,7 +54080,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Example.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Example.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Example.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54102,7 +54114,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Graph.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Graph.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Graph.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54136,7 +54148,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Handlers.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Handlers.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Handlers.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54170,7 +54182,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\HaulerOnline.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\HaulerOnline.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] HaulerOnline.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54204,7 +54216,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\HaulerOnlineTruck.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\HaulerOnlineTruck.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] HaulerOnlineTruck.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54238,7 +54250,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Haulers.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Haulers.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Haulers.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54272,7 +54284,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Home.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Home.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Home.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54306,7 +54318,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Lineup.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Lineup.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Lineup.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54340,7 +54352,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Logs.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Logs.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Logs.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54374,7 +54386,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\MonitorQueueDeliveries.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\MonitorQueueDeliveries.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] MonitorQueueDeliveries.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54408,7 +54420,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\MonitorQueuePickup.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\MonitorQueuePickup.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] MonitorQueuePickup.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54442,7 +54454,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\PickupServed.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\PickupServed.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] PickupServed.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54476,7 +54488,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\PickupUnserve.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\PickupUnserve.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] PickupUnserve.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54510,7 +54522,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Pickups.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Pickups.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Pickups.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54544,7 +54556,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Prints.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Prints.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Prints.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54578,7 +54590,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Settings.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Settings.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Settings.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54612,7 +54624,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\TopEntries.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\TopEntries.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] TopEntries.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54646,7 +54658,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Tophauler.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Tophauler.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Tophauler.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54680,7 +54692,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Trucks.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Trucks.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Trucks.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54714,7 +54726,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Users.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Users.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Users.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54748,7 +54760,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "c:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Vendor.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\Vendor.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Vendor.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -56217,14 +56229,10 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
     attrs: {
-      "clas": "row"
+      "clas": "row mt-3"
     }
   }, [_c('div', {
-    attrs: {
-      "id": "custom-search-input"
-    }
-  }, [_c('div', {
-    staticClass: "input-group col-sm-12 col-md-12 col-lg-12 mb-2 p-0"
+    staticClass: "input-group mt-3 mb-3"
   }, [_c('input', {
     directives: [{
       name: "model",
@@ -56232,10 +56240,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.searchString),
       expression: "searchString"
     }],
-    staticClass: "  search-query form-control",
+    staticClass: "form-control",
     attrs: {
       "type": "text",
-      "placeholder": "Search"
+      "placeholder": "Search Entry",
+      "aria-describedby": "basic-addon2"
     },
     domProps: {
       "value": (_vm.searchString)
@@ -56246,7 +56255,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.searchString = $event.target.value
       }
     }
-  }), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _vm._m(0)])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-sm-12"
@@ -56265,7 +56274,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "badge badge-danger mr-2"
     }, [_vm._v("\n                                                      NOT YET SERVE\n                                              ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', {
       staticClass: "text-muted"
-    }, [_vm._v("\n                                             " + _vm._s(pickup.driver_name) + "\n                                          ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                               " + _vm._s(pickup.company) + "\n                                          ")])]), _vm._v(" "), _c('div', {
+    }, [_vm._v("\n                                             " + _vm._s(pickup.driver_name) + "\n                                          ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                               " + _vm._s(pickup.company) + "\n                                          ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+      staticClass: "tex-muted text-uppercase"
+    }, [_vm._v("\n                                              CREATED BY:\n                                          ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+      staticClass: "text-muted"
+    }, [_vm._v("\n                                              " + _vm._s(pickup.user.name) + "\n                                          ")])]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-3"
     }, [_c('span', {
       staticClass: "text-muted text-uppercase"
@@ -56308,16 +56321,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })])]) : _vm._e()])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "input-group-btn"
+  return _c('div', {
+    staticClass: "btn-group",
+    attrs: {
+      "role": "group",
+      "aria-label": "First group"
+    }
   }, [_c('button', {
-    staticClass: "btn btn-danger",
+    staticClass: "btn btn-danger rounded-0",
     attrs: {
       "type": "button"
     }
-  }, [_c('i', {
-    staticClass: "fa fa-search"
-  })])])
+  }, [_c('small', {
+    staticClass: "text-uppercase text-white"
+  }, [_vm._v("\n                              Served\n                          ")])]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-warning rounded-right",
+    attrs: {
+      "type": "button"
+    }
+  }, [_c('small', {
+    staticClass: "text-uppercase text-white"
+  }, [_vm._v("\n                              Unserved\n                          ")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "col-sm-1"

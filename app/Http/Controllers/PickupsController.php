@@ -84,7 +84,9 @@ class PickupsController extends Controller
 
     public function pickupsJson()
     {
-        $pickups = Pickup::orderBy('created_at','desc')->with('cardholder','cardholder.logsIn','cardholder.logsOut')->get();
+        $pickups = Pickup::orderBy('created_at','desc')
+        ->whereDate('created_at',Carbon::now())
+        ->with('cardholder','cardholder.logsIn','cardholder.logsOut')->get();
 
         // $current_pickup = Pickup::select('cardholder_id')->where('availability',1)->get();
 
