@@ -199,7 +199,7 @@ class HaulerOnlineController extends Controller
         $user->save();
 
         flashy()->success('Driver has successfully updated!');
-        return redirect('users/hauler/online');
+        return redirect()->back();
     }
 
 

@@ -63,4 +63,21 @@ class PickupOnlineController extends Controller
         flashy()->success('Pickup has successfully created!');
         return redirect('pickups/online');
     }
+
+    public function updatePickup(Request $request, Pickup $pickup)
+    {
+         $this->validate($request, [
+            'plate_number' => 'required',
+            'driver_name' => 'required',
+            'company' => 'required',
+            'do_number' => 'required'
+        ]); 
+
+        $pickup->update($request->all());
+
+        flashy()->success('Pickup has successfully update!');
+        return redirect('pickups/online');
+
+        
+    }
 }

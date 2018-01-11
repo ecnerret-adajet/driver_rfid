@@ -42,7 +42,6 @@
                                         <span style="text-transform: uppercase">{{pickup.user.name}}</span> 
                                     </div>
                                     <div class="col-sm-4">
-                                        <br/>
                                         <small class="text-muted" style="text-transform:uppercase">
                                             Created Date: 
                                         </small> <br/>
@@ -57,6 +56,16 @@
                                             <span v-if="pickup.deactivated_date">
                                                 {{ moment(pickup.deactivated_date) }}
                                              </span>
+                                             <span class="text-danger" v-else>
+                                                NOT YET SERVED
+                                             </span>
+                                        </span>
+                                        <br/>
+                                        <small class="text-muted" style="text-transform:uppercase">
+                                            DO NUMBER:
+                                        </small><br/>
+                                        <span>
+                                            {{ pickup.do_number }}
                                         </span>
                                         <br/>
                                     </div>
@@ -77,7 +86,7 @@
                                         </small>
                                         <small v-else>
                                             <button class="btn btn-sm btn-outline-warning">
-                                            NOT YET SERVE
+                                            NOT YET SERVED
                                             </button>
                                         </small>
                                     </div>
@@ -88,7 +97,7 @@
                                                 <i class="fa fa-ellipsis-v"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="driverDropdown">
-                                                 <a href="#" class="dropdown-item">Details</a>
+                                                 <a :href="'pickups/unserved/' + pickup.id + '/edit'" class="dropdown-item">Update</a>
                                             </div><!-- end dropdown -->
                                         </span>
                                     </div>

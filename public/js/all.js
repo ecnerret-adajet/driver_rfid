@@ -37713,6 +37713,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -58781,7 +58790,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v(_vm._s(pickup.user.name))])]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-4"
-    }, [_c('br'), _vm._v(" "), _c('small', {
+    }, [_c('small', {
       staticClass: "text-muted",
       staticStyle: {
         "text-transform": "uppercase"
@@ -58791,7 +58800,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticStyle: {
         "text-transform": "uppercase"
       }
-    }, [_vm._v("\n                                        Checkout Date:\n                                    ")]), _c('br'), _vm._v(" "), _c('span', [(pickup.deactivated_date) ? _c('span', [_vm._v("\n                                            " + _vm._s(_vm.moment(pickup.deactivated_date)) + "\n                                         ")]) : _vm._e()]), _vm._v(" "), _c('br')]), _vm._v(" "), _c('div', {
+    }, [_vm._v("\n                                        Checkout Date:\n                                    ")]), _c('br'), _vm._v(" "), _c('span', [(pickup.deactivated_date) ? _c('span', [_vm._v("\n                                            " + _vm._s(_vm.moment(pickup.deactivated_date)) + "\n                                         ")]) : _c('span', {
+      staticClass: "text-danger"
+    }, [_vm._v("\n                                            NOT YET SERVED\n                                         ")])]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+      staticClass: "text-muted",
+      staticStyle: {
+        "text-transform": "uppercase"
+      }
+    }, [_vm._v("\n                                        DO NUMBER:\n                                    ")]), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                        " + _vm._s(pickup.do_number) + "\n                                    ")]), _vm._v(" "), _c('br')]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-2"
     }, [_c('small', {
       staticClass: "text-muted",
@@ -58813,7 +58829,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("\n                                        SERVED\n                                    ")]) : _c('small', [_c('button', {
       staticClass: "btn btn-sm btn-outline-warning"
-    }, [_vm._v("\n                                        NOT YET SERVE\n                                        ")])])]), _vm._v(" "), _vm._m(2, true)])])
+    }, [_vm._v("\n                                        NOT YET SERVED\n                                        ")])])]), _vm._v(" "), _c('div', {
+      staticClass: "col-sm-1 pull-right right"
+    }, [_c('span', [_vm._m(2, true), _vm._v(" "), _c('div', {
+      staticClass: "dropdown-menu dropdown-menu-right",
+      attrs: {
+        "aria-labelledby": "driverDropdown"
+      }
+    }, [_c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": 'pickups/unserved/' + pickup.id + '/edit'
+      }
+    }, [_vm._v("Update")])])])])])])
   }), _vm._v(" "), (_vm.filteredPickup.length == 0) ? _c('li', {
     staticClass: "list-group-item"
   }, [_vm._m(3)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
@@ -58868,9 +58896,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "col-sm-1 pull-right right"
-  }, [_c('span', [_c('a', {
+  return _c('a', {
     staticClass: "dropdown pull-right btn btn-outline-secondary disabled",
     attrs: {
       "href": "#",
@@ -58881,17 +58907,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fa fa-ellipsis-v"
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "dropdown-menu dropdown-menu-right",
-    attrs: {
-      "aria-labelledby": "driverDropdown"
-    }
-  }, [_c('a', {
-    staticClass: "dropdown-item",
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("Details")])])])])
+  })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"

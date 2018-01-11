@@ -14,7 +14,7 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Not Yet Serve</a>
+                        <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Not Yet Served</a>
                     </li>
 
                     <li class="nav-item">
@@ -39,10 +39,6 @@
         
         </div><!-- end card-body -->
     </div> <!-- end card -->
-
-
-
-
 
 
 
