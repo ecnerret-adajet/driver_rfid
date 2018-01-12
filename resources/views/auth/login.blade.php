@@ -113,11 +113,11 @@ body{
 
                          <form class="form-horizontal form-signin" method="POST" action="{{ route('login') }}">
                           {{ csrf_field() }}
-               				<input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Email" required autofocus>
+               				<input type="email" name="email" value="{{ old('email') }}" class="form-control mt-3 mb-3 rounded-0" placeholder="Email" required autofocus>
                				
-                            <input type="password" class="form-control" name="password"  placeholder="Password" required>
+                            <input type="password" class="form-control rounded-0" name="password"  placeholder="Password" required>
                				
-                               <input type="submit" class="btn btn-lg btn-default btn-block" value="Sign In" />
+                               <input type="submit" class="btn btn-lg btn-default btn-block rounded-0 text-dark" value="Sign In" />
                			
 
                			<div id="tabs" data-tabs="tabs">
