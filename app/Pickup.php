@@ -31,6 +31,7 @@ class Pickup extends Model
         'driver_name',
         'remarks',
         'deactivated_date',
+        'activation_date',
         'do_number'
     ];
     

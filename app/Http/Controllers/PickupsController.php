@@ -20,8 +20,16 @@ class PickupsController extends Controller
      */
     public function index()
     {
-        $pickups = Pickup::where('created_at', '>=', Carbon::now()->subDay())->orderBy('created_at','DESC')->get();
-        return view('pickups.index',compact('pickups'));
+        $unserved = Pickup::whereNull('cardholder_id')
+                        ->orderBy('created_at','DESC')
+                        ->get();
+
+        $seved = Pickup::whereDate('updated_at', Carbon::now())
+                        ->whereNotNull('cardholder_id')
+                        ->orderBy('created_at','DESC')
+                        ->get();
+
+        return view('pickups.index',compact('unserved','seved'));
     }
 
     public function getTruckscaleIn($cardholder, $created)
@@ -66,12 +74,15 @@ class PickupsController extends Controller
 
     public function pickupsStatus()
     {
-        $pickups_count = Pickup::where('created_at','>=',Carbon::now()->subDay())->count();
+        $pickups_count = Pickup::where('created_at','>=',Carbon::today())->count();
 
-        $current_pickup = Pickup::select('cardholder_id')->where('availability',1)->count();
+        $current_pickup = Pickup::whereNotNull('cardholder_id')
+                                ->whereDate('updated_at', Carbon::today())
+                                ->count();
 
         $available_card = Cardholder::whereNotIn('CardholderID', [$current_pickup])
-                ->where('Name', 'LIKE', '%Pickup%')->with('pickups')->count();
+                            ->where('FirstName', 'PICKUP1')
+                            ->with('pickups')->count();
 
         $data = array(
             'all_pickups' => $pickups_count,
@@ -129,6 +140,7 @@ class PickupsController extends Controller
 
         // Assign rfid to pickup record
         $pickup->cardholder()->associate($plate);
+        $pickup->activation_date = Carbon::now();
         $pickup->save();
 
         // Record Log Activity

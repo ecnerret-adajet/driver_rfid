@@ -37868,85 +37868,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -37994,29 +37915,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         addHour: function addHour(date) {
             return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).add(1, 'hours').format('MMMM  D, Y h:m:s A');
         }
-    },
-
-    computed: {
-        filteredPickup: function filteredPickup() {
-
-            var pickup_array = this.pickups;
-            var searchString = this.searchString;
-
-            if (!searchString) {
-                return pickup_array;
-            }
-
-            searchString = searchString.trim().toLowerCase();
-
-            pickup_array = pickup_array.filter(function (item) {
-                if (item.plate_number.toLowerCase().indexOf(searchString) !== -1 || item.cardholder.Name.toLowerCase().indexOf(searchString) !== -1) {
-                    return item;
-                }
-            });
-
-            return pickup_array;
-        }
     }
+
 });
 
 /***/ }),
@@ -56389,14 +56289,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "col-xl-4 col-sm-4 mb-3"
   }, [_c('div', {
-    staticClass: "card text-white bg-primary o-hidden h-100"
+    staticClass: "card text-dark bg-light o-hidden h-100"
   }, [_c('div', {
     staticClass: "card-body"
   }, [_c('div', {
     staticClass: "card-body-icon"
   }), _vm._v(" "), _c('div', {
     staticClass: "mr-5"
-  }, [_vm._v("\n             Pickup Logs for Today\n            ")]), _vm._v(" "), (!_vm.is_loading) ? _c('div', [_c('h3', [_vm._v("\n             " + _vm._s(_vm.pickupValue.all_pickups) + "\n                ")])]) : _vm._e(), _vm._v(" "), (_vm.is_loading) ? _c('div', [_c('div', {
+  }, [_vm._v("\n            Added Pickups Today\n            ")]), _vm._v(" "), (!_vm.is_loading) ? _c('div', [_c('h3', [_vm._v("\n             " + _vm._s(_vm.pickupValue.all_pickups) + "\n                ")])]) : _vm._e(), _vm._v(" "), (_vm.is_loading) ? _c('div', [_c('div', {
     staticClass: "center-align",
     staticStyle: {
       "display": "flex",
@@ -56422,14 +56322,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "r": "30"
     }
   })])])]) : _vm._e()]), _vm._v(" "), _c('a', {
-    staticClass: "card-footer text-white clearfix small z-1",
+    staticClass: "card-footer text-dark clearfix small z-1",
     attrs: {
       "href": "#"
     }
   })])]), _vm._v(" "), _c('div', {
     staticClass: "col-xl-4 col-sm-4 mb-3"
   }, [_c('div', {
-    staticClass: "card text-white bg-warning o-hidden h-100"
+    staticClass: "card text-dark bg-light o-hidden h-100"
   }, [_c('div', {
     staticClass: "card-body"
   }, [_c('div', {
@@ -56462,14 +56362,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "r": "30"
     }
   })])])]) : _vm._e()]), _vm._v(" "), _c('a', {
-    staticClass: "card-footer text-white clearfix small z-1",
+    staticClass: "card-footer text-dark clearfix small z-1",
     attrs: {
       "href": "#"
     }
   })])]), _vm._v(" "), _c('div', {
     staticClass: "col-xl-4 col-sm-4 mb-3"
   }, [_c('div', {
-    staticClass: "card text-white bg-success o-hidden h-100"
+    staticClass: "card text-dark bg-light o-hidden h-100"
   }, [_c('div', {
     staticClass: "card-body"
   }, [_c('div', {
