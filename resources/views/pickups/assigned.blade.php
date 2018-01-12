@@ -1,8 +1,51 @@
+     <div class="row mb-3">
+                            <div class="col-sm-12">
+                                {{ Form::open(array('url' => '/generatePickups', 'method' => 'get')) }}
+                                    <form>
+
+                                    <div class="form-row">
+                                        <div class="col-md-4">
+                                            <div class="form-group {{ $errors->has('start_date') ? ' has-danger' : '' }}">
+                                                    <label>Start Date</label>
+                                                    {!! Form::input('date','start_date', Carbon\Carbon::now()->format('Y-m-d'), ['class' => 'form-control', 'max' => ''.date('Y-m-d', strtotime(Carbon\Carbon::now())).'' ]) !!}
+                                                    @if ($errors->has('start_date'))
+                                                        <div class="form-control-feedback">
+                                                        <small>
+                                                            {{ $errors->first('start_date') }}
+                                                            </small>
+                                                        </div>
+                                                    @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group {{ $errors->has('end_date') ? ' has-danger' : '' }}">
+                                                    <label>End Date</label>
+                                                    {!! Form::input('date', 'end_date', Carbon\Carbon::now()->format('Y-m-d'), ['class' => 'form-control', 'max' => ''.date('Y-m-d', strtotime(Carbon\Carbon::now())).'' ]) !!} 
+                                                    @if ($errors->has('end_date'))
+                                                        <div class="form-control-feedback">
+                                                        <small>
+                                                            {{ $errors->first('end_date') }}
+                                                            </small>
+                                                        </div>
+                                                    @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>&nbsp;</label>
+                                            <button type="submit"  class="btn btn-secondary  btn-block">Generate</button>
+                                        </div>
+                                    </div>
+
+                                    
+                                    </form>
+                                {!! Form::close() !!} 
+                            </div>             
+                        </div>
 
                                   <div class="row">
                             <div class="col-sm-12">
                                 <div class="table-response">
-                                    <table class="table" width="100%" cellspacing="0" style="font-size:70%">
+                                    <table class="table" width="100%" id="dataTable2"  cellspacing="0" style="font-size:70%">
                                         <thead>
                                             <tr style="text-transform: uppercase">
                                                 <th>Pickup #</th>
@@ -16,7 +59,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($served as $pick)
+                                            @foreach($assigned as $pick)
                                             <tr class="{{ $pick->availability == 1 ? 'table-danger' : 'table-success' }}">
                                                 <td>
                                                     {{ !empty($pick->cardholder->Name) ? $pick->cardholder->Name : 'UNPROCESS' }} <br/>
@@ -51,7 +94,7 @@
                                                     @endforelse  --}}
                                                 
 
-                                                    @foreach($search->getTruckscaleIn($pick->cardholder_id, $pick->created_at) as $pick_in )
+                                                    @foreach($search->getTruckscaleIn($pick->cardholder_id, empty($pick->activation_date) ? $pick->created_at : $pick->activation_date) as $pick_in )
                                                         {{ $pickin = date('m/d/y h:i:s A',strtotime($pick_in->LocalTime))}}<br/>
                                                     @endforeach
 
@@ -74,7 +117,7 @@
                                                             NO OUT
                                                     @endforelse  --}}
 
-                                                    @foreach($search->getTruckscaleOut($pick->cardholder_id, $pick->created_at) as $pick_in )
+                                                    @foreach($search->getTruckscaleOut($pick->cardholder_id, empty($pick->activation_date) ? $pick->created_at : $pick->activation_date) as $pick_in )
                                                         {{ $pickout = date('m/d/y h:i:s A',strtotime($pick_in->LocalTime))}}<br/>
                                                     @endforeach
 
@@ -99,8 +142,8 @@
                                                             N/A
                                                     @endforelse  --}}
 
-                                                    @foreach($search->getTruckscaleIn($pick->cardholder_id, $pick->created_at) as $pick_in )
-                                                        @foreach($search->getTruckscaleOut($pick->cardholder_id, $pick->created_at) as $pick_out )
+                                                    @foreach($search->getTruckscaleIn($pick->cardholder_id, empty($pick->activation_date) ? $pick->created_at : $pick->activation_date) as $pick_in )
+                                                        @foreach($search->getTruckscaleOut($pick->cardholder_id, empty($pick->activation_date) ? $pick->created_at : $pick->activation_date) as $pick_out )
                                                         {{  $pick_in->LocalTime->diffInHours($pick_out->LocalTime)}} Hour(s)
                                                         @endforeach
                                                     @endforeach

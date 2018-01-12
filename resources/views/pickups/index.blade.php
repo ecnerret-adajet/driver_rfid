@@ -34,20 +34,37 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Not Yet Served</a>
+                        <a class="nav-link active" data-toggle="tab" href="#assigned" role="tab">Assigned</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#profile" role="tab"> Assigned </a>
+                        <a class="nav-link" data-toggle="tab" href="#served" role="tab"> Served </a>
+                    </li>
+
+                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#profile" role="tab"> Not Yet Served </a>
                     </li>
             </ul>
 
             <!-- Tab panes -->
             <div class="tab-content">
 
-                <div class="tab-pane active pt-3" id="home" role="tabpanel">
+                <div class="tab-pane active pt-3" id="assigned" role="tabpanel">   
+
+                           @include('pickups.assigned')
+
+                </div><!-- end tab1 -->
+
+                <div class="tab-pane active pt-3" id="served" role="tabpanel">   
+                             
+                           @include('pickups.served')
+
+                </div><!-- end tab1 -->
             
-                            <div class="row">
+                <div class="tab-pane pt-3" id="profile" role="tabpanel">
+
+
+                     <div class="row">
                             <div class="col-sm-12">
                                 <div class="table-response">
                                     <table class="table table-striped" width="100%" id="dataTable" cellspacing="0" style="font-size:70%">
@@ -114,14 +131,6 @@
                             </div>
                     </div>
 
-         
-
-                </div><!-- end tab1 -->
-            
-                <div class="tab-pane pt-3" id="profile" role="tabpanel">
-
-
-                   @include('pickups.served')
 
                 </div><!-- end tab 2 -->
 
@@ -133,7 +142,7 @@
             
 
 
-            @foreach($seved as $pick)
+            @foreach($assigned as $pick)
 
                 <!-- Change availabitlity status to inactive -->
                 <div class="modal fade bs-setInactive{{$pick->id}}-modal-lg">
@@ -238,6 +247,7 @@
 <script>
     $(document).ready(function() {
         $('#dataTable').DataTable();
+        $('#dataTable2').DataTable();
     });
 </script>
 @endsection

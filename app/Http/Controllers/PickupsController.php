@@ -24,12 +24,19 @@ class PickupsController extends Controller
                         ->orderBy('created_at','DESC')
                         ->get();
 
-        $seved = Pickup::whereDate('updated_at', Carbon::now())
+        $assigned = Pickup::whereDate('created_at', Carbon::today())
+                        ->whereNull('deactivated_date')
                         ->whereNotNull('cardholder_id')
                         ->orderBy('created_at','DESC')
                         ->get();
 
-        return view('pickups.index',compact('unserved','seved'));
+        $served = Pickup::whereDate('created_at', Carbon::today())
+                    ->whereNotNull('deactivated_date')
+                    ->whereNotNull('cardholder_id')
+                    ->orderBy('created_at','DESC')
+                    ->get();
+
+        return view('pickups.index',compact('unserved','assigned','served'));
     }
 
     public function getTruckscaleIn($cardholder, $created)
@@ -37,6 +44,7 @@ class PickupsController extends Controller
         $pick = Log::where('CardholderID', $cardholder)
             ->where('Direction', 1)
             ->where('LocalTime', '>=', Carbon::parse($created))
+            ->orderBy('LocalTime','DESC')
             ->take(1)
             ->get();
 
@@ -64,11 +72,27 @@ class PickupsController extends Controller
         $start_date = $request->get('start_date');
         $end_date = $request->get('end_date');
         
-        $pickups = Pickup::whereBetween('created_at', [Carbon::parse($start_date), Carbon::parse($end_date)])
-        ->orderBy('created_at','DESC')->get();
+        // $pickups = Pickup::whereBetween('created_at', [Carbon::parse($start_date), Carbon::parse($end_date)])
+        // ->orderBy('created_at','DESC')->get();
+
+        $assigned = Pickup::whereBetween('created_at', [Carbon::parse($start_date), Carbon::parse($end_date)])
+                    ->whereNull('deactivated_date')
+                    ->whereNotNull('cardholder_id')
+                    ->orderBy('created_at','DESC')
+                    ->get();
+
+        $served = Pickup::whereDate('created_at', Carbon::today())
+                ->whereNotNull('deactivated_date')
+                ->whereNotNull('cardholder_id')
+                ->orderBy('created_at','DESC')
+                ->get();
+
+         $unserved = Pickup::whereNull('cardholder_id')
+                        ->orderBy('created_at','DESC')
+                        ->get();
 
         flashy()->success('Generate successfully!');
-        return view('pickups.index',compact('pickups'));
+        return view('pickups.index',compact('assigned','unserved','served'));
 
     }
 
