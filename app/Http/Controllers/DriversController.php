@@ -47,13 +47,13 @@ class DriversController extends Controller
                                         ->where('driver_id',$id)
                                         ->orderBy('id','desc')
                                         ->first();
-
+ 
         $version =  new Driverversion;
         $version->driver_id = $driver->id;
         $version->card_no = $driver->card_id;
         $version->cardholder_id = $driver->cardholder_id;
         $version->user_id = Auth::user()->id;
-        $version->plate_number = empty($driver->truck->plate_number) ? $last_driver_truck->plate_number : $driver->truck->plate_number;
+        $version->plate_number = empty($driver->truck->plate_number) ? empty($last_driver_truck->plate_number) ? 'N/A' : $last_driver_truck->plate_number : $driver->truck->plate_number;
         $version->vendor = empty($driver->hauler->name) ? $last_driver_truck->hauler : $driver->hauler->name;
         $version->start_date = $end_validity;
         $version->end_date = Carbon::now();
@@ -74,8 +74,8 @@ class DriversController extends Controller
         $version->cardholder_id = $driver->cardholder_id;
         $version->card_id = $driver->card_id;
         $version->driver_name = $driver->name;
-        $version->plate_number = $driver->truck->plate_number;
-        $version->hauler = $driver->hauler->name;
+        $version->plate_number = empty($driver->truck->plate_number) ? 'N/A' :  $driver->truck->plate_number;
+        $version->hauler = empty($driver->hauler->name) ? 'N/A' : $driver->hauler->name;
         $version->save();
 
         return $version;
