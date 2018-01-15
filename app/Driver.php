@@ -185,6 +185,17 @@ class Driver extends Model
     {
         return $this->hasMany(Confirm::class);
     }
+
+    public function confirm()
+    {
+        return $this->hasOne(Confirm::class)->orderBy('id','DESC');
+    }
+
+    // public function getConfirmAttribute()
+    // {
+    //     return $this->confirm()->first();
+    // }
+
     
     /**
     * Logs all revisions from drivers record

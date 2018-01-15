@@ -311,8 +311,6 @@ class DriversController extends Controller
                 $x = $hauler->id;
             }
         }
-
-   
     
         $clasifications = Clasification::pluck('name','id');
 
@@ -487,6 +485,113 @@ class DriversController extends Controller
          flashy()->success('Driver has successfully Reassigned!');
          return redirect('drivers');
         
+    }
+
+
+    /**
+     * 
+     *  Disapproved Driver for edit function
+     * 
+     */
+    public function disapprovedDriver(Driver $driver)
+    {
+        foreach($driver->trucks as $truck){
+            foreach($truck->haulers as $hauler){
+                $x = $hauler->id;
+            }
+        }
+    
+        $haulers = Hauler::orderBy('id','DESC')->pluck('name','id');
+
+        if(count($driver->trucks) == 0) {
+            $trucks = Truck::whereHas('haulers',function($q) use ($x){
+                $q->where('id',$x);
+            })->orderBy('id','DESC')->pluck('plate_number','id');
+        } else {
+            $trucks =  Truck::orderBy('id','DESC')->pluck('plate_number','id');
+        }
+       
+         $cards = Card::orderBy('CardholderID','DESC')
+                    ->whereNotIn('CardholderID', $this->removedCardholder())
+                    ->where('AccessGroupID', 1) // card type
+                    ->where('CardholderID','>=', 15)
+                    ->where('CardholderID','!=', 0)
+                    ->get()
+                    ->pluck('full_deploy','CardID');
+
+        
+        // when a driver has no cardholder assigned
+        $driver_card = Driver::select('cardholder_id')->where('availability',1)->get();
+        
+        $card_driver = Card::select(DB::raw("CONCAT(CardNo,' - RFID Number ', CardholderID) AS deploy_number"),'CardID')
+                    ->orderBy('CardholderID','DESC')
+                    ->whereNotIn('CardholderID', $driver_card)
+                    ->where('AccessGroupID', 1) // card type
+                    ->where('CardholderID','>=', 15)
+                    ->where('CardholderID','!=', 0)
+                    ->get()
+                    ->pluck('deploy_number','CardID');
+
+        return view('drivers.disapproved',compact(
+            'driver',
+            'clasifications',
+            'card_driver',
+            'haulers',
+            'cards',
+            'trucks'));
+
+
+    }
+
+    public function disapprovedDriverUpdate(Request $request, Driver $driver)
+    {
+        $this->validate($request, [
+                'name' => 'required',
+                'truck_list' => 'required',
+                'phone_number' => 'required',
+                'card_list' => 'required',
+                'nbi_number' => 'required|max:8|min:8',
+                'driver_license' => 'required|max:13|min:13',
+                'start_validity_date' => 'required|before:end_validity_date',
+                'end_validity_date' => 'required'
+        ],[
+            'truck_list.required' => 'Plate Number is required'
+        ]);
+
+        $card_rfid = $request->input('card_list');
+
+        $driver->update($request->all());
+
+        // if($request->hasFile('avatar')){
+        //     $driver->avatar = $request->file('avatar')->store('drivers','public');
+        // }        
+
+        // This block is commented for the reason that only super admin uses this edit method
+        // if(empty($driver->update_count)) {
+        //     $driver->update_count = 1;
+        // } else {
+        //     $driver->update_count += 1;
+        // }
+        
+        $driver->card()->associate($card_rfid);
+
+        $driver->name = strtoupper($request->input('name'));
+
+        $driver->save();
+
+        $driver->trucks()->sync( (array) $request->input('truck_list'));
+
+        $drivers_truck = DB::table('hauler_truck')->select('hauler_id')
+        ->where('truck_id',$request->input('truck_list'))->first();
+
+        $driver->haulers()->sync( (array) $drivers_truck);
+        
+        //send email back to approval
+        $setting = Setting::first();
+        Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmDriver($driver));
+ 
+        flashy()->success('Driver has successfully updated!');
+        return redirect('drivers');
     }
 
     /**

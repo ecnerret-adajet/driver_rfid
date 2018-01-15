@@ -66,6 +66,8 @@ Route::get('/forPrint','PrintController@getForPrint');
 Route::post('/prints/{id}','PrintController@printed');
 
 Route::resource('/drivers','DriversController');
+Route::get('/drivers/disapproved/{driver}','DriversController@disapprovedDriver');
+Route::patch('/drivers/disapproved/{driver}',[  'as' => 'disapproved.update' ,'uses' => 'DriversController@disapprovedDriverUpdate']);
 Route::get('/drivers/{driver}/reassign','DriversController@reassign');
 Route::patch('/reassign/{driver}',[  'as' => 'reassign.update' ,'uses' => 'DriversController@submitReassign']);
 Route::get('/exportDrivers','DriversController@exportDrivers');
@@ -97,7 +99,7 @@ Route::post('/confirm/{id}/{plate}','ConfirmsController@store');
 Route::get('/confirm/pending','ConfirmsController@pending');
 
 Route::get('/driversJson', function () {
-    $drivers = App\Driver::with(['hauler','truck','cardholder','card','cardholder.logs','image'])->orderBy('id','DESC')->get();
+    $drivers = App\Driver::with(['hauler','truck','cardholder','card','cardholder.logs','image','confirm'])->orderBy('id','DESC')->get();
     // $drivers = App\Driver::where('availability',1)->with(['haulers','trucks','cardholder','card','cardholder.logs'])->orderBy('id','DESC')->get();
     return $drivers;
 });

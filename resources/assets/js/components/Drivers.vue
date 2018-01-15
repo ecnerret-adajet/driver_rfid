@@ -117,25 +117,19 @@
                                         <span v-if="driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1">
                                               <div class="btn-group pull-right" role="group" aria-label="Basic example">
                                                  <span v-if="user_role == 'Administrator' || user_role == 'Approver'">
-                                                    <a  href="javascript:void(0);" class="btn btn-outline-primary btn-sm" data-toggle="modal" :data-target="'#driverModalActivate-'+ driver.id">Activate</a>
+                                                    <a  href="javascript:void(0);" class="btn btn-outline-primary btn-sm ml-2" data-toggle="modal" :data-target="'#driverModalActivate-'+ driver.id">Activate</a>
                                                  </span>
                                                  <span v-else>
                                                     <button class="btn btn-outline-danger btn-sm disabled">INACTIVE</button>
                                                  </span>
                                               </div>
                                         </span>
-                                        <span v-if="driver.availability == 0 && driver.print_status == 0 && driver.notif_status == 0">
-                                            <a class="dropdown pull-right btn btn-outline-secondary" href="#" id="driverDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fa fa-ellipsis-v"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="driverDropdown">
-                                                    <a :href="driver_link + 'transfer-hauler/' + driver.id" class="dropdown-item" style="color: red">Transfer Hauler</a>
-                                                    <span v-if="user_role == 'Administrator' || user_role == 'Approver'">
-                                                        <a  href="javascript:void(0);" class="dropdown-item" style="color: red" data-toggle="modal" :data-target="'#driverModalActivate-'+ driver.id">Activate</a>
-                                                    </span>
-                                            </div><!-- end dropdown -->
+                                        
+                                        <span v-if="user_role == 'Administrator' || user_role == 'Monitoring'">
+                                        <span v-if="driver.confirm">
+                                            <a v-if="driver.confirm.status == 'Disapprove'" class="pull-right btn btn-outline-danger btn-sm" :href="'/driver_rfid/public/drivers/disapproved/' + driver.id">Update Details</a>
                                         </span>
-                                                                                        
+                                        </span>
 
                                         <span v-if="driver.availability == 1">
                                             <i class="fa fa-circle" style="color:green" aria-hidden="true"></i>                                            
@@ -146,6 +140,7 @@
                                         
                                         </div>
                                     </div>
+
                                 </li>
                                 <li v-if="filteredDriver.length == 0"  class="list-group-item">
                                     <div class="row">

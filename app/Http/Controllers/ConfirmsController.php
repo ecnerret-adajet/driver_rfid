@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Spatie\Activitylog\Models\Activity;
 use App\Notifications\ConfirmAdmin;
+use App\Notifications\DisapprovedDriver;
 use App\Setting;
 use App\Driver;
 use App\Confirm;
@@ -82,8 +83,8 @@ class ConfirmsController extends Controller
         if($driver->availability == 0 && $driver->print_status == 1 && $driver->notif_status == 1) {
             $confirm->classification = 'New Driver';
             //send email to supervisor for approval
-            $setting = Setting::with('user')->where('id',2)->first();
-            Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmAdmin($confirm,$driver));
+            // $setting = Setting::with('user')->where('id',2)->first();
+            // Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmAdmin($confirm,$driver));
         }
 
         if($driver->availability == 0 && $driver->print_status == 0 && $driver->notif_status == 1) {
@@ -107,6 +108,11 @@ class ConfirmsController extends Controller
                 $card->CardStatus = 0; 
             }
             $driver->save();      
+
+        } else {
+
+            // Sends a dispproved notification to driver creator.
+            Notification::send($driver->user->first(), new DisapprovedDriver($driver));
 
         }
 
