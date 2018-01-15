@@ -87,6 +87,8 @@ Route::patch('/transfer/{truck}',[  'as' => 'transfer.update' ,'uses' => 'Trucks
 Route::get('/exportTrucks','TrucksController@exportTrucks');
 Route::post('/trucks/deactivate/{id}','TrucksController@deactivateTruck');
 Route::post('/trucks/remove/{id}','TrucksController@removeDriver');
+Route::post('/trucks/changePlateNumber/{id}','TrucksController@changePlateNumber');
+
 
 Route::resource('/haulers','HaulersController');
 

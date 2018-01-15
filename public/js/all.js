@@ -38558,6 +38558,54 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -55031,7 +55079,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-toggle": "modal",
         "data-target": '#removeDriver-' + truck.id
       }
-    }, [_vm._v("Remove Driver")]), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('a', {
+    }, [_vm._v("Remove Driver")]), _vm._v(" "), (truck.reg_number) ? _c('span', [(truck.plate_number == truck.reg_number && truck.reg_number.indexOf('MV') !== -1) ? _c('span', [_c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#truckChange-' + truck.id
+      }
+    }, [_vm._v("Update Plate Number")])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('div', {
+      staticClass: "dropdown-divider"
+    }), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.truck_link + truck.id + '/edit'
@@ -55069,6 +55126,36 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return _c('div', [_c('div', {
       staticClass: "modal fade",
       attrs: {
+        "id": 'truckChange-' + truck.id,
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "truckModalLabel",
+        "aria-hidden": "true"
+      }
+    }, [_c('div', {
+      staticClass: "modal-dialog",
+      attrs: {
+        "id": "queueter"
+      }
+    }, [_c('div', {
+      staticClass: "modal-content"
+    }, [_vm._m(4, true), _vm._v(" "), _c('form', {
+      staticClass: "bootstrap-modal-form",
+      attrs: {
+        "method": "POST",
+        "action": '/driver_rfid/public/trucks/changePlateNumber/' + truck.id
+      }
+    }, [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_token"
+      },
+      domProps: {
+        "value": _vm.csrf
+      }
+    }), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _vm._m(6, true)])])])]), _vm._v(" "), _c('div', {
+      staticClass: "modal fade",
+      attrs: {
         "id": 'truckModal-' + truck.id,
         "tabindex": "-1",
         "role": "dialog",
@@ -55082,7 +55169,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(4, true), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(7, true), _vm._v(" "), _vm._m(8, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -55124,7 +55211,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(6, true), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(9, true), _vm._v(" "), _vm._m(10, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -55195,6 +55282,67 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "col-sm-12 center"
   }, [_c('span', [_vm._v("NO RECORD FOUND")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('h6', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "truckModalLabel"
+    }
+  }, [_vm._v("Change to official plate number")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "inputPlateNumber"
+    }
+  }, [_vm._v("Plate Number")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "id": "inputPlateNumber",
+      "name": "plate_number",
+      "placeholder": "Enter New Plate Number",
+      "data-inputmask": "'mask': 'AAA-9999'",
+      "data-mask": "",
+      "required": ""
+    }
+  }), _vm._v(" "), _c('small', {
+    staticClass: "form-text text-muted",
+    attrs: {
+      "id": "emailHelp"
+    }
+  }, [_vm._v("Please follow the format: AAA-000.")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("Confirm")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "modal-header"

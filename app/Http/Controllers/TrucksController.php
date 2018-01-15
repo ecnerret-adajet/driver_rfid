@@ -440,6 +440,32 @@ class TrucksController extends Controller
     }
 
     /**
+     * 
+     *  Change the registration number to official plate number
+     * 
+     */
+    public function changePlateNumber(Request $request, $id)
+    {
+        $this->validate($request, [
+            'plate_number' => 'required'
+        ]);
+
+        $this->truckVersion($id, Carbon::now());
+
+        $truck = Truck::findOrFail($id);
+        $truck->reg_number = null;
+        $truck->plate_number = strtoupper($request->input('plate_number'));
+        $truck->save();
+
+        $activity = activity()
+        ->performedOn($truck)
+        ->log('Add official plate number');
+
+        flashy()->success('Plate number has successfully changed!');
+        return redirect('trucks');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

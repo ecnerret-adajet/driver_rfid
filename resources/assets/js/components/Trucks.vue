@@ -89,7 +89,16 @@
                                                     <a :href="truck_link + truck.id + '/transfer'" class="dropdown-item" v-if="truck.card !=  null">Transfer to 3PL</a>
                                                     <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#removeDriver-'+ truck.id">Remove Driver</a>
                                                     <!-- <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#truckModal-'+ truck.id" style="color: red">Deactivate</a> -->
-                                                    
+                                                   
+                                                   <span v-if="truck.reg_number">
+                                                        <span v-if="truck.plate_number == truck.reg_number && truck.reg_number.indexOf('MV') !== -1">
+                                                            <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#truckChange-'+ truck.id">Update Plate Number</a>
+                                                        </span>
+                                                   </span>
+                                                   
+                                                   
+                                                    <div class="dropdown-divider"></div>
+                                                   
                                                     <span v-if="user_role == 'Administrator'">
                                                         <a :href="truck_link + truck.id + '/edit'" class="dropdown-item">Edit</a>
                                                     </span>
@@ -119,6 +128,45 @@
 
 
         <div v-for="truck in filteredTruck">
+
+
+            <!-- Change Plate Number Modal -->
+            <div class="modal fade" :id="'truckChange-' + truck.id" tabindex="-1" role="dialog" aria-labelledby="truckModalLabel" aria-hidden="true">
+            <div class="modal-dialog" id="queueter">
+                <div class="modal-content">
+                <div class="modal-header">
+
+                    <h6 class="modal-title" id="truckModalLabel">Change to official plate number</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                
+
+                </div>
+                 <form  method="POST" class="bootstrap-modal-form" :action="'/driver_rfid/public/trucks/changePlateNumber/'+truck.id">
+                 <input type="hidden" name="_token" :value="csrf">  
+                    <div class="modal-body">
+
+                                        
+                <div class="form-group">
+                    <label for="inputPlateNumber">Plate Number</label>
+                    <input type="text" class="form-control" id="inputPlateNumber" name="plate_number"  placeholder="Enter New Plate Number" data-inputmask="'mask': 'AAA-9999'" data-mask required>
+                     <small id="emailHelp" class="form-text text-muted">Please follow the format: AAA-000.</small>
+                </div>
+                
+
+                </div>
+                <div class="modal-footer">  
+                   
+                        
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Confirm</button> 
+                     
+                </div>
+                </form> 
+                </div>
+            </div>
+            </div>
 
             <!-- Deactivate Modal -->
             <div class="modal fade" :id="'truckModal-' + truck.id" tabindex="-1" role="dialog" aria-labelledby="truckModalLabel" aria-hidden="true">
@@ -223,7 +271,7 @@ export default {
 
     methods: {
         getAuth() {
-            axios.get('/driver_rfid/public/getAuth')
+        axios.get('/driver_rfid/public/getAuth')
             .then(response => this.auth = response.data);
         },
 
@@ -258,6 +306,8 @@ export default {
 
             return trucks_array;
         }
+
+  
     }
 }
 </script>

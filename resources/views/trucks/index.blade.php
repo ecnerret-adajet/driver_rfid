@@ -25,6 +25,11 @@
 
 
 @endsection
+@section('script')
+    <script>
+        $("[data-mask]").inputmask();
+    </script>
+@endsection
 
 
 
