@@ -19,6 +19,7 @@ use Flashy;
 use App\User;
 use App\Version;
 use App\Truckversion;
+use Hash;
 use DB;
 
 class HaulerOnlineController extends Controller
@@ -213,6 +214,13 @@ class HaulerOnlineController extends Controller
     public function haulerUpdateUser(Request $request, User $user)
     {
 
+         $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,'.$user->id,
+            'password' => 'required|confirmed',
+            'phone_number' => 'required'
+        ]);
+
         if(Gate::denies('view', $user)) {
             return back();
         }
@@ -228,7 +236,25 @@ class HaulerOnlineController extends Controller
         $user->save();
 
         flashy()->success('Driver has successfully updated!');
-        return redirect()->back();
+
+
+        if (\Entrust::hasRole('Hauler')) {
+
+            return redirect('hauler/online/home');
+
+        } elseif (\Entrust::hasRole('Pickup')) {
+
+            return redirect('pickups/online');
+
+        } elseif (\Entrust::hasRole('Queue-monitoring')) {
+
+            return redirect('monitor/feed');
+
+        } else {
+
+            return redirect()->back();
+
+        }
     }
 
 

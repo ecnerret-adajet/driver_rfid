@@ -6,9 +6,12 @@
         <div class="card-header">
          Edit User
 
-         <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
-            Back
+         <a class="btn btn-primary btn-sm pull-right" 
+          href="{{ ( Entrust::hasRole('Hauler') ? ( Entrust::hasRole('Pickup') ? url('/home') : url('/hauler/online/home') ) : url('/pickups/online') ) }}">
+            Back Home
          </a>
+
+
         </div>
         <div class="card-body">
         
