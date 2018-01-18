@@ -33,7 +33,7 @@ class ServingController extends Controller
                             ->take(1)
                             ->pluck('id');
 
-          $served = Serve::with('driver','driver.truck','driver.hauler','user')
+          $served = Serve::with('driver','driver.trucks','driver.haulers','user')
                             ->orderBy('id','DESC')
                             ->whereNotIn('id',$current_serving)
                             ->where('on_serving',1)
@@ -51,8 +51,8 @@ class ServingController extends Controller
                     'served_start' => $x->served_start_date,
                     'served_end_date' => $x->served_end_date,
                     'driver_name' => empty($x->driver->name) ? null : $x->driver->name,
-                    'plate_number' => empty($x->driver->truck) ? null : $x->driver->truck->first()->plate_number,
-                    'hauler_name' => empty($x->driver->hauler) ? null : $x->driver->hauler->first()->name,
+                    'plate_number' => empty($x->driver->trucks) ? null : $x->driver->trucks->first()->plate_number,
+                    'hauler_name' => empty($x->driver->haulers) ? null : $x->driver->haulers->first()->name,
                     'user_name' => empty($x->user->name) ? null : $x->user->name,
                 );
 

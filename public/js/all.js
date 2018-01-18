@@ -54929,7 +54929,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-weight": "100"
     }
-  }, [_vm._v("\n                    Current In The Plant\n                ")])])
+  }, [_vm._v("\n                    Drivers in queue\n                ")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "card-footer bg-primary text-center mt-1"
@@ -54938,7 +54938,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-weight": "100"
     }
-  }, [_vm._v("\n                            Currently Serving\n                        ")])])
+  }, [_vm._v("\n                            Recently Served\n                        ")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "col-4"

@@ -70,7 +70,7 @@ class LineupApiController extends Controller
                         ->whereDate('created_at', Carbon::today())
                         ->pluck('driver_id');
 
-         $result_lineups = Log::with(['drivers','drivers.truck','drivers.hauler','driver.serves'])
+         $result_lineups = Log::with(['drivers','drivers.trucks','drivers.haulers','driver.serves'])
                         ->where('ControllerID', 1)
                         ->where('DoorID',0)
                         ->whereNotIn('CardholderID',$check_truckscale_out)
@@ -87,10 +87,8 @@ class LineupApiController extends Controller
         foreach($log_lineups as $log) {
             foreach($log->drivers->whereNotIn('id', $served) as $driver) {
 
-                
-
-                    if(!empty($driver->truck->plate_number)) {
-                        $x = str_replace('-',' ',strtoupper($driver->truck->plate_number));
+                    if(!empty($driver->trucks)) {
+                        $x = str_replace('-',' ',strtoupper($driver->trucks->first()->plate_number));
                         $z = str_replace('_','',$x);
                         $y = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$z','deploy')");
                         if(!empty($y)) {
@@ -98,13 +96,12 @@ class LineupApiController extends Controller
                         }
                     }
 
-
                     $data = array(
                         'driver_id' => $driver->id,
                         'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
                         'driver_name' => $driver->name,
-                        'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
-                        'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
+                        'plate_number' => empty($driver->trucks->first()->plate_number) ? 'NO PLATE' : $driver->trucks->first()->plate_number,
+                        'hauler' => empty($driver->haulers->first()->name) ? 'NO HAULER' : $driver->haulers->first()->name,
                         'log_time' => $log->LocalTime,
                         'dr_status' => empty($y) ? 'UNPROCESS' : $a, 
                         'on_serving' => empty($driver->serves->first()->on_serving) ? null : $driver->serves->first()->on_serving,

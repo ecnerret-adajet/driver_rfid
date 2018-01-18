@@ -11,7 +11,7 @@
                     </div>
                     <div class="card-footer bg-primary text-center">
                     <span style="font-weight: 100" class="text-small text-uppercase text-white">
-                        Current In The Plant
+                        Drivers in queue
                     </span>                            
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                         </div>
                         <div class="card-footer bg-primary text-center mt-1">
                             <span style="font-weight: 100" class="text-small text-uppercase text-white">
-                                Currently Serving
+                                Recently Served
                             </span>                            
                         </div>
                     </div>
