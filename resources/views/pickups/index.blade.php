@@ -63,74 +63,7 @@
             
                 <div class="tab-pane pt-3" id="profile" role="tabpanel">
 
-
-                     <div class="row">
-                            <div class="col-sm-12">
-                                <div class="table-response">
-                                    <table class="table table-striped" width="100%" id="dataTable" cellspacing="0" style="font-size:70%">
-                                        <thead>
-                                            <tr style="text-transform: uppercase">
-                                                <th>Pickup #</th>
-                                                <th>Driver Details</th>
-                                                <th>Created Date</th>
-                                                <th>Checkout Date</th>
-                                                <th>TRUCKSCALE IN</th>
-                                                <th>TRUCKSCALE OUT</th>
-                                                <th>BETWEEN</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($unserved as $pick)
-                                            <tr>
-                                                <td>
-                                                    {{ !empty($pick->cardholder->Name) ? $pick->cardholder->Name : 'UNPROCESS' }} <br/>
-                                                </td>
-                                                <td>
-                                                    {{$pick->driver_name}}<br/>
-                                                    {{$pick->plate_number}}<br/>
-                                                    {{$pick->company}}
-                                                </td>
-                                                <td>
-                                                    {{ date('m/d/y h:i:s A', strtotime($pick->created_at))}}                                            
-                                                </td>
-                                                <td>
-                                                    @if( date('m/d/y h:i:s A', strtotime($pick->created_at))  != date('m/d/y h:i:s A', strtotime($pick->updated_at)) )
-                                                        {{ date('m/d/y h:i:s A', strtotime($pick->updated_at))  }}
-                                                    @else
-                                                        NO TIME OUT
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @foreach($search->getTruckscaleIn($pick->cardholder_id, $pick->created_at) as $pick_in )
-                                                        {{ $pickin = date('m/d/y h:i:s A',strtotime($pick_in->LocalTime))}}<br/>
-                                                    @endforeach
-                                                </td>
-                                                <td>
-                                                    @foreach($search->getTruckscaleOut($pick->cardholder_id, $pick->created_at) as $pick_in )
-                                                        {{ $pickout = date('m/d/y h:i:s A',strtotime($pick_in->LocalTime))}}<br/>
-                                                    @endforeach
-                                                </td>
-                                                <td>
-                                                    @foreach($search->getTruckscaleIn($pick->cardholder_id, $pick->created_at) as $pick_in )
-                                                        @foreach($search->getTruckscaleOut($pick->cardholder_id, $pick->created_at) as $pick_out )
-                                                        {{  $pick_in->LocalTime->diffInHours($pick_out->LocalTime)}} Hour(s)
-                                                        @endforeach
-                                                    @endforeach
-                                                </td>
-                                                <td>    
-                                                    <a class="btn btn-outline-danger btn-sm"  data-toggle="modal" data-target=".assign-rfid-{{$pick->id}}" href="javascript:void(0);">
-                                                        ASSIGN RFID
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            @endforeach                          
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                    </div>
-
+                            @include('pickups.notYetServed')
 
                 </div><!-- end tab 2 -->
 

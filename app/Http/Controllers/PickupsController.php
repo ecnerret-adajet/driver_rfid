@@ -24,13 +24,13 @@ class PickupsController extends Controller
                         ->orderBy('created_at','DESC')
                         ->get();
 
-        $assigned = Pickup::whereDate('created_at', Carbon::today())
+        $assigned = Pickup::whereDate('activation_date', Carbon::today())
                         ->whereNull('deactivated_date')
                         ->whereNotNull('cardholder_id')
-                        ->orderBy('created_at','DESC')
+                        ->orderBy('id','DESC')
                         ->get();
 
-        $served = Pickup::whereDate('created_at', Carbon::today())
+        $served = Pickup::whereDate('deactivated_date', Carbon::today())
                     ->whereNotNull('deactivated_date')
                     ->whereNotNull('cardholder_id')
                     ->orderBy('created_at','DESC')

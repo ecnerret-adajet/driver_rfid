@@ -7,10 +7,9 @@
                                             <tr style="text-transform: uppercase">
                                                 <th>Pickup #</th>
                                                 <th>Driver Details</th>
-                                                <th>Created Date</th>
-                                                <th>Checkout Date</th>
-                                                <th>TRUCKSCALE IN</th>
-                                                <th>TRUCKSCALE OUT</th>
+                                                <th>DO Details</th>
+                                                <th>Check Date</th>
+                                                <th>Truckscale Date</th>
                                                 <th>BETWEEN</th>
                                                 <th></th>
                                             </tr>
@@ -26,61 +25,49 @@
                                                     {{$pick->plate_number}}<br/>
                                                     {{$pick->company}}
                                                 </td>
+
+                                                <td>
+                                                    {{ $pick->do_number }}
+                                                </td>
                                         
                                                 <td>
-
+                                                <small class="text-uppercase text-muted">
+                                                    Created Date:
+                                                </small> 
+                                                <br/>
                                                 {{ date('m/d/y h:i:s A', strtotime($pick->created_at))}}
-                                            
+                                                <br/>
+                                                 <small class="text-uppercase text-muted">
+                                                    Checkout Date:
+                                                </small> <br/>
+                                                @if( date('m/d/y h:i:s A', strtotime($pick->created_at))  != date('m/d/y h:i:s A', strtotime($pick->updated_at)) )
+                                                    {{ date('m/d/y h:i:s A', strtotime($pick->updated_at))  }}
+                                                @else
+                                                    NO TIME OUT
+                                                @endif
 
                                                 </td>
 
-                                                <td>
-                                                    @if( date('m/d/y h:i:s A', strtotime($pick->created_at))  != date('m/d/y h:i:s A', strtotime($pick->updated_at)) )
-                                                        {{ date('m/d/y h:i:s A', strtotime($pick->updated_at))  }}
-                                                    @else
-                                                        NO TIME OUT
-                                                    @endif
-                                                </td>
 
                                                 <td>
 
-                                                    {{--  @forelse(App\Log::pickupIn($pick->cardholder_id, $pick->created_at)->get() as $logIn)
-                                                        {{ $pick_in = date('m/d/y h:i:s A',strtotime($logIn->LocalTime))}}<br/>
-                                                    @empty
-                                                        NO IN
-                                                    @endforelse  --}}
-                                                
-
+                                                <small class="text-uppercase text-muted">
+                                                    Truckscale In:
+                                                </small> 
+                                                <br/>
                                                     @foreach($search->getTruckscaleIn($pick->cardholder_id, $pick->created_at) as $pick_in )
                                                         {{ $pickin = date('m/d/y h:i:s A',strtotime($pick_in->LocalTime))}}<br/>
                                                     @endforeach
-
-                                                </td>
-                                                <td>
-                                                    {{--  @forelse(App\Log::pickupOut($pick->cardholder_id, $pick->created_at)->get() as $logOut)
-
-                                                    @forelse(App\Log::pickupIn($pick->cardholder_id, $pick->created_at)->get() as $logIn)
-
-                                                        @if($logOut->LocalTime > $logIn->LocalTime)
-                                                        {{ $pick_out = date('m/d/y h:i:s A',strtotime($logOut->LocalTime)) }}
-                                                        @else
-                                                            NO OUT
-                                                        @endif
-
-                                                    @empty
-                                                            CANNOT DETERMINE
-                                                    @endforelse
-                                                    @empty
-                                                            NO OUT
-                                                    @endforelse  --}}
-
-                                                    @foreach($search->getTruckscaleOut($pick->cardholder_id, $pick->created_at) as $pick_in )
+                                                 <small class="text-uppercase text-muted">
+                                                    Truckscale Out:
+                                                </small> 
+                                                <br/>
+                                                @foreach($search->getTruckscaleOut($pick->cardholder_id, $pick->created_at) as $pick_in )
                                                         {{ $pickout = date('m/d/y h:i:s A',strtotime($pick_in->LocalTime))}}<br/>
                                                     @endforeach
 
-                                                    
-
                                                 </td>
+            
                                                 <td>
                                                     {{--  @forelse(App\Log::pickupOut($pick->cardholder_id, $pick->created_at)->get() as $logOut)
 
@@ -115,7 +102,7 @@
 
                                                 @else
 
-                                                <button type="button" class="btn btn-outline-success btn-sm">SERVED</button>
+                                                <button type="button" class="btn btn-outline-success btn-sm disabled">SERVED</button>
 
                                                 @endif                              
                                                 </td>
