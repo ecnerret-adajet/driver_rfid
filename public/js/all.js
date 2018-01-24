@@ -35736,6 +35736,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -57971,12 +58007,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("Activate")])]) : _c('span', [_c('button', {
       staticClass: "btn btn-outline-danger btn-sm disabled"
-    }, [_vm._v("INACTIVE")])])])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || _vm.user_role == 'Monitoring') ? _c('span', [(driver.confirm) ? _c('span', [(driver.confirm.status == 'Disapprove') ? _c('a', {
+    }, [_vm._v("INACTIVE")])])])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || _vm.user_role == 'Monitoring') ? _c('span', [(driver.confirm) ? _c('span', [(driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'New Driver') ? _c('a', {
       staticClass: "pull-right btn btn-outline-danger btn-sm",
       attrs: {
         "href": '/driver_rfid/public/drivers/disapproved/' + driver.id
       }
-    }, [_vm._v("Update Details")]) : _vm._e()]) : _vm._e()]) : _vm._e(), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('i', {
+    }, [_vm._v("Update Details")]) : _vm._e(), _vm._v(" "), (driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'Update Driver') ? _c('a', {
+      staticClass: "pull-right btn btn-outline-warning btn-sm text-warning",
+      attrs: {
+        "data-toggle": "modal",
+        "data-target": '#reverseDisapproved-' + driver.id
+      }
+    }, [_vm._v("Reverse Disapproved")]) : _vm._e()]) : _vm._e()]) : _vm._e(), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('i', {
       staticClass: "fa fa-circle",
       staticStyle: {
         "color": "green"
@@ -58109,13 +58151,55 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("Confirm")])])])])])]), _vm._v(" "), _c('div', {
       staticClass: "modal fade",
       attrs: {
+        "id": 'reverseDisapproved-' + driver.id,
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "driverModalLabel",
+        "aria-hidden": "true"
+      }
+    }, [_c('div', {
+      staticClass: "modal-dialog",
+      attrs: {
+        "id": "queueter"
+      }
+    }, [_c('div', {
+      staticClass: "modal-content"
+    }, [_vm._m(7, true), _vm._v(" "), _vm._m(8, true), _vm._v(" "), _c('div', {
+      staticClass: "modal-footer"
+    }, [_c('form', {
+      attrs: {
+        "method": "POST",
+        "action": '/driver_rfid/public/drivers/reverseDisapproved/' + driver.id
+      }
+    }, [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_token"
+      },
+      domProps: {
+        "value": _vm.csrf
+      }
+    }), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-secondary",
+      attrs: {
+        "type": "button",
+        "data-dismiss": "modal"
+      }
+    }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-primary",
+      attrs: {
+        "type": "submit"
+      }
+    }, [_vm._v("Confirm")])])])])])]), _vm._v(" "), _c('div', {
+      staticClass: "modal fade",
+      attrs: {
         "id": 'noCardAssigned-' + driver.id,
         "tabindex": "-1",
         "role": "dialog",
         "aria-labelledby": "driverModalLabel",
         "aria-hidden": "true"
       }
-    }, [_vm._m(7, true)])])
+    }, [_vm._m(9, true)])])
   })], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
@@ -58180,6 +58264,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "driverModalLabel"
     }
   }, [_vm._v("Activate RFID")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body text-center"
+  }, [_c('em', [_vm._v("Are you sure you want to proceed with this action?")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('h6', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "driverModalLabel"
+    }
+  }, [_vm._v("Reverse Disapproved Driver")]), _vm._v(" "), _c('button', {
     staticClass: "close",
     attrs: {
       "type": "button",

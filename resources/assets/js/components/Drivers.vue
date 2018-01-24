@@ -126,9 +126,12 @@
                                         </span>
                                         
                                         <span v-if="user_role == 'Administrator' || user_role == 'Monitoring'">
-                                        <span v-if="driver.confirm">
-                                            <a v-if="driver.confirm.status == 'Disapprove'" class="pull-right btn btn-outline-danger btn-sm" :href="'/driver_rfid/public/drivers/disapproved/' + driver.id">Update Details</a>
-                                        </span>
+                                            <span v-if="driver.confirm">
+
+                                                <a v-if="driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'New Driver'" class="pull-right btn btn-outline-danger btn-sm" :href="'/driver_rfid/public/drivers/disapproved/' + driver.id">Update Details</a>
+                                                <a v-if="driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'Update Driver'" class="pull-right btn btn-outline-warning btn-sm text-warning" data-toggle="modal" :data-target="'#reverseDisapproved-'+ driver.id">Reverse Disapproved</a>
+                                            
+                                            </span>
                                         </span>
 
                                         <span v-if="driver.availability == 1">
@@ -220,6 +223,39 @@
                 </div>
                 <div class="modal-footer">  
                     <form  method="POST" :action="'/driver_rfid/public/drivers/activate/'+driver.id">
+                        <input type="hidden" name="_token" :value="csrf">  
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Confirm</button> 
+                    </form>  
+                </div>
+                    
+                </div>
+            </div>
+            </div><!-- end modal -->
+
+
+            <!-- Reverse Disapproved Modal -->
+            <div class="modal fade" :id="'reverseDisapproved-' + driver.id" tabindex="-1" role="dialog" aria-labelledby="driverModalLabel" aria-hidden="true">
+            <div class="modal-dialog" id="queueter">
+                <div class="modal-content">
+                <div class="modal-header">
+
+                    <h6 class="modal-title" id="driverModalLabel">Reverse Disapproved Driver</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                
+
+                </div>
+                <div class="modal-body text-center">
+
+                                           
+                    <em>Are you sure you want to proceed with this action?</em>
+                
+
+                </div>
+                <div class="modal-footer">  
+                    <form  method="POST" :action="'/driver_rfid/public/drivers/reverseDisapproved/'+driver.id">
                         <input type="hidden" name="_token" :value="csrf">  
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Confirm</button> 

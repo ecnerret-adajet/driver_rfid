@@ -30,6 +30,7 @@ use JavaScript;
 use Ixudra\Curl\Facades\Curl;
 use App\Truckversion;
 use App\Version;
+use App\Confirm;
 
 class DriversController extends Controller
 {
@@ -700,6 +701,39 @@ class DriversController extends Controller
          ->log('Activate Card');
 
         flashy()->success('Driver has successfully activated!');
+        return redirect('drivers');
+    }
+
+    /**
+     * 
+     * Reverse Dispproved to approve
+     * 
+     * 
+     */
+    public function reverseDisapproved(Request $request, $id)
+    {
+        $driver = Driver::where('id',$id)->first();
+        $driver->notif_status = 0;
+        $driver->availability = 1;
+        $driver->save();
+
+        $confirm = Confirm::where('id',$driver->confirm->id)
+                            ->where('status','Disapprove')
+                            ->first();
+        $confirm->status = 'Approve';
+        $confirm->save();
+
+        $card = Card::where('CardID',$driver->card_id)->first();
+        $card->CardStatus = 0;
+        $card->save();
+
+         // Record Log Activity
+         $activity = activity()
+         ->performedOn($driver)
+         ->withProperties(['card_no' => $driver->card->CardNo])
+         ->log('Reverse Disapproved Driver');
+
+        flashy()->success('Driver confirmation has successfully reversed!');
         return redirect('drivers');
     }
 
