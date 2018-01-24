@@ -64,20 +64,33 @@ class PickupOnlineController extends Controller
         return redirect('pickups/online');
     }
 
+    public function editPickup(Pickup $pickup)
+    {
+        return view('pickups.unservedEdit', compact('pickup'));
+    }
+
     public function updatePickup(Request $request, Pickup $pickup)
     {
          $this->validate($request, [
             'plate_number' => 'required',
             'driver_name' => 'required',
             'company' => 'required',
-            'do_number' => 'required'
+            'do_number' => 'required',
+            'remarks' => 'required'
         ]); 
 
         $pickup->update($request->all());
 
         flashy()->success('Pickup has successfully update!');
+
         return redirect('pickups/online');
 
-        
+    }
+
+    public function cancelPickup(Request $request, Pickup $pickup)
+    {
+        $pickup->delete();
+        flashy()->success('Pickup has successfully deleted!');
+        return redirect('pickups/online');
     }
 }

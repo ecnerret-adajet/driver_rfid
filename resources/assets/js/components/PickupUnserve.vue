@@ -93,11 +93,12 @@
 
                                     <div class="col-sm-1 pull-right right">
                                         <span>
-                                            <a class="dropdown pull-right btn btn-outline-secondary disabled" href="#" id="driverDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <a class="dropdown pull-right btn btn-outline-secondary" href="#" id="driverDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="fa fa-ellipsis-v"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="driverDropdown">
-                                                 <a :href="'pickups/unserved/' + pickup.id + '/edit'" class="dropdown-item">Update</a>
+                                                 <a :href="'unserved/' + pickup.id + '/edit'" class="dropdown-item">Update</a>
+                                                 <a href="#" class="dropdown-item text-danger" data-toggle="modal" :data-target="'#pickupCancel-'+ pickup.id">Cancel Pickup</a>
                                             </div><!-- end dropdown -->
                                         </span>
                                     </div>
@@ -122,6 +123,44 @@
                 </div>
             </div><!-- end row -->
 
+
+            <div v-for="pickup in filteredPickup">
+            <!-- Deactivate Modal -->
+            <div class="modal fade" :id="'pickupCancel-' + pickup.id" tabindex="-1" role="dialog" aria-labelledby="driverModalLabel" aria-hidden="true">
+            <div class="modal-dialog" id="queueter">
+                <div class="modal-content">
+                <div class="modal-header">
+
+                    <h6 class="modal-title" id="driverModalLabel">Cancel RFID</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                
+
+                </div>
+                <div class="modal-body text-center">
+
+                                           
+                    <em>Are you sure you want to proceed with this action?</em>
+                
+
+                </div>
+                <div class="modal-footer">  
+                    <form  method="post" :action="'/driver_rfid/public/pickups/unserved/'+pickup.id">
+                        
+                        <input type="hidden" name="_token" :value="csrf">
+                        <input type="hidden" name="_method" value="delete">
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Confirm</button> 
+                    </form>  
+                </div>
+                    
+                </div>
+            </div>
+            </div><!-- end modal -->
+            </div>
+
     </div>
 </template>
 <script>
@@ -132,9 +171,15 @@
             return {
                 searchString: '',
                 loading: false,
-                pickups: []
+                pickups: [],
+                csrf: '',
             }
         },
+
+        mounted() {
+            this.csrf = window.Laravel.csrfToken;
+        },
+
 
         created() {
             this.getPickup()

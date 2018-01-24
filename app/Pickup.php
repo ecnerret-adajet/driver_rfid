@@ -4,26 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 
 class Pickup extends Model
 {
 
     use LogsActivity;
+    use SoftDeletes;
 
-    // use \Venturecraft\Revisionable\RevisionableTrait;
-    
-    
-    //     protected $revisionEnabled = true;
-    //     protected $revisionCleanup = true;
-    //     protected $historyLimit = 500;
-    //     protected $revisionCreationsEnabled = true;
-    
-    // public static function boot()
-    // {
-    //     parent::boot();
-    // }
-    
+    protected $dates = ['deleted_at'];
     protected $connection = "sqlsrv";
     protected $fillable = [
         'plate_number',

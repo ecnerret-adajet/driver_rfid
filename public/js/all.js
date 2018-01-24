@@ -37717,6 +37717,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -37725,8 +37764,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             searchString: '',
             loading: false,
-            pickups: []
+            pickups: [],
+            csrf: ''
         };
+    },
+    mounted: function mounted() {
+        this.csrf = window.Laravel.csrfToken;
     },
     created: function created() {
         this.getPickup();
@@ -58851,9 +58894,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
-        "href": 'pickups/unserved/' + pickup.id + '/edit'
+        "href": 'unserved/' + pickup.id + '/edit'
       }
-    }, [_vm._v("Update")])])])])])])
+    }, [_vm._v("Update")]), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item text-danger",
+      attrs: {
+        "href": "#",
+        "data-toggle": "modal",
+        "data-target": '#pickupCancel-' + pickup.id
+      }
+    }, [_vm._v("Cancel Pickup")])])])])])])
   }), _vm._v(" "), (_vm.filteredPickup.length == 0) ? _c('li', {
     staticClass: "list-group-item"
   }, [_vm._m(3)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
@@ -58882,7 +58932,57 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "cy": "33",
       "r": "30"
     }
-  })])]) : _vm._e()])])])
+  })])]) : _vm._e()])]), _vm._v(" "), _vm._l((_vm.filteredPickup), function(pickup) {
+    return _c('div', [_c('div', {
+      staticClass: "modal fade",
+      attrs: {
+        "id": 'pickupCancel-' + pickup.id,
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "driverModalLabel",
+        "aria-hidden": "true"
+      }
+    }, [_c('div', {
+      staticClass: "modal-dialog",
+      attrs: {
+        "id": "queueter"
+      }
+    }, [_c('div', {
+      staticClass: "modal-content"
+    }, [_vm._m(4, true), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _c('div', {
+      staticClass: "modal-footer"
+    }, [_c('form', {
+      attrs: {
+        "method": "post",
+        "action": '/driver_rfid/public/pickups/unserved/' + pickup.id
+      }
+    }, [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_token"
+      },
+      domProps: {
+        "value": _vm.csrf
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_method",
+        "value": "delete"
+      }
+    }), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-secondary",
+      attrs: {
+        "type": "button",
+        "data-dismiss": "modal"
+      }
+    }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-primary",
+      attrs: {
+        "type": "submit"
+      }
+    }, [_vm._v("Confirm")])])])])])])])
+  })], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "input-group-btn"
@@ -58909,7 +59009,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
-    staticClass: "dropdown pull-right btn btn-outline-secondary disabled",
+    staticClass: "dropdown pull-right btn btn-outline-secondary",
     attrs: {
       "href": "#",
       "id": "driverDropdown",
@@ -58928,6 +59028,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('span', {
     staticClass: "text-muted"
   }, [_vm._v("NO RECORD FOUND")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('h6', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "driverModalLabel"
+    }
+  }, [_vm._v("Cancel RFID")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body text-center"
+  }, [_c('em', [_vm._v("Are you sure you want to proceed with this action?")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

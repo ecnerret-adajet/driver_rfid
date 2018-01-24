@@ -25,6 +25,6 @@
         "materialize-css": "^0.100.0",
         "moment": "^2.18.1",
         "pusher-js": "^4.2.1",
-        "vuejs-paginator": "^2.0.2"
+        "vuejs-paginate": "^1.6.0"
     }
 }

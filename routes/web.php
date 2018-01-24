@@ -186,6 +186,10 @@ Route::patch('online/users/update/{user}',[  'as' => 'haulerUsers.update' ,'uses
 
 // Route setup for online pickup
 Route::get('/pickups/online','PickupOnlineController@index');
+Route::get('/pickups/unserved/{pickup}/edit','PickupOnlineController@editPickup');
+Route::patch('/pickups/unserved/{pickup}/update', ['as' => 'pickups-unserved.update', 'uses' => 'PickupOnlineController@updatePickup']);
+Route::delete('/pickups/unserved/{pickup}','PickupOnlineController@cancelPickup');
+
 Route::get('/getPickupData','PickupOnlineController@getPickupData');
 Route::get('/getPickupWithCardholder','PickupOnlineController@getPickupWithCardholder');
 
