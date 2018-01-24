@@ -110,10 +110,10 @@ class ConfirmsController extends Controller
             $driver->save();      
 
         } else {
-
             // Sends a dispproved notification to driver creator.
-            Notification::send($driver->user->first(), new DisapprovedDriver($driver));
-
+            if($confrim->classification == 'New Driver') {
+                Notification::send($driver->user, new DisapprovedDriver($driver));
+            }
         }
 
         return redirect('prints');
