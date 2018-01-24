@@ -55979,7 +55979,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("\n                      " + _vm._s(_vm.queues.length) + "\n                  ")]), _vm._v(" "), _c('p', {
     staticClass: "card-text small text-uppercase text-muted pt-5"
-  }, [_vm._v("\n                      Current In The Plant\n                  ")])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                      Drivers in Queue\n                  ")])])])]), _vm._v(" "), _c('div', {
     staticClass: "col"
   }, [(!_vm.loadingServing) ? _c('div', [_c('div', {
     staticClass: "card bg-light rounded-0"
@@ -56020,7 +56020,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("\n                              OPEN\n                          ")]) : _vm._e(), _vm._v(" "), _c('p', {
     staticClass: "card-text mt-3 small text-uppercase text-muted"
-  }, [_vm._v("\n                              Currently Serving\n                          ")])], 2)])]) : _vm._e(), _vm._v(" "), (_vm.loadingServing) ? _c('div', [_c('div', {
+  }, [_vm._v("\n                              Recently Served\n                          ")])], 2)])]) : _vm._e(), _vm._v(" "), (_vm.loadingServing) ? _c('div', [_c('div', {
     staticClass: "center-align",
     staticStyle: {
       "padding-top": "50px",
@@ -56084,8 +56084,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-target": '#servingModal-' + queue.driver_id
       }
     }, [_vm._v("\n                                                   OPEN\n                                               ")])]) : _c('span', [_c('button', {
-      staticClass: "btn btn-danger btn-sm disabled"
-    }, [_vm._v("\n                                                   NOW SERVING\n                                               ")])])])])
+      staticClass: "btn btn-outline-danger btn-sm disabled"
+    }, [_vm._v("\n                                                SERVED\n                                               ")])])])])
   })) : _vm._e(), _vm._v(" "), (_vm.loadingDeliveries) ? _c('tbody', [_c('tr', [_c('td', {
     attrs: {
       "colspan": "7 text-center"
@@ -56367,7 +56367,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "badge badge-primary mr-2"
     }, [_vm._v("\n                                                      " + _vm._s(pickup.cardholder.Name) + "\n                                              ")]) : _vm._e(), _vm._v(" "), (!pickup.cardholder) ? _c('small', {
       staticClass: "badge badge-danger mr-2"
-    }, [_vm._v("\n                                                      NOT YET SERVE\n                                              ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', {
+    }, [_vm._v("\n                                                      NOT YET SERVED\n                                              ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', {
       staticClass: "text-muted"
     }, [_vm._v("\n                                             " + _vm._s(pickup.driver_name) + "\n                                          ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                               " + _vm._s(pickup.company) + "\n                                          ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "tex-muted text-uppercase"
@@ -56381,11 +56381,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "text-muted text-uppercase"
     }, [_vm._v("\n                                             Plant Out Date\n                                         ")]), _c('br'), _vm._v(" "), (pickup.deactivated_date) ? _c('span', [_vm._v("\n                                              " + _vm._s(_vm.moment(pickup.deactivated_date)) + "\n                                          ")]) : _c('span', {
       staticClass: "text-danger"
-    }, [_vm._v("\n                                              NOT YET SERVE\n                                          ")])]), _vm._v(" "), _c('div', {
+    }, [_vm._v("\n                                              NOT YET SERVED\n                                          ")])]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-3 pull-right right"
     }, [_c('span', {
       staticClass: "text-muted text-uppercase"
-    }, [_vm._v("\n                                             DO NUMBER:\n                                         ")]), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                              " + _vm._s(pickup.do_number) + "                                         \n                                          ")]), _c('br'), _vm._v(" "), (pickup.deactivated_date) ? _c('span', [_vm._v("\n                                                  " + _vm._s(_vm.dateDiff(pickup.created_at, pickup.deactivated_date)) + " hour(s)\n                                          ")]) : _c('span', [_vm._v("\n                                              NOT YET SERVE\n                                          ")])])])])
+    }, [_vm._v("\n                                             DO NUMBER:\n                                         ")]), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                              " + _vm._s(pickup.do_number) + "                                         \n                                          ")]), _c('br'), _vm._v(" "), (pickup.deactivated_date) ? _c('span', [_vm._v("\n                                                  " + _vm._s(_vm.dateDiff(pickup.created_at, pickup.deactivated_date)) + " hour(s)\n                                          ")]) : _c('span', [_vm._v("\n                                              NOT YET SERVED\n                                          ")])])])])
   }), _vm._v(" "), (_vm.filteredPickups.length == 0) ? _c('li', {
     staticClass: "list-group-item"
   }, [_vm._m(2)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {

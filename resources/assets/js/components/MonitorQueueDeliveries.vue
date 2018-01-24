@@ -10,7 +10,7 @@
                         {{ queues.length }}
                     </h1>
                     <p class="card-text small text-uppercase text-muted pt-5">
-                        Current In The Plant
+                        Drivers in Queue
                     </p>
                 </div>
                 </div>
@@ -48,7 +48,7 @@
                                 OPEN
                             </h1>
                             <p class="card-text mt-3 small text-uppercase text-muted">
-                                Currently Serving
+                                Recently Served
                             </p>
                         </div>
                     </div>
@@ -117,8 +117,8 @@
                                                  </a>
                                              </span>
                                              <span v-else>
-                                                 <button class="btn btn-danger btn-sm disabled">
-                                                     NOW SERVING
+                                                 <button class="btn btn-outline-danger btn-sm disabled">
+                                                  SERVED
                                                  </button>
                                              </span>
                                         </td>

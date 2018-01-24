@@ -46,7 +46,7 @@
                                                         {{ pickup.cardholder.Name }}
                                                 </small> 
                                                  <small class="badge badge-danger mr-2" v-if="!pickup.cardholder">
-                                                        NOT YET SERVE
+                                                        NOT YET SERVED
                                                 </small> 
                                                 <br/>
                                             
@@ -87,7 +87,7 @@
                                                 {{ moment(pickup.deactivated_date) }}
                                             </span>
                                             <span class="text-danger" v-else>
-                                                NOT YET SERVE
+                                                NOT YET SERVED
                                             </span>
                                         
                                         </div>
@@ -104,7 +104,7 @@
                                                     {{ dateDiff(pickup.created_at, pickup.deactivated_date) }} hour(s)
                                             </span>
                                             <span v-else>
-                                                NOT YET SERVE
+                                                NOT YET SERVED
                                             </span>
                                         </div>
 
