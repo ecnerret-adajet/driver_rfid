@@ -90,12 +90,13 @@
                                                  <!-- <span v-for="haulerx in driver.hauler">
                                                     <span v-for="truckx in driver.truck">
                                                 -->
-                                                        <span v-if="driver.card !=  null">
-                                                            <a :href="driver_link + driver.id + '/reassign'" class="dropdown-item">Reassign Truck</a>
-                                                        </span>
-                                                        <span v-if="driver.card ==  null">
-                                                           <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#noCardAssigned-'+ driver.id" style="color: red">Reassign Truck</a>
-                                                        </span>
+                                                <span v-if="driver.card !=  null">
+                                                    <a :href="driver_link + driver.id + '/reassign'" class="dropdown-item">Reassign Truck</a>
+                                                </span>
+                                                <span v-if="driver.card ==  null">
+                                                    <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#noCardAssigned-'+ driver.id" style="color: red">Reassign Truck</a>
+                                                </span>
+                                                    <a :href="driver_link + driver.id + '/editInfo'" class="dropdown-item">Update Info</a>
                                                   <!-- 
                                                     </span>
                                                  </span>  -->
@@ -109,6 +110,7 @@
                                                 <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#driverModalActivate-'+ driver.id">Activate</a>
                                                 </span>
                                                 <span v-if="user_role == 'Administrator'">
+                                                     <div class="dropdown-divider"></div>
                                                     <a :href="driver_link + driver.id + '/edit'" class="dropdown-item">Edit</a>
                                                 </span>
 

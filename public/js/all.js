@@ -35772,6 +35772,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -38436,6 +38438,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -55153,7 +55156,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-toggle": "modal",
         "data-target": '#removeDriver-' + truck.id
       }
-    }, [_vm._v("Remove Driver")]), _vm._v(" "), (truck.reg_number) ? _c('span', [(truck.plate_number == truck.reg_number && truck.reg_number.indexOf('MV') !== -1) ? _c('span', [_c('a', {
+    }, [_vm._v("Remove Driver")]), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": _vm.truck_link + truck.id + '/editInfo'
+      }
+    }, [_vm._v("Update Truck")]), _vm._v(" "), (truck.reg_number) ? _c('span', [(truck.plate_number == truck.reg_number && truck.reg_number.indexOf('MV') !== -1) ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": "javascript:void(0);",
@@ -57968,6 +57976,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("Reassign Truck")])]) : _vm._e(), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",
       attrs: {
+        "href": _vm.driver_link + driver.id + '/editInfo'
+      }
+    }, [_vm._v("Update Info")]), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
         "href": _vm.driver_link + 'reprint/' + driver.id
       }
     }, [_vm._v("Reprint Card")]), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('a', {
@@ -57987,7 +58000,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-toggle": "modal",
         "data-target": '#driverModalActivate-' + driver.id
       }
-    }, [_vm._v("Activate")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('a', {
+    }, [_vm._v("Activate")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
+      staticClass: "dropdown-divider"
+    }), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.driver_link + driver.id + '/edit'

@@ -202,6 +202,8 @@ class DriversController extends Controller
             'name' => 'required|max:255|unique:drivers',
             'card_list' => 'required',
             'truck_list' => 'required',
+            'contact_phone' => 'required',
+            'address' => 'required',
             'phone_number' => 'required|max:13|min:13',
             'nbi_number' => 'required|max:8|min:8',
             'driver_license' => 'required|max:13|min:13',
@@ -354,6 +356,29 @@ class DriversController extends Controller
             'cards',
             'trucks'));
 
+    }
+
+    public function editInfo(Driver $driver)
+    {
+        return view('drivers.editInfo', compact('driver'));
+    }
+
+    public function updateInfo(Request $request, Driver $driver)
+    {
+          $this->validate($request, [
+                'name' => 'required',
+                'phone_number' => 'required|max:13|min:13',
+                'nbi_number' => 'required|max:8|min:8',
+                'driver_license' => 'required|max:13|min:13',
+                'address' => 'required',
+                'contact_person' => 'required',
+                'contact_phone' => 'required|max:13|min:13',
+        ]);
+
+        $driver->update($request->all());
+
+        flashy()->success('Driver has successfully updated!');
+        return redirect('drivers');
     }
 
     /**

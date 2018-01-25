@@ -83,6 +83,9 @@ Route::patch('/drivers/trasnfer-hauler/{driver}',[  'as' => 'transfer-hauler.upd
 Route::post('/driver-image','ImagesController@driverImage');
 Route::get('/getImage','ImagesController@getImage');
 
+Route::get('/drivers/{driver}/editInfo','DriversController@editInfo');
+Route::patch('/drivers/updateInfo/{driver}', ['as' => 'drivers.updateInfo', 'uses' => 'DriversController@updateInfo']);
+
 
 Route::resource('/trucks','TrucksController');
 Route::get('/trucks/{truck}/transfer','TrucksController@transferHauler');
@@ -91,6 +94,9 @@ Route::get('/exportTrucks','TrucksController@exportTrucks');
 Route::post('/trucks/deactivate/{id}','TrucksController@deactivateTruck');
 Route::post('/trucks/remove/{id}','TrucksController@removeDriver');
 Route::post('/trucks/changePlateNumber/{id}','TrucksController@changePlateNumber');
+
+Route::get('/trucks/{truck}/editInfo','TrucksController@editInfo');
+Route::patch('/trucks/updateInfo/{truck}', ['as' => 'trucks.updateInfo', 'uses' => 'TrucksController@updateInfo']);
 
 
 Route::resource('/haulers','HaulersController');

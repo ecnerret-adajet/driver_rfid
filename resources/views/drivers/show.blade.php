@@ -3,7 +3,7 @@
 @section('content')
 @inject('search', 'App\Http\Controllers\DriversController')
 
-   <div class="card mx-auto mb-3">
+    <div class="card mx-auto mb-3">
         <div class="card-header">
         Driver's Information
         <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
@@ -38,17 +38,23 @@
                     <div class="col-sm-3">
                         <span class="text-muted">PLATE NUMBER</span><br/>
 
-                          @foreach($driver->trucks as $truck)
-                            {{$truck->plate_number}}
-
+                        @if(!count($driver->trucks) == 0)
+                            {{ $driver->trucks->first()->plate_number }}
+                        @else
+                            NO TRUCK ASSIGNED
+                        @endif
+                         
                         <br/>
                         <br/>
                         <span class="text-muted">SUBHAULER</span><br/>
-                                @foreach($driver->haulers as $hauler)
-                                        {{ $hauler->name }}
-                                @endforeach
-                           
-                          @endforeach
+
+                        @if(!count($driver->haulers) == 0)
+                            {{ $driver->haulers->first()->name }}
+                        @else
+                            NO HAULER
+                        @endif
+
+
                         <br/>
                         <br/>
                         <span class="text-muted">CREATED DATE</span><br/>

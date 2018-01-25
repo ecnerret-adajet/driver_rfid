@@ -282,6 +282,46 @@ class TrucksController extends Controller
         // return $truck->card->CardID;
     }
 
+    /**
+     * 
+     *  Update Truck Infor by RTC
+     * 
+     */
+    public function editInfo(Truck $truck)
+    {
+        $capacities = Capacity::pluck('description','id');
+        $contracts = Contract::all()->pluck('contract','id');
+        $bases = Base::pluck('origin','id');
+        $plants = Plant::pluck('plant_name','id');
+
+        return view('trucks.editInfo', compact('truck','capacities','contracts','bases','plants'));
+    }
+
+    public function updateInfo(Request $request, Truck $truck)
+    {
+         $this->validate($request, [
+            'capacity_list' => 'required',
+            'contract_list' => 'required',
+            'plant_list' => 'required',
+        ],[
+            'capacity_list.required' => 'Capacity Field is required',
+            'contract_list.required' => 'Contract Code is required',
+        ]);
+
+        $capacity_id = $request->input('capacity_list');
+
+        $truck->contract_code = $request->input('contract_list');
+        $truck->capacity()->associate($capacity_id);
+        $truck->save();
+
+        $truck->plants()->sync((array) $request->input('plant_list'));
+        $truck->contracts()->sync((array) $request->input('contract_list'));
+
+        flashy()->success('Truck has successfully updated!');
+        return redirect('trucks');
+    }
+
+    
     // Transfer truck to 3PL
     public function transferHauler(Truck $truck) 
     {
