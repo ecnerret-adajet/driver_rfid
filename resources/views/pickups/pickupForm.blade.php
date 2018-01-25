@@ -43,3 +43,30 @@
     {{ Form::text('do_number', null, ['class' => 'form-control', 'placeholder' => 'Enter DO Number']) }}
 </div>
 </div>
+
+<div class="form-group row {{ $errors->has('do_number') ? ' has-danger' : '' }}">
+     <label class="col-md-3 col-form-label">
+        COA 
+    </label>
+    <div class="col-sm-9 pt-2">
+
+    <label class="radio-inline">
+      <input type="radio" name="coa" class="mr-2 p-2" value="yes">Yes
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="coa" class="mr-2" value="no">No
+    </label>
+
+       @if ($errors->has('coa'))
+            <div class="form-control-feedback">
+                <small>
+                {{ $errors->first('coa') }}
+                </small>
+            </div>
+        @endif
+
+    </div>
+</div>
+
+
+

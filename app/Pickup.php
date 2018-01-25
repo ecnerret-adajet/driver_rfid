@@ -22,7 +22,8 @@ class Pickup extends Model
         'remarks',
         'deactivated_date',
         'activation_date',
-        'do_number'
+        'do_number',
+        'coa'
     ];
     
 

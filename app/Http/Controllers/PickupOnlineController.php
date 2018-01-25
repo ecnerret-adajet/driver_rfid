@@ -55,7 +55,8 @@ class PickupOnlineController extends Controller
             'plate_number' => 'required',
             'driver_name' => 'required',
             'company' => 'required',
-            'do_number' => 'required'
+            'do_number' => 'required',
+            'coa' => 'required'
         ]);
 
         $pickup = Auth::user()->pickups()->create($request->all());
