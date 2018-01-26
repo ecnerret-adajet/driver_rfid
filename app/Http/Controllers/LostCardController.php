@@ -16,6 +16,8 @@ use App\Truckversion;
 use App\Setting;
 use App\User;
 use App\Cardholder;
+use App\Version;
+use Carbon\Carbon;
 use DB;
 
 class LostCardController extends Controller
@@ -150,7 +152,7 @@ class LostCardController extends Controller
         $lost->save();
 
         // Driver's Revision model
-        $this->driverRevision($driver->id, $request->input('end_validity_date'));
+        $this->driverRevision($driver->id, $driver->end_validity_date);
         // Truck's Revision model
         $this->truckRevision($driver->id);
 
