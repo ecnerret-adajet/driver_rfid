@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 306);
+/******/ 	return __webpack_require__(__webpack_require__.s = 312);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1899,7 +1899,7 @@ function loadLocale(name) {
             module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
-            __webpack_require__(243)("./" + name);
+            __webpack_require__(245)("./" + name);
             // because defineLocale currently also sets the global locale, we
             // want to undo that for lazy loaded locales
             getSetGlobalLocale(oldLocale);
@@ -4544,9 +4544,9 @@ return hooks;
 
 
 module.exports = __webpack_require__(9);
-module.exports.easing = __webpack_require__(223);
-module.exports.canvas = __webpack_require__(222);
-module.exports.options = __webpack_require__(224);
+module.exports.easing = __webpack_require__(225);
+module.exports.canvas = __webpack_require__(224);
+module.exports.options = __webpack_require__(226);
 
 
 /***/ }),
@@ -5061,10 +5061,10 @@ module.exports = Element;
 
 
 module.exports = {};
-module.exports.Arc = __webpack_require__(218);
-module.exports.Line = __webpack_require__(219);
-module.exports.Point = __webpack_require__(220);
-module.exports.Rectangle = __webpack_require__(221);
+module.exports.Arc = __webpack_require__(220);
+module.exports.Line = __webpack_require__(221);
+module.exports.Point = __webpack_require__(222);
+module.exports.Rectangle = __webpack_require__(223);
 
 
 /***/ }),
@@ -16214,12 +16214,12 @@ module.exports = function bind(fn, thisArg) {
 /**
  * @namespace Chart
  */
-var Chart = __webpack_require__(212)();
+var Chart = __webpack_require__(214)();
 
 Chart.helpers = __webpack_require__(1);
 
 // @todo dispatch these helpers into appropriated helpers/helpers.* file and write unit tests!
-__webpack_require__(211)(Chart);
+__webpack_require__(213)(Chart);
 
 Chart.defaults = __webpack_require__(3);
 Chart.Element = __webpack_require__(5);
@@ -16227,47 +16227,47 @@ Chart.elements = __webpack_require__(6);
 Chart.Interaction = __webpack_require__(17);
 Chart.platform = __webpack_require__(18);
 
-__webpack_require__(214)(Chart);
-__webpack_require__(208)(Chart);
-__webpack_require__(209)(Chart);
-__webpack_require__(210)(Chart);
-__webpack_require__(213)(Chart);
 __webpack_require__(216)(Chart);
+__webpack_require__(210)(Chart);
+__webpack_require__(211)(Chart);
+__webpack_require__(212)(Chart);
 __webpack_require__(215)(Chart);
+__webpack_require__(218)(Chart);
 __webpack_require__(217)(Chart);
+__webpack_require__(219)(Chart);
 
-__webpack_require__(232)(Chart);
-__webpack_require__(230)(Chart);
-__webpack_require__(231)(Chart);
-__webpack_require__(233)(Chart);
 __webpack_require__(234)(Chart);
+__webpack_require__(232)(Chart);
+__webpack_require__(233)(Chart);
 __webpack_require__(235)(Chart);
+__webpack_require__(236)(Chart);
+__webpack_require__(237)(Chart);
 
 // Controllers must be loaded after elements
 // See Chart.core.datasetController.dataElementType
-__webpack_require__(201)(Chart);
-__webpack_require__(202)(Chart);
 __webpack_require__(203)(Chart);
 __webpack_require__(204)(Chart);
 __webpack_require__(205)(Chart);
 __webpack_require__(206)(Chart);
 __webpack_require__(207)(Chart);
+__webpack_require__(208)(Chart);
+__webpack_require__(209)(Chart);
 
-__webpack_require__(194)(Chart);
-__webpack_require__(195)(Chart);
 __webpack_require__(196)(Chart);
 __webpack_require__(197)(Chart);
 __webpack_require__(198)(Chart);
 __webpack_require__(199)(Chart);
 __webpack_require__(200)(Chart);
+__webpack_require__(201)(Chart);
+__webpack_require__(202)(Chart);
 
 // Loading built-it plugins
 var plugins = [];
 
 plugins.push(
-	__webpack_require__(227)(Chart),
-	__webpack_require__(228)(Chart),
-	__webpack_require__(229)(Chart)
+	__webpack_require__(229)(Chart),
+	__webpack_require__(230)(Chart),
+	__webpack_require__(231)(Chart)
 );
 
 Chart.plugins.register(plugins);
@@ -16636,8 +16636,8 @@ module.exports = {
 
 
 var helpers = __webpack_require__(1);
-var basic = __webpack_require__(225);
-var dom = __webpack_require__(226);
+var basic = __webpack_require__(227);
+var dom = __webpack_require__(228);
 
 // @TODO Make possible to select another platform at build time.
 var implementation = dom._enabled ? dom : basic;
@@ -16714,8 +16714,8 @@ module.exports = helpers.extend({
 /***/ (function(module, exports, __webpack_require__) {
 
 /* MIT license */
-var convert = __webpack_require__(238);
-var string = __webpack_require__(236);
+var convert = __webpack_require__(240);
+var string = __webpack_require__(238);
 
 var Color = function (obj) {
 	if (obj instanceof Color) {
@@ -28535,9 +28535,9 @@ module.exports = function(module) {
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(193);
+__webpack_require__(195);
 
-window.Vue = __webpack_require__(305);
+window.Vue = __webpack_require__(311);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -28545,34 +28545,36 @@ window.Vue = __webpack_require__(305);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', __webpack_require__(253));
-Vue.component('drivers', __webpack_require__(252));
-Vue.component('trucks', __webpack_require__(271));
-Vue.component('haulers', __webpack_require__(258));
-Vue.component('settings', __webpack_require__(268));
-Vue.component('prints', __webpack_require__(267));
-Vue.component('home', __webpack_require__(259));
-Vue.component('cards', __webpack_require__(247));
-Vue.component('users', __webpack_require__(272));
-Vue.component('logs', __webpack_require__(261));
-Vue.component('pickups', __webpack_require__(266));
-Vue.component('vendor', __webpack_require__(273));
-Vue.component('driverdetails', __webpack_require__(249));
-Vue.component('handlers', __webpack_require__(255));
-Vue.component('lineup', __webpack_require__(260));
-Vue.component('graph', __webpack_require__(254));
-Vue.component('dates', __webpack_require__(248));
-Vue.component('top', __webpack_require__(270));
-Vue.component('topentries', __webpack_require__(269));
-Vue.component('hauleronline', __webpack_require__(256));
-Vue.component('hauleronlinetruck', __webpack_require__(257));
-Vue.component('driverque', __webpack_require__(250));
-Vue.component('pickupUnserve', __webpack_require__(265));
-Vue.component('pickupServed', __webpack_require__(264));
-Vue.component('barriers', __webpack_require__(246));
-Vue.component('driverupload', __webpack_require__(251));
-Vue.component('monitorQueuePickups', __webpack_require__(263));
-Vue.component('monitorQueueDeliveries', __webpack_require__(262));
+Vue.component('example', __webpack_require__(256));
+Vue.component('drivers', __webpack_require__(255));
+Vue.component('trucks', __webpack_require__(275));
+Vue.component('haulers', __webpack_require__(261));
+Vue.component('settings', __webpack_require__(272));
+Vue.component('prints', __webpack_require__(271));
+Vue.component('home', __webpack_require__(262));
+Vue.component('cards', __webpack_require__(249));
+Vue.component('users', __webpack_require__(276));
+Vue.component('logs', __webpack_require__(264));
+Vue.component('pickups', __webpack_require__(270));
+Vue.component('vendor', __webpack_require__(277));
+Vue.component('driverdetails', __webpack_require__(252));
+Vue.component('handlers', __webpack_require__(258));
+Vue.component('lineup', __webpack_require__(263));
+Vue.component('graph', __webpack_require__(257));
+Vue.component('dates', __webpack_require__(250));
+Vue.component('top', __webpack_require__(274));
+Vue.component('topentries', __webpack_require__(273));
+Vue.component('hauleronline', __webpack_require__(259));
+Vue.component('hauleronlinetruck', __webpack_require__(260));
+Vue.component('driverque', __webpack_require__(253));
+Vue.component('pickupUnserve', __webpack_require__(269));
+Vue.component('pickupServed', __webpack_require__(268));
+Vue.component('barriers', __webpack_require__(248));
+Vue.component('driverupload', __webpack_require__(254));
+Vue.component('monitorQueuePickups', __webpack_require__(266));
+Vue.component('monitorQueueDeliveries', __webpack_require__(265));
+Vue.component('noTruck', __webpack_require__(267));
+Vue.component('deactivatedDrivers', __webpack_require__(251));
 
 var app = new Vue({
   el: '#app'
@@ -34983,6 +34985,374 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: {
+        role: String
+    },
+
+    data: function data() {
+        return {
+            searchString: '',
+            driver_link: '/driver_rfid/public/drivers/',
+            avatar_link: '/driver_rfid/public/storage/',
+            drivers: [],
+            user_role: this.role,
+            loading: false,
+            csrf: ''
+        };
+    },
+    mounted: function mounted() {
+        this.csrf = window.Laravel.csrfToken;
+    },
+    created: function created() {
+        this.getDrivers();
+    },
+
+
+    methods: {
+        getDrivers: function getDrivers() {
+            var _this = this;
+
+            this.loading = true;
+            axios.get('/driver_rfid/public/deactivatedDriversJson').then(function (response) {
+                _this.drivers = response.data;
+                _this.loading = false;
+            });
+        }
+    },
+
+    computed: {
+        filteredDriver: function filteredDriver() {
+
+            var drivers_array = this.drivers;
+            var searchString = this.searchString;
+
+            if (!searchString) {
+                return drivers_array;
+            }
+
+            searchString = searchString.trim().toLowerCase();
+
+            drivers_array = drivers_array.filter(function (item) {
+                if (item.name.toLowerCase().indexOf(searchString) !== -1 || item.phone_number.toLowerCase().indexOf(searchString) !== -1) {
+                    return item;
+                }
+            });
+
+            return drivers_array;
+        }
+    }
+});
+
+/***/ }),
+/* 169 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
 //
@@ -35019,7 +35389,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 169 */
+/* 170 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -35318,12 +35688,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 170 */
+/* 171 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_croppie__ = __webpack_require__(240);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_croppie__ = __webpack_require__(242);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_croppie___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_croppie__);
 //
 //
@@ -35462,7 +35832,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 171 */
+/* 172 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -35472,6 +35842,1993 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+// import VueResource from 'vue-resource'
+// import VuePaginator from 'vuejs-paginator'
+
+// Vue.use(VueResource)
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: ['user_role'],
+
+    //      components: {
+    //     VPaginator: VuePaginator
+    //   },
+
+    data: function data() {
+        return {
+            searchString: '',
+            searchHauler: '',
+            driver_link: '/driver_rfid/public/drivers/',
+            avatar_link: '/driver_rfid/public/storage/',
+            drivers: [],
+            haulers: [],
+            loading: false,
+            csrf: ''
+            // resource_url: 'http://localhost/driver_rfid/public/driversJson'
+        };
+    },
+    mounted: function mounted() {
+        this.csrf = window.Laravel.csrfToken;
+    },
+    created: function created() {
+        this.getDrivers();
+        this.getHaulers();
+    },
+
+
+    methods: {
+        getDrivers: function getDrivers() {
+            var _this = this;
+
+            this.loading = true;
+            axios.get('/driver_rfid/public/driversJson').then(function (response) {
+                _this.drivers = response.data;
+                _this.loading = false;
+            });
+        },
+        getHaulers: function getHaulers() {
+            var _this2 = this;
+
+            axios.get('/driver_rfid/public/haulersJson').then(function (response) {
+                return _this2.haulers = response.data;
+            });
+        }
+    },
+
+    computed: {
+        filteredDriver: function filteredDriver() {
+
+            var drivers_array = this.drivers;
+            var searchString = this.searchString;
+            var searchHauler = this.searchHauler;
+
+            if (!searchString && !searchHauler) {
+                return drivers_array;
+            }
+
+            searchString = searchString.trim().toLowerCase();
+
+            drivers_array = drivers_array.filter(function (item) {
+                // return item.data.name.toLowerCase().indexOf(searchString) !== -1 && item.hauler.indexOf(searchHauler)  !== -1;
+                return item.name.toLowerCase().indexOf(searchString) !== -1;
+            });
+
+            return drivers_array;
+        }
+    }
+});
+
+/***/ }),
+/* 173 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        console.log('Component mounted.');
+    }
+});
+
+/***/ }),
+/* 174 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_chart_js__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_chart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_chart_js__);
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+        props: ['labels', 'values'],
+
+        mounted: function mounted() {
+
+                var ctx = document.getElementById("myDashboard");
+                var myDashboard = new __WEBPACK_IMPORTED_MODULE_0_chart_js___default.a(ctx, {
+                        type: 'horizontalBar',
+                        data: {
+                                labels: [''],
+                                datasets: [{
+                                        label: this.labels[0],
+                                        data: [this.values[0]],
+                                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                                        borderColor: 'rgba(255,99,132,1)'
+                                }, {
+                                        label: this.labels[1],
+                                        data: [this.values[1]],
+                                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                                        borderColor: 'rgba(54, 162, 235, 1)'
+                                }]
+                        },
+                        options: {
+                                animation: {
+                                        animateScale: true
+                                },
+                                legend: {
+                                        position: 'right'
+                                },
+                                scales: {
+                                        xAxes: [{
+                                                stacked: true,
+                                                gridLines: {
+                                                        display: false
+                                                }
+                                        }],
+                                        yAxes: [{
+                                                stacked: true,
+                                                gridLines: {
+                                                        display: false
+                                                },
+                                                ticks: {
+                                                        beginAtZero: true
+                                                }
+                                        }]
+                                }
+                        }
+                });
+        } // end mounted
+
+});
+
+/***/ }),
+/* 175 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            searchString: '',
+            loading: false,
+            handlers: []
+        };
+    },
+    created: function created() {
+        this.getHandlers();
+    },
+
+    methods: {
+        getHandlers: function getHandlers() {
+            var _this = this;
+
+            this.loading = true;
+            axios.get('/driver_rfid/public/handlerJson').then(function (response) {
+                _this.handlers = response.data;
+                _this.loading = false;
+            });
+        }
+    },
+    computed: {
+        filteredHandler: function filteredHandler() {
+
+            var handler_array = this.handlers;
+            var searchString = this.searchString;
+
+            if (!searchString) {
+                return handler_array;
+            }
+
+            searchString = searchString.trim().toLowerCase();
+
+            handler_array = handler_array.filter(function (item) {
+                if (item.vendor_number.toLowerCase().indexOf(searchString) !== -1) {
+                    return item;
+                }
+            });
+
+            return handler_array;
+        }
+    }
+
+});
+
+/***/ }),
+/* 176 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['user'],
+
+    data: function data() {
+        return {
+            searchString: '',
+            driver_link: '/driver_rfid/public/drivers/',
+            avatar_link: '/driver_rfid/public/storage/',
+            export_link: '/driver_rfid/public/exportDrivers',
+            loading: false,
+            drivers: [],
+            csrf: ''
+        };
+    },
+    mounted: function mounted() {
+        this.csrf = window.Laravel.csrfToken;
+    },
+    created: function created() {
+        this.getDriversHauler();
+    },
+
+
+    methods: {
+        getDriversHauler: function getDriversHauler() {
+            var _this = this;
+
+            this.loading = true;
+            axios.get('/driver_rfid/public/users/driver/hauler/' + this.user).then(function (response) {
+                _this.drivers = response.data;
+                _this.loading = false;
+            });
+        }
+    },
+
+    computed: {
+        filteredDriver: function filteredDriver() {
+
+            var drivers_array = this.drivers;
+            var searchString = this.searchString;
+
+            if (!searchString) {
+                return drivers_array;
+            }
+
+            searchString = searchString.trim().toLowerCase();
+
+            drivers_array = drivers_array.filter(function (item) {
+                if (item.name.toLowerCase().indexOf(searchString) !== -1 || item.phone_number.toLowerCase().indexOf(searchString) !== -1) {
+                    return item;
+                }
+            });
+
+            return drivers_array;
+        }
+    }
+
+});
+
+/***/ }),
+/* 177 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['user'],
+
+    data: function data() {
+        return {
+            searchString: '',
+            truck_link: '/driver_rfid/public/trucks/',
+            export_link: '/driver_rfid/public/exportTrucks',
+            trucks: [],
+            loading: false,
+            csrf: ''
+        };
+    },
+    mounted: function mounted() {
+        this.csrf = window.Laravel.csrfToken;
+    },
+    created: function created() {
+        this.getTruck();
+    },
+
+
+    methods: {
+        getTruck: function getTruck() {
+            var _this = this;
+
+            this.loading = true;
+            axios.get('/driver_rfid/public/users/truck/hauler/' + this.user).then(function (response) {
+                _this.trucks = response.data;
+                _this.loading = false;
+            });
+        }
+    },
+
+    computed: {
+        filteredTruck: function filteredTruck() {
+            var trucks_array = this.trucks;
+            var searchString = this.searchString;
+
+            if (!searchString) {
+                return trucks_array;
+            }
+
+            searchString = searchString.trim().toLowerCase();
+
+            // hauler_name = item.hauler.map(a => a.name);
+
+            trucks_array = trucks_array.filter(function (item) {
+                if (item.plate_number.toLowerCase().indexOf(searchString) !== -1) {
+                    return item;
+                }
+            });
+
+            return trucks_array;
+        }
+    }
+});
+
+/***/ }),
+/* 178 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            searchString: '',
+            hauler_link: '/driver_rfid/public/haulers/',
+            haulers: [],
+            loading: false
+        };
+    },
+    created: function created() {
+        this.getHauler();
+    },
+
+
+    methods: {
+        getHauler: function getHauler() {
+            var _this = this;
+
+            this.loading = true;
+            axios.get('/driver_rfid/public/haulersJson').then(function (response) {
+                _this.haulers = response.data;
+                _this.loading = false;
+            });
+        }
+    },
+
+    computed: {
+        filteredHauler: function filteredHauler() {
+            var haulers_array = this.haulers;
+            var searchString = this.searchString;
+
+            if (!searchString) {
+                return haulers_array;
+            }
+
+            searchString = searchString.trim().toLowerCase();
+
+            haulers_array = haulers_array.filter(function (item) {
+                if (item.name.toLowerCase().indexOf(searchString) !== -1) {
+                    return item;
+                }
+            });
+
+            return haulers_array;
+        }
+    }
+});
+
+/***/ }),
+/* 179 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            print_link: '/driver_rfid/public/prints',
+            home: [],
+            is_loading: false
+        };
+    },
+    created: function created() {
+        this.getHome();
+    },
+
+
+    methods: {
+        getHome: function getHome() {
+            var _this = this;
+
+            this.is_loading = true;
+            axios.get('/driver_rfid/public/homeJson').then(function (response) {
+                _this.home = response.data;
+                _this.is_loading = false;
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 180 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            loading: false,
+            lineups: [],
+            marked: [],
+            csrf: ''
+        };
+    },
+    mounted: function mounted() {
+        this.csrf = window.Laravel.csrfToken;
+    },
+    created: function created() {
+        this.getLineups();
+        this.getMarked();
+    },
+
+
+    methods: {
+        getLineups: function getLineups() {
+            var _this = this;
+
+            this.loading = true;
+            axios.get('/driver_rfid/public/lineupJson').then(function (response) {
+                _this.lineups = response.data;
+                _this.loading = false;
+            });
+        },
+        getMarked: function getMarked() {
+            var _this2 = this;
+
+            this.loading = true;
+            axios.get('/driver_rfid/public/markedJson').then(function (response) {
+                _this2.marked = response.data;
+                _this2.loading = false;
+            });
+        },
+        moment: function moment(date) {
+            return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM D, Y h:m:s A');
+        }
+    }
+});
+
+/***/ }),
+/* 181 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            search: '',
+            loading: false,
+            logs: [],
+            in: [],
+            out: []
+        };
+    },
+    created: function created() {
+        this.getLogs();
+        this.getIn();
+        this.getOut();
+    },
+
+
+    methods: {
+        getLogs: function getLogs() {
+            var _this = this;
+
+            this.loading = true;
+            axios.get('/driver_rfid/public/logs').then(function (response) {
+                _this.logs = response.data;
+                _this.loading = false;
+            });
+        },
+        getIn: function getIn() {
+            var _this2 = this;
+
+            this.loading = true;
+            axios.get('/driver_rfid/public/entriesIn').then(function (response) {
+                _this2.in = response.data;
+                _this2.loading = false;
+            });
+        },
+        getOut: function getOut() {
+            var _this3 = this;
+
+            this.loading = true;
+            axios.get('/driver_rfid/public/entriesOut').then(function (response) {
+                _this3.out = response.data;
+                _this3.loading = false;
+            });
+        },
+        moment: function moment(date) {
+            return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM  d, Y h:m:s A');
+        },
+        dateDiff: function dateDiff(now, then) {
+            return __WEBPACK_IMPORTED_MODULE_0_moment___default.a.utc(__WEBPACK_IMPORTED_MODULE_0_moment___default()(now, "DD/MM/YYYY HH:mm:ss").diff(__WEBPACK_IMPORTED_MODULE_0_moment___default()(then, "DD/MM/YYYY HH:mm:ss"))).format("HH:mm:ss");
+        },
+        dateDuration: function dateDuration(date) {
+            return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date, "YYYYMMDD").fromNow();
+        }
+    },
+
+    computed: {
+        filterIn: function filterIn(today) {
+            var in_array = this.in;
+            var search = today.split(' ');
+
+            in_array = in_array.filter(function (item) {
+                if (item.CardholderID.indexOf(search) !== -1) {
+                    return item;
+                }
+            });
+
+            return in_array;
+        }
+    }
+
+});
+
+/***/ }),
+/* 182 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            avatar_link: '/driver_rfid/public/storage/',
+            queues: [],
+            currentlyServing: [],
+            checkSubmission: [],
+            loadingDeliveries: false,
+            loadingServing: false,
+            csrf: ''
+        };
+    },
+    mounted: function mounted() {
+        this.csrf = window.Laravel.csrfToken;
+    },
+    created: function created() {
+        this.getQueues();
+        this.getCurrentlyServing();
+    },
+
+
+    methods: {
+        getQueues: function getQueues() {
+            var _this = this;
+
+            this.loadingDeliveries = true;
+            axios.get('/driver_rfid/public/monitor/deliveries').then(function (response) {
+                _this.queues = response.data;
+                _this.loadingDeliveries = false;
+            });
+        },
+        getCurrentlyServing: function getCurrentlyServing() {
+            var _this2 = this;
+
+            this.loadingServing = true;
+            axios.get('/driver_rfid/public/serving').then(function (response) {
+                _this2.currentlyServing = response.data;
+                _this2.loadingServing = false;
+            });
+        },
+        moment: function moment(date) {
+            return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM D, Y h:m:s A');
+        }
+    }
+
+});
+
+/***/ }),
+/* 183 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            loading: false,
+            pickups: [],
+            searchString: ''
+        };
+    },
+    created: function created() {
+        this.getPickups();
+    },
+
+
+    methods: {
+        getPickups: function getPickups() {
+            var _this = this;
+
+            this.loading = true;
+            axios.get('/driver_rfid/public/monitor/pickups').then(function (response) {
+                _this.pickups = response.data;
+                _this.loading = false;
+            });
+        },
+        moment: function moment(date) {
+            return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM D, Y h:m:s A');
+        },
+        dateDiff: function dateDiff(startTime, endTime) {
+            var a = __WEBPACK_IMPORTED_MODULE_0_moment___default()(startTime);
+            var b = __WEBPACK_IMPORTED_MODULE_0_moment___default()(endTime);
+            return b.diff(a, 'hours');
+        }
+    },
+
+    computed: {
+        filteredPickups: function filteredPickups() {
+            var pickups_array = this.pickups;
+            var searchString = this.searchString;
+
+            if (!searchString) {
+                return pickups_array;
+            }
+
+            searchString = searchString.trim().toLowerCase();
+
+            // hauler_name = item.hauler.map(a => a.name);
+
+            pickups_array = pickups_array.filter(function (item) {
+                if (item.plate_number.toLowerCase().indexOf(searchString) !== -1 || item.driver_name.toLowerCase().indexOf(searchString) !== -1 || item.company.toLowerCase().indexOf(searchString) !== -1) {
+                    return item;
+                }
+            });
+
+            return pickups_array;
+        }
+    }
+
+});
+
+/***/ }),
+/* 184 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
@@ -35786,7 +38143,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             searchString: '',
             driver_link: '/driver_rfid/public/drivers/',
             avatar_link: '/driver_rfid/public/storage/',
-            export_link: '/driver_rfid/public/exportDrivers',
             drivers: [],
             user_role: this.role,
             loading: false,
@@ -35806,7 +38162,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.loading = true;
-            axios.get('/driver_rfid/public/driversJson').then(function (response) {
+            axios.get('/driver_rfid/public/noTruckJson').then(function (response) {
                 _this.drivers = response.data;
                 _this.loading = false;
             });
@@ -35837,1614 +38193,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 172 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    }
-});
-
-/***/ }),
-/* 173 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_chart_js__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_chart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_chart_js__);
-//
-//
-//
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-
-        props: ['labels', 'values'],
-
-        mounted: function mounted() {
-
-                var ctx = document.getElementById("myDashboard");
-                var myDashboard = new __WEBPACK_IMPORTED_MODULE_0_chart_js___default.a(ctx, {
-                        type: 'horizontalBar',
-                        data: {
-                                labels: [''],
-                                datasets: [{
-                                        label: this.labels[0],
-                                        data: [this.values[0]],
-                                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                                        borderColor: 'rgba(255,99,132,1)'
-                                }, {
-                                        label: this.labels[1],
-                                        data: [this.values[1]],
-                                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                                        borderColor: 'rgba(54, 162, 235, 1)'
-                                }]
-                        },
-                        options: {
-                                animation: {
-                                        animateScale: true
-                                },
-                                legend: {
-                                        position: 'right'
-                                },
-                                scales: {
-                                        xAxes: [{
-                                                stacked: true,
-                                                gridLines: {
-                                                        display: false
-                                                }
-                                        }],
-                                        yAxes: [{
-                                                stacked: true,
-                                                gridLines: {
-                                                        display: false
-                                                },
-                                                ticks: {
-                                                        beginAtZero: true
-                                                }
-                                        }]
-                                }
-                        }
-                });
-        } // end mounted
-
-});
-
-/***/ }),
-/* 174 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            searchString: '',
-            loading: false,
-            handlers: []
-        };
-    },
-    created: function created() {
-        this.getHandlers();
-    },
-
-    methods: {
-        getHandlers: function getHandlers() {
-            var _this = this;
-
-            this.loading = true;
-            axios.get('/driver_rfid/public/handlerJson').then(function (response) {
-                _this.handlers = response.data;
-                _this.loading = false;
-            });
-        }
-    },
-    computed: {
-        filteredHandler: function filteredHandler() {
-
-            var handler_array = this.handlers;
-            var searchString = this.searchString;
-
-            if (!searchString) {
-                return handler_array;
-            }
-
-            searchString = searchString.trim().toLowerCase();
-
-            handler_array = handler_array.filter(function (item) {
-                if (item.vendor_number.toLowerCase().indexOf(searchString) !== -1) {
-                    return item;
-                }
-            });
-
-            return handler_array;
-        }
-    }
-
-});
-
-/***/ }),
-/* 175 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['user'],
-
-    data: function data() {
-        return {
-            searchString: '',
-            driver_link: '/driver_rfid/public/drivers/',
-            avatar_link: '/driver_rfid/public/storage/',
-            export_link: '/driver_rfid/public/exportDrivers',
-            loading: false,
-            drivers: [],
-            csrf: ''
-        };
-    },
-    mounted: function mounted() {
-        this.csrf = window.Laravel.csrfToken;
-    },
-    created: function created() {
-        this.getDriversHauler();
-    },
-
-
-    methods: {
-        getDriversHauler: function getDriversHauler() {
-            var _this = this;
-
-            this.loading = true;
-            axios.get('/driver_rfid/public/users/driver/hauler/' + this.user).then(function (response) {
-                _this.drivers = response.data;
-                _this.loading = false;
-            });
-        }
-    },
-
-    computed: {
-        filteredDriver: function filteredDriver() {
-
-            var drivers_array = this.drivers;
-            var searchString = this.searchString;
-
-            if (!searchString) {
-                return drivers_array;
-            }
-
-            searchString = searchString.trim().toLowerCase();
-
-            drivers_array = drivers_array.filter(function (item) {
-                if (item.name.toLowerCase().indexOf(searchString) !== -1 || item.phone_number.toLowerCase().indexOf(searchString) !== -1) {
-                    return item;
-                }
-            });
-
-            return drivers_array;
-        }
-    }
-
-});
-
-/***/ }),
-/* 176 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['user'],
-
-    data: function data() {
-        return {
-            searchString: '',
-            truck_link: '/driver_rfid/public/trucks/',
-            export_link: '/driver_rfid/public/exportTrucks',
-            trucks: [],
-            loading: false,
-            csrf: ''
-        };
-    },
-    mounted: function mounted() {
-        this.csrf = window.Laravel.csrfToken;
-    },
-    created: function created() {
-        this.getTruck();
-    },
-
-
-    methods: {
-        getTruck: function getTruck() {
-            var _this = this;
-
-            this.loading = true;
-            axios.get('/driver_rfid/public/users/truck/hauler/' + this.user).then(function (response) {
-                _this.trucks = response.data;
-                _this.loading = false;
-            });
-        }
-    },
-
-    computed: {
-        filteredTruck: function filteredTruck() {
-            var trucks_array = this.trucks;
-            var searchString = this.searchString;
-
-            if (!searchString) {
-                return trucks_array;
-            }
-
-            searchString = searchString.trim().toLowerCase();
-
-            // hauler_name = item.hauler.map(a => a.name);
-
-            trucks_array = trucks_array.filter(function (item) {
-                if (item.plate_number.toLowerCase().indexOf(searchString) !== -1) {
-                    return item;
-                }
-            });
-
-            return trucks_array;
-        }
-    }
-});
-
-/***/ }),
-/* 177 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            searchString: '',
-            hauler_link: '/driver_rfid/public/haulers/',
-            haulers: [],
-            loading: false
-        };
-    },
-    created: function created() {
-        this.getHauler();
-    },
-
-
-    methods: {
-        getHauler: function getHauler() {
-            var _this = this;
-
-            this.loading = true;
-            axios.get('/driver_rfid/public/haulersJson').then(function (response) {
-                _this.haulers = response.data;
-                _this.loading = false;
-            });
-        }
-    },
-
-    computed: {
-        filteredHauler: function filteredHauler() {
-            var haulers_array = this.haulers;
-            var searchString = this.searchString;
-
-            if (!searchString) {
-                return haulers_array;
-            }
-
-            searchString = searchString.trim().toLowerCase();
-
-            haulers_array = haulers_array.filter(function (item) {
-                if (item.name.toLowerCase().indexOf(searchString) !== -1) {
-                    return item;
-                }
-            });
-
-            return haulers_array;
-        }
-    }
-});
-
-/***/ }),
-/* 178 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            print_link: '/driver_rfid/public/prints',
-            home: [],
-            is_loading: false
-        };
-    },
-    created: function created() {
-        this.getHome();
-    },
-
-
-    methods: {
-        getHome: function getHome() {
-            var _this = this;
-
-            this.is_loading = true;
-            axios.get('/driver_rfid/public/homeJson').then(function (response) {
-                _this.home = response.data;
-                _this.is_loading = false;
-            });
-        }
-    }
-});
-
-/***/ }),
-/* 179 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            loading: false,
-            lineups: [],
-            marked: [],
-            csrf: ''
-        };
-    },
-    mounted: function mounted() {
-        this.csrf = window.Laravel.csrfToken;
-    },
-    created: function created() {
-        this.getLineups();
-        this.getMarked();
-    },
-
-
-    methods: {
-        getLineups: function getLineups() {
-            var _this = this;
-
-            this.loading = true;
-            axios.get('/driver_rfid/public/lineupJson').then(function (response) {
-                _this.lineups = response.data;
-                _this.loading = false;
-            });
-        },
-        getMarked: function getMarked() {
-            var _this2 = this;
-
-            this.loading = true;
-            axios.get('/driver_rfid/public/markedJson').then(function (response) {
-                _this2.marked = response.data;
-                _this2.loading = false;
-            });
-        },
-        moment: function moment(date) {
-            return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM D, Y h:m:s A');
-        }
-    }
-});
-
-/***/ }),
-/* 180 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            search: '',
-            loading: false,
-            logs: [],
-            in: [],
-            out: []
-        };
-    },
-    created: function created() {
-        this.getLogs();
-        this.getIn();
-        this.getOut();
-    },
-
-
-    methods: {
-        getLogs: function getLogs() {
-            var _this = this;
-
-            this.loading = true;
-            axios.get('/driver_rfid/public/logs').then(function (response) {
-                _this.logs = response.data;
-                _this.loading = false;
-            });
-        },
-        getIn: function getIn() {
-            var _this2 = this;
-
-            this.loading = true;
-            axios.get('/driver_rfid/public/entriesIn').then(function (response) {
-                _this2.in = response.data;
-                _this2.loading = false;
-            });
-        },
-        getOut: function getOut() {
-            var _this3 = this;
-
-            this.loading = true;
-            axios.get('/driver_rfid/public/entriesOut').then(function (response) {
-                _this3.out = response.data;
-                _this3.loading = false;
-            });
-        },
-        moment: function moment(date) {
-            return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM  d, Y h:m:s A');
-        },
-        dateDiff: function dateDiff(now, then) {
-            return __WEBPACK_IMPORTED_MODULE_0_moment___default.a.utc(__WEBPACK_IMPORTED_MODULE_0_moment___default()(now, "DD/MM/YYYY HH:mm:ss").diff(__WEBPACK_IMPORTED_MODULE_0_moment___default()(then, "DD/MM/YYYY HH:mm:ss"))).format("HH:mm:ss");
-        },
-        dateDuration: function dateDuration(date) {
-            return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date, "YYYYMMDD").fromNow();
-        }
-    },
-
-    computed: {
-        filterIn: function filterIn(today) {
-            var in_array = this.in;
-            var search = today.split(' ');
-
-            in_array = in_array.filter(function (item) {
-                if (item.CardholderID.indexOf(search) !== -1) {
-                    return item;
-                }
-            });
-
-            return in_array;
-        }
-    }
-
-});
-
-/***/ }),
-/* 181 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            avatar_link: '/driver_rfid/public/storage/',
-            queues: [],
-            currentlyServing: [],
-            checkSubmission: [],
-            loadingDeliveries: false,
-            loadingServing: false,
-            csrf: ''
-        };
-    },
-    mounted: function mounted() {
-        this.csrf = window.Laravel.csrfToken;
-    },
-    created: function created() {
-        this.getQueues();
-        this.getCurrentlyServing();
-    },
-
-
-    methods: {
-        getQueues: function getQueues() {
-            var _this = this;
-
-            this.loadingDeliveries = true;
-            axios.get('/driver_rfid/public/monitor/deliveries').then(function (response) {
-                _this.queues = response.data;
-                _this.loadingDeliveries = false;
-            });
-        },
-        getCurrentlyServing: function getCurrentlyServing() {
-            var _this2 = this;
-
-            this.loadingServing = true;
-            axios.get('/driver_rfid/public/serving').then(function (response) {
-                _this2.currentlyServing = response.data;
-                _this2.loadingServing = false;
-            });
-        },
-        moment: function moment(date) {
-            return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM D, Y h:m:s A');
-        }
-    }
-
-});
-
-/***/ }),
-/* 182 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            loading: false,
-            pickups: [],
-            searchString: ''
-        };
-    },
-    created: function created() {
-        this.getPickups();
-    },
-
-
-    methods: {
-        getPickups: function getPickups() {
-            var _this = this;
-
-            this.loading = true;
-            axios.get('/driver_rfid/public/monitor/pickups').then(function (response) {
-                _this.pickups = response.data;
-                _this.loading = false;
-            });
-        },
-        moment: function moment(date) {
-            return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM D, Y h:m:s A');
-        },
-        dateDiff: function dateDiff(startTime, endTime) {
-            var a = __WEBPACK_IMPORTED_MODULE_0_moment___default()(startTime);
-            var b = __WEBPACK_IMPORTED_MODULE_0_moment___default()(endTime);
-            return b.diff(a, 'hours');
-        }
-    },
-
-    computed: {
-        filteredPickups: function filteredPickups() {
-            var pickups_array = this.pickups;
-            var searchString = this.searchString;
-
-            if (!searchString) {
-                return pickups_array;
-            }
-
-            searchString = searchString.trim().toLowerCase();
-
-            // hauler_name = item.hauler.map(a => a.name);
-
-            pickups_array = pickups_array.filter(function (item) {
-                if (item.plate_number.toLowerCase().indexOf(searchString) !== -1 || item.driver_name.toLowerCase().indexOf(searchString) !== -1 || item.company.toLowerCase().indexOf(searchString) !== -1) {
-                    return item;
-                }
-            });
-
-            return pickups_array;
-        }
-    }
-
-});
-
-/***/ }),
-/* 183 */
+/* 185 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -37622,7 +38371,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 184 */
+/* 186 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -37853,7 +38602,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 185 */
+/* 187 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -37996,7 +38745,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 186 */
+/* 188 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38056,7 +38805,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 187 */
+/* 189 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38099,7 +38848,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 188 */
+/* 190 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38386,7 +39135,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 189 */
+/* 191 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38433,7 +39182,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 190 */
+/* 192 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38753,7 +39502,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 191 */
+/* 193 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38898,7 +39647,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 192 */
+/* 194 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -39020,7 +39769,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 193 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // window._ = require('lodash');
@@ -39078,7 +39827,7 @@ if (token) {
 // });
 
 /***/ }),
-/* 194 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39096,7 +39845,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 195 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39113,7 +39862,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 196 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39131,7 +39880,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 197 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39149,7 +39898,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 198 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39167,7 +39916,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 199 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39185,7 +39934,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 200 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39200,7 +39949,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 201 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39628,7 +40377,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 202 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39815,7 +40564,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 203 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40121,7 +40870,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 204 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40461,7 +41210,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 205 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40690,7 +41439,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 206 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40865,7 +41614,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 207 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40914,7 +41663,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 208 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41093,7 +41842,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 209 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41976,7 +42725,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 210 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42313,7 +43062,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 211 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42955,7 +43704,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 212 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43011,7 +43760,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 213 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43440,7 +44189,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 214 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43821,7 +44570,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 215 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44736,7 +45485,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 216 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44788,7 +45537,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 217 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45740,7 +46489,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 218 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45854,7 +46603,7 @@ module.exports = Element.extend({
 
 
 /***/ }),
-/* 219 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45952,7 +46701,7 @@ module.exports = Element.extend({
 
 
 /***/ }),
-/* 220 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46065,7 +46814,7 @@ module.exports = Element.extend({
 
 
 /***/ }),
-/* 221 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46289,7 +47038,7 @@ module.exports = Element.extend({
 
 
 /***/ }),
-/* 222 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46510,7 +47259,7 @@ helpers.drawRoundedRectangle = function(ctx) {
 
 
 /***/ }),
-/* 223 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46767,7 +47516,7 @@ helpers.easingEffects = effects;
 
 
 /***/ }),
-/* 224 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46870,7 +47619,7 @@ module.exports = {
 
 
 /***/ }),
-/* 225 */
+/* 227 */
 /***/ (function(module, exports) {
 
 /**
@@ -46891,7 +47640,7 @@ module.exports = {
 
 
 /***/ }),
-/* 226 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47348,7 +48097,7 @@ helpers.removeEvent = removeEventListener;
 
 
 /***/ }),
-/* 227 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47676,7 +48425,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 228 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48250,7 +48999,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 229 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48500,7 +49249,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 230 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48640,7 +49389,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 231 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48839,7 +49588,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 232 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48978,7 +49727,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 233 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49229,7 +49978,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 234 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49766,7 +50515,7 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 235 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50507,11 +51256,11 @@ module.exports = function(Chart) {
 
 
 /***/ }),
-/* 236 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* MIT license */
-var colorNames = __webpack_require__(239);
+var colorNames = __webpack_require__(241);
 
 module.exports = {
    getRgba: getRgba,
@@ -50734,7 +51483,7 @@ for (var name in colorNames) {
 
 
 /***/ }),
-/* 237 */
+/* 239 */
 /***/ (function(module, exports) {
 
 /* MIT license */
@@ -51438,10 +52187,10 @@ for (var key in cssKeywords) {
 
 
 /***/ }),
-/* 238 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var conversions = __webpack_require__(237);
+var conversions = __webpack_require__(239);
 
 var convert = function() {
    return new Converter();
@@ -51535,7 +52284,7 @@ Converter.prototype.getValues = function(space) {
 module.exports = convert;
 
 /***/ }),
-/* 239 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51694,7 +52443,7 @@ module.exports = {
 
 
 /***/ }),
-/* 240 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(setImmediate) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*************************
@@ -53289,17 +54038,17 @@ module.exports = {
     }
 }));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(245).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(247).setImmediate))
 
 /***/ }),
-/* 241 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(242)();
+exports = module.exports = __webpack_require__(244)();
 exports.push([module.i, "\n.Image-upload .Modal {\n  border-top: 1px solid #f4f4f4;\n  margin-top: 10px;\n}\n.Image-upload .Modal h4 {\n    margin-bottom: 2px;\n}\n.Image-upload div#upload-wrapper {\n  text-align: center;\n}\n.Image-upload .input-file {\n  text-align: left;\n  width: 100%;\n  margin: 0px auto;\n}\n", ""]);
 
 /***/ }),
-/* 242 */
+/* 244 */
 /***/ (function(module, exports) {
 
 /*
@@ -53355,7 +54104,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 243 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -53604,10 +54353,10 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 243;
+webpackContext.id = 245;
 
 /***/ }),
-/* 244 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -53800,7 +54549,7 @@ webpackContext.id = 243;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(136), __webpack_require__(135)))
 
 /***/ }),
-/* 245 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -53853,20 +54602,20 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(244);
+__webpack_require__(246);
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
-/* 246 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
   __webpack_require__(165),
   /* template */
-  __webpack_require__(276),
+  __webpack_require__(281),
   /* scopeId */
   null,
   /* cssModules */
@@ -53893,14 +54642,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 247 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
   __webpack_require__(166),
   /* template */
-  __webpack_require__(301),
+  __webpack_require__(307),
   /* scopeId */
   null,
   /* cssModules */
@@ -53927,14 +54676,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 248 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
   __webpack_require__(167),
   /* template */
-  __webpack_require__(292),
+  __webpack_require__(298),
   /* scopeId */
   null,
   /* cssModules */
@@ -53961,14 +54710,48 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 249 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
   __webpack_require__(168),
   /* template */
-  __webpack_require__(280),
+  __webpack_require__(285),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\DeactivatedDrivers.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] DeactivatedDrivers.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2ab40969", Component.options)
+  } else {
+    hotAPI.reload("data-v-2ab40969", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 252 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(2)(
+  /* script */
+  __webpack_require__(169),
+  /* template */
+  __webpack_require__(286),
   /* scopeId */
   null,
   /* cssModules */
@@ -53995,14 +54778,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 250 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(169),
+  __webpack_require__(170),
   /* template */
-  __webpack_require__(274),
+  __webpack_require__(279),
   /* scopeId */
   null,
   /* cssModules */
@@ -54029,18 +54812,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 251 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(302)
+__webpack_require__(308)
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(170),
+  __webpack_require__(171),
   /* template */
-  __webpack_require__(298),
+  __webpack_require__(304),
   /* scopeId */
   null,
   /* cssModules */
@@ -54067,14 +54850,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 252 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(171),
+  __webpack_require__(172),
   /* template */
-  __webpack_require__(294),
+  __webpack_require__(300),
   /* scopeId */
   null,
   /* cssModules */
@@ -54101,14 +54884,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 253 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(172),
+  __webpack_require__(173),
   /* template */
-  __webpack_require__(279),
+  __webpack_require__(284),
   /* scopeId */
   null,
   /* cssModules */
@@ -54135,14 +54918,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 254 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(173),
+  __webpack_require__(174),
   /* template */
-  __webpack_require__(281),
+  __webpack_require__(287),
   /* scopeId */
   null,
   /* cssModules */
@@ -54169,14 +54952,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 255 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(174),
+  __webpack_require__(175),
   /* template */
-  __webpack_require__(289),
+  __webpack_require__(295),
   /* scopeId */
   null,
   /* cssModules */
@@ -54203,14 +54986,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 256 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(175),
+  __webpack_require__(176),
   /* template */
-  __webpack_require__(288),
+  __webpack_require__(294),
   /* scopeId */
   null,
   /* cssModules */
@@ -54237,14 +55020,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 257 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(176),
+  __webpack_require__(177),
   /* template */
-  __webpack_require__(299),
+  __webpack_require__(305),
   /* scopeId */
   null,
   /* cssModules */
@@ -54271,14 +55054,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 258 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(177),
+  __webpack_require__(178),
   /* template */
-  __webpack_require__(295),
+  __webpack_require__(301),
   /* scopeId */
   null,
   /* cssModules */
@@ -54305,14 +55088,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 259 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(178),
+  __webpack_require__(179),
   /* template */
-  __webpack_require__(290),
+  __webpack_require__(296),
   /* scopeId */
   null,
   /* cssModules */
@@ -54339,14 +55122,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 260 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(179),
+  __webpack_require__(180),
   /* template */
-  __webpack_require__(282),
+  __webpack_require__(288),
   /* scopeId */
   null,
   /* cssModules */
@@ -54373,14 +55156,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 261 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(180),
+  __webpack_require__(181),
   /* template */
-  __webpack_require__(284),
+  __webpack_require__(290),
   /* scopeId */
   null,
   /* cssModules */
@@ -54407,14 +55190,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 262 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(181),
+  __webpack_require__(182),
   /* template */
-  __webpack_require__(283),
+  __webpack_require__(289),
   /* scopeId */
   null,
   /* cssModules */
@@ -54441,14 +55224,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 263 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(182),
+  __webpack_require__(183),
   /* template */
-  __webpack_require__(286),
+  __webpack_require__(292),
   /* scopeId */
   null,
   /* cssModules */
@@ -54475,14 +55258,48 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 264 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(183),
+  __webpack_require__(184),
   /* template */
-  __webpack_require__(291),
+  __webpack_require__(278),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\NoTruck.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] NoTruck.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0a3580e0", Component.options)
+  } else {
+    hotAPI.reload("data-v-0a3580e0", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 268 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(2)(
+  /* script */
+  __webpack_require__(185),
+  /* template */
+  __webpack_require__(297),
   /* scopeId */
   null,
   /* cssModules */
@@ -54509,14 +55326,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 265 */
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(184),
+  __webpack_require__(186),
   /* template */
-  __webpack_require__(300),
+  __webpack_require__(306),
   /* scopeId */
   null,
   /* cssModules */
@@ -54543,14 +55360,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 266 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(185),
+  __webpack_require__(187),
   /* template */
-  __webpack_require__(287),
+  __webpack_require__(293),
   /* scopeId */
   null,
   /* cssModules */
@@ -54577,14 +55394,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 267 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(186),
+  __webpack_require__(188),
   /* template */
-  __webpack_require__(293),
+  __webpack_require__(299),
   /* scopeId */
   null,
   /* cssModules */
@@ -54611,14 +55428,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 268 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(187),
+  __webpack_require__(189),
   /* template */
-  __webpack_require__(296),
+  __webpack_require__(302),
   /* scopeId */
   null,
   /* cssModules */
@@ -54645,14 +55462,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 269 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(188),
+  __webpack_require__(190),
   /* template */
-  __webpack_require__(277),
+  __webpack_require__(282),
   /* scopeId */
   null,
   /* cssModules */
@@ -54679,14 +55496,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 270 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(189),
+  __webpack_require__(191),
   /* template */
-  __webpack_require__(278),
+  __webpack_require__(283),
   /* scopeId */
   null,
   /* cssModules */
@@ -54713,14 +55530,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 271 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(190),
+  __webpack_require__(192),
   /* template */
-  __webpack_require__(275),
+  __webpack_require__(280),
   /* scopeId */
   null,
   /* cssModules */
@@ -54747,14 +55564,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 272 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(191),
+  __webpack_require__(193),
   /* template */
-  __webpack_require__(297),
+  __webpack_require__(303),
   /* scopeId */
   null,
   /* cssModules */
@@ -54781,14 +55598,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 273 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(192),
+  __webpack_require__(194),
   /* template */
-  __webpack_require__(285),
+  __webpack_require__(291),
   /* scopeId */
   null,
   /* cssModules */
@@ -54815,7 +55632,510 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 274 */
+/* 278 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    attrs: {
+      "clas": "row"
+    }
+  }, [_c('div', {
+    attrs: {
+      "id": "custom-search-input"
+    }
+  }, [_c('div', {
+    staticClass: "input-group col-sm-12 col-md-12 col-lg-12 mb-2 p-0"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.searchString),
+      expression: "searchString"
+    }],
+    staticClass: "  search-query form-control",
+    attrs: {
+      "type": "text",
+      "placeholder": "Search"
+    },
+    domProps: {
+      "value": (_vm.searchString)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.searchString = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-sm-12"
+  }, [(!_vm.loading) ? _c('div', [_c('ul', {
+    staticClass: "list-group"
+  }, [_vm._l((_vm.filteredDriver), function(driver) {
+    return _c('li', {
+      staticClass: "list-group-item"
+    }, [_c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "col-sm-1"
+    }, [(driver.image) ? _c('span', [_c('img', {
+      staticClass: "rounded-circle",
+      staticStyle: {
+        "height": "60px",
+        "width": "auto"
+      },
+      attrs: {
+        "src": _vm.avatar_link + driver.image.avatar,
+        "align": "middle"
+      }
+    })]) : _c('span', [_c('img', {
+      staticClass: "rounded-circle",
+      staticStyle: {
+        "height": "60px",
+        "width": "auto"
+      },
+      attrs: {
+        "src": _vm.avatar_link + driver.avatar,
+        "align": "middle"
+      }
+    })])]), _vm._v(" "), _c('div', {
+      staticClass: "col-sm-5"
+    }, [_c('a', {
+      staticStyle: {
+        "text-transform": "upppercase"
+      },
+      attrs: {
+        "href": '/driver_rfid/public/drivers/' + driver.id
+      }
+    }, [_vm._v(_vm._s(driver.name))]), _vm._v(" : "), (driver.cardholder) ? _c('small', [_vm._v(_vm._s(driver.cardholder.Name))]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.truck), function(truckx) {
+      return _c('span', [(truckx.reg_number == null) ? _c('span', [_vm._v("\n                                                  " + _vm._s(truckx.plate_number) + " \n                                              ")]) : _c('span', [_vm._v("\n                                                  " + _vm._s(truckx.reg_number) + "\n                                              ")])])
+    }), _vm._v(" "), (driver.truck.length == 0) ? _c('span', {
+      staticClass: "text-danger"
+    }, [_vm._v("\n                                                  NO TRUCK\n                                          ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.hauler), function(haulerx, index) {
+      return _c('span', [_vm._v("\n                                                  " + _vm._s(haulerx.name) + " \n                                          ")])
+    }), _vm._v(" "), (driver.hauler.length == 0) ? _c('span', {
+      staticClass: "text-danger"
+    }, [_vm._v("\n                                                  NO HAULER\n                                          ")]) : _vm._e()], 2), _vm._v(" "), _c('div', {
+      staticClass: "col-sm-3"
+    }, [(driver.card != null) ? _c('span', {
+      staticClass: "badge badge-primary"
+    }, [_vm._v("\n                                              Card Assigned\n                                          ")]) : _vm._e(), _vm._v(" "), _c('br')]), _vm._v(" "), _c('div', {
+      staticClass: "col-sm-3 pull-right right"
+    }, [(driver.availability == 1 || driver.print_status == 1 && driver.notif_status == 0) ? _c('span', [_vm._m(1, true), _vm._v(" "), _c('div', {
+      staticClass: "dropdown-menu dropdown-menu-right",
+      attrs: {
+        "aria-labelledby": "driverDropdown"
+      }
+    }, [(driver.card != null) ? _c('span', [_c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": _vm.driver_link + driver.id + '/reassign'
+      }
+    }, [_vm._v("Reassign Truck")])]) : _vm._e(), _vm._v(" "), (driver.card == null) ? _c('span', [_c('a', {
+      staticClass: "dropdown-item",
+      staticStyle: {
+        "color": "red"
+      },
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#noCardAssigned-' + driver.id
+      }
+    }, [_vm._v("Reassign Truck")])]) : _vm._e(), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": _vm.driver_link + driver.id + '/editInfo'
+      }
+    }, [_vm._v("Update Info")]), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": _vm.driver_link + 'reprint/' + driver.id
+      }
+    }, [_vm._v("Reprint Card")]), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('a', {
+      staticClass: "dropdown-item",
+      staticStyle: {
+        "color": "red"
+      },
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#driverModal-' + driver.id
+      }
+    }, [_vm._v("Deactivate")])]) : _vm._e(), _vm._v(" "), (driver.availability == 0) ? _c('span', [_c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#driverModalActivate-' + driver.id
+      }
+    }, [_vm._v("Activate")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
+      staticClass: "dropdown-divider"
+    }), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": _vm.driver_link + driver.id + '/edit'
+      }
+    }, [_vm._v("Edit")])]) : _vm._e()])]) : _vm._e(), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1) ? _c('span', [_c('div', {
+      staticClass: "btn-group pull-right",
+      attrs: {
+        "role": "group",
+        "aria-label": "Basic example"
+      }
+    }, [(_vm.user_role == 'Administrator' || _vm.user_role == 'Approver') ? _c('span', [_c('a', {
+      staticClass: "btn btn-outline-primary btn-sm ml-2",
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#driverModalActivate-' + driver.id
+      }
+    }, [_vm._v("Activate")])]) : _c('span', [_c('button', {
+      staticClass: "btn btn-outline-danger btn-sm disabled"
+    }, [_vm._v("INACTIVE")])])])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || _vm.user_role == 'Monitoring') ? _c('span', [(driver.confirm) ? _c('span', [(driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'New Driver') ? _c('a', {
+      staticClass: "pull-right btn btn-outline-danger btn-sm",
+      attrs: {
+        "href": '/driver_rfid/public/drivers/disapproved/' + driver.id
+      }
+    }, [_vm._v("Update Details")]) : _vm._e(), _vm._v(" "), (driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'Update Driver') ? _c('a', {
+      staticClass: "pull-right btn btn-outline-warning btn-sm text-warning",
+      attrs: {
+        "data-toggle": "modal",
+        "data-target": '#reverseDisapproved-' + driver.id
+      }
+    }, [_vm._v("Reverse Disapproved")]) : _vm._e()]) : _vm._e()]) : _vm._e(), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('i', {
+      staticClass: "fa fa-circle",
+      staticStyle: {
+        "color": "green"
+      },
+      attrs: {
+        "aria-hidden": "true"
+      }
+    })]) : _vm._e(), _vm._v(" "), (driver.availability == 0) ? _c('span', [_c('i', {
+      staticClass: "fa fa-circle",
+      staticStyle: {
+        "color": "red"
+      },
+      attrs: {
+        "aria-hidden": "true"
+      }
+    })]) : _vm._e()])])])
+  }), _vm._v(" "), (_vm.filteredDriver.length == 0) ? _c('li', {
+    staticClass: "list-group-item"
+  }, [_vm._m(2)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
+    staticClass: "center-align",
+    staticStyle: {
+      "padding-top": "50px",
+      "display": "flex",
+      "align-items": "center",
+      "justify-content": "center"
+    }
+  }, [_c('svg', {
+    staticClass: "spinner",
+    attrs: {
+      "width": "65px",
+      "height": "65px",
+      "viewBox": "0 0 66 66",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('circle', {
+    staticClass: "path",
+    attrs: {
+      "fill": "none",
+      "stroke-width": "6",
+      "stroke-linecap": "round",
+      "cx": "33",
+      "cy": "33",
+      "r": "30"
+    }
+  })])]) : _vm._e()])]), _vm._v(" "), _vm._l((_vm.filteredDriver), function(driver) {
+    return _c('div', [_c('div', {
+      staticClass: "modal fade",
+      attrs: {
+        "id": 'driverModal-' + driver.id,
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "driverModalLabel",
+        "aria-hidden": "true"
+      }
+    }, [_c('div', {
+      staticClass: "modal-dialog",
+      attrs: {
+        "id": "queueter"
+      }
+    }, [_c('div', {
+      staticClass: "modal-content"
+    }, [_vm._m(3, true), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _c('div', {
+      staticClass: "modal-footer"
+    }, [_c('form', {
+      attrs: {
+        "method": "POST",
+        "action": '/driver_rfid/public/drivers/deactivate/' + driver.id
+      }
+    }, [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_token"
+      },
+      domProps: {
+        "value": _vm.csrf
+      }
+    }), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-secondary",
+      attrs: {
+        "type": "button",
+        "data-dismiss": "modal"
+      }
+    }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-primary",
+      attrs: {
+        "type": "submit"
+      }
+    }, [_vm._v("Confirm")])])])])])]), _vm._v(" "), _c('div', {
+      staticClass: "modal fade",
+      attrs: {
+        "id": 'driverModalActivate-' + driver.id,
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "driverModalLabel",
+        "aria-hidden": "true"
+      }
+    }, [_c('div', {
+      staticClass: "modal-dialog",
+      attrs: {
+        "id": "queueter"
+      }
+    }, [_c('div', {
+      staticClass: "modal-content"
+    }, [_vm._m(5, true), _vm._v(" "), _vm._m(6, true), _vm._v(" "), _c('div', {
+      staticClass: "modal-footer"
+    }, [_c('form', {
+      attrs: {
+        "method": "POST",
+        "action": '/driver_rfid/public/drivers/activate/' + driver.id
+      }
+    }, [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_token"
+      },
+      domProps: {
+        "value": _vm.csrf
+      }
+    }), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-secondary",
+      attrs: {
+        "type": "button",
+        "data-dismiss": "modal"
+      }
+    }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-primary",
+      attrs: {
+        "type": "submit"
+      }
+    }, [_vm._v("Confirm")])])])])])]), _vm._v(" "), _c('div', {
+      staticClass: "modal fade",
+      attrs: {
+        "id": 'reverseDisapproved-' + driver.id,
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "driverModalLabel",
+        "aria-hidden": "true"
+      }
+    }, [_c('div', {
+      staticClass: "modal-dialog",
+      attrs: {
+        "id": "queueter"
+      }
+    }, [_c('div', {
+      staticClass: "modal-content"
+    }, [_vm._m(7, true), _vm._v(" "), _vm._m(8, true), _vm._v(" "), _c('div', {
+      staticClass: "modal-footer"
+    }, [_c('form', {
+      attrs: {
+        "method": "POST",
+        "action": '/driver_rfid/public/drivers/reverseDisapproved/' + driver.id
+      }
+    }, [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_token"
+      },
+      domProps: {
+        "value": _vm.csrf
+      }
+    }), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-secondary",
+      attrs: {
+        "type": "button",
+        "data-dismiss": "modal"
+      }
+    }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-primary",
+      attrs: {
+        "type": "submit"
+      }
+    }, [_vm._v("Confirm")])])])])])]), _vm._v(" "), _c('div', {
+      staticClass: "modal fade",
+      attrs: {
+        "id": 'noCardAssigned-' + driver.id,
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "driverModalLabel",
+        "aria-hidden": "true"
+      }
+    }, [_vm._m(9, true)])])
+  })], 2)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "input-group-btn"
+  }, [_c('button', {
+    staticClass: "btn btn-danger",
+    attrs: {
+      "type": "button"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-search"
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
+    staticClass: "dropdown pull-right btn btn-outline-secondary",
+    attrs: {
+      "href": "#",
+      "id": "driverDropdown",
+      "data-toggle": "dropdown",
+      "aria-haspopup": "true",
+      "aria-expanded": "false"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-ellipsis-v"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-sm-12 center"
+  }, [_c('span', [_vm._v("NO DRIVER FOUND")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('h6', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "driverModalLabel"
+    }
+  }, [_vm._v("Deactivate RFID")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body text-center"
+  }, [_c('em', [_vm._v("Are you sure you want to proceed with this action?")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('h6', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "driverModalLabel"
+    }
+  }, [_vm._v("Activate RFID")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body text-center"
+  }, [_c('em', [_vm._v("Are you sure you want to proceed with this action?")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('h6', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "driverModalLabel"
+    }
+  }, [_vm._v("Reverse Disapproved Driver")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body text-center"
+  }, [_c('em', [_vm._v("Are you sure you want to proceed with this action?")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "id": "queueter"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h6', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "driverModalLabel"
+    }
+  }, [_vm._v("No Card Assigned")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body text-center"
+  }, [_c('em', [_vm._v("The selected driver has no card assigned, Please contact support for assistance.")])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("Confirm")])])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-0a3580e0", module.exports)
+  }
+}
+
+/***/ }),
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -55046,7 +56366,7 @@ if (false) {
 }
 
 /***/ }),
-/* 275 */
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -55483,7 +56803,7 @@ if (false) {
 }
 
 /***/ }),
-/* 276 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -55593,7 +56913,7 @@ if (false) {
 }
 
 /***/ }),
-/* 277 */
+/* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -55821,7 +57141,7 @@ if (false) {
 }
 
 /***/ }),
-/* 278 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -55842,7 +57162,7 @@ if (false) {
 }
 
 /***/ }),
-/* 279 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -55871,7 +57191,510 @@ if (false) {
 }
 
 /***/ }),
-/* 280 */
+/* 285 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    attrs: {
+      "clas": "row"
+    }
+  }, [_c('div', {
+    attrs: {
+      "id": "custom-search-input"
+    }
+  }, [_c('div', {
+    staticClass: "input-group col-sm-12 col-md-12 col-lg-12 mb-2 p-0"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.searchString),
+      expression: "searchString"
+    }],
+    staticClass: "  search-query form-control",
+    attrs: {
+      "type": "text",
+      "placeholder": "Search"
+    },
+    domProps: {
+      "value": (_vm.searchString)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.searchString = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-sm-12"
+  }, [(!_vm.loading) ? _c('div', [_c('ul', {
+    staticClass: "list-group"
+  }, [_vm._l((_vm.filteredDriver), function(driver) {
+    return _c('li', {
+      staticClass: "list-group-item"
+    }, [_c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "col-sm-1"
+    }, [(driver.image) ? _c('span', [_c('img', {
+      staticClass: "rounded-circle",
+      staticStyle: {
+        "height": "60px",
+        "width": "auto"
+      },
+      attrs: {
+        "src": _vm.avatar_link + driver.image.avatar,
+        "align": "middle"
+      }
+    })]) : _c('span', [_c('img', {
+      staticClass: "rounded-circle",
+      staticStyle: {
+        "height": "60px",
+        "width": "auto"
+      },
+      attrs: {
+        "src": _vm.avatar_link + driver.avatar,
+        "align": "middle"
+      }
+    })])]), _vm._v(" "), _c('div', {
+      staticClass: "col-sm-5"
+    }, [_c('a', {
+      staticStyle: {
+        "text-transform": "upppercase"
+      },
+      attrs: {
+        "href": '/driver_rfid/public/drivers/' + driver.id
+      }
+    }, [_vm._v(_vm._s(driver.name))]), _vm._v(" : "), (driver.cardholder) ? _c('small', [_vm._v(_vm._s(driver.cardholder.Name))]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.truck), function(truckx) {
+      return _c('span', [(truckx.reg_number == null) ? _c('span', [_vm._v("\n                                                  " + _vm._s(truckx.plate_number) + " \n                                              ")]) : _c('span', [_vm._v("\n                                                  " + _vm._s(truckx.reg_number) + "\n                                              ")])])
+    }), _vm._v(" "), (driver.truck.length == 0) ? _c('span', {
+      staticClass: "text-danger"
+    }, [_vm._v("\n                                                  NO TRUCK\n                                          ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.hauler), function(haulerx, index) {
+      return _c('span', [_vm._v("\n                                                  " + _vm._s(haulerx.name) + " \n                                          ")])
+    }), _vm._v(" "), (driver.hauler.length == 0) ? _c('span', {
+      staticClass: "text-danger"
+    }, [_vm._v("\n                                                  NO HAULER\n                                          ")]) : _vm._e()], 2), _vm._v(" "), _c('div', {
+      staticClass: "col-sm-3"
+    }, [(driver.card != null) ? _c('span', {
+      staticClass: "badge badge-primary"
+    }, [_vm._v("\n                                              Card Assigned\n                                          ")]) : _vm._e(), _vm._v(" "), _c('br')]), _vm._v(" "), _c('div', {
+      staticClass: "col-sm-3 pull-right right"
+    }, [(driver.availability == 1 || driver.print_status == 1 && driver.notif_status == 0) ? _c('span', [_vm._m(1, true), _vm._v(" "), _c('div', {
+      staticClass: "dropdown-menu dropdown-menu-right",
+      attrs: {
+        "aria-labelledby": "driverDropdown"
+      }
+    }, [(driver.card != null) ? _c('span', [_c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": _vm.driver_link + driver.id + '/reassign'
+      }
+    }, [_vm._v("Reassign Truck")])]) : _vm._e(), _vm._v(" "), (driver.card == null) ? _c('span', [_c('a', {
+      staticClass: "dropdown-item",
+      staticStyle: {
+        "color": "red"
+      },
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#noCardAssigned-' + driver.id
+      }
+    }, [_vm._v("Reassign Truck")])]) : _vm._e(), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": _vm.driver_link + driver.id + '/editInfo'
+      }
+    }, [_vm._v("Update Info")]), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": _vm.driver_link + 'reprint/' + driver.id
+      }
+    }, [_vm._v("Reprint Card")]), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('a', {
+      staticClass: "dropdown-item",
+      staticStyle: {
+        "color": "red"
+      },
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#driverModal-' + driver.id
+      }
+    }, [_vm._v("Deactivate")])]) : _vm._e(), _vm._v(" "), (driver.availability == 0) ? _c('span', [_c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#driverModalActivate-' + driver.id
+      }
+    }, [_vm._v("Activate")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
+      staticClass: "dropdown-divider"
+    }), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": _vm.driver_link + driver.id + '/edit'
+      }
+    }, [_vm._v("Edit")])]) : _vm._e()])]) : _vm._e(), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1) ? _c('span', [_c('div', {
+      staticClass: "btn-group pull-right",
+      attrs: {
+        "role": "group",
+        "aria-label": "Basic example"
+      }
+    }, [(_vm.user_role == 'Administrator' || _vm.user_role == 'Approver') ? _c('span', [_c('a', {
+      staticClass: "btn btn-outline-primary btn-sm ml-2",
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#driverModalActivate-' + driver.id
+      }
+    }, [_vm._v("Activate")])]) : _c('span', [_c('button', {
+      staticClass: "btn btn-outline-danger btn-sm disabled"
+    }, [_vm._v("INACTIVE")])])])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || _vm.user_role == 'Monitoring') ? _c('span', [(driver.confirm) ? _c('span', [(driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'New Driver') ? _c('a', {
+      staticClass: "pull-right btn btn-outline-danger btn-sm",
+      attrs: {
+        "href": '/driver_rfid/public/drivers/disapproved/' + driver.id
+      }
+    }, [_vm._v("Update Details")]) : _vm._e(), _vm._v(" "), (driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'Update Driver') ? _c('a', {
+      staticClass: "pull-right btn btn-outline-warning btn-sm text-warning",
+      attrs: {
+        "data-toggle": "modal",
+        "data-target": '#reverseDisapproved-' + driver.id
+      }
+    }, [_vm._v("Reverse Disapproved")]) : _vm._e()]) : _vm._e()]) : _vm._e(), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('i', {
+      staticClass: "fa fa-circle",
+      staticStyle: {
+        "color": "green"
+      },
+      attrs: {
+        "aria-hidden": "true"
+      }
+    })]) : _vm._e(), _vm._v(" "), (driver.availability == 0) ? _c('span', [_c('i', {
+      staticClass: "fa fa-circle",
+      staticStyle: {
+        "color": "red"
+      },
+      attrs: {
+        "aria-hidden": "true"
+      }
+    })]) : _vm._e()])])])
+  }), _vm._v(" "), (_vm.filteredDriver.length == 0) ? _c('li', {
+    staticClass: "list-group-item"
+  }, [_vm._m(2)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
+    staticClass: "center-align",
+    staticStyle: {
+      "padding-top": "50px",
+      "display": "flex",
+      "align-items": "center",
+      "justify-content": "center"
+    }
+  }, [_c('svg', {
+    staticClass: "spinner",
+    attrs: {
+      "width": "65px",
+      "height": "65px",
+      "viewBox": "0 0 66 66",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('circle', {
+    staticClass: "path",
+    attrs: {
+      "fill": "none",
+      "stroke-width": "6",
+      "stroke-linecap": "round",
+      "cx": "33",
+      "cy": "33",
+      "r": "30"
+    }
+  })])]) : _vm._e()])]), _vm._v(" "), _vm._l((_vm.filteredDriver), function(driver) {
+    return _c('div', [_c('div', {
+      staticClass: "modal fade",
+      attrs: {
+        "id": 'driverModal-' + driver.id,
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "driverModalLabel",
+        "aria-hidden": "true"
+      }
+    }, [_c('div', {
+      staticClass: "modal-dialog",
+      attrs: {
+        "id": "queueter"
+      }
+    }, [_c('div', {
+      staticClass: "modal-content"
+    }, [_vm._m(3, true), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _c('div', {
+      staticClass: "modal-footer"
+    }, [_c('form', {
+      attrs: {
+        "method": "POST",
+        "action": '/driver_rfid/public/drivers/deactivate/' + driver.id
+      }
+    }, [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_token"
+      },
+      domProps: {
+        "value": _vm.csrf
+      }
+    }), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-secondary",
+      attrs: {
+        "type": "button",
+        "data-dismiss": "modal"
+      }
+    }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-primary",
+      attrs: {
+        "type": "submit"
+      }
+    }, [_vm._v("Confirm")])])])])])]), _vm._v(" "), _c('div', {
+      staticClass: "modal fade",
+      attrs: {
+        "id": 'driverModalActivate-' + driver.id,
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "driverModalLabel",
+        "aria-hidden": "true"
+      }
+    }, [_c('div', {
+      staticClass: "modal-dialog",
+      attrs: {
+        "id": "queueter"
+      }
+    }, [_c('div', {
+      staticClass: "modal-content"
+    }, [_vm._m(5, true), _vm._v(" "), _vm._m(6, true), _vm._v(" "), _c('div', {
+      staticClass: "modal-footer"
+    }, [_c('form', {
+      attrs: {
+        "method": "POST",
+        "action": '/driver_rfid/public/drivers/activate/' + driver.id
+      }
+    }, [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_token"
+      },
+      domProps: {
+        "value": _vm.csrf
+      }
+    }), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-secondary",
+      attrs: {
+        "type": "button",
+        "data-dismiss": "modal"
+      }
+    }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-primary",
+      attrs: {
+        "type": "submit"
+      }
+    }, [_vm._v("Confirm")])])])])])]), _vm._v(" "), _c('div', {
+      staticClass: "modal fade",
+      attrs: {
+        "id": 'reverseDisapproved-' + driver.id,
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "driverModalLabel",
+        "aria-hidden": "true"
+      }
+    }, [_c('div', {
+      staticClass: "modal-dialog",
+      attrs: {
+        "id": "queueter"
+      }
+    }, [_c('div', {
+      staticClass: "modal-content"
+    }, [_vm._m(7, true), _vm._v(" "), _vm._m(8, true), _vm._v(" "), _c('div', {
+      staticClass: "modal-footer"
+    }, [_c('form', {
+      attrs: {
+        "method": "POST",
+        "action": '/driver_rfid/public/drivers/reverseDisapproved/' + driver.id
+      }
+    }, [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_token"
+      },
+      domProps: {
+        "value": _vm.csrf
+      }
+    }), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-secondary",
+      attrs: {
+        "type": "button",
+        "data-dismiss": "modal"
+      }
+    }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-primary",
+      attrs: {
+        "type": "submit"
+      }
+    }, [_vm._v("Confirm")])])])])])]), _vm._v(" "), _c('div', {
+      staticClass: "modal fade",
+      attrs: {
+        "id": 'noCardAssigned-' + driver.id,
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "driverModalLabel",
+        "aria-hidden": "true"
+      }
+    }, [_vm._m(9, true)])])
+  })], 2)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "input-group-btn"
+  }, [_c('button', {
+    staticClass: "btn btn-danger",
+    attrs: {
+      "type": "button"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-search"
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
+    staticClass: "dropdown pull-right btn btn-outline-secondary",
+    attrs: {
+      "href": "#",
+      "id": "driverDropdown",
+      "data-toggle": "dropdown",
+      "aria-haspopup": "true",
+      "aria-expanded": "false"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-ellipsis-v"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-sm-12 center"
+  }, [_c('span', [_vm._v("NO DRIVER FOUND")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('h6', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "driverModalLabel"
+    }
+  }, [_vm._v("Deactivate RFID")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body text-center"
+  }, [_c('em', [_vm._v("Are you sure you want to proceed with this action?")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('h6', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "driverModalLabel"
+    }
+  }, [_vm._v("Activate RFID")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body text-center"
+  }, [_c('em', [_vm._v("Are you sure you want to proceed with this action?")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('h6', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "driverModalLabel"
+    }
+  }, [_vm._v("Reverse Disapproved Driver")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body text-center"
+  }, [_c('em', [_vm._v("Are you sure you want to proceed with this action?")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "id": "queueter"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h6', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "driverModalLabel"
+    }
+  }, [_vm._v("No Card Assigned")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body text-center"
+  }, [_c('em', [_vm._v("The selected driver has no card assigned, Please contact support for assistance.")])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("Confirm")])])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-2ab40969", module.exports)
+  }
+}
+
+/***/ }),
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -55886,7 +57709,7 @@ if (false) {
 }
 
 /***/ }),
-/* 281 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -55907,7 +57730,7 @@ if (false) {
 }
 
 /***/ }),
-/* 282 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -56004,7 +57827,7 @@ if (false) {
 }
 
 /***/ }),
-/* 283 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -56245,7 +58068,7 @@ if (false) {
 }
 
 /***/ }),
-/* 284 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -56291,7 +58114,7 @@ if (false) {
 }
 
 /***/ }),
-/* 285 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -56362,7 +58185,7 @@ if (false) {
 }
 
 /***/ }),
-/* 286 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -56510,7 +58333,7 @@ if (false) {
 }
 
 /***/ }),
-/* 287 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -56647,7 +58470,7 @@ if (false) {
 }
 
 /***/ }),
-/* 288 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -56900,7 +58723,7 @@ if (false) {
 }
 
 /***/ }),
-/* 289 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -57012,7 +58835,7 @@ if (false) {
 }
 
 /***/ }),
-/* 290 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -57189,7 +59012,7 @@ if (false) {
 }
 
 /***/ }),
-/* 291 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -57394,7 +59217,7 @@ if (false) {
 }
 
 /***/ }),
-/* 292 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -57809,7 +59632,7 @@ if (false) {
 }
 
 /***/ }),
-/* 293 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -57857,20 +59680,16 @@ if (false) {
 }
 
 /***/ }),
-/* 294 */
+/* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
-    attrs: {
-      "clas": "row"
-    }
+    staticClass: "form-row mb-2 mt-2"
   }, [_c('div', {
-    attrs: {
-      "id": "custom-search-input"
-    }
+    staticClass: "col-md-6"
   }, [_c('div', {
-    staticClass: "input-group col-sm-12 col-md-12 col-lg-12 mb-2 p-0"
+    staticClass: "form-group"
   }, [_c('input', {
     directives: [{
       name: "model",
@@ -57878,7 +59697,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.searchString),
       expression: "searchString"
     }],
-    staticClass: "  search-query form-control",
+    staticClass: "form-control",
     attrs: {
       "type": "text",
       "placeholder": "Search"
@@ -57892,12 +59711,43 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.searchString = $event.target.value
       }
     }
-  }), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('a', {
-    staticClass: "btn btn-primary",
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.searchHauler),
+      expression: "searchHauler"
+    }],
+    staticClass: "form-control",
     attrs: {
-      "href": _vm.export_link
+      "name": "age"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.searchHauler = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
     }
-  }, [_vm._v("\n                          Export as Excel\n                      ")])])])]), _vm._v(" "), _c('div', {
+  }, [_c('option', {
+    attrs: {
+      "value": ""
+    }
+  }, [_vm._v("All Haulers...")]), _vm._v(" "), _vm._l((_vm.haulers), function(hauler) {
+    return _c('option', {
+      domProps: {
+        "value": hauler.name
+      }
+    }, [_vm._v(_vm._s(hauler.name))])
+  })], 2)])])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-sm-12"
@@ -57939,21 +59789,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": '/driver_rfid/public/drivers/' + driver.id
       }
-    }, [_vm._v(_vm._s(driver.name))]), _vm._v(" : "), (driver.cardholder) ? _c('small', [_vm._v(_vm._s(driver.cardholder.Name))]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.truck), function(truckx) {
-      return _c('span', [(truckx.reg_number == null) ? _c('span', [_vm._v("\n                                                  " + _vm._s(truckx.plate_number) + " \n                                              ")]) : _c('span', [_vm._v("\n                                                  " + _vm._s(truckx.reg_number) + "\n                                              ")])])
-    }), _vm._v(" "), (driver.truck.length == 0) ? _c('span', {
-      staticClass: "text-danger"
-    }, [_vm._v("\n                                                  NO TRUCK\n                                          ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.hauler), function(haulerx, index) {
-      return _c('span', [_vm._v("\n                                                  " + _vm._s(haulerx.name) + " \n                                          ")])
-    }), _vm._v(" "), (driver.hauler.length == 0) ? _c('span', {
-      staticClass: "text-danger"
-    }, [_vm._v("\n                                                  NO HAULER\n                                          ")]) : _vm._e()], 2), _vm._v(" "), _c('div', {
+    }, [_vm._v(_vm._s(driver.name))]), _vm._v(" : "), (driver.cardholder) ? _c('small', [_vm._v(_vm._s(driver.cardholder.Name))]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.truck), function(t) {
+      return (driver.truck) ? _c('span', [_vm._v("\n                                             " + _vm._s(t.plate_number) + "\n                                          ")]) : _c('span', {
+        staticClass: "text-danger"
+      }, [_vm._v("\n                                                  NO TRUCK\n                                          ")])
+    }), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((driver.hauler), function(h) {
+      return (driver.hauler) ? _c('span', [_vm._v("\n                                             " + _vm._s(h.name) + "\n                                          ")]) : _c('span', {
+        staticClass: "text-danger"
+      }, [_vm._v("\n                                                  NO HAULER\n                                          ")])
+    })], 2), _vm._v(" "), _c('div', {
       staticClass: "col-sm-3"
-    }, [(driver.card != null) ? _c('span', {
+    }, [(!driver.card) ? _c('span', {
       staticClass: "badge badge-primary"
-    }, [_vm._v("\n                                              Card Assigned\n                                          ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                          COUNT LOGS: "), (driver.cardholder) ? _c('strong', [_vm._v(" " + _vm._s(driver.cardholder.logs.length == null ? '0' : driver.cardholder.logs.length) + " ")]) : _vm._e()]), _vm._v(" "), _c('br')]), _vm._v(" "), _c('div', {
+    }, [_vm._v("\n                                              Card Assigned\n                                          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-3 pull-right right"
-    }, [(driver.availability == 1 || driver.print_status == 1 && driver.notif_status == 0) ? _c('span', [_vm._m(1, true), _vm._v(" "), _c('div', {
+    }, [(driver.availability == 1 || driver.print_status == 1 && driver.notif_status == 0) ? _c('span', [_vm._m(0, true), _vm._v(" "), _c('div', {
       staticClass: "dropdown-menu dropdown-menu-right",
       attrs: {
         "aria-labelledby": "driverDropdown"
@@ -58052,7 +59902,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })]) : _vm._e()])])])
   }), _vm._v(" "), (_vm.filteredDriver.length == 0) ? _c('li', {
     staticClass: "list-group-item"
-  }, [_vm._m(2)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
+  }, [_vm._m(1)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
     staticClass: "center-align",
     staticStyle: {
       "padding-top": "50px",
@@ -58078,7 +59928,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "cy": "33",
       "r": "30"
     }
-  })])]) : _vm._e()])]), _vm._v(" "), _vm._l((_vm.filteredDriver), function(driver) {
+  })])]) : _vm._e()])]), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._l((_vm.filteredDriver), function(driver) {
     return _c('div', [_c('div', {
       staticClass: "modal fade",
       attrs: {
@@ -58217,17 +60067,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._m(9, true)])])
   })], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "input-group-btn"
-  }, [_c('button', {
-    staticClass: "btn btn-danger",
-    attrs: {
-      "type": "button"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-search"
-  })])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
     staticClass: "dropdown pull-right btn btn-outline-secondary",
     attrs: {
@@ -58246,6 +60085,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "col-sm-12 center"
   }, [_c('span', [_vm._v("NO DRIVER FOUND")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row mt-3"
+  }, [_c('div', {
+    staticClass: "col"
+  })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "modal-header"
@@ -58365,7 +60210,7 @@ if (false) {
 }
 
 /***/ }),
-/* 295 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -58468,7 +60313,7 @@ if (false) {
 }
 
 /***/ }),
-/* 296 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -58509,7 +60354,7 @@ if (false) {
 }
 
 /***/ }),
-/* 297 */
+/* 303 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -58647,7 +60492,7 @@ if (false) {
 }
 
 /***/ }),
-/* 298 */
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -58719,7 +60564,7 @@ if (false) {
 }
 
 /***/ }),
-/* 299 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -58892,7 +60737,7 @@ if (false) {
 }
 
 /***/ }),
-/* 300 */
+/* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -59185,7 +61030,7 @@ if (false) {
 }
 
 /***/ }),
-/* 301 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -59323,17 +61168,17 @@ if (false) {
 }
 
 /***/ }),
-/* 302 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(241);
+var content = __webpack_require__(243);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(303)("1a53fbbd", content, false);
+var update = __webpack_require__(309)("1a53fbbd", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -59349,7 +61194,7 @@ if(false) {
 }
 
 /***/ }),
-/* 303 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -59368,7 +61213,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(304)
+var listToStyles = __webpack_require__(310)
 
 /*
 type StyleObject = {
@@ -59570,7 +61415,7 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
-/* 304 */
+/* 310 */
 /***/ (function(module, exports) {
 
 /**
@@ -59603,7 +61448,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 305 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -69677,7 +71522,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(136)))
 
 /***/ }),
-/* 306 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(138);

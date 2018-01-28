@@ -71,6 +71,8 @@ class Cardholder extends Model
         'Division',
         'FacialFeature',
         'FacialPrivilege',
+        'SeparationDate',
+        'ID',
     ];
 
     public function getDates()

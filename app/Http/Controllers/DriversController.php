@@ -877,4 +877,62 @@ class DriversController extends Controller
 
         })->download('xlsx');            
     }
+
+    public function driversJson()
+    {
+        $drivers = Driver::with('image','confirm','hauler','truck','cardholder','card')
+        ->has('truck')
+        ->where('availability',1)
+        ->orderBy('id','DESC')
+        ->get();
+
+        // $arr = array();
+
+        // foreach($drivers as $driver) {5
+
+        //          $data = array(
+
+        //             'id' => $driver->id,
+        //             'avatar' =>  empty($driver->image) ? $driver->avatar : $driver->image->avatar,
+        //             'name' => $driver->name,
+        //             'plate_number' => empty($driver->trucks) ? null : $driver->trucks->first()->plate_number,
+        //             'hauler' => empty($driver->hauler) ? 'NO HAULER' : $driver->hauler->name,
+        //             'cardholder' => empty($driver->cardholder) ? null : $driver->cardholder->name,
+        //             'card' => empty($driver->card) ? null : $driver->card->CardNo,
+        //             'availability' => $driver->availability,
+        //             'print_status' => $driver->print_status,
+        //             'notif_status' => $driver->notif_status,
+        //             'user_role' => Auth::user()->roles->first()->name,
+
+        //         );
+                
+        //         array_push($arr, $data);
+        // }
+
+
+         return response()->json($drivers);
+    }
+        
+    public function noTruckJson()
+    {
+        $drivers = Driver::with(['hauler','truck','cardholder','image','confirm'])
+                    ->doesntHave('truck')
+                    ->orderBy('id','DESC')
+                    ->get();
+
+        return $drivers;
+    }
+
+    public function deactivatedDriversJson()
+    {
+        $drivers = Driver::with(['hauler','truck','cardholder','image','confirm'])
+                    ->where('availability',0)
+                    ->orderBy('id','DESC')
+                    ->get();
+
+        return $drivers;
+    }
+
+
+
 }

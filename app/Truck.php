@@ -47,7 +47,20 @@ class Truck extends Model
     ];
 
     protected $hidden = [
-        'pivot'
+        'pivot',
+        'created_at',
+        'updated_at',
+        'capacity_id',
+        'vendor_number',
+        'subvendor_number',
+        'contract_code',
+        'contract_description',
+        'vendor_description',
+        'subvendor_description',
+        'validity_start_date',
+        'validity_end_date',
+        'base_id',
+        'plant_id',
     ];
 
     /**

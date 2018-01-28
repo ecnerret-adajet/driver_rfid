@@ -23,6 +23,11 @@ class Card extends Model
         'FingerprintExist',
         'DataGroupID',
         'DisableLockCard',
+        'CardNoIntCode',
+        'ActivationDate',
+        'DeactivationDate',
+        'AccessGroupID',
+        'SeparationDate',
     ];
 
     public function getDates()

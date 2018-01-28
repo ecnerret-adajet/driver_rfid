@@ -10,6 +10,11 @@ class Image extends Model
         'avatar'
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+    
     public function driver()
     {
         return $this->hasOne('App\Driver');

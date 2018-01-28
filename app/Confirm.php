@@ -13,6 +13,14 @@ class Confirm extends Model
         'classification'
     ];
 
+    protected $hidden = [
+        'remarks',
+        'created_at',
+        'updated_at',
+        'driver_id',
+        'user_id',
+    ];
+
     public function getDates()
     {
         return [];

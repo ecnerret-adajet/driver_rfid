@@ -32,6 +32,24 @@ class Driver extends Model
         'end_validity_date'
     ];
 
+    protected $visible = [
+        'id',
+        'user_id',
+        'cardholder_id',
+        'name',
+        'avatar',
+        'availability',
+        'print_status',
+        'notif_status',
+        'card_id',
+        'hauler',
+        'truck',
+        'cardholder',
+        'card',
+        'image',
+        'confirm'
+    ];
+
     protected static $logAttributes = [
         'name', 
         'cardholder_id',
