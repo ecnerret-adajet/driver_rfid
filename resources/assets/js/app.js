@@ -46,6 +46,7 @@ Vue.component('monitorQueuePickups', require('./components/MonitorQueuePickup.vu
 Vue.component('monitorQueueDeliveries', require('./components/MonitorQueueDeliveries.vue'));
 Vue.component('noTruck', require('./components/NoTruck.vue'));
 Vue.component('deactivatedDrivers', require('./components/DeactivatedDrivers.vue'));
+Vue.component('noDriver', require('./components/NoDriver.vue'));
 
 const app = new Vue({
     el: '#app'

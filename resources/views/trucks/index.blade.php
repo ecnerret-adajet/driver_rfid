@@ -2,26 +2,50 @@
 
 @section('content')
 
-
-
-   <div class="card mx-auto">
+   <div class="card mx-auto mb-3">
         <div class="card-header">
-        All Trucks
+             All Trucks
 
-        <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
-        Back
-        </a>
-         <a class="btn btn-primary btn-sm pull-right mr-2" href="{{ url('trucks/create') }}">
-        Add New Truck
-        </a>
+            <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
+            Back
+            </a>
+            <a class="btn btn-primary btn-sm pull-right mr-2" href="{{ url('trucks/create') }}">
+            Add New Truck
+            </a>
         </div>
         <div class="card-body">
-         @foreach(Auth::user()->roles as $role)
-                <trucks role="{{ $role->name }}"></trucks>
-         @endforeach
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#active_trucks" role="tab">Active Trucks</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#no_driver" role="tab">No Driver Assigned</a>
+                    </li>
+
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active pt-3" id="active_trucks" role="tabpanel">
+                    <trucks user_role="{{ Auth::user()->roles->first()->name }}"></trucks>
+                </div>
+            
+                <div class="tab-pane pt-3" id="no_driver" role="tabpanel">
+                    <no-driver user_role="{{ Auth::user()->roles->first()->name }}"></no-driver>
+                </div>
+
+                
+
+            </div>
+
+             
+        
         </div><!-- end card-body -->
     </div> <!-- end card -->
-
 
 
 @endsection

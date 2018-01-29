@@ -111,15 +111,8 @@ Route::get('/deactivatedDriversJson','DriversController@deactivatedDriversJson')
 
 // return Json results
 
-Route::get('/appUrl', function() {
-    $url = config('app.url');
-    return $url;
-});
-
-Route::get('/trucksJson', function() {
-    $trucks = App\Truck::with(['driver','drivers','haulers','drivers.cardholder','card','hauler'])->orderBy('id','DESC')->get();
-    return $trucks;
-});
+Route::get('/trucksJson','TrucksController@trucksJson');
+Route::get('/noDriverJson','TrucksController@noDriverJson');
 
 Route::get('/haulersJson', function() {
     $haulers = App\Hauler::select('id','name')->orderBy('id','DESC')->get();

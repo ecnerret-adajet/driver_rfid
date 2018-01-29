@@ -559,4 +559,24 @@ class TrucksController extends Controller
         })->download('xlsx');
         
     }
+
+    public function trucksJson()
+    {
+        $trucks = Truck::has('driver')
+                 ->with('driver','hauler','driver.cardholder','card')
+                 ->orderBy('id','DESC')
+                 ->get();
+        
+        return $trucks;
+    }
+
+    public function noDriverJson()
+    {
+        $trucks = Truck::doesntHave('driver')
+                 ->with('driver','hauler','driver.cardholder','card')
+                 ->orderBy('id','DESC')
+                 ->get();
+        
+        return $trucks;
+    }
 }

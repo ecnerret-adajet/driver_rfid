@@ -80,6 +80,10 @@
                                 INACTIVE
                             </span>
                         @endif
+                    <br/>
+                     <a class="btn btn-sm btn-primary" href="{{url('/storage/'. $truck->document)}}" data-lightbox="{{ $truck->plate_number }}" data-title="{{ $truck->plate_number }}">                      
+                        View Document
+                    </a>
                 </div>  
 
             </div>

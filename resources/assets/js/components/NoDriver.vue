@@ -249,7 +249,6 @@ export default {
         return {
             searchString: '',
             truck_link: '/driver_rfid/public/trucks/',
-            export_link: '/driver_rfid/public/exportTrucks',
             trucks: [],
             loading: false,
             csrf: '',
@@ -272,7 +271,7 @@ export default {
 
         getTruck() {
             this.loading = true
-            axios.get('/driver_rfid/public/trucksJson')
+            axios.get('/driver_rfid/public/noDriverJson')
             .then(response => {
                  this.trucks = response.data
                  this.loading = false
