@@ -81,9 +81,20 @@
                             </span>
                         @endif
                     <br/>
-                     <a class="btn btn-sm btn-primary" href="{{url('/storage/'. $truck->document)}}" data-lightbox="{{ $truck->plate_number }}" data-title="{{ $truck->plate_number }}">                      
+                    <br/>
+                    <span class="text-muted">SUPPORTING DOCUMENT</span><br/>
+                    @if($truck->documents != null)
+                    <a class="btn btn-sm btn-outline-primary mt-2" href="{{url('/storage/'. $truck->documents)}}">                      
                         View Document
                     </a>
+                    @else
+                    <span class="text-muted">
+                        <em>
+                            No Document Found
+                        </em>
+                    </span>
+                    @endif
+
                 </div>  
 
             </div>
