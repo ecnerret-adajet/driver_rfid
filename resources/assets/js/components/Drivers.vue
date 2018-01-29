@@ -12,7 +12,7 @@
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <select name="age" class="form-control" v-model="searchHauler">
+                        <select name="age" class="form-control disabled" v-model="searchHauler">
                             <option value="">All Haulers...</option>
                             <option v-for="hauler in haulers" :value="hauler.name">{{ hauler.name }}</option>
                         </select>

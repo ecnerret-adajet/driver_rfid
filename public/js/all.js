@@ -35271,22 +35271,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -35338,7 +35322,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             searchString = searchString.trim().toLowerCase();
 
             drivers_array = drivers_array.filter(function (item) {
-                if (item.name.toLowerCase().indexOf(searchString) !== -1 || item.phone_number.toLowerCase().indexOf(searchString) !== -1) {
+                if (item.name.toLowerCase().indexOf(searchString) !== -1) {
                     return item;
                 }
             });
@@ -38057,21 +38041,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -38429,22 +38398,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -38496,7 +38449,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             searchString = searchString.trim().toLowerCase();
 
             drivers_array = drivers_array.filter(function (item) {
-                if (item.name.toLowerCase().indexOf(searchString) !== -1 || item.phone_number.toLowerCase().indexOf(searchString) !== -1) {
+                if (item.name.toLowerCase().indexOf(searchString) !== -1) {
                     return item;
                 }
             });
@@ -39501,21 +39454,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -55979,15 +55917,11 @@ module.exports = Component.exports
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
-    attrs: {
-      "clas": "row"
-    }
+    staticClass: "form-row mb-2 mt-2"
   }, [_c('div', {
-    attrs: {
-      "id": "custom-search-input"
-    }
+    staticClass: "col-md-12"
   }, [_c('div', {
-    staticClass: "input-group col-sm-12 col-md-12 col-lg-12 mb-2 p-0"
+    staticClass: "form-group"
   }, [_c('input', {
     directives: [{
       name: "model",
@@ -55995,7 +55929,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.searchString),
       expression: "searchString"
     }],
-    staticClass: "  search-query form-control",
+    staticClass: "form-control",
     attrs: {
       "type": "text",
       "placeholder": "Search"
@@ -56009,7 +55943,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.searchString = $event.target.value
       }
     }
-  }), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c('div', {
+  })])])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-sm-12"
@@ -56020,7 +55954,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "list-group-item"
     }, [_c('div', {
       staticClass: "row"
-    }, [_vm._m(1, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(0, true), _vm._v(" "), _c('div', {
       staticClass: "col-sm-5"
     }, [_c('a', {
       attrs: {
@@ -56062,7 +55996,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })]) : _vm._e()]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-3 pull-right right"
-    }, [_vm._m(2, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(1, true), _vm._v(" "), _c('div', {
       staticClass: "dropdown-menu dropdown-menu-right",
       attrs: {
         "aria-labelledby": "truckDropdown"
@@ -56101,7 +56035,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("Edit")])]) : _vm._e()])])])])
   }), _vm._v(" "), (_vm.filteredTruck.length == 0) ? _c('li', {
     staticClass: "list-group-item"
-  }, [_vm._m(3)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
+  }, [_vm._m(2)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
     staticClass: "center-align",
     staticStyle: {
       "padding-top": "50px",
@@ -56144,7 +56078,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(4, true), _vm._v(" "), _c('form', {
+    }, [_vm._m(3, true), _vm._v(" "), _c('form', {
       staticClass: "bootstrap-modal-form",
       attrs: {
         "method": "POST",
@@ -56158,7 +56092,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       domProps: {
         "value": _vm.csrf
       }
-    }), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _vm._m(6, true)])])])]), _vm._v(" "), _c('div', {
+    }), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _vm._m(5, true)])])])]), _vm._v(" "), _c('div', {
       staticClass: "modal fade",
       attrs: {
         "id": 'truckModal-' + truck.id,
@@ -56174,7 +56108,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(7, true), _vm._v(" "), _vm._m(8, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(6, true), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -56216,7 +56150,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(9, true), _vm._v(" "), _vm._m(10, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(8, true), _vm._v(" "), _vm._m(9, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -56245,17 +56179,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("Confirm")])])])])])])])
   })], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "input-group-btn"
-  }, [_c('button', {
-    staticClass: "btn btn-danger",
-    attrs: {
-      "type": "button"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-search"
-  })])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "col-sm-1"
   }, [_c('span', {
@@ -56411,15 +56334,11 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
-    attrs: {
-      "clas": "row"
-    }
+    staticClass: "form-row mb-2 mt-2"
   }, [_c('div', {
-    attrs: {
-      "id": "custom-search-input"
-    }
+    staticClass: "col-md-12"
   }, [_c('div', {
-    staticClass: "input-group col-sm-12 col-md-12 col-lg-12 mb-2 p-0"
+    staticClass: "form-group"
   }, [_c('input', {
     directives: [{
       name: "model",
@@ -56427,7 +56346,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.searchString),
       expression: "searchString"
     }],
-    staticClass: "  search-query form-control",
+    staticClass: "form-control",
     attrs: {
       "type": "text",
       "placeholder": "Search"
@@ -56441,7 +56360,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.searchString = $event.target.value
       }
     }
-  }), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c('div', {
+  })])])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-sm-12"
@@ -56497,7 +56416,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "badge badge-primary"
     }, [_vm._v("\n                                              Card Assigned\n                                          ")]) : _vm._e(), _vm._v(" "), _c('br')]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-3 pull-right right"
-    }, [(driver.availability == 1 || driver.print_status == 1 && driver.notif_status == 0) ? _c('span', [_vm._m(1, true), _vm._v(" "), _c('div', {
+    }, [(driver.availability == 1 || driver.print_status == 1 && driver.notif_status == 0) ? _c('span', [_vm._m(0, true), _vm._v(" "), _c('div', {
       staticClass: "dropdown-menu dropdown-menu-right",
       attrs: {
         "aria-labelledby": "driverDropdown"
@@ -56596,7 +56515,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })]) : _vm._e()])])])
   }), _vm._v(" "), (_vm.filteredDriver.length == 0) ? _c('li', {
     staticClass: "list-group-item"
-  }, [_vm._m(2)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
+  }, [_vm._m(1)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
     staticClass: "center-align",
     staticStyle: {
       "padding-top": "50px",
@@ -56639,7 +56558,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(3, true), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(2, true), _vm._v(" "), _vm._m(3, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -56681,7 +56600,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(5, true), _vm._v(" "), _vm._m(6, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(4, true), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -56723,7 +56642,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(7, true), _vm._v(" "), _vm._m(8, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(6, true), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -56758,20 +56677,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "aria-labelledby": "driverModalLabel",
         "aria-hidden": "true"
       }
-    }, [_vm._m(9, true)])])
+    }, [_vm._m(8, true)])])
   })], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "input-group-btn"
-  }, [_c('button', {
-    staticClass: "btn btn-danger",
-    attrs: {
-      "type": "button"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-search"
-  })])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
     staticClass: "dropdown pull-right btn btn-outline-secondary",
     attrs: {
@@ -57145,15 +57053,11 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
-    attrs: {
-      "clas": "row"
-    }
+    staticClass: "form-row mb-2 mt-2"
   }, [_c('div', {
-    attrs: {
-      "id": "custom-search-input"
-    }
+    staticClass: "col-md-12"
   }, [_c('div', {
-    staticClass: "input-group col-sm-12 col-md-12 col-lg-12 mb-2 p-0"
+    staticClass: "form-group"
   }, [_c('input', {
     directives: [{
       name: "model",
@@ -57161,7 +57065,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.searchString),
       expression: "searchString"
     }],
-    staticClass: "  search-query form-control",
+    staticClass: "form-control",
     attrs: {
       "type": "text",
       "placeholder": "Search"
@@ -57175,7 +57079,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.searchString = $event.target.value
       }
     }
-  }), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c('div', {
+  })])])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-sm-12"
@@ -57186,7 +57090,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "list-group-item"
     }, [_c('div', {
       staticClass: "row"
-    }, [_vm._m(1, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(0, true), _vm._v(" "), _c('div', {
       staticClass: "col-sm-5"
     }, [_c('a', {
       attrs: {
@@ -57228,7 +57132,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })]) : _vm._e()]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-3 pull-right right"
-    }, [_vm._m(2, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(1, true), _vm._v(" "), _c('div', {
       staticClass: "dropdown-menu dropdown-menu-right",
       attrs: {
         "aria-labelledby": "truckDropdown"
@@ -57267,7 +57171,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("Edit")])]) : _vm._e()])])])])
   }), _vm._v(" "), (_vm.filteredTruck.length == 0) ? _c('li', {
     staticClass: "list-group-item"
-  }, [_vm._m(3)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
+  }, [_vm._m(2)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
     staticClass: "center-align",
     staticStyle: {
       "padding-top": "50px",
@@ -57310,7 +57214,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(4, true), _vm._v(" "), _c('form', {
+    }, [_vm._m(3, true), _vm._v(" "), _c('form', {
       staticClass: "bootstrap-modal-form",
       attrs: {
         "method": "POST",
@@ -57324,7 +57228,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       domProps: {
         "value": _vm.csrf
       }
-    }), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _vm._m(6, true)])])])]), _vm._v(" "), _c('div', {
+    }), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _vm._m(5, true)])])])]), _vm._v(" "), _c('div', {
       staticClass: "modal fade",
       attrs: {
         "id": 'truckModal-' + truck.id,
@@ -57340,7 +57244,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(7, true), _vm._v(" "), _vm._m(8, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(6, true), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -57382,7 +57286,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(9, true), _vm._v(" "), _vm._m(10, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(8, true), _vm._v(" "), _vm._m(9, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -57411,17 +57315,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("Confirm")])])])])])])])
   })], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "input-group-btn"
-  }, [_c('button', {
-    staticClass: "btn btn-danger",
-    attrs: {
-      "type": "button"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-search"
-  })])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "col-sm-1"
   }, [_c('span', {
@@ -57965,15 +57858,11 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
-    attrs: {
-      "clas": "row"
-    }
+    staticClass: "form-row mb-2 mt-2"
   }, [_c('div', {
-    attrs: {
-      "id": "custom-search-input"
-    }
+    staticClass: "col-md-12"
   }, [_c('div', {
-    staticClass: "input-group col-sm-12 col-md-12 col-lg-12 mb-2 p-0"
+    staticClass: "form-group"
   }, [_c('input', {
     directives: [{
       name: "model",
@@ -57981,7 +57870,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.searchString),
       expression: "searchString"
     }],
-    staticClass: "  search-query form-control",
+    staticClass: "form-control",
     attrs: {
       "type": "text",
       "placeholder": "Search"
@@ -57995,7 +57884,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.searchString = $event.target.value
       }
     }
-  }), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c('div', {
+  })])])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-sm-12"
@@ -58051,7 +57940,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "badge badge-primary"
     }, [_vm._v("\n                                              Card Assigned\n                                          ")]) : _vm._e(), _vm._v(" "), _c('br')]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-3 pull-right right"
-    }, [(driver.availability == 1 || driver.print_status == 1 && driver.notif_status == 0) ? _c('span', [_vm._m(1, true), _vm._v(" "), _c('div', {
+    }, [(driver.availability == 1 || driver.print_status == 1 && driver.notif_status == 0) ? _c('span', [_vm._m(0, true), _vm._v(" "), _c('div', {
       staticClass: "dropdown-menu dropdown-menu-right",
       attrs: {
         "aria-labelledby": "driverDropdown"
@@ -58150,7 +58039,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })]) : _vm._e()])])])
   }), _vm._v(" "), (_vm.filteredDriver.length == 0) ? _c('li', {
     staticClass: "list-group-item"
-  }, [_vm._m(2)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
+  }, [_vm._m(1)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
     staticClass: "center-align",
     staticStyle: {
       "padding-top": "50px",
@@ -58193,7 +58082,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(3, true), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(2, true), _vm._v(" "), _vm._m(3, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -58235,7 +58124,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(5, true), _vm._v(" "), _vm._m(6, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(4, true), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -58277,7 +58166,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(7, true), _vm._v(" "), _vm._m(8, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(6, true), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -58312,20 +58201,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "aria-labelledby": "driverModalLabel",
         "aria-hidden": "true"
       }
-    }, [_vm._m(9, true)])])
+    }, [_vm._m(8, true)])])
   })], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "input-group-btn"
-  }, [_c('button', {
-    staticClass: "btn btn-danger",
-    attrs: {
-      "type": "button"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-search"
-  })])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
     staticClass: "dropdown pull-right btn btn-outline-secondary",
     attrs: {
@@ -60491,7 +60369,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.searchHauler),
       expression: "searchHauler"
     }],
-    staticClass: "form-control",
+    staticClass: "form-control disabled",
     attrs: {
       "name": "age"
     },

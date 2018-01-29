@@ -1,29 +1,13 @@
 <template>
 
   <div>
-               <div clas="row">
-
-                <div id="custom-search-input">
-                    <div class="input-group col-sm-12 col-md-12 col-lg-12 mb-2 p-0">
-
-                        <input type="text" class="  search-query form-control"  v-model="searchString" placeholder="Search" />
-                        
-                        <span class="input-group-btn">
-                        <button class="btn btn-danger" type="button">
-                        <i class="fa fa-search"></i>
-                        </button>
-                       
-                        </span>
-
-                    
-                       
-
+            <div class="form-row mb-2 mt-2">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="text" class="form-control"  v-model="searchString" placeholder="Search" />
                     </div>
-                       
-                         
-
                 </div>
-            </div> <!-- end row -->
+            </div>
 
                 <div class="row">
                     <div class="col-sm-12">
@@ -350,7 +334,7 @@ export default {
             searchString = searchString.trim().toLowerCase();
 
             drivers_array = drivers_array.filter(function(item){
-                if(item.name.toLowerCase().indexOf(searchString) !== -1 || item.phone_number.toLowerCase().indexOf(searchString) !== -1){
+                if(item.name.toLowerCase().indexOf(searchString) !== -1){
                     return item;
                 }
             })
