@@ -309,11 +309,13 @@ class DriversController extends Controller
         //     $q->where('id',3); // to revierwer
         // })->pluck('name','id');
 
-        foreach($driver->trucks as $truck){
-            foreach($truck->haulers as $hauler){
-                $x = $hauler->id;
-            }
-        }
+        // foreach($driver->trucks as $truck){
+        //     foreach($truck->haulers as $hauler){
+        //         $x = $hauler->id;
+        //     }
+        // }
+
+        $x = !empty($driver->trucks->haulers) ? $driver->trucks->haulers->first()->id : $driver->haulers->first()->id;
     
         $clasifications = Clasification::pluck('name','id');
 
@@ -915,7 +917,7 @@ class DriversController extends Controller
         
     public function noTruckJson()
     {
-        $drivers = Driver::with(['hauler','truck','cardholder','image','confirm'])
+        $drivers = Driver::with(['hauler','truck','cardholder','image','confirm','card'])
                     ->doesntHave('truck')
                     ->orderBy('id','DESC')
                     ->get();
@@ -925,7 +927,7 @@ class DriversController extends Controller
 
     public function deactivatedDriversJson()
     {
-        $drivers = Driver::with(['hauler','truck','cardholder','image','confirm'])
+        $drivers = Driver::with(['hauler','truck','cardholder','image','confirm','card'])
                     ->where('availability',0)
                     ->orderBy('id','DESC')
                     ->get();
