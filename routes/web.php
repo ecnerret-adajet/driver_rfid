@@ -237,6 +237,7 @@ Route::post('/storeCurrentlyServing/{id}','ServingController@storeCurrentlyServi
 Route::get('/feed','FeedsController@index');
 Route::get('/feed-content','FeedsController@feedContent');
 Route::get('/home-content','FeedsController@homeFeed');
+Route::get('/hometest','FeedsController@homeFeedTest');
 // Route::get('/barrier','FeedsController@barrier');
 // Route::get('/barrier-content','FeedsController@barrierContent');
 // Route::get('/pass-content','FeedsController@driverPass');

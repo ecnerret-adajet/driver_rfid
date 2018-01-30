@@ -9,6 +9,8 @@ use Carbon\Carbon;
 use JavaScript;
 use App\Cardholder;
 use App\Customer;
+use App\Hauler;
+use App\Truck;
 
 class FeedsController extends Controller
 {
@@ -33,6 +35,98 @@ class FeedsController extends Controller
 
         return $map_json;
     }
+
+    public function notDriver()
+    {
+        $pickup_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%pickup%')
+        ->pluck('CardholderID'); 
+
+        $guard_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%GUARD%')
+        ->pluck('CardholderID'); 
+
+        $executive_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%EXECUTIVE%')
+        ->pluck('CardholderID'); 
+
+        // Remove all cardholder without driver assigned
+        $not_driver = array_collapse([$pickup_cards, $guard_cards, $executive_cards]);
+
+        return $not_driver;
+    }
+
+    public function homeFeedTest() 
+    {
+         $queues = Log::select('CardholderID','localtime')
+            ->where('ControllerID', 1)
+            ->where('DoorID',0)
+            ->whereDate('LocalTime', Carbon::now())
+            ->orderBy('LogID','ASC')
+            ->get();
+
+         $barrier_in = Log::where('DoorID',3)
+         ->where('CardholderID', '>=', 15)
+         ->where('Direction', 1)
+         ->whereDate('LocalTime', Carbon::now())
+         ->orderBy('LocalTime','DESC')->get();
+ 
+         $barrier_out = Log::where('DoorID',3)
+         ->where('CardholderID', '>=', 15)
+         ->where('Direction', 2)
+         ->whereDate('LocalTime', Carbon::now())
+         ->orderBy('LocalTime','DESC')->get();
+
+        $all_in = Log::where('CardholderID', '>=', 1)
+            ->where('Direction', 1)
+            ->whereBetween('LocalTime', [Carbon::now()->subDays(1), Carbon::now()])
+            ->orderBy('LocalTime','DESC')->get();
+
+        $all_out = Log::where('CardholderID', '>=', 1)
+            ->where('Direction', 2)
+            ->whereDate('LocalTime', Carbon::now())
+            ->orderBy('LocalTime','DESC')->get();
+
+        $logs = Log::with('drivers','drivers.hauler','drivers.truck') // customer removed
+        ->whereNotIn('ControllerID',[1])
+        ->whereNotIn('CardholderID',$this->notDriver())
+        ->whereNotIn('DoorID',[3])
+        ->where('CardholderID', '>=', 1)
+        ->whereDate('LocalTime', '>=', Carbon::now())
+        ->orderBy('LocalTime','DESC')
+        ->get();
+
+        $today_result = $logs->unique('CardholderID');
+        
+        $arr = array();
+
+        foreach($today_result as $result) {
+            if(count($result->drivers) != 0) {
+                foreach($result->drivers as $driver) {
+
+                    $data = array(
+                        'id' => $result->LogID,
+                        'avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
+                        'driver_name' => $driver->name,
+                        'plate_number' => !empty($driver->truck) ? $driver->truck->first()->plate_number : null,
+                        'hauler' => !empty($driver->hauler) ? $driver->hauler->first()->name : null,
+                        'plant_in' => !empty($barrier_in->where('CardholderID', $result->CardholderID)->first()) ? $barrier_in->where('CardholderID', $result->CardholderID)->first()->LocalTime : null,
+                        'plant_out' => !empty($barrier_out->where('CardholderID', $result->CardholderID)->first()) ? $barrier_out->where('CardholderID', $result->CardholderID)->first()->LocalTime : null,
+                        'truckscale_in' => !empty($all_in->where('CardholderID', $result->CardholderID)->first()) ? $all_in->where('CardholderID', $result->CardholderID)->first()->LocalTime : null,
+                        'truckscale_out' => !empty($all_out->where('CardholderID', $result->CardholderID)->first()) ? $all_out->where('CardholderID', $result->CardholderID)->first()->LocalTime : null,
+                        'on_queue' => !empty($queues->where('CardholderID', $result->CardholderID)->first()) ? $queues->where('CardholderID', $result->CardholderID)->first()->localtime : null,
+                    );
+
+                    array_push($arr, $data);
+
+                }                 
+            }                 
+        }        
+
+        return $arr;
+    }
+
+ 
 
     public function homeFeed()
     {

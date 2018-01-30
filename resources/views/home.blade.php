@@ -1,14 +1,4 @@
 @extends('layouts.app')
-@section('top-script')
-  @role(('Administrator'))
-    <script>
-        setInterval(function(){
-            $('#realtimeFeed').load('{{ config('app.url') }}/driver_rfid/public/home-content');
-            $('#wait').hide();     
-        }, 2000);  
-    </script>
-    @endif
-@endsection
 @section('content')
 
   <!-- Breadcrumbs -->
@@ -22,17 +12,9 @@
 
     <home></home>
 
-    @role(('Administrator'))
+     <dashboard></dashboard>
 
-    <div id="wait" class="center-align" style="padding-top: 50px; display: flex; align-items: center; justify-content: center;">
-        <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
-        </svg>	
-    </div>
-       
-    <div id="realtimeFeed"></div>
 
-    @endif
 
 
 @endsection
