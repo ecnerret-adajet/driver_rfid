@@ -35265,12 +35265,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.loading = false;
             });
         },
-
-
         setPage: function setPage(pageNumber) {
             this.currentPage = pageNumber;
         },
-
+        resetStartRow: function resetStartRow() {
+            this.currentPage = 0;
+        },
         moment: function moment(date) {
             return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM D, Y h:m:s A');
         },
@@ -35294,26 +35294,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         totalPages: function totalPages() {
             return Math.ceil(this.filteredEntries.length / this.itemsPerPage);
         },
-
         filteredEntries: function filteredEntries() {
             var vm = this;
 
             return __WEBPACK_IMPORTED_MODULE_2_lodash___default.a.filter(vm.entries, function (item) {
-                return ~item.driver_name.toLowerCase().indexOf(vm.searchKey.toLowerCase());
-                if (!this.searchKey) {
-                    return ~item.driver_name.toLowerCase().indexOf(vm.searchKey.toLowerCase()) !== -1;
-                }
+                return ~item.driver_name.toLowerCase().indexOf(vm.searchKey.trim().toLowerCase());
             });
         },
+        paginateEntries: function paginateEntries() {
 
-        paginatedUsers: function paginatedUsers() {
+            var index = this.currentPage * this.itemsPerPage;
+            var entries_array = this.filteredEntries.slice(index, index + this.itemsPerPage);
+
             if (this.currentPage >= this.totalPages) {
                 this.currentPage = this.totalPages - 1;
             }
-            var index = this.currentPage * this.itemsPerPage;
-            return this.filteredEntries.slice(index, index + this.itemsPerPage);
+
+            return entries_array;
         }
     }
+
 });
 
 /***/ }),
@@ -76362,6 +76362,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": (_vm.searchKey)
     },
     on: {
+      "keyup": _vm.resetStartRow,
       "input": function($event) {
         if ($event.target.composing) { return; }
         _vm.searchKey = $event.target.value
@@ -76373,7 +76374,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-sm-12"
   }, [(!_vm.loading) ? _c('div', [_c('ul', {
     staticClass: "list-group list-group-flush"
-  }, [_vm._l((_vm.paginatedUsers), function(entry) {
+  }, [_vm._l((_vm.paginateEntries), function(entry) {
     return _c('li', {
       staticClass: "list-group-item"
     }, [_c('div', {
@@ -76468,7 +76469,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('button', {
       staticClass: "disabled btn btn-outline-dark text-uppercase btn-sm"
     }, [_vm._v("\n                                                NO PAIR\n                                            ")])])])])])
-  }), _vm._v(" "), (_vm.paginatedUsers.length == 0) ? _c('li', {
+  }), _vm._v(" "), (_vm.paginateEntries.length == 0) ? _c('li', {
     staticClass: "list-group-item"
   }, [_vm._m(0)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('li', {
     staticClass: "list-group-item mx-auto"
@@ -76542,10 +76543,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v(" Next ")])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "row"
+    staticClass: "row p-3"
   }, [_c('div', {
-    staticClass: "col-sm-12 center"
-  }, [_c('span', [_vm._v("NO DRIVER FOUND")])])])
+    staticClass: "col-sm-12 text-center text-muted display-4"
+  }, [_c('span', [_vm._v("Nothing Found")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -77670,7 +77671,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "col-xl-3 col-sm-6 mb-3"
   }, [_c('div', {
-    staticClass: "card text-light bg-warning o-hidden h-100"
+    staticClass: "card text-light bg-primary o-hidden h-100"
   }, [_c('div', {
     staticClass: "card-body"
   }, [_c('div', {
@@ -77710,7 +77711,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])]), _vm._v(" "), _c('div', {
     staticClass: "col-xl-3 col-sm-6 mb-3"
   }, [_c('div', {
-    staticClass: "card text-light bg-warning o-hidden h-100"
+    staticClass: "card text-light bg-primary o-hidden h-100"
   }, [_c('div', {
     staticClass: "card-body"
   }, [_c('div', {
@@ -77750,7 +77751,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])]), _vm._v(" "), _c('div', {
     staticClass: "col-xl-3 col-sm-6 mb-3"
   }, [_c('div', {
-    staticClass: "card text-light bg-warning o-hidden h-100"
+    staticClass: "card text-light bg-primary o-hidden h-100"
   }, [_c('div', {
     staticClass: "card-body"
   }, [_c('div', {
@@ -77790,7 +77791,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])]), _vm._v(" "), _c('div', {
     staticClass: "col-xl-3 col-sm-6 mb-3"
   }, [_c('div', {
-    staticClass: "card text-light bg-warning o-hidden h-100"
+    staticClass: "card text-light bg-primary o-hidden h-100"
   }, [_c('div', {
     staticClass: "card-body"
   }, [_c('div', {

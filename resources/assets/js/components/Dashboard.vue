@@ -7,7 +7,7 @@
             <div class="form-row mb-2 mt-2">
                 <div class="col-md-12">
                     <div class="form-group mb-0 p-3">
-                        <input type="text" class="form-control"  v-model="searchKey" placeholder="Search" />
+                        <input type="text" class="form-control"  v-model="searchKey" @keyup="resetStartRow" placeholder="Search" />
                     </div>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                     <div class="col-sm-12">
                         <div v-if="!loading">
                             <ul class="list-group list-group-flush">
-                                <li v-for="entry in paginatedUsers" class="list-group-item">
+                                <li v-for="entry in paginateEntries" class="list-group-item">
                                     <div class="row mt-2">   
                                         <div class="col-sm-1">
                                             <img :src="avatar_link + entry.avatar" class="rounded-circle" style="height: 60px; width: auto;"  align="middle">                                            
@@ -132,10 +132,10 @@
                                     </div>
 
                                 </li>
-                                <li v-if="paginatedUsers.length == 0"  class="list-group-item">
-                                    <div class="row">
-                                        <div class="col-sm-12 center">
-                                            <span>NO DRIVER FOUND</span>
+                                <li v-if="paginateEntries.length == 0"  class="list-group-item">
+                                    <div class="row p-3">
+                                        <div class="col-sm-12 text-center text-muted display-4">
+                                            <span>Nothing Found</span>
                                         </div>
                                     </div>
                                 </li>
@@ -222,8 +222,12 @@ export default {
             });
         },
         
-        setPage: function(pageNumber) {
-          this.currentPage = pageNumber
+        setPage(pageNumber) {
+            this.currentPage = pageNumber;         
+        },
+
+        resetStartRow() {
+            this.currentPage = 0;
         },
 
         moment(date) {
@@ -250,30 +254,31 @@ export default {
     },
 
     computed: {
-        totalPages: function() {
+        totalPages() {
           return Math.ceil(this.filteredEntries.length / this.itemsPerPage)
         },
 
-        filteredEntries: function () {
+        filteredEntries() {
             const vm = this;
-
-            if(!this.searchKey) {
-                return this.entries;
-            }
             
             return _.filter(vm.entries, function (item) {
-                return ~item.driver_name.toLowerCase().indexOf(vm.searchKey.toLowerCase());
+                return ~item.driver_name.toLowerCase().indexOf(vm.searchKey.trim().toLowerCase());
             });
         },
 
-        paginatedUsers: function() {
+        paginateEntries() {
+
+            var index = this.currentPage * this.itemsPerPage;
+            var entries_array = this.filteredEntries.slice(index, index + this.itemsPerPage);
+
             if (this.currentPage >= this.totalPages) {
                 this.currentPage = this.totalPages - 1
-            }
-            var index = this.currentPage * this.itemsPerPage
-            return this.filteredEntries.slice(index, index + this.itemsPerPage)
+            } 
+            
+            return entries_array;
         }
-    }
+    },
+
 }
 </script>
 
