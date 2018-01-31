@@ -58,36 +58,33 @@ class FeedsController extends Controller
 
     public function homeFeedTest() 
     {
-         $queues = Log::select('CardholderID','localtime')
+        $queues = Log::select('CardholderID','LocalTime')
             ->where('ControllerID', 1)
             ->where('DoorID',0)
             ->whereDate('LocalTime', Carbon::now())
             ->orderBy('LogID','ASC')
             ->get();
 
-         $barrier_in = Log::where('DoorID',3)
-         ->where('CardholderID', '>=', 15)
-         ->where('Direction', 1)
-         ->whereDate('LocalTime', Carbon::now())
-         ->orderBy('LocalTime','DESC')->get();
- 
-         $barrier_out = Log::where('DoorID',3)
-         ->where('CardholderID', '>=', 15)
-         ->where('Direction', 2)
-         ->whereDate('LocalTime', Carbon::now())
-         ->orderBy('LocalTime','DESC')->get();
+        $barrier_in = Log::select('LogID','CardholderID')
+            ->whereIn('DoorID',[3])
+            ->whereNotIn('CardholderID',$this->notDriver())
+            ->whereDate('LocalTime', Carbon::now())
+            ->where('CardholderID', '>=', 15)
+            ->orderBy('LocalTime','DESC')
+            ->get();
 
         $all_in = Log::where('CardholderID', '>=', 1)
             ->where('Direction', 1)
-            ->whereBetween('LocalTime', [Carbon::now()->subDays(1), Carbon::now()])
+            ->whereDate('LocalTime', Carbon::now())
             ->orderBy('LocalTime','DESC')->get();
+
 
         $all_out = Log::where('CardholderID', '>=', 1)
             ->where('Direction', 2)
             ->whereDate('LocalTime', Carbon::now())
             ->orderBy('LocalTime','DESC')->get();
 
-        $logs = Log::with('drivers','drivers.hauler','drivers.truck') // customer removed
+        $logs = Log::with('drivers','drivers.hauler','drivers.truck','customers') // customer removed
         ->whereNotIn('ControllerID',[1])
         ->whereNotIn('CardholderID',$this->notDriver())
         ->whereNotIn('DoorID',[3])
@@ -104,6 +101,9 @@ class FeedsController extends Controller
             if(count($result->drivers) != 0) {
                 foreach($result->drivers as $driver) {
 
+                    $sticker_in = !empty($all_in->where('CardholderID', $result->CardholderID)->first()) ? Log::match($all_in->where('CardholderID', $result->CardholderID)->first()->LogID)->pluck('CardholderID','CardholderID') : null;
+                    $sticker_out = !empty($all_out->where('CardholderID', $result->CardholderID)->first()) ? Log::match($all_out->where('CardholderID', $result->CardholderID)->first()->LogID)->pluck('CardholderID','CardholderID') : null;
+
                     $data = array(
                         'id' => $result->LogID,
                         'avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
@@ -111,10 +111,13 @@ class FeedsController extends Controller
                         'plate_number' => !empty($driver->truck) ? $driver->truck->first()->plate_number : null,
                         'hauler' => !empty($driver->hauler) ? $driver->hauler->first()->name : null,
                         'plant_in' => !empty($barrier_in->where('CardholderID', $result->CardholderID)->first()) ? $barrier_in->where('CardholderID', $result->CardholderID)->first()->LocalTime : null,
-                        'plant_out' => !empty($barrier_out->where('CardholderID', $result->CardholderID)->first()) ? $barrier_out->where('CardholderID', $result->CardholderID)->first()->LocalTime : null,
-                        'truckscale_in' => !empty($all_in->where('CardholderID', $result->CardholderID)->first()) ? $all_in->where('CardholderID', $result->CardholderID)->first()->LocalTime : null,
-                        'truckscale_out' => !empty($all_out->where('CardholderID', $result->CardholderID)->first()) ? $all_out->where('CardholderID', $result->CardholderID)->first()->LocalTime : null,
                         'on_queue' => !empty($queues->where('CardholderID', $result->CardholderID)->first()) ? $queues->where('CardholderID', $result->CardholderID)->first()->localtime : null,
+                        'truckscale_in' => !empty($all_in->where('CardholderID', $result->CardholderID)->first()) ? $all_in->where('CardholderID', $result->CardholderID)->first()->LocalTime : null,
+                        'truckscale_in_id' => !empty($all_in->where('CardholderID', $result->CardholderID)->first()) ? $all_in->where('CardholderID', $result->CardholderID)->first()->LogID : null,
+                        'truckscale_out' => !empty($all_out->where('CardholderID', $result->CardholderID)->first()) ? $all_out->where('CardholderID', $result->CardholderID)->first()->LocalTime : null,
+                        'truckscale_out_id' => !empty($all_out->where('CardholderID', $result->CardholderID)->first()) ? $all_out->where('CardholderID', $result->CardholderID)->first()->LogID : null,
+                        'sticker_in' => !empty(array_has($sticker_in, $result->CardholderID)) ? true : null,
+                        'sticker_out' => !empty(array_has($sticker_out, $result->CardholderID)) ? true : null,
                     );
 
                     array_push($arr, $data);

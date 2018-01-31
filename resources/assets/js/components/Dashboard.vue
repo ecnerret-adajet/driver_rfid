@@ -1,21 +1,16 @@
 <template>
 
-    <div class="card mx-auto mb-3">
-        <div class="card-header">
+    <div class="card mx-auto mb-3 rounded-0 border-top-0">
 
-           <div class="form-row mb-2 mt-2">
+        <div class="card-body p-0">
+          
+            <div class="form-row mb-2 mt-2">
                 <div class="col-md-12">
-                    <div class="form-group mb-0">
+                    <div class="form-group mb-0 p-3">
                         <input type="text" class="form-control"  v-model="searchKey" placeholder="Search" />
                     </div>
                 </div>
             </div>
-
-         
-        </div>
-        <div class="card-body p-0">
-          
-    
        
 
             <div class="row">
@@ -25,12 +20,9 @@
                                 <li v-for="entry in paginatedUsers" class="list-group-item">
                                     <div class="row mt-2">   
                                         <div class="col-sm-1">
-
-                                            <img :src="avatar_link + entry.avatar" class="rounded-circle" style="height: 60px; width: auto;"  align="middle">
-                                            
-                                        
+                                            <img :src="avatar_link + entry.avatar" class="rounded-circle" style="height: 60px; width: auto;"  align="middle">                                            
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
                                             {{entry.driver_name}} 
                                             <br/>
                     
@@ -57,28 +49,34 @@
                                                 {{ moment(entry.plant_in.date) }}
                                             </span>
                                             <span class="text-uppercase" v-if="!entry.plant_in">
-                                                No plant in
+                                               <button class="disabled btn btn-outline-danger btn-sm text-uppercase">
+                                                   NO PLANT IN
+                                               </button>
                                             </span>
 
                                             <br/>
 
-                                            <small class="text-muted text-uppercase">PLANT OUT</small><br/>
-                                            <span v-if="entry.plant_out">
-                                                {{ moment(entry.plant_out.date) }}
+                                            <small class="text-muted text-uppercase">QUEUE TIME</small><br/>
+                                            <span v-if="entry.on_queue">
+                                                {{ moment(entry.on_queue.date) }}
                                             </span>
-                                            <span class="text-uppercase" v-if="!entry.plant_out">
-                                                No plant out
+                                            <span class="text-uppercase" v-if="!entry.on_queue">
+                                                 <button class="disabled btn btn-outline-danger btn-sm text-uppercase">
+                                                   NOT IN QUEUE
+                                               </button>
                                             </span>
 
                                         </div>
-                                        <div class="col-sm-3 pull-right right">
+                                        <div class="col-sm-2">
                                         
                                             <small class="text-muted text-uppercase">Truckscale IN</small><br/>
                                             <span v-if="entry.truckscale_in">
                                                 {{ moment(entry.truckscale_in.date) }}
                                             </span>
                                             <span class="text-uppercase" v-if="!entry.truckscale_in">
-                                                No Truckscale in
+                                                <button class="disabled btn btn-outline-danger btn-sm text-uppercase">
+                                                   NO TRUCKSCALE IN
+                                               </button>
                                             </span>
 
                                             <br/>
@@ -88,9 +86,48 @@
                                                 {{ moment(entry.truckscale_out.date) }}
                                             </span>
                                             <span class="text-uppercase" v-if="!entry.truckscale_out">
-                                                No Truckscale out
+                                                <button class="disabled btn btn-outline-danger btn-sm text-uppercase">
+                                                   NO TRUCKSCALE IN
+                                               </button>
                                             </span>
                                         
+                                        </div>
+                                         <div class="col-sm-2">
+                                             <br/>
+                                            <span v-if="entry.truckscale_in">
+                                                <a :class="{ 'btn-outline-success' : entry.sticker_in, 'btn-outline-danger' : !entry.sticker_in }" class="btn btn-sm mb-2" :href="'http://172.17.2.25:8080/RFID/' + cameraDate(entry.truckscale_in.date) + '/AC.' + cameraDate(entry.truckscale_in.date) + '.0000' + entry.truckscale_in_id + '-1.jpg'" :data-lightbox="entry.LogID" :data-title="'TIME IN - ' + moment(entry.truckscale_in.date)">                      
+                                                    <i class="fa fa-camera" aria-hidden="true"></i> 
+                                                    <span v-if="entry.sticker_in">
+                                                        Matched
+                                                    </span>
+                                                    <span v-else>
+                                                        Not Matched
+                                                    </span>
+                                                </a>
+                                            </span>
+                                            <br/>
+                                            <span v-if="entry.truckscale_out">
+                                                <a :class="{ 'btn-outline-success' : entry.sticker_out, 'btn-outline-danger' : !entry.sticker_out }" class="btn btn-sm mb-2" :href="'http://172.17.2.25:8080/RFID/' + cameraDate(entry.truckscale_out.date) + '/AC.' + cameraDate(entry.truckscale_out.date) + '.0000' + entry.truckscale_out_id + '-2.jpg'" :data-lightbox="entry.LogID" :data-title="'TIME IN - ' + moment(entry.truckscale_out.date)">                      
+                                                    <i class="fa fa-camera" aria-hidden="true"></i> 
+                                                    <span v-if="entry.sticker_out">
+                                                        Matched
+                                                    </span>
+                                                    <span v-else>
+                                                        Not Matched
+                                                    </span>
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-1 text-center">
+                                             <small class="text-muted text-uppercase">Rendered Time</small><br/>
+                                             <span v-if="entry.plant_in && entry.truckscale_out">
+                                                    {{ dateDiff(entry.plant_in.date, entry.truckscale_out.date) }}
+                                             </span>
+                                             <span class="text-uppercase text-muted align-middle" style="margin-top: 10px;" v-else>
+                                                 <button class="disabled btn btn-outline-dark text-uppercase btn-sm">
+                                                    NO PAIR
+                                                </button>
+                                             </span>
                                         </div>
                                     </div>
 
@@ -193,6 +230,16 @@ export default {
             return moment(date).format('MMMM D, Y h:m:s A');
         },
 
+        cameraDate(date) {
+            return moment(date).format('YYYYMMDD');
+        },
+
+        dateDiff(startTime, endTime) {
+            var a = moment(startTime);   
+            var b = moment(endTime);   
+            return b.diff(a, 'hours');
+       },
+
         showPreviousLink() {
             return this.currentPage == 0 ? false : true;
         },
@@ -209,9 +256,11 @@ export default {
 
         filteredEntries: function () {
             const vm = this;
-            if(!vm.searchKey) {
-                return vm.entries;
+
+            if(!this.searchKey) {
+                return this.entries;
             }
+            
             return _.filter(vm.entries, function (item) {
                 return ~item.driver_name.toLowerCase().indexOf(vm.searchKey.toLowerCase());
             });
