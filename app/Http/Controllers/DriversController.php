@@ -377,7 +377,13 @@ class DriversController extends Controller
                 'contact_phone' => 'required|max:13|min:13',
         ]);
 
+        $image = Image::doesntHave('driver')->orderBy('id','DESC')->first()->id;
+
         $driver->update($request->all());
+        
+        $driver->image_id = $image;
+
+        $driver->save();
 
         flashy()->success('Driver has successfully updated!');
         return redirect('drivers');
@@ -646,7 +652,10 @@ class DriversController extends Controller
 
         $card_rfid = $request->input('card_list');
 
+        $image = Image::doesntHave('driver')->orderBy('id','DESC')->first()->id;
+        
         $driver->update($request->all());
+        $driver->image_id = $image;
         $driver->availability = $request->input('availability');
 
         // if($request->hasFile('avatar')){
