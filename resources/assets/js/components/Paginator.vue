@@ -1,5 +1,5 @@
 <template>
- <div class="card-footer text-muted">
+
     <div  class="row">
         <div class="col">
             <button :disabled="!showPreviousLink()" class="btn btn-default btn-sm" v-on:click="setPage(currentPage - 1)"> Previous </button>
@@ -7,7 +7,7 @@
             <button :disabled="!showNextLink()" class="btn btn-default btn-sm" v-on:click="setPage(currentPage + 1)"> Next </button>
         </div>
     </div>
-</div>
+
 </template>
 
 <script>
@@ -24,7 +24,7 @@
         },
 
         methods: {
-            
+        
             setPage(pageNumber) {
                 this.currentPage = pageNumber;         
             },
@@ -44,22 +44,22 @@
 
         computed: {
             
-            filteredEntries() {
-                const vm = this;
+            // filteredEntries() {
+            //     const vm = this;
                 
-                return _.filter(vm.resource, function (item) {
-                    return ~item.driver_name.toLowerCase().indexOf(vm.searchKey.trim().toLowerCase());
-                });
-            },
+            //     return _.filter(vm.resource, function (item) {
+            //         return ~item.driver_name.toLowerCase().indexOf(vm.searchKey.trim().toLowerCase());
+            //     });
+            // },
 
             totalPages() {
-            return Math.ceil(this.filteredEntries.length / this.itemsPerPage)
+            return Math.ceil(this.resource.length / this.itemsPerPage)
             },
 
             paginateEntries() {
 
                 var index = this.currentPage * this.itemsPerPage;
-                var entries_array = this.filteredEntries.slice(index, index + this.itemsPerPage);
+                var entries_array = this.resource.slice(index, index + this.itemsPerPage);
 
                 if (this.currentPage >= this.totalPages) {
                     this.currentPage = this.totalPages - 1

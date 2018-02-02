@@ -211,10 +211,6 @@ export default {
             });
         },
 
-        resetStartRow() {
-            this.currentPage = 0;
-        },
-
         moment(date) {
             return moment(date).format('MMMM D, Y h:m:s A');
         },

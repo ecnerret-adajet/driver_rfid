@@ -39,11 +39,11 @@
                 </div>
             
                 <div class="tab-pane pt-3" id="no_truck" role="tabpanel">
-                   <no-truck role="{{ Auth::user()->roles->first()->name }}"></no-truck>
+                   <no-truck user_role="{{ Auth::user()->roles->first()->name }}"></no-truck>
                 </div>
 
                 <div class="tab-pane pt-3" id="deactivated_drivers" role="tabpanel">
-                   <deactivated-drivers role="{{ Auth::user()->roles->first()->name }}"></deactivated-drivers>
+                   <deactivated-drivers user_role="{{ Auth::user()->roles->first()->name }}"></deactivated-drivers>
                 </div>
 
             </div>

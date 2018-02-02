@@ -134,14 +134,38 @@
                                 </li>
                             </ul>
                         </div>
-                         <div class="center-align" style="padding-top: 50px; display: flex; align-items: center; justify-content: center;" v-if="loading">
-                            <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                                <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
-                            </svg>	
+                         <div class="row center-align" style="display: flex; align-items: center; justify-content: center;" v-if="loading">
+                             <div class="col">
+                                <content-placeholders style="border: 0 ! important;" :rounded="true">
+                                    <content-placeholders-heading :img="true" />
+                                    <content-placeholders-text :lines="1" />
+                                    <hr/>
+                                    <content-placeholders-heading :img="true" />
+                                    <content-placeholders-text :lines="1" />
+                                    <hr/>
+                                    <content-placeholders-heading :img="true" />
+                                    <content-placeholders-text :lines="1" />
+                                    <hr/>
+                                    <content-placeholders-heading :img="true" />
+                                    <content-placeholders-text :lines="1" />
+                                    <!-- <content-placeholders-text :lines="3" /> -->
+                                </content-placeholders>
+                             </div>
                         </div>
                     </div>
                 </div>
 
+
+            <div  class="row mt-3">
+                <div class="col-6">
+                    <button :disabled="!showPreviousLink()" class="btn btn-default btn-sm" v-on:click="setPage(currentPage - 1)"> Previous </button>
+                        <span class="text-dark">Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+                    <button :disabled="!showNextLink()" class="btn btn-default btn-sm" v-on:click="setPage(currentPage + 1)"> Next </button>
+                </div>
+                <div class="col-6 text-right">
+                    <span>{{ drivers.length }} Drivers</span>
+                </div>
+            </div>
 
 
 
@@ -284,10 +308,15 @@
 </template>
 
 <script>
+import VueContentPlaceholders from 'vue-content-placeholders';
+import _ from 'lodash';
+
 export default {
     
-    props: {
-        role: String,
+    props: ['user_role'],
+
+    components: {
+        VueContentPlaceholders,
     },
 
     data() {
@@ -296,9 +325,10 @@ export default {
             driver_link: '/driver_rfid/public/drivers/',
             avatar_link: '/driver_rfid/public/storage/',
             drivers: [],
-            user_role: this.role,
             loading: false,
             csrf: '',
+            currentPage: 0,
+            itemsPerPage: 5,
         }
     },
     
@@ -319,28 +349,56 @@ export default {
                 this.loading = false
             });
         },
+
+        getHaulers() {
+            axios.get('/driver_rfid/public/haulersJson')
+            .then(response => this.haulers = response.data);
+        },
+
+        setPage(pageNumber) {
+            this.currentPage = pageNumber;         
+        },
+
+        resetStartRow() {
+            this.currentPage = 0;
+        },
+
+        showPreviousLink() {
+            return this.currentPage == 0 ? false : true;
+        },
+
+        showNextLink() {
+            return this.currentPage == (this.totalPages - 1) ? false : true;
+        }
     },
 
     computed: {
-        filteredDriver() {
+        filteredEntries() {
+            const vm = this;
             
-            var drivers_array = this.drivers;
-            var searchString = this.searchString;
+            return _.filter(vm.drivers, function (item) {
+                return ~item.name.toLowerCase().indexOf(vm.searchString.trim().toLowerCase());
+            });
+        },
 
-            if(!searchString){
-                return drivers_array;
+        totalPages() {
+            return Math.ceil(this.filteredEntries.length / this.itemsPerPage)
+        },
+
+        filteredDriver() {
+
+            var index = this.currentPage * this.itemsPerPage;
+            var drivers_array = this.filteredEntries.slice(index, index + this.itemsPerPage);
+
+            if (this.currentPage >= this.totalPages) {
+                this.currentPage = this.totalPages - 1
+            } 
+
+            if(this.currentPage == -1){
+                this.currentPage = 0;
             }
-
-            searchString = searchString.trim().toLowerCase();
-
-            drivers_array = drivers_array.filter(function(item){
-                if(item.name.toLowerCase().indexOf(searchString) !== -1){
-                    return item;
-                }
-            })
-
+            
             return drivers_array;
-
         }
     }
 }
