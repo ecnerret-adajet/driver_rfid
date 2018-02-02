@@ -6,7 +6,7 @@
                
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input type="text" class="form-control"  v-model="searchString" placeholder="Search" />
+                        <input type="text" class="form-control"  v-model="searchString" @keyup="resetStartRow" placeholder="Search" />
                     </div>
                 </div>
 
@@ -26,7 +26,7 @@
                     <div class="col-sm-12">
                         <div v-if="!loading">
                             <ul class="list-group">
-                                <li v-for="driver in filteredDriver" class="list-group-item">
+                                <li v-for="driver in filteredDrivers" class="list-group-item">
                                     <div class="row">   
                                         <div class="col-sm-1">
 
@@ -133,7 +133,7 @@
                                     </div>
 
                                 </li>
-                                <li v-if="filteredDriver.length == 0"  class="list-group-item">
+                                <li v-if="filteredDrivers.length == 0"  class="list-group-item">
                                     <div class="row">
                                         <div class="col-sm-12 center">
                                             <span>NO DRIVER FOUND</span>
@@ -142,26 +142,42 @@
                                 </li>
                             </ul>
                         </div>
-                         <div class="center-align" style="padding-top: 50px; display: flex; align-items: center; justify-content: center;" v-if="loading">
-                            <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                                <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
-                            </svg>	
+                        <div class="row center-align" style="display: flex; align-items: center; justify-content: center;" v-if="loading">
+                             <div class="col">
+                                <content-placeholders style="border: 0 ! important;" :rounded="true">
+                                    <content-placeholders-heading :img="true" />
+                                    <content-placeholders-text :lines="1" />
+                                    <hr/>
+                                    <content-placeholders-heading :img="true" />
+                                    <content-placeholders-text :lines="1" />
+                                    <hr/>
+                                    <content-placeholders-heading :img="true" />
+                                    <content-placeholders-text :lines="1" />
+                                    <hr/>
+                                    <content-placeholders-heading :img="true" />
+                                    <content-placeholders-text :lines="1" />
+                                    <!-- <content-placeholders-text :lines="3" /> -->
+                                </content-placeholders>
+                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row mt-3">
-                    <div class="col">
-                
-                    <!-- <v-paginator :resource_url="resource_url" @update="updateResource"></v-paginator> -->
-
-                    </div>
+            <div  class="row mt-3">
+                <div class="col-6">
+                    <button :disabled="!showPreviousLink()" class="btn btn-default btn-sm" v-on:click="setPage(currentPage - 1)"> Previous </button>
+                        <span class="text-dark">Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+                    <button :disabled="!showNextLink()" class="btn btn-default btn-sm" v-on:click="setPage(currentPage + 1)"> Next </button>
                 </div>
+                <div class="col-6 text-right">
+                    <span>{{ drivers.length }} Drivers</span>
+                </div>
+            </div>
 
 
 
 
-        <div v-for="driver in filteredDriver">
+        <div v-for="driver in filteredDrivers">
 
 
             <!-- Deactivate Modal -->
@@ -300,18 +316,16 @@
 </template>
 
 <script>
-// import VueResource from 'vue-resource'
-// import VuePaginator from 'vuejs-paginator'
-
-// Vue.use(VueResource)
+import VueContentPlaceholders from 'vue-content-placeholders';
+import _ from 'lodash';
 
 export default {
 
     props: ['user_role'],
 
-//      components: {
-//     VPaginator: VuePaginator
-//   },
+   components: {
+        VueContentPlaceholders,
+    },
 
     data() {
         return {
@@ -323,7 +337,8 @@ export default {
             haulers: [],
             loading: false,
             csrf: '',
-            // resource_url: 'http://localhost/driver_rfid/public/driversJson'
+            currentPage: 0,
+            itemsPerPage: 5,
         }
     },
     
@@ -351,33 +366,51 @@ export default {
             .then(response => this.haulers = response.data);
         },
 
-    //     updateResource(data){
-    //   this.animals = data
-    // }
+        setPage(pageNumber) {
+            this.currentPage = pageNumber;         
+        },
+
+        resetStartRow() {
+            this.currentPage = 0;
+        },
+
+        showPreviousLink() {
+            return this.currentPage == 0 ? false : true;
+        },
+
+        showNextLink() {
+            return this.currentPage == (this.totalPages - 1) ? false : true;
+        }
 
     },
 
     computed: {
-        filteredDriver() {
+        filteredEntries() {
+            const vm = this;
             
-            var drivers_array = this.drivers;
-            var searchString = this.searchString;
-            var searchHauler = this.searchHauler;
+            return _.filter(vm.drivers, function (item) {
+                return ~item.name.toLowerCase().indexOf(vm.searchString.trim().toLowerCase());
+            });
+        },
 
-            if(!searchString && !searchHauler) {
-                return drivers_array;
+        totalPages() {
+            return Math.ceil(this.filteredEntries.length / this.itemsPerPage)
+        },
+
+        filteredDrivers() {
+
+            var index = this.currentPage * this.itemsPerPage;
+            var drivers_array = this.filteredEntries.slice(index, index + this.itemsPerPage);
+
+            if (this.currentPage >= this.totalPages) {
+                this.currentPage = this.totalPages - 1
+            } 
+
+            if(this.currentPage == -1){
+                this.currentPage = 0;
             }
-
-            searchString = searchString.trim().toLowerCase();
-
-            drivers_array = drivers_array.filter(function(item){
-                // return item.data.name.toLowerCase().indexOf(searchString) !== -1 && item.hauler.indexOf(searchHauler)  !== -1;
-                return item.name.toLowerCase().indexOf(searchString) !== -1;
-            })
-          
-
+            
             return drivers_array;
-
         }
     }
 }

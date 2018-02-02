@@ -4,7 +4,7 @@
             <div class="form-row mb-2 mt-2">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <input type="text" class="form-control"  v-model="searchString" placeholder="Search" />
+                        <input type="text" class="form-control"  v-model="searchString" @keyup="resetStartRow" placeholder="Search" />
                     </div>
                 </div>
             </div>
@@ -101,13 +101,37 @@
                                 </li>
                             </ul>
                         </div>
-                         <div class="center-align" style="padding-top: 50px; display: flex; align-items: center; justify-content: center;" v-if="loading">
-                            <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                                <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
-                            </svg>	
+                         <div class="row center-align" style="display: flex; align-items: center; justify-content: center;" v-if="loading">
+                             <div class="col">
+                                <content-placeholders style="border: 0 ! important;" :rounded="true">
+                                    <content-placeholders-heading :img="true" />
+                                    <content-placeholders-text :lines="1" />
+                                    <hr/>
+                                    <content-placeholders-heading :img="true" />
+                                    <content-placeholders-text :lines="1" />
+                                    <hr/>
+                                    <content-placeholders-heading :img="true" />
+                                    <content-placeholders-text :lines="1" />
+                                    <hr/>
+                                    <content-placeholders-heading :img="true" />
+                                    <content-placeholders-text :lines="1" />
+                                    <!-- <content-placeholders-text :lines="3" /> -->
+                                </content-placeholders>
+                             </div>
                         </div>
                     </div>
                 </div>
+
+            <div  class="row mt-3">
+                <div class="col-6">
+                    <button :disabled="!showPreviousLink()" class="btn btn-default btn-sm" v-on:click="setPage(currentPage - 1)"> Previous </button>
+                        <span class="text-dark">Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+                    <button :disabled="!showNextLink()" class="btn btn-default btn-sm" v-on:click="setPage(currentPage + 1)"> Next </button>
+                </div>
+                <div class="col-6 text-right">
+                    <span>{{ trucks.length }} Trucks</span>
+                </div>
+            </div>
 
 
         <div v-for="truck in filteredTruck">
@@ -226,17 +250,22 @@
 </template>
 
 <script>
+import VueContentPlaceholders from 'vue-content-placeholders';
+import _ from 'lodash';
+
 export default {
 
     props: ['user_role'],
 
     data() {
         return {
-            searchString: '',
+            loading: false,            
             truck_link: '/driver_rfid/public/trucks/',
             export_link: '/driver_rfid/public/exportTrucks',
             trucks: [],
-            loading: false,
+            searchString: '',
+            itemsPerPage: 5,
+            currentPage: 0,
             csrf: '',
         }
     },
@@ -245,16 +274,15 @@ export default {
         this.csrf = window.Laravel.csrfToken;
     },
 
+    components: {
+        VueContentPlaceholders,
+    },
+
     created() {
         this.getTruck()
     },
 
     methods: {
-        getAuth() {
-        axios.get('/driver_rfid/public/getAuth')
-            .then(response => this.auth = response.data);
-        },
-
         getTruck() {
             this.loading = true
             axios.get('/driver_rfid/public/trucksJson')
@@ -262,31 +290,53 @@ export default {
                  this.trucks = response.data
                  this.loading = false
             });
+        },
+
+        setPage(pageNumber) {
+            this.currentPage = pageNumber;         
+        },
+
+        resetStartRow() {
+            this.currentPage = 0;
+        },
+
+        showPreviousLink() {
+            return this.currentPage == 0 ? false : true;
+        },
+
+        showNextLink() {
+            return this.currentPage == (this.totalPages - 1) ? false : true;
         }
     },
 
     computed: {
+        filteredEntries() {
+            const vm = this;
+            
+            return _.filter(vm.trucks, function (item) {
+                return ~item.plate_number.toLowerCase().indexOf(vm.searchString.trim().toLowerCase());
+            });
+        },
+
+        totalPages() {
+            return Math.ceil(this.filteredEntries.length / this.itemsPerPage)
+        },
+
         filteredTruck() {
-            var trucks_array = this.trucks;
-            var searchString = this.searchString;
 
-            if(!searchString) {
-                return trucks_array;
+            var index = this.currentPage * this.itemsPerPage;
+            var trucks_array = this.filteredEntries.slice(index, index + this.itemsPerPage);
+
+            if (this.currentPage >= this.totalPages) {
+                this.currentPage = this.totalPages - 1
+            } 
+
+            if(this.currentPage == -1){
+                this.currentPage = 0;
             }
-
-            searchString = searchString.trim().toLowerCase();
-
-            // hauler_name = item.hauler.map(a => a.name);
-    
-            trucks_array = trucks_array.filter(function(item){
-                if(item.plate_number.toLowerCase().indexOf(searchString) !== -1){
-                    return item;
-                }
-            })
-
+            
             return trucks_array;
         }
-
   
     }
 }

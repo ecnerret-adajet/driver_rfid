@@ -1,14 +1,4 @@
 @extends('layouts.app')
-@section('top-script')
-  @role(('Administrator'))
-    <script>
-        setInterval(function(){
-            $('#realtimeFeed').load('{{ config('app.url') }}/driver_rfid/public/home-content');
-            $('#wait').hide();     
-        }, 2000);  
-    </script>
-    @endif
-@endsection
 @section('content')
 
   <!-- Breadcrumbs -->
@@ -19,21 +9,23 @@
         <li class="breadcrumb-item active">My Dashboard</li>
     </ol>
 
-
     <home></home>
 
-    @role(('Administrator'))
+    @if(\Entrust::hasRole('Administrator'))
 
-    <div id="wait" class="center-align" style="padding-top: 50px; display: flex; align-items: center; justify-content: center;">
-        <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
-        </svg>	
-    </div>
-       
-    <div id="realtimeFeed"></div>
+        <dashboard></dashboard>
 
+    @else
+
+        <div class="row mt-4">
+            <div class="col p-3 text-center">
+                <p class="display-4 text-muted">
+                    We Cannot Show the dashboard
+                </p>
+            </div>
+        </div>
+  
     @endif
-
-
+  
 @endsection
 
