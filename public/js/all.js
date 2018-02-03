@@ -77907,7 +77907,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("\n                              OPEN\n                          ")]) : _vm._e(), _vm._v(" "), _c('p', {
     staticClass: "card-text mt-3 small text-uppercase text-muted"
-  }, [_vm._v("\n                              Recently Served\n                          ")])], 2)])]) : _vm._e(), _vm._v(" "), (_vm.loadingServing) ? _c('div', [_c('div', {
+  }, [_vm._v("\n                              Recently Assigned\n                          ")])], 2)])]) : _vm._e(), _vm._v(" "), (_vm.loadingServing) ? _c('div', [_c('div', {
     staticClass: "center-align",
     staticStyle: {
       "padding-top": "50px",
@@ -77970,9 +77970,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-toggle": "modal",
         "data-target": '#servingModal-' + queue.driver_id
       }
-    }, [_vm._v("\n                                                   OPEN\n                                               ")])]) : _c('span', [_c('button', {
+    }, [_vm._v("\n                                                   OPEN SHIPMENT\n                                               ")])]) : _c('span', [_c('button', {
       staticClass: "btn btn-outline-danger btn-sm disabled"
-    }, [_vm._v("\n                                                SERVED\n                                               ")])])])])
+    }, [_vm._v("\n                                                SHIPMENT ASSIGNED\n                                               ")])])])])
   })) : _vm._e(), _vm._v(" "), (_vm.loadingDeliveries) ? _c('tbody', [_c('tr', [_c('td', {
     attrs: {
       "colspan": "7 text-center"

@@ -48,7 +48,7 @@
                                 OPEN
                             </h1>
                             <p class="card-text mt-3 small text-uppercase text-muted">
-                                Recently Served
+                                Recently Assigned
                             </p>
                         </div>
                     </div>
@@ -113,12 +113,12 @@
                                         <td>
                                              <span v-if="!queue.on_serving">
                                                  <a class="btn btn-success btn-sm" href="javascript:void(0);" data-toggle="modal" :data-target="'#servingModal-'+ queue.driver_id">
-                                                     OPEN
+                                                     OPEN SHIPMENT
                                                  </a>
                                              </span>
                                              <span v-else>
                                                  <button class="btn btn-outline-danger btn-sm disabled">
-                                                  SERVED
+                                                  SHIPMENT ASSIGNED
                                                  </button>
                                              </span>
                                         </td>
