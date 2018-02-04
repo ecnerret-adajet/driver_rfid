@@ -53997,7 +53997,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.loading = true;
-            axios.get('/driver_rfid/public/hometest').then(function (response) {
+            axios.get('/driver_rfid/public/homeFeed').then(function (response) {
                 _this.entries = response.data;
                 _this.loading = false;
             });

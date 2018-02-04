@@ -204,7 +204,7 @@ export default {
     methods: {
         getEntries() {
             this.loading = true
-            axios.get('/driver_rfid/public/hometest')
+            axios.get('/driver_rfid/public/homeFeed')
             .then(response => {
                 this.entries = response.data
                 this.loading = false
