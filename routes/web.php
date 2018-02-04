@@ -189,6 +189,14 @@ Route::get('/pickups/unserved/{pickup}/edit','PickupOnlineController@editPickup'
 Route::patch('/pickups/unserved/{pickup}/update', ['as' => 'pickups-unserved.update', 'uses' => 'PickupOnlineController@updatePickup']);
 Route::delete('/pickups/unserved/{pickup}','PickupOnlineController@cancelPickup');
 
+// for monitor feed section pickups
+Route::get('/pickupFeed','PickupsController@pickupFeed');
+Route::get('/pickupInPlant','PickupsController@pickupInPlant');
+Route::get('/unserved','PickupsController@unserved');
+Route::get('/served','PickupsController@served');
+Route::get('/generatePickupFeed','PickupsController@generatePickupFeed');
+
+
 Route::get('/getPickupData','PickupOnlineController@getPickupData');
 Route::get('/getPickupWithCardholder','PickupOnlineController@getPickupWithCardholder');
 

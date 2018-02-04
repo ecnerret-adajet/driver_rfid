@@ -319,4 +319,75 @@ class PickupsController extends Controller
     {
         //
     }
+
+    /**
+     * 
+     *  Setup to fetched all served pickups in monitor/feed routes
+     *  
+     */
+    public function pickupFeed()
+    {
+        $pickups = Pickup::with('cardholder','user')
+                        ->orderBy('id','DESC')
+                        ->take(30)
+                        ->get();
+
+        return $pickups;
+    }
+
+    public function pickupInPlant()
+    {
+        $pickups = Pickup::with('cardholder','user')
+                        ->whereNotNull('cardholder_id')
+                        ->whereNull('deactivated_date')
+                        ->orderBy('id','DESC')
+                        ->take(30)
+                        ->get();
+
+        return $pickups;
+    }
+
+    public function unserved()
+    {
+        $pickups = Pickup::with('cardholder','user')
+                        ->whereNull('cardholder_id')
+                        ->whereNull('deactivated_date')
+                        ->orderBy('id','DESC')
+                        ->take(30)
+                        ->get();
+
+        return $pickups;
+    }
+
+    public function served()
+    {
+        $pickups = Pickup::with('cardholder','user')
+                        ->whereNotNull('cardholder_id')
+                        ->whereNotNull('deactivated_date')
+                        ->orderBy('id','DESC')
+                        ->take(30)
+                        ->get();
+
+        return $pickups;
+    }
+
+    public function generatePickupFeed(Request $request)
+    {
+        $this->validate($request, [
+            'search_date' => 'required',
+        ]);
+
+        $search_date = $request->get('search_date');
+
+        $served = Pickup::with('cardholder','user')
+                        ->where('created_at',Carbon::parse($search_date))
+                        ->orderBy('id','DESC')
+                        ->take(30)
+                        ->get();
+
+        return $served;
+    
+    }
+
+   
 }
