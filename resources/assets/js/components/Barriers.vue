@@ -5,82 +5,54 @@
                 <div class="col-sm-12">
                     <ul class="list-group">
 
-            <li v-for="barrier in entries" class="list-group-item pb-0 pt-0" :style="'border-color: ' + { '#28a745':  barrier.availability == 1, '#d58393' : barrier.availability != 1  }">
+            <li v-for="barrier in entries" class="rounded-0 list-group-item pb-0 pt-0 rounded-0"  :class="{ 'list-group-item-danger' : barrier.availability != 1 }">
+
                 <div class="row">
-                    <div class="col-sm-6 p-2" :style="'border-right: 1px solid ' + {  '#28a745' : barrier.availability == 1, '#d58393' : barrier.availability != 1 }">
+                    <div class="col-sm-6 p-3 text-center">
+                        
+                        <div v-if="barrier.availability == 0" class="border border-danger p-3" style="position: absolute; top: 45%; left: 30%; height: 150xp; width: 400px;">
+                            <span class="display-4 text-danger text-uppercase" style="font-weight: bold">
+                                DEACTIVATED
+                            </span>
+                        </div>
 
-                         <span v-if="barrier.availability">
-                            <a class="btn btn-sm btn-success pull-right btn-outline disabled" href="#">
-                                ACTIVE
-                            </a>
-                         </span>
-                         <span v-else>
-                             <a class="btn btn-sm btn-danger pull-right btn-outline disabled" href="#">
-                                INACTIVE
-                            </a>
-                         </span>
-
-                        <img class="img-responsive rounded" style="height: 500px; width: auto; margin-left: 50px;" :src="'/driver_rfid/public/storage/' + barrier.avatar" align="middle">
+                        <img class="img-responsive rounded-circle mx-auto" :class="{ 'deactived-img' : barrier.availability == 0 }" style="height: 500px; width: auto;" :src="'/driver_rfid/public/storage/' + barrier.avatar" align="middle">
                     
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 p-0 border border-top-0 border-right-0 border-bottom-0">
+
+
+                        <ul class="list-group list-group-flush" :class="{ 'text-muted' : barrier.availability == 0 }">
+                            <li class="list-group-item" :class="{ 'list-group-item-danger' : barrier.availability != 1 }">
+                                <small class="text-muted">DRIVER NAME:</small><br/>
+                                <span style="font-size: 35px;">
+                                {{barrier.driver}}
+                                </span>
+                            </li>
+                            <li class="list-group-item" :class="{ 'list-group-item-danger' : barrier.availability != 1 }">
+                                <small class="text-muted">PLATE NUMBER:</small><br/>
+                                <span style="font-size: 35px;">
+                                    {{barrier.plate_number}}
+                                </span>
+                            </li>
+                            <li class="list-group-item" :class="{ 'list-group-item-danger' : barrier.availability != 1 }">
+                                <small class="text-muted">HAULER NAME:</small><br/>
+                                <span style="font-size: 35px;">
+                                    {{barrier.hauler_name}}
+                                </span>
+                            </li>
+                            <li class="list-group-item" :class="{ 'list-group-item-danger' : barrier.availability != 1 }">
+                                <small class="text-muted">PLANT IN:</small><br/>
+                                <span style="font-size: 35px;" v-if="barrier.inLocalTime">
+                                    {{ moment(barrier.inLocalTime.date)}} 
+                                </span>
+
+                                <span style="font-size: 35px;" v-else>
+                                    NO IN  
+                                </span>
+                            </li>
+                        </ul>
            
-                <div class="row"> 
-                <table class="table table-bordered mb-0">
-                    <tr>
-                        <td colspan="2">
-                            <small class="text-muted">DRIVER NAME:</small><br/>
-                            <span style="font-size: 35px;">
-                            {{barrier.driver}}
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <small class="text-muted">PLATE NUMBER:</small><br/>
-                            <span style="font-size: 35px;">
-                                {{barrier.plate_number}}
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="50%">
-                            <small class="text-muted">DRIVER NAME:</small><br/>
-                            <span style="font-size: 35px;">
-                                {{barrier.hauler_name}}
-                             </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                        <small class="text-muted">PLANT IN:</small><br/>
-
-                         <span style="font-size: 35px;" v-if="barrier.inLocalTime">
-                            {{ moment(barrier.inLocalTime.date)}} 
-                        </span>
-
-                          <span style="font-size: 35px;" v-else>
-                            NO IN  
-                        </span>
-
-                        </td>
-                    </tr>
-                    <tr>
-                     <td>
-                      <small class="text-muted">PLANT OUT:</small><br/>
-
-                         <span style="font-size: 35px;" v-if="barrier.outLocalTime">
-                         {{ moment(barrier.outLocalTime.date)}} 
-                        </span>
-
-                         <span style="font-size: 35px;" v-else>
-                            NO OUT
-                        </span>
-
-                        </td>
-                    </tr>
-                </table>
-                </div>
            
                     </div>
                 </div><!--end row -->
@@ -121,3 +93,10 @@
         }
     }
 </script>
+
+<style scoped>
+    .deactived-img {
+        opacity: 0.5;
+        filter: alpha(opacity=50);
+    }
+</style>

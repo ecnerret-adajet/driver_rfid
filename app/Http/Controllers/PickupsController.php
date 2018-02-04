@@ -341,7 +341,8 @@ class PickupsController extends Controller
                         ->whereNotNull('cardholder_id')
                         ->whereNull('deactivated_date')
                         ->orderBy('id','DESC')
-                        ->take(30)
+                        ->whereDate('activation_date', Carbon::today())
+                        // ->take(30)
                         ->get();
 
         return $pickups;
@@ -353,7 +354,7 @@ class PickupsController extends Controller
                         ->whereNull('cardholder_id')
                         ->whereNull('deactivated_date')
                         ->orderBy('id','DESC')
-                        ->take(30)
+                        // ->take(30)
                         ->get();
 
         return $pickups;
@@ -365,7 +366,8 @@ class PickupsController extends Controller
                         ->whereNotNull('cardholder_id')
                         ->whereNotNull('deactivated_date')
                         ->orderBy('id','DESC')
-                        ->take(30)
+                        ->whereDate('activation_date', Carbon::today())
+                        // ->take(30)
                         ->get();
 
         return $pickups;
