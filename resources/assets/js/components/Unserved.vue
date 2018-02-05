@@ -31,8 +31,14 @@
                        <div class="row">
 
                             <div class="col">
-                                  <small class="text-uppercase text-muted">Created Date</small> <br/>
-                                {{ moment(pickup.created_at) }}  <br/>
+                                <small class="text-uppercase text-muted">Date Arrived</small> <br/>
+                                <span v-if="pickup.activation_date">
+                                    {{ moment(pickup.activation_date) }}  <br/>
+                                </span>
+                                <span v-if="!pickup.activation_date">
+                                    NOT YET ARRIVED <br/>
+                                </span>
+                                
                                 <small class="text-uppercase text-muted">Checkout Date</small>  <br/>
                                 <span v-if="pickup.deactivated_date">
                                     {{ moment(pickup.deactivated_date) }}
@@ -48,7 +54,7 @@
                             <div class="col">
                                 <small class="text-uppercase text-muted">Time Rendered</small> <br/> 
                                 <span v-if="pickup.deactivated_date">
-                                    {{ dateDiff(pickup.created_at, pickup.deactivated_date) }} Hour(s)
+                                    {{ dateDiff(pickup.activation_date, pickup.deactivated_date) }} Hour(s)
                                 </span>
                                 <span v-else class="text-muted">
                                     N/A
@@ -58,7 +64,9 @@
                                         
                     </td>
                     <td>
-                      {{ pickup.user.name }}
+                        {{ pickup.user.name }} <br/>
+                      <small class="text-uppercase text-muted">Date Created</small> <br/>
+                        {{ moment(pickup.created_date) }} 
                     </td>
                 </tr>
                 <tr v-if="filteredPickups.length == 0 && !loading">

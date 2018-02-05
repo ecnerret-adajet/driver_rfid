@@ -56427,6 +56427,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -56524,6 +56532,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_content_placeholders__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -57956,6 +57972,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -58777,6 +58801,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_content_placeholders__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -78773,15 +78805,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "col"
     }, [_c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("Created Date")]), _vm._v(" "), _c('br'), _vm._v("\n                            " + _vm._s(_vm.moment(pickup.created_at)) + "  "), _c('br'), _vm._v(" "), _c('small', {
+    }, [_vm._v("Date Arrived")]), _vm._v(" "), _c('br'), _vm._v(" "), (pickup.activation_date) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.moment(pickup.activation_date)) + "  "), _c('br')]) : _vm._e(), _vm._v(" "), (!pickup.activation_date) ? _c('span', [_vm._v("\n                                NOT YET ARRIVED "), _c('br')]) : _vm._e(), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
     }, [_vm._v("Checkout Date")]), _vm._v(" "), _c('br'), _vm._v(" "), (pickup.deactivated_date) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.moment(pickup.deactivated_date)) + "\n                            ")]) : _vm._e(), _vm._v(" "), (!pickup.cardholder && !pickup.deactivated_date) ? _c('span', [_vm._v("\n                                N/A\n                            ")]) : _vm._e(), _vm._v(" "), (pickup.cardholder && !pickup.deactivated_date) ? _c('span', [_vm._v("\n                               STILL IN PLANT\n                            ")]) : _vm._e()]), _vm._v(" "), _c('div', {
       staticClass: "col"
     }, [_c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("Time Rendered")]), _vm._v(" "), _c('br'), _vm._v(" "), (pickup.deactivated_date) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.dateDiff(pickup.created_at, pickup.deactivated_date)) + " Hour(s)\n                            ")]) : _c('span', {
+    }, [_vm._v("Time Rendered")]), _vm._v(" "), _c('br'), _vm._v(" "), (pickup.deactivated_date) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.dateDiff(pickup.activation_date, pickup.deactivated_date)) + " Hour(s)\n                            ")]) : _c('span', {
       staticClass: "text-muted"
-    }, [_vm._v("\n                                N/A\n                            ")])])])]), _vm._v(" "), _c('td', [_vm._v("\n                  " + _vm._s(pickup.user.name) + "\n                ")])]) : _vm._e()
+    }, [_vm._v("\n                                N/A\n                            ")])])])]), _vm._v(" "), _c('td', [_vm._v("\n                  " + _vm._s(pickup.user.name) + " "), _c('br'), _vm._v(" "), _c('small', {
+      staticClass: "text-uppercase text-muted"
+    }, [_vm._v("Date Created")]), _vm._v(" "), _c('br'), _vm._v("\n                    " + _vm._s(_vm.moment(pickup.created_date)) + " \n                ")])]) : _vm._e()
   }), _vm._v(" "), (_vm.filteredPickups.length == 0 && !_vm.loading) ? _c('tr', [_c('td', {
     attrs: {
       "colspan": "8"
@@ -79276,15 +79310,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "col"
     }, [_c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("Created Date")]), _vm._v(" "), _c('br'), _vm._v("\n                            " + _vm._s(_vm.moment(pickup.created_at)) + "  "), _c('br'), _vm._v(" "), _c('small', {
+    }, [_vm._v("Date Arrived")]), _vm._v(" "), _c('br'), _vm._v(" "), (pickup.activation_date) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.moment(pickup.activation_date)) + "  "), _c('br')]) : _vm._e(), _vm._v(" "), (!pickup.activation_date) ? _c('span', [_vm._v("\n                                NOT YET ARRIVED "), _c('br')]) : _vm._e(), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
     }, [_vm._v("Checkout Date")]), _vm._v(" "), _c('br'), _vm._v(" "), (pickup.deactivated_date) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.moment(pickup.deactivated_date)) + "\n                            ")]) : _vm._e(), _vm._v(" "), (!pickup.cardholder && !pickup.deactivated_date) ? _c('span', [_vm._v("\n                                N/A\n                            ")]) : _vm._e(), _vm._v(" "), (pickup.cardholder && !pickup.deactivated_date) ? _c('span', [_vm._v("\n                               STILL IN PLANT\n                            ")]) : _vm._e()]), _vm._v(" "), _c('div', {
       staticClass: "col"
     }, [_c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("Time Rendered")]), _vm._v(" "), _c('br'), _vm._v(" "), (pickup.deactivated_date) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.dateDiff(pickup.created_at, pickup.deactivated_date)) + " Hour(s)\n                            ")]) : _c('span', {
+    }, [_vm._v("Time Rendered")]), _vm._v(" "), _c('br'), _vm._v(" "), (pickup.deactivated_date) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.dateDiff(pickup.activation_date, pickup.deactivated_date)) + " Hour(s)\n                            ")]) : _c('span', {
       staticClass: "text-muted"
-    }, [_vm._v("\n                                N/A\n                            ")])])])]), _vm._v(" "), _c('td', [_vm._v("\n                  " + _vm._s(pickup.user.name) + "\n                ")])]) : _vm._e()
+    }, [_vm._v("\n                                N/A\n                            ")])])])]), _vm._v(" "), _c('td', [_vm._v("\n                  " + _vm._s(pickup.user.name) + " "), _c('br'), _vm._v(" "), _c('small', {
+      staticClass: "text-uppercase text-muted"
+    }, [_vm._v("Date Created")]), _vm._v(" "), _c('br'), _vm._v("\n                    " + _vm._s(_vm.moment(pickup.created_date)) + " \n                ")])]) : _vm._e()
   }), _vm._v(" "), (_vm.filteredPickups.length == 0 && !_vm.loading) ? _c('tr', [_c('td', {
     attrs: {
       "colspan": "8"
@@ -82389,15 +82425,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "col"
     }, [_c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("Created Date")]), _vm._v(" "), _c('br'), _vm._v("\n                            " + _vm._s(_vm.moment(pickup.created_at)) + "  "), _c('br'), _vm._v(" "), _c('small', {
+    }, [_vm._v("Date Arrived")]), _vm._v(" "), _c('br'), _vm._v(" "), (pickup.activation_date) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.moment(pickup.activation_date)) + "  "), _c('br')]) : _vm._e(), _vm._v(" "), (!pickup.activation_date) ? _c('span', [_vm._v("\n                                NOT YET ARRIVED "), _c('br')]) : _vm._e(), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
     }, [_vm._v("Checkout Date")]), _vm._v(" "), _c('br'), _vm._v(" "), (pickup.deactivated_date) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.moment(pickup.deactivated_date)) + "\n                            ")]) : _vm._e(), _vm._v(" "), (!pickup.cardholder && !pickup.deactivated_date) ? _c('span', [_vm._v("\n                                N/A\n                            ")]) : _vm._e(), _vm._v(" "), (pickup.cardholder && !pickup.deactivated_date) ? _c('span', [_vm._v("\n                               STILL IN PLANT\n                            ")]) : _vm._e()]), _vm._v(" "), _c('div', {
       staticClass: "col"
     }, [_c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("Time Rendered")]), _vm._v(" "), _c('br'), _vm._v(" "), (pickup.deactivated_date) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.dateDiff(pickup.created_at, pickup.deactivated_date)) + " Hour(s)\n                            ")]) : _c('span', {
+    }, [_vm._v("Time Rendered")]), _vm._v(" "), _c('br'), _vm._v(" "), (pickup.deactivated_date) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.dateDiff(pickup.activation_date, pickup.deactivated_date)) + " Hour(s)\n                            ")]) : _c('span', {
       staticClass: "text-muted"
-    }, [_vm._v("\n                                N/A\n                            ")])])])]), _vm._v(" "), _c('td', [_vm._v("\n                  " + _vm._s(pickup.user.name) + "\n                ")])]) : _vm._e()
+    }, [_vm._v("\n                                N/A\n                            ")])])])]), _vm._v(" "), _c('td', [_vm._v("\n                " + _vm._s(pickup.user.name) + " "), _c('br'), _vm._v(" "), _c('small', {
+      staticClass: "text-uppercase text-muted"
+    }, [_vm._v("Date Created")]), _vm._v(" "), _c('br'), _vm._v("\n                " + _vm._s(_vm.moment(pickup.created_date)) + " \n                ")])]) : _vm._e()
   }), _vm._v(" "), (_vm.filteredPickups.length == 0 && !_vm.loading) ? _c('tr', [_c('td', {
     attrs: {
       "colspan": "8"
@@ -82533,15 +82571,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "col"
     }, [_c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("Created Date")]), _vm._v(" "), _c('br'), _vm._v("\n                            " + _vm._s(_vm.moment(pickup.created_at)) + "  "), _c('br'), _vm._v(" "), _c('small', {
+    }, [_vm._v("Date Arrived")]), _vm._v(" "), _c('br'), _vm._v(" "), (pickup.activation_date) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.moment(pickup.activation_date)) + "  "), _c('br')]) : _vm._e(), _vm._v(" "), (!pickup.activation_date) ? _c('span', [_vm._v("\n                                NOT YET ARRIVED "), _c('br')]) : _vm._e(), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
     }, [_vm._v("Checkout Date")]), _vm._v(" "), _c('br'), _vm._v(" "), (pickup.deactivated_date) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.moment(pickup.deactivated_date)) + "\n                            ")]) : _vm._e(), _vm._v(" "), (!pickup.cardholder && !pickup.deactivated_date) ? _c('span', [_vm._v("\n                                N/A\n                            ")]) : _vm._e(), _vm._v(" "), (pickup.cardholder && !pickup.deactivated_date) ? _c('span', [_vm._v("\n                               STILL IN PLANT\n                            ")]) : _vm._e()]), _vm._v(" "), _c('div', {
       staticClass: "col"
     }, [_c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("Time Rendered")]), _vm._v(" "), _c('br'), _vm._v(" "), (pickup.deactivated_date) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.dateDiff(pickup.created_at, pickup.deactivated_date)) + " Hour(s)\n                            ")]) : _c('span', {
+    }, [_vm._v("Time Rendered")]), _vm._v(" "), _c('br'), _vm._v(" "), (pickup.deactivated_date) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.dateDiff(pickup.activation_date, pickup.deactivated_date)) + " Hour(s)\n                            ")]) : _c('span', {
       staticClass: "text-muted"
-    }, [_vm._v("\n                                N/A\n                            ")])])])]), _vm._v(" "), _c('td', [_vm._v("\n                  " + _vm._s(pickup.user.name) + "\n                ")])]) : _vm._e()
+    }, [_vm._v("\n                                N/A\n                            ")])])])]), _vm._v(" "), _c('td', [_vm._v("\n                    " + _vm._s(pickup.user.name) + " "), _c('br'), _vm._v(" "), _c('small', {
+      staticClass: "text-uppercase text-muted"
+    }, [_vm._v("Date Created")]), _vm._v(" "), _c('br'), _vm._v("\n                    " + _vm._s(_vm.moment(pickup.created_date)) + " \n                ")])]) : _vm._e()
   }), _vm._v(" "), (_vm.filteredPickups.length == 0 && !_vm.loading) ? _c('tr', [_c('td', {
     attrs: {
       "colspan": "8"
