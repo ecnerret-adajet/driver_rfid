@@ -18,6 +18,7 @@ mix.styles([
         'resources/assets/css/bootstrap/bootstrap.css',
         'resources/assets/css/select2.min.css',
         'resources/assets/css/select2-bootstrap.min.css',
+        'resources/assets/css/dripicons.css',
         // 'resources/assets/css/dataTables.bootstrap4.css',
         'resources/assets/css/lightbox.css',
         'resources/assets/css/font-awesome.min.css',

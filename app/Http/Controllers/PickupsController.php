@@ -382,9 +382,8 @@ class PickupsController extends Controller
         $search_date = $request->get('search_date');
 
         $served = Pickup::with('cardholder','user')
-                        ->where('created_at',Carbon::parse($search_date))
+                        ->whereDate('created_at',Carbon::parse($search_date))
                         ->orderBy('id','DESC')
-                        ->take(30)
                         ->get();
 
         return $served;

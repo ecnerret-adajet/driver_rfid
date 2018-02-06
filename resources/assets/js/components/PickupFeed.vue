@@ -71,13 +71,13 @@
                 </tr>
                 <tr v-if="filteredPickups.length == 0 && !loading">
                     <td colspan="8">
-                        <row>
+                        <div class="row">
                             <div class="col text-center pt-3 pb-3">
                                 <span class="display-4 text-muted">
                                     No Pickup Found
                                 </span>
                             </div>
-                        </row>
+                        </div>
                     </td>
                 </tr>
                 <tr v-if="loading">

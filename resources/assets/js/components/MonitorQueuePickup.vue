@@ -102,3 +102,8 @@
 
     }
 </script>
+<style scoped>
+    button {
+        cursor: pointer;
+    }
+</style>

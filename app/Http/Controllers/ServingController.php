@@ -15,7 +15,7 @@ class ServingController extends Controller
 
     public function currentlyServing()
     {
-        $serving = Serve::with('driver','driver.truck','driver.hauler','user')
+        $serving = Serve::with('driver','driver.truck','driver.hauler','user','driver.image')
                             ->orderBy('id','DESC')
                             ->where('on_serving',1)
                             ->take(1)

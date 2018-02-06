@@ -239,6 +239,9 @@ Route::resource('/pickups','PickupsController');
 Route::get('/monitor/feed','QueuesController@index');
 Route::get('/monitor/pickups', 'QueuesController@pickups');
 Route::get('/monitor/deliveries','QueuesController@deliveries');
+Route::get('/monitor/assignedShipment','QueuesController@assignedShipment');
+Route::get('/monitor/count','QueuesController@getDeliveriesCount');
+Route::get('/monitor/openShipment','QueuesController@openShipment');
 Route::post('/storeCurrentlyServing/{id}','ServingController@storeCurrentlyServing');
 
 
