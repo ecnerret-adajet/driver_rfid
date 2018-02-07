@@ -66,7 +66,7 @@
                     <td>
                       {{ pickup.user.name }} <br/>
                       <small class="text-uppercase text-muted">Date Created</small> <br/>
-                        {{ moment(pickup.created_date) }} 
+                        {{ moment(pickup.created_at) }} 
                     </td>
                 </tr>
                 <tr v-if="filteredPickups.length == 0 && !loading">

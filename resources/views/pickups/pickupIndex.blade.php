@@ -11,6 +11,8 @@
         </div>
         <div class="card-body">
 
+            <pickup-count></pickup-count>
+
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">

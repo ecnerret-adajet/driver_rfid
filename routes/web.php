@@ -196,10 +196,11 @@ Route::get('/unserved','PickupsController@unserved');
 Route::get('/served','PickupsController@served');
 Route::get('/generatePickupFeed','PickupsController@generatePickupFeed');
 
-
+// For Sales Monitoring Feed Pickup section
 Route::get('/getPickupData','PickupOnlineController@getPickupData');
 Route::get('/getPickupWithCardholder','PickupOnlineController@getPickupWithCardholder');
-
+Route::get('/pickupCount','PickupOnlineController@pickupCount');
+Route::get('/pickupServedSearch','PickupOnlineController@pickupServedSearch');
 Route::post('/storePickup','PickupOnlineController@storePickup');
 Route::patch('pickups/assign/{pickup}',[  'as' => 'pickups-assign.update' ,'uses' => 'PickupsController@assignCardholder']);
 

@@ -38,10 +38,61 @@ class PickupOnlineController extends Controller
                         })
                         ->orderBy('created_at','DESC')
                         ->whereNotNull('cardholder_id')
+                        ->whereDate('activation_date', Carbon::today())
                         ->with('cardholder','user')
                         ->get();
         
         return $pickups;
+    }
+
+    public function pickupServedSearch(Request $request) 
+    {
+        $this->validate($request, [
+            'search_date' => 'required',
+        ]);
+
+        $search_date = $request->get('search_date');
+
+         $pickups = Pickup::whereHas('user', function($q) {
+                            $q->where('company_id', Auth::user()->company_id);
+                        })
+                        ->orderBy('created_at','DESC')
+                        ->whereDate('deactivated_date', Carbon::parse($search_date))
+                        ->whereNotNull('cardholder_id')
+                        ->with('cardholder','user')
+                        ->get();
+        
+        return $pickups;
+    }
+
+    /**
+     *  Count Number of Served / Unserved Pickups per Company / User created
+     */
+    public function pickupCount()
+    {
+        $mine_not_served = Pickup::where('user_id',Auth::user()->id)
+                    ->orderBy('created_at','DESC')
+                    ->whereNull('cardholder_id')
+                    ->with('cardholder','user')
+                    ->count();
+        
+        $mine_served = Pickup::where('user_id',Auth::user()->id)
+            ->orderBy('created_at','DESC')
+            ->whereNotNull('cardholder_id')
+            ->with('cardholder','user')
+            ->count();
+
+        $not_yet_served = $this->getPickupData()->count();
+        $served = $this->getPickupWithCardholder()->count();
+
+        $data = array (
+            'notYetServed' => $not_yet_served,
+            'served' => $served,
+            'mineNotServed' => $mine_not_served,
+            'mineServed' => $mine_served   
+        );
+
+        return $data;
     }
 
     public function createPickup()

@@ -1,17 +1,18 @@
 <template>
     <div>
 
-        <table class="table table-bordered table-striped">
-        <thead>
-            <tr class="text-uppercase font-weight-light">
-            <th scope="col"> <small>  Cardholder </small> </th>
-            <th scope="col"> <small>  Driver Details </small> </th>
-            <th scope="col"> <small>  DO Details </small> </th>
-            <th scope="col"> <small>  Activity Details </small> </th>
-            <th scope="col"> <small>  Created By </small> </th>
-            </tr>
-        </thead> 
-        <tbody>
+         <table class="table table-bordered" :class="{ 'table-striped' : !loading }">
+                <thead>
+                    <tr class="text-uppercase font-weight-light">
+                    <th scope="col"> <small>  Cardholder </small> </th>
+                    <th scope="col"> <small>  Driver Details </small> </th>
+                    <th scope="col"> <small>  DO Details </small> </th>
+                    <th scope="col"> <small>  Activity Details </small> </th>
+                    <th scope="col"> <small>  Created By </small> </th>
+                    </tr>
+                </thead> 
+            <tbody>
+
                 <tr v-for="pickup in filteredPickups" v-if="!loading">
                     <td>
                         <small class="btn btn-outline-success btn-sm align-middle" v-if="pickup.cardholder">
@@ -35,8 +36,11 @@
                                 <span v-if="pickup.activation_date">
                                     {{ moment(pickup.activation_date) }}  <br/>
                                 </span>
-                                <span v-if="!pickup.activation_date">
+                                <span v-if="!pickup.activation_date && !pickup.cardholder_id">
                                     NOT YET ARRIVED <br/>
+                                </span>
+                                <span v-if="!pickup.activation_date && pickup.cardholder_id">
+                                    CANNOT DETERMINE <br/>
                                 </span>
                                 
                                 <small class="text-uppercase text-muted">Checkout Date</small>  <br/>
@@ -53,7 +57,7 @@
 
                             <div class="col">
                                 <small class="text-uppercase text-muted">Time Rendered</small> <br/> 
-                                <span v-if="pickup.deactivated_date">
+                                <span v-if="pickup.deactivated_date && pickup.activation_date">
                                     {{ dateDiff(pickup.activation_date, pickup.deactivated_date) }} Hour(s)
                                 </span>
                                 <span v-else class="text-muted">
@@ -64,7 +68,7 @@
                                         
                     </td>
                     <td>
-                        {{ pickup.user.name }} <br/>
+                      {{ pickup.user.name }} <br/><br/>
                       <small class="text-uppercase text-muted">Date Created</small> <br/>
                         {{ moment(pickup.created_at) }} 
                     </td>
@@ -102,31 +106,33 @@
                         </div>
                     </td>
                 </tr>
-        </tbody>
-        </table>
 
-         <div  class="row mt-3">
-            <div class="col-6">
-                <button :disabled="!showPreviousLink()" class="btn btn-default btn-sm" v-on:click="setPage(currentPage - 1)"> Previous </button>
-                    <span class="text-dark">Page {{ currentPage + 1 }} of {{ totalPages }}</span>
-                <button :disabled="!showNextLink()" class="btn btn-default btn-sm" v-on:click="setPage(currentPage + 1)"> Next </button>
+            </tbody>
+            </table>
+
+
+            <div  class="row mt-3">
+                <div class="col-6">
+                    <button :disabled="!showPreviousLink()" class="btn btn-default btn-sm" v-on:click="setPage(currentPage - 1)"> Previous </button>
+                        <span class="text-dark">Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+                    <button :disabled="!showNextLink()" class="btn btn-default btn-sm" v-on:click="setPage(currentPage + 1)"> Next </button>
+                </div>
+                <div class="col-6 text-right">
+                    <span>{{ pickups.length }} Pickups</span>
+                </div>
             </div>
-            <div class="col-6 text-right">
-                <span>{{ pickups.length }} Pickups</span>
-            </div>
-        </div>
 
     </div>
 </template>
 <script>
-import moment from 'moment';
-import VueContentPlaceholders from 'vue-content-placeholders';
-import _ from 'lodash';
+    import moment from 'moment';
+    import VueContentPlaceholders from 'vue-content-placeholders';
+    import _ from 'lodash';
 
     export default {
 
-        props:['search'],
-
+        props: ['date','searchString'],
+        
         components: {
             VueContentPlaceholders,
         },
@@ -145,17 +151,16 @@ import _ from 'lodash';
         },
 
         methods: {
-
             getPickup() {
                 this.loading = true
-                axios.get('/driver_rfid/public/unserved')
+                axios.get('/driver_rfid/public/pickupServedSearch?search_date=' + this.date)
                 .then(response => {
                     this.pickups = response.data
                     this.loading = false
-                })
+                });
             },
 
-            dateDiff(startTime, endTime) {
+           dateDiff(startTime, endTime) {
                 var a = moment(startTime);   
                 var b = moment(endTime);   
                 return b.diff(a, 'hours');
@@ -184,10 +189,10 @@ import _ from 'lodash';
         },
 
         computed: {
-            filteredEntries() {
+           filteredEntries() {
                 const vm = this;                
                 return _.filter(vm.pickups, function (item) {
-                    return ~item.driver_name.toLowerCase().indexOf(vm.search.trim().toLowerCase());
+                    return ~item.driver_name.toLowerCase().indexOf(vm.searchString.trim().toLowerCase());
                 });
             },
 
@@ -211,5 +216,7 @@ import _ from 'lodash';
                 return drivers_array;
             }
         }
+
+
     }
 </script>
