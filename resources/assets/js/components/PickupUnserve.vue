@@ -2,7 +2,7 @@
     <div>        
             <div class="form-row mt-3 mb-2">
                      
-                <div class="col-2">
+                <!-- <div class="col-2">
                     <div class="form-group">
                         <select name="age" class="form-control">
                             <option selected value="1">Filter Pickups</option>
@@ -10,9 +10,9 @@
                             <option value="3">All</option>
                         </select>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="col-10">
+                <div class="col-12">
                     <div class="form-group">
                         <input type="text" class="form-control"  v-model="searchString" placeholder="Search Driver Name" />
                     </div>

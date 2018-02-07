@@ -84496,8 +84496,8 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
     staticClass: "form-row mt-3 mb-2"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "col-10"
+  }, [_c('div', {
+    staticClass: "col-12"
   }, [_c('div', {
     staticClass: "form-group"
   }, [_c('input', {
@@ -84526,7 +84526,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: {
       'table-striped': !_vm.loading
     }
-  }, [_vm._m(1), _vm._v(" "), _c('tbody', [_vm._l((_vm.filteredPickups), function(pickup) {
+  }, [_vm._m(0), _vm._v(" "), _c('tbody', [_vm._l((_vm.filteredPickups), function(pickup) {
     return (!_vm.loading) ? _c('tr', [_c('td', [(pickup.cardholder) ? _c('small', {
       staticClass: "btn btn-outline-success btn-sm align-middle"
     }, [_vm._v("\n                        " + _vm._s(pickup.cardholder.Name) + "\n                    ")]) : _c('small', {
@@ -84547,7 +84547,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "text-muted"
     }, [_vm._v("\n                                N/A\n                            ")])])])]), _vm._v(" "), _c('td', [_vm._v("\n                  " + _vm._s(pickup.user.name) + " "), _c('br'), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("Date Created")]), _vm._v(" "), _c('br'), _vm._v("\n                    " + _vm._s(_vm.moment(pickup.created_at)) + " \n                ")]), _vm._v(" "), _c('td', [_c('span', [_vm._m(2, true), _vm._v(" "), _c('div', {
+    }, [_vm._v("Date Created")]), _vm._v(" "), _c('br'), _vm._v("\n                    " + _vm._s(_vm.moment(pickup.created_at)) + " \n                ")]), _vm._v(" "), _c('td', [_c('span', [_vm._m(1, true), _vm._v(" "), _c('div', {
       staticClass: "dropdown-menu dropdown-menu-right",
       attrs: {
         "aria-labelledby": "driverDropdown"
@@ -84565,7 +84565,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-target": '#pickupCancel-' + pickup.id
       }
     }, [_vm._v("Cancel Pickup")])])])])]) : _vm._e()
-  }), _vm._v(" "), (_vm.filteredPickups.length == 0 && !_vm.loading) ? _c('tr', [_vm._m(3)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('tr', [_c('td', {
+  }), _vm._v(" "), (_vm.filteredPickups.length == 0 && !_vm.loading) ? _c('tr', [_vm._m(2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('tr', [_c('td', {
     attrs: {
       "colspan": "8"
     }
@@ -84657,7 +84657,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(4, true), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(3, true), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -84692,30 +84692,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("Confirm")])])])])])])])
   })], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "col-2"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('select', {
-    staticClass: "form-control",
-    attrs: {
-      "name": "age"
-    }
-  }, [_c('option', {
-    attrs: {
-      "selected": "",
-      "value": "1"
-    }
-  }, [_vm._v("Filter Pickups")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "2"
-    }
-  }, [_vm._v("Created by me")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "3"
-    }
-  }, [_vm._v("All")])])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', {
     staticClass: "text-uppercase font-weight-light"
   }, [_c('th', {
