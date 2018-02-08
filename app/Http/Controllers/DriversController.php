@@ -309,13 +309,13 @@ class DriversController extends Controller
         //     $q->where('id',3); // to revierwer
         // })->pluck('name','id');
 
-        foreach($driver->trucks as $truck){
-            foreach($truck->haulers as $hauler){
-                $x = $hauler->id;
-            }
-        }
+        // foreach($driver->trucks as $truck){
+        //     foreach($truck->haulers as $hauler){
+        //         $x = $hauler->id;
+        //     }
+        // }
 
-        // $x = !empty($driver->trucks->haulers) ? $driver->trucks->haulers->first()->id : $driver->haulers->first()->id;
+        $x = !empty($driver->trucks->haulers) ? $driver->trucks->haulers->first()->id : $driver->haulers->first()->id;
     
         $clasifications = Clasification::pluck('name','id');
 
@@ -640,14 +640,12 @@ class DriversController extends Controller
         $this->validate($request, [
                 'name' => 'required',
                 // 'hauler_list' => 'required',
-                'truck_list' => 'required',
+                // 'truck_list' => 'required',
                 'phone_number' => 'required',
                 // 'card_list' => 'required',
                 // 'clasification_list' => 'required',
                 // 'start_validity_date' => 'required|before:end_validity_date',
                 // 'end_validity_date' => 'required'
-        ],[
-            'truck_list.required' => 'Plate Number is required'
         ]);
 
         $card_rfid = $request->input('card_list');
@@ -655,7 +653,11 @@ class DriversController extends Controller
         $image = Image::doesntHave('driver')->orderBy('id','DESC')->first()->id;
         
         $driver->update($request->all());
-        $driver->image_id = $image;
+
+        if(count($driver->image) == 0 && $driver->avatar == 'drivers/avatar.png') {
+            $driver->image_id = $image;
+        }
+
         $driver->availability = $request->input('availability');
 
         // if($request->hasFile('avatar')){
@@ -678,10 +680,12 @@ class DriversController extends Controller
 
         $driver->trucks()->sync( (array) $request->input('truck_list'));
 
-        $drivers_truck = DB::table('hauler_truck')->select('hauler_id')
-        ->where('truck_id',$request->input('truck_list'))->first();
+        if(count($driver->truck) != 0) {
+            $drivers_truck = DB::table('hauler_truck')->select('hauler_id')
+            ->where('truck_id',$request->input('truck_list'))->first();
 
-        $driver->haulers()->sync( (array) $drivers_truck); 
+            $driver->haulers()->sync( (array) $drivers_truck); 
+        }
  
         flashy()->success('Driver has successfully updated!');
         return redirect('drivers');

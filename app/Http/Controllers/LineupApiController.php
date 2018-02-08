@@ -131,7 +131,7 @@ class LineupApiController extends Controller
                         ->whereDate('created_at', Carbon::today())
                         ->pluck('driver_id');
 
-         $result_lineups = Log::with(['drivers','drivers.truck','drivers.hauler','driver.serves'])
+         $result_lineups = Log::with(['drivers','drivers.truck','drivers.hauler','driver.serves','driver.image'])
                         ->where('ControllerID', 1)
                         ->where('DoorID',0)
                         ->whereNotIn('CardholderID',$check_truckscale_out)
@@ -145,7 +145,7 @@ class LineupApiController extends Controller
     
         $arr = array();
 
-        foreach($log_lineups as $log) {
+        foreach($log_lineups as $key => $log) {
             foreach($log->drivers->whereNotIn('id', $served) as $driver) {
 
                 
@@ -161,8 +161,9 @@ class LineupApiController extends Controller
 
 
                     $data = array(
+                        'queue_number' => $key + 1,
                         'driver_id' => $driver->id,
-                        'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
+                        'driver_avatar' => empty($driver->image) ? $driver->avatar : $driver->image->avatar,
                         'driver_name' => $driver->name,
                         'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
                         'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,

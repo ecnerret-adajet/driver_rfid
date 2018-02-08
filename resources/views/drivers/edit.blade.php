@@ -11,7 +11,7 @@
         </div>
         <div class="card-body">
         
-            @if(count($driver->image) == 0)
+            @if(count($driver->image) == 0 && $driver->avatar == 'drivers/avatar.png')
                 <div class="mx-auto mb-3">
                     <driverupload img-url="{{ asset('/img/avatar.png') }}"></driverupload>
                 </div>

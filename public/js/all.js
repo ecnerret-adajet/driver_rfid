@@ -53589,6 +53589,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -78460,25 +78471,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-6"
-  }, [_c('ul', {
-    staticClass: "list-group rounded-0",
-    staticStyle: {
-      "border-radius": "0 ! important"
-    }
-  }, _vm._l((_vm.queues), function(queue) {
-    return _c('li', {
-      staticClass: "list-group-item rounded-0"
-    }, [_c('div', {
-      staticClass: "row",
-      staticStyle: {
-        "font-size": "70%"
+  }, [_c('table', {
+    staticClass: "table table-bordered table-striped"
+  }, [_vm._m(2), _vm._v(" "), _c('tbody', _vm._l((_vm.queues), function(queue) {
+    return _c('tr', [_c('td', {
+      attrs: {
+        "width": "15%"
       }
+    }, [_c('span', {
+      staticClass: "display-4"
+    }, [_vm._v("\n                 " + _vm._s(queue.queue_number) + "\n                ")])]), _vm._v(" "), _c('td', [_c('div', {
+      staticClass: "row"
     }, [_c('div', {
-      staticClass: "col-2"
+      staticClass: "col-3"
     }, [_c('img', {
-      staticClass: "rounded-circle",
+      staticClass: "rounded-circle mx-auto align-middle",
       staticStyle: {
-        "height": "60px",
+        "height": "80px",
         "width": "auto"
       },
       attrs: {
@@ -78486,45 +78495,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "align": "middle"
       }
     })]), _vm._v(" "), _c('div', {
-      staticClass: "col-6"
-    }, [_c('p', {
-      staticClass: "p-0 m-0"
-    }, [_vm._v("\n                         " + _vm._s(queue.driver_name) + " \n                    ")]), _vm._v(" "), _c('p', {
-      staticClass: "p-0 m-0"
-    }, [_vm._v("\n                         " + _vm._s(queue.plate_number) + " \n                    ")]), _vm._v(" "), _c('p', {
-      staticClass: "p-0 m-0"
-    }, [(queue.hauler == 'NO HAULER') ? _c('span', {
+      staticClass: "col-9"
+    }, [_vm._v("\n                        " + _vm._s(queue.driver_name) + " "), _c('br'), _vm._v("\n                        " + _vm._s(queue.plate_number) + " "), _c('br'), _vm._v(" "), (queue.hauler == 'NO HAULER') ? _c('span', {
       staticClass: "text-danger"
-    }, [_vm._v("\n                                " + _vm._s(queue.hauler) + "\n                        ")]) : _c('span', [_vm._v("\n                                " + _vm._s(queue.hauler) + "\n                        ")])])]), _vm._v(" "), _c('div', {
-      staticClass: "col-4"
-    }, [_c('span', {
-      staticClass: "small text-uppercase text-muted"
-    }, [_vm._v("\n                        QUEUE TIME:\n                    ")]), _vm._v(" "), _c('p', {
-      staticClass: "p-0 m-0"
-    }, [_vm._v("\n                        " + _vm._s(_vm.moment(queue.log_time.date)) + "\n                    ")]), _vm._v(" "), _c('span', {
-      staticClass: "small text-uppercase text-muted"
-    }, [_vm._v("\n                        LAST DR SUBMISSION:\n                    ")]), _vm._v(" "), _c('p', {
-      staticClass: "p-0 m-0"
-    }, [(queue.dr_status != 'UNPROCESS') ? _c('span', [_vm._v("\n                            " + _vm._s(queue.dr_status.submission_date) + "\n                        ")]) : _c('span', [_vm._v("\n                            UNPROCESS\n                        ")])])])])])
-  }))]), _vm._v(" "), _c('div', {
+    }, [_vm._v("\n                                " + _vm._s(queue.hauler) + "\n                        ")]) : _c('span', [_vm._v("\n                                " + _vm._s(queue.hauler) + "\n                        ")])])])]), _vm._v(" "), _c('td', [_c('small', {
+      staticClass: "text-uppercase text-muted"
+    }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), (queue.dr_status != 'UNPROCESS') ? _c('span', [_vm._v("\n                    " + _vm._s(queue.dr_status.submission_date) + "\n                ")]) : _c('span', [_vm._v("\n                    UNPROCESS\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+      staticClass: "text-uppercase text-muted"
+    }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")])])
+  }))])]), _vm._v(" "), _c('div', {
     staticClass: "col-6"
-  }, [_c('ul', {
-    staticClass: "list-group rounded-0",
-    staticStyle: {
-      "border-radius": "0 ! important"
-    }
-  }, _vm._l((_vm.todayServed), function(served) {
-    return _c('li', {
-      staticClass: "list-group-item rounded-0"
+  }, [_c('table', {
+    staticClass: "table table-bordered table-striped"
+  }, [_vm._m(3), _vm._v(" "), _c('tbody', _vm._l((_vm.todayServed), function(served) {
+    return _c('tr', [_c('td', [_c('div', {
+      staticClass: "row"
     }, [_c('div', {
-      staticClass: "row",
-      staticStyle: {
-        "font-size": "70%"
-      }
-    }, [_c('div', {
-      staticClass: "col-2"
+      staticClass: "col-2 text-center"
     }, [_c('img', {
-      staticClass: "rounded-circle",
+      staticClass: "rounded-circle mx-auto",
       staticStyle: {
         "height": "60px",
         "width": "auto"
@@ -78534,30 +78523,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "align": "middle"
       }
     })]), _vm._v(" "), _c('div', {
-      staticClass: "col-6"
+      staticClass: "col-10"
     }, [_c('p', {
       staticClass: "p-0 m-0"
-    }, [_vm._v("\n                                " + _vm._s(served.driver_name) + "\n                            ")]), _vm._v(" "), _c('p', {
+    }, [_vm._v("\n                                    " + _vm._s(served.driver_name) + "\n                                ")]), _vm._v(" "), _c('p', {
       staticClass: "p-0 m-0"
-    }, [_vm._v("\n                                " + _vm._s(served.plate_number) + "\n                            ")]), _vm._v(" "), _c('p', {
+    }, [_vm._v("\n                                    " + _vm._s(served.plate_number) + "\n                                ")]), _vm._v(" "), _c('p', {
       staticClass: "p-0 m-0"
-    }, [_vm._v("\n                                " + _vm._s(served.hauler_name) + "\n                            ")])]), _vm._v(" "), _vm._m(2, true)])])
-  })), _vm._v(" "), _c('div', {
-    staticClass: "card mt-4 rounded-0 border border-danger"
-  }, [_vm._m(3), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
+    }, [_vm._v("\n                                    " + _vm._s(served.hauler_name) + "\n                                ")])])])]), _vm._v(" "), _vm._m(4, true)])
+  }))]), _vm._v(" "), _c('table', {
+    staticClass: "table border border-warning table-bordered"
+  }, [_vm._m(5), _vm._v(" "), _c('tbody', {
+    staticClass: "border border-warning"
   }, _vm._l((_vm.lastDriver), function(queue) {
-    return _c('div', {
-      staticClass: "row",
-      staticStyle: {
-        "font-size": "70%"
-      }
+    return _c('tr', [_c('td', [_c('div', {
+      staticClass: "row"
     }, [_c('div', {
-      staticClass: "col-2"
+      staticClass: "col-3"
     }, [_c('img', {
       staticClass: "rounded-circle",
       staticStyle: {
-        "height": "60px",
+        "height": "100px",
         "width": "auto"
       },
       attrs: {
@@ -78565,18 +78551,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "align": "middle"
       }
     })]), _vm._v(" "), _c('div', {
-      staticClass: "col-6"
+      staticClass: "col-9"
     }, [_c('p', {
       staticClass: "p-0 m-0"
-    }, [_vm._v("\n                                " + _vm._s(queue.driver_name) + " \n                            ")]), _vm._v(" "), _c('p', {
+    }, [_vm._v("\n                                    " + _vm._s(queue.driver_name) + " \n                                ")]), _vm._v(" "), _c('p', {
       staticClass: "p-0 m-0"
-    }, [_vm._v("\n                                " + _vm._s(queue.plate_number) + " \n                            ")]), _vm._v(" "), _c('p', {
+    }, [_vm._v("\n                                    " + _vm._s(queue.plate_number) + " \n                                ")]), _vm._v(" "), _c('p', {
       staticClass: "p-0 m-0"
     }, [(queue.hauler == 'NO HAULER') ? _c('span', {
       staticClass: "text-danger"
-    }, [_vm._v("\n                                        " + _vm._s(queue.hauler) + "\n                                ")]) : _c('span', [_vm._v("\n                                        " + _vm._s(queue.hauler) + "\n                                ")])])]), _vm._v(" "), _c('div', {
-      staticClass: "col-4"
-    }, [_c('span', {
+    }, [_vm._v("\n                                            " + _vm._s(queue.hauler) + "\n                                    ")]) : _c('span', [_vm._v("\n                                            " + _vm._s(queue.hauler) + "\n                                    ")])])])])]), _vm._v(" "), _c('td', [_c('span', {
       staticClass: "small text-uppercase text-muted"
     }, [_vm._v("\n                                QUEUE TIME:\n                            ")]), _vm._v(" "), _c('p', {
       staticClass: "p-0 m-0"
@@ -78605,20 +78589,52 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("\n                            Recently Served\n                        ")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "col-4"
+  return _c('thead', [_c('tr', {
+    staticClass: "text-uppercase font-weight-light"
+  }, [_c('th', {
+    attrs: {
+      "scope": "col"
+    }
+  }, [_c('small', [_vm._v("  Queue # ")])]), _vm._v(" "), _c('th', {
+    attrs: {
+      "scope": "col"
+    }
+  }, [_c('small', [_vm._v("  Driver Details ")])]), _vm._v(" "), _c('th', {
+    attrs: {
+      "scope": "col"
+    }
+  }, [_c('small', [_vm._v("  Recorded Time /Date ")])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('thead', [_c('tr', {
+    staticClass: "text-uppercase font-weight-light"
+  }, [_c('th', {
+    attrs: {
+      "scope": "col"
+    }
+  }, [_c('small', [_vm._v("  Driver Details ")])]), _vm._v(" "), _c('th', {
+    attrs: {
+      "scope": "col"
+    }
+  }, [_c('small', [_vm._v("  Status")])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('td', {
+    attrs: {
+      "width": "20%"
+    }
   }, [_c('button', {
     staticClass: "float-right btn btn-sm btn-outline-danger"
-  }, [_vm._v("\n                                SERVED\n                            ")])])
+  }, [_vm._v("\n                                ASSIGNED SHIPMENT\n                        ")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "card-header bg-danger text-white rounded-0"
-  }, [_c('span', {
-    staticClass: "small text-uppercase",
-    staticStyle: {
-      "font-weight": "100"
+  return _c('thead', {
+    staticClass: "bg-warning"
+  }, [_c('tr', {
+    staticClass: "text-uppercase font-weight-light"
+  }, [_c('th', {
+    attrs: {
+      "scope": "col",
+      "colspan": "2"
     }
-  }, [_vm._v("\n                        Last Driver Tapped:\n                        ")])])
+  }, [_c('small', [_vm._v("  LAST DRIVER TAPPED: ")])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

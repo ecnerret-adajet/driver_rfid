@@ -71,123 +71,135 @@
             
             <div class="col-6">
 
-            <ul class="list-group rounded-0" style="border-radius: 0 ! important">
-                <li class="list-group-item rounded-0" v-for="queue in queues">
-                    <div class="row" style="font-size: 70%">
-                    <div class="col-2">
-                        <img :src="avatar_link + queue.driver_avatar" class="rounded-circle" style="height: 60px; width: auto;"  align="middle">
-                    </div>
-                    <div class="col-6">
-                        
-                        <p class="p-0 m-0">
-                             {{ queue.driver_name }} 
-                        </p>
-                        <p class="p-0 m-0">
-                             {{ queue.plate_number }} 
-                        </p>
-                        <p class="p-0 m-0">
+        <table class="table table-bordered table-striped">
+        <thead>
+            <tr class="text-uppercase font-weight-light">
+            <th scope="col"> <small>  Queue # </small> </th>
+            <th scope="col"> <small>  Driver Details </small> </th>
+            <th scope="col"> <small>  Recorded Time /Date </small> </th>
+            </tr>
+        </thead> 
+        <tbody>
+            <tr v-for="queue in queues">
+                <td width="15%">
+                    <span class="display-4">
+                     {{ queue.queue_number }}
+                    </span> 
+                </td>
+                <td>
+                    <div class="row">
+                        <div class="col-3">
+                        <img :src="avatar_link + queue.driver_avatar" class="rounded-circle mx-auto align-middle" style="height: 80px; width: auto;"  align="middle">
+                        </div>
+                        <div class="col-9">
+                            {{ queue.driver_name }} <br/>
+                            {{ queue.plate_number }} <br/>
                             <span v-if="queue.hauler == 'NO HAULER'" class="text-danger">
                                     {{ queue.hauler }}
                             </span>
                             <span v-else>
                                     {{ queue.hauler }}
                             </span>
-                        </p>
-
+                        </div>
                     </div>
-                    <div class="col-4">
-                        <span class="small text-uppercase text-muted">
-                            QUEUE TIME:
-                        </span>
-                        <p class="p-0 m-0">
-                            {{ moment(queue.log_time.date) }}
-                        </p>
-                        <span class="small text-uppercase text-muted">
-                            LAST DR SUBMISSION:
-                        </span>
-                         <p class="p-0 m-0">
-                            <span v-if="queue.dr_status != 'UNPROCESS'">
-                                {{ queue.dr_status.submission_date }}
-                            </span>
-                            <span v-else>
-                                UNPROCESS
-                            </span>
-                        </p>
-                    </div>
-                </div>
-                </li>
-            </ul>
+                </td>
+                <td>
+                    <small class="text-uppercase text-muted">
+                        LAST DR SUBMISSION
+                    </small> <br/>
+                     <span v-if="queue.dr_status != 'UNPROCESS'">
+                        {{ queue.dr_status.submission_date }}
+                    </span>
+                    <span v-else>
+                        UNPROCESS
+                    </span>
+                     <br/>
+                    <small class="text-uppercase text-muted">
+                        TAPPED IN QUEUE
+                    </small><br/>
+                     {{ moment(queue.log_time.date) }}
+                </td>
+            </tr>
+        </tbody>
+        </table>
 
+        
 
                
-            </div>
+            </div> <!-- end col 6 -->
 
             <div class="col-6">
 
-                    <ul class="list-group rounded-0" style="border-radius: 0 ! important">
-                        <li class="list-group-item rounded-0" v-for="served in todayServed">
-
-                            <div class="row" style="font-size: 70%">
-                            <div class="col-2">
-                                <img :src="avatar_link + served.avatar" class="rounded-circle" style="height: 60px; width: auto;"  align="middle">
+                 <table class="table table-bordered table-striped">
+                <thead>
+                    <tr class="text-uppercase font-weight-light">
+                    <th scope="col"> <small>  Driver Details </small> </th>
+                    <th scope="col"> <small>  Status</small> </th>
+                    </tr>
+                </thead> 
+                <tbody>
+                    <tr v-for="served in todayServed">
+                        <td>
+                            <div class="row">
+                                <div class="col-2 text-center">
+                                    <img :src="avatar_link + served.avatar" class="rounded-circle mx-auto" style="height: 60px; width: auto;"  align="middle">
+                                </div>
+                                <div class="col-10">
+                                    <p class="p-0 m-0">
+                                        {{ served.driver_name }}
+                                    </p>
+                                    <p class="p-0 m-0">
+                                        {{ served.plate_number }}
+                                    </p>
+                                    <p class="p-0 m-0">
+                                        {{ served.hauler_name }}
+                                    </p>
+                                </div>
                             </div>
-                            <div class="col-6">
-                                
-                                <p class="p-0 m-0">
-                                    {{ served.driver_name }}
-                                </p>
-                                <p class="p-0 m-0">
-                                    {{ served.plate_number }}
-                                </p>
-                                <p class="p-0 m-0">
-                                    {{ served.hauler_name }}
-                                </p>
+                        </td>
+                        <td width="20%">
+                            <button class="float-right btn btn-sm btn-outline-danger">
+                                    ASSIGNED SHIPMENT
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+                 </table>
 
+
+                <table class="table border border-warning table-bordered">
+                <thead class="bg-warning">
+                    <tr class="text-uppercase font-weight-light">
+                    <th scope="col" colspan="2"> <small>  LAST DRIVER TAPPED: </small> </th>
+                    </tr>
+                </thead> 
+                <tbody class="border border-warning">
+                    <tr  v-for="queue in lastDriver">
+                        <td>
+                            <div class="row">
+                                <div class="col-3">
+                                    <img :src="avatar_link + queue.driver_avatar" class="rounded-circle" style="height: 100px; width: auto;"  align="middle">
+                                </div>
+                                <div class="col-9">
+                                    <p class="p-0 m-0">
+                                        {{ queue.driver_name }} 
+                                    </p>
+                                    <p class="p-0 m-0">
+                                        {{ queue.plate_number }} 
+                                    </p>
+                                    <p class="p-0 m-0">
+                                        <span v-if="queue.hauler == 'NO HAULER'" class="text-danger">
+                                                {{ queue.hauler }}
+                                        </span>
+                                        <span v-else>
+                                                {{ queue.hauler }}
+                                        </span>
+                                    </p>
+                                </div>
                             </div>
-
-                            <div class="col-4">
-                                <button class="float-right btn btn-sm btn-outline-danger">
-                                    SERVED
-                                </button>
-                            </div>
-
-
-                        </div>
-                        </li>
-                    </ul>
-
-                    <div class="card mt-4 rounded-0 border border-danger">
-                        <div class="card-header bg-danger text-white rounded-0">
-                            <span class="small text-uppercase" style="font-weight: 100">
-                            Last Driver Tapped:
-                            </span>
-                        </div>
-                        <div class="card-body">
-
-                            <div class="row" style="font-size: 70%" v-for="queue in lastDriver">
-                            <div class="col-2">
-                                <img :src="avatar_link + queue.driver_avatar" class="rounded-circle" style="height: 60px; width: auto;"  align="middle">
-                            </div>
-                            <div class="col-6">
-                                
-                                <p class="p-0 m-0">
-                                    {{ queue.driver_name }} 
-                                </p>
-                                <p class="p-0 m-0">
-                                    {{ queue.plate_number }} 
-                                </p>
-                                <p class="p-0 m-0">
-                                    <span v-if="queue.hauler == 'NO HAULER'" class="text-danger">
-                                            {{ queue.hauler }}
-                                    </span>
-                                    <span v-else>
-                                            {{ queue.hauler }}
-                                    </span>
-                                </p>
-
-                            </div>
-                            <div class="col-4">
-                                <span class="small text-uppercase text-muted">
+                        </td>
+                        <td>
+                               <span class="small text-uppercase text-muted">
                                     QUEUE TIME:
                                 </span>
                                 <p class="p-0 m-0">
@@ -204,14 +216,13 @@
                                         UNPROCESS
                                     </span>
                                 </p>
-                            </div>
-                        </div>
+                        </td>
+                    </tr>
+                </tbody>
+                </table>
 
 
-                        </div>
-                    </div>
-
-            </div>
+            </div> <!-- end col 6 -->
 
 
         </div>
