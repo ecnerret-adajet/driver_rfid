@@ -18,6 +18,7 @@ class ServingController extends Controller
         $serving = Serve::with('driver','driver.truck','driver.hauler','user','driver.image')
                             ->orderBy('id','DESC')
                             ->where('on_serving',1)
+                            ->whereDate('created_at',Carbon::today())
                             ->take(1)
                             ->get();
         
@@ -36,6 +37,7 @@ class ServingController extends Controller
           $served = Serve::with('driver','driver.trucks','driver.haulers','user')
                             ->orderBy('id','DESC')
                             ->whereNotIn('id',$current_serving)
+                            ->whereDate('created_at',Carbon::today())
                             ->where('on_serving',1)
                             ->take(4)
                             ->get();

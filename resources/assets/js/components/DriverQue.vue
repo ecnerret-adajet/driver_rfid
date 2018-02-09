@@ -1,7 +1,7 @@
 <template>
     <div>
            <div class="row mb-4">
-            <div class="col">
+            <div class="col-3">
                 <div class="card card bg-light rounded-0">
                     <div class="card-body text-center">
                         <h1  class="card-title pb-1 pt-2 display-3" style="font-weight: 100">
@@ -11,12 +11,27 @@
                     </div>
                     <div class="card-footer bg-primary text-center">
                     <span style="font-weight: 100" class="text-small text-uppercase text-white">
-                        Drivers in queue
+                        Drivers in queue today
                     </span>                            
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-3">
+                <div class="card card bg-light rounded-0">
+                    <div class="card-body text-center">
+                        <h1  class="card-title pb-1 pt-2 display-3" style="font-weight: 100">
+                            {{ totalentries.current_in_plant }}
+                        </h1>
+                
+                    </div>
+                    <div class="card-footer bg-primary text-center">
+                    <span style="font-weight: 100" class="text-small text-uppercase text-white">
+                        Trucks In plant today
+                    </span>                            
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
                      <div class="card bg-light rounded-0">
                         <div class="card-body text-center">
                             <div class="row" v-if="!currentlyServing.length == 0" v-for="serving in currentlyServing">
@@ -49,7 +64,7 @@
                                     </span>
                                 </div>
                             </div>
-                             <h1 v-if="currentlyServing == 0" class="card-title text-muted pb-1 pt-2 pb-5 display-2" style="font-weight: 100">
+                             <h1 v-if="currentlyServing == 0" class="card-title text-muted pt-2  display-3" style="font-weight: 100">
                                 OPEN
                             </h1>
                             <!-- <p class="card-text mt-3 small text-uppercase text-muted">
@@ -59,7 +74,7 @@
                         </div>
                         <div class="card-footer bg-primary text-center mt-1">
                             <span style="font-weight: 100" class="text-small text-uppercase text-white">
-                                Recently Served
+                                RECENTLY ASSIGNED SHIPMENT
                             </span>                            
                         </div>
                     </div>
@@ -81,7 +96,7 @@
         </thead> 
         <tbody>
             <tr v-for="queue in queues">
-                <td width="15%">
+                <td width="15%" class="text-center">
                     <span class="display-4">
                      {{ queue.queue_number }}
                     </span> 
@@ -118,6 +133,13 @@
                         TAPPED IN QUEUE
                     </small><br/>
                      {{ moment(queue.log_time.date) }}
+                </td>
+            </tr>
+             <tr v-if="queues.length == 0">
+                <td class="text-center" style="padding-top: 30px; padding-bottom: 30px;" colspan="3">
+                    <span class="display-4 text-muted">
+                        ......
+                    </span>
                 </td>
             </tr>
         </tbody>
@@ -163,6 +185,13 @@
                             </button>
                         </td>
                     </tr>
+                    <tr v-if="todayServed.length == 0">
+                        <td class="text-center" style="padding-top: 30px; padding-bottom: 30px;" colspan="2">
+                            <span class="display-4 text-muted">
+                                Nothing Assigned
+                            </span>
+                        </td>
+                    </tr>
                 </tbody>
                  </table>
 
@@ -170,11 +199,16 @@
                 <table class="table border border-warning table-bordered">
                 <thead class="bg-warning">
                     <tr class="text-uppercase font-weight-light">
-                    <th scope="col" colspan="2"> <small>  LAST DRIVER TAPPED: </small> </th>
+                    <th scope="col" colspan="3"> <small>  LAST DRIVER TAPPED: </small> </th>
                     </tr>
                 </thead> 
                 <tbody class="border border-warning">
                     <tr  v-for="queue in lastDriver">
+                        <td width="15%" class="text-center">
+                            <span class="display-4">
+                            {{ queue.queue_number }}
+                            </span> 
+                        </td>
                         <td>
                             <div class="row">
                                 <div class="col-3">
@@ -216,6 +250,13 @@
                                         UNPROCESS
                                     </span>
                                 </p>
+                        </td>
+                    </tr>
+                    <tr v-if="lastDriver.length == 0">
+                        <td class="text-center" style="padding-top: 30px; padding-bottom: 30px;" colspan="3">
+                            <span class="display-4 text-muted">
+                                Nothing Here
+                            </span>
                         </td>
                     </tr>
                 </tbody>
@@ -263,7 +304,7 @@
             getTotalQueueToday() {
                 axios.get('/driver_rfid/public/getTotalQueueToday')
                 .then(response => this.totalentries = response.data);
-                setTimeout(this.getTotalQueueToday, 5000);
+                setTimeout(this.getTotalQueueToday, 3500);
             },
 
             getCurrentlyServing(){

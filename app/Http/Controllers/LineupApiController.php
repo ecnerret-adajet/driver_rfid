@@ -18,12 +18,23 @@ class LineupApiController extends Controller
 
     public function getTotalQueueToday()
     {
+        // Check Trucks Who Has Truckcscale Out
         $check_truckscale_out = Log::select('CardholderID')
                                     ->where('ControllerID', 4)
                                     ->where('Direction',2)
                                     ->whereDate('LocalTime', Carbon::now())
                                     ->pluck('CardholderID');
 
+        // Check Trucks who has Truckscale in but not out
+        $check_truckscale_in = Log::select('CardholderID')
+                                    ->where('ControllerID', 4)
+                                    ->where('Direction',1)
+                                    ->whereNotIn('CardholderID',$check_truckscale_out)
+                                    ->whereDate('LocalTime', Carbon::today())
+                                    ->pluck('CardholderID')
+                                    ->count();
+
+        // Get all drivers count who tapped from queue reader without out
          $result_lineups = Log::with(['drivers','drivers.truck','drivers.hauler','driver.serves'])
                         ->where('ControllerID', 1)
                         ->where('DoorID',0)
@@ -31,7 +42,7 @@ class LineupApiController extends Controller
                         ->whereDate('LocalTime', Carbon::now())
                         ->orderBy('LogID','DESC')
                         ->get();
-
+        // Get unique from results_lineup
         $log_lineups = $result_lineups->unique('CardholderID');
 
         $arr = array();
@@ -50,10 +61,11 @@ class LineupApiController extends Controller
 
         $total_array = array(
             'total' => count($arr),
+            'current_in_plant' => $check_truckscale_in
         );
 
         return $total_array;
-       
+
     }
 
     public function getLastDriver()
@@ -81,6 +93,7 @@ class LineupApiController extends Controller
 
         $log_lineups = $result_lineups->unique('CardholderID');
 
+        
     
         $arr = array();
 
@@ -97,6 +110,7 @@ class LineupApiController extends Controller
                     }
 
                     $data = array(
+                        'queue_number' => substr($log->LogID,-4),
                         'driver_id' => $driver->id,
                         'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
                         'driver_name' => $driver->name,
@@ -123,7 +137,7 @@ class LineupApiController extends Controller
         $check_truckscale_out = Log::select('CardholderID')
                                     ->where('ControllerID', 4)
                                     ->where('Direction',2)
-                                    ->whereDate('LocalTime', Carbon::now())
+                                    ->whereDate('LocalTime', Carbon::today())
                                     ->pluck('CardholderID');
 
         $served = Serve::where('on_serving',1)
@@ -146,9 +160,9 @@ class LineupApiController extends Controller
         $arr = array();
 
         foreach($log_lineups as $key => $log) {
-            foreach($log->drivers->whereNotIn('id', $served) as $driver) {
+            foreach($log->drivers->whereNotIn('id', $served) as  $driver) {
 
-                
+
 
                     if(!empty($driver->truck->plate_number)) {
                         $x = str_replace('-',' ',strtoupper($driver->truck->plate_number));
@@ -161,7 +175,7 @@ class LineupApiController extends Controller
 
 
                     $data = array(
-                        'queue_number' => $key + 1,
+                        'queue_number' => substr($log->LogID,-4),
                         'driver_id' => $driver->id,
                         'driver_avatar' => empty($driver->image) ? $driver->avatar : $driver->image->avatar,
                         'driver_name' => $driver->name,

@@ -6,7 +6,7 @@
 
                 <div class="card">
                     <div class="card-header">
-                       <small class="text-uppercase">OPEN FOR SHIPMENT</small>
+                       <small class="text-uppercase">OPEN FOR SHIPMENT FOR TODAY</small>
                     </div>
                 <div class="card-body">
 
@@ -14,7 +14,9 @@
                         {{ totalCount.totalOpen }}
                     </span>
                     <span class="display-3" v-if="loadingCount">
-                        0
+                        <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                        </svg>	
                     </span>
 
                 </div>
@@ -24,14 +26,16 @@
             <div class="col">
                 <div class="card">
                     <div class="card-header">
-                        <small class="text-uppercase">ASSIGNED SHIPMENT</small>
+                        <small class="text-uppercase">ASSIGNED SHIPMENT FOR TODAY</small>
                     </div>
                 <div class="card-body">
                     <span class="display-3"  v-if="!loadingCount">
                         {{ totalCount.totalAssigned }}
                     </span>
                      <span class="display-3" v-if="loadingCount">
-                        0
+                        <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                        </svg>	
                     </span>
                 </div>
                 </div>
@@ -62,6 +66,13 @@
                                     {{ haulerx.name }} <br/>
                                 </span>
                              </div>
+                         </div>
+                         <div class="row" v-if="lastAssigned.length == 0">
+                            <div class="col text-center">
+                                <span class="display-3 text-muted">
+                                    OPEN
+                                </span>
+                            </div>
                          </div>
 
 

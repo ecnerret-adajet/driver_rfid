@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use App\Pickup;
 use App\Cardholder;
 use App\Card;
+use App\Serve;
 use DB;
 
 class QueuesController extends Controller
@@ -55,6 +56,8 @@ class QueuesController extends Controller
         ->whereDate('LocalTime', Carbon::now())
         ->orderBy('LogID','ASC')->get();
 
+      
+
         $log_lineups = $result_lineups->unique('CardholderID');
     
         $arr = array();
@@ -69,7 +72,7 @@ class QueuesController extends Controller
                 }
 
                 $data = array(
-                    'log_id' => $key + 1,
+                    'log_id' => substr($log->LogID, -4),
                     'driver_id' => $driver->id,
                     'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
                     'driver_name' => $driver->name,
@@ -79,7 +82,7 @@ class QueuesController extends Controller
                     'log_time' => $log->LocalTime,
                     'dr_status' => empty($y) ? 'UNPROCESS' : $y, 
                     // 'driver_status' => $driver->availability,
-                    'on_serving' => empty($driver->serves->first()->on_serving) ? null : $driver->serves->first()->on_serving,
+                    'on_serving' => empty($driver->serves->where('created_at','>=',Carbon::today())->first()->on_serving) ? null : $driver->serves->first()->on_serving,
 
                 );
 
@@ -112,7 +115,7 @@ class QueuesController extends Controller
         
         foreach($log_lineups as $key => $log) {
             foreach($log->drivers as $driver) {
-                if(count($driver->serves) != 0) {
+                if(count($driver->serves->where('created_at','>=',Carbon::today())) != 0) {
 
                 if(!empty($driver->truck->plate_number)) {
                     $x = str_replace('-',' ',strtoupper($driver->truck->plate_number));
@@ -121,7 +124,7 @@ class QueuesController extends Controller
                 }
 
                 $data = array(
-                    'log_id' => $key + 1,
+                    'log_id' => substr($log->LogID, -4),
                     'driver_id' => $driver->id,
                     'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
                     'driver_name' => $driver->name,
@@ -130,8 +133,7 @@ class QueuesController extends Controller
                     'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
                     'log_time' => $log->LocalTime,
                     'dr_status' => empty($y) ? 'UNPROCESS' : $y, 
-                    // 'driver_status' => $driver->availability,
-                    'on_serving' => empty($driver->serves->first()->on_serving) ? null : $driver->serves->first()->on_serving,
+                    'on_serving' => 1,
 
                 );
 
@@ -165,7 +167,7 @@ class QueuesController extends Controller
         
         foreach($log_lineups as $key => $log) {
             foreach($log->drivers as $driver) {
-                if(count($driver->serves) == 0) {
+                if(count($driver->serves->where('created_at','>=',Carbon::today()))  == 0) {
 
                 if(!empty($driver->truck->plate_number)) {
                     $x = str_replace('-',' ',strtoupper($driver->truck->plate_number));
@@ -174,7 +176,7 @@ class QueuesController extends Controller
                 }
 
                 $data = array(
-                    'log_id' => $key + 1,
+                    'log_id' => substr($log->LogID, -4), // $key + 1
                     'driver_id' => $driver->id,
                     'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
                     'driver_name' => $driver->name,
@@ -184,7 +186,7 @@ class QueuesController extends Controller
                     'log_time' => $log->LocalTime,
                     'dr_status' => empty($y) ? 'UNPROCESS' : $y, 
                     // 'driver_status' => $driver->availability,
-                    'on_serving' => empty($driver->serves->first()->on_serving) ? null : $driver->serves->first()->on_serving,
+                    'on_serving' => empty($driver->serves->where('created_at','>=',Carbon::today())->first()->on_serving) ? null : $driver->serves->first()->on_serving,
 
                 );
 
