@@ -55852,6 +55852,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -81359,7 +81376,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', [_c('div', {
     staticClass: "row mt-4 mb-2"
   }, [_c('div', {
-    staticClass: "col"
+    staticClass: "col-3"
   }, [_c('div', {
     staticClass: "card"
   }, [_vm._m(0), _vm._v(" "), _c('div', {
@@ -81387,7 +81404,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "r": "30"
     }
   })])]) : _vm._e()])])]), _vm._v(" "), _c('div', {
-    staticClass: "col"
+    staticClass: "col-3"
   }, [_c('div', {
     staticClass: "card"
   }, [_vm._m(1), _vm._v(" "), _c('div', {
@@ -81415,10 +81432,38 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "r": "30"
     }
   })])]) : _vm._e()])])]), _vm._v(" "), _c('div', {
-    staticClass: "col"
+    staticClass: "col-3"
   }, [_c('div', {
     staticClass: "card"
   }, [_vm._m(2), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [(!_vm.loadingCount) ? _c('span', {
+    staticClass: "display-3"
+  }, [_vm._v("\n                      " + _vm._s(_vm.totalCount.current_in_plant) + "\n                  ")]) : _vm._e(), _vm._v(" "), (_vm.loadingCount) ? _c('span', {
+    staticClass: "display-3"
+  }, [_c('svg', {
+    staticClass: "spinner",
+    attrs: {
+      "width": "65px",
+      "height": "65px",
+      "viewBox": "0 0 66 66",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('circle', {
+    staticClass: "path",
+    attrs: {
+      "fill": "none",
+      "stroke-width": "6",
+      "stroke-linecap": "round",
+      "cx": "33",
+      "cy": "33",
+      "r": "30"
+    }
+  })])]) : _vm._e()])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-3"
+  }, [_c('div', {
+    staticClass: "card"
+  }, [_vm._m(3), _vm._v(" "), _c('div', {
     staticClass: "card-body"
   }, [_c('span', {
     staticClass: "text-uppercase"
@@ -81456,7 +81501,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })], 2)])
   }), _vm._v(" "), (_vm.lastAssigned.length == 0) ? _c('div', {
     staticClass: "row"
-  }, [_vm._m(3)]) : _vm._e()], 2)])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._m(4)]) : _vm._e()], 2)])])])]), _vm._v(" "), _c('div', {
     staticClass: "form-row mb-2 mt-3"
   }, [_c('div', {
     staticClass: "col-2"
@@ -81547,6 +81592,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('small', {
     staticClass: "text-uppercase"
   }, [_vm._v("ASSIGNED SHIPMENT FOR TODAY")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "card-header"
+  }, [_c('small', {
+    staticClass: "text-uppercase"
+  }, [_vm._v("TRUCKS IN PLANT TODAY")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "card-header"

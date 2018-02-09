@@ -204,9 +204,26 @@ class QueuesController extends Controller
         $totalAssiged = count($this->assignedShipment());
         $totalOpen = count($this->openShipment());
 
+        // Check Trucks Who Has Truckcscale Out
+        $check_truckscale_out = Log::select('CardholderID')
+                                    ->where('ControllerID', 4)
+                                    ->where('Direction',2)
+                                    ->whereDate('LocalTime', Carbon::now())
+                                    ->pluck('CardholderID');
+
+        // Check Trucks who has Truckscale in but not out
+        $check_truckscale_in = Log::select('CardholderID')
+                                    ->where('ControllerID', 4)
+                                    ->where('Direction',1)
+                                    ->whereNotIn('CardholderID',$check_truckscale_out)
+                                    ->whereDate('LocalTime', Carbon::today())
+                                    ->pluck('CardholderID')
+                                    ->count();
+
         $data = array(
             'totalAssigned' => $totalAssiged,
-            'totalOpen' => $totalOpen
+            'totalOpen' => $totalOpen,
+            'current_in_plant' => $check_truckscale_in
         );
 
         return $data;

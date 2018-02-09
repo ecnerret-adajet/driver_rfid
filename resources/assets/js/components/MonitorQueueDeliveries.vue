@@ -2,7 +2,7 @@
   <div>
 
         <div class="row mt-4 mb-2">
-            <div class="col">
+            <div class="col-3">
 
                 <div class="card">
                     <div class="card-header">
@@ -23,7 +23,7 @@
                 </div>
                         
             </div>
-            <div class="col">
+            <div class="col-3">
                 <div class="card">
                     <div class="card-header">
                         <small class="text-uppercase">ASSIGNED SHIPMENT FOR TODAY</small>
@@ -40,7 +40,24 @@
                 </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-header">
+                        <small class="text-uppercase">TRUCKS IN PLANT TODAY</small>
+                    </div>
+                <div class="card-body">
+                    <span class="display-3"  v-if="!loadingCount">
+                        {{ totalCount.current_in_plant }}
+                    </span>
+                     <span class="display-3" v-if="loadingCount">
+                        <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                        </svg>	
+                    </span>
+                </div>
+                </div>
+            </div>
+            <div class="col-3">
                 <div class="card">
                      <div class="card-header">
                         <small class="text-uppercase">LAST ASSIGNED SHIPMENT</small>
