@@ -408,6 +408,28 @@ class FeedsController extends Controller
         return $arr;
     }
 
+    public function getTotalTrucksInPlant()
+    {
+             // Check Trucks Who Has Truckcscale Out
+        $check_truckscale_out = Log::select('CardholderID')
+                                    ->where('ControllerID', 4)
+                                    ->where('Direction',2)
+                                    ->whereDate('LocalTime', Carbon::now())
+                                    ->whereBetween('LocalTime', [Carbon::now()->subDays(3), Carbon::now()])
+                                    ->pluck('CardholderID');
+
+        // Check Trucks who has Truckscale in but not out
+        $check_truckscale_in = Log::select('CardholderID')
+                                    ->where('ControllerID', 4)
+                                    ->where('Direction',1)
+                                    ->whereNotIn('CardholderID',$check_truckscale_out)
+                                    ->whereBetween('LocalTime', [Carbon::now()->subDays(3), Carbon::now()])
+                                    ->pluck('CardholderID')
+                                    ->count();
+
+        return $check_truckscale_in;
+    }
+
     public function barrierContent()
     {
         $pickup_cards = Cardholder::select('CardholderID')

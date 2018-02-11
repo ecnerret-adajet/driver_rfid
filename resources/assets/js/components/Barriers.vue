@@ -5,7 +5,7 @@
                 <div class="col-sm-12">
                     <ul class="list-group">
 
-            <li v-for="barrier in entries" class="rounded-0 list-group-item pb-0 pt-0 rounded-0"  :class="{ 'list-group-item-danger' : barrier.availability != 1 }">
+            <li v-for="(barrier, i) in entries" :key="i" class="rounded-0 list-group-item pb-0 pt-0 rounded-0"  :class="{ 'list-group-item-danger' : barrier.availability != 1 }">
 
                 <div class="row">
                     <div class="col-sm-6 p-3 text-center">
@@ -16,13 +16,14 @@
                             </span>
                         </div>
 
-                        <img class="img-responsive rounded-circle mx-auto" :class="{ 'deactived-img' : barrier.availability == 0 }" style="height: 500px; width: auto;" :src="'/driver_rfid/public/storage/' + barrier.avatar" align="middle">
+                        <img class="img-responsive rounded-circle mx-auto" :class="{ 'deactived-img' : barrier.availability == 0 }" style="height: 450px; width: auto;" :src="'/driver_rfid/public/storage/' + barrier.avatar" align="middle">
                     
                     </div>
                     <div class="col-sm-6 p-0 border border-top-0 border-right-0 border-bottom-0">
 
 
                         <ul class="list-group list-group-flush" :class="{ 'text-muted' : barrier.availability == 0 }">
+
                             <li class="list-group-item" :class="{ 'list-group-item-danger' : barrier.availability != 1 }">
                                 <small class="text-muted">DRIVER NAME:</small><br/>
                                 <span style="font-size: 35px;">
@@ -51,6 +52,12 @@
                                     NO IN  
                                 </span>
                             </li>
+                             <li class="list-group-item" v-if="i === 0" :class="{ 'list-group-item-danger' : barrier.availability != 1, 'list-group-item-primary' : i===0 }">
+                                <span class="text-dark">TRUCKS IN PLANT:</span><br/>
+                                 <span style="font-size: 40px;">
+                                    {{ currentTrucks }}
+                                </span>
+                            </li>
                         </ul>
            
            
@@ -72,19 +79,27 @@
         data() {
             return {
                 entries: [],
+                currentTrucks: []
             }
         },
 
         created() {
             this.getEntries()
+            this.getTruckInPlant()
         },
 
         methods: {
-            getEntries() {
+            getEntries () {
                 axios.get('/driver_rfid/public/barrierApi')
                 .then(response => this.entries = response.data);
 
                 setTimeout(this.getEntries, 2000);
+            },
+
+            getTruckInPlant () {
+                axios.get('/driver_rfid/public/getTotalTrucksInPlant')
+                .then(response => this.currentTrucks = response.data);
+                setTimeout(this.getTruckInPlant, 3000);
             },
 
             moment(date) {

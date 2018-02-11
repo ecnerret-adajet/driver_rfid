@@ -40,6 +40,7 @@ Route::get('/', function()
 
 Route::get('/barrier','FeedsController@barrier');
 Route::get('/barrierApi','FeedsController@barrierApi');
+Route::get('/getTotalTrucksInPlant','FeedsController@getTotalTrucksInPlant');
 //Route Setup for driver monitoring
 Route::get('/driver/queues','LineupsController@DriversQue');
 // Route setup to check last dr submission
