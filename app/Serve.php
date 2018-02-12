@@ -9,6 +9,11 @@ class Serve extends Model
     protected $fillable = [
         'on_serving',
     ];
+
+    public function getDates()
+    {
+        return [];
+    }
     
     public function user()
     {
