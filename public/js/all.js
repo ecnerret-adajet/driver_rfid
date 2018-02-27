@@ -77355,12 +77355,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "aria-labelledby": "truckDropdown"
       }
-    }, [(truck.card != null) ? _c('a', {
+    }, [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.truck_link + truck.id + '/transfer'
       }
-    }, [_vm._v("Transfer to 3PL")]) : _vm._e(), _vm._v(" "), _c('a', {
+    }, [_vm._v("Transfer to 3PL")]), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": "javascript:void(0);",
