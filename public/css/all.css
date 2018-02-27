@@ -9719,6 +9719,17 @@ input:checked+.slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+
+/***** Nav Link color on less than 986px width *****/
+
+      @media (max-width: 986px) {
+          #mainNav.navbar-dark .navbar-collapse .navbar-sidenav>.nav-item>.nav-link {
+              color: #80bdff ! important;
+          }
+          #mainNav.navbar-dark .navbar-collapse .navbar-sidenav>.nav-item .sidenav-second-level>li>a {
+              color: #a9d0fb ! important;
+          }
+      }
 .croppie-container {
     width: 100%;
     height: 100%;
