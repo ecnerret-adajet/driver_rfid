@@ -34,7 +34,11 @@
                     <br/> 
                     <br/>
                     <span class="text-muted">DRIVER NAME:</span><br/>
-                      {{ $truck->drivers->first()->name }}
+                        @if($truck->drivers->count() != 0)
+                            {{ $truck->drivers->first()->name }}
+                        @else
+                            NO DRIVER
+                        @endif
                     <br/>
                     <br/>
                     <span class="text-muted">VENDOR:</span><br/>
