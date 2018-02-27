@@ -52989,6 +52989,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -53883,6 +53922,44 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_content_placeholders__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -56411,6 +56488,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_content_placeholders__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -78091,7 +78207,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-toggle": "modal",
         "data-target": '#driverModalActivate-' + driver.id
       }
-    }, [_vm._v("Activate")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
+    }, [_vm._v("Activate")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || _vm.user_role == 'Monitoring') ? _c('span', [_c('div', {
+      staticClass: "dropdown-divider"
+    }), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#driverRemoveModal-' + driver.id
+      }
+    }, [_vm._v("Remove Driver")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
       staticClass: "dropdown-divider"
     }), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",
@@ -78265,6 +78390,54 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("Confirm")])])])])])]), _vm._v(" "), _c('div', {
       staticClass: "modal fade",
       attrs: {
+        "id": 'driverRemoveModal-' + driver.id,
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "driverRemoveModal",
+        "aria-hidden": "true"
+      }
+    }, [_c('div', {
+      staticClass: "modal-dialog",
+      attrs: {
+        "id": "queueter"
+      }
+    }, [_c('div', {
+      staticClass: "modal-content"
+    }, [_vm._m(4, true), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _c('div', {
+      staticClass: "modal-footer"
+    }, [_c('form', {
+      attrs: {
+        "method": "POST",
+        "action": '/driver_rfid/public/drivers/' + driver.id
+      }
+    }, [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_method",
+        "value": "delete"
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_token"
+      },
+      domProps: {
+        "value": _vm.csrf
+      }
+    }), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-secondary",
+      attrs: {
+        "type": "button",
+        "data-dismiss": "modal"
+      }
+    }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-primary",
+      attrs: {
+        "type": "submit"
+      }
+    }, [_vm._v("Confirm")])])])])])]), _vm._v(" "), _c('div', {
+      staticClass: "modal fade",
+      attrs: {
         "id": 'driverModalActivate-' + driver.id,
         "tabindex": "-1",
         "role": "dialog",
@@ -78278,7 +78451,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(4, true), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(6, true), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -78320,7 +78493,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(6, true), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(8, true), _vm._v(" "), _vm._m(9, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -78355,7 +78528,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "aria-labelledby": "driverModalLabel",
         "aria-hidden": "true"
       }
-    }, [_vm._m(8, true)])])
+    }, [_vm._m(10, true)])])
   })], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
@@ -78400,6 +78573,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "modal-body text-center"
   }, [_c('em', [_vm._v("Are you sure you want to proceed with this action?")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('h6', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "driverModalLabel"
+    }
+  }, [_vm._v("Remove a Driver")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body text-center"
+  }, [_c('em', [_vm._v("Are you sure you want to proceed with this action?")]), _c('br'), _vm._v(" "), _c('small', [_vm._v("The removed driver may still retrieved if necessary.")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "modal-header"
@@ -80027,7 +80224,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-toggle": "modal",
         "data-target": '#driverModalActivate-' + driver.id
       }
-    }, [_vm._v("Activate")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
+    }, [_vm._v("Activate")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || _vm.user_role == 'Monitoring') ? _c('span', [_c('div', {
+      staticClass: "dropdown-divider"
+    }), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#driverRemoveModal-' + driver.id
+      }
+    }, [_vm._v("Remove Driver")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
       staticClass: "dropdown-divider"
     }), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",
@@ -80201,6 +80407,54 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("Confirm")])])])])])]), _vm._v(" "), _c('div', {
       staticClass: "modal fade",
       attrs: {
+        "id": 'driverRemoveModal-' + driver.id,
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "driverRemoveModal",
+        "aria-hidden": "true"
+      }
+    }, [_c('div', {
+      staticClass: "modal-dialog",
+      attrs: {
+        "id": "queueter"
+      }
+    }, [_c('div', {
+      staticClass: "modal-content"
+    }, [_vm._m(4, true), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _c('div', {
+      staticClass: "modal-footer"
+    }, [_c('form', {
+      attrs: {
+        "method": "POST",
+        "action": '/driver_rfid/public/drivers/' + driver.id
+      }
+    }, [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_method",
+        "value": "delete"
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_token"
+      },
+      domProps: {
+        "value": _vm.csrf
+      }
+    }), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-secondary",
+      attrs: {
+        "type": "button",
+        "data-dismiss": "modal"
+      }
+    }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-primary",
+      attrs: {
+        "type": "submit"
+      }
+    }, [_vm._v("Confirm")])])])])])]), _vm._v(" "), _c('div', {
+      staticClass: "modal fade",
+      attrs: {
         "id": 'driverModalActivate-' + driver.id,
         "tabindex": "-1",
         "role": "dialog",
@@ -80214,7 +80468,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(4, true), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(6, true), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -80256,7 +80510,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(6, true), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(8, true), _vm._v(" "), _vm._m(9, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -80291,7 +80545,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "aria-labelledby": "driverModalLabel",
         "aria-hidden": "true"
       }
-    }, [_vm._m(8, true)])])
+    }, [_vm._m(10, true)])])
   })], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
@@ -80336,6 +80590,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "modal-body text-center"
   }, [_c('em', [_vm._v("Are you sure you want to proceed with this action?")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('h6', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "driverModalLabel"
+    }
+  }, [_vm._v("Remove a Driver")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body text-center"
+  }, [_c('em', [_vm._v("Are you sure you want to proceed with this action?")]), _c('br'), _vm._v(" "), _c('small', [_vm._v("The removed driver may still retrieved if necessary.")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "modal-header"
@@ -83346,7 +83624,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-toggle": "modal",
         "data-target": '#driverModalActivate-' + driver.id
       }
-    }, [_vm._v("Activate")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
+    }, [_vm._v("Activate")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || _vm.user_role == 'Monitoring') ? _c('span', [_c('div', {
+      staticClass: "dropdown-divider"
+    }), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#driverRemoveModal-' + driver.id
+      }
+    }, [_vm._v("Remove Driver")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
       staticClass: "dropdown-divider"
     }), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",
@@ -83520,6 +83807,54 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("Confirm")])])])])])]), _vm._v(" "), _c('div', {
       staticClass: "modal fade",
       attrs: {
+        "id": 'driverRemoveModal-' + driver.id,
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "driverRemoveModal",
+        "aria-hidden": "true"
+      }
+    }, [_c('div', {
+      staticClass: "modal-dialog",
+      attrs: {
+        "id": "queueter"
+      }
+    }, [_c('div', {
+      staticClass: "modal-content"
+    }, [_vm._m(4, true), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _c('div', {
+      staticClass: "modal-footer"
+    }, [_c('form', {
+      attrs: {
+        "method": "POST",
+        "action": '/driver_rfid/public/drivers/' + driver.id
+      }
+    }, [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_method",
+        "value": "delete"
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_token"
+      },
+      domProps: {
+        "value": _vm.csrf
+      }
+    }), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-secondary",
+      attrs: {
+        "type": "button",
+        "data-dismiss": "modal"
+      }
+    }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-primary",
+      attrs: {
+        "type": "submit"
+      }
+    }, [_vm._v("Confirm")])])])])])]), _vm._v(" "), _c('div', {
+      staticClass: "modal fade",
+      attrs: {
         "id": 'driverModalActivate-' + driver.id,
         "tabindex": "-1",
         "role": "dialog",
@@ -83533,7 +83868,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(4, true), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(6, true), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -83575,7 +83910,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(6, true), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(8, true), _vm._v(" "), _vm._m(9, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -83610,7 +83945,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "aria-labelledby": "driverModalLabel",
         "aria-hidden": "true"
       }
-    }, [_vm._m(8, true)])])
+    }, [_vm._m(10, true)])])
   })], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
@@ -83655,6 +83990,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "modal-body text-center"
   }, [_c('em', [_vm._v("Are you sure you want to proceed with this action?")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('h6', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "driverModalLabel"
+    }
+  }, [_vm._v("Remove a Driver")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body text-center"
+  }, [_c('em', [_vm._v("Are you sure you want to proceed with this action?")]), _c('br'), _vm._v(" "), _c('small', [_vm._v("The removed driver may still retrieved if necessary.")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "modal-header"

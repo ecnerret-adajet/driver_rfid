@@ -95,6 +95,10 @@
                                                 <span v-if="driver.availability == 0">
                                                 <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#driverModalActivate-'+ driver.id">Activate</a>
                                                 </span>
+                                                 <span v-if="user_role == 'Administrator'|| user_role == 'Monitoring'">
+                                                     <div class="dropdown-divider"></div>
+                                                    <a href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#driverRemoveModal-'+ driver.id">Remove Driver</a>
+                                                </span>
                                                 <span v-if="user_role == 'Administrator'">
                                                      <div class="dropdown-divider"></div>
                                                     <a :href="driver_link + driver.id + '/edit'" class="dropdown-item">Edit</a>
@@ -202,6 +206,40 @@
                 </div>
                 <div class="modal-footer">  
                     <form  method="POST" :action="'/driver_rfid/public/drivers/deactivate/'+driver.id">
+                        <input type="hidden" name="_token" :value="csrf">  
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Confirm</button> 
+                    </form>  
+                </div>
+                    
+                </div>
+            </div>
+            </div><!-- end modal -->
+
+            <!-- Remove Driver Modal -->
+            <div class="modal fade" :id="'driverRemoveModal-' + driver.id" tabindex="-1" role="dialog" aria-labelledby="driverRemoveModal" aria-hidden="true">
+            <div class="modal-dialog" id="queueter">
+                <div class="modal-content">
+                <div class="modal-header">
+
+                    <h6 class="modal-title" id="driverModalLabel">Remove a Driver</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                
+
+                </div>
+                <div class="modal-body text-center">
+
+                                           
+                    <em>Are you sure you want to proceed with this action?</em><br/>
+                    <small>The removed driver may still retrieved if necessary.</small>
+                
+
+                </div>
+                <div class="modal-footer">  
+                    <form  method="POST" :action="'/driver_rfid/public/drivers/'+driver.id">
+                        <input type="hidden" name="_method" value="delete" />
                         <input type="hidden" name="_token" :value="csrf">  
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Confirm</button> 

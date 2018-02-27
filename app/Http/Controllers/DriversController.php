@@ -845,7 +845,11 @@ class DriversController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $driver = Driver::findOrFail($id);
+        $driver->delete();
+
+        flashy()->success('Driver was successfully removed!');
+        return redirect('drivers');
     }
 
     /*

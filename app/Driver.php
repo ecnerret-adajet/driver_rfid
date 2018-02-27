@@ -4,12 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 
 class Driver extends Model
 {
 
     use LogsActivity;
+    use SoftDeletes;
 
     protected $connection = "sqlsrv";
     protected $fillable = [
@@ -57,7 +59,8 @@ class Driver extends Model
 
     protected $dates = [
         'start_validity_date',
-        'end_validity_date'
+        'end_validity_date',
+        'deleted_at'
     ];
 
     public function getDates()
