@@ -1,7 +1,7 @@
 @extends('layouts.full')
 @section('content')
 
-    <barriers></barriers>
+    <manila-area></manila-area>
 
 @endsection
 

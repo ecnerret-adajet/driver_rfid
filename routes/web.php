@@ -38,9 +38,15 @@ Route::get('/', function()
 
 // Route::get('/reassignApproval','SmsController@receiveReassign');
 
-Route::get('/barrier','FeedsController@barrier');
-Route::get('/barrierApi','FeedsController@barrierApi');
 Route::get('/getTotalTrucksInPlant','FeedsController@getTotalTrucksInPlant');
+
+Route::get('/laPazAPI','BarriersController@laPazAPI');
+Route::get('/lapaz','BarriersController@laPazArea');
+Route::get('/manilaAPI','BarriersController@manilaAPI');
+Route::get('/manila','BarriersController@manilaArea');
+
+
+
 //Route Setup for driver monitoring
 Route::get('/driver/queues','LineupsController@DriversQue');
 // Route setup to check last dr submission

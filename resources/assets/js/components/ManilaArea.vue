@@ -90,7 +90,7 @@
 
         methods: {
             getEntries () {
-                axios.get('/driver_rfid/public/barrierApi')
+                axios.get('/driver_rfid/public/manilaAPI')
                 .then(response => this.entries = response.data);
 
                 setTimeout(this.getEntries, 2000);

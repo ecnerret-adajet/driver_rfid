@@ -40,7 +40,7 @@ Vue.component('hauleronlinetruck', require('./components/HaulerOnlineTruck.vue')
 Vue.component('driverque', require('./components/DriverQue.vue'));
 Vue.component('pickupUnserve', require('./components/PickupUnserve.vue'));
 Vue.component('pickupServed', require('./components/PickupServed.vue'));
-Vue.component('barriers', require('./components/Barriers.vue'));
+
 Vue.component('driverupload', require('./components/DriverUpload.vue'));
 Vue.component('monitorQueuePickups', require('./components/MonitorQueuePickup.vue'));
 Vue.component('monitorQueueDeliveries', require('./components/MonitorQueueDeliveries.vue'));
@@ -49,6 +49,8 @@ Vue.component('deactivatedDrivers', require('./components/DeactivatedDrivers.vue
 Vue.component('noDriver', require('./components/NoDriver.vue'));
 Vue.component('dashboard', require('./components/Dashboard.vue'));
 Vue.component('pickupCount', require('./components/PickupCount.vue'));
+Vue.component('lapazArea', require('./components/LaPazArea.vue'));
+Vue.component('manilaArea', require('./components/ManilaArea.vue'));
 
 const app = new Vue({
     el: '#app'
