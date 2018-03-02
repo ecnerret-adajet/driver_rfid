@@ -88,7 +88,7 @@
                                                    
                                                     <span v-if="user_role == 'Administrator'">
                                                         <div class="dropdown-divider"></div>
-                                                        <a  href="javascript:void(0);" class="dropdown-item text-danger" data-toggle="modal" :data-target="'#truckDeactivated-'+ truck.id">Deactive Truck</a>
+                                                        <a  href="javascript:void(0);" class="dropdown-item text-success" data-toggle="modal" :data-target="'#truckActivated-'+ truck.id">Activate Truck</a>
                                                     </span>
                                                 </div><!-- end dropdown -->
                                             
@@ -180,13 +180,13 @@
             </div>
             </div>
 
-            <!-- Deactivate Modal -->
-            <div class="modal fade" :id="'truckDeactivated-' + truck.id" tabindex="-1" role="dialog" aria-labelledby="truckDeactivated" aria-hidden="true">
+            <!-- Activate Modal -->
+            <div class="modal fade" :id="'truckActivated-' + truck.id" tabindex="-1" role="dialog" aria-labelledby="truckActivated" aria-hidden="true">
             <div class="modal-dialog" id="queueter">
                 <div class="modal-content">
                 <div class="modal-header">
 
-                    <h6 class="modal-title" id="truckDeactivated">Deactivate Truck</h6>
+                    <h6 class="modal-title" id="truckActivated">Activate Truck</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -201,7 +201,7 @@
 
                 </div>
                 <div class="modal-footer">  
-                    <form  method="POST" :action="'/driver_rfid/public/trucks/deactivate/'+truck.id">
+                    <form  method="POST" :action="'/driver_rfid/public/trucks/activate/'+truck.id">
                         <input type="hidden" name="_token" :value="csrf">  
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Confirm</button> 

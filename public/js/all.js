@@ -81639,13 +81639,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("Edit")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
       staticClass: "dropdown-divider"
     }), _vm._v(" "), _c('a', {
-      staticClass: "dropdown-item text-danger",
+      staticClass: "dropdown-item text-success",
       attrs: {
         "href": "javascript:void(0);",
         "data-toggle": "modal",
-        "data-target": '#truckDeactivated-' + truck.id
+        "data-target": '#truckActivated-' + truck.id
       }
-    }, [_vm._v("Deactive Truck")])]) : _vm._e()])])])])
+    }, [_vm._v("Activate Truck")])]) : _vm._e()])])])])
   }), _vm._v(" "), (_vm.filteredTruck.length == 0) ? _c('li', {
     staticClass: "list-group-item"
   }, [_vm._m(2)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
@@ -81758,10 +81758,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _vm._m(5, true)])])])]), _vm._v(" "), _c('div', {
       staticClass: "modal fade",
       attrs: {
-        "id": 'truckDeactivated-' + truck.id,
+        "id": 'truckActivated-' + truck.id,
         "tabindex": "-1",
         "role": "dialog",
-        "aria-labelledby": "truckDeactivated",
+        "aria-labelledby": "truckActivated",
         "aria-hidden": "true"
       }
     }, [_c('div', {
@@ -81776,7 +81776,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('form', {
       attrs: {
         "method": "POST",
-        "action": '/driver_rfid/public/trucks/deactivate/' + truck.id
+        "action": '/driver_rfid/public/trucks/activate/' + truck.id
       }
     }, [_c('input', {
       attrs: {
@@ -81940,9 +81940,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('h6', {
     staticClass: "modal-title",
     attrs: {
-      "id": "truckDeactivated"
+      "id": "truckActivated"
     }
-  }, [_vm._v("Deactivate Truck")]), _vm._v(" "), _c('button', {
+  }, [_vm._v("Activate Truck")]), _vm._v(" "), _c('button', {
     staticClass: "close",
     attrs: {
       "type": "button",

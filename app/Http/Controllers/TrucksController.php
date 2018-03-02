@@ -481,6 +481,24 @@ class TrucksController extends Controller
 
     /**
      * 
+     * Activate Truck
+     */
+    public function activateTruck(Request $request, $id)
+    {
+        $truck = Truck::where('id',$id)->first();
+        $truck->availability = 1;
+        $truck->save();
+
+        $activity = activity()
+        ->performedOn($truck)
+        ->log('Activate a truck');
+
+        flashy()->success('Truck is now activated!');
+        return redirect('trucks');
+    }
+
+    /**
+     * 
      *  Change the registration number to official plate number
      * 
      */
