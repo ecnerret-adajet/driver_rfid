@@ -5,7 +5,7 @@
                 <div class="col-sm-12">
                     <ul class="list-group">
 
-            <li v-for="(barrier, i) in entries" :key="i" class="rounded-0 list-group-item pb-0 pt-0 rounded-0"  :class="{ 'list-group-item-danger' : barrier.availability != 1 }">
+            <li v-for="(barrier, i) in entries" :key="i" class="rounded-0 list-group-item pb-0 pt-0 rounded-0"  :class="{ 'list-group-item-danger' : barrier.availability != 1, 'list-group-item-warning' : barrier.plate_availability != 1 }">
 
                 <div class="row">
                     <div class="col-sm-6 p-3 text-center">
@@ -16,7 +16,15 @@
                             </span>
                         </div>
 
-                        <img class="img-responsive rounded-circle mx-auto" :class="{ 'deactived-img' : barrier.availability == 0 }" style="height: 450px; width: auto;" :src="'/driver_rfid/public/storage/' + barrier.avatar" align="middle">
+
+                        <div v-if="barrier.plate_availability == 0" class="border border-danger p-3" style="position: absolute; top: 45%; left: 16%; height: 150xp; width: 500px;">
+                            <span class="display-4 text-danger text-uppercase" style="font-weight: bold">
+                                TRUCK IS FOR INSPECTION
+                            </span><br/>
+                            <span class="h3 text-uppercase">Please proceed to SPC</span>
+                        </div>
+
+                        <img class="img-responsive rounded-circle mx-auto" :class="{ 'deactived-img' : barrier.availability == 0 || barrier.plate_availability == 0 }" style="height: 450px; width: auto;" :src="'/driver_rfid/public/storage/' + barrier.avatar" align="middle">
                     
                     </div>
                     <div class="col-sm-6 p-0 border border-top-0 border-right-0 border-bottom-0">
@@ -24,25 +32,25 @@
 
                         <ul class="list-group list-group-flush" :class="{ 'text-muted' : barrier.availability == 0 }">
 
-                            <li class="list-group-item" :class="{ 'list-group-item-danger' : barrier.availability != 1 }">
+                            <li class="list-group-item" :class="{ 'list-group-item-danger' : barrier.availability != 1, 'list-group-item-warning' : barrier.plate_availability != 1  }">
                                 <small class="text-muted">DRIVER NAME:</small><br/>
                                 <span style="font-size: 35px;">
                                 {{barrier.driver}}
                                 </span>
                             </li>
-                            <li class="list-group-item" :class="{ 'list-group-item-danger' : barrier.availability != 1 }">
+                            <li class="list-group-item" :class="{ 'list-group-item-danger' : barrier.availability != 1, 'list-group-item-warning' : barrier.plate_availability != 1  }">
                                 <small class="text-muted">PLATE NUMBER:</small><br/>
                                 <span style="font-size: 35px;">
                                     {{barrier.plate_number}}
                                 </span>
                             </li>
-                            <li class="list-group-item" :class="{ 'list-group-item-danger' : barrier.availability != 1 }">
+                            <li class="list-group-item" :class="{ 'list-group-item-danger' : barrier.availability != 1, 'list-group-item-warning' : barrier.plate_availability != 1  }">
                                 <small class="text-muted">HAULER NAME:</small><br/>
                                 <span style="font-size: 35px;">
                                     {{barrier.hauler_name}}
                                 </span>
                             </li>
-                            <li class="list-group-item" :class="{ 'list-group-item-danger' : barrier.availability != 1 }">
+                            <li class="list-group-item" :class="{ 'list-group-item-danger' : barrier.availability != 1, 'list-group-item-warning' : barrier.plate_availability != 1  }">
                                 <small class="text-muted">PLANT IN:</small><br/>
                                 <span style="font-size: 35px;" v-if="barrier.inLocalTime">
                                     {{ moment(barrier.inLocalTime.date)}} 

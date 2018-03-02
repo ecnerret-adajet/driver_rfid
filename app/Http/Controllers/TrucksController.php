@@ -564,6 +564,7 @@ class TrucksController extends Controller
     {
         $trucks = Truck::has('driver')
                  ->with('driver','hauler','driver.cardholder','card')
+                 ->where('availability',1)
                  ->orderBy('id','DESC')
                  ->get();
         
@@ -579,4 +580,15 @@ class TrucksController extends Controller
         
         return $trucks;
     }
+
+    public function deactivatedTrucksJson()
+    {
+        $trucks = Truck::with('driver','hauler','driver.cardholder','card')
+                 ->where('availability',0)
+                 ->orderBy('id','DESC')
+                 ->get();
+        
+        return $trucks;
+    }
+
 }

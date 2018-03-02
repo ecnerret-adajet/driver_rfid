@@ -120,6 +120,7 @@ Route::get('/deactivatedDriversJson','DriversController@deactivatedDriversJson')
 
 Route::get('/trucksJson','TrucksController@trucksJson');
 Route::get('/noDriverJson','TrucksController@noDriverJson');
+Route::get('/deactivatedTrucksJson','TrucksController@deactivatedTrucksJson');
 
 Route::get('/haulersJson', function() {
     $haulers = App\Hauler::select('id','name')->orderBy('id','DESC')->get();
