@@ -83109,7 +83109,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "row"
     }, [_c('div', {
       staticClass: "col-sm-6 p-3 text-center"
-    }, [(barrier.availability == 0) ? _c('div', {
+    }, [(barrier.availability == 0 || barrier.plate_availability == 0) ? _c('div', {
       staticClass: "border border-danger p-3",
       staticStyle: {
         "position": "absolute",
@@ -83123,23 +83123,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticStyle: {
         "font-weight": "bold"
       }
-    }, [_vm._v("\n                            DEACTIVATED\n                        ")])]) : _vm._e(), _vm._v(" "), (barrier.plate_availability == 0) ? _c('div', {
-      staticClass: "border border-danger p-3",
-      staticStyle: {
-        "position": "absolute",
-        "top": "45%",
-        "left": "16%",
-        "height": "150xp",
-        "width": "500px"
-      }
-    }, [_c('span', {
-      staticClass: "display-4 text-danger text-uppercase",
-      staticStyle: {
-        "font-weight": "bold"
-      }
-    }, [_vm._v("\n                            TRUCK IS FOR INSPECTION\n                        ")]), _c('br'), _vm._v(" "), _c('span', {
-      staticClass: "h3 text-uppercase"
-    }, [_vm._v("Please proceed to SPC")])]) : _vm._e(), _vm._v(" "), _c('img', {
+    }, [_vm._v("\n                            DEACTIVATED\n                        ")])]) : _vm._e(), _vm._v(" "), _c('img', {
       staticClass: "img-responsive rounded-circle mx-auto",
       class: {
         'deactived-img': barrier.availability == 0 || barrier.plate_availability == 0

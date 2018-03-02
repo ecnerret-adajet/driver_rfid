@@ -10,19 +10,19 @@
                 <div class="row">
                     <div class="col-sm-6 p-3 text-center">
                         
-                        <div v-if="barrier.availability == 0" class="border border-danger p-3" style="position: absolute; top: 45%; left: 30%; height: 150xp; width: 400px;">
+                        <div v-if="barrier.availability == 0 || barrier.plate_availability == 0" class="border border-danger p-3" style="position: absolute; top: 45%; left: 30%; height: 150xp; width: 400px;">
                             <span class="display-4 text-danger text-uppercase" style="font-weight: bold">
                                 DEACTIVATED
                             </span>
                         </div>
 
 
-                        <div v-if="barrier.plate_availability == 0" class="border border-danger p-3" style="position: absolute; top: 45%; left: 16%; height: 150xp; width: 500px;">
+                        <!-- <div v-if="barrier.plate_availability == 0" class="border border-danger p-3" style="position: absolute; top: 45%; left: 16%; height: 150xp; width: 500px;">
                             <span class="display-4 text-danger text-uppercase" style="font-weight: bold">
                                 TRUCK IS FOR INSPECTION
                             </span><br/>
                             <span class="h3 text-uppercase">Please proceed to SPC</span>
-                        </div>
+                        </div> -->
 
                         <img class="img-responsive rounded-circle mx-auto" :class="{ 'deactived-img' : barrier.availability == 0 || barrier.plate_availability == 0 }" style="height: 450px; width: auto;" :src="'/driver_rfid/public/storage/' + barrier.avatar" align="middle">
                     
