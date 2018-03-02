@@ -177,7 +177,7 @@ class TrucksController extends Controller
     public function store(Request $request)
     {
          $this->validate($request, [
-            'plate_number' => 'required_without:reg_number|max:8|unique:trucks',
+            'plate_number' => 'required_without:reg_number|max:8', // remove the unique:trucks
             'card_list' => 'required',
             'capacity_list' => 'required',
             'contract_list' => 'required',
