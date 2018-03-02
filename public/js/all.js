@@ -63,7 +63,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 387);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 385);
+>>>>>>> trucksForDeactivate
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1899,7 +1903,11 @@ function loadLocale(name) {
             module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
+<<<<<<< HEAD
             __webpack_require__(276)("./" + name);
+=======
+            __webpack_require__(275)("./" + name);
+>>>>>>> trucksForDeactivate
             // because defineLocale currently also sets the global locale, we
             // want to undo that for lazy loaded locales
             getSetGlobalLocale(oldLocale);
@@ -21726,7 +21734,11 @@ module.exports = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dist_vue_content_placeholders_common___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__dist_vue_content_placeholders_common__);
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "default", function() { return __WEBPACK_IMPORTED_MODULE_0__dist_vue_content_placeholders_common___default.a; });
 /* unused harmony namespace reexport */
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dist_vue_content_placeholders_css__ = __webpack_require__(279);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dist_vue_content_placeholders_css__ = __webpack_require__(278);
+>>>>>>> trucksForDeactivate
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dist_vue_content_placeholders_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__dist_vue_content_placeholders_css__);
 
 
@@ -22237,7 +22249,11 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
+<<<<<<< HEAD
 var listToStyles = __webpack_require__(385)
+=======
+var listToStyles = __webpack_require__(383)
+>>>>>>> trucksForDeactivate
 
 /*
 type StyleObject = {
@@ -45929,7 +45945,11 @@ process.umask = function() { return 0; };
 
 __webpack_require__(217);
 
+<<<<<<< HEAD
 window.Vue = __webpack_require__(386);
+=======
+window.Vue = __webpack_require__(384);
+>>>>>>> trucksForDeactivate
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -45937,6 +45957,7 @@ window.Vue = __webpack_require__(386);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+<<<<<<< HEAD
 Vue.component('example', __webpack_require__(293));
 Vue.component('drivers', __webpack_require__(291));
 Vue.component('trucks', __webpack_require__(324));
@@ -45973,6 +45994,44 @@ Vue.component('pickupCount', __webpack_require__(309));
 Vue.component('lapazArea', __webpack_require__(300));
 Vue.component('manilaArea', __webpack_require__(303));
 Vue.component('bataanArea', __webpack_require__(282));
+=======
+Vue.component('example', __webpack_require__(292));
+Vue.component('drivers', __webpack_require__(290));
+Vue.component('trucks', __webpack_require__(323));
+Vue.component('haulers', __webpack_require__(297));
+Vue.component('settings', __webpack_require__(320));
+Vue.component('prints', __webpack_require__(316));
+Vue.component('home', __webpack_require__(298));
+Vue.component('cards', __webpack_require__(281));
+Vue.component('users', __webpack_require__(325));
+Vue.component('logs', __webpack_require__(301));
+Vue.component('pickups', __webpack_require__(315));
+Vue.component('vendor', __webpack_require__(326));
+Vue.component('driverdetails', __webpack_require__(287));
+Vue.component('handlers', __webpack_require__(294));
+Vue.component('lineup', __webpack_require__(300));
+Vue.component('graph', __webpack_require__(293));
+Vue.component('dates', __webpack_require__(283));
+Vue.component('top', __webpack_require__(322));
+Vue.component('topentries', __webpack_require__(321));
+Vue.component('hauleronline', __webpack_require__(295));
+Vue.component('hauleronlinetruck', __webpack_require__(296));
+Vue.component('driverque', __webpack_require__(288));
+Vue.component('pickupUnserve', __webpack_require__(314));
+Vue.component('pickupServed', __webpack_require__(311));
+
+Vue.component('driverupload', __webpack_require__(289));
+Vue.component('monitorQueuePickups', __webpack_require__(304));
+Vue.component('monitorQueueDeliveries', __webpack_require__(303));
+Vue.component('noTruck', __webpack_require__(306));
+Vue.component('deactivatedDrivers', __webpack_require__(284));
+Vue.component('noDriver', __webpack_require__(305));
+Vue.component('deactivatedTrucks', __webpack_require__(285));
+Vue.component('dashboard', __webpack_require__(282));
+Vue.component('pickupCount', __webpack_require__(308));
+Vue.component('lapazArea', __webpack_require__(299));
+Vue.component('manilaArea', __webpack_require__(302));
+>>>>>>> trucksForDeactivate
 
 var app = new Vue({
   el: '#app'
@@ -52358,9 +52417,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Entries_vue__ = __webpack_require__(292);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Entries_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Entries_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__SearchEntries_vue__ = __webpack_require__(318);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Entries_vue__ = __webpack_require__(291);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Entries_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Entries_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__SearchEntries_vue__ = __webpack_require__(317);
+>>>>>>> trucksForDeactivate
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__SearchEntries_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__SearchEntries_vue__);
 //
 //
@@ -53129,6 +53194,358 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_content_placeholders__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: ['user_role'],
+
+    data: function data() {
+        return {
+            loading: false,
+            truck_link: '/driver_rfid/public/trucks/',
+            export_link: '/driver_rfid/public/exportTrucks',
+            trucks: [],
+            searchString: '',
+            itemsPerPage: 5,
+            currentPage: 0,
+            csrf: ''
+        };
+    },
+    mounted: function mounted() {
+        this.csrf = window.Laravel.csrfToken;
+    },
+
+
+    components: {
+        VueContentPlaceholders: __WEBPACK_IMPORTED_MODULE_0_vue_content_placeholders__["default"]
+    },
+
+    created: function created() {
+        this.getTruck();
+    },
+
+
+    methods: {
+        getTruck: function getTruck() {
+            var _this = this;
+
+            this.loading = true;
+            axios.get('/driver_rfid/public/deactivatedTrucksJson').then(function (response) {
+                _this.trucks = response.data;
+                _this.loading = false;
+            });
+        },
+        setPage: function setPage(pageNumber) {
+            this.currentPage = pageNumber;
+        },
+        resetStartRow: function resetStartRow() {
+            this.currentPage = 0;
+        },
+        showPreviousLink: function showPreviousLink() {
+            return this.currentPage == 0 ? false : true;
+        },
+        showNextLink: function showNextLink() {
+            return this.currentPage == this.totalPages - 1 ? false : true;
+        }
+    },
+
+    computed: {
+        filteredEntries: function filteredEntries() {
+            var vm = this;
+
+            return __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.filter(vm.trucks, function (item) {
+                return ~item.plate_number.toLowerCase().indexOf(vm.searchString.trim().toLowerCase());
+            });
+        },
+        totalPages: function totalPages() {
+            return Math.ceil(this.filteredEntries.length / this.itemsPerPage);
+        },
+        filteredTruck: function filteredTruck() {
+
+            var index = this.currentPage * this.itemsPerPage;
+            var trucks_array = this.filteredEntries.slice(index, index + this.itemsPerPage);
+
+            if (this.currentPage >= this.totalPages) {
+                this.currentPage = this.totalPages - 1;
+            }
+
+            if (this.currentPage == -1) {
+                this.currentPage = 0;
+            }
+
+            return trucks_array;
+        }
+    }
+});
+
+/***/ }),
+/* 177 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_content_placeholders__ = __webpack_require__(5);
@@ -53139,6 +53556,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+<<<<<<< HEAD
+=======
 //
 //
 //
@@ -53393,6 +53812,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+>>>>>>> trucksForDeactivate
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -56017,6 +56437,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+<<<<<<< HEAD
+=======
+//
+//
+//
+//
+//
+//
+//
+//
+>>>>>>> trucksForDeactivate
 
 
 
@@ -56065,11 +56496,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DeliveriesFeed_vue__ = __webpack_require__(287);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DeliveriesFeed_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__DeliveriesFeed_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AssignedShipmentDeliveries__ = __webpack_require__(281);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AssignedShipmentDeliveries___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__AssignedShipmentDeliveries__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__OpenShipmentDeliveries__ = __webpack_require__(308);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DeliveriesFeed_vue__ = __webpack_require__(286);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DeliveriesFeed_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__DeliveriesFeed_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AssignedShipmentDeliveries__ = __webpack_require__(280);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AssignedShipmentDeliveries___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__AssignedShipmentDeliveries__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__OpenShipmentDeliveries__ = __webpack_require__(307);
+>>>>>>> trucksForDeactivate
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__OpenShipmentDeliveries___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__OpenShipmentDeliveries__);
 //
 //
@@ -56270,6 +56709,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PickupFeed_vue__ = __webpack_require__(310);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PickupFeed_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__PickupFeed_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__SearchPickupFeed__ = __webpack_require__(319);
@@ -56279,6 +56719,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Unserved_vue__ = __webpack_require__(325);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Unserved_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__Unserved_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__PickupInPlant_vue__ = __webpack_require__(311);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PickupFeed_vue__ = __webpack_require__(309);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PickupFeed_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__PickupFeed_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__SearchPickupFeed__ = __webpack_require__(318);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__SearchPickupFeed___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__SearchPickupFeed__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Served_vue__ = __webpack_require__(319);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Served_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Served_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Unserved_vue__ = __webpack_require__(324);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Unserved_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__Unserved_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__PickupInPlant_vue__ = __webpack_require__(310);
+>>>>>>> trucksForDeactivate
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__PickupInPlant_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__PickupInPlant_vue__);
 //
 //
@@ -57994,9 +58445,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PickupServedCurrent_vue__ = __webpack_require__(313);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PickupServedCurrent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__PickupServedCurrent_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__PickupServedSearch_vue__ = __webpack_require__(314);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PickupServedCurrent_vue__ = __webpack_require__(312);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PickupServedCurrent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__PickupServedCurrent_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__PickupServedSearch_vue__ = __webpack_require__(313);
+>>>>>>> trucksForDeactivate
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__PickupServedSearch_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__PickupServedSearch_vue__);
 //
 //
@@ -60126,6 +60583,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_content_placeholders__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -75218,7 +75680,11 @@ module.exports = {
     }
 }));
 
+<<<<<<< HEAD
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(280).setImmediate))
+=======
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(279).setImmediate))
+>>>>>>> trucksForDeactivate
 
 /***/ }),
 /* 265 */
@@ -75271,6 +75737,7 @@ exports.push([module.i, "\nbutton[data-v-ae1acb30] {\n    cursor: pointer;\n}\n"
 
 /***/ }),
 /* 272 */
+<<<<<<< HEAD
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(8)();
@@ -75278,27 +75745,41 @@ exports.push([module.i, "\n.deactived-img[data-v-b2279d18] {\n    opacity: 0.5;\
 
 /***/ }),
 /* 273 */
+=======
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(8)();
 exports.push([module.i, "\n.Image-upload .Modal {\n  border-top: 1px solid #f4f4f4;\n  margin-top: 10px;\n}\n.Image-upload .Modal h4 {\n    margin-bottom: 2px;\n}\n.Image-upload div#upload-wrapper {\n  text-align: center;\n}\n.Image-upload .input-file {\n  text-align: left;\n  width: 100%;\n  margin: 0px auto;\n}\n", ""]);
 
 /***/ }),
+<<<<<<< HEAD
 /* 274 */
+=======
+/* 273 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(8)();
 exports.push([module.i, "\nbutton[data-v-f6606d04] {\n    cursor: pointer;\n}\n", ""]);
 
 /***/ }),
+<<<<<<< HEAD
 /* 275 */
+=======
+/* 274 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(8)();
 exports.push([module.i, "\nbutton[data-v-ff0dae38] {\n    cursor: pointer;\n}\n", ""]);
 
 /***/ }),
+<<<<<<< HEAD
 /* 276 */
+=======
+/* 275 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -75547,10 +76028,17 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
+<<<<<<< HEAD
 webpackContext.id = 276;
 
 /***/ }),
 /* 277 */
+=======
+webpackContext.id = 275;
+
+/***/ }),
+/* 276 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -75743,7 +76231,11 @@ webpackContext.id = 276;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14), __webpack_require__(141)))
 
 /***/ }),
+<<<<<<< HEAD
 /* 278 */
+=======
+/* 277 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports) {
 
 /*
@@ -75995,7 +76487,11 @@ function updateLink(linkElement, obj) {
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 279 */
+=======
+/* 278 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -76004,7 +76500,11 @@ function updateLink(linkElement, obj) {
 var content = __webpack_require__(265);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
+<<<<<<< HEAD
 var update = __webpack_require__(278)(content, {});
+=======
+var update = __webpack_require__(277)(content, {});
+>>>>>>> trucksForDeactivate
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -76021,7 +76521,11 @@ if(false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 280 */
+=======
+/* 279 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -76074,18 +76578,30 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
+<<<<<<< HEAD
 __webpack_require__(277);
+=======
+__webpack_require__(276);
+>>>>>>> trucksForDeactivate
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 281 */
+=======
+/* 280 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
+<<<<<<< HEAD
 __webpack_require__(380)
+=======
+__webpack_require__(379)
+>>>>>>> trucksForDeactivate
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -76118,7 +76634,11 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 282 */
+=======
+/* 281 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -76129,6 +76649,7 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(171),
   /* template */
+<<<<<<< HEAD
   __webpack_require__(365),
   /* scopeId */
   "data-v-b2279d18",
@@ -76164,6 +76685,9 @@ var Component = __webpack_require__(1)(
   __webpack_require__(172),
   /* template */
   __webpack_require__(373),
+=======
+  __webpack_require__(372),
+>>>>>>> trucksForDeactivate
   /* scopeId */
   null,
   /* cssModules */
@@ -76190,7 +76714,11 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 284 */
+=======
+/* 282 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
@@ -76224,7 +76752,11 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 285 */
+=======
+/* 283 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
@@ -76258,14 +76790,22 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 286 */
+=======
+/* 284 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(175),
   /* template */
+<<<<<<< HEAD
   __webpack_require__(337),
+=======
+  __webpack_require__(336),
+>>>>>>> trucksForDeactivate
   /* scopeId */
   null,
   /* cssModules */
@@ -76292,18 +76832,64 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 287 */
+=======
+/* 285 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(175),
+  /* template */
+  __webpack_require__(340),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\DeactivatedTrucks.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] DeactivatedTrucks.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-522068c6", Component.options)
+  } else {
+    hotAPI.reload("data-v-522068c6", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 286 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
+<<<<<<< HEAD
 __webpack_require__(383)
+=======
+__webpack_require__(381)
+>>>>>>> trucksForDeactivate
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(176),
   /* template */
+<<<<<<< HEAD
   __webpack_require__(372),
+=======
+  __webpack_require__(371),
+>>>>>>> trucksForDeactivate
   /* scopeId */
   "data-v-f6606d04",
   /* cssModules */
@@ -76330,14 +76916,22 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 288 */
+=======
+/* 287 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(177),
   /* template */
+<<<<<<< HEAD
   __webpack_require__(339),
+=======
+  __webpack_require__(338),
+>>>>>>> trucksForDeactivate
   /* scopeId */
   null,
   /* cssModules */
@@ -76364,14 +76958,22 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 289 */
+=======
+/* 288 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(178),
   /* template */
+<<<<<<< HEAD
   __webpack_require__(331),
+=======
+  __webpack_require__(330),
+>>>>>>> trucksForDeactivate
   /* scopeId */
   null,
   /* cssModules */
@@ -76398,18 +77000,30 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 290 */
+=======
+/* 289 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
+<<<<<<< HEAD
 __webpack_require__(382)
+=======
+__webpack_require__(380)
+>>>>>>> trucksForDeactivate
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(179),
   /* template */
+<<<<<<< HEAD
   __webpack_require__(366),
+=======
+  __webpack_require__(365),
+>>>>>>> trucksForDeactivate
   /* scopeId */
   null,
   /* cssModules */
@@ -76436,7 +77050,11 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 291 */
+=======
+/* 290 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
@@ -76470,18 +77088,30 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 292 */
+=======
+/* 291 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
+<<<<<<< HEAD
 __webpack_require__(376)
+=======
+__webpack_require__(375)
+>>>>>>> trucksForDeactivate
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(181),
   /* template */
+<<<<<<< HEAD
   __webpack_require__(335),
+=======
+  __webpack_require__(334),
+>>>>>>> trucksForDeactivate
   /* scopeId */
   "data-v-2901655c",
   /* cssModules */
@@ -76508,14 +77138,22 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 293 */
+=======
+/* 292 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(182),
   /* template */
+<<<<<<< HEAD
   __webpack_require__(336),
+=======
+  __webpack_require__(335),
+>>>>>>> trucksForDeactivate
   /* scopeId */
   null,
   /* cssModules */
@@ -76542,14 +77180,22 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 294 */
+=======
+/* 293 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(183),
   /* template */
+<<<<<<< HEAD
   __webpack_require__(340),
+=======
+  __webpack_require__(339),
+>>>>>>> trucksForDeactivate
   /* scopeId */
   null,
   /* cssModules */
@@ -76576,7 +77222,11 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 295 */
+=======
+/* 294 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
@@ -76610,7 +77260,11 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 296 */
+=======
+/* 295 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
@@ -76644,14 +77298,22 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 297 */
+=======
+/* 296 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(186),
   /* template */
+<<<<<<< HEAD
   __webpack_require__(367),
+=======
+  __webpack_require__(366),
+>>>>>>> trucksForDeactivate
   /* scopeId */
   null,
   /* cssModules */
@@ -76678,7 +77340,11 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 298 */
+=======
+/* 297 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
@@ -76712,7 +77378,11 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 299 */
+=======
+/* 298 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
@@ -76746,12 +77416,20 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 300 */
+=======
+/* 299 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
+<<<<<<< HEAD
 __webpack_require__(377)
+=======
+__webpack_require__(376)
+>>>>>>> trucksForDeactivate
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -76784,7 +77462,11 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 301 */
+=======
+/* 300 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
@@ -76818,7 +77500,11 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 302 */
+=======
+/* 301 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
@@ -76852,12 +77538,20 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 303 */
+=======
+/* 302 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
+<<<<<<< HEAD
 __webpack_require__(378)
+=======
+__webpack_require__(377)
+>>>>>>> trucksForDeactivate
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -76890,7 +77584,11 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 304 */
+=======
+/* 303 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
@@ -76924,12 +77622,20 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 305 */
+=======
+/* 304 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
+<<<<<<< HEAD
 __webpack_require__(379)
+=======
+__webpack_require__(378)
+>>>>>>> trucksForDeactivate
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -76962,14 +77668,22 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 306 */
+=======
+/* 305 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(195),
   /* template */
+<<<<<<< HEAD
   __webpack_require__(328),
+=======
+  __webpack_require__(327),
+>>>>>>> trucksForDeactivate
   /* scopeId */
   null,
   /* cssModules */
@@ -76996,14 +77710,22 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 307 */
+=======
+/* 306 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(196),
   /* template */
+<<<<<<< HEAD
   __webpack_require__(330),
+=======
+  __webpack_require__(329),
+>>>>>>> trucksForDeactivate
   /* scopeId */
   null,
   /* cssModules */
@@ -77030,18 +77752,30 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 308 */
+=======
+/* 307 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
+<<<<<<< HEAD
 __webpack_require__(384)
+=======
+__webpack_require__(382)
+>>>>>>> trucksForDeactivate
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(197),
   /* template */
+<<<<<<< HEAD
   __webpack_require__(374),
+=======
+  __webpack_require__(373),
+>>>>>>> trucksForDeactivate
   /* scopeId */
   "data-v-ff0dae38",
   /* cssModules */
@@ -77068,14 +77802,22 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 309 */
+=======
+/* 308 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(198),
   /* template */
+<<<<<<< HEAD
   __webpack_require__(371),
+=======
+  __webpack_require__(370),
+>>>>>>> trucksForDeactivate
   /* scopeId */
   null,
   /* cssModules */
@@ -77102,7 +77844,11 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 310 */
+=======
+/* 309 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
@@ -77136,14 +77882,22 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 311 */
+=======
+/* 310 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(200),
   /* template */
+<<<<<<< HEAD
   __webpack_require__(368),
+=======
+  __webpack_require__(367),
+>>>>>>> trucksForDeactivate
   /* scopeId */
   null,
   /* cssModules */
@@ -77170,7 +77924,11 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 312 */
+=======
+/* 311 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
@@ -77204,7 +77962,11 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 313 */
+=======
+/* 312 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
@@ -77238,7 +78000,11 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 314 */
+=======
+/* 313 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
@@ -77272,14 +78038,22 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 315 */
+=======
+/* 314 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(204),
   /* template */
+<<<<<<< HEAD
   __webpack_require__(370),
+=======
+  __webpack_require__(369),
+>>>>>>> trucksForDeactivate
   /* scopeId */
   null,
   /* cssModules */
@@ -77306,7 +78080,11 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 316 */
+=======
+/* 315 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
@@ -77340,7 +78118,11 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 317 */
+=======
+/* 316 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
@@ -77374,18 +78156,30 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 318 */
+=======
+/* 317 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
+<<<<<<< HEAD
 __webpack_require__(375)
+=======
+__webpack_require__(374)
+>>>>>>> trucksForDeactivate
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(207),
   /* template */
+<<<<<<< HEAD
   __webpack_require__(329),
+=======
+  __webpack_require__(328),
+>>>>>>> trucksForDeactivate
   /* scopeId */
   "data-v-09292f0a",
   /* cssModules */
@@ -77412,7 +78206,11 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 319 */
+=======
+/* 318 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
@@ -77446,14 +78244,22 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 320 */
+=======
+/* 319 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(209),
   /* template */
+<<<<<<< HEAD
   __webpack_require__(338),
+=======
+  __webpack_require__(337),
+>>>>>>> trucksForDeactivate
   /* scopeId */
   null,
   /* cssModules */
@@ -77480,7 +78286,11 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 321 */
+=======
+/* 320 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
@@ -77514,14 +78324,22 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 322 */
+=======
+/* 321 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(211),
   /* template */
+<<<<<<< HEAD
   __webpack_require__(333),
+=======
+  __webpack_require__(332),
+>>>>>>> trucksForDeactivate
   /* scopeId */
   null,
   /* cssModules */
@@ -77548,14 +78366,22 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 323 */
+=======
+/* 322 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(212),
   /* template */
+<<<<<<< HEAD
   __webpack_require__(334),
+=======
+  __webpack_require__(333),
+>>>>>>> trucksForDeactivate
   /* scopeId */
   null,
   /* cssModules */
@@ -77582,14 +78408,22 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 324 */
+=======
+/* 323 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(213),
   /* template */
+<<<<<<< HEAD
   __webpack_require__(332),
+=======
+  __webpack_require__(331),
+>>>>>>> trucksForDeactivate
   /* scopeId */
   null,
   /* cssModules */
@@ -77616,14 +78450,22 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 325 */
+=======
+/* 324 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(214),
   /* template */
+<<<<<<< HEAD
   __webpack_require__(369),
+=======
+  __webpack_require__(368),
+>>>>>>> trucksForDeactivate
   /* scopeId */
   null,
   /* cssModules */
@@ -77650,7 +78492,11 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 326 */
+=======
+/* 325 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
@@ -77684,7 +78530,11 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 327 */
+=======
+/* 326 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
@@ -77718,7 +78568,11 @@ module.exports = Component.exports
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 328 */
+=======
+/* 327 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -78186,7 +79040,11 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 329 */
+=======
+/* 328 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -78409,7 +79267,11 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 330 */
+=======
+/* 329 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -79029,7 +79891,11 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 331 */
+=======
+/* 330 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -79332,7 +80198,11 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 332 */
+=======
+/* 331 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -79453,7 +80323,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": _vm.truck_link + truck.id + '/edit'
       }
-    }, [_vm._v("Edit")])]) : _vm._e()])])])])
+    }, [_vm._v("Edit")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
+      staticClass: "dropdown-divider"
+    }), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item text-danger",
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#truckDeactivated-' + truck.id
+      }
+    }, [_vm._v("Deactive Truck")])]) : _vm._e()])])])])
   }), _vm._v(" "), (_vm.filteredTruck.length == 0) ? _c('li', {
     staticClass: "list-group-item"
   }, [_vm._m(2)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
@@ -79539,7 +80418,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "id": 'truckChange-' + truck.id,
         "tabindex": "-1",
         "role": "dialog",
-        "aria-labelledby": "truckModalLabel",
+        "aria-labelledby": "truckChange",
         "aria-hidden": "true"
       }
     }, [_c('div', {
@@ -79566,10 +80445,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _vm._m(5, true)])])])]), _vm._v(" "), _c('div', {
       staticClass: "modal fade",
       attrs: {
-        "id": 'truckModal-' + truck.id,
+        "id": 'truckDeactivated-' + truck.id,
         "tabindex": "-1",
         "role": "dialog",
-        "aria-labelledby": "truckModalLabel",
+        "aria-labelledby": "truckDeactivated",
         "aria-hidden": "true"
       }
     }, [_c('div', {
@@ -79687,7 +80566,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('h6', {
     staticClass: "modal-title",
     attrs: {
-      "id": "truckModalLabel"
+      "id": "truckChange"
     }
   }, [_vm._v("Change to official plate number")]), _vm._v(" "), _c('button', {
     staticClass: "close",
@@ -79748,7 +80627,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('h6', {
     staticClass: "modal-title",
     attrs: {
-      "id": "truckModalLabel"
+      "id": "truckDeactivated"
     }
   }, [_vm._v("Deactivate Truck")]), _vm._v(" "), _c('button', {
     staticClass: "close",
@@ -79800,7 +80679,11 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 333 */
+=======
+/* 332 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -80028,7 +80911,11 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 334 */
+=======
+/* 333 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -80049,7 +80936,11 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 335 */
+=======
+/* 334 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -80272,7 +81163,11 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 336 */
+=======
+/* 335 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -80301,7 +81196,11 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 337 */
+=======
+/* 336 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -80920,7 +81819,11 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 338 */
+=======
+/* 337 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -81070,7 +81973,11 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 339 */
+=======
+/* 338 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -81085,7 +81992,11 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 340 */
+=======
+/* 339 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -81106,6 +82017,486 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
+=======
+/* 340 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    staticClass: "form-row mb-2 mt-2"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.searchString),
+      expression: "searchString"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "placeholder": "Search"
+    },
+    domProps: {
+      "value": (_vm.searchString)
+    },
+    on: {
+      "keyup": _vm.resetStartRow,
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.searchString = $event.target.value
+      }
+    }
+  })])])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-sm-12"
+  }, [(!_vm.loading) ? _c('div', [_c('ul', {
+    staticClass: "list-group"
+  }, [_vm._l((_vm.filteredTruck), function(truck) {
+    return _c('li', {
+      staticClass: "list-group-item"
+    }, [_c('div', {
+      staticClass: "row"
+    }, [_vm._m(0, true), _vm._v(" "), _c('div', {
+      staticClass: "col-sm-5"
+    }, [_c('a', {
+      attrs: {
+        "href": _vm.truck_link + truck.id
+      }
+    }, [(truck.reg_number == null) ? _c('span', [_vm._v("\n                                                   " + _vm._s(truck.plate_number) + "\n                                               ")]) : _c('span', [_vm._v("\n                                                   " + _vm._s(truck.reg_number) + "\n                                               ")])]), _vm._v(" : "), _vm._l((truck.driver), function(driver) {
+      return (driver.cardholder) ? _c('small', {
+        staticClass: "badge badge-primary mr-2"
+      }, [_vm._v(_vm._s(driver.cardholder.Name))]) : _vm._e()
+    }), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((truck.hauler), function(h) {
+      return _c('span', {
+        staticClass: "text-muted"
+      }, [_vm._v("\n                                              " + _vm._s(h.name) + "\n                                           ")])
+    }), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((truck.driver), function(d) {
+      return _c('span', [_vm._v("\n                                                " + _vm._s(d.name) + "\n                                           ")])
+    }), _vm._v(" "), (truck.driver == 0) ? _c('span', {
+      staticStyle: {
+        "color": "red"
+      }
+    }, [_vm._v("\n                                               NO DRIVER\n                                           ")]) : _vm._e()], 2), _vm._v(" "), _c('div', {
+      staticClass: "col-sm-3"
+    }, [(truck.card != null) ? _c('span', {
+      staticClass: "badge badge-primary"
+    }, [_vm._v("\n                                               Sticker Assigned\n                                           ")]) : _vm._e(), _vm._v(" "), (truck.availability == 1) ? _c('span', [_c('i', {
+      staticClass: "fa fa-circle",
+      staticStyle: {
+        "color": "green"
+      },
+      attrs: {
+        "aria-hidden": "true"
+      }
+    })]) : _vm._e(), _vm._v(" "), (truck.availability == 0) ? _c('span', [_c('i', {
+      staticClass: "fa fa-circle",
+      staticStyle: {
+        "color": "red"
+      },
+      attrs: {
+        "aria-hidden": "true"
+      }
+    })]) : _vm._e()]), _vm._v(" "), _c('div', {
+      staticClass: "col-sm-3 pull-right right"
+    }, [_vm._m(1, true), _vm._v(" "), _c('div', {
+      staticClass: "dropdown-menu dropdown-menu-right",
+      attrs: {
+        "aria-labelledby": "truckDropdown"
+      }
+    }, [(truck.card != null) ? _c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": _vm.truck_link + truck.id + '/transfer'
+      }
+    }, [_vm._v("Transfer to 3PL")]) : _vm._e(), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#removeDriver-' + truck.id
+      }
+    }, [_vm._v("Remove Driver")]), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": _vm.truck_link + truck.id + '/editInfo'
+      }
+    }, [_vm._v("Update Truck")]), _vm._v(" "), (truck.reg_number) ? _c('span', [(truck.plate_number == truck.reg_number && truck.reg_number.indexOf('MV') !== -1) ? _c('span', [_c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#truckChange-' + truck.id
+      }
+    }, [_vm._v("Update Plate Number")])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('div', {
+      staticClass: "dropdown-divider"
+    }), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": _vm.truck_link + truck.id + '/edit'
+      }
+    }, [_vm._v("Edit")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
+      staticClass: "dropdown-divider"
+    }), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item text-danger",
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#truckDeactivated-' + truck.id
+      }
+    }, [_vm._v("Deactive Truck")])]) : _vm._e()])])])])
+  }), _vm._v(" "), (_vm.filteredTruck.length == 0) ? _c('li', {
+    staticClass: "list-group-item"
+  }, [_vm._m(2)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
+    staticClass: "row center-align",
+    staticStyle: {
+      "display": "flex",
+      "align-items": "center",
+      "justify-content": "center"
+    }
+  }, [_c('div', {
+    staticClass: "col"
+  }, [_c('content-placeholders', {
+    staticStyle: {
+      "border": "0 ! important"
+    },
+    attrs: {
+      "rounded": true
+    }
+  }, [_c('content-placeholders-heading', {
+    attrs: {
+      "img": true
+    }
+  }), _vm._v(" "), _c('content-placeholders-text', {
+    attrs: {
+      "lines": 1
+    }
+  }), _vm._v(" "), _c('hr'), _vm._v(" "), _c('content-placeholders-heading', {
+    attrs: {
+      "img": true
+    }
+  }), _vm._v(" "), _c('content-placeholders-text', {
+    attrs: {
+      "lines": 1
+    }
+  }), _vm._v(" "), _c('hr'), _vm._v(" "), _c('content-placeholders-heading', {
+    attrs: {
+      "img": true
+    }
+  }), _vm._v(" "), _c('content-placeholders-text', {
+    attrs: {
+      "lines": 1
+    }
+  }), _vm._v(" "), _c('hr'), _vm._v(" "), _c('content-placeholders-heading', {
+    attrs: {
+      "img": true
+    }
+  }), _vm._v(" "), _c('content-placeholders-text', {
+    attrs: {
+      "lines": 1
+    }
+  })], 1)], 1)]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "row mt-3"
+  }, [_c('div', {
+    staticClass: "col-6"
+  }, [_c('button', {
+    staticClass: "btn btn-default btn-sm",
+    attrs: {
+      "disabled": !_vm.showPreviousLink()
+    },
+    on: {
+      "click": function($event) {
+        _vm.setPage(_vm.currentPage - 1)
+      }
+    }
+  }, [_vm._v(" Previous ")]), _vm._v(" "), _c('span', {
+    staticClass: "text-dark"
+  }, [_vm._v("Page " + _vm._s(_vm.currentPage + 1) + " of " + _vm._s(_vm.totalPages))]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default btn-sm",
+    attrs: {
+      "disabled": !_vm.showNextLink()
+    },
+    on: {
+      "click": function($event) {
+        _vm.setPage(_vm.currentPage + 1)
+      }
+    }
+  }, [_vm._v(" Next ")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-6 text-right"
+  }, [_c('span', [_vm._v(_vm._s(_vm.trucks.length) + " Trucks")])])]), _vm._v(" "), _vm._l((_vm.filteredTruck), function(truck) {
+    return _c('div', [_c('div', {
+      staticClass: "modal fade",
+      attrs: {
+        "id": 'truckChange-' + truck.id,
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "truckChange",
+        "aria-hidden": "true"
+      }
+    }, [_c('div', {
+      staticClass: "modal-dialog",
+      attrs: {
+        "id": "queueter"
+      }
+    }, [_c('div', {
+      staticClass: "modal-content"
+    }, [_vm._m(3, true), _vm._v(" "), _c('form', {
+      staticClass: "bootstrap-modal-form",
+      attrs: {
+        "method": "POST",
+        "action": '/driver_rfid/public/trucks/changePlateNumber/' + truck.id
+      }
+    }, [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_token"
+      },
+      domProps: {
+        "value": _vm.csrf
+      }
+    }), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _vm._m(5, true)])])])]), _vm._v(" "), _c('div', {
+      staticClass: "modal fade",
+      attrs: {
+        "id": 'truckDeactivated-' + truck.id,
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "truckDeactivated",
+        "aria-hidden": "true"
+      }
+    }, [_c('div', {
+      staticClass: "modal-dialog",
+      attrs: {
+        "id": "queueter"
+      }
+    }, [_c('div', {
+      staticClass: "modal-content"
+    }, [_vm._m(6, true), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _c('div', {
+      staticClass: "modal-footer"
+    }, [_c('form', {
+      attrs: {
+        "method": "POST",
+        "action": '/driver_rfid/public/trucks/deactivate/' + truck.id
+      }
+    }, [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_token"
+      },
+      domProps: {
+        "value": _vm.csrf
+      }
+    }), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-secondary",
+      attrs: {
+        "type": "button",
+        "data-dismiss": "modal"
+      }
+    }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-primary",
+      attrs: {
+        "type": "submit"
+      }
+    }, [_vm._v("Confirm")])])])])])]), _vm._v(" "), _c('div', {
+      staticClass: "modal fade",
+      attrs: {
+        "id": 'removeDriver-' + truck.id,
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "truckModalLabel",
+        "aria-hidden": "true"
+      }
+    }, [_c('div', {
+      staticClass: "modal-dialog",
+      attrs: {
+        "id": "queueter"
+      }
+    }, [_c('div', {
+      staticClass: "modal-content"
+    }, [_vm._m(8, true), _vm._v(" "), _vm._m(9, true), _vm._v(" "), _c('div', {
+      staticClass: "modal-footer"
+    }, [_c('form', {
+      attrs: {
+        "method": "POST",
+        "action": '/driver_rfid/public/trucks/remove/' + truck.id
+      }
+    }, [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_token"
+      },
+      domProps: {
+        "value": _vm.csrf
+      }
+    }), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-secondary",
+      attrs: {
+        "type": "button",
+        "data-dismiss": "modal"
+      }
+    }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-primary",
+      attrs: {
+        "type": "submit"
+      }
+    }, [_vm._v("Confirm")])])])])])])])
+  })], 2)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-sm-1"
+  }, [_c('span', {
+    staticClass: "fa-stack fa-lg"
+  }, [_c('i', {
+    staticClass: "fa fa-circle fa-stack-2x"
+  }), _vm._v(" "), _c('i', {
+    staticClass: "fa fa-truck fa-stack-1x fa-inverse",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
+    staticClass: "dropdown pull-right btn btn-outline-secondary",
+    attrs: {
+      "href": "#",
+      "id": "truckDropdown",
+      "data-toggle": "dropdown",
+      "aria-haspopup": "true",
+      "aria-expanded": "false"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-ellipsis-v"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-sm-12 center"
+  }, [_c('span', [_vm._v("NO RECORD FOUND")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('h6', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "truckChange"
+    }
+  }, [_vm._v("Change to official plate number")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "inputPlateNumber"
+    }
+  }, [_vm._v("Plate Number")]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "id": "inputPlateNumber",
+      "name": "plate_number",
+      "placeholder": "Enter New Plate Number",
+      "data-inputmask": "'mask': 'AAA-9999'",
+      "data-mask": "",
+      "required": ""
+    }
+  }), _vm._v(" "), _c('small', {
+    staticClass: "form-text text-muted",
+    attrs: {
+      "id": "emailHelp"
+    }
+  }, [_vm._v("Please follow the format: AAA-000.")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("Confirm")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('h6', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "truckDeactivated"
+    }
+  }, [_vm._v("Deactivate Truck")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body text-center"
+  }, [_c('em', [_vm._v("Are you sure you want to proceed with this action?")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('h6', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "truckModalLabel"
+    }
+  }, [_vm._v("Remove Driver")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body text-center"
+  }, [_c('em', [_vm._v("Are you sure you want to proceed with this action?")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-522068c6", module.exports)
+  }
+}
+
+/***/ }),
+>>>>>>> trucksForDeactivate
 /* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -82385,13 +83776,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       key: i,
       staticClass: "rounded-0 list-group-item pb-0 pt-0 rounded-0",
       class: {
-        'list-group-item-danger': barrier.availability != 1
+        'list-group-item-danger': barrier.availability != 1, 'list-group-item-warning': barrier.plate_availability != 1
       }
     }, [_c('div', {
       staticClass: "row"
     }, [_c('div', {
       staticClass: "col-sm-6 p-3 text-center"
-    }, [(barrier.availability == 0) ? _c('div', {
+    }, [(barrier.availability == 0 || barrier.plate_availability == 0) ? _c('div', {
       staticClass: "border border-danger p-3",
       staticStyle: {
         "position": "absolute",
@@ -82408,7 +83799,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n                            DEACTIVATED\n                        ")])]) : _vm._e(), _vm._v(" "), _c('img', {
       staticClass: "img-responsive rounded-circle mx-auto",
       class: {
-        'deactived-img': barrier.availability == 0
+        'deactived-img': barrier.availability == 0 || barrier.plate_availability == 0
       },
       staticStyle: {
         "height": "450px",
@@ -82428,7 +83819,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('li', {
       staticClass: "list-group-item",
       class: {
-        'list-group-item-danger': barrier.availability != 1
+        'list-group-item-danger': barrier.availability != 1, 'list-group-item-warning': barrier.plate_availability != 1
       }
     }, [_c('small', {
       staticClass: "text-muted"
@@ -82439,7 +83830,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n                            " + _vm._s(barrier.driver) + "\n                            ")])]), _vm._v(" "), _c('li', {
       staticClass: "list-group-item",
       class: {
-        'list-group-item-danger': barrier.availability != 1
+        'list-group-item-danger': barrier.availability != 1, 'list-group-item-warning': barrier.plate_availability != 1
       }
     }, [_c('small', {
       staticClass: "text-muted"
@@ -82450,7 +83841,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n                                " + _vm._s(barrier.plate_number) + "\n                            ")])]), _vm._v(" "), _c('li', {
       staticClass: "list-group-item",
       class: {
-        'list-group-item-danger': barrier.availability != 1
+        'list-group-item-danger': barrier.availability != 1, 'list-group-item-warning': barrier.plate_availability != 1
       }
     }, [_c('small', {
       staticClass: "text-muted"
@@ -82461,7 +83852,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n                                " + _vm._s(barrier.hauler_name) + "\n                            ")])]), _vm._v(" "), _c('li', {
       staticClass: "list-group-item",
       class: {
-        'list-group-item-danger': barrier.availability != 1
+        'list-group-item-danger': barrier.availability != 1, 'list-group-item-warning': barrier.plate_availability != 1
       }
     }, [_c('small', {
       staticClass: "text-muted"
@@ -85016,6 +86407,7 @@ if (false) {
 
 /***/ }),
 /* 365 */
+<<<<<<< HEAD
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -85131,6 +86523,8 @@ if (false) {
 
 /***/ }),
 /* 366 */
+=======
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -85202,7 +86596,11 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 367 */
+=======
+/* 366 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -85375,7 +86773,11 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 368 */
+=======
+/* 367 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -85525,7 +86927,11 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 369 */
+=======
+/* 368 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -85675,7 +87081,11 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 370 */
+=======
+/* 369 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -85959,7 +87369,11 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 371 */
+=======
+/* 370 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -86108,7 +87522,11 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 372 */
+=======
+/* 371 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -86348,7 +87766,11 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 373 */
+=======
+/* 372 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -86486,7 +87908,11 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 374 */
+=======
+/* 373 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -86726,7 +88152,11 @@ if (false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 375 */
+=======
+/* 374 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -86752,7 +88182,11 @@ if(false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 376 */
+=======
+/* 375 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -86778,7 +88212,11 @@ if(false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 377 */
+=======
+/* 376 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -86804,7 +88242,11 @@ if(false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 378 */
+=======
+/* 377 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -86830,7 +88272,11 @@ if(false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 379 */
+=======
+/* 378 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -86856,7 +88302,11 @@ if(false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 380 */
+=======
+/* 379 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -86882,13 +88332,18 @@ if(false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 381 */
+=======
+/* 380 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
 var content = __webpack_require__(272);
+<<<<<<< HEAD
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -86915,6 +88370,8 @@ if(false) {
 
 // load the styles
 var content = __webpack_require__(273);
+=======
+>>>>>>> trucksForDeactivate
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -86934,13 +88391,21 @@ if(false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 383 */
+=======
+/* 381 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
+<<<<<<< HEAD
 var content = __webpack_require__(274);
+=======
+var content = __webpack_require__(273);
+>>>>>>> trucksForDeactivate
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -86960,13 +88425,21 @@ if(false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 384 */
+=======
+/* 382 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
+<<<<<<< HEAD
 var content = __webpack_require__(275);
+=======
+var content = __webpack_require__(274);
+>>>>>>> trucksForDeactivate
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -86986,7 +88459,11 @@ if(false) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 385 */
+=======
+/* 383 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports) {
 
 /**
@@ -87019,7 +88496,11 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 386 */
+=======
+/* 384 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -97093,7 +98574,11 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14)))
 
 /***/ }),
+<<<<<<< HEAD
 /* 387 */
+=======
+/* 385 */
+>>>>>>> trucksForDeactivate
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(143);

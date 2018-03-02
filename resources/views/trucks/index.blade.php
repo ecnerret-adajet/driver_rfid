@@ -25,6 +25,10 @@
                         <a class="nav-link" data-toggle="tab" href="#no_driver" role="tab">No Driver Assigned</a>
                     </li>
 
+                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#deactivated_trucks" role="tab">Deactivated Trucks</a>
+                    </li>
+
             </ul>
 
             <!-- Tab panes -->
@@ -36,6 +40,10 @@
             
                 <div class="tab-pane pt-3" id="no_driver" role="tabpanel">
                     <no-driver user_role="{{ Auth::user()->roles->first()->name }}"></no-driver>
+                </div>
+
+                  <div class="tab-pane pt-3" id="deactivated_trucks" role="tabpanel">
+                    <deactivated-trucks user_role="{{ Auth::user()->roles->first()->name }}"></deactivated-trucks>
                 </div>
 
                 

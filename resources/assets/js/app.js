@@ -47,6 +47,7 @@ Vue.component('monitorQueueDeliveries', require('./components/MonitorQueueDelive
 Vue.component('noTruck', require('./components/NoTruck.vue'));
 Vue.component('deactivatedDrivers', require('./components/DeactivatedDrivers.vue'));
 Vue.component('noDriver', require('./components/NoDriver.vue'));
+Vue.component('deactivatedTrucks', require('./components/DeactivatedTrucks.vue'));
 Vue.component('dashboard', require('./components/Dashboard.vue'));
 Vue.component('pickupCount', require('./components/PickupCount.vue'));
 Vue.component('lapazArea', require('./components/LaPazArea.vue'));

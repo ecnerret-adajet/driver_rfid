@@ -290,7 +290,7 @@ export default {
     methods: {
         getTruck() {
             this.loading = true
-            axios.get('/driver_rfid/public/trucksJson')
+            axios.get('/driver_rfid/public/deactivatedTrucksJson')
             .then(response => {
                  this.trucks = response.data
                  this.loading = false

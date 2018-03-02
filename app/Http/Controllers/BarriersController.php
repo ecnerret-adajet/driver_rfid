@@ -58,6 +58,7 @@ class BarriersController extends Controller
                         'availability' => $driver->availability,
                         'avatar' => empty($driver->image) ?  $driver->avatar : $driver->image->avatar,
                         'plate_number' => empty($driver->truck->plate_number) ? 'NO DRIVER' : $driver->truck->plate_number,
+                        'plate_availability' => empty($driver->truck->plate_number) ? null : $driver->truck->availability,
                         'hauler_name' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
                         'inLocalTime' =>  $this->getBarrierDirection($door ,$entry->CardholderID, 1),
                         'outLocalTime' =>  $this->getBarrierDirection($door, $entry->CardholderID, 2) < 
