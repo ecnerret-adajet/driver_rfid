@@ -44,6 +44,8 @@ Route::get('/laPazAPI','BarriersController@laPazAPI');
 Route::get('/lapaz','BarriersController@laPazArea');
 Route::get('/manilaAPI','BarriersController@manilaAPI');
 Route::get('/manila','BarriersController@manilaArea');
+Route::get('/bataanAPI','BarriersController@bataanAPI');
+Route::get('/bataan','BarriersController@bataanArea');
 
 
 

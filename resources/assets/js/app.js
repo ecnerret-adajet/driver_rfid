@@ -51,6 +51,7 @@ Vue.component('dashboard', require('./components/Dashboard.vue'));
 Vue.component('pickupCount', require('./components/PickupCount.vue'));
 Vue.component('lapazArea', require('./components/LaPazArea.vue'));
 Vue.component('manilaArea', require('./components/ManilaArea.vue'));
+Vue.component('bataanArea', require('./components/BataanArea.vue'));
 
 const app = new Vue({
     el: '#app'

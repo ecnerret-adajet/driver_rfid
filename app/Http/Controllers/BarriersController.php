@@ -107,6 +107,12 @@ class BarriersController extends Controller
         return $this->getBarrierLocation(3,2);
     }
 
+    public function bataanAPI()
+    {
+         // Get Logs from Bataan Barrier RFID
+        return $this->getBarrierLocation(0,9);
+    }
+
     // View Functions
     public function laPazArea()
     {
@@ -116,6 +122,11 @@ class BarriersController extends Controller
     public function manilaArea()
     {
         return view('locations.manila');
+    }
+
+    public function bataanArea()
+    {
+        return view('locations.bataan');
     }
 
 }
