@@ -76,20 +76,28 @@
                                                  <!-- <span v-for="haulerx in driver.hauler">
                                                     <span v-for="truckx in driver.truck">
                                                 -->
+                                                 <a :href="driver_link + driver.id + '/editInfo'" class="dropdown-item">Update Info</a>
+                                                  <a :href="driver_link + 'reprint/' + driver.id" class="dropdown-item">Reprint Card</a>
+
+
                                                 <span v-if="driver.card !=  null">
+                                                    <div class="dropdown-divider"></div>
                                                     <a :href="driver_link + driver.id + '/reassign'" class="dropdown-item">Reassign Truck</a>
+                                                    <a :href="driver_link + 'transfer-hauler/' + driver.id" class="dropdown-item">Transfer Hauler</a>
                                                 </span>
                                                 <span v-if="driver.card ==  null">
+                                                    <!-- modal will popup to alert user that a driver has no assigned card -->
                                                     <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#noCardAssigned-'+ driver.id" style="color: red">Reassign Truck</a>
                                                 </span>
-                                                    <a :href="driver_link + driver.id + '/editInfo'" class="dropdown-item">Update Info</a>
+                                                   
                                                   <!-- 
                                                     </span>
                                                  </span>  -->
 
                                                 <!-- <a :href="driver_link + 'lostCard/' + driver.id" class="dropdown-item">Reprint Card</a> -->
-                                                <a :href="driver_link + 'reprint/' + driver.id" class="dropdown-item">Reprint Card</a>
+                                               
                                                 <span v-if="driver.availability == 1">
+                                                    <div class="dropdown-divider"></div>
                                                 <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#driverModal-'+ driver.id" style="color: red">Deactivate</a>
                                                 </span>
                                                 <span v-if="driver.availability == 0">

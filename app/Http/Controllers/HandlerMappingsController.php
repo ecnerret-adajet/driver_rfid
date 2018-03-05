@@ -12,7 +12,9 @@ class HandlerMappingsController extends Controller
 
     public function lfugServer()
     {
-        $url = "http://10.96.4.39/trucking/rfc_get_vendor.php?server=lfug";
+        // $url = "http://10.96.4.39/trucking/rfc_get_vendor.php?server=lfug";
+        $url = "http://10.96.4.39/sapservice/api/vendors/lfug";
+
         $result = file_get_contents($url);
         $data = json_decode($result,true);
 
@@ -21,7 +23,8 @@ class HandlerMappingsController extends Controller
 
     public function pfmcServer()
     {
-        $url = "http://10.96.4.39/trucking/rfc_get_vendor.php?server=pfmc";
+        // $url = "http://10.96.4.39/trucking/rfc_get_vendor.php?server=pfmc";
+        $url = "http://10.96.4.39/sapservice/api/vendors/pfmc";
         $result = file_get_contents($url);
         $data = json_decode($result,true);
 

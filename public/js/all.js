@@ -54643,6 +54643,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -86113,22 +86121,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "aria-labelledby": "driverDropdown"
       }
-    }, [(driver.card != null) ? _c('span', [_c('a', {
-      staticClass: "dropdown-item",
-      attrs: {
-        "href": _vm.driver_link + driver.id + '/reassign'
-      }
-    }, [_vm._v("Reassign Truck")])]) : _vm._e(), _vm._v(" "), (driver.card == null) ? _c('span', [_c('a', {
-      staticClass: "dropdown-item",
-      staticStyle: {
-        "color": "red"
-      },
-      attrs: {
-        "href": "javascript:void(0);",
-        "data-toggle": "modal",
-        "data-target": '#noCardAssigned-' + driver.id
-      }
-    }, [_vm._v("Reassign Truck")])]) : _vm._e(), _vm._v(" "), _c('a', {
+    }, [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.driver_link + driver.id + '/editInfo'
@@ -86138,7 +86131,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": _vm.driver_link + 'reprint/' + driver.id
       }
-    }, [_vm._v("Reprint Card")]), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('a', {
+    }, [_vm._v("Reprint Card")]), _vm._v(" "), (driver.card != null) ? _c('span', [_c('div', {
+      staticClass: "dropdown-divider"
+    }), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": _vm.driver_link + driver.id + '/reassign'
+      }
+    }, [_vm._v("Reassign Truck")]), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": _vm.driver_link + 'transfer-hauler/' + driver.id
+      }
+    }, [_vm._v("Transfer Hauler")])]) : _vm._e(), _vm._v(" "), (driver.card == null) ? _c('span', [_c('a', {
+      staticClass: "dropdown-item",
+      staticStyle: {
+        "color": "red"
+      },
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#noCardAssigned-' + driver.id
+      }
+    }, [_vm._v("Reassign Truck")])]) : _vm._e(), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('div', {
+      staticClass: "dropdown-divider"
+    }), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",
       staticStyle: {
         "color": "red"
