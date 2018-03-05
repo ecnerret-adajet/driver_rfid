@@ -97,7 +97,7 @@
                                                 </span>
                                                  <span v-if="user_role == 'Administrator'|| user_role == 'Monitoring'">
                                                      <div class="dropdown-divider"></div>
-                                                    <a href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#driverRemoveModal-'+ driver.id">Remove Driver</a>
+                                                    <a href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#driverRemoveModal-'+ driver.id">Resign Driver</a>
                                                 </span>
                                                 <span v-if="user_role == 'Administrator'">
                                                      <div class="dropdown-divider"></div>

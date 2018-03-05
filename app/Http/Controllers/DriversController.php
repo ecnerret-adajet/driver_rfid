@@ -852,6 +852,17 @@ class DriversController extends Controller
         return redirect('drivers');
     }
 
+    /**
+     * Restore Delete Driver
+     */
+    public function restore(Request $request, $id) 
+    {
+        $driver = Driver::withTrashed()->find($id)->restore();
+
+        flashy()->success('Driver was successfully restored!');
+        return redirect('drivers');
+    }
+
     /*
     *
     * Export Drivers 
@@ -947,6 +958,15 @@ class DriversController extends Controller
         $drivers = Driver::with(['hauler','truck','cardholder','image','confirm','card'])
                     ->where('availability',0)
                     ->orderBy('id','DESC')
+                    ->get();
+
+        return $drivers;
+    }
+
+    public function resignedDriversJson()
+    {
+        $drivers = Driver::onlyTrashed()
+                    ->orderBy('deleted_at','DESC')
                     ->get();
 
         return $drivers;

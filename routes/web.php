@@ -75,6 +75,7 @@ Route::get('/forPrint','PrintController@getForPrint');
 Route::post('/prints/{id}','PrintController@printed');
 
 Route::resource('/drivers','DriversController');
+Route::post('/drivers/restore/{id}','DriversController@restore');
 Route::get('/drivers/disapproved/{driver}','DriversController@disapprovedDriver');
 Route::patch('/drivers/disapproved/{driver}',[  'as' => 'disapproved.update' ,'uses' => 'DriversController@disapprovedDriverUpdate']);
 Route::get('/drivers/{driver}/reassign','DriversController@reassign');
@@ -118,6 +119,7 @@ Route::get('/confirm/pending','ConfirmsController@pending');
 Route::get('/driversJson','DriversController@driversJson');
 Route::get('/noTruckJson','DriversController@noTruckJson');
 Route::get('/deactivatedDriversJson','DriversController@deactivatedDriversJson');
+Route::get('/resignedDriversJson','DriversController@resignedDriversJson');
 
 // return Json results
 
