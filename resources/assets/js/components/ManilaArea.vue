@@ -60,12 +60,12 @@
                                     NO IN  
                                 </span>
                             </li>
-                             <li class="list-group-item" v-if="i === 0" :class="{ 'list-group-item-danger' : barrier.availability != 1, 'list-group-item-primary' : i===0 }">
+                             <!-- <li class="list-group-item" v-if="i === 0" :class="{ 'list-group-item-danger' : barrier.availability != 1, 'list-group-item-primary' : i===0 }">
                                 <span class="text-dark">TRUCKS IN PLANT:</span><br/>
                                  <span style="font-size: 40px;">
                                     {{ currentTrucks }}
                                 </span>
-                            </li>
+                            </li> -->
                         </ul>
            
            
@@ -87,13 +87,13 @@
         data() {
             return {
                 entries: [],
-                currentTrucks: []
+                // currentTrucks: []
             }
         },
 
         created() {
             this.getEntries()
-            this.getTruckInPlant()
+            // this.getTruckInPlant()
         },
 
         methods: {
@@ -104,11 +104,11 @@
                 setTimeout(this.getEntries, 2000);
             },
 
-            getTruckInPlant () {
-                axios.get('/driver_rfid/public/getTotalTrucksInPlant')
-                .then(response => this.currentTrucks = response.data);
-                setTimeout(this.getTruckInPlant, 3000);
-            },
+            // getTruckInPlant () {
+            //     axios.get('/driver_rfid/public/getTotalTrucksInPlant')
+            //     .then(response => this.currentTrucks = response.data);
+            //     setTimeout(this.getTruckInPlant, 3000);
+            // },
 
             moment(date) {
                 return moment(date).format('MMMM D, Y h:m:s A');

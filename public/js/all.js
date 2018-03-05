@@ -56384,13 +56384,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            entries: [],
-            currentTrucks: []
+            entries: []
+            // currentTrucks: []
         };
     },
     created: function created() {
         this.getEntries();
-        this.getTruckInPlant();
+        // this.getTruckInPlant()
     },
 
 
@@ -56404,14 +56404,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             setTimeout(this.getEntries, 2000);
         },
-        getTruckInPlant: function getTruckInPlant() {
-            var _this2 = this;
 
-            axios.get('/driver_rfid/public/getTotalTrucksInPlant').then(function (response) {
-                return _this2.currentTrucks = response.data;
-            });
-            setTimeout(this.getTruckInPlant, 3000);
-        },
+
+        // getTruckInPlant () {
+        //     axios.get('/driver_rfid/public/getTotalTrucksInPlant')
+        //     .then(response => this.currentTrucks = response.data);
+        //     setTimeout(this.getTruckInPlant, 3000);
+        // },
+
         moment: function moment(date) {
             return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM D, Y h:m:s A');
         }
@@ -83359,18 +83359,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticStyle: {
         "font-size": "35px"
       }
-    }, [_vm._v("\n                                NO IN  \n                            ")])]), _vm._v(" "), (i === 0) ? _c('li', {
-      staticClass: "list-group-item",
-      class: {
-        'list-group-item-danger': barrier.availability != 1, 'list-group-item-primary': i === 0
-      }
-    }, [_c('span', {
-      staticClass: "text-dark"
-    }, [_vm._v("TRUCKS IN PLANT:")]), _c('br'), _vm._v(" "), _c('span', {
-      staticStyle: {
-        "font-size": "40px"
-      }
-    }, [_vm._v("\n                                " + _vm._s(_vm.currentTrucks) + "\n                            ")])]) : _vm._e()])])])])
+    }, [_vm._v("\n                                NO IN  \n                            ")])])])])])])
   }))])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
