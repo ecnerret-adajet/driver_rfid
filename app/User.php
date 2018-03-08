@@ -141,5 +141,13 @@ class User extends Authenticatable
         return $this->belongsTo('App\Company');
     }
 
+    /**
+     * Get SPC inspector who deactivated / activate an truck
+     */
+    public function inspections()
+    {
+        return $this->hasMany(Inspection::class);
+    }
+
 
 }

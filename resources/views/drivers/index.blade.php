@@ -10,9 +10,12 @@
                 <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
                 Back
                 </a>
-                <a class="btn btn-primary btn-sm pull-right mr-2" href="{{ url('/drivers/create') }}">
-                Add New Driver
-                </a>
+                
+                @role((['Administrator','Monitoring']))
+                    <a class="btn btn-primary btn-sm pull-right mr-2" href="{{ url('/drivers/create') }}">
+                        Add New Driver
+                    </a>
+                @endrole
         </div>
         <div class="card-body">
 

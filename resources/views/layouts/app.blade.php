@@ -80,17 +80,24 @@
                                                      Request::is('drivers/*') ||           
                                                      Request::is('cards') || 
                                                      Request::is('bind/*')) ? '' : 'collapse' }}" id="collapseComponents">
-              @role((['Administrator','Monitoring','Approver']))
+                                                     
+              @role((['Administrator','Monitoring','Approver','spc-monitoring']))
 
               <li class="font-weight-bold {{ (Request::is('trucks') ||
                             Request::is('trucks/*')  
                         ) ? 'active' : '' }}">
                 <a href="{{url('/trucks')}}">Trucks</a>
               </li>
+
+               @endrole
+
+              @role((['Administrator','Monitoring','Approver']))
+
               <li class="font-weight-bold {{ (Request::is('drivers') ||
                             Request::is('drivers/*')
                           ) ? 'active' : ''}}">
                 <a href="{{url('/drivers')}}">Drivers</a>
+                
               </li>
 
                @endrole

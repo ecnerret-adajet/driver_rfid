@@ -9,6 +9,7 @@
         <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
         Back
         </a>
+        
             @role(('Administrator'))
                 <a class="btn btn-primary btn-sm pull-right mr-2" href="{{ url('/drivers/'.$driver->id.'/edit') }}">
                     Edit Driver

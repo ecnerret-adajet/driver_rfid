@@ -66,6 +66,8 @@
                                                 <i class="fa fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="truckDropdown">
+
+                                                    <span v-if="user_role == 'Monitoring' || 'Administrator'">
                                                     <a :href="truck_link + truck.id + '/transfer'" class="dropdown-item" >Transfer to 3PL</a>
                                                     <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#removeDriver-'+ truck.id">Remove Driver</a>
                                                     <a :href="truck_link + truck.id + '/editInfo'" class="dropdown-item">Update Truck</a>
@@ -76,13 +78,26 @@
                                                             <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#truckChange-'+ truck.id">Update Plate Number</a>
                                                         </span>
                                                    </span>
+                                                   </span>
                                                    
-                                                   
-                                                    <div class="dropdown-divider"></div>
                                                    
                                                     <span v-if="user_role == 'Administrator'">
-                                                        <a :href="truck_link + truck.id + '/edit'" class="dropdown-item">Edit</a>
+                                                        <div class="dropdown-divider"></div>
+                                                            <a :href="truck_link + truck.id + '/edit'" class="dropdown-item">Edit</a>
                                                     </span>
+
+                                                    <span v-if="user_role == 'Administrator' || 'spc-monitoring'">
+                                                        <div class="dropdown-divider"></div>
+
+                                                        <!-- modal deactivation -->
+                                                        <!-- <a  href="javascript:void(0);" class="dropdown-item text-danger" data-toggle="modal" :data-target="'#truckDeactivated-'+ truck.id">Deactive Truck</a> -->
+                                                        
+                                                        <!-- hyperlink to another page-->
+                                                        <a v-if="truck.availability" :href="'inspects/deactivate/' + truck.id " class="dropdown-item text-danger">Deactivate Truck</a>
+                                                        <a v-if="!truck.availability" :href="'inspects/activate/' + truck.id " class="dropdown-item text-success">Activate Truck</a>
+                                                        <a :href="'inspects/show/' + truck.id " class="dropdown-item">View History</a>
+                                                    </span>
+
                                                 </div><!-- end dropdown -->
                                             
                                         </div>

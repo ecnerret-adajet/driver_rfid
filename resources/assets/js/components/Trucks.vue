@@ -64,33 +64,44 @@
                                         </div>
                                         <div class="col-sm-3 pull-right right">
 
+
                                                 <a class="dropdown pull-right btn btn-outline-secondary" href="#" id="truckDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="fa fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="truckDropdown">
+
+                                                <span v-if="user_role == 'Monitoring' || 'Administrator'">
                                                     <a :href="truck_link + truck.id + '/transfer'" class="dropdown-item" v-if="truck.card !=  null">Transfer to 3PL</a>
                                                     <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#removeDriver-'+ truck.id">Remove Driver</a>
                                                     <a :href="truck_link + truck.id + '/editInfo'" class="dropdown-item">Update Truck</a>
-                                                    <!-- <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#truckModal-'+ truck.id" style="color: red">Deactivate</a> -->
                                                    
                                                    <span v-if="truck.reg_number">
                                                         <span v-if="truck.plate_number == truck.reg_number && truck.reg_number.indexOf('MV') !== -1">
                                                             <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#truckChange-'+ truck.id">Update Plate Number</a>
                                                         </span>
                                                    </span>
-                                                   
-                                                   
+                                                </span>
+                                                                                                                                                  
+                                                <span v-if="user_role == 'Administrator'">
                                                     <div class="dropdown-divider"></div>
-                                                   
-                                                    <span v-if="user_role == 'Administrator'">
                                                         <a :href="truck_link + truck.id + '/edit'" class="dropdown-item">Edit</a>
-                                                    </span>
-                                                   
-                                                    <span v-if="user_role == 'Administrator'">
-                                                        <div class="dropdown-divider"></div>
-                                                        <a  href="javascript:void(0);" class="dropdown-item text-danger" data-toggle="modal" :data-target="'#truckDeactivated-'+ truck.id">Deactive Truck</a>
-                                                    </span>
+                                                </span>
+
+                                                <span v-if="user_role == 'Administrator' || 'spc-monitoring'">
+                                                    <div class="dropdown-divider"></div>
+
+                                                    <!-- modal deactivation -->
+                                                    <!-- <a  href="javascript:void(0);" class="dropdown-item text-danger" data-toggle="modal" :data-target="'#truckDeactivated-'+ truck.id">Deactive Truck</a> -->
+                                                    
+                                                    <!-- hyperlink to another page-->
+                                                    <a :href="'inspects/deactivate/' + truck.id " class="dropdown-item text-danger">Deactivate Truck</a>
+                                                    <a :href="'inspects/show/' + truck.id " class="dropdown-item">View History</a>
+                                                </span>
+
+
                                                 </div><!-- end dropdown -->
+
+
                                             
                                         </div>
 

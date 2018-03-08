@@ -9,9 +9,13 @@
             <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
             Back
             </a>
-            <a class="btn btn-primary btn-sm pull-right mr-2" href="{{ url('trucks/create') }}">
-            Add New Truck
-            </a>
+
+            @role((['Administrator','Monitoring']))
+                <a class="btn btn-primary btn-sm pull-right mr-2" href="{{ url('trucks/create') }}">
+                    Add New Truck
+                </a>
+            @endrole
+
         </div>
         <div class="card-body">
 

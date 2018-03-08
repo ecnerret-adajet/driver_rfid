@@ -53399,6 +53399,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -56775,6 +56785,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_content_placeholders__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -60974,6 +60999,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_content_placeholders__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -78729,7 +78765,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "aria-labelledby": "truckDropdown"
       }
-    }, [_c('a', {
+    }, [(_vm.user_role == 'Monitoring' || 'Administrator') ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.truck_link + truck.id + '/transfer'
@@ -78753,14 +78789,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-toggle": "modal",
         "data-target": '#truckChange-' + truck.id
       }
-    }, [_vm._v("Update Plate Number")])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('div', {
+    }, [_vm._v("Update Plate Number")])]) : _vm._e()]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
       staticClass: "dropdown-divider"
-    }), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('a', {
+    }), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.truck_link + truck.id + '/edit'
       }
-    }, [_vm._v("Edit")])]) : _vm._e()])])])])
+    }, [_vm._v("Edit")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || 'spc-monitoring') ? _c('span', [_c('div', {
+      staticClass: "dropdown-divider"
+    }), _vm._v(" "), (truck.availability) ? _c('a', {
+      staticClass: "dropdown-item text-danger",
+      attrs: {
+        "href": 'inspects/deactivate/' + truck.id
+      }
+    }, [_vm._v("Deactivate Truck")]) : _vm._e(), _vm._v(" "), (!truck.availability) ? _c('a', {
+      staticClass: "dropdown-item text-success",
+      attrs: {
+        "href": 'inspects/activate/' + truck.id
+      }
+    }, [_vm._v("Activate Truck")]) : _vm._e(), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": 'inspects/show/' + truck.id
+      }
+    }, [_vm._v("View History")])]) : _vm._e()])])])])
   }), _vm._v(" "), (_vm.filteredTruck.length == 0) ? _c('li', {
     staticClass: "list-group-item"
   }, [_vm._m(2)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
@@ -80343,7 +80396,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "aria-labelledby": "truckDropdown"
       }
-    }, [(truck.card != null) ? _c('a', {
+    }, [(_vm.user_role == 'Monitoring' || 'Administrator') ? _c('span', [(truck.card != null) ? _c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.truck_link + truck.id + '/transfer'
@@ -80367,23 +80420,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-toggle": "modal",
         "data-target": '#truckChange-' + truck.id
       }
-    }, [_vm._v("Update Plate Number")])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('div', {
+    }, [_vm._v("Update Plate Number")])]) : _vm._e()]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
       staticClass: "dropdown-divider"
-    }), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('a', {
+    }), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.truck_link + truck.id + '/edit'
       }
-    }, [_vm._v("Edit")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
+    }, [_vm._v("Edit")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || 'spc-monitoring') ? _c('span', [_c('div', {
       staticClass: "dropdown-divider"
     }), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item text-danger",
       attrs: {
-        "href": "javascript:void(0);",
-        "data-toggle": "modal",
-        "data-target": '#truckDeactivated-' + truck.id
+        "href": 'inspects/deactivate/' + truck.id
       }
-    }, [_vm._v("Deactive Truck")])]) : _vm._e()])])])])
+    }, [_vm._v("Deactivate Truck")]), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": 'inspects/show/' + truck.id
+      }
+    }, [_vm._v("View History")])]) : _vm._e()])])])])
   }), _vm._v(" "), (_vm.filteredTruck.length == 0) ? _c('li', {
     staticClass: "list-group-item"
   }, [_vm._m(2)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
@@ -82822,7 +82878,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "aria-labelledby": "truckDropdown"
       }
-    }, [(truck.card != null) ? _c('a', {
+    }, [(_vm.user_role == 'Monitoring' || 'Administrator') ? _c('span', [(truck.card != null) ? _c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.truck_link + truck.id + '/transfer'
@@ -82846,23 +82902,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-toggle": "modal",
         "data-target": '#truckChange-' + truck.id
       }
-    }, [_vm._v("Update Plate Number")])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('div', {
+    }, [_vm._v("Update Plate Number")])]) : _vm._e()]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
       staticClass: "dropdown-divider"
-    }), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('a', {
+    }), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.truck_link + truck.id + '/edit'
       }
-    }, [_vm._v("Edit")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
+    }, [_vm._v("Edit")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || 'spc-monitoring') ? _c('span', [_c('div', {
       staticClass: "dropdown-divider"
     }), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item text-success",
       attrs: {
-        "href": "javascript:void(0);",
-        "data-toggle": "modal",
-        "data-target": '#truckActivated-' + truck.id
+        "href": 'inspects/activate/' + truck.id
       }
-    }, [_vm._v("Activate Truck")])]) : _vm._e()])])])])
+    }, [_vm._v("Activate Truck")]), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": 'inspects/show/' + truck.id
+      }
+    }, [_vm._v("View History")])]) : _vm._e()])])])])
   }), _vm._v(" "), (_vm.filteredTruck.length == 0) ? _c('li', {
     staticClass: "list-group-item"
   }, [_vm._m(2)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {

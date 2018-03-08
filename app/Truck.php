@@ -72,6 +72,14 @@ class Truck extends Model
     }
 
     /**
+     *  Truck has a inspection model
+     */
+    public function inspections()
+    {
+        return $this->hasMany(Inspection::class);
+    }
+
+    /**
      * Dates configuration for validity_start_date
      */
      public function setValidityStartDateAttribute($date)

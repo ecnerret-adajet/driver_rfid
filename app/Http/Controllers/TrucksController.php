@@ -38,7 +38,8 @@ class TrucksController extends Controller
     // return array from SAP server
     public function vendorSubvendor()
     {
-        $url = "http://10.96.4.39/trucking/rfc_get_vendor.php?server=lfug";
+        // $url = "http://10.96.4.39/trucking/rfc_get_vendor.php?server=lfug";
+        $url = "http://10.96.4.39/sapservice/api/vendors/lfug";
         $result = file_get_contents($url);
         $data = json_decode($result,true);
         return $data;

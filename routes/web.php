@@ -311,6 +311,15 @@ Route::get('/weeklyEntries','AnalyticsController@weeklyEntries');
 Route::get('/monthlyEntries','AnalyticsController@monthlyEntries');
 Route::get('/topHaulers','AnalyticsController@topHaulers');
 
+/**
+ * Route Setup for Truck Inspection Deactivation / Activation
+ */
+Route::get('/inspects/deactivate/{truck}','TruckInspectionController@deactivateTruckCreate');
+Route::post('/inspects/deactivate/{truck}','TruckInspectionController@deactivateTruckStore');
+Route::get('/inspects/activate/{truck}','TruckInspectionController@activateTruckCreate');
+Route::post('/inspects/activate/{truck}','TruckInspectionController@activateTruckStore');
+Route::get('/inspects/show/{truck}','TruckInspectionController@inspectionHistory');
+
 
 /**
  * 
