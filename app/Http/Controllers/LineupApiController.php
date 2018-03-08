@@ -17,22 +17,14 @@ class LineupApiController extends Controller
 {
 
     public function getTotalQueueToday()
-    {
-        // Check Trucks Who Has Truckcscale Out
-        $check_truckscale_out = Log::select('CardholderID')
-                                    ->where('ControllerID', 4)
-                                    ->where('Direction',2)
-                                    ->whereDate('LocalTime', Carbon::now())
-                                    ->pluck('CardholderID');
+    {      
+        // Get the total truckscale Out from truck monitoring today
+        $check_truckscale_out = Log::truckscaleOut();
 
-        // Check Trucks who has Truckscale in but not out
-        $check_truckscale_in = Log::select('CardholderID')
-                                    ->where('ControllerID', 4)
-                                    ->where('Direction',1)
-                                    ->whereNotIn('CardholderID',$check_truckscale_out)
-                                    ->whereDate('LocalTime', Carbon::today())
-                                    ->pluck('CardholderID')
-                                    ->count();
+        // Check Trucks who has Truckscale in but not out        
+        $check_truckscale_in = Log::whereNotIn('CardholderID',$check_truckscale_out)
+                        ->truckscaleIn()
+                        ->count();
 
         // Get all drivers count who tapped from queue reader without out
          $result_lineups = Log::with(['drivers','drivers.truck','drivers.hauler','driver.serves'])
@@ -42,6 +34,7 @@ class LineupApiController extends Controller
                         ->whereDate('LocalTime', Carbon::now())
                         ->orderBy('LogID','DESC')
                         ->get();
+                        
         // Get unique from results_lineup
         $log_lineups = $result_lineups->unique('CardholderID');
 
@@ -71,16 +64,10 @@ class LineupApiController extends Controller
     public function getLastDriver()
     {
 
-        $check_truckscale_out = Log::select('CardholderID')
-                                    ->where('ControllerID', 4)
-                                    ->where('Direction',2)
-                                    ->whereDate('LocalTime', Carbon::now())
-                                    ->pluck('CardholderID');
-
-        $served = Serve::where('on_serving',1)
-                        ->orderBy('id','DESC')
-                        ->whereDate('created_at', Carbon::today())
-                        ->pluck('driver_id');
+        // Get the total truckscale Out from truck monitoring today
+        $check_truckscale_out = Log::truckscaleOut();
+        // Get the total served from truck monitoring today
+        $served = Serve::servedToday();
 
          $result_lineups = Log::with(['drivers','drivers.trucks','drivers.haulers','driver.serves'])
                         ->where('ControllerID', 1)
@@ -133,27 +120,24 @@ class LineupApiController extends Controller
 
     public function getDriverQue()
     {
+        // Get the total truckscale Out from truck monitoring today
+        $check_truckscale_out = Log::truckscaleOut();
+        // Get the total served from truck monitoring today
+        $served = Serve::servedToday();
+        // Get the total drivers who tapped from Gate RFID
+        $manilaGate =  Log::barrierLocation(3,2);
 
-        $check_truckscale_out = Log::select('CardholderID')
-                                    ->where('ControllerID', 4)
-                                    ->where('Direction',2)
-                                    ->whereDate('LocalTime', Carbon::today())
-                                    ->pluck('CardholderID');
-
-        $served = Serve::where('on_serving',1)
-                        ->orderBy('id','DESC')
-                        ->whereDate('created_at', Carbon::today())
-                        ->pluck('driver_id');
-
-         $result_lineups = Log::with(['drivers','drivers.truck','drivers.hauler','driver.serves','driver.image'])
+        $result_lineups = Log::with(['drivers','drivers.truck','drivers.hauler','driver.serves','driver.image'])
                         ->where('ControllerID', 1)
                         ->where('DoorID',0)
+                        ->whereIn('CardholderID',$manilaGate)
                         ->whereNotIn('CardholderID',$check_truckscale_out)
                         ->whereDate('LocalTime', Carbon::now())
                         ->orderBy('LogID','ASC')
                         ->take(20)
                         ->get();
 
+                        // Get the unique result from Cardholder
         $log_lineups = $result_lineups->unique('CardholderID');
 
     
