@@ -7,6 +7,7 @@ use App\Card;
 use App\Cardholder;
 use App\Log;
 use App\Driver;
+use Carbon\Carbon;
 
 class BarriersController extends Controller
 {
@@ -32,48 +33,7 @@ class BarriersController extends Controller
         return $not_driver;
     }
 
-    public function getBarrierLocation($door, $controller)
-    {
-
-        $barriers = Log::select('LogID','CardholderID')
-        ->whereIn('DoorID',[$door])
-        ->whereNotIn('CardholderID',$this->barrierNoDriver())
-        ->where('ControllerID', $controller)
-        ->where('CardholderID', '>=', 15)
-        ->orderBy('LocalTime','DESC')
-        ->with('driver')
-        ->take(10)
-        ->get();
-
-        // Forming the array JSON
-        $arr = array();
-
-        foreach($barriers as $entry) {
-            foreach($entry->drivers as $driver) {
-                    $data = array(
-
-                        'LogID' => $entry->LogID,
-                        'CardholderID' => $entry->CardholderID,
-                        'driver' => $driver->name,
-                        'availability' => $driver->availability,
-                        'avatar' => empty($driver->image) ?  $driver->avatar : $driver->image->avatar,
-                        'plate_number' => empty($driver->truck->plate_number) ? 'NO DRIVER' : $driver->truck->plate_number,
-                        'plate_availability' => empty($driver->truck->plate_number) ? null : $driver->truck->availability,
-                        'hauler_name' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
-                        'inLocalTime' =>  $this->getBarrierDirection($door ,$entry->CardholderID, 1),
-                        'outLocalTime' =>  $this->getBarrierDirection($door, $entry->CardholderID, 2) < 
-                                            $this->getBarrierDirection($door, $entry->CardholderID, 1) ? null : 
-                                            $this->getBarrierDirection($door, $entry->CardholderID, 2),
-
-                    );
-
-                    array_push($arr, $data);
-            }
-        }
-
-        return $arr;
-    }
-
+    // check the direction of the barrier
     public function getBarrierDirection($door, $cardholder, $direction)
     {
         // All Plant in 
@@ -95,23 +55,123 @@ class BarriersController extends Controller
         return $x;
     }
 
+    public function getBarrierLocation($door, $controller)
+    {
+
+        $barriers = Log::select('LogID','CardholderID')
+        // ->whereDate('LocalTime',Carbon::today())
+        ->whereIn('DoorID',[$door])
+        ->whereNotIn('CardholderID',$this->barrierNoDriver())
+        ->where('ControllerID', $controller)
+        ->where('CardholderID', '>=', 15)
+        ->orderBy('LocalTime','DESC')
+        ->with('driver')
+        ->take(10)
+        ->get();
+
+        return $barriers;
+    }
+
     //API Functions
     public function laPazAPI()
     {
         // Get Logs from Lapaz Barrier RFID
-        return $this->getBarrierLocation(0,5);
+        $lapaz_drivers = $this->getBarrierLocation(0,5);
+
+        // Format the array JSON return
+        $arr = array();
+        foreach($lapaz_drivers as $entry) {
+            foreach($entry->drivers as $driver) {
+
+                    $data = array(
+
+                        'LogID' => $entry->LogID,
+                        'CardholderID' => $entry->CardholderID,
+                        'driver' => $driver->name,
+                        'availability' => $driver->availability,
+                        'avatar' => empty($driver->image) ?  $driver->avatar : $driver->image->avatar,
+                        'plate_number' => empty($driver->truck->plate_number) ? 'NO DRIVER' : $driver->truck->plate_number,
+                        'plate_availability' => empty($driver->truck->plate_number) ? null : $driver->truck->availability,
+                        'hauler_name' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
+                        'inLocalTime' =>  $this->getBarrierDirection(0 ,$entry->CardholderID, 1),
+                        'outLocalTime' =>  $this->getBarrierDirection(0, $entry->CardholderID, 2) < 
+                                            $this->getBarrierDirection(0, $entry->CardholderID, 1) ? null : 
+                                            $this->getBarrierDirection(0, $entry->CardholderID, 2),
+                    );
+
+                    array_push($arr, $data);
+            }
+        }
+
+        return $arr;
     }
 
     public function manilaAPI()
     {
-         // Get Logs from Lapaz Barrier RFID
-        return $this->getBarrierLocation(3,2);
+        // Get Logs from Lapaz Barrier RFID
+        $manila_drivers = $this->getBarrierLocation(3,2);
+
+        // Format the array JSON return
+        $arr = array();
+        foreach($manila_drivers as $entry) {
+            foreach($entry->drivers as $driver) {
+
+                    $data = array(
+
+                        'LogID' => $entry->LogID,
+                        'CardholderID' => $entry->CardholderID,
+                        'driver' => $driver->name,
+                        'availability' => $driver->availability,
+                        'avatar' => empty($driver->image) ?  $driver->avatar : $driver->image->avatar,
+                        'plate_number' => empty($driver->truck->plate_number) ? 'NO DRIVER' : $driver->truck->plate_number,
+                        'plate_availability' => empty($driver->truck->plate_number) ? null : $driver->truck->availability,
+                        'hauler_name' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
+                        'inLocalTime' =>  $this->getBarrierDirection(3 ,$entry->CardholderID, 1),
+                        'outLocalTime' =>  $this->getBarrierDirection(3, $entry->CardholderID, 2) < 
+                                            $this->getBarrierDirection(3, $entry->CardholderID, 1) ? null : 
+                                            $this->getBarrierDirection(3, $entry->CardholderID, 2),
+                        'isFromLapaz' => array_has($entry->CardholdereID, Log::barrierLocation(0,5)) ? 1 : null,
+
+                    );
+
+                    array_push($arr, $data);
+            }
+        }
+
+        return $arr;
     }
 
     public function bataanAPI()
     {
          // Get Logs from Bataan Barrier RFID
-        return $this->getBarrierLocation(0,9);
+        $bataan_drivers =  $this->getBarrierLocation(0,9);
+
+        // Format the array JSON return
+        $arr = array();
+        foreach($bataan_drivers as $entry) {
+            foreach($entry->drivers as $driver) {
+
+                    $data = array(
+
+                        'LogID' => $entry->LogID,
+                        'CardholderID' => $entry->CardholderID,
+                        'driver' => $driver->name,
+                        'availability' => $driver->availability,
+                        'avatar' => empty($driver->image) ?  $driver->avatar : $driver->image->avatar,
+                        'plate_number' => empty($driver->truck->plate_number) ? 'NO DRIVER' : $driver->truck->plate_number,
+                        'plate_availability' => empty($driver->truck->plate_number) ? null : $driver->truck->availability,
+                        'hauler_name' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
+                        'inLocalTime' =>  $this->getBarrierDirection(0 ,$entry->CardholderID, 1),
+                        'outLocalTime' =>  $this->getBarrierDirection(0, $entry->CardholderID, 2) < 
+                                            $this->getBarrierDirection(0, $entry->CardholderID, 1) ? null : 
+                                            $this->getBarrierDirection(0, $entry->CardholderID, 2),
+                    );
+
+                    array_push($arr, $data);
+            }
+        }
+
+        return $arr;
     }
 
     // View Functions

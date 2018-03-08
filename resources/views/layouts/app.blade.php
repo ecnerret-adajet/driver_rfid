@@ -44,7 +44,7 @@
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
 
           <li class="nav-item {{ Request::is('home') ? 'active' : '' }}" data-toggle="tooltip" data-placement="right" title="Dashboard">
-            <a class="nav-link" href="{{url('/home')}}">
+            <a class="nav-link font-weight-bold" href="{{url('/home')}}">
               <i class="fa fa-fw fa-dashboard"></i>
               <span class="nav-link-text">
                 Dashboard</span>
@@ -52,7 +52,7 @@
           </li>
 
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Master Data">
-            <a class="nav-link nav-link-collapse {{ (Request::is('trucks') || 
+            <a class="nav-link nav-link-collapse font-weight-bold {{ (Request::is('trucks') || 
                                                      Request::is('trucks/*') ||
                                                      Request::is('pickups') ||
                                                      Request::is('pickups/*') ||
@@ -82,12 +82,12 @@
                                                      Request::is('bind/*')) ? '' : 'collapse' }}" id="collapseComponents">
               @role((['Administrator','Monitoring','Approver']))
 
-              <li class="{{ (Request::is('trucks') ||
+              <li class="font-weight-bold {{ (Request::is('trucks') ||
                             Request::is('trucks/*')  
                         ) ? 'active' : '' }}">
                 <a href="{{url('/trucks')}}">Trucks</a>
               </li>
-              <li class="{{ (Request::is('drivers') ||
+              <li class="font-weight-bold {{ (Request::is('drivers') ||
                             Request::is('drivers/*')
                           ) ? 'active' : ''}}">
                 <a href="{{url('/drivers')}}">Drivers</a>
@@ -97,7 +97,7 @@
 
                @role((['Administrator','Personnel']))
 
-               <li class="{{ (Request::is('pickups') ||
+               <li class="font-weight-bold {{ (Request::is('pickups') ||
                             Request::is('generatePickups') ||
                             Request::is('pickups/*')
                           ) ? 'active' : ''}}">
@@ -108,7 +108,7 @@
 
               @role((['Administrator','Queue']))
 
-              <li class="{{ (Request::is('lineups') ||
+              <li class="font-weight-bold {{ (Request::is('lineups') ||
                             Request::is('generateLineups') ||
                             Request::is('lineups/*')
                           ) ? 'active' : ''}}">
@@ -126,7 +126,7 @@
     
 
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Admin">
-            <a class="nav-link nav-link-collapse {{ (Request::is('settings') || 
+            <a class="nav-link nav-link-collapse font-weight-bold {{ (Request::is('settings') || 
                                                      Request::is('users') ||
                                                      Request::is('users/*') ||
                                                      Request::is('generateActivities') ||
@@ -146,17 +146,17 @@
                                                      Request::is('handlers') ||
                                                      Request::is('handlers/*') ||
                                                      Request::is('activities')) ? '' : 'collapse' }}" id="collapseMulti">
-              <li class="{{ (Request::is('users') ||
+              <li class="font-weight-bold {{ (Request::is('users') ||
                               Request::is('users/*')
                             ) ? 'active' : '' }}">
                 <a href="{{url('/users')}}">Users</a>
               </li>
-              <li class="{{ (Request::is('settings') ||
+              <li class="font-weight-bold {{ (Request::is('settings') ||
                               Request::is('settings/*')
                             ) ? 'active' : '' }}">
                 <a href="{{url('/settings')}}">Email Notifications</a>
               </li>
-               <li class="{{ (Request::is('activities') || Request::is('generateActivities')) ? 'active' : '' }}">
+               <li class="font-weight-bold {{ (Request::is('activities') || Request::is('generateActivities')) ? 'active' : '' }}">
                 <a href="{{url('/activities')}}">System Logs</a>
               </li>
               {{--  <li class="{{ (Request::is('handlers') || Request::is('handlers/*')) ? 'active' : '' }}">
@@ -171,7 +171,7 @@
           @role((['Administrator','Monitoring','Approver']))
 
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reports">
-            <a class="nav-link nav-link-collapse {{ (Request::is('prints') || 
+            <a class="nav-link nav-link-collapse font-weight-bold {{ (Request::is('prints') || 
                                                      Request::is('analytics') ||
                                                      Request::is('entries') ||
                                                      Request::is('generateEntries*') ||
@@ -186,15 +186,15 @@
                                                      Request::is('generateEntries*') ||
                                                      Request::is('monitors/*')) ? '' : 'collapse' }}" id="collapseReports">
 
-              <li class=" {{ (Request::is('analytics')) ? 'active' : '' }}">
+              <li class="font-weight-bold {{ (Request::is('analytics')) ? 'active' : '' }}">
                 <a href="{{url('/analytics')}}">Status Report</a>
               </li>
 
-              <li class="{{ (Request::is('prints')) ? 'active' : '' }}">
+              <li class="font-weight-bold {{ (Request::is('prints')) ? 'active' : '' }}">
                 <a href="{{url('/prints')}}">Drivers Approval</a>
               </li>
 
-               <li class=" {{ (Request::is('entries') ||
+               <li class="font-weight-bold {{ (Request::is('entries') ||
                                   Request::is('generateEntries*') ||
                                   Request::is('monitors/*')
                                 ) ? 'active' : '' }}">

@@ -60,6 +60,11 @@
                                     NO IN  
                                 </span>
                             </li>
+
+                            <li class="list-group-item list-group-item-info" v-if="isFromLapaz == 1">
+                                <span class="text-dark text-uppercase" style="font-size: 40px;">Already Tapped from lapaz</span>
+                            </li>
+
                              <!-- <li class="list-group-item" v-if="i === 0" :class="{ 'list-group-item-danger' : barrier.availability != 1, 'list-group-item-primary' : i===0 }">
                                 <span class="text-dark">TRUCKS IN PLANT:</span><br/>
                                  <span style="font-size: 40px;">

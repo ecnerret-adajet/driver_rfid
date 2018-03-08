@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\Cardholder;
 
 class Log extends Model
 {
@@ -184,9 +185,81 @@ class Log extends Model
 
     }
 
+    // latest scoped methods
+
+
+    /**
+     *  Get all drivers who has a truckscale IN within cureent date
+     * 
+     * Pluck Return
+     * 
+     */
+    public function scopeTruckscaleIn($query)
+    {
+         return  $query->select('CardholderID')
+                ->where('ControllerID', 4)
+                ->where('Direction',1) // All Truckscale In
+                ->whereDate('LocalTime', Carbon::today())
+                ->pluck('CardholderID');
+    }
+
+    /**
+     * Get all Drivers who has a truckscale OUT within current date
+     * 
+     * Pluck Return
+     * 
+     */
+    public function scopeTruckscaleOut($query)
+    {
+       return  $query->select('CardholderID')
+                ->where('ControllerID', 4)
+                ->where('Direction',2) // All Truckscale Out
+                ->whereDate('LocalTime', Carbon::today())
+                ->pluck('CardholderID');
+    }
+
     public function scopeThisDay($query)
     {
         return $query->whereDate('LocalTime', '>=', Carbon::now());
         
     }
+
+    // Get Driver from barrier that is not Driver's RFID in the system
+    private function barrierNoDriver()
+    {
+        $pickup_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%pickup%')
+        ->pluck('CardholderID'); 
+
+        $guard_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%GUARD%')
+        ->pluck('CardholderID'); 
+
+        $executive_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%EXECUTIVE%')
+        ->pluck('CardholderID'); 
+
+        // Remove all cardholder without driver assigned
+        $not_driver = array_collapse([$pickup_cards, $guard_cards, $executive_cards]);
+        
+        return $not_driver;
+    }
+
+    /**
+     * Get Drivers tapped from gate RFID based from location parameter
+     * 
+     */
+
+     public function scopeBarrierLocation($query, $door, $controller)
+     {
+         return $query->select('LogID','CardholderID')
+                ->whereDate('LocalTime', Carbon::today())
+                ->whereIn('DoorID',[$door])
+                ->whereNotIn('CardholderID',$this->barrierNoDriver())
+                ->where('ControllerID', $controller)
+                ->where('CardholderID', '>=', 15)
+                ->orderBy('LocalTime','DESC')
+                ->with('driver')
+                ->pluck('CardholderID');
+     }
 }

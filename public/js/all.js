@@ -56396,6 +56396,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -84571,7 +84576,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticStyle: {
         "font-size": "35px"
       }
-    }, [_vm._v("\n                                NO IN  \n                            ")])])])])])])
+    }, [_vm._v("\n                                NO IN  \n                            ")])]), _vm._v(" "), (_vm.isFromLapaz == 1) ? _c('li', {
+      staticClass: "list-group-item list-group-item-info"
+    }, [_c('span', {
+      staticClass: "text-dark text-uppercase",
+      staticStyle: {
+        "font-size": "40px"
+      }
+    }, [_vm._v("Already Tapped from lapaz")])]) : _vm._e()])])])])
   }))])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
