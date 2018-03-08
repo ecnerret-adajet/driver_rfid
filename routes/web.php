@@ -14,25 +14,40 @@
 
 Route::get('/', function()
 {
-    // check the current user
-    if (Entrust::hasRole('Hauler')) {
-        return redirect('hauler/online/home');
-    } 
-    
-    if (Entrust::hasRole('Pickup')) {
-        return redirect('pickups/online');
-    }
+    // List of roles
+    // 1 = Administrator
+    // 2 = Monitoring
+    // 3 = Personnel
+    // 4 = Approver
+    // 5 = Hauler
+    // 6 = Pickup
+    // 7 = Pickup-level-2
+    // 8 = Queue-monitoring
+    // 9 = spc-monitoring
 
-    if (Entrust::hasRole('Pickup-level-2')) {
-        return redirect('monitor/feed');
+    //Get user current role
+    $user_role = Auth::user()->roles->first()->id;
+    switch ($user_role) {
+        case 5: // Hauler
+            return redirect('hauler/online/home');
+            break;
+        case 6: // Pickup
+            return redirect('pickups/online');
+            break;
+        case 7: // Pickup-level-2
+            return redirect('monitor/feed');
+            break;
+        case 8: // Queue Monitoring
+            return redirect('monitor/feed');
+            break;
+        case 9: // Spc/QC Monitoring
+            return redirect('trucks');
+            break;
+        default:
+            return view('home');
+            break;
     }
-
-    if (Entrust::hasRole('Queue-monitoring')) {
-        return redirect('monitor/feed');
-    }
-
-    return view('home');
-    
+        
 })->middleware('auth');
 
 
