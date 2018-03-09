@@ -58,62 +58,60 @@
                                         </div>
                                         <div class="col-sm-3 pull-right right">
 
-                                        <span>
+                                        <!-- <span>
                                             <a class="dropdown pull-right btn btn-outline-secondary" href="#" id="driverDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fa fa-ellipsis-v"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="driverDropdown">
                                                 <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#driverModalActivate-'+ driver.id">Activate</a>
                                             </div>
-                                        </span>
+                                        </span> -->
                                         
 
-                                         <span v-if="driver.availability == 1 || driver.print_status == 1 && driver.notif_status == 0">
                                           <a class="dropdown pull-right btn btn-outline-secondary" href="#" id="driverDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fa fa-ellipsis-v"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="driverDropdown">
 
-                                                 <!-- <span v-for="haulerx in driver.hauler">
-                                                    <span v-for="truckx in driver.truck">
-                                                -->
-                                                <span v-if="driver.card !=  null">
-                                                    <a :href="driver_link + driver.id + '/reassign'" class="dropdown-item">Reassign Truck</a>
-                                                </span>
-                                                <span v-if="driver.card ==  null">
-                                                    <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#noCardAssigned-'+ driver.id" style="color: red">Reassign Truck</a>
-                                                </span>
+                                                <span v-if="user_role == 'Monitoring' || user_role == 'Administrator'">
                                                     <a :href="driver_link + driver.id + '/editInfo'" class="dropdown-item">Update Info</a>
-                                                  <!-- 
+                                                    <a :href="driver_link + 'reprint/' + driver.id" class="dropdown-item">Reprint Card</a>
+                                                    <span v-if="driver.card !=  null">
+                                                        <a :href="driver_link + driver.id + '/reassign'" class="dropdown-item">Reassign Truck</a>
                                                     </span>
-                                                 </span>  -->
+                                                    <span v-if="driver.card ==  null">
+                                                        <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#noCardAssigned-'+ driver.id" style="color: red">Reassign Truck</a>
+                                                    </span>
+                                                </span>                                               
 
                                                 <!-- <a :href="driver_link + 'lostCard/' + driver.id" class="dropdown-item">Reprint Card</a> -->
-                                                <a :href="driver_link + 'reprint/' + driver.id" class="dropdown-item">Reprint Card</a>
-                                                <span v-if="driver.availability == 1">
-                                                <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#driverModal-'+ driver.id" style="color: red">Deactivate</a>
-                                                </span>
-                                                <span v-if="driver.availability == 0">
-                                                <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#driverModalActivate-'+ driver.id">Activate</a>
-                                                </span>
-                                                 <span v-if="user_role == 'Administrator'|| user_role == 'Monitoring'">
-                                                     <div class="dropdown-divider"></div>
+                                                 <span v-if="user_role == 'Monitoring' || user_role == 'Approver' || user_role == 'Administrator'">
+                                                    <span v-if="driver.availability == 1">
+                                                    <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#driverModal-'+ driver.id" style="color: red">Deactivate</a>
+                                                    </span>
+                                                    <span v-if="driver.availability == 0">
+                                                    <!-- <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#driverModalActivate-'+ driver.id">Activate</a> -->
+                                                    <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#driverModalActivate-'+ driver.id">Activate</a>
+                                                    </span>
                                                     <a href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#driverRemoveModal-'+ driver.id">Remove Driver</a>
-                                                </span>
+                                                    <div class="dropdown-divider"></div>
+                                                </span>                                                
+
                                                 <span v-if="user_role == 'Administrator'">
                                                      <div class="dropdown-divider"></div>
                                                     <a :href="driver_link + driver.id + '/edit'" class="dropdown-item">Edit</a>
                                                 </span>
 
                                             </div><!-- end dropdown -->
-                                        </span>
+
+
                                         <span v-if="driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1">
                                               <div class="btn-group pull-right" role="group" aria-label="Basic example">
-                                                 <span v-if="user_role == 'Administrator' || user_role == 'Approver'">
-                                                    <a  href="javascript:void(0);" class="btn btn-outline-primary btn-sm ml-2" data-toggle="modal" :data-target="'#driverModalActivate-'+ driver.id">Activate</a>
+                                                 <span v-if="user_role == 'Administrator'"> <!-- removed 'user_role == Approver' -->
+                                                    <a  href="javascript:void(0);" class="btn btn-outline-primary btn-sm ml-2" data-toggle="modal" :data-target="'#driverModalActivate-'+ driver.id">APPROVE TO PRINT</a>
                                                  </span>
                                                  <span v-else>
-                                                    <button class="btn btn-outline-danger btn-sm disabled">INACTIVE</button>
+                                                    <button class="btn btn-outline-danger btn-sm disabled">FOR PRINTING</button>
                                                  </span>
                                               </div>
                                         </span>
@@ -121,8 +119,8 @@
                                         <span v-if="user_role == 'Administrator' || user_role == 'Monitoring'">
                                             <span v-if="driver.confirm">
 
-                                                <a v-if="driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'New Driver'" class="pull-right btn btn-outline-danger btn-sm" :href="'/driver_rfid/public/drivers/disapproved/' + driver.id">Update Details</a>
-                                                <a v-if="driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'Update Driver'" class="pull-right btn btn-outline-warning btn-sm text-warning" data-toggle="modal" :data-target="'#reverseDisapproved-'+ driver.id">Reverse Disapproved</a>
+                                                <a v-if="driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'New Driver'" class="pull-right btn btn-outline-danger btn-sm ml-2 mr-2" :href="'/driver_rfid/public/drivers/disapproved/' + driver.id">Update Details</a>
+                                                <a v-if="driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'Update Driver'" class="pull-right btn btn-outline-warning btn-sm text-warning ml-2 mr-2" data-toggle="modal" :data-target="'#reverseDisapproved-'+ driver.id">Reverse Disapproved</a>
                                             
                                             </span>
                                         </span>

@@ -69,7 +69,7 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="truckDropdown">
 
-                                                <span v-if="user_role == 'Monitoring' || 'Administrator'">
+                                                <span v-if="user_role == 'Monitoring' || user_role == 'Administrator'">
                                                     <a :href="truck_link + truck.id + '/transfer'" class="dropdown-item" v-if="truck.card !=  null">Transfer to 3PL</a>
                                                     <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#removeDriver-'+ truck.id">Remove Driver</a>
                                                     <a :href="truck_link + truck.id + '/editInfo'" class="dropdown-item">Update Truck</a>
@@ -80,17 +80,18 @@
                                                             <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#truckChange-'+ truck.id">Update Plate Number</a>
                                                         </span>
                                                    </span>
+                                                    <div class="dropdown-divider"></div>
                                                 </span>
                                                    
                                                    
                                                 <span v-if="user_role == 'Administrator'">
-                                                    <div class="dropdown-divider"></div>
                                                     <a :href="truck_link + truck.id + '/edit'" class="dropdown-item">Edit</a>
+                                                    <div class="dropdown-divider"></div>
                                                 </span>
                                                                                                    
 
-                                                <span v-if="user_role == 'Administrator' || 'spc-monitoring'">
-                                                    <div class="dropdown-divider"></div>
+                                                <span v-if="user_role == 'Administrator' || user_role == 'spc-monitoring'">
+                                                    
 
                                                     <!-- modal deactivation -->
                                                     <!-- <a  href="javascript:void(0);" class="dropdown-item text-success" data-toggle="modal" :data-target="'#truckActivated-'+ truck.id">Activate Truck</a> -->

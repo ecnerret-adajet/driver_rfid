@@ -53261,8 +53261,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -53364,6 +53362,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_content_placeholders__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
+//
 //
 //
 //
@@ -54783,7 +54782,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_content_placeholders__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
-//
 //
 //
 //
@@ -57741,7 +57739,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -57837,9 +57834,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_content_placeholders__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
-//
-//
-//
 //
 //
 //
@@ -60722,25 +60716,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -61948,6 +61923,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_content_placeholders__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
+//
 //
 //
 //
@@ -79883,7 +79859,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "aria-labelledby": "truckDropdown"
       }
-    }, [(_vm.user_role == 'Monitoring' || 'Administrator') ? _c('span', [_c('a', {
+    }, [(_vm.user_role == 'Monitoring' || _vm.user_role == 'Administrator') ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.truck_link + truck.id + '/transfer'
@@ -79907,16 +79883,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-toggle": "modal",
         "data-target": '#truckChange-' + truck.id
       }
-    }, [_vm._v("Update Plate Number")])]) : _vm._e()]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
+    }, [_vm._v("Update Plate Number")])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('div', {
       staticClass: "dropdown-divider"
-    }), _vm._v(" "), _c('a', {
+    })]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.truck_link + truck.id + '/edit'
       }
-    }, [_vm._v("Edit")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || 'spc-monitoring') ? _c('span', [_c('div', {
+    }, [_vm._v("Edit")]), _vm._v(" "), _c('div', {
       staticClass: "dropdown-divider"
-    }), _vm._v(" "), (truck.availability) ? _c('a', {
+    })]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || _vm.user_role == 'spc-monitoring') ? _c('span', [(truck.availability) ? _c('a', {
       staticClass: "dropdown-item text-danger",
       attrs: {
         "href": 'inspects/deactivate/' + truck.id
@@ -80594,7 +80570,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "aria-labelledby": "driverDropdown"
       }
-    }, [(driver.card != null) ? _c('span', [_c('a', {
+    }, [(_vm.user_role == 'Monitoring' || _vm.user_role == 'Administrator') ? _c('span', [_c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": _vm.driver_link + driver.id + '/editInfo'
+      }
+    }, [_vm._v("Update Info")]), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item",
+      attrs: {
+        "href": _vm.driver_link + 'reprint/' + driver.id
+      }
+    }, [_vm._v("Reprint Card")]), _vm._v(" "), (driver.card != null) ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.driver_link + driver.id + '/reassign'
@@ -80609,17 +80595,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-toggle": "modal",
         "data-target": '#noCardAssigned-' + driver.id
       }
-    }, [_vm._v("Reassign Truck")])]) : _vm._e(), _vm._v(" "), _c('a', {
-      staticClass: "dropdown-item",
-      attrs: {
-        "href": _vm.driver_link + driver.id + '/editInfo'
-      }
-    }, [_vm._v("Update Info")]), _vm._v(" "), _c('a', {
-      staticClass: "dropdown-item",
-      attrs: {
-        "href": _vm.driver_link + 'reprint/' + driver.id
-      }
-    }, [_vm._v("Reprint Card")]), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('a', {
+    }, [_vm._v("Reassign Truck")])]) : _vm._e(), _vm._v(" "), _c('div', {
+      staticClass: "dropdown-divider"
+    })]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Approver' || _vm.user_role == 'Monitoring' || _vm.user_role == 'Administrator') ? _c('span', [(driver.availability == 1) ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       staticStyle: {
         "color": "red"
@@ -80636,16 +80614,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-toggle": "modal",
         "data-target": '#driverModalActivate-' + driver.id
       }
-    }, [_vm._v("Activate")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || _vm.user_role == 'Monitoring') ? _c('span', [_c('div', {
+    }, [_vm._v("Activate")])]) : _vm._e(), _vm._v(" "), _c('div', {
       staticClass: "dropdown-divider"
-    }), _vm._v(" "), _c('a', {
-      staticClass: "dropdown-item",
-      attrs: {
-        "href": "javascript:void(0);",
-        "data-toggle": "modal",
-        "data-target": '#driverRemoveModal-' + driver.id
-      }
-    }, [_vm._v("Remove Driver")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
+    })]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
       staticClass: "dropdown-divider"
     }), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",
@@ -80668,12 +80639,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("Activate")])]) : _c('span', [_c('button', {
       staticClass: "btn btn-outline-danger btn-sm disabled"
     }, [_vm._v("INACTIVE")])])])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || _vm.user_role == 'Monitoring') ? _c('span', [(driver.confirm) ? _c('span', [(driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'New Driver') ? _c('a', {
-      staticClass: "pull-right btn btn-outline-danger btn-sm",
+      staticClass: "pull-right btn btn-outline-danger btn-sm ml-2 mr-2",
       attrs: {
         "href": '/driver_rfid/public/drivers/disapproved/' + driver.id
       }
     }, [_vm._v("Update Details")]) : _vm._e(), _vm._v(" "), (driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'Update Driver') ? _c('a', {
-      staticClass: "pull-right btn btn-outline-warning btn-sm text-warning",
+      staticClass: "pull-right btn btn-outline-warning btn-sm text-warning ml-2 mr-2",
       attrs: {
         "data-toggle": "modal",
         "data-target": '#reverseDisapproved-' + driver.id
@@ -81525,12 +81496,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "aria-labelledby": "truckDropdown"
       }
-    }, [(_vm.user_role == 'Monitoring' || 'Administrator') ? _c('span', [(truck.card != null) ? _c('a', {
+    }, [(_vm.user_role == 'Monitoring' || _vm.user_role == 'Administrator') ? _c('span', [(truck.card != null) ? _c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.truck_link + truck.id + '/transfer'
       }
-    }, [_vm._v("Transfer to 3PL")]) : _vm._e(), _vm._v(" "), _c('a', {
+    }, [_vm._v("Transfer to 3PL - " + _vm._s(_vm.user_role))]) : _vm._e(), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": "javascript:void(0);",
@@ -81549,16 +81520,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-toggle": "modal",
         "data-target": '#truckChange-' + truck.id
       }
-    }, [_vm._v("Update Plate Number")])]) : _vm._e()]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
+    }, [_vm._v("Update Plate Number")])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('div', {
       staticClass: "dropdown-divider"
-    }), _vm._v(" "), _c('a', {
+    })]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.truck_link + truck.id + '/edit'
       }
-    }, [_vm._v("Edit")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || 'spc-monitoring') ? _c('span', [_c('div', {
+    }, [_vm._v("Edit")]), _vm._v(" "), _c('div', {
       staticClass: "dropdown-divider"
-    }), _vm._v(" "), _c('a', {
+    })]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || _vm.user_role == 'spc-monitoring') ? _c('span', [_c('a', {
       staticClass: "dropdown-item text-danger",
       attrs: {
         "href": 'inspects/deactivate/' + truck.id
@@ -82039,7 +82010,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "badge badge-primary"
     }, [_vm._v("\n                                              Card Assigned\n                                          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-3 pull-right right"
-    }, [_c('span', [_vm._m(0, true), _vm._v(" "), _c('div', {
+    }, [(_vm.user_role == 'Approver' || _vm.user_role == 'Monitoring' || _vm.user_role == 'Administrator') ? _c('span', [_vm._m(0, true), _vm._v(" "), _c('div', {
       staticClass: "dropdown-menu dropdown-menu-right",
       attrs: {
         "aria-labelledby": "driverDropdown"
@@ -82051,33 +82022,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-toggle": "modal",
         "data-target": '#driverRestoreModal-' + driver.id
       }
-    }, [_vm._v("Restore Driver")])])]), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1) ? _c('span', [_c('div', {
-      staticClass: "btn-group pull-right",
-      attrs: {
-        "role": "group",
-        "aria-label": "Basic example"
-      }
-    }, [(_vm.user_role == 'Administrator' || _vm.user_role == 'Approver') ? _c('span', [_c('a', {
-      staticClass: "btn btn-outline-primary btn-sm ml-2",
-      attrs: {
-        "href": "javascript:void(0);",
-        "data-toggle": "modal",
-        "data-target": '#driverModalActivate-' + driver.id
-      }
-    }, [_vm._v("Activate")])]) : _c('span', [_c('button', {
-      staticClass: "btn btn-outline-danger btn-sm disabled"
-    }, [_vm._v("INACTIVE")])])])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || _vm.user_role == 'Monitoring') ? _c('span', [(driver.confirm) ? _c('span', [(driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'New Driver') ? _c('a', {
-      staticClass: "pull-right btn btn-outline-danger btn-sm",
-      attrs: {
-        "href": '/driver_rfid/public/drivers/disapproved/' + driver.id
-      }
-    }, [_vm._v("Update Details")]) : _vm._e(), _vm._v(" "), (driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'Update Driver') ? _c('a', {
-      staticClass: "pull-right btn btn-outline-warning btn-sm text-warning",
-      attrs: {
-        "data-toggle": "modal",
-        "data-target": '#reverseDisapproved-' + driver.id
-      }
-    }, [_vm._v("Reverse Disapproved")]) : _vm._e()]) : _vm._e()]) : _vm._e(), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('i', {
+    }, [_vm._v("Restore Driver")])])]) : _vm._e(), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('i', {
       staticClass: "fa fa-circle",
       staticStyle: {
         "color": "green"
@@ -83425,24 +83370,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "badge badge-primary"
     }, [_vm._v("\n                                              Card Assigned\n                                          ")]) : _vm._e(), _vm._v(" "), _c('br')]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-3 pull-right right"
-    }, [_c('span', [_vm._m(0, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(0, true), _vm._v(" "), _c('div', {
       staticClass: "dropdown-menu dropdown-menu-right",
       attrs: {
         "aria-labelledby": "driverDropdown"
       }
-    }, [_c('a', {
+    }, [(_vm.user_role == 'Monitoring' || _vm.user_role == 'Administrator') ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
-        "href": "javascript:void(0);",
-        "data-toggle": "modal",
-        "data-target": '#driverModalActivate-' + driver.id
+        "href": _vm.driver_link + driver.id + '/editInfo'
       }
-    }, [_vm._v("Activate")])])]), _vm._v(" "), (driver.availability == 1 || driver.print_status == 1 && driver.notif_status == 0) ? _c('span', [_vm._m(1, true), _vm._v(" "), _c('div', {
-      staticClass: "dropdown-menu dropdown-menu-right",
+    }, [_vm._v("Update Info")]), _vm._v(" "), _c('a', {
+      staticClass: "dropdown-item",
       attrs: {
-        "aria-labelledby": "driverDropdown"
+        "href": _vm.driver_link + 'reprint/' + driver.id
       }
-    }, [(driver.card != null) ? _c('span', [_c('a', {
+    }, [_vm._v("Reprint Card")]), _vm._v(" "), (driver.card != null) ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.driver_link + driver.id + '/reassign'
@@ -83457,17 +83400,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-toggle": "modal",
         "data-target": '#noCardAssigned-' + driver.id
       }
-    }, [_vm._v("Reassign Truck")])]) : _vm._e(), _vm._v(" "), _c('a', {
-      staticClass: "dropdown-item",
-      attrs: {
-        "href": _vm.driver_link + driver.id + '/editInfo'
-      }
-    }, [_vm._v("Update Info")]), _vm._v(" "), _c('a', {
-      staticClass: "dropdown-item",
-      attrs: {
-        "href": _vm.driver_link + 'reprint/' + driver.id
-      }
-    }, [_vm._v("Reprint Card")]), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('a', {
+    }, [_vm._v("Reassign Truck")])]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Monitoring' || _vm.user_role == 'Approver' || _vm.user_role == 'Administrator') ? _c('span', [(driver.availability == 1) ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       staticStyle: {
         "color": "red"
@@ -83484,44 +83417,44 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-toggle": "modal",
         "data-target": '#driverModalActivate-' + driver.id
       }
-    }, [_vm._v("Activate")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || _vm.user_role == 'Monitoring') ? _c('span', [_c('div', {
-      staticClass: "dropdown-divider"
-    }), _vm._v(" "), _c('a', {
+    }, [_vm._v("Activate")])]) : _vm._e(), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": "javascript:void(0);",
         "data-toggle": "modal",
         "data-target": '#driverRemoveModal-' + driver.id
       }
-    }, [_vm._v("Remove Driver")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
+    }, [_vm._v("Remove Driver")]), _vm._v(" "), _c('div', {
+      staticClass: "dropdown-divider"
+    })]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
       staticClass: "dropdown-divider"
     }), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.driver_link + driver.id + '/edit'
       }
-    }, [_vm._v("Edit")])]) : _vm._e()])]) : _vm._e(), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1) ? _c('span', [_c('div', {
+    }, [_vm._v("Edit")])]) : _vm._e()]), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1) ? _c('span', [_c('div', {
       staticClass: "btn-group pull-right",
       attrs: {
         "role": "group",
         "aria-label": "Basic example"
       }
-    }, [(_vm.user_role == 'Administrator' || _vm.user_role == 'Approver') ? _c('span', [_c('a', {
+    }, [(_vm.user_role == 'Administrator') ? _c('span', [_c('a', {
       staticClass: "btn btn-outline-primary btn-sm ml-2",
       attrs: {
         "href": "javascript:void(0);",
         "data-toggle": "modal",
         "data-target": '#driverModalActivate-' + driver.id
       }
-    }, [_vm._v("Activate")])]) : _c('span', [_c('button', {
+    }, [_vm._v("APPROVE TO PRINT")])]) : _c('span', [_c('button', {
       staticClass: "btn btn-outline-danger btn-sm disabled"
-    }, [_vm._v("INACTIVE")])])])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || _vm.user_role == 'Monitoring') ? _c('span', [(driver.confirm) ? _c('span', [(driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'New Driver') ? _c('a', {
-      staticClass: "pull-right btn btn-outline-danger btn-sm",
+    }, [_vm._v("FOR PRINTING")])])])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || _vm.user_role == 'Monitoring') ? _c('span', [(driver.confirm) ? _c('span', [(driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'New Driver') ? _c('a', {
+      staticClass: "pull-right btn btn-outline-danger btn-sm ml-2 mr-2",
       attrs: {
         "href": '/driver_rfid/public/drivers/disapproved/' + driver.id
       }
     }, [_vm._v("Update Details")]) : _vm._e(), _vm._v(" "), (driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'Update Driver') ? _c('a', {
-      staticClass: "pull-right btn btn-outline-warning btn-sm text-warning",
+      staticClass: "pull-right btn btn-outline-warning btn-sm text-warning ml-2 mr-2",
       attrs: {
         "data-toggle": "modal",
         "data-target": '#reverseDisapproved-' + driver.id
@@ -83545,7 +83478,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })]) : _vm._e()])])])
   }), _vm._v(" "), (_vm.filteredDriver.length == 0) ? _c('li', {
     staticClass: "list-group-item"
-  }, [_vm._m(2)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
+  }, [_vm._m(1)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
     staticClass: "row center-align",
     staticStyle: {
       "display": "flex",
@@ -83638,7 +83571,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(3, true), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(2, true), _vm._v(" "), _vm._m(3, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -83680,7 +83613,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(5, true), _vm._v(" "), _vm._m(6, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(4, true), _vm._v(" "), _vm._m(5, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -83728,7 +83661,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(7, true), _vm._v(" "), _vm._m(8, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(6, true), _vm._v(" "), _vm._m(7, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -83770,7 +83703,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('div', {
       staticClass: "modal-content"
-    }, [_vm._m(9, true), _vm._v(" "), _vm._m(10, true), _vm._v(" "), _c('div', {
+    }, [_vm._m(8, true), _vm._v(" "), _vm._m(9, true), _vm._v(" "), _c('div', {
       staticClass: "modal-footer"
     }, [_c('form', {
       attrs: {
@@ -83805,22 +83738,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "aria-labelledby": "driverModalLabel",
         "aria-hidden": "true"
       }
-    }, [_vm._m(11, true)])])
+    }, [_vm._m(10, true)])])
   })], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('a', {
-    staticClass: "dropdown pull-right btn btn-outline-secondary",
-    attrs: {
-      "href": "#",
-      "id": "driverDropdown",
-      "data-toggle": "dropdown",
-      "aria-haspopup": "true",
-      "aria-expanded": "false"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-ellipsis-v"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
     staticClass: "dropdown pull-right btn btn-outline-secondary",
     attrs: {
@@ -84258,7 +84178,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "aria-labelledby": "truckDropdown"
       }
-    }, [(_vm.user_role == 'Monitoring' || 'Administrator') ? _c('span', [(truck.card != null) ? _c('a', {
+    }, [(_vm.user_role == 'Monitoring' || _vm.user_role == 'Administrator') ? _c('span', [(truck.card != null) ? _c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.truck_link + truck.id + '/transfer'
@@ -84282,16 +84202,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-toggle": "modal",
         "data-target": '#truckChange-' + truck.id
       }
-    }, [_vm._v("Update Plate Number")])]) : _vm._e()]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
+    }, [_vm._v("Update Plate Number")])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('div', {
       staticClass: "dropdown-divider"
-    }), _vm._v(" "), _c('a', {
+    })]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.truck_link + truck.id + '/edit'
       }
-    }, [_vm._v("Edit")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || 'spc-monitoring') ? _c('span', [_c('div', {
+    }, [_vm._v("Edit")]), _vm._v(" "), _c('div', {
       staticClass: "dropdown-divider"
-    }), _vm._v(" "), _c('a', {
+    })]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || _vm.user_role == 'spc-monitoring') ? _c('span', [_c('a', {
       staticClass: "dropdown-item text-success",
       attrs: {
         "href": 'inspects/activate/' + truck.id
@@ -87984,7 +87904,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "aria-labelledby": "driverDropdown"
       }
-    }, [_c('a', {
+    }, [(_vm.user_role == 'Monitoring' || _vm.user_role == 'Administrator') ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.driver_link + driver.id + '/editInfo'
@@ -87994,9 +87914,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": _vm.driver_link + 'reprint/' + driver.id
       }
-    }, [_vm._v("Reprint Card")]), _vm._v(" "), (driver.card != null) ? _c('span', [_c('div', {
+    }, [_vm._v("Reprint Card")]), _vm._v(" "), _c('div', {
       staticClass: "dropdown-divider"
-    }), _vm._v(" "), _c('a', {
+    }), _vm._v(" "), (driver.card != null) ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.driver_link + driver.id + '/reassign'
@@ -88006,7 +87926,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": _vm.driver_link + 'transfer-hauler/' + driver.id
       }
-    }, [_vm._v("Transfer Hauler")])]) : _vm._e(), _vm._v(" "), (driver.card == null) ? _c('span', [_c('a', {
+    }, [_vm._v("Transfer Hauler")]), _vm._v(" "), _c('div', {
+      staticClass: "dropdown-divider"
+    })]) : _vm._e(), _vm._v(" "), (driver.card == null) ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       staticStyle: {
         "color": "red"
@@ -88016,7 +87938,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-toggle": "modal",
         "data-target": '#noCardAssigned-' + driver.id
       }
-    }, [_vm._v("Reassign Truck")])]) : _vm._e(), _vm._v(" "), (driver.availability == 1) ? _c('span', [_c('div', {
+    }, [_vm._v("Reassign Truck")]), _vm._v(" "), _c('div', {
+      staticClass: "dropdown-divider"
+    })]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Approver' || _vm.user_role == 'Administrator') ? _c('span', [(driver.availability == 1) ? _c('span', [_c('div', {
       staticClass: "dropdown-divider"
     }), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",
@@ -88035,23 +87959,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-toggle": "modal",
         "data-target": '#driverModalActivate-' + driver.id
       }
-    }, [_vm._v("Activate")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || _vm.user_role == 'Monitoring') ? _c('span', [_c('div', {
+    }, [_vm._v("Activate")])]) : _vm._e(), _vm._v(" "), _c('div', {
       staticClass: "dropdown-divider"
-    }), _vm._v(" "), _c('a', {
+    })]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || _vm.user_role == 'Approver') ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": "javascript:void(0);",
         "data-toggle": "modal",
         "data-target": '#driverRemoveModal-' + driver.id
       }
-    }, [_vm._v("Resign Driver")])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('div', {
+    }, [_vm._v("Resign Driver")]), _vm._v(" "), _c('div', {
       staticClass: "dropdown-divider"
-    }), _vm._v(" "), _c('a', {
+    })]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator') ? _c('span', [_c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": _vm.driver_link + driver.id + '/edit'
       }
-    }, [_vm._v("Edit")])]) : _vm._e()])]) : _vm._e(), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1) ? _c('span', [_c('div', {
+    }, [_vm._v("Edit")]), _vm._v(" "), _c('div', {
+      staticClass: "dropdown-divider"
+    })]) : _vm._e()])]) : _vm._e(), _vm._v(" "), (driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1) ? _c('span', [_c('div', {
       staticClass: "btn-group pull-right",
       attrs: {
         "role": "group",
@@ -88065,14 +87991,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-target": '#driverModalActivate-' + driver.id
       }
     }, [_vm._v("Activate")])]) : _c('span', [_c('button', {
-      staticClass: "btn btn-outline-danger btn-sm disabled"
+      staticClass: "btn btn-outline-danger btn-sm disabled ml-2"
     }, [_vm._v("INACTIVE")])])])]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || _vm.user_role == 'Monitoring') ? _c('span', [(driver.confirm) ? _c('span', [(driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'New Driver') ? _c('a', {
-      staticClass: "pull-right btn btn-outline-danger btn-sm",
+      staticClass: "pull-right btn btn-outline-danger btn-sm ml-2 mr-2",
       attrs: {
         "href": '/driver_rfid/public/drivers/disapproved/' + driver.id
       }
     }, [_vm._v("Update Details")]) : _vm._e(), _vm._v(" "), (driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'Update Driver') ? _c('a', {
-      staticClass: "pull-right btn btn-outline-warning btn-sm text-warning",
+      staticClass: "pull-right btn btn-outline-warning btn-sm text-warning ml-2 mr-2",
       attrs: {
         "data-toggle": "modal",
         "data-target": '#reverseDisapproved-' + driver.id

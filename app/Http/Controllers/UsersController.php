@@ -68,6 +68,8 @@ class UsersController extends Controller
         $user->avatar = $request->file('avatar')->store('users');
         }
         $user->hauler()->associate($request->input('hauler_list'));
+        $user->company()->associate($request->input('company_list'));
+
         $user->save();
 
          $user->roles()->sync( (array) $request->input('roles_list') );
@@ -121,7 +123,7 @@ class UsersController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$user->id,
-            'password' => 'required|confirmed',
+            // 'password' => 'required|confirmed',
             'roles_list' => 'required',
             'phone_number' => 'required'
         ]);

@@ -67,7 +67,7 @@
                                         <div class="col-sm-3 pull-right right">
 
 
-                                        <span>
+                                        <span v-if="user_role == 'Approver' || user_role == 'Monitoring' || user_role == 'Administrator'">
                                             <a class="dropdown pull-right btn btn-outline-secondary" href="#" id="driverDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fa fa-ellipsis-v"></i>
                                             </a>
@@ -77,26 +77,7 @@
                                         </span>
                                         
 
-                                         
-                                        <span v-if="driver.availability == 0 && driver.print_status == 1 && driver.notif_status == 1">
-                                              <div class="btn-group pull-right" role="group" aria-label="Basic example">
-                                                 <span v-if="user_role == 'Administrator' || user_role == 'Approver'">
-                                                    <a  href="javascript:void(0);" class="btn btn-outline-primary btn-sm ml-2" data-toggle="modal" :data-target="'#driverModalActivate-'+ driver.id">Activate</a>
-                                                 </span>
-                                                 <span v-else>
-                                                    <button class="btn btn-outline-danger btn-sm disabled">INACTIVE</button>
-                                                 </span>
-                                              </div>
-                                        </span>
-                                        
-                                        <span v-if="user_role == 'Administrator' || user_role == 'Monitoring'">
-                                            <span v-if="driver.confirm">
-
-                                                <a v-if="driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'New Driver'" class="pull-right btn btn-outline-danger btn-sm" :href="'/driver_rfid/public/drivers/disapproved/' + driver.id">Update Details</a>
-                                                <a v-if="driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'Update Driver'" class="pull-right btn btn-outline-warning btn-sm text-warning" data-toggle="modal" :data-target="'#reverseDisapproved-'+ driver.id">Reverse Disapproved</a>
-                                            
-                                            </span>
-                                        </span>
+                                    
 
                                         <span v-if="driver.availability == 1">
                                             <i class="fa fa-circle" style="color:green" aria-hidden="true"></i>                                            

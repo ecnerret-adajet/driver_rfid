@@ -47,7 +47,6 @@
         </div>
     </div>
 
-    @if(!Request::is('users/create'))
      <div class="form-row">
         <div class="col-md-12">
             <div class="form-group {{ $errors->has('company_list') ? ' has-danger' : '' }}">
@@ -63,7 +62,6 @@
             </div>
         </div>
     </div>
-    @endif
 
     <div class="form-row">
         <div class="col-md-12">
