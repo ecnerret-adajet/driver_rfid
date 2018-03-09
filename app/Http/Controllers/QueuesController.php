@@ -23,16 +23,9 @@ class QueuesController extends Controller
     }
 
     public function pickups()
-    {
-        // $pickups = Pickup::where('created_at', '>=', Carbon::now()->subDay())
-        //                         ->orderBy('created_at','DESC')
-        //                         ->with('cardholder','user')
-        //                         ->
-        //                         ->get();
-        
+    {   
         $pickups = Pickup::where('created_at', '>=', Carbon::now()->subDay(3))
                     ->orderBy('created_at','DESC')
-                    // ->whereNull('cardholder_id')
                     ->with('cardholder','user')
                     ->get();
 
@@ -40,29 +33,19 @@ class QueuesController extends Controller
 
     }
 
-
+    // Manila Queue Location Method
     public function deliveries()
     {
-        $check_truckscale_out = Log::select('CardholderID')
-                                    ->where('ControllerID', 4)
-                                    ->where('Direction',2)
-                                    ->whereDate('LocalTime', Carbon::now())
-                                    ->pluck('CardholderID');
-
-        $result_lineups = Log::with(['drivers','drivers.truck','drivers.hauler','driver.serves'])
-        ->where('ControllerID', 1)
-        ->where('DoorID',0)
-        ->whereNotIn('CardholderID',$check_truckscale_out)
-        ->whereDate('LocalTime', Carbon::now())
-        ->orderBy('LogID','ASC')->get();
-
-      
-
-        $log_lineups = $result_lineups->unique('CardholderID');
+        // Get drivers with truckscale out within the day
+        $check_truckscale_out = Log::truckscaleOut();
+    
+        // MNL (Pfmc) queueing location
+        $logs = Log::queueLocation(0,1,$check_truckscale_out);
+        $mnl_queue = $logs->unique('CardholderID');
     
         $arr = array();
         
-        foreach($log_lineups as $key => $log) {
+        foreach($mnl_queue as $key => $log) {
             foreach($log->drivers as $driver) {
 
                 if(!empty($driver->truck->plate_number)) {
@@ -94,26 +77,20 @@ class QueuesController extends Controller
         return $arr;
     }
 
-    public function assignedShipment() {
+    // MNL (PFMC) assigned shipment
+    public function assignedShipment() 
+    {
 
-        $check_truckscale_out = Log::select('CardholderID')
-                                    ->where('ControllerID', 4)
-                                    ->where('Direction',2)
-                                    ->whereDate('LocalTime', Carbon::now())
-                                    ->pluck('CardholderID');
+        // Get drivers with truckscale out within the day
+        $check_truckscale_out = Log::truckscaleOut();
 
-        $result_lineups = Log::with(['drivers','drivers.truck','drivers.hauler','driver.serves'])
-        ->where('ControllerID', 1)
-        ->where('DoorID',0)
-        ->whereNotIn('CardholderID',$check_truckscale_out)
-        ->whereDate('LocalTime', Carbon::now())
-        ->orderBy('LogID','ASC')->get();
-
-        $log_lineups = $result_lineups->unique('CardholderID');
+        // MNL (Pfmc) queueing location
+        $logs = Log::queueLocation(0,1,$check_truckscale_out);
+        $mnl_queue = $logs->unique('CardholderID');
     
         $arr = array();
         
-        foreach($log_lineups as $key => $log) {
+        foreach($mnl_queue as $key => $log) {
             foreach($log->drivers as $driver) {
                 if(count($driver->serves->where('created_at','>=',Carbon::today())) != 0) {
 
@@ -146,26 +123,20 @@ class QueuesController extends Controller
         return $arr;
     }
 
-    public function openShipment(){
+    // MNL (PFMC) open shipment
+    public function openShipment()
+    {
             
-        $check_truckscale_out = Log::select('CardholderID')
-                                    ->where('ControllerID', 4)
-                                    ->where('Direction',2)
-                                    ->whereDate('LocalTime', Carbon::now())
-                                    ->pluck('CardholderID');
+        // Get drivers with truckscale out within the day
+        $check_truckscale_out = Log::truckscaleOut();
 
-        $result_lineups = Log::with(['drivers','drivers.truck','drivers.hauler','driver.serves'])
-        ->where('ControllerID', 1)
-        ->where('DoorID',0)
-        ->whereNotIn('CardholderID',$check_truckscale_out)
-        ->whereDate('LocalTime', Carbon::now())
-        ->orderBy('LogID','ASC')->get();
-
-        $log_lineups = $result_lineups->unique('CardholderID');
+        // MNL (Pfmc) queueing location
+        $logs = Log::queueLocation(0,1,$check_truckscale_out);
+        $mnl_queue = $logs->unique('CardholderID');
     
         $arr = array();
         
-        foreach($log_lineups as $key => $log) {
+        foreach($mnl_queue as $key => $log) {
             foreach($log->drivers as $driver) {
                 if(count($driver->serves->where('created_at','>=',Carbon::today()))  == 0) {
 
@@ -199,34 +170,191 @@ class QueuesController extends Controller
         return $arr;
     }
 
+    // MNL (PFMC) deliveries count
     public function getDeliveriesCount()
     {
         $totalAssiged = count($this->assignedShipment());
         $totalOpen = count($this->openShipment());
 
-        // Check Trucks Who Has Truckcscale Out
-        $check_truckscale_out = Log::select('CardholderID')
-                                    ->where('ControllerID', 4)
-                                    ->where('Direction',2)
-                                    ->whereDate('LocalTime', Carbon::now())
-                                    ->pluck('CardholderID');
+        // Get drivers with truckscale out within the day
+        $check_truckscale_out = Log::truckscaleOut();
 
-        // Check Trucks who has Truckscale in but not out
-        $check_truckscale_in = Log::select('CardholderID')
-                                    ->where('ControllerID', 4)
-                                    ->where('Direction',1)
-                                    ->whereNotIn('CardholderID',$check_truckscale_out)
-                                    ->whereDate('LocalTime', Carbon::today())
-                                    ->pluck('CardholderID')
-                                    ->count();
+        // Check Trucks who has Truckscale in but not out        
+        $check_truckscale_in = Log::trucksInPlant(1,4,$check_truckscale_out)->count();
 
         $data = array(
             'totalAssigned' => $totalAssiged,
             'totalOpen' => $totalOpen,
             'current_in_plant' => $check_truckscale_in
         );
-
         return $data;
-
     }
+
+
+
+
+
+    /**
+     * BATAAN Queueing functions
+     */
+
+
+
+    // Manila Queue Location Method
+    public function btnDeliveries()
+    {
+        // Get drivers with truckscale out within the day
+        $check_truckscale_out = Log::truckscaleOut();
+    
+        // BTN (MGC) queueing location
+        $logs = Log::queueLocation(0,8,$check_truckscale_out);
+        $btn_queue = $logs->unique('CardholderID');
+    
+        $arr = array();
+        
+        foreach($btn_queue as $key => $log) {
+            foreach($log->drivers as $driver) {
+
+                if(!empty($driver->truck->plate_number)) {
+                    $x = str_replace('-',' ',strtoupper($driver->truck->plate_number));
+                    $z = str_replace('_','',$x);
+                    $y = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$z','deploy')");
+                }
+
+                $data = array(
+                    'log_id' => substr($log->LogID, -4),
+                    'driver_id' => $driver->id,
+                    'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
+                    'driver_name' => $driver->name,
+                    'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
+                    'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
+                    'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
+                    'log_time' => $log->LocalTime,
+                    'dr_status' => empty($y) ? 'UNPROCESS' : $y, 
+                    // 'driver_status' => $driver->availability,
+                    'on_serving' => empty($driver->serves->where('created_at','>=',Carbon::today())->first()->on_serving) ? null : $driver->serves->first()->on_serving,
+
+                );
+
+                array_push($arr, $data);
+
+            }
+        }
+
+        return $arr;
+    }
+
+        //  BTN (MGC)  assigned shipment
+    public function btnAssignedShipment() 
+    {
+
+        // Get drivers with truckscale out within the day
+        $check_truckscale_out = Log::truckscaleOut();
+
+        //  BTN (MGC)  queueing location
+        $logs = Log::queueLocation(0,8,$check_truckscale_out);
+        $btn_queue = $logs->unique('CardholderID');
+    
+        $arr = array();
+        
+        foreach($btn_queue as $key => $log) {
+            foreach($log->drivers as $driver) {
+                if(count($driver->serves->where('created_at','>=',Carbon::today())) != 0) {
+
+                if(!empty($driver->truck->plate_number)) {
+                    $x = str_replace('-',' ',strtoupper($driver->truck->plate_number));
+                    $z = str_replace('_','',$x);
+                    $y = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$z','deploy')");
+                }
+
+                $data = array(
+                    'log_id' => substr($log->LogID, -4),
+                    'driver_id' => $driver->id,
+                    'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
+                    'driver_name' => $driver->name,
+                    'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
+                    'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
+                    'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
+                    'log_time' => $log->LocalTime,
+                    'dr_status' => empty($y) ? 'UNPROCESS' : $y, 
+                    'on_serving' => 1,
+
+                );
+
+                array_push($arr, $data);
+
+                }
+            }
+        }
+
+        return $arr;
+    }
+
+    //  BTN (MGC)  open shipment
+    public function btnOpenShipment()
+    {
+            
+        // Get drivers with truckscale out within the day
+        $check_truckscale_out = Log::truckscaleOut();
+
+        // BTN (MGC) queueing location
+        $logs = Log::queueLocation(0,8,$check_truckscale_out);
+        $btn_queue = $logs->unique('CardholderID');
+    
+        $arr = array();
+        
+        foreach($btn_queue as $key => $log) {
+            foreach($log->drivers as $driver) {
+                if(count($driver->serves->where('created_at','>=',Carbon::today()))  == 0) {
+
+                if(!empty($driver->truck->plate_number)) {
+                    $x = str_replace('-',' ',strtoupper($driver->truck->plate_number));
+                    $z = str_replace('_','',$x);
+                    $y = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$z','deploy')");
+                }
+
+                $data = array(
+                    'log_id' => substr($log->LogID, -4), // $key + 1
+                    'driver_id' => $driver->id,
+                    'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
+                    'driver_name' => $driver->name,
+                    'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
+                    'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
+                    'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
+                    'log_time' => $log->LocalTime,
+                    'dr_status' => empty($y) ? 'UNPROCESS' : $y, 
+                    // 'driver_status' => $driver->availability,
+                    'on_serving' => empty($driver->serves->where('created_at','>=',Carbon::today())->first()->on_serving) ? null : $driver->serves->first()->on_serving,
+
+                );
+
+                array_push($arr, $data);
+
+                }
+            }
+        }
+
+        return $arr;
+    }
+
+    // MNL (PFMC) deliveries count
+    // public function btnGetDeliveriesCount()
+    // {
+    //     $totalAssiged = count($this->assignedShipment());
+    //     $totalOpen = count($this->openShipment());
+
+    //     // Get drivers with truckscale out within the day
+    //     $check_truckscale_out = Log::truckscaleOut();
+
+    //     // Check Trucks who has Truckscale in but not out        
+    //     $check_truckscale_in = Log::trucksInPlant(1,4,$check_truckscale_out)->count();
+
+    //     $data = array(
+    //         'totalAssigned' => $totalAssiged,
+    //         'totalOpen' => $totalOpen,
+    //         'current_in_plant' => $check_truckscale_in
+    //     );
+    //     return $data;
+    // }
+
 }

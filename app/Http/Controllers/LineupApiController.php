@@ -118,6 +118,7 @@ class LineupApiController extends Controller
         return $arr;
    }
 
+    // MANILA PLFC Driver's queue
     public function getDriverQue()
     {
         // Get the total truckscale Out from truck monitoring today

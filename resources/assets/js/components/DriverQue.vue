@@ -34,9 +34,16 @@
             <div class="col-6">
                      <div class="card bg-light rounded-0">
                         <div class="card-body text-center">
-                            <div class="row" v-if="!currentlyServing.length == 0" v-for="serving in currentlyServing">
+                            <div class="row" v-if="!currentlyServing.length == 0" v-for="(serving, i) in currentlyServing" :key="i">
                                 <div class="col-3">
+
+                                <span v-if="serving.driver.image.avatar">
+                                    <img :src="avatar_link + serving.driver.image.avatar" class="rounded-circle" style="height: 100px; width: auto;"  align="right">
+                                </span>
+                                <span v-else>
                                     <img :src="avatar_link + serving.driver.avatar" class="rounded-circle" style="height: 100px; width: auto;"  align="right">
+                                </span>
+                             
                                 </div>
 
                                 <div class="col-3 text-left">

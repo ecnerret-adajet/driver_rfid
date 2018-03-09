@@ -17,9 +17,23 @@
 
   @role((['Administrator','Queue-monitoring']))
     <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Deliveries Queues</a>
+      <a class="nav-link" data-toggle="tab" href="#manila" role="tab">MNL(PFMC) Queues</a>
     </li>
   @endrole
+
+    @role((['Administrator','Queue-monitoring']))
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#bataan" role="tab">BTN(MGC) Queues</a>
+    </li>
+  @endrole
+
+  @role((['Administrator','Queue-monitoring']))
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#lapaz" role="tab">MNL(Lapaz) Queues</a>
+    </li>
+  @endrole
+
+
 </ul>
 
 <!-- Tab panes -->
@@ -32,8 +46,27 @@
   @endrole
   
   @role((['Administrator','Queue-monitoring']))
-    <div class="tab-pane" id="profile" role="tabpanel">
+    <div class="tab-pane" id="manila" role="tabpanel">
       <monitor-queue-deliveries></monitor-queue-deliveries>
+    </div>
+  @endrole
+
+
+
+   @role((['Administrator','Queue-monitoring']))
+    <div class="tab-pane" id="bataan" role="tabpanel">
+      <monitor-queue-deliveries-btn></monitor-queue-deliveries-btn>
+    </div>
+  @endrole
+
+    @role((['Administrator','Queue-monitoring']))
+    <div class="tab-pane" id="lapaz" role="tabpanel">
+      <div class="jumbotron jumbotron-fluid m-3">
+      <div class="container text-center">
+        <h1 class="display-4 text-muted">Coming Soon</h1>
+        {{--  <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>  --}}
+      </div>
+    </div>
     </div>
   @endrole
 </div>

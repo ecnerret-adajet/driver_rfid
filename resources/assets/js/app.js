@@ -55,6 +55,8 @@ Vue.component('manilaArea', require('./components/ManilaArea.vue'));
 Vue.component('bataanArea', require('./components/BataanArea.vue'));
 Vue.component('resignedDrivers', require('./components/ResignedDrivers.vue'));
 
+Vue.component('monitorQueueDeliveriesBtn', require('./components/MonitorQueueDeliveriesBtn.vue'));
+
 const app = new Vue({
     el: '#app'
 });

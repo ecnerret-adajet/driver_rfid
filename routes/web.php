@@ -269,8 +269,14 @@ Route::get('/monitor/feed','QueuesController@index');
 Route::get('/monitor/pickups', 'QueuesController@pickups');
 Route::get('/monitor/deliveries','QueuesController@deliveries');
 Route::get('/monitor/assignedShipment','QueuesController@assignedShipment');
-Route::get('/monitor/count','QueuesController@getDeliveriesCount');
 Route::get('/monitor/openShipment','QueuesController@openShipment');
+Route::get('/monitor/count','QueuesController@getDeliveriesCount');
+Route::get('/monitor/btnDeliveries','QueuesController@btnDeliveries');
+Route::get('/monitor/btnAssignedShipment','QueuesController@btnAssignedShipment');
+Route::get('/monitor/btnOpenShipment','QueuesController@btnOpenShipment');
+
+
+
 Route::post('/storeCurrentlyServing/{id}','ServingController@storeCurrentlyServing');
 
 

@@ -262,4 +262,30 @@ class Log extends Model
                 ->with('driver')
                 ->pluck('CardholderID');
      }
+
+     /**
+      * Get Drivers tapped from queueing RFID based from location parameter
+      */
+      public function scopeQueueLocation($query, $door, $controller, $hasTruckscaleOut)
+      {
+        return $query->with(['drivers','drivers.truck','drivers.hauler','driver.serves'])
+                ->where('ControllerID', $controller)
+                ->where('DoorID',$door)
+                ->whereNotIn('CardholderID',$hasTruckscaleOut)
+                ->whereDate('LocalTime', Carbon::today())
+                ->orderBy('LogID','ASC')->get();
+      }
+
+      /**
+       * Get Trucks whose currently in the plant, but no truckscale out
+       */
+      public function scopeTrucksInPlant($query, $direction, $controller, $hasTruckscaleOut)
+      {
+        return $query->select('CardholderID')
+                    ->where('ControllerID', $controller)
+                    ->where('Direction',$direction)
+                    ->whereNotIn('CardholderID',$hasTruckscaleOut)
+                    ->whereDate('LocalTime', Carbon::today())
+                    ->pluck('CardholderID');
+      }
 }
