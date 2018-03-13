@@ -39,7 +39,8 @@ class UsersController extends Controller
     {
         $roles = Role::pluck('display_name','id');
         $haulers = Hauler::pluck('name','id');
-        return view('users.create',compact('roles','haulers'));  
+        $companies = Company::pluck('name','id');
+        return view('users.create',compact('roles','haulers','companies'));  
     }
 
     /**
