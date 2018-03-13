@@ -56,6 +56,7 @@ Vue.component('bataanArea', require('./components/BataanArea.vue'));
 Vue.component('resignedDrivers', require('./components/ResignedDrivers.vue'));
 
 Vue.component('monitorQueueDeliveriesBtn', require('./components/MonitorQueueDeliveriesBtn.vue'));
+Vue.component('monitorQueueDeliveriesLpz', require('./components/MonitorQueueDeliveriesLpz.vue'));
 
 const app = new Vue({
     el: '#app'

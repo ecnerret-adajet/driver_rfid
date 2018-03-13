@@ -218,6 +218,20 @@ class Log extends Model
                 ->pluck('CardholderID');
     }
 
+    /**
+     * Get all drivers who has truckscale out in lapaz within current date
+     * 
+     * Pluck Return
+     */
+    public function scopeLpzTruckscaleOut($query)
+    {
+        return  $query->select('CardholderID')
+                ->where('ControllerID', 6) // lapaz controller
+                ->where('Direction',2) // All Truckscale Out
+                ->whereDate('LocalTime', Carbon::today())
+                ->pluck('CardholderID');
+    }
+
     public function scopeThisDay($query)
     {
         return $query->whereDate('LocalTime', '>=', Carbon::now());

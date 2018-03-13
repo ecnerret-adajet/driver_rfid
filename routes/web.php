@@ -271,9 +271,15 @@ Route::get('/monitor/deliveries','QueuesController@deliveries');
 Route::get('/monitor/assignedShipment','QueuesController@assignedShipment');
 Route::get('/monitor/openShipment','QueuesController@openShipment');
 Route::get('/monitor/count','QueuesController@getDeliveriesCount');
+// Queue Monitoring Bataan
 Route::get('/monitor/btnDeliveries','QueuesController@btnDeliveries');
 Route::get('/monitor/btnAssignedShipment','QueuesController@btnAssignedShipment');
 Route::get('/monitor/btnOpenShipment','QueuesController@btnOpenShipment');
+// Queue Monitoring Lapaz
+Route::get('/monitor/lpzDeliveries','QueuesController@lpzDeliveries');
+Route::get('/monitor/lpzAssignedShipment','QueuesController@lpzAssignedShipment');
+Route::get('/monitor/lpzOpenShipment','QueuesController@lpzOpenShipment');
+Route::get('/monitor/lpzCount','QueuesController@getLpzDeliveriesCount');
 
 
 

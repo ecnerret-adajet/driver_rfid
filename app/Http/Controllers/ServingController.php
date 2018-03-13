@@ -48,7 +48,7 @@ class ServingController extends Controller
                 $data = array(
                     'served_id' => $x->id,
                     'driver_id' => $x->driver->id,
-                    'avatar' => $x->driver->avatar,
+                    'avatar' => empty($x->driver->avatar) ? $x->$driver->image->avatar : $x->driver->avatar,
                     'on_servering' => $x->on_serving,
                     'served_start' => $x->served_start_date,
                     'served_end_date' => $x->served_end_date,

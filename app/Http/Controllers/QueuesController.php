@@ -244,7 +244,7 @@ class QueuesController extends Controller
         return $arr;
     }
 
-        //  BTN (MGC)  assigned shipment
+    //  BTN (MGC)  assigned shipment
     public function btnAssignedShipment() 
     {
 
@@ -356,5 +356,169 @@ class QueuesController extends Controller
     //     );
     //     return $data;
     // }
+
+    /**
+     * MNL (LAPAZ) Queueing functions
+     */
+
+    // Manila LAPAZ Location Method
+    public function lpzDeliveries()
+    {
+        // Get drivers with truckscale out within the day
+        $check_truckscale_out = Log::lpzTruckscaleOut();
+    
+        // MNL (LAPAZ) queueing location
+        // Gate barrier as temporarily treat as queue
+        $logs = Log::queueLocation(0,5,$check_truckscale_out);
+        $lpz_queue = $logs->unique('CardholderID');
+    
+        $arr = array();
+        
+        foreach($lpz_queue as $key => $log) {
+            foreach($log->drivers as $driver) {
+
+                if(!empty($driver->truck->plate_number)) {
+                    $x = str_replace('-',' ',strtoupper($driver->truck->plate_number));
+                    $z = str_replace('_','',$x);
+                    $y = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$z','deploy')");
+                }
+
+                $data = array(
+                    'log_id' => substr($log->LogID, -4),
+                    'driver_id' => $driver->id,
+                    'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
+                    'driver_name' => $driver->name,
+                    'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
+                    'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
+                    'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
+                    'log_time' => $log->LocalTime,
+                    'dr_status' => empty($y) ? 'UNPROCESS' : $y, 
+                    // 'driver_status' => $driver->availability,
+                    'on_serving' => empty($driver->serves->where('created_at','>=',Carbon::today())->first()->on_serving) ? null : $driver->serves->first()->on_serving,
+
+                );
+
+                array_push($arr, $data);
+
+            }
+        }
+
+        return $arr;
+    }
+
+
+     //  MNL (LPZ)  assigned shipment
+    public function lpzAssignedShipment() 
+    {
+
+        // Get drivers with truckscale out within the day
+        $check_truckscale_out = Log::lpzTruckscaleOut();
+
+        //  MNL (LPZ)  queueing location
+        $logs = Log::queueLocation(0,5,$check_truckscale_out);
+        $btn_queue = $logs->unique('CardholderID');
+    
+        $arr = array();
+        
+        foreach($btn_queue as $key => $log) {
+            foreach($log->drivers as $driver) {
+                if(count($driver->serves->where('created_at','>=',Carbon::today())) != 0) {
+
+                if(!empty($driver->truck->plate_number)) {
+                    $x = str_replace('-',' ',strtoupper($driver->truck->plate_number));
+                    $z = str_replace('_','',$x);
+                    $y = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$z','deploy')");
+                }
+
+                $data = array(
+                    'log_id' => substr($log->LogID, -4),
+                    'driver_id' => $driver->id,
+                    'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
+                    'driver_name' => $driver->name,
+                    'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
+                    'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
+                    'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
+                    'log_time' => $log->LocalTime,
+                    'dr_status' => empty($y) ? 'UNPROCESS' : $y, 
+                    'on_serving' => 1,
+
+                );
+
+                array_push($arr, $data);
+
+                }
+            }
+        }
+
+        return $arr;
+    }
+
+    //  MNL (LPZ)  open shipment
+    public function lpzOpenShipment()
+    {
+            
+        // Get drivers with truckscale out within the day
+        $check_truckscale_out = Log::lpzTruckscaleOut();
+
+        // MNL (LPZ) queueing location
+        $logs = Log::queueLocation(0,5,$check_truckscale_out);
+        $btn_queue = $logs->unique('CardholderID');
+    
+        $arr = array();
+        
+        foreach($btn_queue as $key => $log) {
+            foreach($log->drivers as $driver) {
+                if(count($driver->serves->where('created_at','>=',Carbon::today()))  == 0) {
+
+                if(!empty($driver->truck->plate_number)) {
+                    $x = str_replace('-',' ',strtoupper($driver->truck->plate_number));
+                    $z = str_replace('_','',$x);
+                    $y = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$z','deploy')");
+                }
+
+                $data = array(
+                    'log_id' => substr($log->LogID, -4), // $key + 1
+                    'driver_id' => $driver->id,
+                    'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
+                    'driver_name' => $driver->name,
+                    'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
+                    'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
+                    'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
+                    'log_time' => $log->LocalTime,
+                    'dr_status' => empty($y) ? 'UNPROCESS' : $y, 
+                    // 'driver_status' => $driver->availability,
+                    'on_serving' => empty($driver->serves->where('created_at','>=',Carbon::today())->first()->on_serving) ? null : $driver->serves->first()->on_serving,
+
+                );
+
+                array_push($arr, $data);
+
+                }
+            }
+        }
+
+        return $arr;
+    }
+
+    // MNL (LAPAZ) deliveries count
+    public function getLpzDeliveriesCount()
+    {
+        $totalAssiged = count($this->lpzAssignedShipment());
+        $totalOpen = count($this->lpzOpenShipment());
+
+        // Get drivers with truckscale out within the day
+        $check_truckscale_out = Log::lpzTruckscaleOut();
+
+        // Check Trucks who has Truckscale in but not out        
+        $check_truckscale_in = Log::trucksInPlant(1,6,$check_truckscale_out)->count();
+
+        $data = array(
+            'totalAssigned' => $totalAssiged,
+            'totalOpen' => $totalOpen,
+            'current_in_plant' => $check_truckscale_in
+        );
+        return $data;
+    }
+
 
 }
