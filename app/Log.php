@@ -232,6 +232,19 @@ class Log extends Model
                 ->pluck('CardholderID');
     }
 
+    /**
+     *  Get all drivers who has truckscale out in BTN MGC within current date
+     */
+    public function scopeBtnTruckscaleOut($query)
+    {
+        return  $query->select('CardholderID')
+                ->where('ControllerID', 8) // lapaz controller
+                ->where('Direction',2) // All Truckscale Out
+                ->whereDate('LocalTime', Carbon::today())
+                ->pluck('CardholderID');
+    }
+
+
     public function scopeThisDay($query)
     {
         return $query->whereDate('LocalTime', '>=', Carbon::now());

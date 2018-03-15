@@ -204,10 +204,10 @@ class QueuesController extends Controller
     public function btnDeliveries()
     {
         // Get drivers with truckscale out within the day
-        $check_truckscale_out = Log::truckscaleOut();
+        $check_truckscale_out = Log::btnTruckscaleOut();
     
         // BTN (MGC) queueing location
-        $logs = Log::queueLocation(0,8,$check_truckscale_out);
+        $logs = Log::queueLocation(2,7,$check_truckscale_out);
         $btn_queue = $logs->unique('CardholderID');
     
         $arr = array();
@@ -249,10 +249,10 @@ class QueuesController extends Controller
     {
 
         // Get drivers with truckscale out within the day
-        $check_truckscale_out = Log::truckscaleOut();
+        $check_truckscale_out = Log::btnTruckscaleOut();
 
         //  BTN (MGC)  queueing location
-        $logs = Log::queueLocation(0,8,$check_truckscale_out);
+        $logs = Log::queueLocation(2,7,$check_truckscale_out);
         $btn_queue = $logs->unique('CardholderID');
     
         $arr = array();
@@ -295,10 +295,10 @@ class QueuesController extends Controller
     {
             
         // Get drivers with truckscale out within the day
-        $check_truckscale_out = Log::truckscaleOut();
+        $check_truckscale_out = Log::btnTruckscaleOut();
 
         // BTN (MGC) queueing location
-        $logs = Log::queueLocation(0,8,$check_truckscale_out);
+        $logs = Log::queueLocation(2,7,$check_truckscale_out);
         $btn_queue = $logs->unique('CardholderID');
     
         $arr = array();
@@ -356,6 +356,8 @@ class QueuesController extends Controller
     //     );
     //     return $data;
     // }
+
+    
 
     /**
      * MNL (LAPAZ) Queueing functions
