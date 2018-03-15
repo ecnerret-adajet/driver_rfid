@@ -62,8 +62,6 @@ Route::get('/manila','BarriersController@manilaArea');
 Route::get('/bataanAPI','BarriersController@bataanAPI');
 Route::get('/bataan','BarriersController@bataanArea');
 
-
-
 //Route Setup for driver monitoring
 Route::get('/driver/queues','LineupsController@DriversQue');
 // Route setup to check last dr submission
@@ -73,6 +71,12 @@ Route::get('/getLastDriver','LineupApiController@getLastDriver');
 Route::get('/serving','ServingController@currentlyServing');
 Route::get('/servedToday','ServingController@servedToday');
 Route::get('/getTotalQueueToday','LineupApiController@getTotalQueueToday');
+
+// BTN Route for driver queueing monitor
+Route::get('/driver/queuesBtn','LineupsController@DriversQueBtn');
+Route::get('/queuesBtn','LineupApiController@getBtnDriverQue');
+Route::get('/getTotalQueueTodayBtn','LineupApiController@getBtnTotalQueueToday');
+Route::get('/getLastDriverBtn','LineupApiController@getBtnLastDriver');
 
 Auth::routes();
 

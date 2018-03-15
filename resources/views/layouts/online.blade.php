@@ -25,7 +25,7 @@
     <link href="{{ asset('css/dataTables.bootstrap4.css') }}" rel="stylesheet">
     </head>
 
-    <body class="{{ Request::is('driver/queues') ? '' : 'fixed-nav sticky-footer' }}" id="page-top">
+    <body class="{{ Request::is('driver/*') ? '' : 'fixed-nav sticky-footer' }}" id="page-top">
 
     <div id="app">
 
@@ -33,7 +33,7 @@
     {{--  style="background: url({{ URL::asset('img/materializebg.jpg') }}) no-repeat fixed; background-position: 20% 50%;"   --}}
     <!-- Navigation -->
 
-    @if(!Request::is('driver/queues'))
+    @if(!Request::is('driver/*'))
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="mainNav">
         <a class="navbar-brand" href="{{url('/')}}">
           <img class="rounded-circle" src="{{ asset('img/logo.jpg') }}" style=" width: 30px; height: auto;">

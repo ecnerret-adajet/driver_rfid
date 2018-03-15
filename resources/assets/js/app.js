@@ -57,6 +57,7 @@ Vue.component('resignedDrivers', require('./components/ResignedDrivers.vue'));
 
 Vue.component('monitorQueueDeliveriesBtn', require('./components/MonitorQueueDeliveriesBtn.vue'));
 Vue.component('monitorQueueDeliveriesLpz', require('./components/MonitorQueueDeliveriesLpz.vue'));
+Vue.component('driverQueueBtn', require('./components/DriverQueueBtn.vue'));
 
 const app = new Vue({
     el: '#app'

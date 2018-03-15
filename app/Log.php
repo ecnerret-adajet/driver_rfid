@@ -204,6 +204,20 @@ class Log extends Model
     }
 
     /**
+     * 
+     * Get all driver who has truckscale IN withtin BTN MGC wihtin current date
+     * 
+     */
+    public function scopeBtnTruckscaleIn($query)
+    {
+         return  $query->select('CardholderID')
+                ->where('ControllerID', 8) // bataan controller
+                ->where('Direction',1) // All Truckscale In
+                ->whereDate('LocalTime', Carbon::today())
+                ->pluck('CardholderID');
+    }
+
+    /**
      * Get all Drivers who has a truckscale OUT within current date
      * 
      * Pluck Return
@@ -238,7 +252,7 @@ class Log extends Model
     public function scopeBtnTruckscaleOut($query)
     {
         return  $query->select('CardholderID')
-                ->where('ControllerID', 8) // lapaz controller
+                ->where('ControllerID', 8) // bataan controller
                 ->where('Direction',2) // All Truckscale Out
                 ->whereDate('LocalTime', Carbon::today())
                 ->pluck('CardholderID');
@@ -314,5 +328,22 @@ class Log extends Model
                     ->whereNotIn('CardholderID',$hasTruckscaleOut)
                     ->whereDate('LocalTime', Carbon::today())
                     ->pluck('CardholderID');
+      }
+
+      /**
+       * Get Driver queue tap to Monitor Screen in the truckscale office
+       */
+      public function scopeDriverQueueingLocation($query, $controller, $door, $locationGate, $checkTruckscaleOut)
+      {
+          return $query->with(['drivers','drivers.truck','drivers.hauler','driver.serves','driver.image'])
+                            ->where('ControllerID', $controller)
+                            ->where('DoorID',$door)
+                            ->whereIn('CardholderID',$locationGate)
+                            ->whereNotIn('CardholderID',$checkTruckscaleOut)
+                            ->whereDate('LocalTime', Carbon::today())
+                            ->orderBy('LogID','ASC')
+                            ->take(20)
+                            ->get();
+
       }
 }

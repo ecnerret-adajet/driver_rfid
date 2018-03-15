@@ -21,12 +21,20 @@ class LineupsController extends Controller
 {
 
     /**
-     * Driver monitoring for que outside trucscale office
+     * Driver monitoring for que outside truckscale office in manila
      * 
      */
     public function DriversQue()
     {
         return view('lineups.driversQue');
+    }
+
+    /**
+     *  Driver monitoring for que outside truckscale office in bataan
+     */
+    public function DriversQueBtn()
+    {
+        return view('lineups.driversQueBtn');
     }
 
 
