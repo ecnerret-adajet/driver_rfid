@@ -28,13 +28,13 @@ class ServingController extends Controller
     public function servedToday()
     {
 
-         $current_serving = Serve::with('driver','driver.truck','driver.hauler','user')
+         $current_serving = Serve::with('driver','driver.truck','driver.hauler','driver.image','user')
                             ->orderBy('id','DESC')
                             ->where('on_serving',1)
                             ->take(1)
                             ->pluck('id');
 
-          $served = Serve::with('driver','driver.trucks','driver.haulers','user')
+          $served = Serve::with('driver','driver.trucks','driver.haulers','driver.image','user')
                             ->orderBy('id','DESC')
                             ->whereNotIn('id',$current_serving)
                             ->whereDate('created_at',Carbon::today())
@@ -45,10 +45,10 @@ class ServingController extends Controller
           $arr = array();
 
            foreach($served as $x) {
-                $data = array(
+                $data = array( 
                     'served_id' => $x->id,
                     'driver_id' => $x->driver->id,
-                    'avatar' => empty($x->driver->avatar) ? $x->$driver->image->avatar : $x->driver->avatar,
+                    'avatar' => !empty($x->driver->image) ? $x->driver->image->avatar : $x->driver->avatar,
                     'on_servering' => $x->on_serving,
                     'served_start' => $x->served_start_date,
                     'served_end_date' => $x->served_end_date,

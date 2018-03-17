@@ -60,9 +60,9 @@ class BarriersController extends Controller
 
         $barriers = Log::select('LogID','CardholderID')
         // ->whereDate('LocalTime',Carbon::today())
-        ->whereIn('DoorID',[$door])
-        ->whereNotIn('CardholderID',$this->barrierNoDriver())
+        ->where('DoorID',$door)
         ->where('ControllerID', $controller)
+        ->whereNotIn('CardholderID',$this->barrierNoDriver())
         ->where('CardholderID', '>=', 15)
         ->orderBy('LocalTime','DESC')
         ->with('driver')
@@ -134,7 +134,7 @@ class BarriersController extends Controller
 
                     );
 
-                    array_push($arr, $data);
+                    array_push($arr, $data); 
             }
         }
 

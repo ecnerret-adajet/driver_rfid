@@ -73,7 +73,7 @@ class LineupApiController extends Controller
                         ->where('ControllerID', 1)
                         ->where('DoorID',0)
                         ->whereNotIn('CardholderID',$check_truckscale_out)
-                        ->whereDate('LocalTime', Carbon::now())
+                        // ->whereDate('LocalTime', Carbon::now())
                         ->orderBy('LogID','DESC')
                         ->take(1)
                         ->get();
@@ -304,7 +304,7 @@ class LineupApiController extends Controller
                         ->where('ControllerID', 7)
                         ->where('DoorID',2)
                         ->whereNotIn('CardholderID',$check_truckscale_out)
-                        ->whereDate('LocalTime', Carbon::today())
+                        // ->whereDate('LocalTime', Carbon::today())
                         ->orderBy('LogID','DESC')
                         ->take(1)
                         ->get();
