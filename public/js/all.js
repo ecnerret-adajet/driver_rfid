@@ -82635,7 +82635,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "row"
     }, [_c('div', {
       staticClass: "col-3"
-    }, [(serving.driver.image.avatar) ? _c('span', [_c('img', {
+    }, [(serving.driver.image) ? _c('span', [_c('img', {
       staticClass: "rounded-circle",
       staticStyle: {
         "height": "100px",

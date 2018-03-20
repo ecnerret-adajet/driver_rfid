@@ -37,7 +37,7 @@
                             <div class="row" v-if="!currentlyServing.length == 0" v-for="(serving, i) in currentlyServing" :key="i">
                                 <div class="col-3">
 
-                                <span v-if="serving.driver.image.avatar">
+                                <span v-if="serving.driver.image">
                                     <img :src="avatar_link + serving.driver.image.avatar" class="rounded-circle" style="height: 100px; width: auto;"  align="right">
                                 </span>
                                 <span v-else>
