@@ -210,7 +210,7 @@
                     </tr>
                 </thead> 
                 <tbody class="border border-warning">
-                    <tr  v-for="queue in lastDriver">
+                    <tr :class="{ 'table-danger' : queue.availability == 0 }"  v-for="(queue, i) in lastDriver" :key="i">
                         <td width="15%" class="text-center">
                             <span class="display-4">
                             {{ queue.queue_number }}
@@ -263,6 +263,13 @@
                         <td class="text-center" style="padding-top: 30px; padding-bottom: 30px;" colspan="3">
                             <span class="display-4 text-muted">
                                 Nothing Here
+                            </span>
+                        </td>
+                    </tr>
+                    <tr :class="{ 'table-danger' : queue.availability == 0 }" v-if="queue.availability == 0"  v-for="(queue, i) in lastDriver" :key="i" colspan="3"  style="padding-top: 5px; padding-bottom: 5px;">
+                        <td colspan="3" class="text-center"> 
+                             <span class="text-uppercase">
+                               Driver is deactivated
                             </span>
                         </td>
                     </tr>

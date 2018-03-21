@@ -103,6 +103,7 @@ class LineupApiController extends Controller
                         'driver_name' => $driver->name,
                         'plate_number' => empty($driver->trucks->first()->plate_number) ? 'NO PLATE' : $driver->trucks->first()->plate_number,
                         'hauler' => empty($driver->haulers->first()->name) ? 'NO HAULER' : $driver->haulers->first()->name,
+                        'availability' => $driver->availability,
                         'log_time' => $log->LocalTime,
                         'dr_status' => empty($y) ? 'UNPROCESS' : $a, 
                         'on_serving' => empty($driver->serves->first()->on_serving) ? null : $driver->serves->first()->on_serving,
@@ -127,17 +128,7 @@ class LineupApiController extends Controller
         $served = Serve::servedToday();
         // Get the total drivers who tapped from Gate RFID
         $manilaGate =  Log::barrierLocation(3,2);
-
-        // $result_lineups = Log::with(['drivers','drivers.truck','drivers.hauler','driver.serves','driver.image'])
-        //                 ->where('ControllerID', 1)
-        //                 ->where('DoorID',0)
-        //                 ->whereIn('CardholderID',$manilaGate)
-        //                 ->whereNotIn('CardholderID',$check_truckscale_out)
-        //                 ->whereDate('LocalTime', Carbon::now())
-        //                 ->orderBy('LogID','ASC')
-        //                 ->take(20)
-        //                 ->get();
-        
+        // Get the queue result
         $result_lineups = Log::driverQueueingLocation(1, 0, $manilaGate, $check_truckscale_out);
 
         // Get the unique result from Cardholder
@@ -168,6 +159,7 @@ class LineupApiController extends Controller
                         'driver_name' => $driver->name,
                         'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
                         'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
+                        'availability' => $driver->availability,
                         'log_time' => $log->LocalTime,
                         'dr_status' => empty($y) ? 'UNPROCESS' : $a, 
                         'on_serving' => empty($driver->serves->first()->on_serving) ? null : $driver->serves->first()->on_serving,
@@ -232,6 +224,7 @@ class LineupApiController extends Controller
                         'driver_name' => $driver->name,
                         'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
                         'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
+                        'availability' => $driver->availability,
                         'log_time' => $log->LocalTime,
                         'dr_status' => empty($y) ? 'UNPROCESS' : $a, 
                         'on_serving' => empty($driver->serves->first()->on_serving) ? null : $driver->serves->first()->on_serving,
@@ -334,6 +327,7 @@ class LineupApiController extends Controller
                         'driver_name' => $driver->name,
                         'plate_number' => empty($driver->trucks->first()->plate_number) ? 'NO PLATE' : $driver->trucks->first()->plate_number,
                         'hauler' => empty($driver->haulers->first()->name) ? 'NO HAULER' : $driver->haulers->first()->name,
+                        'availability' => $driver->availability,
                         'log_time' => $log->LocalTime,
                         'dr_status' => empty($y) ? 'UNPROCESS' : $a, 
                         'on_serving' => empty($driver->serves->first()->on_serving) ? null : $driver->serves->first()->on_serving,
