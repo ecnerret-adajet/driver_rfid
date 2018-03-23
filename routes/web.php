@@ -285,10 +285,7 @@ Route::get('/monitor/lpzAssignedShipment','QueuesController@lpzAssignedShipment'
 Route::get('/monitor/lpzOpenShipment','QueuesController@lpzOpenShipment');
 Route::get('/monitor/lpzCount','QueuesController@getLpzDeliveriesCount');
 
-
-
 Route::post('/storeCurrentlyServing/{id}','ServingController@storeCurrentlyServing');
-
 
 Route::get('/feed','FeedsController@index');
 Route::get('/feed-content','FeedsController@feedContent');
@@ -353,13 +350,25 @@ Route::get('/inspects/show/{truck}','TruckInspectionController@inspectionHistory
 
 
 /**
- * 
  * Route Setup for pickup list
- * 
  */
 Route::get('/picklist/{driver_id}/{log}','PickListsController@pickList');
 
+Route::get('/gates/create','MonitoringsController@createGate');
+Route::post('/gates/store','MonitoringsController@storeGate');
+Route::get('/queues/create','MonitoringsController@createQueue');
+Route::post('/queues/store','MonitoringsController@storeQueue');
+Route::get('/monitoring','MonitoringsController@index');
+Route::get('/gate/entries/{gate}','MonitoringsController@gateEntries');
+Route::get('/queue/entries/{driverqueue}','MonitoringsController@queueEntries');
+Route::get('/gates','MonitoringsController@allGates');
+Route::get('/searchGateEntries/{gate}','MonitoringsController@searchGateEntries');
+Route::get('/searchQueueEntries/{driverqueue}','MonitoringsController@searchQueueEntries');
+Route::get('/driverqueues','MonitoringsController@allQueues');
+Route::resource('/areas', 'AreasController');
+
 });
+
 
 Route::any('{any?}', function ($any = null) {
     if (Auth::check()) {

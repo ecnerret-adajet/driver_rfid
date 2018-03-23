@@ -149,5 +149,21 @@ class User extends Authenticatable
         return $this->hasMany(Inspection::class);
     }
 
+    /**
+     * Linked to a user who created a queue monitoring
+     */
+    public function driverqueues()
+    {
+        return $this->hasMany(Queue::class);
+    }
+
+    /**
+     * Linked to a user who created a gate RFID
+     */
+    public function gates()
+    {
+        return $this->hasMany(Gate::class);
+    }
+
 
 }

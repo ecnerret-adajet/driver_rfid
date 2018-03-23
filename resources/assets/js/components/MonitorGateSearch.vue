@@ -1,83 +1,66 @@
 <template>
-    <div>   
+  <div>
         <table class="table table-bordered" :class="{'table-striped' : !loading}">
         <thead>
             <tr class="text-uppercase font-weight-light">
-            <th scope="col"> <small>  Queue # </small> </th>
-            <th scope="col"> <small>  Driver Details </small> </th>
+            <th scope="col"> <small>  Driver Details  </small> </th>
             <th scope="col"> <small>  Capacity </small> </th>
-            <th scope="col"> <small>  Recorded Time /Date </small> </th>
+            <th scope="col"> <small>  Recorded Time / Date </small> </th>
             <th scope="col"> <small>  Status</small> </th>
             </tr>
         </thead> 
         <tbody>
 
-            <tr v-for="queue in filteredQueues" v-if="!loading">
+            <tr v-for="(entry,i) in filteredQueues" v-if="!loading" :key="i">
 
-                <td class="text-center">
-                    <span class="display-4">
-                     {{ queue.log_id }}
-                    </span> 
-                </td>
                 <td>
                     <div class="row">
-                        <div class="col-2 text-center">
-                            <img :src="avatar_link + queue.driver_avatar" class="rounded-circle mx-auto align-middle" style="height: 100px; width: auto;"  align="middle">
+                        <div class="col-3">
+                            <img :src="avatar_link + entry.avatar" class="rounded-circle mx-auto align-middle" style="height: 100px; width: auto;"  align="middle">
                         </div>
-                         <div class="col-10">
-                            {{ queue.driver_name }} <br/>
-                            {{ queue.plate_number }} <br/>
-                            <span v-if="queue.hauler == 'NO HAULER'" class="text-danger">
-                                    {{ queue.hauler }}
+                        <div class="col-9">
+                            {{ entry.driver }} <br/>
+                            {{ entry.plate_number }} <br/>
+                            <span v-if="entry.hauler_name == 'NO HAULER'" class="text-danger">
+                                    {{ entry.hauler_name }}
                             </span>
                             <span v-else>
-                                    {{ queue.hauler }}
-                            </span><br/>
-                            <span v-for="(x,y) in queue.plant_truck" :key="y" class="badge badge-secondary m-1">
-                                {{ x }}
+                                    {{ entry.hauler_name }}
                             </span>
                         </div>
                     </div>
                    
                 </td>
-                <td width="7%">
-                    <span v-if="queue.capacity">
-                        {{ queue.capacity }} 
+                <td>
+                    <span v-if="entry.capacity">
+                        {{ entry.capacity }} 
                     </span>
-                    <span class="text-muted" v-if="!queue.capacity">
+                    <span class="text-muted" v-if="!entry.capacity">
                         N/A
                     </span>
                 </td>
                 <td>
                     <small class="text-uppercase text-muted">
-                        LAST DR SUBMISSION
-                    </small> <br/>
-                    <span v-if="queue.dr_status" v-for="(status, index) in queue.dr_status">
-                        <span v-if="index == 0">
-                            {{ status.submission_date }}
-                        </span>                                            
-                    </span> <br/>
-                    <small class="text-uppercase text-muted">
-                        TAPPED IN QUEUE
+                        TAPPED IN GATE
                     </small><br/>
-                     {{ moment(queue.log_time.date) }}
+                     {{ moment(entry.inLocalTime.date)}} 
                 </td>
                 <td>
-                    <span v-if="!queue.on_serving">
-                        <a class="btn btn-success" href="javascript:void(0);" data-toggle="modal" :data-target="'#servingModal-'+ queue.driver_id">
-                            OPEN FOR SHIPMENT
-                        </a>
+                    <span v-if="entry.availability == 1 && entry.plate_availability == 1">
+                        <button class="btn btn-outline-success btn-sm disabled">
+                            ACTIVE
+                        </button>
                     </span>
                     <span v-else>
                         <button class="btn btn-outline-danger btn-sm disabled">
-                        SHIPMENT ASSIGNED
+                            DEACTIVATED
                         </button>
                     </span>
                 </td>
 
             </tr>
             <tr v-if="filteredQueues.length == 0 && !loading">
-                <td colspan="8">
+                <td colspan="4">
                     <div class="row">
                         <div class="col text-center pt-3 pb-3">
                             <span class="display-4 text-muted">
@@ -88,7 +71,7 @@
                 </td>
             </tr>
             <tr v-if="loading">
-                    <td colspan="8">
+                    <td colspan="4">
                         <div class="row">
                             <div class="col">
                                 <content-placeholders style="border: 0 ! important;" :rounded="true">
@@ -119,53 +102,53 @@
                 <button :disabled="!showNextLink()" class="btn btn-default btn-sm" v-on:click="setPage(currentPage + 1)"> Next </button>
             </div>
             <div class="col-6 text-right">
-                <span>{{ queues.length }} Queue(s)</span>
+                <span>{{ entries.length }} Queue(s)</span>
             </div>
         </div>
 
+       
 
-    </div>
+    </div><!-- end template -->
+
 </template>
 <script>
-import moment from 'moment';
-import VueContentPlaceholders from 'vue-content-placeholders';
-import _ from 'lodash';
+
+    import moment from 'moment';
+    import VueContentPlaceholders from 'vue-content-placeholders';
+    import _ from 'lodash';
 
     export default {
-        props: ['search'],
 
-         components: {
+        props: ['gate_id','searchString','date'],
+
+        components: {
             VueContentPlaceholders,
         },
+
         data() {
             return {
+                entries: [],
                 loading: false,
-                queues: [],
                 currentPage: 0,
                 itemsPerPage: 5,
                 avatar_link: '/driver_rfid/public/storage/',
-                csrf: '',
             }
         },
-
-        mounted() {
-            this.csrf = window.Laravel.csrfToken;
-        },
-
+ 
         created() {
-            this.getQueues()
+          this.getEntries();
         },
 
         methods: {
-            getQueues() {
+            getEntries() {
                 this.loading = true
-                axios.get('/driver_rfid/public/monitor/assignedShipment')
+                axios.get('/driver_rfid/public/searchGateEntries/' + this.gate_id + '?search_date=' + this.date)
                 .then(response => {
-                    this.queues = response.data
+                    this.entries = response.data
                     this.loading = false
-                })
+                });
             },
-            
+
             moment(date) {
                 return moment(date).format('MMMM D, Y h:m:s A');
             },
@@ -185,21 +168,20 @@ import _ from 'lodash';
             showNextLink() {
                 return this.currentPage == (this.totalPages - 1) ? false : true;
             }
-
         },
 
         computed: {
             filteredEntries() {
                 const vm = this;
-                return _.filter(vm.queues, function(item){
-                    return ~item.driver_name.toLowerCase().indexOf(vm.search.trim().toLowerCase());
+                return _.filter(vm.entries, function(item){
+                    return ~item.driver.toLowerCase().indexOf(vm.searchString.trim().toLowerCase());
                 });
             },
 
             totalPages() {
                 return Math.ceil(this.filteredEntries.length / this.itemsPerPage)
             },
-
+            
             filteredQueues() {
                 var index = this.currentPage * this.itemsPerPage;
                 var queues_array = this.filteredEntries.slice(index, index + this.itemsPerPage);
@@ -215,7 +197,10 @@ import _ from 'lodash';
                 return queues_array;
             }
         }
+
+
     }
+
 </script>
 <style scoped>
     button {

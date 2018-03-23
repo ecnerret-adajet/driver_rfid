@@ -1,6 +1,8 @@
 <template>
-    <div>   
-        <table class="table table-bordered" :class="{'table-striped' : !loading}">
+  <div>
+
+
+     <table class="table table-bordered" :class="{'table-striped' : !loading}">
         <thead>
             <tr class="text-uppercase font-weight-light">
             <th scope="col"> <small>  Queue # </small> </th>
@@ -12,7 +14,7 @@
         </thead> 
         <tbody>
 
-            <tr v-for="queue in filteredQueues" v-if="!loading">
+            <tr v-for="(queue, i) in filteredQueues" :key="i" v-if="!loading">
 
                 <td class="text-center">
                     <span class="display-4">
@@ -21,10 +23,10 @@
                 </td>
                 <td>
                     <div class="row">
-                        <div class="col-2 text-center">
+                        <div class="col-3">
                             <img :src="avatar_link + queue.driver_avatar" class="rounded-circle mx-auto align-middle" style="height: 100px; width: auto;"  align="middle">
                         </div>
-                         <div class="col-10">
+                        <div class="col-9">
                             {{ queue.driver_name }} <br/>
                             {{ queue.plate_number }} <br/>
                             <span v-if="queue.hauler == 'NO HAULER'" class="text-danger">
@@ -32,15 +34,12 @@
                             </span>
                             <span v-else>
                                     {{ queue.hauler }}
-                            </span><br/>
-                            <span v-for="(x,y) in queue.plant_truck" :key="y" class="badge badge-secondary m-1">
-                                {{ x }}
                             </span>
                         </div>
                     </div>
                    
                 </td>
-                <td width="7%">
+                <td>
                     <span v-if="queue.capacity">
                         {{ queue.capacity }} 
                     </span>
@@ -64,9 +63,9 @@
                 </td>
                 <td>
                     <span v-if="!queue.on_serving">
-                        <a class="btn btn-success" href="javascript:void(0);" data-toggle="modal" :data-target="'#servingModal-'+ queue.driver_id">
-                            OPEN FOR SHIPMENT
-                        </a>
+                        <button class="btn btn-outline-success btn-sm disabled">
+                        OPEN FOR SHIPMENT
+                        </button>
                     </span>
                     <span v-else>
                         <button class="btn btn-outline-danger btn-sm disabled">
@@ -123,20 +122,25 @@
             </div>
         </div>
 
+       
 
-    </div>
+    </div><!-- end template -->
+
 </template>
 <script>
-import moment from 'moment';
-import VueContentPlaceholders from 'vue-content-placeholders';
-import _ from 'lodash';
+
+    import moment from 'moment';
+    import VueContentPlaceholders from 'vue-content-placeholders';
+    import _ from 'lodash';
 
     export default {
-        props: ['search'],
 
-         components: {
+        props: ['queue_id','searchString'],
+
+        components: {
             VueContentPlaceholders,
         },
+
         data() {
             return {
                 loading: false,
@@ -144,28 +148,23 @@ import _ from 'lodash';
                 currentPage: 0,
                 itemsPerPage: 5,
                 avatar_link: '/driver_rfid/public/storage/',
-                csrf: '',
             }
         },
 
-        mounted() {
-            this.csrf = window.Laravel.csrfToken;
-        },
-
         created() {
-            this.getQueues()
+          this.getEntries();
         },
 
         methods: {
-            getQueues() {
+            getEntries() {
                 this.loading = true
-                axios.get('/driver_rfid/public/monitor/assignedShipment')
+                axios.get('/driver_rfid/public/queue/entries/' + this.queue_id)
                 .then(response => {
                     this.queues = response.data
                     this.loading = false
-                })
+                });
             },
-            
+
             moment(date) {
                 return moment(date).format('MMMM D, Y h:m:s A');
             },
@@ -185,21 +184,20 @@ import _ from 'lodash';
             showNextLink() {
                 return this.currentPage == (this.totalPages - 1) ? false : true;
             }
-
         },
 
         computed: {
             filteredEntries() {
                 const vm = this;
                 return _.filter(vm.queues, function(item){
-                    return ~item.driver_name.toLowerCase().indexOf(vm.search.trim().toLowerCase());
+                    return ~item.driver_name.toLowerCase().indexOf(vm.searchString.trim().toLowerCase());
                 });
             },
 
             totalPages() {
                 return Math.ceil(this.filteredEntries.length / this.itemsPerPage)
             },
-
+            
             filteredQueues() {
                 var index = this.currentPage * this.itemsPerPage;
                 var queues_array = this.filteredEntries.slice(index, index + this.itemsPerPage);
@@ -215,7 +213,10 @@ import _ from 'lodash';
                 return queues_array;
             }
         }
+
+
     }
+
 </script>
 <style scoped>
     button {

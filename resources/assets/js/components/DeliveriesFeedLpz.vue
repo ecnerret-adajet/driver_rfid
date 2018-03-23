@@ -22,10 +22,10 @@
                 </td>
                 <td>
                     <div class="row">
-                        <div class="col-3">
+                        <div class="col-2 text-center">
                             <img :src="avatar_link + queue.driver_avatar" class="rounded-circle mx-auto align-middle" style="height: 100px; width: auto;"  align="middle">
                         </div>
-                        <div class="col-9">
+                        <div class="col-10">
                             {{ queue.driver_name }} <br/>
                             {{ queue.plate_number }} <br/>
                             <span v-if="queue.hauler == 'NO HAULER'" class="text-danger">
@@ -33,12 +33,15 @@
                             </span>
                             <span v-else>
                                     {{ queue.hauler }}
+                            </span><br/>
+                            <span v-for="(x,y) in queue.plant_truck" :key="y" class="badge badge-secondary m-1">
+                                {{ x }}
                             </span>
                         </div>
                     </div>
                    
                 </td>
-                <td>
+                 <td width="7%">
                     <span v-if="queue.capacity">
                         {{ queue.capacity }} 
                     </span>

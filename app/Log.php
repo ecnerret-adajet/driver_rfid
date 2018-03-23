@@ -189,7 +189,7 @@ class Log extends Model
 
 
     /**
-     *  Get all drivers who has a truckscale IN within cureent date
+     *  Get all drivers who has a truckscale IN within cureent date in Manila
      * 
      * Pluck Return
      * 
@@ -198,20 +198,6 @@ class Log extends Model
     {
          return  $query->select('CardholderID')
                 ->where('ControllerID', 4)
-                ->where('Direction',1) // All Truckscale In
-                ->whereDate('LocalTime', Carbon::today())
-                ->pluck('CardholderID');
-    }
-
-    /**
-     * 
-     * Get all driver who has truckscale IN withtin BTN MGC wihtin current date
-     * 
-     */
-    public function scopeBtnTruckscaleIn($query)
-    {
-         return  $query->select('CardholderID')
-                ->where('ControllerID', 8) // bataan controller
                 ->where('Direction',1) // All Truckscale In
                 ->whereDate('LocalTime', Carbon::today())
                 ->pluck('CardholderID');
@@ -247,6 +233,20 @@ class Log extends Model
     }
 
     /**
+     * 
+     * Get all driver who has truckscale IN withtin BTN MGC wihtin current date
+     * 
+     */
+    public function scopeBtnTruckscaleIn($query)
+    {
+         return  $query->select('CardholderID')
+                ->where('ControllerID', 8) // bataan controller
+                ->where('Direction',1) // All Truckscale In
+                ->whereDate('LocalTime', Carbon::today())
+                ->pluck('CardholderID');
+    }
+
+    /**
      *  Get all drivers who has truckscale out in BTN MGC within current date
      */
     public function scopeBtnTruckscaleOut($query)
@@ -257,7 +257,6 @@ class Log extends Model
                 ->whereDate('LocalTime', Carbon::today())
                 ->pluck('CardholderID');
     }
-
 
     public function scopeThisDay($query)
     {
@@ -287,7 +286,7 @@ class Log extends Model
     }
 
     /**
-     * Get Drivers tapped from gate RFID based from location parameter
+     * Get Drivers tapped from gate RFID based from location parameter within the date
      * 
      */
 
@@ -305,15 +304,34 @@ class Log extends Model
      }
 
      /**
+      * Get Object for drivers who tapped from gate RFID based fom location
+      */
+    public function scopeBarrierLocationObject($query, $door, $controller, $date)
+     {
+         $checkDate = !empty($date) ? $date : Carbon::today();
+         return $query->select('LogID','CardholderID')
+                ->whereDate('LocalTime', $checkDate)
+                ->whereIn('DoorID',[$door])
+                ->whereNotIn('CardholderID',$this->barrierNoDriver())
+                ->where('ControllerID', $controller)
+                ->where('CardholderID', '>=', 15)
+                ->orderBy('LocalTime','DESC')
+                ->with('driver')
+                ->get();
+     }
+
+
+     /**
       * Get Drivers tapped from queueing RFID based from location parameter
       */
-      public function scopeQueueLocation($query, $door, $controller, $hasTruckscaleOut)
+      public function scopeQueueLocation($query, $door, $controller, $hasTruckscaleOut, $date)
       {
+        $checkDate = !empty($date) ? $date : Carbon::today();
         return $query->with(['drivers','drivers.truck','drivers.hauler','driver.serves'])
                 ->where('ControllerID', $controller)
                 ->where('DoorID',$door)
                 ->whereNotIn('CardholderID',$hasTruckscaleOut)
-                ->whereDate('LocalTime', Carbon::today())
+                ->whereDate('LocalTime', $checkDate)
                 ->orderBy('LogID','ASC')->get();
       }
 
@@ -344,6 +362,21 @@ class Log extends Model
                             ->orderBy('LogID','ASC')
                             ->take(20)
                             ->get();
-
       }
+
+      /**
+       * Dynamically get truckscale out for a particular location
+       */
+      public function scopeTruckscaleOutLocation($query, $controller)
+      {
+            return $query->select('CardholderID')
+                ->where('ControllerID', $controller)
+                ->where('Direction',2) // All Truckscale Out
+                ->whereDate('LocalTime', Carbon::today())
+                ->pluck('CardholderID');
+      }
+
+      /**
+       * 
+       */
 }

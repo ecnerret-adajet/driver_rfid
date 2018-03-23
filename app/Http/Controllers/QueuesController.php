@@ -40,7 +40,7 @@ class QueuesController extends Controller
         $check_truckscale_out = Log::truckscaleOut();
     
         // MNL (Pfmc) queueing location
-        $logs = Log::queueLocation(0,1,$check_truckscale_out);
+        $logs = Log::queueLocation(0,1,$check_truckscale_out,Carbon::today());
         $mnl_queue = $logs->unique('CardholderID');
     
         $arr = array();
@@ -61,6 +61,7 @@ class QueuesController extends Controller
                     'driver_name' => $driver->name,
                     'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
                     'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
+                    'plant_truck' => empty($driver->truck->plants) ? null : $driver->truck->plants->pluck('plant_name'),
                     'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
                     'log_time' => $log->LocalTime,
                     'dr_status' => empty($y) ? 'UNPROCESS' : $y, 
@@ -85,7 +86,7 @@ class QueuesController extends Controller
         $check_truckscale_out = Log::truckscaleOut();
 
         // MNL (Pfmc) queueing location
-        $logs = Log::queueLocation(0,1,$check_truckscale_out);
+        $logs = Log::queueLocation(0,1,$check_truckscale_out,Carbon::today());
         $mnl_queue = $logs->unique('CardholderID');
     
         $arr = array();
@@ -107,6 +108,7 @@ class QueuesController extends Controller
                     'driver_name' => $driver->name,
                     'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
                     'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
+                    'plant_truck' => empty($driver->truck->plants) ? null : $driver->truck->plants->pluck('plant_name'),
                     'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
                     'log_time' => $log->LocalTime,
                     'dr_status' => empty($y) ? 'UNPROCESS' : $y, 
@@ -131,7 +133,7 @@ class QueuesController extends Controller
         $check_truckscale_out = Log::truckscaleOut();
 
         // MNL (Pfmc) queueing location
-        $logs = Log::queueLocation(0,1,$check_truckscale_out);
+        $logs = Log::queueLocation(0,1,$check_truckscale_out,Carbon::today());
         $mnl_queue = $logs->unique('CardholderID');
     
         $arr = array();
@@ -153,6 +155,7 @@ class QueuesController extends Controller
                     'driver_name' => $driver->name,
                     'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
                     'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
+                    'plant_truck' => empty($driver->truck->plants) ? null : $driver->truck->plants->pluck('plant_name'),
                     'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
                     'log_time' => $log->LocalTime,
                     'dr_status' => empty($y) ? 'UNPROCESS' : $y, 
@@ -207,7 +210,7 @@ class QueuesController extends Controller
         $check_truckscale_out = Log::btnTruckscaleOut();
     
         // BTN (MGC) queueing location
-        $logs = Log::queueLocation(2,7,$check_truckscale_out);
+        $logs = Log::queueLocation(2,7,$check_truckscale_out,Carbon::today());
         $btn_queue = $logs->unique('CardholderID');
     
         $arr = array();
@@ -228,6 +231,7 @@ class QueuesController extends Controller
                     'driver_name' => $driver->name,
                     'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
                     'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
+                    'plant_truck' => empty($driver->truck->plants) ? null : $driver->truck->plants->pluck('plant_name'),
                     'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
                     'log_time' => $log->LocalTime,
                     'dr_status' => empty($y) ? 'UNPROCESS' : $y, 
@@ -252,7 +256,7 @@ class QueuesController extends Controller
         $check_truckscale_out = Log::btnTruckscaleOut();
 
         //  BTN (MGC)  queueing location
-        $logs = Log::queueLocation(2,7,$check_truckscale_out);
+        $logs = Log::queueLocation(2,7,$check_truckscale_out,Carbon::today());
         $btn_queue = $logs->unique('CardholderID');
     
         $arr = array();
@@ -274,6 +278,7 @@ class QueuesController extends Controller
                     'driver_name' => $driver->name,
                     'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
                     'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
+                    'plant_truck' => empty($driver->truck->plants) ? null : $driver->truck->plants->pluck('plant_name'),
                     'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
                     'log_time' => $log->LocalTime,
                     'dr_status' => empty($y) ? 'UNPROCESS' : $y, 
@@ -298,7 +303,7 @@ class QueuesController extends Controller
         $check_truckscale_out = Log::btnTruckscaleOut();
 
         // BTN (MGC) queueing location
-        $logs = Log::queueLocation(2,7,$check_truckscale_out);
+        $logs = Log::queueLocation(2,7,$check_truckscale_out,Carbon::today());
         $btn_queue = $logs->unique('CardholderID');
     
         $arr = array();
@@ -320,6 +325,7 @@ class QueuesController extends Controller
                     'driver_name' => $driver->name,
                     'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
                     'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
+                    'plant_truck' => empty($driver->truck->plants) ? null : $driver->truck->plants->pluck('plant_name'),
                     'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
                     'log_time' => $log->LocalTime,
                     'dr_status' => empty($y) ? 'UNPROCESS' : $y, 
@@ -371,7 +377,7 @@ class QueuesController extends Controller
     
         // MNL (LAPAZ) queueing location
         // Gate barrier as temporarily treat as queue
-        $logs = Log::queueLocation(0,5,$check_truckscale_out);
+        $logs = Log::queueLocation(0,5,$check_truckscale_out,Carbon::today());
         $lpz_queue = $logs->unique('CardholderID');
     
         $arr = array();
@@ -392,6 +398,7 @@ class QueuesController extends Controller
                     'driver_name' => $driver->name,
                     'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
                     'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
+                    'plant_truck' => empty($driver->truck->plants) ? null : $driver->truck->plants->pluck('plant_name'),
                     'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
                     'log_time' => $log->LocalTime,
                     'dr_status' => empty($y) ? 'UNPROCESS' : $y, 
@@ -417,7 +424,7 @@ class QueuesController extends Controller
         $check_truckscale_out = Log::lpzTruckscaleOut();
 
         //  MNL (LPZ)  queueing location
-        $logs = Log::queueLocation(0,5,$check_truckscale_out);
+        $logs = Log::queueLocation(0,5,$check_truckscale_out,Carbon::today());
         $btn_queue = $logs->unique('CardholderID');
     
         $arr = array();
@@ -439,6 +446,7 @@ class QueuesController extends Controller
                     'driver_name' => $driver->name,
                     'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
                     'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
+                    'plant_truck' => empty($driver->truck->plants) ? null : $driver->truck->plants->pluck('plant_name'),
                     'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
                     'log_time' => $log->LocalTime,
                     'dr_status' => empty($y) ? 'UNPROCESS' : $y, 
@@ -463,7 +471,7 @@ class QueuesController extends Controller
         $check_truckscale_out = Log::lpzTruckscaleOut();
 
         // MNL (LPZ) queueing location
-        $logs = Log::queueLocation(0,5,$check_truckscale_out);
+        $logs = Log::queueLocation(0,5,$check_truckscale_out,Carbon::today());
         $btn_queue = $logs->unique('CardholderID');
     
         $arr = array();
@@ -485,6 +493,7 @@ class QueuesController extends Controller
                     'driver_name' => $driver->name,
                     'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
                     'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
+                    'plant_truck' => empty($driver->truck->plants) ? null : $driver->truck->plants->pluck('plant_name'),
                     'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
                     'log_time' => $log->LocalTime,
                     'dr_status' => empty($y) ? 'UNPROCESS' : $y, 
