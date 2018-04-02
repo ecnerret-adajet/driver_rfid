@@ -148,11 +148,18 @@
             <ul class="sidenav-second-level {{ (Request::is('settings') || 
                                                      Request::is('generateActivities') ||
                                                      Request::is('users') ||
+                                                     Request::is('gates/create') ||
+                                                     Request::is('queues/create') ||
                                                      Request::is('users/*') ||
                                                      Request::is('settings/*') ||
                                                      Request::is('handlers') ||
                                                      Request::is('handlers/*') ||
                                                      Request::is('activities')) ? '' : 'collapse' }}" id="collapseMulti">
+              <li class="font-weight-bold {{ (Request::is('gates/create') ||
+                              Request::is('queues/create')
+                            ) ? 'active' : '' }}">
+                <a href="{{url('/gates/create')}}">Entries Monitoring</a>
+              </li>
               <li class="font-weight-bold {{ (Request::is('users') ||
                               Request::is('users/*')
                             ) ? 'active' : '' }}">

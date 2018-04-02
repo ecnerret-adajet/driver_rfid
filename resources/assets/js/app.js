@@ -61,6 +61,10 @@ Vue.component('driverQueueBtn', require('./components/DriverQueueBtn.vue'));
 Vue.component('gate', require('./components/MonitorGate.vue'));
 Vue.component('driverqueue', require('./components/MonitorQueue.vue'));
 
+Vue.component('gateEntries', require('./components/GateEntries.vue'));
+Vue.component('driverqueueEntries', require('./components/QueuesEntries.vue'));
+
+
 
 const app = new Vue({
     el: '#app'

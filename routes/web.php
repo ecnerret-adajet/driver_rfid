@@ -358,13 +358,14 @@ Route::get('/gates/create','MonitoringsController@createGate');
 Route::post('/gates/store','MonitoringsController@storeGate');
 Route::get('/queues/create','MonitoringsController@createQueue');
 Route::post('/queues/store','MonitoringsController@storeQueue');
-Route::get('/monitoring','MonitoringsController@index');
+// Route::get('/monitoring','MonitoringsController@index');
 Route::get('/gate/entries/{gate}','MonitoringsController@gateEntries');
 Route::get('/queue/entries/{driverqueue}','MonitoringsController@queueEntries');
 Route::get('/gates','MonitoringsController@allGates');
 Route::get('/searchGateEntries/{gate}','MonitoringsController@searchGateEntries');
 Route::get('/searchQueueEntries/{driverqueue}','MonitoringsController@searchQueueEntries');
 Route::get('/driverqueues','MonitoringsController@allQueues');
+Route::get('/exportQueues/{driverqueue}/{date}','MonitoringsController@exportQueues');
 Route::resource('/areas', 'AreasController');
 
 });

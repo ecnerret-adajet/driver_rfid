@@ -1,129 +1,213 @@
 @extends('layouts.app')
 @section('content')
 
-            <div class="row mb-3">
+   <div class="card mx-auto mb-3">
+        <div class="card-header">
+        Entries Monitoring
+        </div>
+        <div class="card-body">
 
-                <div class="col-sm-12">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
 
-                 <div class="card mx-auto">
-                    <div class="card-header">
-                        Add New Queue Monitoring
+            <li class="nav-item">
+            <a class="nav-link " href="{{ url('gates/create') }}" role="tab">Gate Entries</a>
+            </li>
 
-                        <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
-                        Back
-                        </a>
-                    </div>
-                    <div class="card-body" id="form-truck">
-                      
+            <li class="nav-item">
+                <a class="nav-link active" href="#" role="tab">Queues Entries</a>
+            </li>
 
-                        {!! Form::model($driverqueue = new \App\Driverqueue, ['url' => 'queues/store', 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
-                        {!! csrf_field() !!}
-                      
-                            <div class="form-row">
-                                <div class="col-md-12">
-                                    <div class="form-group {{ $errors->has('title') ? ' has-danger' : '' }}">
-                                             <label>Title</label>
-                                            {{ Form::text('title', null, ['class' => 'form-control', 'placeholder' => 'Enter Title']) }}
-                                            @if ($errors->has('title'))
-                                                <div class="form-control-feedback">
-                                                    <small>
-                                                    {{ $errors->first('title') }}
-                                                    </small>
-                                                </div>
-                                            @endif
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+
+            <div class="tab-pane active" id="gate" role="tabpanel">
+                 {!! Form::model($gate = new \App\Gate, ['url' => 'gates/store', 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
+                {!! csrf_field() !!}
+                    <div class="form-row mb-1 mt-3">
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label class="text-muted text-uppercase" >Title</label>
+                                {{ Form::text('title', null, ['class' => 'form-control', 'placeholder' => 'Enter Title']) }}
+                                @if ($errors->has('title'))
+                                    <div class="form-control-feedback text-danger">
+                                        <small>
+                                        {{ $errors->first('title') }}
+                                        </small>
                                     </div>
-                                </div>
+                                @endif
                             </div>
+                        </div>
 
-                            <div class="form-row">
-                                <div class="col-md-6">
-                                    <div class="form-group {{ $errors->has('area_list') ? ' has-danger' : '' }}">
-                                             <label>Queue Area</label>
-                                            {{ Form::select('area_list', $areas, null, ['class' => 'form-control', 'placeholder' => 'Enter Title']) }}
-                                            @if ($errors->has('area_list'))
-                                                <div class="form-control-feedback">
-                                                    <small>
-                                                    {{ $errors->first('area_list') }}
-                                                    </small>
-                                                </div>
-                                            @endif
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label class="text-muted text-uppercase" >Location</label>
+                                {{ Form::select('area_list', $areas, null, ['placeholder' => 'Select Plant Location','class' => 'p-2 form-control select2-area']) }}
+                                @if ($errors->has('area_list'))
+                                    <div class="form-control-feedback text-danger">
+                                        <small>
+                                        {{ $errors->first('area_list') }}
+                                        </small>
                                     </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group {{ $errors->has('gate_list') ? ' has-danger' : '' }}">
-                                             <label>Gate Area</label>
-                                            {{ Form::select('gate_list', $gates, null, ['class' => 'form-control', 'placeholder' => 'Enter Title']) }}
-                                            @if ($errors->has('gate_list'))
-                                                <div class="form-control-feedback">
-                                                    <small>
-                                                    {{ $errors->first('gate_list') }}
-                                                    </small>
-                                                </div>
-                                            @endif
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="col-md-4">
-                                    <div class="form-group {{ $errors->has('door') ? ' has-danger' : '' }}">
-                                        <label>Door ID</label>
-                                        {{ Form::number('door', null, ['class' => 'form-control', 'placeholder' => 'Enter Door ID']) }}
-                                        @if ($errors->has('door'))
-                                            <div class="form-control-feedback">
-                                                <small>
-                                                {{ $errors->first('door') }}
-                                                </small>
-                                            </div>
-                                        @endif
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group {{ $errors->has('controller') ? ' has-danger' : '' }}">
-                                        <label>Controller ID</label>
-                                        {{ Form::number('controller', null, ['class' => 'form-control', 'placeholder' => 'Enter Controller ID']) }}
-                                        @if ($errors->has('controller'))
-                                            <div class="form-control-feedback">
-                                                <small>
-                                                {{ $errors->first('controller') }}
-                                                </small>
-                                            </div>
-                                        @endif
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group {{ $errors->has('ts_out_controller') ? ' has-danger' : '' }}">
-                                        <label>Truckscale Out ID</label>
-                                        {{ Form::number('ts_out_controller', null, ['class' => 'form-control', 'placeholder' => 'Enter Controller ID']) }}
-                                        @if ($errors->has('ts_out_controller'))
-                                            <div class="form-control-feedback">
-                                                <small>
-                                                {{ $errors->first('ts_out_controller') }}
-                                                </small>
-                                            </div>
-                                        @endif
-                                    </div>
-                                </div>
+                                @endif
 
                             </div>
+                        </div>
 
-                            <button type="submit"  class="btn btn-primary btn-block p-2">PUBLISH</button>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label class="text-muted text-uppercase" >Door ID</label>
+                                {{ Form::number('door', null, ['class' => 'form-control', 'placeholder' => 'Enter Door ID']) }}
+                                @if ($errors->has('door'))
+                                    <div class="form-control-feedback text-danger">
+                                        <small>
+                                        {{ $errors->first('door') }}
+                                        </small>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label class="text-muted text-uppercase" >Controller ID</label>
+                                {{ Form::number('controller', null, ['class' => 'form-control', 'placeholder' => 'Enter Controller ID']) }}
+                                @if ($errors->has('controller'))
+                                    <div class="form-control-feedback text-danger">
+                                        <small>
+                                        {{ $errors->first('controller') }}
+                                        </small>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <button class="btn btn-block btn-primary" type="submit">Generate</button>
+                            </div>
+                        </div>
+                    </div> <!-- end row -->
+                    {!! Form::close() !!}
+
+                    <gate-entries></gate-entries>
+            </div><!-- end tab -->
+        
+            <div class="tab-pane" id="queues" role="tabpanel">
+                {!! Form::model($driverqueue = new \App\Driverqueue, ['url' => 'queues/store', 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
+                {!! csrf_field() !!}
+                    <div class="form-row mb-3 mt-3">
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label class="text-muted text-uppercase" >Title</label>
+                                {{ Form::text('title', null, ['class' => 'form-control', 'placeholder' => 'Enter Title']) }}
+                                @if ($errors->has('title'))
+                                    <div class="form-control-feedback text-danger">
+                                        <small>
+                                        {{ $errors->first('title') }}
+                                        </small>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label class="text-muted text-uppercase" >Location</label>
+                                {{ Form::select('area_list', $areas, null, ['placeholder' => 'Select Plant Location','class' => 'p-2 form-control select2-area']) }}
+                                @if ($errors->has('area_list'))
+                                    <div class="form-control-feedback text-danger">
+                                        <small>
+                                        {{ $errors->first('area_list') }}
+                                        </small>
+                                    </div>
+                                @endif
+
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label class="text-muted text-uppercase" >Gate Area</label>
+                                {{ Form::select('gate_list', $gates, null, ['class' => 'form-control', 'placeholder' => 'Enter Title']) }}
+                                @if ($errors->has('gate_list'))
+                                    <div class="form-control-feedback">
+                                        <small>
+                                        {{ $errors->first('gate_list') }}
+                                        </small>
+                                    </div>
+                                @endif
+
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label class="text-muted text-uppercase" >Door ID</label>
+                                {{ Form::number('door', null, ['class' => 'form-control', 'placeholder' => 'Enter Door ID']) }}
+                                @if ($errors->has('door'))
+                                    <div class="form-control-feedback text-danger">
+                                        <small>
+                                        {{ $errors->first('door') }}
+                                        </small>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label class="text-muted text-uppercase" >Controller ID</label>
+                                {{ Form::number('controller', null, ['class' => 'form-control', 'placeholder' => 'Enter Controller ID']) }}
+                                @if ($errors->has('controller'))
+                                    <div class="form-control-feedback text-danger">
+                                        <small>
+                                        {{ $errors->first('controller') }}
+                                        </small>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label class="text-muted text-uppercase" >Truckscale out ID</label>
+                                {{ Form::number('ts_out_controller', null, ['class' => 'form-control', 'placeholder' => 'Enter Controller ID']) }}
+                                @if ($errors->has('ts_out_controller'))
+                                    <div class="form-control-feedback">
+                                        <small>
+                                        {{ $errors->first('ts_out_controller') }}
+                                        </small>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div> <!-- end row -->
+                    <div class="form-row mb-3">
+                         <div class="col">
+                            <div class="form-group">
+                                <button class="btn btn-block btn-primary" type="submit">Generate</button>
+                            </div>
+                        </div>
+                    </div> <!-- end row -->
+
+                    {!! Form::close() !!}
+
+                    <driverqueue-entries></driverqueue-entries>
                     
-                        {!! Form::close() !!}
-
-                  
-                </div>
-                </div>
+                </div><!-- end tab -->
 
 
+        </div>
 
-                </div>
+             
+        
+        </div><!-- end card-body -->
+    </div> <!-- end card -->
 
-                
-            </div><!-- end row -->
+
+
 
 
 @endsection

@@ -365,7 +365,7 @@ class Log extends Model
       }
 
       /**
-       * Dynamically get truckscale out for a particular location
+       * Dynamically get truckscale out for a particular location within the day
        */
       public function scopeTruckscaleOutLocation($query, $controller)
       {
@@ -377,6 +377,15 @@ class Log extends Model
       }
 
       /**
-       * 
+       *  Export Truckscale search by date
        */
+      public function scopeTruckscaleOutLocationDate($query, $controller, $date)
+      {
+          $checkDate = !empty($date) ? Carbon::parse($date) : Carbon::today();
+          return $query->select('CardholderID')
+                ->where('ControllerID', $controller)
+                ->where('Direction',2) // All Truckscale Out
+                ->whereDate('LocalTime', $checkDate)
+                ->pluck('CardholderID');
+      }
 }

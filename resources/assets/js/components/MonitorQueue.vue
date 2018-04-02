@@ -25,10 +25,26 @@
                     </div>
                 </div>
 
+             
+
                 <div class="col-2">
                     <div class="form-group">
                         <label>&nbsp;</label>
-                        <button class="btn btn-block" :class="{'btn-primary' : date, 'btn-danger not-allowed' : !date }" :disabled="!date" @click="selectedComponent = false">Generate</button>
+                        <div class="row">
+                            <div class="col text-right" :class="{'pr-0 ' : !selectedComponent }">
+                                <button class="btn btn-block" :class="{'btn-primary' : date, 'btn-danger not-allowed' : !date }" :disabled="!date" @click="selectedComponent = false">Generate</button>
+                            </div>
+                            <div class="col-3 text-right"  v-if="!selectedComponent">
+                                <div class="dropdown">
+                                <button type="button" class="btn btn-outline-secondary btn-block" data-toggle="dropdown">
+                                    <i class="fa fa-ellipsis-v"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" :href="'/driver_rfid/public/exportQueues/' + selected + '/' + date">Export to Excell</a>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

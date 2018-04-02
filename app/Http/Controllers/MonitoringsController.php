@@ -13,6 +13,7 @@ use App\Gate;
 use App\Area;
 use App\Cardholder;
 use Flashy;
+use Excel;
 use DB;
 
 class MonitoringsController extends Controller
@@ -84,13 +85,13 @@ class MonitoringsController extends Controller
      * Admin view for gate monitoring
      */
 
-     public function index()
-     {
-         $gates = Gate::pluck('title','id');
-         return view('monitorings.index', compact(
-             'gates'
-         ));
-     }
+    //  public function index()
+    //  {
+    //      return view('monitorings.index', compact(
+    //         'areas',
+    //         'gates'
+    //     ));
+    //  }
 
     /**
      * Admin View Monitoring
@@ -316,7 +317,7 @@ class MonitoringsController extends Controller
      */
     public function allGates()
     {
-        $gates = Gate::select('id','title')->get();
+        $gates = Gate::all();
         
          return $gates;
     }
@@ -326,7 +327,65 @@ class MonitoringsController extends Controller
      */
     public function allQueues()
     {
-        $queues = Driverqueue::select('id','title')->get();
+        $queues = Driverqueue::all();
+
         return $queues;
+    }
+
+    /**
+     * Export Queues
+     */
+    public function exportQueues(Driverqueue $driverqueue, $date)
+    {
+        // Get the total truckscale Out from truck monitoring today
+        $check_truckscale_out = Log::truckscaleOutLocationDate($driverqueue->ts_out_controller, $date);
+        // Get the queue result
+        $result_lineups = Log::queueLocation($driverqueue->door, $driverqueue->controller, $check_truckscale_out, Carbon::parse($date));
+        // Get the unique result from Cardholder
+        $log_lineups = $result_lineups->unique('CardholderID');
+
+        Excel::create('driver_queue'.Carbon::now()->format('Ymdh'), function($excel) use ($log_lineups) {
+
+            $excel->sheet('Sheet1', function($sheet) use ($log_lineups) {
+
+                $arr = array();
+
+                foreach($log_lineups as $key => $log) {
+                    foreach($log->drivers as $driver) {
+
+                        if(!empty($driver->truck->plate_number)) {
+                            $x = str_replace('-',' ',strtoupper($driver->truck->plate_number));
+                            $z = str_replace('_','',$x);
+                            $y = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$z','deploy')");
+                        }
+
+                        $data = array(
+                            'log_id' => substr($log->LogID, -4),
+                            'driver_name' => $driver->name,
+                            'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
+                            'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
+                            'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
+                            'log_time' => $log->LocalTime,
+                            // 'on_serving' => empty($driver->serves->where('created_at','>=',Carbon::today())->first()->on_serving) ? null : $driver->serves->first()->on_serving,
+
+                        );
+
+                        array_push($arr, $data);
+
+                    }
+                }
+
+                //set the titles
+                $sheet->fromArray($arr,null,'A1',false,false)
+                        ->setBorder('A1:F'.$log_lineups->count(),'thin')
+                        ->prependRow(array(
+                        'LogID', 'Driver Name', 'Plate Number', 'Capacity', 'Hauler','Log Date'));
+                $sheet->cells('A1:F1', function($cells) {
+                            $cells->setBackground('#f1c40f'); 
+                });
+
+            });
+
+        })->download('xlsx');    
     }
 }
