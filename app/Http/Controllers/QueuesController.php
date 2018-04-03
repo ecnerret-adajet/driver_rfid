@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Ixudra\Curl\Facades\Curl;
 use App\Log;
 use App\Driver;
 use App\Truck;
@@ -12,10 +13,30 @@ use App\Pickup;
 use App\Cardholder;
 use App\Card;
 use App\Serve;
+use App\Shipment;
 use DB;
 
 class QueuesController extends Controller
 {
+
+    public function autoShipmentEnd()
+    {
+
+        // MANILA QUEUE
+        $check_truckscale_out = Log::truckscaleOut();
+        $logs = Log::with('drivers')->queueLocation(0,1,$check_truckscale_out,Carbon::today());
+        $mnl_queue = $logs->unique('CardholderID')->pluck('');
+
+        // Retrieve flight by name, or create it if it doesn't exist...
+        $flight = App\Flight::firstOrCreate(['name' => 'Flight 10']);
+
+        // $response = Curl::to('http://10.96.4.39/sapservice/api/assignedshipment')
+        // ->withContentType('application/x-www-form-urlencoded')
+        // ->withData( array( 'plate_number' => 'AAN-4671' ) )
+        // ->post();
+
+        return $mnl_queue;
+    }
 
     public function index()
     {

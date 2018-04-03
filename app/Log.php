@@ -292,7 +292,7 @@ class Log extends Model
 
      public function scopeBarrierLocation($query, $door, $controller)
      {
-         return $query->select('LogID','CardholderID')
+         return $query->select('LogID','CardholderID','LocalTime')
                 ->whereDate('LocalTime', Carbon::today())
                 ->whereIn('DoorID',[$door])
                 ->whereNotIn('CardholderID',$this->barrierNoDriver())
@@ -308,9 +308,10 @@ class Log extends Model
       */
     public function scopeBarrierLocationObject($query, $door, $controller, $date)
      {
-         $checkDate = !empty($date) ? $date : Carbon::today();
-         return $query->select('LogID','CardholderID')
-                ->whereDate('LocalTime', $checkDate)
+         $checkDate = !empty($date) ? Carbon::parse($date) : Carbon::today();
+         
+         return $query->select('LogID','CardholderID','LocalTime')
+                ->whereDate('LocalTime', '=', $checkDate)
                 ->whereIn('DoorID',[$door])
                 ->whereNotIn('CardholderID',$this->barrierNoDriver())
                 ->where('ControllerID', $controller)
@@ -326,13 +327,15 @@ class Log extends Model
       */
       public function scopeQueueLocation($query, $door, $controller, $hasTruckscaleOut, $date)
       {
-        $checkDate = !empty($date) ? $date : Carbon::today();
+        $checkDate = !empty($date) ? Carbon::parse($date) : Carbon::today();
+
         return $query->with(['drivers','drivers.truck','drivers.hauler','driver.serves'])
                 ->where('ControllerID', $controller)
                 ->where('DoorID',$door)
                 ->whereNotIn('CardholderID',$hasTruckscaleOut)
-                ->whereDate('LocalTime', $checkDate)
-                ->orderBy('LogID','ASC')->get();
+                ->whereDate('LocalTime', '=', $checkDate)
+                ->orderBy('LogID','ASC')
+                ->get();
       }
 
       /**

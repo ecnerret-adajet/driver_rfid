@@ -212,7 +212,7 @@ class MonitoringsController extends Controller
         return $not_driver;
     }
     
-     // check the direction of the barrier
+     // check the direction of the barrier within the day
     public function getBarrierDirection($door, $cardholder, $direction)
     {
         // All Plant in 
@@ -234,11 +234,34 @@ class MonitoringsController extends Controller
         return $x;
     }
 
+    // check the direction of the barrier search
+    public function getBarrierDirectionSearch($door, $cardholder, $direction, $date)
+    {
+        // All Plant in 
+        $barrier_in = Log::select('CardholderID','Direction','LocalTime')
+        ->where('CardholderID',$cardholder)
+        ->whereDate('LocalTime',$date)
+        ->where('DoorID',$door)
+        ->whereNotIn('CardholderID', $this->barrierNoDriver())
+        ->where('CardholderID', '>=', 15)
+        ->where('Direction', $direction)
+        ->orderBy('LocalTime','DESC')
+        ->first();
+
+        if(empty($barrier_in)) {
+            $x = null;
+        } else {
+            $x = $barrier_in->LocalTime;
+        }
+
+        return $x;
+    }
+
 
     public function gateEntries(Gate $gate)
     {
          // Get Logs from Bataan Barrier RFID
-        $entries_count =  Log::BarrierLocationObject($gate->door,$gate->controller, Carbon::today());
+        $entries_count =  Log::barrierLocationObject($gate->door,$gate->controller, Carbon::today());
 
         // Format the array JSON return
         $arr = array();
@@ -281,7 +304,7 @@ class MonitoringsController extends Controller
         $search_date = $request->get('search_date');
 
          // Get Logs from Bataan Barrier RFID
-        $entries_count =  Log::BarrierLocationObject($gate->door,$gate->controller, $search_date);
+        $entries_count =  Log::barrierLocationObject($gate->door,$gate->controller, $search_date);
 
         // Format the array JSON return
         $arr = array();
@@ -299,10 +322,10 @@ class MonitoringsController extends Controller
                         'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
                         'plate_availability' => empty($driver->truck->plate_number) ? null : $driver->truck->availability,
                         'hauler_name' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
-                        'inLocalTime' =>  $this->getBarrierDirection(0 ,$entry->CardholderID, 1),
-                        'outLocalTime' =>  $this->getBarrierDirection(0, $entry->CardholderID, 2) < 
-                                            $this->getBarrierDirection(0, $entry->CardholderID, 1) ? null : 
-                                            $this->getBarrierDirection(0, $entry->CardholderID, 2),
+                        'inLocalTime' =>  $entry->LocalTime,
+                        // 'outLocalTime' =>  $this->getBarrierDirectionSearch(0, $entry->CardholderID, 2, $search_date) < 
+                        //                     $this->getBarrierDirectionSearch(0, $entry->CardholderID, 1, $search_date) ? null : 
+                        //                     $this->getBarrierDirectionSearch(0, $entry->CardholderID, 2, $search_date),
                     );
 
                     array_push($arr, $data);
@@ -378,6 +401,50 @@ class MonitoringsController extends Controller
                 //set the titles
                 $sheet->fromArray($arr,null,'A1',false,false)
                         ->setBorder('A1:F'.$log_lineups->count(),'thin')
+                        ->prependRow(array(
+                        'LogID', 'Driver Name', 'Plate Number', 'Capacity', 'Hauler','Log Date'));
+                $sheet->cells('A1:F1', function($cells) {
+                            $cells->setBackground('#f1c40f'); 
+                });
+
+            });
+
+        })->download('xlsx');    
+    }
+
+    /**
+     * Export gate entries
+     */
+    public function exportGate(Gate $gate, $date)
+    {
+        // Get Logs from Bataan Barrier RFID
+        $entries_count =  Log::barrierLocationObject($gate->door,$gate->controller, $date);
+
+        Excel::create('gate_entries'.Carbon::now()->format('Ymdh'), function($excel) use ($entries_count) {
+
+            $excel->sheet('Sheet1', function($sheet) use ($entries_count) {
+
+                    // Format the array JSON return
+                    $arr = array();
+                    foreach($entries_count as $entry) {
+                        foreach($entry->drivers as $driver) {
+
+                                $data = array(
+                                    'LogID' => $entry->LogID,
+                                    'driver' => $driver->name,
+                                    'plate_number' => empty($driver->truck->plate_number) ? 'NO DRIVER' : $driver->truck->plate_number,
+                                    'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
+                                    'hauler_name' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
+                                    'inLocalTime' =>  $entry->LocalTime,
+                                );
+
+                                array_push($arr, $data);
+                        }
+                    }
+
+                //set the titles
+                $sheet->fromArray($arr,null,'A1',false,false)
+                        ->setBorder('A1:F'.$entries_count->count(),'thin')
                         ->prependRow(array(
                         'LogID', 'Driver Name', 'Plate Number', 'Capacity', 'Hauler','Log Date'));
                 $sheet->cells('A1:F1', function($cells) {

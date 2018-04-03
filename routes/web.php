@@ -366,7 +366,13 @@ Route::get('/searchGateEntries/{gate}','MonitoringsController@searchGateEntries'
 Route::get('/searchQueueEntries/{driverqueue}','MonitoringsController@searchQueueEntries');
 Route::get('/driverqueues','MonitoringsController@allQueues');
 Route::get('/exportQueues/{driverqueue}/{date}','MonitoringsController@exportQueues');
+Route::get('/exportGate/{gate}/{date}','MonitoringsController@exportGate');
 Route::resource('/areas', 'AreasController');
+
+/**
+ * Autoshipment End 
+ */
+Route::get('/autoShipmentEnd','QueuesController@autoShipmentEnd');
 
 });
 
