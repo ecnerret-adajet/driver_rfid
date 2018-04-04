@@ -325,7 +325,24 @@ class Log extends Model
      /**
       * Get Drivers tapped from queueing RFID based from location parameter
       */
-      public function scopeQueueLocation($query, $door, $controller, $hasTruckscaleOut, $date)
+      public function scopeQueueLocation($query, $door, $controller, $hasTruckscaleOut, $locationGate, $date)
+      {
+        $checkDate = !empty($date) ? Carbon::parse($date) : Carbon::today();
+
+        return $query->with(['drivers','drivers.truck','drivers.hauler','driver.serves'])
+                ->where('ControllerID', $controller)
+                ->where('DoorID',$door)
+                ->whereIn('CardholderID',$locationGate)
+                ->whereNotIn('CardholderID',$hasTruckscaleOut)
+                ->whereDate('LocalTime', '=', $checkDate)
+                ->orderBy('LogID','ASC')
+                ->get();
+      }
+
+      /**
+       * Get Drivers tapped from queue RFID based from location parameter without locationgate
+       */
+      public function scopeQueueLocationX($query, $door, $controller, $hasTruckscaleOut, $date)
       {
         $checkDate = !empty($date) ? Carbon::parse($date) : Carbon::today();
 
@@ -338,20 +355,7 @@ class Log extends Model
                 ->get();
       }
 
-      /**
-       * Get Trucks whose currently in the plant, but no truckscale out
-       */
-      public function scopeTrucksInPlant($query, $direction, $controller, $hasTruckscaleOut)
-      {
-        return $query->select('CardholderID')
-                    ->where('ControllerID', $controller)
-                    ->where('Direction',$direction)
-                    ->whereNotIn('CardholderID',$hasTruckscaleOut)
-                    ->whereDate('LocalTime', Carbon::today())
-                    ->pluck('CardholderID');
-      }
-
-      /**
+        /**
        * Get Driver queue tap to Monitor Screen in the truckscale office
        */
       public function scopeDriverQueueingLocation($query, $controller, $door, $locationGate, $checkTruckscaleOut)
@@ -365,6 +369,19 @@ class Log extends Model
                             ->orderBy('LogID','ASC')
                             ->take(20)
                             ->get();
+      }
+
+      /**
+       * Get Trucks whose currently in the plant, but no truckscale out
+       */
+      public function scopeTrucksInPlant($query, $direction, $controller, $hasTruckscaleOut)
+      {
+        return $query->select('CardholderID')
+                    ->where('ControllerID', $controller)
+                    ->where('Direction',$direction)
+                    ->whereNotIn('CardholderID',$hasTruckscaleOut)
+                    ->whereDate('LocalTime', Carbon::today())
+                    ->pluck('CardholderID');
       }
 
       /**
@@ -390,5 +407,21 @@ class Log extends Model
                 ->where('Direction',2) // All Truckscale Out
                 ->whereDate('LocalTime', $checkDate)
                 ->pluck('CardholderID');
+      }
+
+    /**
+    * Pluck all plate number in MNL Gate to store to shipments table
+    */
+    public function scopeQueueLocationShipment($query, $door, $controller, $hasTruckscaleOut, $date)
+      {
+        $checkDate = !empty($date) ? Carbon::parse($date) : Carbon::today();
+
+        return $query->with(['driver','driver.truck','driver.hauler'])
+                ->where('ControllerID', $controller)
+                ->where('DoorID',$door)
+                ->whereNotIn('CardholderID',$hasTruckscaleOut)
+                ->whereDate('LocalTime', '=', $checkDate)
+                ->orderBy('LogID','ASC')
+                ->get();
       }
 }

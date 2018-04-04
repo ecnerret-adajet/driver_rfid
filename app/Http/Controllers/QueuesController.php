@@ -14,6 +14,7 @@ use App\Cardholder;
 use App\Card;
 use App\Serve;
 use App\Shipment;
+use App\Driverqueue;
 use DB;
 
 class QueuesController extends Controller
@@ -21,22 +22,56 @@ class QueuesController extends Controller
 
     public function autoShipmentEnd()
     {
+        $driverqueue = Driverqueue::findOrFail(1);
 
         // MANILA QUEUE
-        $check_truckscale_out = Log::truckscaleOut();
-        $logs = Log::with('drivers')->queueLocation(0,1,$check_truckscale_out,Carbon::today());
-        $mnl_queue = $logs->unique('CardholderID')->pluck('');
+          // Get the total truckscale Out from truck monitoring today
+        $check_truckscale_out = Log::truckscaleOutLocation($driverqueue->ts_out_controller);
+        // Get the queue result
+        $result_lineups = Log::queueLocationShipment($driverqueue->door, $driverqueue->controller, $check_truckscale_out, Carbon::today());
+        // Get the unique result from Cardholder
+        $log_lineups = $result_lineups->unique('CardholderID');
 
-        // Retrieve flight by name, or create it if it doesn't exist...
-        $flight = App\Flight::firstOrCreate(['name' => 'Flight 10']);
+        $queueObject = array();
 
-        // $response = Curl::to('http://10.96.4.39/sapservice/api/assignedshipment')
-        // ->withContentType('application/x-www-form-urlencoded')
-        // ->withData( array( 'plate_number' => 'AAN-4671' ) )
-        // ->post();
+        foreach($log_lineups as $key => $log)  {
+            foreach($log->drivers as $driver) {
 
-        return $mnl_queue;
-    }
+                $data = array(
+                    'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number.'&',
+                );
+                array_push($queueObject, $data);
+
+            }
+        }
+
+        $collection = collect($queueObject);
+        $plate_number =  'plate_number='.$collection->implode('plate_number', 'plate_number=');
+
+        $response = Curl::to('http://10.96.4.39/sapservice/api/assignedshipment')
+        ->withContentType('application/x-www-form-urlencoded')
+        ->withData( $plate_number )
+        ->post();
+
+        // $log_id = 
+
+        // foreach($response as $res) {
+        //      $shipment = Shipment::firstOrCreate(
+        //     ['LogID'=>$res->,'user_id'=>$user_id],
+        //     );
+        //     $shipment->save();
+        // }
+        
+        // if($shipment->wasRecentlyCreated){
+        //     return 'Created successfully';
+        // } else {
+        //     echo 'Already exist';
+        // }
+
+           
+        return json_decode($response, true);
+        
+   }
 
     public function index()
     {
@@ -60,8 +95,13 @@ class QueuesController extends Controller
         // Get drivers with truckscale out within the day
         $check_truckscale_out = Log::truckscaleOut();
     
+        // Get the total drivers who tapped from Gate RFID
+        $manilaGate =  Log::barrierLocation(3,2);
+
         // MNL (Pfmc) queueing location
-        $logs = Log::queueLocation(0,1,$check_truckscale_out,Carbon::today());
+        $logs = Log::queueLocation(0,1,$check_truckscale_out,$manilaGate,Carbon::today());
+
+        // Get the unique result from queue
         $mnl_queue = $logs->unique('CardholderID');
     
         $arr = array();
@@ -106,8 +146,13 @@ class QueuesController extends Controller
         // Get drivers with truckscale out within the day
         $check_truckscale_out = Log::truckscaleOut();
 
+          // Get the total drivers who tapped from Gate RFID
+        $manilaGate =  Log::barrierLocation(3,2);
+
         // MNL (Pfmc) queueing location
-        $logs = Log::queueLocation(0,1,$check_truckscale_out,Carbon::today());
+        $logs = Log::queueLocation(0,1,$check_truckscale_out,$manilaGate,Carbon::today());
+
+        // Get the unique result from queue
         $mnl_queue = $logs->unique('CardholderID');
     
         $arr = array();
@@ -153,8 +198,13 @@ class QueuesController extends Controller
         // Get drivers with truckscale out within the day
         $check_truckscale_out = Log::truckscaleOut();
 
+          // Get the total drivers who tapped from Gate RFID
+        $manilaGate =  Log::barrierLocation(3,2);
+
         // MNL (Pfmc) queueing location
-        $logs = Log::queueLocation(0,1,$check_truckscale_out,Carbon::today());
+        $logs = Log::queueLocation(0,1,$check_truckscale_out,$manilaGate,Carbon::today());
+
+        // Get the unique result from queue
         $mnl_queue = $logs->unique('CardholderID');
     
         $arr = array();
@@ -229,9 +279,14 @@ class QueuesController extends Controller
     {
         // Get drivers with truckscale out within the day
         $check_truckscale_out = Log::btnTruckscaleOut();
+
+        // Get the total drivers who tapped from Gate RFID
+        $bataanGate =  Log::barrierLocation(0,9);
     
         // BTN (MGC) queueing location
-        $logs = Log::queueLocation(2,7,$check_truckscale_out,Carbon::today());
+        $logs = Log::queueLocation(2,7,$check_truckscale_out,$bataanGate,Carbon::today());
+
+        // Get the unique result from queue
         $btn_queue = $logs->unique('CardholderID');
     
         $arr = array();
@@ -276,8 +331,13 @@ class QueuesController extends Controller
         // Get drivers with truckscale out within the day
         $check_truckscale_out = Log::btnTruckscaleOut();
 
-        //  BTN (MGC)  queueing location
-        $logs = Log::queueLocation(2,7,$check_truckscale_out,Carbon::today());
+        // Get the total drivers who tapped from Gate RFID
+        $bataanGate =  Log::barrierLocation(0,9);
+    
+        // BTN (MGC) queueing location
+        $logs = Log::queueLocation(2,7,$check_truckscale_out,$bataanGate,Carbon::today());
+
+        // Get the unique result from queue
         $btn_queue = $logs->unique('CardholderID');
     
         $arr = array();
@@ -323,8 +383,13 @@ class QueuesController extends Controller
         // Get drivers with truckscale out within the day
         $check_truckscale_out = Log::btnTruckscaleOut();
 
+        // Get the total drivers who tapped from Gate RFID
+        $bataanGate =  Log::barrierLocation(0,9);
+    
         // BTN (MGC) queueing location
-        $logs = Log::queueLocation(2,7,$check_truckscale_out,Carbon::today());
+        $logs = Log::queueLocation(2,7,$check_truckscale_out,$bataanGate,Carbon::today());
+
+        // Get the unique result from queue
         $btn_queue = $logs->unique('CardholderID');
     
         $arr = array();
@@ -397,8 +462,11 @@ class QueuesController extends Controller
         $check_truckscale_out = Log::lpzTruckscaleOut();
     
         // MNL (LAPAZ) queueing location
+        // Get the total drivers who tapped from Gate RFID
+        $lapazGate =  Log::barrierLocation(0,9);
+        
         // Gate barrier as temporarily treat as queue
-        $logs = Log::queueLocation(0,5,$check_truckscale_out,Carbon::today());
+        $logs = Log::queueLocationX(0,5,$check_truckscale_out,Carbon::today());
         $lpz_queue = $logs->unique('CardholderID');
     
         $arr = array();
@@ -445,7 +513,7 @@ class QueuesController extends Controller
         $check_truckscale_out = Log::lpzTruckscaleOut();
 
         //  MNL (LPZ)  queueing location
-        $logs = Log::queueLocation(0,5,$check_truckscale_out,Carbon::today());
+        $logs = Log::queueLocationX(0,5,$check_truckscale_out,Carbon::today());
         $btn_queue = $logs->unique('CardholderID');
     
         $arr = array();
@@ -492,7 +560,7 @@ class QueuesController extends Controller
         $check_truckscale_out = Log::lpzTruckscaleOut();
 
         // MNL (LPZ) queueing location
-        $logs = Log::queueLocation(0,5,$check_truckscale_out,Carbon::today());
+        $logs = Log::queueLocationX(0,5,$check_truckscale_out,Carbon::today());
         $btn_queue = $logs->unique('CardholderID');
     
         $arr = array();

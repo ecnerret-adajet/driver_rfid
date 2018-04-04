@@ -101,7 +101,7 @@ class MonitoringsController extends Controller
         // Get the total truckscale Out from truck monitoring today
         $check_truckscale_out = Log::truckscaleOutLocation($driverqueue->ts_out_controller);
         // Get the queue result
-        $result_lineups = Log::queueLocation($driverqueue->door, $driverqueue->controller, $check_truckscale_out, Carbon::today());
+        $result_lineups = Log::queueLocationX($driverqueue->door, $driverqueue->controller, $check_truckscale_out, Carbon::today());
         // Get the unique result from Cardholder
         $log_lineups = $result_lineups->unique('CardholderID');
 
@@ -153,7 +153,7 @@ class MonitoringsController extends Controller
         // Get the total truckscale Out from truck monitoring today
         $check_truckscale_out = Log::truckscaleOutLocation($driverqueue->ts_out_controller);
         // Get the queue result
-        $result_lineups = Log::queueLocation($driverqueue->door, $driverqueue->controller, $check_truckscale_out, $search_date);
+        $result_lineups = Log::queueLocationX($driverqueue->door, $driverqueue->controller, $check_truckscale_out, $search_date);
         // Get the unique result from Cardholder
         $log_lineups = $result_lineups->unique('CardholderID');
 
@@ -363,7 +363,7 @@ class MonitoringsController extends Controller
         // Get the total truckscale Out from truck monitoring today
         $check_truckscale_out = Log::truckscaleOutLocationDate($driverqueue->ts_out_controller, $date);
         // Get the queue result
-        $result_lineups = Log::queueLocation($driverqueue->door, $driverqueue->controller, $check_truckscale_out, Carbon::parse($date));
+        $result_lineups = Log::queueLocationX($driverqueue->door, $driverqueue->controller, $check_truckscale_out, Carbon::parse($date));
         // Get the unique result from Cardholder
         $log_lineups = $result_lineups->unique('CardholderID');
 
