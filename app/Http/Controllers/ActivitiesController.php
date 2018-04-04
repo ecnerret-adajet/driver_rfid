@@ -12,7 +12,7 @@ class ActivitiesController extends Controller
     public function index()
     {
         $users = User::all();
-        $activities = Activity::where('created_at', '>=', Carbon::now()->subDay())
+        $activities = Activity::where('created_at', '>=', Carbon::today()->subDay())
                             ->orderBy('id','DESC')->get();    
 
         return view('activities.index', compact('activities','users'));

@@ -80,7 +80,7 @@ class QueuesController extends Controller
 
     public function pickups()
     {   
-        $pickups = Pickup::where('created_at', '>=', Carbon::now()->subDay(3))
+        $pickups = Pickup::where('created_at', '>=', Carbon::today()->subDay(3))
                     ->orderBy('created_at','DESC')
                     ->with('cardholder','user')
                     ->get();

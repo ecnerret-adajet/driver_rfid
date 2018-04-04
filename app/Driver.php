@@ -267,12 +267,12 @@ class Driver extends Model
      */
     public function scopeThisMonth($query)
     {
-        return $query->whereMonth('created_at', Carbon::now()->month);
+        return $query->whereMonth('created_at', Carbon::today()->month);
     }
 
     public function scopeThisWeek($query)
     {
-        return $query->whereBetween('created_at', [Carbon::now()->startOfWeek()->toDateString(), Carbon::now()->endOfWeek()->toDateString()]);
+        return $query->whereBetween('created_at', [Carbon::today()->startOfWeek()->toDateString(), Carbon::today()->endOfWeek()->toDateString()]);
     }
 
     /**
@@ -309,7 +309,7 @@ class Driver extends Model
     public function serve()
     {
         return $this->hasMany(Serve::class)
-                    ->whereDate('served_start_date',Carbon::now());
+                    ->whereDate('served_start_date',Carbon::today());
     }
 
     public function serves()

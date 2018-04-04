@@ -82,26 +82,19 @@ class MonitoringsController extends Controller
     }
 
     /**
-     * Admin view for gate monitoring
-     */
-
-    //  public function index()
-    //  {
-    //      return view('monitorings.index', compact(
-    //         'areas',
-    //         'gates'
-    //     ));
-    //  }
-
-    /**
      * Admin View Monitoring
      */
     public function queueEntries(Driverqueue $driverqueue)
     {
         // Get the total truckscale Out from truck monitoring today
         $check_truckscale_out = Log::truckscaleOutLocation($driverqueue->ts_out_controller);
+
+        // Get the total drivers who tapped from Gate RFID
+        $gateEntries =  Log::barrierLocation($driverqueue->gate->door,$driverqueue->gate->controller);
+        
         // Get the queue result
-        $result_lineups = Log::queueLocationX($driverqueue->door, $driverqueue->controller, $check_truckscale_out, Carbon::today());
+        $result_lineups = Log::queueLocation($driverqueue->door, $driverqueue->controller, $check_truckscale_out, $gateEntries, Carbon::today());
+
         // Get the unique result from Cardholder
         $log_lineups = $result_lineups->unique('CardholderID');
 
@@ -152,8 +145,13 @@ class MonitoringsController extends Controller
 
         // Get the total truckscale Out from truck monitoring today
         $check_truckscale_out = Log::truckscaleOutLocation($driverqueue->ts_out_controller);
+        
+        // Get the total drivers who tapped from Gate RFID
+        $gateEntries =  Log::barrierLocation($driverqueue->gate->door,$driverqueue->gate->controller);
+
         // Get the queue result
-        $result_lineups = Log::queueLocationX($driverqueue->door, $driverqueue->controller, $check_truckscale_out, $search_date);
+        $result_lineups = Log::queueLocation($driverqueue->door, $driverqueue->controller, $check_truckscale_out, $gateEntries, $search_date);
+        
         // Get the unique result from Cardholder
         $log_lineups = $result_lineups->unique('CardholderID');
 
@@ -279,10 +277,11 @@ class MonitoringsController extends Controller
                         'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
                         'plate_availability' => empty($driver->truck->plate_number) ? null : $driver->truck->availability,
                         'hauler_name' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
-                        'inLocalTime' =>  $this->getBarrierDirection(0 ,$entry->CardholderID, 1),
-                        'outLocalTime' =>  $this->getBarrierDirection(0, $entry->CardholderID, 2) < 
-                                            $this->getBarrierDirection(0, $entry->CardholderID, 1) ? null : 
-                                            $this->getBarrierDirection(0, $entry->CardholderID, 2),
+                        'inLocalTime' =>  $entry->LocalTime,
+                        // 'inLocalTime' =>  $this->getBarrierDirection(0 ,$entry->CardholderID, 1),
+                        // 'outLocalTime' =>  $this->getBarrierDirection(0, $entry->CardholderID, 2) < 
+                        //                     $this->getBarrierDirection(0, $entry->CardholderID, 1) ? null : 
+                        //                     $this->getBarrierDirection(0, $entry->CardholderID, 2),
                     );
 
                     array_push($arr, $data);
@@ -362,8 +361,13 @@ class MonitoringsController extends Controller
     {
         // Get the total truckscale Out from truck monitoring today
         $check_truckscale_out = Log::truckscaleOutLocationDate($driverqueue->ts_out_controller, $date);
+
+        // Get the total drivers who tapped from Gate RFID
+        $gateEntries =  Log::barrierLocation($driverqueue->gate->door,$driverqueue->gate->controller);
+
         // Get the queue result
-        $result_lineups = Log::queueLocationX($driverqueue->door, $driverqueue->controller, $check_truckscale_out, Carbon::parse($date));
+        $result_lineups = Log::queueLocation($driverqueue->door, $driverqueue->controller, $check_truckscale_out, $gateEntries, Carbon::parse($date));
+
         // Get the unique result from Cardholder
         $log_lineups = $result_lineups->unique('CardholderID');
 

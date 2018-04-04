@@ -125,7 +125,7 @@ class Log extends Model
         return  $query->whereNotIn('ControllerID',[1])
                       ->whereNotIn('CardholderID',$pickups)
                       ->where('CardholderID', '>=', 1)
-                      ->whereDate('LocalTime', '>=', Carbon::now())
+                      ->whereDate('LocalTime', '>=', Carbon::today())
                       ->orderBy('LocalTime','DESC')->get(); 
     }
 
@@ -138,7 +138,7 @@ class Log extends Model
     {
         return $query->where('CardholderID', '>=', 1)
                       ->where('Direction', 1)
-                      ->whereBetween('LocalTime', [Carbon::now()->subDays(1), Carbon::now()])
+                      ->whereBetween('LocalTime', [Carbon::today()->subDays(1), Carbon::today()])
                       ->orderBy('LocalTime','DESC')->get();
     }
 
@@ -151,7 +151,7 @@ class Log extends Model
     {
         return $query->where('CardholderID', '>=', 1)
                       ->where('Direction', 2)
-                      ->whereDate('LocalTime',  Carbon::now())
+                      ->whereDate('LocalTime',  Carbon::today())
                       ->orderBy('LocalTime','DESC')->get();
 
     }
@@ -166,7 +166,7 @@ class Log extends Model
         return $query->whereNotIn('ControllerID',[1])
                      ->whereNotIn('CardholderID',$pickup)
                      ->where('CardholderID', '>=', 1)
-                     ->whereDate('LocalTime', Carbon::now())
+                     ->whereDate('LocalTime', Carbon::today())
                      ->orderBy('LocalTime','DESC')->get();
     }
 
@@ -180,7 +180,7 @@ class Log extends Model
         return $query->where('ControllerID',1)
                     ->where('DoorID',0)
                     ->where('CardholderID', '>=', 15)
-                    ->whereDate('LocalTime', Carbon::now())
+                    ->whereDate('LocalTime', Carbon::today())
                     ->orderBy('LocalTime','DESC')->get();
 
     }
@@ -260,7 +260,7 @@ class Log extends Model
 
     public function scopeThisDay($query)
     {
-        return $query->whereDate('LocalTime', '>=', Carbon::now());
+        return $query->whereDate('LocalTime', '>=', Carbon::today());
         
     }
 
