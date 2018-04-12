@@ -8,6 +8,7 @@ use App\Cardholder;
 use App\Log;
 use App\Driver;
 use Carbon\Carbon;
+use App\Serve;
 
 class BarriersController extends Controller
 {
@@ -145,11 +146,14 @@ class BarriersController extends Controller
     {
          // Get Logs from Bataan Barrier RFID
         $bataan_drivers =  $this->getBarrierLocation(0,9);
+        
 
         // Format the array JSON return
         $arr = array();
         foreach($bataan_drivers as $entry) {
             foreach($entry->drivers as $driver) {
+
+                $isShipped = Serve::isDriverShipped($driver->id);
 
                     $data = array(
 
@@ -162,9 +166,10 @@ class BarriersController extends Controller
                         'plate_availability' => empty($driver->truck->plate_number) ? null : $driver->truck->availability,
                         'hauler_name' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
                         'inLocalTime' =>  $this->getBarrierDirection(0 ,$entry->CardholderID, 1),
-                        'outLocalTime' =>  $this->getBarrierDirection(0, $entry->CardholderID, 2) < 
-                                            $this->getBarrierDirection(0, $entry->CardholderID, 1) ? null : 
-                                            $this->getBarrierDirection(0, $entry->CardholderID, 2),
+                        // 'outLocalTime' =>  $this->getBarrierDirection(0, $entry->CardholderID, 2) < 
+                        //                     $this->getBarrierDirection(0, $entry->CardholderID, 1) ? null : 
+                        //                     $this->getBarrierDirection(0, $entry->CardholderID, 2),
+                        'is_shipment' => count($isShipped) == 0 ? null : 1
                     );
 
                     array_push($arr, $data);

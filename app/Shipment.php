@@ -10,4 +10,9 @@ class Shipment extends Model
         '*'
     ];
 
+    public function getDates()
+    {
+        return [];
+    }
+
 }

@@ -52632,6 +52632,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -94367,7 +94372,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "src": '/driver_rfid/public/storage/' + barrier.avatar,
         "align": "middle"
       }
-    })]), _vm._v(" "), _c('div', {
+    }), _vm._v(" "), (barrier.is_shipment) ? _c('span', {
+      staticClass: "border border-success p-3 mt-2 rounded text-center text-success d-block",
+      staticStyle: {
+        "font-size": "35px"
+      }
+    }, [_vm._v("\n                        SHIPMENT ASSINED\n                    ")]) : _vm._e()]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-6 p-0 border border-top-0 border-right-0 border-bottom-0"
     }, [_c('ul', {
       staticClass: "list-group list-group-flush",

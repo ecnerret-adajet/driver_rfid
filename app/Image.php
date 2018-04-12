@@ -14,6 +14,11 @@ class Image extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function getDates()
+    {
+        return [];
+    }
     
     public function driver()
     {

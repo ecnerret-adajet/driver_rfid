@@ -17,6 +17,11 @@ class Driverqueue extends Model
         'deleted_at'
     ];
 
+    public function getDates()
+    {
+        return [];
+    }
+
     /**
      * Linked to a user who create a queue monitoring
      */

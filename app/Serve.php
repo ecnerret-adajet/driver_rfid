@@ -7,6 +7,8 @@ use Carbon\Carbon;
 
 class Serve extends Model
 {
+    protected $table = 'serves';
+
     protected $fillable = [
         'on_serving',
     ];
@@ -40,5 +42,17 @@ class Serve extends Model
                 ->orderBy('id','DESC')
                 ->whereDate('created_at', Carbon::today())
                 ->pluck('driver_id');
+    }
+
+    public function scopeIsDriverShipped($query, $driverID)
+    {
+        return $query->with('driver')
+                    ->where('on_serving',1)
+                    ->whereHas('driver', function($q) use ($driverID){
+                        $q->where('id',$driverID);
+                    })
+                    ->whereDate('created_at',Carbon::today())
+                    ->take(1)
+                    ->get();
     }
 }

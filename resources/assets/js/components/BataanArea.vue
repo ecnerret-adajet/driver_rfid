@@ -17,7 +17,12 @@
                         </div>
 
                         <img class="img-responsive rounded-circle mx-auto" :class="{ 'deactived-img' : barrier.availability == 0 }" style="height: 450px; width: auto;" :src="'/driver_rfid/public/storage/' + barrier.avatar" align="middle">
-                    
+                        
+                        <span v-if="barrier.is_shipment" class="border border-success p-3 mt-2 rounded text-center text-success d-block" style="font-size: 35px;">
+                            SHIPMENT ASSINED
+                        </span>
+
+
                     </div>
                     <div class="col-sm-6 p-0 border border-top-0 border-right-0 border-bottom-0">
 
