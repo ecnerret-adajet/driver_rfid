@@ -113,7 +113,7 @@
 
               @endrole
 
-              @role((['Administrator','Queue']))
+              @role((['Administrator','Queue-monitoring']))
 
               <li class="font-weight-bold {{ (Request::is('lineups') ||
                             Request::is('generateLineups') ||

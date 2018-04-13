@@ -67,7 +67,7 @@ class BarriersController extends Controller
         ->where('CardholderID', '>=', 15)
         ->orderBy('LocalTime','DESC')
         ->with('driver')
-        ->take(10)
+        ->take(5)
         ->get();
 
         return $barriers;
@@ -84,6 +84,8 @@ class BarriersController extends Controller
         foreach($lapaz_drivers as $entry) {
             foreach($entry->drivers as $driver) {
 
+                $isShipped = Serve::isDriverShipped($driver->id);
+
                     $data = array(
 
                         'LogID' => $entry->LogID,
@@ -95,9 +97,10 @@ class BarriersController extends Controller
                         'plate_availability' => empty($driver->truck->plate_number) ? null : $driver->truck->availability,
                         'hauler_name' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
                         'inLocalTime' =>  $this->getBarrierDirection(0 ,$entry->CardholderID, 1),
-                        'outLocalTime' =>  $this->getBarrierDirection(0, $entry->CardholderID, 2) < 
-                                            $this->getBarrierDirection(0, $entry->CardholderID, 1) ? null : 
-                                            $this->getBarrierDirection(0, $entry->CardholderID, 2),
+                        // 'outLocalTime' =>  $this->getBarrierDirection(0, $entry->CardholderID, 2) < 
+                        //                     $this->getBarrierDirection(0, $entry->CardholderID, 1) ? null : 
+                        //                     $this->getBarrierDirection(0, $entry->CardholderID, 2),
+                        'is_shipment' => count($isShipped) == 0 ? null : 1
                     );
 
                     array_push($arr, $data);
@@ -117,6 +120,8 @@ class BarriersController extends Controller
         foreach($manila_drivers as $entry) {
             foreach($entry->drivers as $driver) {
 
+                $isShipped = Serve::isDriverShipped($driver->id);
+
                     $data = array(
 
                         'LogID' => $entry->LogID,
@@ -128,10 +133,11 @@ class BarriersController extends Controller
                         'plate_availability' => empty($driver->truck->plate_number) ? null : $driver->truck->availability,
                         'hauler_name' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
                         'inLocalTime' =>  $this->getBarrierDirection(3 ,$entry->CardholderID, 1),
-                        'outLocalTime' =>  $this->getBarrierDirection(3, $entry->CardholderID, 2) < 
-                                            $this->getBarrierDirection(3, $entry->CardholderID, 1) ? null : 
-                                            $this->getBarrierDirection(3, $entry->CardholderID, 2),
+                        // 'outLocalTime' =>  $this->getBarrierDirection(3, $entry->CardholderID, 2) < 
+                        //                     $this->getBarrierDirection(3, $entry->CardholderID, 1) ? null : 
+                        //                     $this->getBarrierDirection(3, $entry->CardholderID, 2),
                         'isFromLapaz' => array_has($entry->CardholdereID, Log::barrierLocation(0,5)) ? 1 : null,
+                        'is_shipment' => count($isShipped) == 0 ? null : 1
 
                     );
 

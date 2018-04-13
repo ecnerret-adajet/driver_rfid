@@ -1,99 +1,8 @@
 <template>
     <div>
            <div class="row mb-4">
-            <div class="col-3">
-                <div class="card card bg-light rounded-0">
-                    <div class="card-body text-center">
-                        <h1  class="card-title pb-1 pt-2 display-3" style="font-weight: 100">
-                            {{ totalentries.total }}
-                        </h1>
-                
-                    </div>
-                    <div class="card-footer bg-primary text-center">
-                    <span style="font-weight: 100" class="text-small text-uppercase text-white">
-                        Drivers in queue today
-                    </span>                            
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card card bg-light rounded-0">
-                    <div class="card-body text-center">
-                        <h1  class="card-title pb-1 pt-2 display-3" style="font-weight: 100">
-                            {{ totalentries.current_in_plant }}
-                        </h1>
-                
-                    </div>
-                    <div class="card-footer bg-primary text-center">
-                    <span style="font-weight: 100" class="text-small text-uppercase text-white">
-                        Trucks In plant today
-                    </span>                            
-                    </div>
-                </div>
-            </div>
             <div class="col-6">
-                     <div class="card bg-light rounded-0">
-                        <div class="card-body text-center">
-                            <div class="row" v-if="!currentlyServing.length == 0" v-for="(serving, i) in currentlyServing" :key="i">
-                                <div class="col-3">
-
-                                <span v-if="serving.driver.image">
-                                    <img :src="avatar_link + serving.driver.image.avatar" class="rounded-circle" style="height: 100px; width: auto;"  align="right">
-                                </span>
-                                <span v-else>
-                                    <img :src="avatar_link + serving.driver.avatar" class="rounded-circle" style="height: 100px; width: auto;"  align="right">
-                                </span>
-                             
-                                </div>
-
-                                <div class="col-3 text-left">
-                                    <span class="small text-muted text-uppercase">
-                                        Driver Name:
-                                    </span><br/>
-                                    <span>
-                                        {{ serving.driver.name }}
-                                    </span><br/>
-                                    <span class="small text-muted text-uppercase">
-                                        Plate Number:
-                                    </span><br/>
-                                    <span v-for="truckx in serving.driver.truck">
-                                        {{ truckx.plate_number }}
-                                    </span><br/>
-                                  
-                                </div>
-
-                                <div class="col-6 text-left">
-                                    <span class="small text-muted text-uppercase">
-                                        Hauler Name:
-                                    </span><br/>
-                                    <span v-for="haulerx in serving.driver.hauler">
-                                        {{ haulerx.name }}
-                                    </span>
-                                </div>
-                            </div>
-                             <h1 v-if="currentlyServing == 0" class="card-title text-muted pt-2  display-3" style="font-weight: 100">
-                                OPEN
-                            </h1>
-                            <!-- <p class="card-text mt-3 small text-uppercase text-muted">
-                                Currently Serving
-                            </p> -->
-                            
-                        </div>
-                        <div class="card-footer bg-primary text-center mt-1">
-                            <span style="font-weight: 100" class="text-small text-uppercase text-white">
-                                RECENTLY ASSIGNED SHIPMENT
-                            </span>                            
-                        </div>
-                    </div>
-            </div>
-        </div>
-
-
-        <div class="row">
-            
-            <div class="col-6">
-
-        <table class="table table-bordered table-striped">
+ <table class="table table-bordered table-striped">
         <thead>
             <tr class="text-uppercase font-weight-light">
             <th scope="col"> <small>  Queue # </small> </th>
@@ -152,14 +61,63 @@
         </tbody>
         </table>
 
-        
+            </div>
+            <div class="col-6 ">
+                     <div class="card bg-light rounded-0">
+                        <div class="card-body text-center">
+                            <div class="row" v-if="!currentlyServing.length == 0" v-for="(serving, i) in currentlyServing" :key="i">
+                                <div class="col-3">
 
-               
-            </div> <!-- end col 6 -->
+                                <span v-if="serving.driver.image">
+                                    <img :src="avatar_link + serving.driver.image.avatar" class="rounded-circle" style="height: 100px; width: auto;"  align="right">
+                                </span>
+                                <span v-else>
+                                    <img :src="avatar_link + serving.driver.avatar" class="rounded-circle" style="height: 100px; width: auto;"  align="right">
+                                </span>
+                             
+                                </div>
 
-            <div class="col-6">
+                                <div class="col-3 text-left">
+                                    <span class="small text-muted text-uppercase">
+                                        Driver Name:
+                                    </span><br/>
+                                    <span>
+                                        {{ serving.driver.name }}
+                                    </span><br/>
+                                    <span class="small text-muted text-uppercase">
+                                        Plate Number:
+                                    </span><br/>
+                                    <span v-for="truckx in serving.driver.truck">
+                                        {{ truckx.plate_number }}
+                                    </span><br/>
+                                  
+                                </div>
 
-                 <table class="table table-bordered table-striped">
+                                <div class="col-6 text-left">
+                                    <span class="small text-muted text-uppercase">
+                                        Hauler Name:
+                                    </span><br/>
+                                    <span v-for="haulerx in serving.driver.hauler">
+                                        {{ haulerx.name }}
+                                    </span>
+                                </div>
+                            </div>
+                             <h1 v-if="currentlyServing == 0" class="card-title text-muted pt-2  display-3" style="font-weight: 100">
+                                OPEN
+                            </h1>
+                            <!-- <p class="card-text mt-3 small text-uppercase text-muted">
+                                Currently Serving
+                            </p> -->
+                            
+                        </div>
+                        <div class="card-footer bg-primary text-center mt-1">
+                            <span style="font-weight: 100" class="text-small text-uppercase text-white">
+                                RECENTLY ASSIGNED SHIPMENT
+                            </span>                            
+                        </div>
+                    </div>
+
+  <table class="table table-bordered table-striped">
                 <thead>
                     <tr class="text-uppercase font-weight-light">
                     <th scope="col"> <small>  Driver Details </small> </th>
@@ -277,6 +235,25 @@
                 </table>
 
 
+
+
+            </div>
+        </div>
+
+
+        <div class="row">
+            
+            <div class="col-6">
+
+       
+        
+
+               
+            </div> <!-- end col 6 -->
+
+            <div class="col-6">
+
+               
             </div> <!-- end col 6 -->
 
 
@@ -304,7 +281,7 @@
             this.getQueues()
             this.getCurrentlyServing()
             this.getTodayServed()
-            this.getTotalQueueToday()
+            // this.getTotalQueueToday()
             this.getLastDriver()
         },
 
@@ -315,11 +292,11 @@
                 setTimeout(this.getQueues, 10000);
             },
 
-            getTotalQueueToday() {
-                axios.get('/driver_rfid/public/getTotalQueueToday')
-                .then(response => this.totalentries = response.data);
-                setTimeout(this.getTotalQueueToday, 3500);
-            },
+            // getTotalQueueToday() {
+            //     axios.get('/driver_rfid/public/getTotalQueueToday')
+            //     .then(response => this.totalentries = response.data);
+            //     setTimeout(this.getTotalQueueToday, 3500);
+            // },
 
             getCurrentlyServing(){
                 axios.get('/driver_rfid/public/serving')

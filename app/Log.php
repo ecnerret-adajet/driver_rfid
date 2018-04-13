@@ -365,9 +365,9 @@ class Log extends Model
                             ->where('DoorID',$door)
                             ->whereIn('CardholderID',$locationGate)
                             ->whereNotIn('CardholderID',$checkTruckscaleOut)
-                            ->whereDate('LocalTime', Carbon::today())
-                            ->orderBy('LogID','ASC')
-                            ->take(20)
+                            // ->whereDate('LocalTime', Carbon::today())
+                            ->orderBy('LogID','DESC')
+                            ->take(10)
                             ->get();
       }
 

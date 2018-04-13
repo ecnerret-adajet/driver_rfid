@@ -1,4 +1,4 @@
-@extends('layouts.online')
+@extends('layouts.app')
 @section('content')
 
    <div class="card mx-auto mb-3">

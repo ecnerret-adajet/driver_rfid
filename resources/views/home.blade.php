@@ -11,7 +11,7 @@
 
     <home></home>
 
-    @if(\Entrust::hasRole('Administrator') || \Entrust::hasRole('Monitoring') || \Entrust::hasRole('Approver'))
+    @if(\Entrust::hasRole('Administrator') || \Entrust::hasRole('Monitoring') || \Entrust::hasRole('Approver') || \Entrust::hasRole('Queue-monitoring'))
 
         {{--  <dashboard></dashboard>  --}}
 

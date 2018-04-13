@@ -44,6 +44,19 @@ class Serve extends Model
                 ->pluck('driver_id');
     }
 
+    /**
+     * Get All Served driver pluck only cardholder
+     */
+    public function scopeServedTodayCardholder($query)
+    {
+         return $query->where('on_serving',1)
+                ->orderBy('id','DESC')
+                ->whereDate('created_at', Carbon::today())
+                ->with('driver','driver.cardholder')
+                ->get()
+                ->pluck('driver.cardholder.CardholderID');
+    }
+
     public function scopeIsDriverShipped($query, $driverID)
     {
         return $query->with('driver')

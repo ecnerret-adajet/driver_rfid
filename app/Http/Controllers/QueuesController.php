@@ -103,7 +103,11 @@ class QueuesController extends Controller
 
         // Get the unique result from queue
         $mnl_queue = $logs->unique('CardholderID');
-    
+
+        // compare if in is greater thatn time out within the day
+        // then add to queueu
+
+
         $arr = array();
         
         foreach($mnl_queue as $key => $log) {
@@ -130,13 +134,36 @@ class QueuesController extends Controller
                     'on_serving' => empty($driver->serves->where('created_at','>=',Carbon::today())->first()->on_serving) ? null : $driver->serves->first()->on_serving,
 
                 );
-
                 array_push($arr, $data);
 
             }
         }
 
-        return $arr;
+        // get truckscaleout object
+        // $manilaGateIn = Log::scopeBarrierLocationObject(3,2,Carbon::today());
+
+        // // if truck is second coming
+        // $checkServedtoday = Serve::servedTodayCardholder(); // has served
+        // $checkIfHasOut = Log::select('LogID','CardholderID','LocalTime')
+        //                     ->whereIn('CardholderID',$checkServedtoday)
+        //                     ->where('Direction',2)
+        //                     ->where('ControllerID',4)
+        //                     ->whereDate('LocalTime', Carbon::today())
+        //                     ->get();
+
+            
+        // foreach($checkIfHasOut as $out)
+        // {
+        //     foreach($manilaGate->whereIn('CardholderID',$out->CardholderID) as $in)
+        //     {
+
+        //     }
+        // }  
+
+
+        // array_push($arr,$dataSecond);
+
+        return  $arr;
     }
 
     // MNL (PFMC) assigned shipment
@@ -430,24 +457,24 @@ class QueuesController extends Controller
     }
 
     // MNL (PFMC) deliveries count
-    // public function btnGetDeliveriesCount()
-    // {
-    //     $totalAssiged = count($this->assignedShipment());
-    //     $totalOpen = count($this->openShipment());
+    public function btnGetDeliveriesCount()
+    {
+        $totalAssiged = count($this->assignedShipment());
+        $totalOpen = count($this->openShipment());
 
-    //     // Get drivers with truckscale out within the day
-    //     $check_truckscale_out = Log::truckscaleOut();
+        // Get drivers with truckscale out within the day
+        $check_truckscale_out = Log::truckscaleOut();
 
-    //     // Check Trucks who has Truckscale in but not out        
-    //     $check_truckscale_in = Log::trucksInPlant(1,4,$check_truckscale_out)->count();
+        // Check Trucks who has Truckscale in but not out        
+        $check_truckscale_in = Log::trucksInPlant(1,4,$check_truckscale_out)->count();
 
-    //     $data = array(
-    //         'totalAssigned' => $totalAssiged,
-    //         'totalOpen' => $totalOpen,
-    //         'current_in_plant' => $check_truckscale_in
-    //     );
-    //     return $data;
-    // }
+        $data = array(
+            'totalAssigned' => $totalAssiged,
+            'totalOpen' => $totalOpen,
+            'current_in_plant' => $check_truckscale_in
+        );
+        return $data;
+    }
 
     
 

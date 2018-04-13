@@ -6,6 +6,7 @@
             <th scope="col"> <small>  Queue # </small> </th>
             <th scope="col"> <small>  Driver Details </small> </th>
             <th scope="col"> <small>  Capacity </small> </th>
+            <th scope="col"> <small>  Truck Location(s) </small> </th>
             <th scope="col"> <small>  Recorded Time /Date </small> </th>
             <th scope="col"> <small>  Status</small> </th>
             </tr>
@@ -21,10 +22,10 @@
                 </td>
                 <td>
                     <div class="row">
-                        <div class="col-2 text-center">
+                        <div class="col-3 text-center">
                             <img :src="avatar_link + queue.driver_avatar" class="rounded-circle mx-auto align-middle" style="height: 100px; width: auto;"  align="middle">
                         </div>
-                        <div class="col-10">
+                        <div class="col-9">
                             {{ queue.driver_name }} <br/>
                             {{ queue.plate_number }} <br/>
                             <span v-if="queue.hauler == 'NO HAULER'" class="text-danger">
@@ -33,9 +34,6 @@
                             <span v-else>
                                     {{ queue.hauler }}
                             </span><br/>
-                            <span v-for="(x,y) in queue.plant_truck" :key="y" class="badge badge-secondary m-1">
-                                {{ x }}
-                            </span>
                         </div>
                     </div>
                    
@@ -47,6 +45,17 @@
                     <span class="text-muted" v-if="!queue.capacity">
                         N/A
                     </span>
+                </td>
+                   <td>
+                         <div class="row">
+                        <div class="col" v-for="(i, index) in Math.ceil(queue.plant_truck.length / 4)" :key="index">
+                            <span v-for="(x,y) in queue.plant_truck.slice((i - 1) * 4, i *4)" :key="y">
+                                <span class="badge badge-secondary m-1">
+                                    {{ x }}
+                                </span><br/>
+                            </span>
+                        </div>
+                    </div>
                 </td>
                 <td>
                     <small class="text-uppercase text-muted">

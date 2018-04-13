@@ -7,13 +7,14 @@
             <th scope="col"> <small>  Queue # </small> </th>
             <th scope="col"> <small>  Driver Details </small> </th>
             <th scope="col"> <small>  Capacity </small> </th>
+            <th scope="col"> <small>  Truck Location(s) </small> </th>
             <th scope="col"> <small>  Recorded Time /Date </small> </th>
             <th scope="col"> <small>  Status</small> </th>
             </tr>
         </thead> 
         <tbody>
 
-            <tr v-for="queue in filteredQueues" v-if="!loading">
+            <tr v-for="(queue,q) in filteredQueues" :key="q" v-if="!loading">
 
                 <td class="text-center">
                     <span class="display-4">
@@ -22,10 +23,10 @@
                 </td>
                 <td>
                     <div class="row">
-                        <div class="col-2 text-center">
+                        <div class="col-3 text-center">
                             <img :src="avatar_link + queue.driver_avatar" class="rounded-circle mx-auto align-middle" style="height: 100px; width: auto;"  align="middle">
                         </div>
-                        <div class="col-10">
+                        <div class="col-9">
                             {{ queue.driver_name }} <br/>
                             {{ queue.plate_number }} <br/>
                             <span v-if="queue.hauler == 'NO HAULER'" class="text-danger">
@@ -34,9 +35,6 @@
                             <span v-else>
                                     {{ queue.hauler }}
                             </span> <br/>
-                            <span v-for="(x,y) in queue.plant_truck" :key="y" class="badge badge-secondary m-1">
-                                {{ x }}
-                            </span>
                         </div>
                     </div>
                    
@@ -50,10 +48,21 @@
                     </span>
                 </td>
                 <td>
+                         <div class="row">
+                        <div class="col" v-for="(i, index) in Math.ceil(queue.plant_truck.length / 4)" :key="index">
+                            <span v-for="(x,y) in queue.plant_truck.slice((i - 1) * 4, i *4)" :key="y">
+                                <span class="badge badge-secondary m-1">
+                                    {{ x }}
+                                </span><br/>
+                            </span>
+                        </div>
+                    </div>
+                </td>
+                <td>
                     <small class="text-uppercase text-muted">
                         LAST DR SUBMISSION
                     </small> <br/>
-                    <span v-if="queue.dr_status" v-for="(status, index) in queue.dr_status">
+                    <span v-if="queue.dr_status" v-for="(status, index) in queue.dr_status" :key="index">
                         <span v-if="index == 0">
                             {{ status.submission_date }}
                         </span>                                            
@@ -124,7 +133,7 @@
             </div>
         </div>
 
-        <div v-for="queue in filteredQueues">
+        <div v-for="(queue,q) in filteredQueues" :key="q">
 
             <!-- serving modal -->
             <div class="modal fade" :id="'servingModal-' + queue.driver_id" tabindex="-1" role="dialog" aria-labelledby="driverModalLabel" aria-hidden="true">
