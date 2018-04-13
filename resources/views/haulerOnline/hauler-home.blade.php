@@ -16,7 +16,6 @@
             <div class="row">
 
                 <div class="col-md-6 col-sm-6 col-xs-12 mb-3">
- 
 
                     <div class="grid">
                     	<figure class="effect-ruby">

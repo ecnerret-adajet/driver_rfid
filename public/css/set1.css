@@ -32,6 +32,17 @@
     cursor: pointer;
 }
 
+.card-custom-1 {
+    background-image: url('../img/truck.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 400px;
+    width: 400px;
+    opacity: 0.8;
+    display:block;
+    margin: 30px auto;
+}
+
 .grid figure img {
     position: relative;
     display: block;
@@ -81,6 +92,12 @@
     word-spacing: -0.15em;
     font-weight: 300;
 }
+
+.card-title-text {
+    word-spacing: -0.15em;
+    font-weight: 300;
+}
+
 
 .grid figure h2 span {
     font-weight: 800;

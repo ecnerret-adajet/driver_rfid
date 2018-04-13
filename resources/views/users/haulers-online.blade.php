@@ -6,7 +6,6 @@
    <div class="card mx-auto mb-3">
         <div class="card-header">
         Hauler's Managed
-
         <a class="btn btn-primary btn-sm pull-right" href="{{ URL::previous() }}">
         Back
         </a>

@@ -177,7 +177,7 @@ class UsersController extends Controller
         if(!empty($user->hauler_id)) {
             $drivers = Driver::whereHas('haulers', function($q) use ($user) {
                 $q->where('id',$user->hauler_id);
-            })->with(['haulers','trucks','cardholder','card','cardholder.logs'])
+            })->with(['image','haulers','trucks','cardholder','card','cardholder.logs'])
             ->orderBy('id','DESC')
             ->get();
     

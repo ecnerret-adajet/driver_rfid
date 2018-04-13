@@ -237,24 +237,23 @@ class HaulerOnlineController extends Controller
 
         flashy()->success('Driver has successfully updated!');
 
-
-        if (\Entrust::hasRole('Hauler')) {
-
-            return redirect('hauler/online/home');
-
-        } elseif (\Entrust::hasRole('Pickup')) {
-
-            return redirect('pickups/online');
-
-        } elseif (\Entrust::hasRole('Queue-monitoring')) {
-
-            return redirect('monitor/feed');
-
-        } else {
-
-            return redirect()->back();
-
+        // check role ID;
+        $checkRoleID = Auth::user()->roles->first()->id;
+        switch ($checkRoleID) {
+            case 5:
+                return redirect('hauler/online/home');
+                break;
+            case 6:
+                 return redirect('pickups/online');
+                break;
+            case 8:
+                return redirect('monitor/feed');
+                break;
+            default:
+                return redirect('/home');
+                break;
         }
+
     }
 
 
