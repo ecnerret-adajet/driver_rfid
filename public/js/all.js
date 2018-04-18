@@ -52068,8 +52068,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -52299,8 +52297,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -52395,8 +52391,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_content_placeholders__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash__);
-//
-//
 //
 //
 //
@@ -54473,8 +54467,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -54569,8 +54561,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_content_placeholders__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash__);
-//
-//
 //
 //
 //
@@ -60001,6 +59991,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -60021,8 +60046,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             queues: [],
             currentPage: 0,
             itemsPerPage: 5,
-            avatar_link: '/driver_rfid/public/storage/'
+            avatar_link: '/driver_rfid/public/storage/',
+            csrf: ''
         };
+    },
+    mounted: function mounted() {
+        this.csrf = window.Laravel.csrfToken;
     },
     created: function created() {
         this.getEntries();
@@ -61072,8 +61101,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -61340,8 +61367,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -61436,8 +61461,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_content_placeholders__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash__);
-//
-//
 //
 //
 //
@@ -91509,11 +91532,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }))
     }))]), _vm._v(" "), _c('td', [_c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((queue.dr_status), function(status, index) {
-      return (queue.dr_status) ? _c('span', [(index == 0) ? _c('span', [_vm._v("\n                        " + _vm._s(status.submission_date) + "\n                    ")]) : _vm._e()]) : _vm._e()
-    }), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+    }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), (queue.dr_status) ? _c('span', [_vm._v("\n                    " + _vm._s(queue.dr_status) + "\n                ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")], 2), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
+    }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")]), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
       staticClass: "btn btn-success",
       attrs: {
         "href": "javascript:void(0);",
@@ -92785,13 +92806,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "text-muted"
     }, [_vm._v("\n                      N/A\n                  ")]) : _vm._e()]), _vm._v(" "), _c('td', [_c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                      LAST DR SUBMISSION\n                  ")]), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((queue.dr_status), function(status, index) {
-      return (queue.dr_status) ? _c('span', [(index == 0) ? _c('span', [_vm._v("\n                          " + _vm._s(status.submission_date) + "\n                      ")]) : _vm._e()]) : _vm._e()
-    }), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+    }, [_vm._v("\n                      LAST DR SUBMISSION\n                  ")]), _vm._v(" "), _c('br'), _vm._v(" "), (queue.dr_status) ? _c('span', [_vm._v("\n                      " + _vm._s(queue.dr_status) + "\n                  ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                      TAPPED IN QUEUE\n                  ")]), _c('br'), _vm._v("\n                   " + _vm._s(_vm.moment(queue.log_time.date)) + "\n              ")], 2), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('button', {
-      staticClass: "btn btn-outline-success btn-sm disabled"
-    }, [_vm._v("\n                      OPEN FOR SHIPMENT\n                      ")])]) : _c('span', [_c('button', {
+    }, [_vm._v("\n                      TAPPED IN QUEUE\n                  ")]), _c('br'), _vm._v("\n                   " + _vm._s(_vm.moment(queue.log_time.date)) + "\n              ")]), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
+      staticClass: "btn btn-success",
+      attrs: {
+        "href": "javascript:void(0);",
+        "data-toggle": "modal",
+        "data-target": '#servingModal-' + queue.driver_id
+      }
+    }, [_vm._v("\n                          OPEN FOR SHIPMENT\n                      ")])]) : _c('span', [_c('button', {
       staticClass: "btn btn-outline-danger btn-sm disabled"
     }, [_vm._v("\n                      SHIPMENT ASSIGNED\n                      ")])])])]) : _vm._e()
   }), _vm._v(" "), (_vm.filteredQueues.length == 0 && !_vm.loading) ? _c('tr', [_vm._m(1)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('tr', [_c('td', {
@@ -92869,7 +92893,53 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(" Next ")])]), _vm._v(" "), _c('div', {
     staticClass: "col-6 text-right"
-  }, [_c('span', [_vm._v(_vm._s(_vm.queues.length) + " Queue(s)")])])])])
+  }, [_c('span', [_vm._v(_vm._s(_vm.queues.length) + " Queue(s)")])])]), _vm._v(" "), _vm._l((_vm.filteredQueues), function(queue, q) {
+    return _c('div', {
+      key: q
+    }, [_c('div', {
+      staticClass: "modal fade",
+      attrs: {
+        "id": 'servingModal-' + queue.driver_id,
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "driverModalLabel",
+        "aria-hidden": "true"
+      }
+    }, [_c('div', {
+      staticClass: "modal-dialog",
+      attrs: {
+        "id": "queueter"
+      }
+    }, [_c('div', {
+      staticClass: "modal-content"
+    }, [_vm._m(2, true), _vm._v(" "), _vm._m(3, true), _vm._v(" "), _c('div', {
+      staticClass: "modal-footer"
+    }, [_c('form', {
+      attrs: {
+        "method": "POST",
+        "action": '/driver_rfid/public/storeCurrentlyServing/' + queue.driver_id
+      }
+    }, [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "_token"
+      },
+      domProps: {
+        "value": _vm.csrf
+      }
+    }), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-secondary",
+      attrs: {
+        "type": "button",
+        "data-dismiss": "modal"
+      }
+    }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-primary",
+      attrs: {
+        "type": "submit"
+      }
+    }, [_vm._v("Confirm")])])])])])])])
+  })], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', {
     staticClass: "text-uppercase font-weight-light"
@@ -92906,6 +92976,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('span', {
     staticClass: "display-4 text-muted"
   }, [_vm._v("\n                              Nothing Found\n                          ")])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('h6', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "driverModalLabel"
+    }
+  }, [_vm._v("Serving Truck")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body text-center"
+  }, [_c('em', [_vm._v("Are you sure you want to proceed with this action?")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -93096,11 +93190,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }))
     }))]), _vm._v(" "), _c('td', [_c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((queue.dr_status), function(status, index) {
-      return (queue.dr_status) ? _c('span', [(index == 0) ? _c('span', [_vm._v("\n                        " + _vm._s(status.submission_date) + "\n                    ")]) : _vm._e()]) : _vm._e()
-    }), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+    }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), (queue.dr_status) ? _c('span', [_vm._v("\n                    " + _vm._s(queue.dr_status) + "\n                ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")], 2), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
+    }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")]), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
       staticClass: "btn btn-success",
       attrs: {
         "href": "javascript:void(0);",
@@ -93289,11 +93381,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }))
     }))]), _vm._v(" "), _c('td', [_c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((queue.dr_status), function(status, index) {
-      return (queue.dr_status) ? _c('span', [(index == 0) ? _c('span', [_vm._v("\n                        " + _vm._s(status.submission_date) + "\n                    ")]) : _vm._e()]) : _vm._e()
-    }), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+    }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), (queue.dr_status) ? _c('span', [_vm._v("\n                    " + _vm._s(queue.dr_status) + "\n                ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")], 2), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
+    }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")]), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
       staticClass: "btn btn-success",
       attrs: {
         "href": "javascript:void(0);",
@@ -93550,11 +93640,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }))
     }))]), _vm._v(" "), _c('td', [_c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((queue.dr_status), function(status, index) {
-      return (queue.dr_status) ? _c('span', [(index == 0) ? _c('span', [_vm._v("\n                        " + _vm._s(status.submission_date) + "\n                    ")]) : _vm._e()]) : _vm._e()
-    }), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+    }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), (queue.dr_status) ? _c('span', [_vm._v("\n                    " + _vm._s(queue.dr_status) + "\n                ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")], 2), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
+    }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")]), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
       staticClass: "btn btn-success",
       attrs: {
         "href": "javascript:void(0);",
@@ -94633,11 +94721,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }))
     }))]), _vm._v(" "), _c('td', [_c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((queue.dr_status), function(status, index) {
-      return (queue.dr_status) ? _c('span', [(index == 0) ? _c('span', [_vm._v("\n                        " + _vm._s(status.submission_date) + "\n                    ")]) : _vm._e()]) : _vm._e()
-    }), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+    }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), (queue.dr_status) ? _c('span', [_vm._v("\n                    " + _vm._s(queue.dr_status) + "\n                ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")], 2), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
+    }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")]), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
       staticClass: "btn btn-success",
       attrs: {
         "href": "javascript:void(0);",
@@ -95551,11 +95637,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }))
     }))]), _vm._v(" "), _c('td', [_c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((queue.dr_status), function(status, index) {
-      return (queue.dr_status) ? _c('span', [(index == 0) ? _c('span', [_vm._v("\n                        " + _vm._s(status.submission_date) + "\n                    ")]) : _vm._e()]) : _vm._e()
-    }), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+    }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), (queue.dr_status) ? _c('span', [_vm._v("\n                    " + _vm._s(queue.dr_status) + "\n                ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")], 2), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
+    }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")]), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
       staticClass: "btn btn-success",
       attrs: {
         "href": "javascript:void(0);",
@@ -96403,11 +96487,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }))
     }))]), _vm._v(" "), _c('td', [_c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((queue.dr_status), function(status, index) {
-      return (queue.dr_status) ? _c('span', [(index == 0) ? _c('span', [_vm._v("\n                        " + _vm._s(status.submission_date) + "\n                    ")]) : _vm._e()]) : _vm._e()
-    }), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+    }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), (queue.dr_status) ? _c('span', [_vm._v("\n                    " + _vm._s(queue.dr_status) + "\n                ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")], 2), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
+    }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")]), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
       staticClass: "btn btn-success",
       attrs: {
         "href": "javascript:void(0);",
@@ -96815,7 +96897,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }))
     }))]), _vm._v(" "), _c('td', [_c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), (queue.dr_status != '{}') ? _c('span', [_vm._v("\n                    " + _vm._s(queue.dr_status) + "\n                ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+    }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), (queue.dr_status) ? _c('span', [_vm._v("\n                    " + _vm._s(queue.dr_status) + "\n                ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
     }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")]), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
       staticClass: "btn btn-success",
@@ -97214,11 +97296,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }))
     }))]), _vm._v(" "), _c('td', [_c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((queue.dr_status), function(status, index) {
-      return (queue.dr_status) ? _c('span', [(index == 0) ? _c('span', [_vm._v("\n                        " + _vm._s(status.submission_date) + "\n                    ")]) : _vm._e()]) : _vm._e()
-    }), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+    }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), (queue.dr_status) ? _c('span', [_vm._v("\n                    " + _vm._s(queue.dr_status) + "\n                ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")], 2), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
+    }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")]), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
       staticClass: "btn btn-success",
       attrs: {
         "href": "javascript:void(0);",

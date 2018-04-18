@@ -51,10 +51,8 @@
                     <small class="text-uppercase text-muted">
                         LAST DR SUBMISSION
                     </small> <br/>
-                    <span v-if="queue.dr_status" v-for="(status, index) in queue.dr_status">
-                        <span v-if="index == 0">
-                            {{ status.submission_date }}
-                        </span>                                            
+                    <span v-if="queue.dr_status">
+                        {{queue.dr_status }}
                     </span> <br/>
                     <small class="text-uppercase text-muted">
                         TAPPED IN QUEUE
@@ -63,9 +61,9 @@
                 </td>
                 <td>
                     <span v-if="!queue.on_serving">
-                        <button class="btn btn-outline-success btn-sm disabled">
-                        OPEN FOR SHIPMENT
-                        </button>
+                        <a class="btn btn-success" href="javascript:void(0);" data-toggle="modal" :data-target="'#servingModal-'+ queue.driver_id">
+                            OPEN FOR SHIPMENT
+                        </a>
                     </span>
                     <span v-else>
                         <button class="btn btn-outline-danger btn-sm disabled">
@@ -122,6 +120,43 @@
             </div>
         </div>
 
+
+              <div v-for="(queue,q) in filteredQueues" :key="q">
+
+            <!-- serving modal -->
+            <div class="modal fade" :id="'servingModal-' + queue.driver_id" tabindex="-1" role="dialog" aria-labelledby="driverModalLabel" aria-hidden="true">
+            <div class="modal-dialog" id="queueter">
+                <div class="modal-content">
+                <div class="modal-header">
+
+                    <h6 class="modal-title" id="driverModalLabel">Serving Truck</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                
+
+                </div>
+                <div class="modal-body text-center">
+
+                                           
+                    <em>Are you sure you want to proceed with this action?</em>
+                
+
+                </div>
+                <div class="modal-footer">  
+                    <form  method="POST" :action="'/driver_rfid/public/storeCurrentlyServing/'+ queue.driver_id">
+                        <input type="hidden" name="_token" :value="csrf">  
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Confirm</button> 
+                    </form>  
+                </div>
+                    
+                </div>
+            </div>
+            </div><!-- end modal -->
+
+        </div><!-- end modal loop -->
+
        
 
     </div><!-- end template -->
@@ -148,7 +183,12 @@
                 currentPage: 0,
                 itemsPerPage: 5,
                 avatar_link: '/driver_rfid/public/storage/',
+                csrf: '',
             }
+        },
+
+        mounted() {
+            this.csrf = window.Laravel.csrfToken;
         },
 
         created() {

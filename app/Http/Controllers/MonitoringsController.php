@@ -161,11 +161,11 @@ class MonitoringsController extends Controller
         foreach($log_lineups as $key => $log) {
             foreach($log->drivers as $driver) {
 
-                if(!empty($driver->truck->plate_number)) {
-                    $x = str_replace('-',' ',strtoupper($driver->truck->plate_number));
-                    $z = str_replace('_','',$x);
-                    $y = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$z','deploy')");
-                }
+                // if(!empty($driver->truck->plate_number)) {
+                //     $x = str_replace('-',' ',strtoupper($driver->truck->plate_number));
+                //     $z = str_replace('_','',$x);
+                //     $y = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$z','deploy')");
+                // }
 
                 $data = array(
                     'log_id' => substr($log->LogID, -4),
@@ -176,7 +176,7 @@ class MonitoringsController extends Controller
                     'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
                     'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
                     'log_time' => $log->LocalTime,
-                    'dr_status' => empty($y) ? 'UNPROCESS' : $y, 
+                    'dr_status' =>empty($driver->truck->plate_number) ? 'NO PLATE' : Truck::callLastTrip($driver->truck->plate_number),
                     // 'driver_status' => $driver->availability,
                     'on_serving' => empty($driver->serves->where('created_at','>=',Carbon::parse($search_date))->first()->on_serving) ? null : 1
 
