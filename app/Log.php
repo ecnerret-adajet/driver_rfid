@@ -9,7 +9,7 @@ use App\Cardholder;
 class Log extends Model
 {
     protected $connection = "sqlsrv_three";
-    protected $table = "AccessLog2";
+    protected $table = "AccessLog"; // AccessLog2
     public $timestamps = false;
 
     protected $dates = ['LocalTime'];
@@ -367,7 +367,7 @@ class Log extends Model
                             ->whereNotIn('CardholderID',$checkTruckscaleOut)
                             // ->whereDate('LocalTime', Carbon::today())
                             ->orderBy('LogID','DESC')
-                            ->take(10)
+                            ->take(15)
                             ->get();
       }
 
