@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Carbon\Carbon;
+use DB;
 
 class Truck extends Model
 {
@@ -80,6 +81,13 @@ class Truck extends Model
     }
 
     /**
+     * Remove unneccessary character in plate_number
+     */
+    public function setPlateNumberAttribute($value)
+    {
+        $this->attributes['plate_number'] = str_replace('_',' ',$value);
+    }
+    /**
      * Dates configuration for validity_start_date
      */
      public function setValidityStartDateAttribute($date)
@@ -112,10 +120,10 @@ class Truck extends Model
 
     public function driver()
     {
-    	return $this->belongsToMany(Driver::class);
+    	return $this->belongsToMany('App\Driver');
     }
 
-    public function getDriverListAttribute()
+    public function getDriverAttribute()
     {
         return $this->driver()->first();
     }
@@ -223,4 +231,85 @@ class Truck extends Model
     {
         return $query->whereBetween('created_at', [Carbon::now()->startOfWeek()->toDateString(), Carbon::now()->endOfWeek()->toDateString()]);
     }
+
+    /**
+     * 
+     * Sanitize plate number
+     */
+    public function getPlatenumFormatAttribute()
+    {
+        $x = str_replace('-',' ',strtoupper($this->plate_number));
+        $z = str_replace('_','',$x);
+        return $z;
+    }
+
+    /**
+     *  Format MV plate numbers
+     */
+    public function getPlateNumberAttribute($value)
+    {
+        // check also if a plate number starts with MVX-000 
+        // $hasMV =  str_is('MV*', $value) ? str_replace('MV', 'MV ', $value) : $value; 
+
+        if(str_is('MV*', $value)) {
+            return str_replace('MV', 'MV ', $value);
+        } elseif (str_is('MV-*', $value)) {
+            return str_replace('MV-', 'MV ', $value);
+        } else {
+            return $value;
+        }
+        
+    
+    }
+
+    /**
+     * Search Plate Number / Driver if DR was completely submitted.
+     */
+    public function scopeCallLastTrip($query, $plateNumber)
+    {
+        $plate_format = str_replace('-',' ',$plateNumber);
+        $recievedDR = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$plate_format','deploy')");
+        $getFirst = head($recievedDR);
+        $result = $getFirst == false ? "UNPROCESS" : $getFirst->submission_date;
+
+
+        return $result;  
+    }
+
+    /**
+     * Search Plate Number if DR was completely submitted pluck cardholder
+     */
+    public function scopeCallLastTripCardholder($query, $plateNumberArray)
+    {
+        $cardArray = array();
+
+        // Search for DR submitted with plate number
+        $x = str_replace('-',' ',strtoupper($plateNumberArray));
+        $z = str_replace('_','',$x);
+        $recievedDR = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$z','deploy')");
+
+        //Found plate number will now be converted and pluck to cardholder ID
+        if(count($recievedDR) != 0) {
+            $plate_has_dr = array_pluck($recievedDR, 'plate_number');
+
+            // $formated_plate_num = str_is('MV*', $plate_has_dr) ? str_replace(' ','', $plate_has_dr) : str_replace(' ','-', $plate_has_dr); 
+
+             // $hasMV =  str_is('MV*', $value) ? str_replace('MV', 'MV ', $value) : $value; 
+            
+            array_push($cardArray, $plate_has_dr);
+        }
+
+
+        $plate_number_array = array_collapse($cardArray);
+
+        $cardholder = $query->whereIn('plate_number',$plate_number_array)
+                            ->with('driver')
+                            ->get()
+                            ->pluck('driver.cardholder_id');
+
+        return $cardholder;
+        
+    }
+    
+
 }

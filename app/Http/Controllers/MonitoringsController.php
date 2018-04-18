@@ -144,10 +144,11 @@ class MonitoringsController extends Controller
         $search_date = $request->get('search_date');
 
         // Get the total truckscale Out from truck monitoring today
-        $check_truckscale_out = Log::truckscaleOutLocation($driverqueue->ts_out_controller);
+        $check_truckscale_out = Log::truckscaleOutLocationDate($driverqueue->ts_out_controller, $search_date);
         
         // Get the total drivers who tapped from Gate RFID
-        $gateEntries =  Log::barrierLocation($driverqueue->gate->door,$driverqueue->gate->controller);
+        $gateEntries =  Log::barrierLocationObject($driverqueue->gate->door,$driverqueue->gate->controller, $search_date)
+                            ->pluck('CardholderID');
 
         // Get the queue result
         $result_lineups = Log::queueLocation($driverqueue->door, $driverqueue->controller, $check_truckscale_out, $gateEntries, $search_date);
@@ -177,7 +178,7 @@ class MonitoringsController extends Controller
                     'log_time' => $log->LocalTime,
                     'dr_status' => empty($y) ? 'UNPROCESS' : $y, 
                     // 'driver_status' => $driver->availability,
-                    'on_serving' => empty($driver->serves->where('created_at','>=',Carbon::today())->first()->on_serving) ? null : $driver->serves->first()->on_serving,
+                    'on_serving' => empty($driver->serves->where('created_at','>=',Carbon::parse($search_date))->first()->on_serving) ? null : 1
 
                 );
 

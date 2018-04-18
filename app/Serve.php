@@ -40,7 +40,8 @@ class Serve extends Model
     {
         return $query->where('on_serving',1)
                 ->orderBy('id','DESC')
-                ->whereDate('created_at', Carbon::today())
+                // ->whereDate('created_at', Carbon::today())
+                ->take(20)
                 ->pluck('driver_id');
     }
 

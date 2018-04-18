@@ -54205,8 +54205,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -96817,13 +96815,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }))
     }))]), _vm._v(" "), _c('td', [_c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), _vm._l((queue.dr_status), function(status, index) {
-      return (queue.dr_status) ? _c('span', {
-        key: index
-      }, [(index == 0) ? _c('span', [_vm._v("\n                        " + _vm._s(status.submission_date) + "\n                    ")]) : _vm._e()]) : _vm._e()
-    }), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+    }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), (queue.dr_status != '{}') ? _c('span', [_vm._v("\n                    " + _vm._s(queue.dr_status) + "\n                ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")], 2), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
+    }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")]), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
       staticClass: "btn btn-success",
       attrs: {
         "href": "javascript:void(0);",

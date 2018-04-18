@@ -18,7 +18,6 @@ class ServingController extends Controller
         $serving = Serve::with('driver','driver.truck','driver.hauler','user','driver.image')
                             ->orderBy('id','DESC')
                             ->where('on_serving',1)
-                            ->whereDate('created_at',Carbon::today())
                             ->take(1)
                             ->get();
         
@@ -28,19 +27,18 @@ class ServingController extends Controller
     public function servedToday()
     {
 
-         $current_serving = Serve::with('driver','driver.truck','driver.hauler','driver.image','user')
-                            ->orderBy('id','DESC')
-                            ->where('on_serving',1)
-                            ->take(1)
-                            ->pluck('id');
+        $current_serving = Serve::with('driver','driver.truck','driver.hauler','driver.image','user')
+                        ->orderBy('id','DESC')
+                        ->where('on_serving',1)
+                        ->take(1)
+                        ->pluck('id');
 
-          $served = Serve::with('driver','driver.trucks','driver.haulers','driver.image','user')
-                            ->orderBy('id','DESC')
-                            ->whereNotIn('id',$current_serving)
-                            ->whereDate('created_at',Carbon::today())
-                            ->where('on_serving',1)
-                            ->take(4)
-                            ->get();
+        $served = Serve::with('driver','driver.trucks','driver.haulers','driver.image','user')
+                        ->orderBy('id','DESC')
+                        ->whereNotIn('id',$current_serving)
+                        ->where('on_serving',1)
+                        ->take(4)
+                        ->get();
         
           $arr = array();
 

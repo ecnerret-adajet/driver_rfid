@@ -62,10 +62,8 @@
                     <small class="text-uppercase text-muted">
                         LAST DR SUBMISSION
                     </small> <br/>
-                    <span v-if="queue.dr_status" v-for="(status, index) in queue.dr_status" :key="index">
-                        <span v-if="index == 0">
-                            {{ status.submission_date }}
-                        </span>                                            
+                    <span v-if="queue.dr_status">
+                        {{queue.dr_status }}
                     </span> <br/>
                     <small class="text-uppercase text-muted">
                         TAPPED IN QUEUE

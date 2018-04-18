@@ -123,11 +123,14 @@ class LineupApiController extends Controller
     public function getDriverQue()
     {
         // Get the total truckscale Out from truck monitoring today
-        $check_truckscale_out = Log::truckscaleOut();
+        $check_truckscale_out = Log::truckscaleOutRecent();
+
         // Get the total served from truck monitoring today
         $served = Serve::servedToday();
+
         // Get the total drivers who tapped from Gate RFID
-        $manilaGate =  Log::barrierLocation(3,2);
+        $manilaGate =  Log::barrierLocationRecent(3,2);
+
         // Get the queue result
         $result_lineups = Log::driverQueueingLocation(1, 0, $manilaGate, $check_truckscale_out);
 
@@ -185,13 +188,13 @@ class LineupApiController extends Controller
     public function getBtnDriverQue()
     {
         // Get the total truckscale Out from truck monitoring today
-        $check_truckscale_out = Log::btnTruckscaleOut();
+        $check_truckscale_out = Log::btnTruckscaleOutRecent();
 
         // Get the total served from truck monitoring today
         $served = Serve::servedToday();
 
         // Get the total drivers who tapped from Gate RFID
-        $bataanGate =  Log::barrierLocation(0,9);
+        $bataanGate =  Log::barrierLocationRecent(0,9);
         
         // Get Driver queueing location (controller, door, gate, TS_OUT)
         $result_lineups = Log::driverQueueingLocation(7, 2, $bataanGate, $check_truckscale_out);
@@ -206,7 +209,6 @@ class LineupApiController extends Controller
             foreach($log->drivers->whereNotIn('id', $served) as  $driver) {
 
 
-
                     if(!empty($driver->truck->plate_number)) {
                         $x = str_replace('-',' ',strtoupper($driver->truck->plate_number));
                         $z = str_replace('_','',$x);
@@ -215,7 +217,6 @@ class LineupApiController extends Controller
                             $a = $y[0];
                         }                    
                     }
-
 
                     $data = array(
                         'queue_number' => substr($log->LogID,-4),

@@ -9,7 +9,7 @@ use App\Cardholder;
 class Log extends Model
 {
     protected $connection = "sqlsrv_three";
-    protected $table = "AccessLog"; // AccessLog2
+    protected $table = "AccessLog";
     public $timestamps = false;
 
     protected $dates = ['LocalTime'];
@@ -312,11 +312,10 @@ class Log extends Model
          
          return $query->select('LogID','CardholderID','LocalTime')
                 ->whereDate('LocalTime', '=', $checkDate)
-                ->whereIn('DoorID',[$door])
+                ->where('DoorID',$door)
                 ->whereNotIn('CardholderID',$this->barrierNoDriver())
                 ->where('ControllerID', $controller)
                 ->where('CardholderID', '>=', 15)
-                ->orderBy('LocalTime','DESC')
                 ->with('driver')
                 ->get();
      }
@@ -367,7 +366,7 @@ class Log extends Model
                             ->whereNotIn('CardholderID',$checkTruckscaleOut)
                             // ->whereDate('LocalTime', Carbon::today())
                             ->orderBy('LogID','DESC')
-                            ->take(15)
+                            ->take(20)
                             ->get();
       }
 
@@ -402,7 +401,9 @@ class Log extends Model
       public function scopeTruckscaleOutLocationDate($query, $controller, $date)
       {
           $checkDate = !empty($date) ? Carbon::parse($date) : Carbon::today();
-          return $query->select('CardholderID')
+          return $query->groupBy('CardholderID')
+                ->select('CardholderID')
+                ->where('CardholderID', '>=', 15)
                 ->where('ControllerID', $controller)
                 ->where('Direction',2) // All Truckscale Out
                 ->whereDate('LocalTime', $checkDate)
@@ -424,4 +425,46 @@ class Log extends Model
                 ->orderBy('LogID','ASC')
                 ->get();
       }
+
+      /**
+      * Scope queries for queeuing screens
+      */
+
+    /**
+     * Get Drivers tapped from gate RFID based from location parameter within the date
+     * 
+    */
+     public function scopeBarrierLocationRecent($query, $door, $controller)
+     {
+         return $query->select('LogID','CardholderID','LocalTime')
+                // ->whereDate('LocalTime', Carbon::today())
+                ->whereIn('DoorID',[$door])
+                ->whereNotIn('CardholderID',$this->barrierNoDriver())
+                ->where('ControllerID', $controller)
+                ->where('CardholderID', '>=', 15)
+                ->orderBy('LocalTime','DESC')
+                ->with('driver')
+                ->take(20)
+                ->pluck('CardholderID');
+     }
+
+    public function scopeTruckscaleOutRecent($query)
+    {
+       return  $query->select('CardholderID')
+                ->where('ControllerID', 4)
+                ->where('Direction',2) // All Truckscale Out
+                // ->whereDate('LocalTime', Carbon::today())
+                ->take(20)
+                ->pluck('CardholderID');
+    }
+
+    public function scopeBtnTruckscaleOutRecent($query)
+    {
+        return  $query->select('CardholderID')
+                ->where('ControllerID', 8) // bataan controller
+                ->where('Direction',2) // All Truckscale Out
+                // ->whereDate('LocalTime', Carbon::today())
+                ->take(20)
+                ->pluck('CardholderID');
+    }
 }
