@@ -17,6 +17,11 @@ class Serve extends Model
     {
         return [];
     }
+
+    public function driverqueue()
+    {
+        return $this->belongsTo(Driverqueue::class);
+    }
     
     public function user()
     {

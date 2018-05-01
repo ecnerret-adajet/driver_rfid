@@ -7,16 +7,18 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Driver;
 use App\Serve;
+use App\Driverqueue;
 use DB;
 use Flashy;
 
 class ServingController extends Controller
 {
 
-    public function currentlyServing()
+    public function currentlyServing($driverqueue)
     {
         $serving = Serve::with('driver','driver.truck','driver.hauler','user','driver.image')
                             ->orderBy('id','DESC')
+                            ->where('driverqueue_id',$driverqueue)
                             ->where('on_serving',1)
                             ->take(1)
                             ->get();
@@ -24,20 +26,22 @@ class ServingController extends Controller
         return $serving;
     }
 
-    public function servedToday()
+    public function servedToday($driverqueue)
     {
 
         $current_serving = Serve::with('driver','driver.truck','driver.hauler','driver.image','user')
                         ->orderBy('id','DESC')
+                        ->where('driverqueue_id',$driverqueue)
                         ->where('on_serving',1)
                         ->take(1)
                         ->pluck('id');
 
         $served = Serve::with('driver','driver.trucks','driver.haulers','driver.image','user')
                         ->orderBy('id','DESC')
+                        ->where('driverqueue_id',$driverqueue)
                         ->whereNotIn('id',$current_serving)
                         ->where('on_serving',1)
-                        ->take(4)
+                        ->take(7)
                         ->get();
         
           $arr = array();
@@ -63,10 +67,11 @@ class ServingController extends Controller
 
     }
 
-    public function storeCurrentlyServing(Request $request, $id)
+    public function storeCurrentlyServing(Request $request, $id, $driverqueue)
     {
         $serving = new Serve;
         $serving->user_id = Auth::user()->id;
+        $serving->driverqueue_id = $driverqueue;
         $serving->driver_id = $id;
         $serving->on_serving = 1;
         $serving->served_start_date = Carbon::now();

@@ -299,13 +299,13 @@
             // },
 
             getCurrentlyServing(){
-                axios.get('/driver_rfid/public/serving')
+                axios.get('/driver_rfid/public/serving/1')
                 .then(response => this.currentlyServing = response.data);
                 setTimeout(this.getCurrentlyServing, 3000);
             },
 
             getTodayServed(){
-                axios.get('/driver_rfid/public/servedToday')
+                axios.get('/driver_rfid/public/servedToday/1') // driverqueue id was hardcoded 
                 .then(response => this.todayServed = response.data);
                 setTimeout(this.getTodayServed, 4000);
             },

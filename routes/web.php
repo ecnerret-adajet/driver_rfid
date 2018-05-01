@@ -68,8 +68,8 @@ Route::get('/driver/queues','LineupsController@DriversQue');
 Route::get('/checkSubmissionDate/{plate_number}','LineupApiController@checkSubmissionDate');
 Route::get('/queues','LineupApiController@getDriverQue');
 Route::get('/getLastDriver','LineupApiController@getLastDriver');
-Route::get('/serving','ServingController@currentlyServing');
-Route::get('/servedToday','ServingController@servedToday');
+Route::get('/serving/{driverqueue}','ServingController@currentlyServing');
+Route::get('/servedToday/{driverqueue}','ServingController@servedToday');
 Route::get('/getTotalQueueToday','LineupApiController@getTotalQueueToday');
 
 // BTN Route for driver queueing monitor
@@ -285,7 +285,7 @@ Route::get('/monitor/lpzAssignedShipment','QueuesController@lpzAssignedShipment'
 Route::get('/monitor/lpzOpenShipment','QueuesController@lpzOpenShipment');
 Route::get('/monitor/lpzCount','QueuesController@getLpzDeliveriesCount');
 
-Route::post('/storeCurrentlyServing/{id}','ServingController@storeCurrentlyServing');
+Route::post('/storeCurrentlyServing/{id}/{driverqueue}','ServingController@storeCurrentlyServing');
 
 Route::get('/feed','FeedsController@index');
 Route::get('/feed-content','FeedsController@feedContent');

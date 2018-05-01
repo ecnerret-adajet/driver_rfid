@@ -154,7 +154,7 @@
 
                 </div>
                 <div class="modal-footer">  
-                    <form  method="POST" :action="'/driver_rfid/public/storeCurrentlyServing/'+ queue.driver_id">
+                    <form  method="POST" :action="'/driver_rfid/public/storeCurrentlyServing/'+ queue.driver_id + '/1'">
                         <input type="hidden" name="_token" :value="csrf">  
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Confirm</button> 
