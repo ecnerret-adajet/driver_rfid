@@ -41,7 +41,7 @@ class ServingController extends Controller
                         ->where('driverqueue_id',$driverqueue)
                         ->whereNotIn('id',$current_serving)
                         ->where('on_serving',1)
-                        ->take(7)
+                        ->take(6)
                         ->get();
         
           $arr = array();

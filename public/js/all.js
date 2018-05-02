@@ -55172,7 +55172,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getCurrentlyServing: function getCurrentlyServing() {
             var _this2 = this;
 
-            axios.get('/driver_rfid/public/serving').then(function (response) {
+            axios.get('/driver_rfid/public/serving/1').then(function (response) {
                 return _this2.currentlyServing = response.data;
             });
             setTimeout(this.getCurrentlyServing, 3000);
@@ -55180,7 +55180,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getTodayServed: function getTodayServed() {
             var _this3 = this;
 
-            axios.get('/driver_rfid/public/servedToday').then(function (response) {
+            axios.get('/driver_rfid/public/servedToday/1') // driverqueue id was hardcoded 
+            .then(function (response) {
                 return _this3.todayServed = response.data;
             });
             setTimeout(this.getTodayServed, 4000);
@@ -55513,7 +55514,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getCurrentlyServing: function getCurrentlyServing() {
             var _this2 = this;
 
-            axios.get('/driver_rfid/public/serving').then(function (response) {
+            axios.get('/driver_rfid/public/serving/3') // driverqueue was hardcoded
+            .then(function (response) {
                 return _this2.currentlyServing = response.data;
             });
             setTimeout(this.getCurrentlyServing, 3000);
@@ -55521,7 +55523,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getTodayServed: function getTodayServed() {
             var _this3 = this;
 
-            axios.get('/driver_rfid/public/servedToday').then(function (response) {
+            axios.get('/driver_rfid/public/servedToday/3') // driverqueue was hardcoded
+            .then(function (response) {
                 return _this3.todayServed = response.data;
             });
             setTimeout(this.getTodayServed, 4000);
@@ -92917,7 +92920,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('form', {
       attrs: {
         "method": "POST",
-        "action": '/driver_rfid/public/storeCurrentlyServing/' + queue.driver_id
+        "action": '/driver_rfid/public/storeCurrentlyServing/' + queue.driver_id + '/' + _vm.queue_id
       }
     }, [_c('input', {
       attrs: {
@@ -93490,7 +93493,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('form', {
       attrs: {
         "method": "POST",
-        "action": '/driver_rfid/public/storeCurrentlyServing/' + queue.driver_id
+        "action": '/driver_rfid/public/storeCurrentlyServing/' + queue.driver_id + '/2'
       }
     }, [_c('input', {
       attrs: {
@@ -93749,7 +93752,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('form', {
       attrs: {
         "method": "POST",
-        "action": '/driver_rfid/public/storeCurrentlyServing/' + queue.driver_id
+        "action": '/driver_rfid/public/storeCurrentlyServing/' + queue.driver_id + '/3'
       }
     }, [_c('input', {
       attrs: {
@@ -95746,7 +95749,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('form', {
       attrs: {
         "method": "POST",
-        "action": '/driver_rfid/public/storeCurrentlyServing/' + queue.driver_id
+        "action": '/driver_rfid/public/storeCurrentlyServing/' + queue.driver_id + '/2'
       }
     }, [_c('input', {
       attrs: {
@@ -96596,7 +96599,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('form', {
       attrs: {
         "method": "POST",
-        "action": '/driver_rfid/public/storeCurrentlyServing/' + queue.driver_id
+        "action": '/driver_rfid/public/storeCurrentlyServing/' + queue.driver_id + '/3'
       }
     }, [_c('input', {
       attrs: {
@@ -97008,7 +97011,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('form', {
       attrs: {
         "method": "POST",
-        "action": '/driver_rfid/public/storeCurrentlyServing/' + queue.driver_id
+        "action": '/driver_rfid/public/storeCurrentlyServing/' + queue.driver_id + '/1'
       }
     }, [_c('input', {
       attrs: {
@@ -97405,7 +97408,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('form', {
       attrs: {
         "method": "POST",
-        "action": '/driver_rfid/public/storeCurrentlyServing/' + queue.driver_id
+        "action": '/driver_rfid/public/storeCurrentlyServing/' + queue.driver_id + '/1'
       }
     }, [_c('input', {
       attrs: {
