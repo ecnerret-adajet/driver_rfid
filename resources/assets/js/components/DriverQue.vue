@@ -178,73 +178,55 @@
                     </tr>
                 </thead> 
                 <tbody class="border border-warning">
-                    <tr :class="{ 'table-danger' : queue.availability == 0 }"  v-for="(queue, i) in lastDriver" :key="i">
-                        <td width="15%" class="text-center">
-                            <span class="display-4">
-                            {{ queue.queue_number }}
-                            </span> 
-                        </td>
+                    <tr  v-for="(log, i) in lastDriver" v-if="log.drivers.length != 0" :key="i">
                         <td>
-                            <div class="row">
+                            <div v-for="(driver, d) in log.drivers" :key="d" class="row">
                                 <div class="col-3">
-                                    <img :src="avatar_link + queue.driver_avatar" class="rounded-circle" style="height: 100px; width: auto;"  align="middle">
+                                    <img v-if="driver.image" :src="avatar_link + driver.image.avatar" class="rounded-circle" style="height: 100px; width: auto;"  align="middle">
+                                    <img v-else :src="avatar_link + driver.avatar" class="rounded-circle" style="height: 100px; width: auto;"  align="middle">
                                 </div>
                                 <div class="col-9">
                                     <p class="p-0 m-0">
-                                        {{ queue.driver_name }} 
+                                        {{ driver.name }} 
                                     </p>
-                                    <p class="p-0 m-0">
-                                        {{ queue.plate_number }} 
+                                    <p v-if="driver.truck" v-for="(truck, t) in driver.truck" :key="t" class="p-0 m-0">
+                                        {{ truck.plate_number }} 
                                     </p>
-                                    <p class="p-0 m-0">
-                                        <span v-if="queue.hauler == 'NO HAULER'" class="text-danger">
-                                                {{ queue.hauler }}
-                                        </span>
-                                        <span v-else>
-                                                {{ queue.hauler }}
-                                        </span>
+                                    <p v-if="driver.hauler" v-for="(hauler, h) in driver.hauler" :key="h" class="p-0 m-0">
+                                        {{ hauler.name }}
                                     </p>
                                 </div>
                             </div>
                         </td>
                         <td>
-                               <span class="small text-uppercase text-muted">
-                                    QUEUE TIME:
-                                </span>
-                                <p class="p-0 m-0">
-                                    {{ moment(queue.log_time.date) }}
-                                </p>
-                                <span class="small text-uppercase text-muted">
-                                    LAST DR SUBMISSION:
-                                </span>
-                                <p class="p-0 m-0">
-                                    <span v-if="queue.dr_status != 'UNPROCESS'">
-                                        {{ queue.dr_status.submission_date }}
-                                    </span>
-                                    <span v-else>
-                                        UNPROCESS
-                                    </span>
-                                </p>
+                            <span class="small text-uppercase text-muted">
+                                QUEUE TIME:
+                            </span>
+                            <p class="p-0 m-0">
+                                {{ moment(log.LocalTime) }}
+                            </p>
                         </td>
                     </tr>
-                    <tr v-if="lastDriver.length == 0">
-                        <td class="text-center" style="padding-top: 30px; padding-bottom: 30px;" colspan="3">
+                    
+                    <tr v-for="(log, z) in lastDriver" :key="z" v-if="log.drivers.length == 0">
+                        <td class="text-center" style="padding-top: 30px; padding-bottom: 30px;" colspan="2">
                             <span class="display-4 text-muted">
                                 Nothing Here
                             </span>
                         </td>
                     </tr>
-                    <tr :class="{ 'table-danger' : queue.availability == 0 }" v-if="queue.availability == 0"  v-for="(queue, i) in lastDriver" :key="i" colspan="3"  style="padding-top: 5px; padding-bottom: 5px;">
-                        <td colspan="3" class="text-center"> 
-                             <span class="text-uppercase">
-                               Driver is deactivated
-                            </span>
+
+                    <tr :class="lastDriverResult.status" v-for="(log, x) in lastDriver" :key="x" v-if="log.drivers.length != 0">
+                        <td class="text-center pb-3 pt-3" colspan="2">
+                            <span style="font-weight: bold" class="text-small text-uppercase text-dark">
+                                {{ lastDriverResult.message }} 
+                            </span>     
                         </td>
                     </tr>
+
+
                 </tbody>
                 </table>
-
-
 
 
             </div>
@@ -278,20 +260,19 @@
             return {
                 avatar_link: '/driver_rfid/public/storage/',
                 queues: [],
-                // currentlyServing: [],
                 todayServed: [],
                 checkSubmission: [],
                 totalentries: [],
                 lastDriver: [],
+                lastDriverResult: [],
             }
         },
 
         created() {
             this.getQueues()
-            // this.getCurrentlyServing()
             this.getTodayServed()
-            // this.getTotalQueueToday()
             this.getLastDriver()
+            this.getLastDriverResult()
         },
 
         methods: {
@@ -301,18 +282,14 @@
                 setTimeout(this.getQueues, 10000);
             },
 
-            // getTotalQueueToday() {
-            //     axios.get('/driver_rfid/public/getTotalQueueToday')
-            //     .then(response => this.totalentries = response.data);
-            //     setTimeout(this.getTotalQueueToday, 3500);
-            // },
+            getLastDriverResult() {
+                this.lastDriverProcess = true
+                axios.get('/driver_rfid/public/conditionFromLastDriver')
+                .then(response => this.lastDriverResult = response.data);
+                setTimeout(this.getLastDriverResult, 2000);
+            },
 
-            // getCurrentlyServing(){
-            //     axios.get('/driver_rfid/public/serving/1/')
-            //     .then(response => this.currentlyServing = response.data);
-            //     setTimeout(this.getCurrentlyServing, 3000);
-            // },
-
+    
             getTodayServed(){
                 axios.get('/driver_rfid/public/servedToday/1') // driverqueue id was hardcoded 
                 .then(response => this.todayServed = response.data);

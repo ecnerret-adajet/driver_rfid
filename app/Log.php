@@ -199,6 +199,7 @@ class Log extends Model
          return  $query->select('CardholderID')
                 ->where('ControllerID', 4)
                 ->where('Direction',1) // All Truckscale In
+                ->where('CardholderID', '>=', 15)
                 ->whereDate('LocalTime', Carbon::today())
                 ->pluck('CardholderID');
     }
@@ -211,9 +212,10 @@ class Log extends Model
      */
     public function scopeTruckscaleOut($query)
     {
-       return  $query->select('CardholderID')
+        return  $query->select('CardholderID')
                 ->where('ControllerID', 4)
                 ->where('Direction',2) // All Truckscale Out
+                ->where('CardholderID', '>=', 15)
                 ->whereDate('LocalTime', Carbon::today())
                 ->pluck('CardholderID');
     }
@@ -467,4 +469,29 @@ class Log extends Model
                 ->take(20)
                 ->pluck('CardholderID');
     }
+
+    /**
+     * Get the last driver tapped from queue rfid
+     */
+    public function scopeLastDriver($query, $door, $controller)
+    {
+       return $query->with('drivers','drivers.image','drivers.truck','drivers.hauler')
+            ->where('ControllerID', $controller)
+            ->where('DoorID',$door)
+            ->orderBy('LogID','DESC')
+            ->take(1)
+            ->get();
+    }
+
+    /**
+     * Get the last driver tapped from queue rfid - cardholder only
+     */
+    public function scopeLastDriverCardholder($query, $door, $controller)
+    {
+       return $query->where('ControllerID', $controller)
+            ->where('DoorID',$door)
+            ->orderBy('LogID','DESC')
+            ->take(1)
+            ->pluck('CardholderID');
+    } 
 }

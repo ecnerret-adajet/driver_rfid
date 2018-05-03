@@ -75,7 +75,7 @@ class LineupApiController extends Controller
                         ->select("CALL P_LAST_TRIP('$plate','deploy')");
 
         // Driver didn't tap to gate first
-        $manilaGate = Log::whereIn('CardholderID',[$lastDriver])->barrierLocation(3,2);
+        $mainGate = Log::whereIn('CardholderID',[$lastDriver])->barrierLocation(3,2);
 
         // Check if driver has in and out within manila plant in a current day
         // $tapComplete = array_collapse([[$check_truckscale_in], [$check_truckscale_out]]);
@@ -94,7 +94,7 @@ class LineupApiController extends Controller
                 'message' => 'Please DR submit outstanding DR first, then tap again!',
                 'code' => 1
             );
-        } elseif (count($manilaGate) == 0) {
+        } elseif (count($mainGate) == 0) {
              return array(
                 'status' => 'table-danger',
                 'message' => 'Tap first to main gate RFID, in order to add in queue',
@@ -114,7 +114,6 @@ class LineupApiController extends Controller
             );
         } else {
 
-            
             // $generateQueue = GenerateQueue::firstOrCreate(
             //     ['LogID' => $checkLastDriver->LogID],
             //     [
@@ -139,65 +138,12 @@ class LineupApiController extends Controller
 
     }
 
-
-
     public function getLastDriver()
     {
-
-        // Get the total truckscale Out from truck monitoring today
-        $check_truckscale_out = Log::truckscaleOut();
-        // Get the total served from truck monitoring today
-        $served = Serve::servedToday();
-
-         $result_lineups = Log::with(['drivers','drivers.trucks','drivers.haulers','driver.serves'])
-                        ->where('ControllerID', 1)
-                        ->where('DoorID',0)
-                        ->whereNotIn('CardholderID',$check_truckscale_out)
-                        // ->whereDate('LocalTime', Carbon::now())
-                        ->orderBy('LogID','DESC')
-                        ->take(1)
-                        ->get();
-
-        $log_lineups = $result_lineups->unique('CardholderID');
-
+        $lastDriver = Log::lastDriver(0,1);
         
-    
-        $arr = array();
-
-        foreach($log_lineups as $log) {
-            foreach($log->drivers->whereNotIn('id', $served) as $driver) {
-
-                    if(!empty($driver->trucks)) {
-                        $x = str_replace('-',' ',strtoupper($driver->trucks->first()->plate_number));
-                        $z = str_replace('_','',$x);
-                        $y = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$z','deploy')");
-                        if(!empty($y)) {
-                            $a = $y[0];
-                        }
-                    }
-
-                    $data = array(
-                        'queue_number' => substr($log->LogID,-4),
-                        'driver_id' => $driver->id,
-                        'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
-                        'driver_name' => $driver->name,
-                        'plate_number' => empty($driver->trucks->first()->plate_number) ? 'NO PLATE' : $driver->trucks->first()->plate_number,
-                        'hauler' => empty($driver->haulers->first()->name) ? 'NO HAULER' : $driver->haulers->first()->name,
-                        'availability' => $driver->availability,
-                        'log_time' => $log->LocalTime,
-                        'dr_status' => empty($y) ? 'UNPROCESS' : $a, 
-                        'on_serving' => empty($driver->serves->first()->on_serving) ? null : $driver->serves->first()->on_serving,
-                        );
-                        
-                    
-                    
-                    array_push($arr, $data);
-                    
-            }
-        }
-
-        return $arr;
-   }
+        return $lastDriver;
+    }
 
     // MANILA PLFC Driver's queue
     public function getDriverQue()
