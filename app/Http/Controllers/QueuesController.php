@@ -121,6 +121,7 @@ class QueuesController extends Controller
 
                 $data = array(
                     'log_id' => substr($log->LogID, -4),
+                    'LogID' => $log->LogID,
                     'driver_id' => $driver->id,
                     'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
                     'driver_name' => $driver->name,
@@ -196,6 +197,7 @@ class QueuesController extends Controller
 
                 $data = array(
                     'log_id' => substr($log->LogID, -4),
+                    'LogID' => $log->LogID,
                     'driver_id' => $driver->id,
                     'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
                     'driver_name' => $driver->name,
@@ -248,6 +250,7 @@ class QueuesController extends Controller
 
                 $data = array(
                     'log_id' => substr($log->LogID, -4), // $key + 1
+                    'LogID' => $log->LogID,
                     'driver_id' => $driver->id,
                     'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
                     'driver_name' => $driver->name,
@@ -329,6 +332,7 @@ class QueuesController extends Controller
 
                 $data = array(
                     'log_id' => substr($log->LogID, -4),
+                    'LogID' => $log->LogID,
                     'driver_id' => $driver->id,
                     'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
                     'driver_name' => $driver->name,
@@ -381,6 +385,7 @@ class QueuesController extends Controller
 
                 $data = array(
                     'log_id' => substr($log->LogID, -4),
+                    'LogID' => $log->LogID,
                     'driver_id' => $driver->id,
                     'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
                     'driver_name' => $driver->name,
@@ -433,6 +438,7 @@ class QueuesController extends Controller
 
                 $data = array(
                     'log_id' => substr($log->LogID, -4), // $key + 1
+                    'LogID' => $log->LogID,
                     'driver_id' => $driver->id,
                     'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
                     'driver_name' => $driver->name,
@@ -509,6 +515,7 @@ class QueuesController extends Controller
 
                 $data = array(
                     'log_id' => substr($log->LogID, -4),
+                    'LogID' => $log->LogID,
                     'driver_id' => $driver->id,
                     'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
                     'driver_name' => $driver->name,
@@ -557,6 +564,7 @@ class QueuesController extends Controller
 
                 $data = array(
                     'log_id' => substr($log->LogID, -4),
+                    'LogID' => $log->LogID,
                     'driver_id' => $driver->id,
                     'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
                     'driver_name' => $driver->name,
@@ -604,6 +612,7 @@ class QueuesController extends Controller
 
                 $data = array(
                     'log_id' => substr($log->LogID, -4), // $key + 1
+                    'LogID' => $log->LogID,
                     'driver_id' => $driver->id,
                     'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
                     'driver_name' => $driver->name,

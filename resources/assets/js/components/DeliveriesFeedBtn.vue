@@ -14,7 +14,7 @@
         </thead> 
         <tbody>
 
-            <tr v-for="queue in filteredQueues" v-if="!loading">
+            <tr v-for="(queue,q) in filteredQueues" :key="q" v-if="!loading">
 
                 <td class="text-center">
                     <span class="display-4">
@@ -132,7 +132,7 @@
             </div>
         </div>
 
-        <div v-for="queue in filteredQueues">
+        <div v-for="(queue,q) in filteredQueues" :key="q">
 
             <!-- serving modal -->
             <div class="modal fade" :id="'servingModal-' + queue.driver_id" tabindex="-1" role="dialog" aria-labelledby="driverModalLabel" aria-hidden="true">
@@ -155,7 +155,7 @@
 
                 </div>
                 <div class="modal-footer">  
-                    <form  method="POST" :action="'/driver_rfid/public/storeCurrentlyServing/'+ queue.driver_id + '/3'">
+                    <form  method="POST" :action="'/driver_rfid/public/storeCurrentlyServing/'+ queue.driver_id + '/' + queue.LogID">
                         <input type="hidden" name="_token" :value="csrf">  
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Confirm</button> 

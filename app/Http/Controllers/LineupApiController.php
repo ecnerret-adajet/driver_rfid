@@ -61,6 +61,86 @@ class LineupApiController extends Controller
 
     }
 
+    
+    public function conditionFromLastDriver()
+    {   
+        $checkLastDriver = $this->getLastDriver(); // returns object, last item
+        $lastDriver = Log::lastDriverCardholder(0,1); // return pluck, last item
+        $check_truckscale_out = Log::truckscaleOut(); // return pluck, all truckscal out
+        $check_truckscale_in = Log::barrierLocation(3,2); // return pluck, all truckscale In
+
+        // if driver has oustanding DR
+        $plate = $checkLastDriver->first()->drivers->first()->truck->platenum_format;
+        $outstandingDR = DB::connection('dr_fp_database')
+                        ->select("CALL P_LAST_TRIP('$plate','deploy')");
+
+        // Driver didn't tap to gate first
+        $manilaGate = Log::whereIn('CardholderID',[$lastDriver])->barrierLocation(3,2);
+
+        // Check if driver has in and out within manila plant in a current day
+        // $tapComplete = array_collapse([[$check_truckscale_in], [$check_truckscale_out]]);
+        $tapComplete = array_collapse([$check_truckscale_in, $check_truckscale_out]);
+        $checkTapComplete = Log::whereIn('CardholderID',$tapComplete)
+                            ->lastDriver(0,1);         
+
+        // Check if driver or truck is deactivated
+        $isDriverActivated = $checkLastDriver->first()->drivers->first()->availability;
+        $isTruckActivated = $checkLastDriver->first()->drivers->first()->truck->availability;
+
+
+        if(count($outstandingDR) == 0) {
+            return array(
+                'status' => 'table-danger',
+                'message' => 'Please DR submit outstanding DR first, then tap again!',
+                'code' => 1
+            );
+        } elseif (count($manilaGate) == 0) {
+             return array(
+                'status' => 'table-danger',
+                'message' => 'Tap first to main gate RFID, in order to add in queue',
+                'code' => 2
+            );
+        } elseif ($isDriverActivated == 0) {
+            return array(
+                'status' => 'table-danger',
+                'message' => 'Driver is deactivated!',
+                'code' => 3
+            );
+        } elseif ($isTruckActivated == 0) {
+            return array(
+                'status' => 'table-danger',
+                'message' => 'Truck is deactivated!',
+                'code' => 4
+            );
+        } else {
+
+            
+            // $generateQueue = GenerateQueue::firstOrCreate(
+            //     ['LogID' => $checkLastDriver->LogID],
+            //     [
+            //         'CardholderID' => $checkLastDriver->CardholderID,
+            //         'queue_number' =>  Carbon::today()->format("w").
+            //                             Carbon::today()->format("m").
+            //                             Carbon::today()->format("y").'-',
+            //                             // count_current_queue + 1 // with area code
+            //         'driver_id' => $checkLastDriver->first()->driver->id,
+            //         'truck_id' => $checkLastDriver->first()->driver->truck->id,
+            //         'hauler_id' =>$checkLastDriver->first()->driver->hauler->id,
+            //         'queue_date' => Carbon::now(),
+            //     ]
+            // );
+
+             return array(
+                'status' => 'table-success',
+                'message' => 'Added to queue successfully!',
+                'code' => 5
+            );
+        }
+
+    }
+
+
+
     public function getLastDriver()
     {
 

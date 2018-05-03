@@ -285,7 +285,7 @@ Route::get('/monitor/lpzAssignedShipment','QueuesController@lpzAssignedShipment'
 Route::get('/monitor/lpzOpenShipment','QueuesController@lpzOpenShipment');
 Route::get('/monitor/lpzCount','QueuesController@getLpzDeliveriesCount');
 
-Route::post('/storeCurrentlyServing/{id}/{driverqueue}','ServingController@storeCurrentlyServing');
+Route::post('/storeCurrentlyServing/{driver_id}/{log_id}','ServingController@storeCurrentlyServing');
 
 Route::get('/feed','FeedsController@index');
 Route::get('/feed-content','FeedsController@feedContent');

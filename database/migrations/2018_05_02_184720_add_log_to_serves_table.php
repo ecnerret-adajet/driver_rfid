@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddLocationToServesTable extends Migration
+class AddLogToServesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,9 @@ class AddLocationToServesTable extends Migration
     public function up()
     {
         Schema::table('serves', function (Blueprint $table) {
-            $table->integer('driverqueue_id')->unsigned()->nullable();
+             $table->integer('driverqueue_id')->unsigned()->nullable();
+             $table->integer('log_id')->unsigned()->nullable();
+             $table->integer('cardholder_id')->unsigned()->nullable();
         });
     }
 
@@ -27,6 +29,8 @@ class AddLocationToServesTable extends Migration
     {
         Schema::table('serves', function (Blueprint $table) {
             $table->dropColumn('driverqueue_id');
+            $table->dropColumn('log_id');
+            $table->dropColumn('cardholder_id');
         });
     }
 }

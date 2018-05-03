@@ -27,6 +27,12 @@
 
     <body class="{{ Request::is('driver/*') ? '' : 'fixed-nav sticky-footer' }}" id="page-top">
 
+    <style>
+      html, body {
+        height: 100%
+      }
+    </style>
+
     <div id="app">
 
     <!-- Navigation -->

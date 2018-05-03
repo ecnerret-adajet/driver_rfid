@@ -13,6 +13,15 @@ class Serve extends Model
         'on_serving',
     ];
 
+    protected $hidden = [
+        'on_serving',
+        'served_end_date',
+        'served_start_date',
+        'updated_at',
+        'user_id',
+        'driver_id',
+    ];
+
     public function getDates()
     {
         return [];
