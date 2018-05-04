@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
+use App\Truck;
 
 class Driver extends Model
 {
@@ -223,7 +224,7 @@ class Driver extends Model
     */
     public function versions()
     {
-        return $this->belongsToMany(Verson::class);
+        return $this->belongsToMany(Version::class);
     }
     
     public function getVersionListAttribute()
@@ -296,15 +297,12 @@ class Driver extends Model
     }
 
     /**
-     * 
      *  Driver's Image
-     * 
      */
     public function image()
     {
         return $this->belongsTo('App\Image');
     }
-
 
     public function serve()
     {
@@ -314,9 +312,30 @@ class Driver extends Model
 
     public function serves()
     {
-        
         return $this->hasMany(Serve::class);
+    }
 
+    /**
+     * Check if driver or truck is deactivated based from DR Submitted to pluck in cardholder
+     * 
+     * Accepts array from DR Submitted pluck from Truck::callLastTripCardholder($plateArray)
+     */
+    public function scopeGetActiveDriverTruck($query, $lastTripCardholderArray) 
+    {
+
+        $filterActiveDrivers = Truck::whereIn('plate_number'.$lastTripCardholderArray)
+                                    ->where('availability',1)
+                                    ->with('driver')
+                                    ->get()
+                                    ->pluck('driver.id');
+
+        $filterActiveTrucks = $query->whereIn('id',$filterActiveDrivers)
+                                    ->where('availability',1)
+                                    ->with('truck')
+                                    ->get()
+                                    ->pluck('truck.id');
+
+        return $filterActiveTrucks;
     }
 
 
