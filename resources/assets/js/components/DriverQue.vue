@@ -283,12 +283,10 @@
             },
 
             getLastDriverResult() {
-                this.lastDriverProcess = true
                 axios.get('/driver_rfid/public/conditionFromLastDriver')
                 .then(response => this.lastDriverResult = response.data);
                 setTimeout(this.getLastDriverResult, 2000);
             },
-
     
             getTodayServed(){
                 axios.get('/driver_rfid/public/servedToday/1') // driverqueue id was hardcoded 
@@ -300,8 +298,8 @@
                 axios.get('/driver_rfid/public/getLastDriver')
                 .then(response => this.lastDriver = response.data);
                 setTimeout(this.getLastDriver, 2000);
-            },
-        
+            },      
+
             moment(date) {
                 return moment(date).format('MMMM D, Y h:m:s A');
             },

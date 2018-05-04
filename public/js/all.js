@@ -55166,7 +55166,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getLastDriverResult: function getLastDriverResult() {
             var _this2 = this;
 
-            this.lastDriverProcess = true;
             axios.get('/driver_rfid/public/conditionFromLastDriver').then(function (response) {
                 return _this2.lastDriverResult = response.data;
             });

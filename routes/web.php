@@ -68,6 +68,7 @@ Route::get('/driver/queues','LineupsController@DriversQue');
 Route::get('/checkSubmissionDate/{plate_number}','LineupApiController@checkSubmissionDate');
 Route::get('/queues','LineupApiController@getDriverQue');
 Route::get('/getLastDriver','LineupApiController@getLastDriver');
+Route::get('/conditionFromLastDriver','LineupApiController@conditionFromLastDriver');
 Route::get('/serving/{driverqueue}','ServingController@currentlyServing');
 Route::get('/servedToday/{driverqueue}','ServingController@servedToday');
 Route::get('/getTotalQueueToday','LineupApiController@getTotalQueueToday');
