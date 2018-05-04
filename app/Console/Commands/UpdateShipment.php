@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Ixudra\Curl\Facades\Curl;
 use App\Driverqueue;
 use Carbon\Carbon;
 use App\Shipment;
