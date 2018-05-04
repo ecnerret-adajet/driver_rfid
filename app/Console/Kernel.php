@@ -13,10 +13,10 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-         '\App\Console\Commands\UpdateShipments',
+         '\App\Console\Commands\UpdateShipment',
     ];
 
-    /**
+    /**   
      * Define the application's command schedule.
      *
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule

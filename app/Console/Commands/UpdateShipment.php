@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Driverqueue;
-use App\Carbon\Carbon;
+use Carbon\Carbon;
 use App\Shipment;
 use App\Log;
 use DB;
@@ -73,5 +73,6 @@ class UpdateShipment extends Command
             ->post();
 
 
+        }
     }
 }

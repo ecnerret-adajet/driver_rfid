@@ -71,16 +71,28 @@
                      {{ moment(queue.log_time.date) }}
                 </td>
                 <td>
+
                     <span v-if="!queue.on_serving">
-                        <a class="btn btn-success" href="javascript:void(0);" data-toggle="modal" :data-target="'#servingModal-'+ queue.driver_id">
+                        <!-- <a class="btn btn-success" href="javascript:void(0);" data-toggle="modal" :data-target="'#servingModal-'+ queue.driver_id">
+                            OPEN FOR SHIPMENT
+                        </a> -->
+                        <a class="btn btn-outline-success btn-sm disabled" href="javascript:void(0);" data-toggle="modal">
                             OPEN FOR SHIPMENT
                         </a>
                     </span>
                     <span v-else>
-                        <button class="btn btn-outline-danger btn-sm disabled">
-                        SHIPMENT ASSIGNED
+                        <button class="btn btn-outline-danger btn-sm disabled mb-2">
+                            SHIPMENT ASSIGNED
                         </button>
+                        <br/>
+                        <small class="text-uppercase text-muted">
+                            SHIPMENT NUMBER
+                        </small><br/>
+                        <span class="text-center">
+                            {{ queue.on_serving }}
+                        </span>
                     </span>
+
                 </td>
 
             </tr>

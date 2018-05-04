@@ -114,6 +114,13 @@ class Cardholder extends Model
         return $this->hasMany('App\Driver','cardholder_id','CardholderID');
     }
 
+    // Master Branch
+
+    public function driver()
+    {
+        return $this->hasOne('App\Driver','cardholder_id','CardholderID');
+    }
+
     public function pickups()
     {
         return $this->hasMany('App\Pickup','cardholder_id','CardholderID');
