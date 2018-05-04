@@ -101,23 +101,23 @@ class QueuesController extends Controller
         // MNL (Pfmc) queueing location
         $logs = Log::queueLocation(0,1,$check_truckscale_out,$manilaGate,Carbon::today());
 
+        // check if truck has complete dr into pluck
+        $queue_plate_number = $logs->pluck('driver.truck.plate_number');
+        $card_queue = Truck::callLastTripCardholder($queue_plate_number);
+
+        //Get only active driver and trucks from DR Submitted result
+        $activeEntries = Driver::getActiveDriverTruck($card_queue);
+
         // Get the unique result from queue
         $mnl_queue = $logs->unique('CardholderID');
 
         // compare if in is greater thatn time out within the day
         // then add to queueu
 
-
         $arr = array();
         
         foreach($mnl_queue as $key => $log) {
             foreach($log->drivers as $driver) {
-
-                // if(!empty($driver->truck->plate_number)) {
-                //     $x = str_replace('-',' ',strtoupper($driver->truck->plate_number));
-                //     $z = str_replace('_','',$x);
-                //     $y = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$z','deploy')");
-                // }
 
                 $data = array(
                     'log_id' => substr($log->LogID, -4),
@@ -131,38 +131,12 @@ class QueuesController extends Controller
                     'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
                     'log_time' => $log->LocalTime,
                     'dr_status' =>empty($driver->truck->plate_number) ? 'NO PLATE' : Truck::callLastTrip($driver->truck->plate_number),
-                    // 'driver_status' => $driver->availability,
-                    'on_serving' => empty($driver->serves->where('created_at','>=',Carbon::today())->first()->on_serving) ? null : $driver->serves->first()->on_serving,
-
+                    'on_serving' =>  Shipment::checkIfShipped($log->CardholderID,null)->first()
                 );
                 array_push($arr, $data);
 
             }
         }
-
-        // get truckscaleout object
-        // $manilaGateIn = Log::scopeBarrierLocationObject(3,2,Carbon::today());
-
-        // // if truck is second coming
-        // $checkServedtoday = Serve::servedTodayCardholder(); // has served
-        // $checkIfHasOut = Log::select('LogID','CardholderID','LocalTime')
-        //                     ->whereIn('CardholderID',$checkServedtoday)
-        //                     ->where('Direction',2)
-        //                     ->where('ControllerID',4)
-        //                     ->whereDate('LocalTime', Carbon::today())
-        //                     ->get();
-
-            
-        // foreach($checkIfHasOut as $out)
-        // {
-        //     foreach($manilaGate->whereIn('CardholderID',$out->CardholderID) as $in)
-        //     {
-
-        //     }
-        // }  
-
-
-        // array_push($arr,$dataSecond);
 
         return  $arr;
     }
