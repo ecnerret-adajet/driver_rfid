@@ -24,11 +24,11 @@
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
 
-                    <div class="carousel-item" style="height: 800px;" v-for="(loop,q) in Math.ceil(queues.length / 4)" :key="q" :class="{ 'active' : q == 0 }">
+                    <div class="carousel-item" style="height: 850px;" v-for="(loop,q) in Math.ceil(queues.length / 7)" :key="q" :class="{ 'active' : q == 0 }">
                            
                             <table class="table table-bordered table-striped">
                              <tbody>
-                                <tr v-for="(queue,y) in queues.slice((loop - 1) * 4, loop *4)" :key="y">
+                                <tr v-for="(queue,y) in queues.slice((loop - 1) * 7, loop *7)" :key="y">
                                     <td width="15%" class="text-center">
                                         <span class="display-4">
                                             {{ queue.queue_number }}
@@ -109,11 +109,11 @@
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
 
-                    <div class="carousel-item" style="height: 600px;" v-for="(loop,t) in Math.ceil(todayServed.length / 4)" :key="t" :class="{ 'active' : t == 0 }">    
+                    <div class="carousel-item" style="height: 600px;" v-for="(loop,t) in Math.ceil(todayServed.length / 6)" :key="t" :class="{ 'active' : t == 0 }">    
 
                         <table class="table table-bordered table-striped">
                         <tbody>
-                            <tr v-for="(served,s) in todayServed.slice((loop - 1) * 4, loop *4)" :key="s">
+                            <tr v-for="(served,s) in todayServed.slice((loop - 1) * 6, loop *6)" :key="s">
                                 <td>
 
                                     <div class="row" v-if="served.driver">
@@ -136,7 +136,7 @@
 
                                 </td>
 
-                                <td width="20%">
+                                <td width="25%">
                                 <small class="text-uppercase text-muted">
                                         SHIPPED DATE
                                     </small> <br/>
@@ -146,7 +146,7 @@
                                 </td>
 
 
-                                <td width="20%">
+                                <td width="20%" class="text-center">
                                     <button class="float-right btn btn-sm btn-outline-danger">
                                             ASSIGNED SHIPMENT
                                     </button>

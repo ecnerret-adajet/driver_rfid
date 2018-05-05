@@ -84703,7 +84703,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "carousel-inner"
-  }, _vm._l((Math.ceil(_vm.queues.length / 4)), function(loop, q) {
+  }, _vm._l((Math.ceil(_vm.queues.length / 7)), function(loop, q) {
     return _c('div', {
       key: q,
       staticClass: "carousel-item",
@@ -84711,11 +84711,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         'active': q == 0
       },
       staticStyle: {
-        "height": "800px"
+        "height": "850px"
       }
     }, [_c('table', {
       staticClass: "table table-bordered table-striped"
-    }, [_c('tbody', [_vm._l((_vm.queues.slice((loop - 1) * 4, loop * 4)), function(queue, y) {
+    }, [_c('tbody', [_vm._l((_vm.queues.slice((loop - 1) * 7, loop * 7)), function(queue, y) {
       return _c('tr', {
         key: y
       }, [_c('td', {
@@ -84759,7 +84759,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "carousel-inner"
-  }, _vm._l((Math.ceil(_vm.todayServed.length / 4)), function(loop, t) {
+  }, _vm._l((Math.ceil(_vm.todayServed.length / 6)), function(loop, t) {
     return _c('div', {
       key: t,
       staticClass: "carousel-item",
@@ -84771,7 +84771,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('table', {
       staticClass: "table table-bordered table-striped"
-    }, [_c('tbody', [_vm._l((_vm.todayServed.slice((loop - 1) * 4, loop * 4)), function(served, s) {
+    }, [_c('tbody', [_vm._l((_vm.todayServed.slice((loop - 1) * 6, loop * 6)), function(served, s) {
       return _c('tr', {
         key: s
       }, [_c('td', [(served.driver) ? _c('div', {
@@ -84808,11 +84808,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         staticClass: "p-0 m-0"
       }, [_vm._v("\n                                            " + _vm._s(served.driver.hauler[0].name) + "\n                                        ")]) : _vm._e()])]) : _vm._e()]), _vm._v(" "), _c('td', {
         attrs: {
-          "width": "20%"
+          "width": "25%"
         }
       }, [_c('small', {
         staticClass: "text-uppercase text-muted"
       }, [_vm._v("\n                                    SHIPPED DATE\n                                ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                    " + _vm._s(_vm.moment(served.created_at)) + "\n                                ")])]), _vm._v(" "), _c('td', {
+        staticClass: "text-center",
         attrs: {
           "width": "20%"
         }
@@ -88411,7 +88412,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "carousel-inner"
-  }, _vm._l((Math.ceil(_vm.queues.length / 4)), function(loop, q) {
+  }, _vm._l((Math.ceil(_vm.queues.length / 7)), function(loop, q) {
     return _c('div', {
       key: q,
       staticClass: "carousel-item",
@@ -88419,11 +88420,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         'active': q == 0
       },
       staticStyle: {
-        "height": "800px"
+        "height": "850px"
       }
     }, [_c('table', {
       staticClass: "table table-bordered table-striped"
-    }, [_c('tbody', [_vm._l((_vm.queues.slice((loop - 1) * 4, loop * 4)), function(queue, y) {
+    }, [_c('tbody', [_vm._l((_vm.queues.slice((loop - 1) * 7, loop * 7)), function(queue, y) {
       return _c('tr', {
         key: y
       }, [_c('td', {
@@ -88467,7 +88468,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "carousel-inner"
-  }, _vm._l((Math.ceil(_vm.todayServed.length / 4)), function(loop, t) {
+  }, _vm._l((Math.ceil(_vm.todayServed.length / 6)), function(loop, t) {
     return _c('div', {
       key: t,
       staticClass: "carousel-item",
@@ -88479,7 +88480,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('table', {
       staticClass: "table table-bordered table-striped"
-    }, [_c('tbody', [_vm._l((_vm.todayServed.slice((loop - 1) * 4, loop * 4)), function(served, s) {
+    }, [_c('tbody', [_vm._l((_vm.todayServed.slice((loop - 1) * 6, loop * 6)), function(served, s) {
       return _c('tr', {
         key: s
       }, [_c('td', [(served.driver) ? _c('div', {
@@ -88516,11 +88517,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         staticClass: "p-0 m-0"
       }, [_vm._v("\n                                            " + _vm._s(served.driver.hauler[0].name) + "\n                                        ")]) : _vm._e()])]) : _vm._e()]), _vm._v(" "), _c('td', {
         attrs: {
-          "width": "20%"
+          "width": "25%"
         }
       }, [_c('small', {
         staticClass: "text-uppercase text-muted"
       }, [_vm._v("\n                                    SHIPPED DATE\n                                ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                    " + _vm._s(_vm.moment(served.created_at)) + "\n                                ")])]), _vm._v(" "), _c('td', {
+        staticClass: "text-center",
         attrs: {
           "width": "20%"
         }
