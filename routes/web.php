@@ -68,9 +68,11 @@ Route::get('/driver/queues','LineupsController@DriversQue');
 Route::get('/checkSubmissionDate/{plate_number}','LineupApiController@checkSubmissionDate');
 Route::get('/queues','LineupApiController@getDriverQue');
 Route::get('/getLastDriver','LineupApiController@getLastDriver');
-Route::get('/conditionFromLastDriver','LineupApiController@conditionFromLastDriver');
-Route::get('/serving/{driverqueue}','ServingController@currentlyServing');
-Route::get('/servedToday/{driverqueue}','ServingController@servedToday');
+Route::get('/conditionFromLastDriver/{driverqueue}','LineupApiController@conditionFromLastDriver');
+Route::get('/serving/{driverqueue}','ShipmentsController@currentlyServing');
+// Route::get('/serving/{driverqueue}','ServingController@currentlyServing');
+// Route::get('/servedToday/{driverqueue}','ServingController@servedToday');
+Route::get('/servedToday/{driverqueue}','ShipmentsController@servedToday');
 Route::get('/getTotalQueueToday','LineupApiController@getTotalQueueToday');
 
 // BTN Route for driver queueing monitor
@@ -280,6 +282,7 @@ Route::get('/monitor/count','QueuesController@getDeliveriesCount');
 Route::get('/monitor/btnDeliveries','QueuesController@btnDeliveries');
 Route::get('/monitor/btnAssignedShipment','QueuesController@btnAssignedShipment');
 Route::get('/monitor/btnOpenShipment','QueuesController@btnOpenShipment');
+Route::get('/monitor/btnCount','QueuesController@btnGetDeliveriesCount');
 // Queue Monitoring Lapaz
 Route::get('/monitor/lpzDeliveries','QueuesController@lpzDeliveries');
 Route::get('/monitor/lpzAssignedShipment','QueuesController@lpzAssignedShipment');

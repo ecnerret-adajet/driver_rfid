@@ -13,7 +13,7 @@
         </thead> 
         <tbody>
 
-            <tr v-for="queue in filteredQueues" v-if="!loading">
+            <tr v-for="(queue,q) in filteredQueues" v-if="!loading" :key="q">
 
                 <td class="text-center">
                     <span class="display-4">
@@ -71,14 +71,24 @@
                 </td>
                 <td>
                     <span v-if="!queue.on_serving">
-                        <a class="btn btn-success" href="javascript:void(0);" data-toggle="modal" :data-target="'#servingModal-'+ queue.driver_id">
+                        <!-- <a class="btn btn-success" href="javascript:void(0);" data-toggle="modal" :data-target="'#servingModal-'+ queue.driver_id">
+                            OPEN FOR SHIPMENT
+                        </a> -->
+                        <a class="btn btn-outline-success btn-sm disabled" href="javascript:void(0);" data-toggle="modal">
                             OPEN FOR SHIPMENT
                         </a>
                     </span>
                     <span v-else>
-                        <button class="btn btn-outline-danger btn-sm disabled">
-                        SHIPMENT ASSIGNED
+                        <button class="btn btn-outline-danger btn-sm disabled mb-2">
+                            SHIPMENT ASSIGNED
                         </button>
+                        <br/>
+                        <small class="text-uppercase text-muted">
+                            SHIPMENT NUMBER
+                        </small><br/>
+                        <span class="text-center">
+                            {{ queue.on_serving }}
+                        </span>
                     </span>
                 </td>
 
@@ -131,7 +141,7 @@
         </div>
 
 
-        <div v-for="queue in filteredQueues">
+        <div v-for="(queue,q) in filteredQueues" :key="q">
 
             <!-- serving modal -->
             <div class="modal fade" :id="'servingModal-' + queue.driver_id" tabindex="-1" role="dialog" aria-labelledby="driverModalLabel" aria-hidden="true">

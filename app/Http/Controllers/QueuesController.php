@@ -432,14 +432,14 @@ class QueuesController extends Controller
     // MNL (PFMC) deliveries count
     public function btnGetDeliveriesCount()
     {
-        $totalAssiged = count($this->assignedShipment());
-        $totalOpen = count($this->openShipment());
+        $totalAssiged = count($this->btnAssignedShipment());
+        $totalOpen = count($this->btnOpenShipment());
 
         // Get drivers with truckscale out within the day
-        $check_truckscale_out = Log::truckscaleOut();
+        $check_truckscale_out = Log::btnTruckscaleOut();
 
         // Check Trucks who has Truckscale in but not out        
-        $check_truckscale_in = Log::trucksInPlant(1,4,$check_truckscale_out)->count();
+        $check_truckscale_in = Log::trucksInPlant(1,7,$check_truckscale_out)->count();
 
         $data = array(
             'totalAssigned' => $totalAssiged,
@@ -613,7 +613,7 @@ class QueuesController extends Controller
         $check_truckscale_out = Log::lpzTruckscaleOut();
 
         // Check Trucks who has Truckscale in but not out        
-        $check_truckscale_in = Log::trucksInPlant(1,6,$check_truckscale_out)->count();
+        $check_truckscale_in = Log::trucksInPlant(1,5,$check_truckscale_out)->count();
 
         $data = array(
             'totalAssigned' => $totalAssiged,

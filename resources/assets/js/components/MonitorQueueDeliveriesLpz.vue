@@ -11,8 +11,7 @@
                 <div class="card-body">
 
                     <span class="display-3"  v-if="!loadingCount">
-                        <!-- {{ totalCount.totalOpen }} -->
-                        0
+                        {{ totalCount.totalOpen }}                        
                     </span>
                     <span class="display-3" v-if="loadingCount">
                         <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
@@ -31,8 +30,7 @@
                     </div>
                 <div class="card-body">
                     <span class="display-3"  v-if="!loadingCount">
-                        <!-- {{ totalCount.totalAssigned }} -->
-                        0
+                        {{ totalCount.totalAssigned }}
                     </span>
                      <span class="display-3" v-if="loadingCount">
                         <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
@@ -49,8 +47,7 @@
                     </div>
                 <div class="card-body">
                     <span class="display-3"  v-if="!loadingCount">
-                        <!-- {{ totalCount.current_in_plant }} -->
-                        0
+                        {{ totalCount.current_in_plant }}
                     </span>
                      <span class="display-3" v-if="loadingCount">
                         <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
@@ -60,6 +57,7 @@
                 </div>
                 </div>
             </div>
+           <!-- last shipped truck -->
             <div class="col-3">
                 <div class="card">
                      <div class="card-header">
@@ -68,25 +66,24 @@
                     <div class="card-body">
                     <span class="text-uppercase">
 
-                         <div class="row" v-for="serving in lastAssigned">
+                         <div class="row" v-for="(serving,s) in lastAssigned" :key="s">
+                             <div class="row" v-if="serving.driver">
                              <div class="col-3 text-center">
-                                 <span v-if="serving.driver.image">
-                                  <img :src="'/driver_rfid/public/storage/' + serving.driver.image.avatar" class="rounded-circle" style="height: 80px; width: auto;"  align="middle">
-                                 </span>
-                                 <span v-else>
-                                  <img :src="'/driver_rfid/public/storage/' + serving.driver.avatar" class="rounded-circle" style="height: 80px; width: auto;"  align="middle">
-                                 </span>
+                                  <img v-if="serving.driver.image" :src="'/driver_rfid/public/storage/' + serving.driver.image.avatar" class="rounded-circle" style="height: 80px; width: auto;"  align="middle">
+                                  <img v-else :src="'/driver_rfid/public/storage/' + serving.driver.avatar" class="rounded-circle" style="height: 80px; width: auto;"  align="middle">
                              </div>
                              <div class="col-9">
                                 {{ serving.driver.name }} <br/>
-                                <span v-for="truckx in serving.driver.truck">
-                                    {{ truckx.plate_number }} <br/>
+                                <span v-if="serving.driver.truck">
+                                    {{ serving.driver.truck[0].plate_number }} <br/>
                                 </span>
-                                <span v-for="haulerx in serving.driver.hauler">
-                                    {{ haulerx.name }} <br/>
+                                <span v-if="serving.driver.hauler">
+                                    {{ serving.driver.hauler[0].name }} <br/>
                                 </span>
                              </div>
+                             </div>
                          </div>
+
                          <div class="row" v-if="lastAssigned.length == 0">
                             <div class="col text-center">
                                 <span class="display-3 text-muted">
@@ -100,6 +97,7 @@
                 </div>
                 </div>
             </div>
+            <!-- end last served truck -->
         </div>
 
         <div class="form-row mb-2 mt-3">
@@ -217,7 +215,7 @@
         methods: {
             getLastAssigned() {
                 this.loadingLastAssigned = true
-                axios.get('/driver_rfid/public/serving')
+                axios.get('/driver_rfid/public/serving/2')
                 .then(response => {
                     this.lastAssigned = response.data
                     this.loadingLastAssigned = false

@@ -84,7 +84,7 @@ class BarriersController extends Controller
         foreach($lapaz_drivers as $entry) {
             foreach($entry->drivers as $driver) {
 
-                $isShipped = Serve::isDriverShipped($driver->id);
+                // $isShipped = Serve::isDriverShipped($driver->id);
 
                     $data = array(
 
@@ -100,7 +100,7 @@ class BarriersController extends Controller
                         // 'outLocalTime' =>  $this->getBarrierDirection(0, $entry->CardholderID, 2) < 
                         //                     $this->getBarrierDirection(0, $entry->CardholderID, 1) ? null : 
                         //                     $this->getBarrierDirection(0, $entry->CardholderID, 2),
-                        'is_shipment' => count($isShipped) == 0 ? null : 1
+                        'isNowShipped' => Shipment::checkIfShipped($entry->CardholderID,null)->first(),
                     );
 
                     array_push($arr, $data);
@@ -120,7 +120,7 @@ class BarriersController extends Controller
         foreach($manila_drivers as $entry) {
             foreach($entry->drivers as $driver) {
 
-                $isShipped = Serve::isDriverShipped($driver->id);
+                // $isShipped = Serve::isDriverShipped($driver->id);
 
                     $data = array(
 
@@ -133,11 +133,12 @@ class BarriersController extends Controller
                         'plate_availability' => empty($driver->truck->plate_number) ? null : $driver->truck->availability,
                         'hauler_name' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
                         'inLocalTime' =>  $this->getBarrierDirection(3 ,$entry->CardholderID, 1),
-                        // 'outLocalTime' =>  $this->getBarrierDirection(3, $entry->CardholderID, 2) < 
-                        //                     $this->getBarrierDirection(3, $entry->CardholderID, 1) ? null : 
-                        //                     $this->getBarrierDirection(3, $entry->CardholderID, 2),
+                        'outLocalTime' =>  $this->getBarrierDirection(3, $entry->CardholderID, 2) < 
+                                            $this->getBarrierDirection(3, $entry->CardholderID, 1) ? null : 
+                                            $this->getBarrierDirection(3, $entry->CardholderID, 2),
                         'isFromLapaz' => array_has($entry->CardholdereID, Log::barrierLocation(0,5)) ? 1 : null,
-                        'is_shipment' => count($isShipped) == 0 ? null : 1
+                        'isNowShipped' => Shipment::checkIfShipped($entry->CardholderID,null)->first(),
+
 
                     );
 
@@ -159,7 +160,7 @@ class BarriersController extends Controller
         foreach($bataan_drivers as $entry) {
             foreach($entry->drivers as $driver) {
 
-                $isShipped = Serve::isDriverShipped($driver->id);
+                // $isShipped = Serve::isDriverShipped($driver->id);
 
                     $data = array(
 
@@ -172,10 +173,11 @@ class BarriersController extends Controller
                         'plate_availability' => empty($driver->truck->plate_number) ? null : $driver->truck->availability,
                         'hauler_name' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
                         'inLocalTime' =>  $this->getBarrierDirection(0 ,$entry->CardholderID, 1),
-                        // 'outLocalTime' =>  $this->getBarrierDirection(0, $entry->CardholderID, 2) < 
-                        //                     $this->getBarrierDirection(0, $entry->CardholderID, 1) ? null : 
-                        //                     $this->getBarrierDirection(0, $entry->CardholderID, 2),
-                        'is_shipment' => count($isShipped) == 0 ? null : 1
+                        'outLocalTime' =>  $this->getBarrierDirection(0, $entry->CardholderID, 2) < 
+                                            $this->getBarrierDirection(0, $entry->CardholderID, 1) ? null : 
+                                            $this->getBarrierDirection(0, $entry->CardholderID, 2),
+                        'isNowShipped' => Shipment::checkIfShipped($entry->CardholderID,null)->first(),
+
                     );
 
                     array_push($arr, $data);

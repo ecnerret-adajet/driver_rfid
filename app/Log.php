@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use App\Cardholder;
+use App\Driverqueue;
 
 class Log extends Model
 {
@@ -305,6 +306,24 @@ class Log extends Model
                 ->pluck('CardholderID');
      }
 
+    
+    public function scopeGateLocation($query, $driverqueue)
+    {
+
+        $queue = Driverqueue::where('id',$driverqueue)->first();
+
+         return $query->select('LogID','CardholderID','LocalTime')
+                ->whereDate('LocalTime', Carbon::today())
+                ->whereIn('DoorID',[$queue->gate->door])
+                ->whereNotIn('CardholderID',$this->barrierNoDriver())
+                ->where('ControllerID', $queue->gate->controller)
+                ->where('CardholderID', '>=', 15)
+                ->orderBy('LocalTime','DESC')
+                ->with('driver')
+                ->pluck('CardholderID');
+     }
+
+
      /**
       * Get Object for drivers who tapped from gate RFID based fom location
       */
@@ -391,11 +410,25 @@ class Log extends Model
       public function scopeTruckscaleOutLocation($query, $controller)
       {
             return $query->select('CardholderID')
+                ->where('CardholderID', '>=', 15)
                 ->where('ControllerID', $controller)
                 ->where('Direction',2) // All Truckscale Out
                 ->whereDate('LocalTime', Carbon::today())
                 ->pluck('CardholderID');
+
       }
+
+    public function scopeTruckscaleOutFromQueue($query, $driverqueue)
+    {
+        $queue = Driverqueue::where('id',$driverqueue)->first();
+
+        return  $query->select('CardholderID')
+                ->where('ControllerID', $queue->ts_out_controller)
+                ->where('Direction',2) // All Truckscale Out
+                ->where('CardholderID', '>=', 15)
+                ->whereDate('LocalTime', Carbon::today())
+                ->pluck('CardholderID');
+    }
 
       /**
        *  Export Truckscale search by date
@@ -493,5 +526,18 @@ class Log extends Model
             ->orderBy('LogID','DESC')
             ->take(1)
             ->pluck('CardholderID');
+    }
+    
+    public function scopeLastDriverFromQueue($query, $driverqueue)
+    {
+
+        $queue = Driverqueue::where('id',$driverqueue)->first();
+
+       return $query->where('ControllerID', $queue->controller)
+            ->where('DoorID',$queue->door)
+            ->orderBy('LogID','DESC')
+            ->take(1)
+            ->pluck('CardholderID');
     } 
+
 }

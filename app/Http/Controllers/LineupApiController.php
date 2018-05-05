@@ -12,6 +12,7 @@ use DB;
 use App\Serve;
 use Illuminate\Support\Facades\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use App\Driverqueue;
 
 class LineupApiController extends Controller
 {
@@ -62,12 +63,15 @@ class LineupApiController extends Controller
     }
 
     
-    public function conditionFromLastDriver()
+    public function conditionFromLastDriver($driverqueue)
     {   
-        $checkLastDriver = $this->getLastDriver(); // returns object, last item
-        $lastDriver = Log::lastDriverCardholder(0,1); // return pluck, last item
-        $check_truckscale_out = Log::truckscaleOut(); // return pluck, all truckscal out
-        $check_truckscale_in = Log::barrierLocation(3,2); // return pluck, all truckscale In
+        $queue = Driverqueue::where('id',$driverqueue)->first();
+
+        $checkLastDriver = Log::lastDriver($queue->door,$queue->controller); // returns object, last item
+
+        $lastDriver = Log::lastDriverCardholder($queue->door, $queue->controller); // return pluck, last item
+        $check_truckscale_out = Log::truckscaleOutLocation($queue->ts_out_controller); // return pluck, all truckscal out
+        $check_truckscale_in = Log::barrierLocation($queue->gate->door,$queue->gate->controller); // return pluck, all truckscale In
 
         // if driver has oustanding DR
         $plate = $checkLastDriver->first()->drivers->first()->truck->platenum_format;
@@ -75,13 +79,12 @@ class LineupApiController extends Controller
                         ->select("CALL P_LAST_TRIP('$plate','deploy')");
 
         // Driver didn't tap to gate first
-        $mainGate = Log::whereIn('CardholderID',[$lastDriver])->barrierLocation(3,2);
+        $mainGate = Log::whereIn('CardholderID',[$lastDriver])->barrierLocation($queue->gate->door,$queue->gate->controller);
 
         // Check if driver has in and out within manila plant in a current day
         // $tapComplete = array_collapse([[$check_truckscale_in], [$check_truckscale_out]]);
-        $tapComplete = array_collapse([$check_truckscale_in, $check_truckscale_out]);
-        $checkTapComplete = Log::whereIn('CardholderID',$tapComplete)
-                            ->lastDriver(0,1);         
+        // $tapComplete = array_collapse([$check_truckscale_in, $check_truckscale_out]);
+        // $checkTapComplete = Log::whereIn('CardholderID',$tapComplete)->lastDriver($queue->door,$queue->controller);         
 
         // Check if driver or truck is deactivated
         $isDriverActivated = $checkLastDriver->first()->drivers->first()->availability;
@@ -314,60 +317,9 @@ class LineupApiController extends Controller
 
     public function getBtnLastDriver()
     {
-
-        // Get the total truckscale Out from truck monitoring today
-        $check_truckscale_out = Log::btnTruckscaleOut();
-        // Get the total served from truck monitoring today
-        $served = Serve::servedToday();
-
-         $result_lineups = Log::with(['drivers','drivers.trucks','drivers.haulers','driver.serves'])
-                        ->where('ControllerID', 7)
-                        ->where('DoorID',2)
-                        ->whereNotIn('CardholderID',$check_truckscale_out)
-                        // ->whereDate('LocalTime', Carbon::today())
-                        ->orderBy('LogID','DESC')
-                        ->take(1)
-                        ->get();
-
-        $log_lineups = $result_lineups->unique('CardholderID');
-
-        
-    
-        $arr = array();
-
-        foreach($log_lineups as $log) {
-            foreach($log->drivers->whereNotIn('id', $served) as $driver) {
-
-                    if(!empty($driver->trucks)) {
-                        $x = str_replace('-',' ',strtoupper($driver->trucks->first()->plate_number));
-                        $z = str_replace('_','',$x);
-                        $y = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$z','deploy')");
-                        if(!empty($y)) {
-                            $a = $y[0];
-                        }
-                    }
-
-                    $data = array(
-                        'queue_number' => substr($log->LogID,-4),
-                        'driver_id' => $driver->id,
-                        'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
-                        'driver_name' => $driver->name,
-                        'plate_number' => empty($driver->trucks->first()->plate_number) ? 'NO PLATE' : $driver->trucks->first()->plate_number,
-                        'hauler' => empty($driver->haulers->first()->name) ? 'NO HAULER' : $driver->haulers->first()->name,
-                        'availability' => $driver->availability,
-                        'log_time' => $log->LocalTime,
-                        'dr_status' => empty($y) ? 'UNPROCESS' : $a, 
-                        'on_serving' => empty($driver->serves->first()->on_serving) ? null : $driver->serves->first()->on_serving,
-                        );
-                        
-                    
-                    
-                    array_push($arr, $data);
-                    
-            }
-        }
-
-        return $arr;
-   }
+        $lastDriver = Log::lastDriver(2,7);
+       
+        return $lastDriver;
+    }
 
 }

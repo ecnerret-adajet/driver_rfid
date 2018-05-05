@@ -12,9 +12,18 @@ class Shipment extends Model
         '*'
     ];
 
+    protected $hidden = [
+        'updated_at',
+    ];
+
     public function getDates()
     {
         return [];
+    }
+
+    public function driver() 
+    {
+        return $this->cardholder->driver();
     }
 
     public function cardholder()

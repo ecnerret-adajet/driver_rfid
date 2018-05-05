@@ -2,166 +2,180 @@
     <div>
            <div class="row mb-4">
             <div class="col-6">
-                 <table class="table table-bordered table-striped">
-        <thead>
-            <tr class="text-uppercase font-weight-light">
-            <th scope="col"> <small>  Queue # </small> </th>
-            <th scope="col"> <small>  Driver Details </small> </th>
-            <th scope="col"> <small>  Recorded Time /Date </small> </th>
-            </tr>
-        </thead> 
-        <tbody>
-            <tr v-for="queue in queues">
-                <td width="15%" class="text-center">
-                    <span class="display-4">
-                     {{ queue.queue_number }}
-                    </span> 
-                </td>
-                <td>
-                    <div class="row">
-                        <div class="col-3">
-                        <img :src="avatar_link + queue.driver_avatar" class="rounded-circle mx-auto align-middle" style="height: 80px; width: auto;"  align="middle">
-                        </div>
-                        <div class="col-9">
-                            {{ queue.driver_name }} <br/>
-                            {{ queue.plate_number }} <br/>
-                            <span v-if="queue.hauler == 'NO HAULER'" class="text-danger">
-                                    {{ queue.hauler }}
-                            </span>
-                            <span v-else>
-                                    {{ queue.hauler }}
-                            </span>
-                        </div>
+
+                 <div class="row">
+                    <div class="col">
+                        <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr class="text-uppercase font-weight-light">
+                            <th  class="table-success" scope="col"> 
+                                <small>  
+                                    <strong>
+                                        Drivers in queue # 
+                                    </strong>
+                                </small> 
+                            </th>
+                            </tr>
+                        </thead> 
+                        </table>
                     </div>
-                </td>
-                <td>
-                    <small class="text-uppercase text-muted">
-                        LAST DR SUBMISSION
-                    </small> <br/>
-                     <span v-if="queue.dr_status != 'UNPROCESS'">
-                        {{ queue.dr_status.submission_date }}
-                    </span>
-                    <span v-else>
-                        UNPROCESS
-                    </span>
-                     <br/>
-                    <small class="text-uppercase text-muted">
-                        TAPPED IN QUEUE
-                    </small><br/>
-                     {{ moment(queue.log_time.date) }}
-                </td>
-            </tr>
-             <tr v-if="queues.length == 0">
-                <td class="text-center" style="padding-top: 30px; padding-bottom: 30px;" colspan="3">
-                    <span class="display-4 text-muted">
-                        ......
-                    </span>
-                </td>
-            </tr>
-        </tbody>
-        </table>
+                </div>
+
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+
+                    <div class="carousel-item" style="height: 800px;" v-for="(loop,q) in Math.ceil(queues.length / 4)" :key="q" :class="{ 'active' : q == 0 }">
+                           
+                            <table class="table table-bordered table-striped">
+                             <tbody>
+                                <tr v-for="(queue,y) in queues.slice((loop - 1) * 4, loop *4)" :key="y">
+                                    <td width="15%" class="text-center">
+                                        <span class="display-4">
+                                            {{ queue.queue_number }}
+                                        </span> 
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-3">
+                                            <img :src="avatar_link + queue.driver_avatar" class="rounded-circle mx-auto align-middle" style="height: 80px; width: auto;"  align="middle">
+                                            </div>
+                                            <div class="col-9">
+                                                {{ queue.driver_name }} <br/>
+                                                {{ queue.plate_number }} <br/>
+                                                <span v-if="queue.hauler == 'NO HAULER'" class="text-danger">
+                                                        {{ queue.hauler }}
+                                                </span>
+                                                <span v-else>
+                                                        {{ queue.hauler }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <small class="text-uppercase text-muted">
+                                            LAST DR SUBMISSION
+                                        </small> <br/>
+                                        <span v-if="queue.dr_status != 'UNPROCESS'">
+                                            {{ queue.dr_status.submission_date }}
+                                        </span>
+                                        <span v-else>
+                                            UNPROCESS
+                                        </span>
+                                        <br/>
+                                        <small class="text-uppercase text-muted">
+                                            TAPPED IN QUEUE
+                                        </small><br/>
+                                        {{ moment(queue.log_time.date) }}
+                                    </td>
+                                </tr>
+                                <tr v-if="queues.length == 0">
+                                    <td class="text-center" style="padding-top: 30px; padding-bottom: 30px;" colspan="3">
+                                        <span class="display-4 text-muted">
+                                            ......
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </table>
+                     
+
+                    </div>
+                </div>
+             
+                </div>
+                <!-- end carousel -->
 
             </div>
             <div class="col-6">
-                     <div class="card bg-light rounded-0">
-                        <div class="card-body text-center">
-                            <div class="row" v-if="!currentlyServing.length == 0" v-for="(serving, i) in currentlyServing" :key="i">
-                                <div class="col-3">
 
-                                <span v-if="serving.driver.image">
-                                    <img :src="avatar_link + serving.driver.image.avatar" class="rounded-circle" style="height: 100px; width: auto;"  align="right">
-                                </span>
-                                <span v-else>
-                                    <img :src="avatar_link + serving.driver.avatar" class="rounded-circle" style="height: 100px; width: auto;"  align="right">
-                                </span>
-                             
-                                </div>
+                    <div class="row">
+                    <div class="col">
+                        <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr class="text-uppercase font-weight-light">
+                            <th  class="table-warning" scope="col"> 
+                                <small> 
+                                    <strong>
+                                    Shipped Drivers 
+                                    </strong>
+                                </small> 
+                            </th>
+                            </tr>
+                        </thead> 
+                        </table>
+                    </div>
+                </div>
 
-                                <div class="col-3 text-left">
-                                    <span class="small text-muted text-uppercase">
-                                        Driver Name:
-                                    </span><br/>
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+
+                    <div class="carousel-item" style="height: 600px;" v-for="(loop,t) in Math.ceil(todayServed.length / 4)" :key="t" :class="{ 'active' : t == 0 }">    
+
+                        <table class="table table-bordered table-striped">
+                        <tbody>
+                            <tr v-for="(served,s) in todayServed.slice((loop - 1) * 4, loop *4)" :key="s">
+                                <td>
+
+                                    <div class="row" v-if="served.driver">
+                                        <div class="col-2 text-center">
+                                            <img v-if="served.driver.image" :src="avatar_link + served.driver.image.avatar" class="rounded-circle mx-auto" style="height: 60px; width: auto;"  align="middle">
+                                            <img v-else :src="avatar_link + served.driver.avatar" class="rounded-circle mx-auto" style="height: 60px; width: auto;"  align="middle">
+                                        </div>
+                                        <div class="col-10">
+                                            <p class="p-0 m-0">
+                                                {{ served.driver.name }}
+                                            </p>
+                                            <p v-if="served.driver.truck" class="p-0 m-0">
+                                                {{ served.driver.truck[0].plate_number }}
+                                            </p>
+                                            <p v-if="served.driver.hauler" class="p-0 m-0">
+                                                {{ served.driver.hauler[0].name }}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                                <td width="20%">
+                                <small class="text-uppercase text-muted">
+                                        SHIPPED DATE
+                                    </small> <br/>
                                     <span>
-                                        {{ serving.driver.name }}
-                                    </span><br/>
-                                    <span class="small text-muted text-uppercase">
-                                        Plate Number:
-                                    </span><br/>
-                                    <span v-for="truckx in serving.driver.truck">
-                                        {{ truckx.plate_number }}
-                                    </span><br/>
-                                  
-                                </div>
-
-                                <div class="col-6 text-left">
-                                    <span class="small text-muted text-uppercase">
-                                        Hauler Name:
-                                    </span><br/>
-                                    <span v-for="haulerx in serving.driver.hauler">
-                                        {{ haulerx.name }}
+                                        {{ moment(served.created_at) }}
                                     </span>
-                                </div>
-                            </div>
-                             <h1 v-if="currentlyServing == 0" class="card-title text-muted pt-2  display-3" style="font-weight: 100">
-                                OPEN
-                            </h1>
-                            <!-- <p class="card-text mt-3 small text-uppercase text-muted">
-                                Currently Serving
-                            </p> -->
-                            
-                        </div>
-                        <div class="card-footer bg-primary text-center mt-1">
-                            <span style="font-weight: 100" class="text-small text-uppercase text-white">
-                                RECENTLY ASSIGNED SHIPMENT
-                            </span>                            
-                        </div>
+                                </td>
+
+
+                                <td width="20%">
+                                    <button class="float-right btn btn-sm btn-outline-danger">
+                                            ASSIGNED SHIPMENT
+                                    </button>
+                                    <span>
+                                        {{ served.shipment_number }}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr v-if="todayServed.length == 0">
+                                <td class="text-center" style="padding-top: 30px; padding-bottom: 30px;" colspan="3">
+                                    <span class="display-4 text-muted">
+                                        Nothing Assigned
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                        </table>
+
+
                     </div>
 
 
-                     <table class="table table-bordered table-striped">
-                <thead>
-                    <tr class="text-uppercase font-weight-light">
-                    <th scope="col"> <small>  Driver Details </small> </th>
-                    <th scope="col"> <small>  Status</small> </th>
-                    </tr>
-                </thead> 
-                <tbody>
-                    <tr v-for="served in todayServed">
-                        <td>
-                            <div class="row">
-                                <div class="col-2 text-center">
-                                    <img :src="avatar_link + served.avatar" class="rounded-circle mx-auto" style="height: 60px; width: auto;"  align="middle">
-                                </div>
-                                <div class="col-10">
-                                    <p class="p-0 m-0">
-                                        {{ served.driver_name }}
-                                    </p>
-                                    <p class="p-0 m-0">
-                                        {{ served.plate_number }}
-                                    </p>
-                                    <p class="p-0 m-0">
-                                        {{ served.hauler_name }}
-                                    </p>
-                                </div>
-                            </div>
-                        </td>
-                        <td width="20%">
-                            <button class="float-right btn btn-sm btn-outline-danger">
-                                    ASSIGNED SHIPMENT
-                            </button>
-                        </td>
-                    </tr>
-                    <tr v-if="todayServed.length == 0">
-                        <td class="text-center" style="padding-top: 30px; padding-bottom: 30px;" colspan="2">
-                            <span class="display-4 text-muted">
-                                Nothing Assigned
-                            </span>
-                        </td>
-                    </tr>
-                </tbody>
-                 </table>
+                </div>
+                </div>
 
 
+
+
+                 <!-- last drive tapped -->
                 <table class="table border border-warning table-bordered">
                 <thead class="bg-warning">
                     <tr class="text-uppercase font-weight-light">
@@ -169,69 +183,53 @@
                     </tr>
                 </thead> 
                 <tbody class="border border-warning">
-                    <tr :class="{ 'table-danger' : queue.availability == 0 }"  v-for="(queue, i) in lastDriver" :key="i">
-                        <td width="15%" class="text-center">
-                            <span class="display-4">
-                            {{ queue.queue_number }}
-                            </span> 
-                        </td>
+                    <tr  v-for="(log, i) in lastDriver" v-if="log.drivers.length != 0" :key="i">
                         <td>
-                            <div class="row">
+                            <div v-for="(driver, d) in log.drivers" :key="d" class="row">
                                 <div class="col-3">
-                                    <img :src="avatar_link + queue.driver_avatar" class="rounded-circle" style="height: 100px; width: auto;"  align="middle">
+                                    <img v-if="driver.image" :src="avatar_link + driver.image.avatar" class="rounded-circle" style="height: 100px; width: auto;"  align="middle">
+                                    <img v-else :src="avatar_link + driver.avatar" class="rounded-circle" style="height: 100px; width: auto;"  align="middle">
                                 </div>
                                 <div class="col-9">
                                     <p class="p-0 m-0">
-                                        {{ queue.driver_name }} 
+                                        {{ driver.name }} 
                                     </p>
-                                    <p class="p-0 m-0">
-                                        {{ queue.plate_number }} 
+                                    <p v-if="driver.truck" v-for="(truck, t) in driver.truck" :key="t" class="p-0 m-0">
+                                        {{ truck.plate_number }} 
                                     </p>
-                                    <p class="p-0 m-0">
-                                        <span v-if="queue.hauler == 'NO HAULER'" class="text-danger">
-                                                {{ queue.hauler }}
-                                        </span>
-                                        <span v-else>
-                                                {{ queue.hauler }}
-                                        </span>
+                                    <p v-if="driver.hauler" v-for="(hauler, h) in driver.hauler" :key="h" class="p-0 m-0">
+                                        {{ hauler.name }}
                                     </p>
                                 </div>
                             </div>
                         </td>
                         <td>
-                               <span class="small text-uppercase text-muted">
-                                    QUEUE TIME:
-                                </span>
-                                <p class="p-0 m-0">
-                                    {{ moment(queue.log_time.date) }}
-                                </p>
-                                <span class="small text-uppercase text-muted">
-                                    LAST DR SUBMISSION:
-                                </span>
-                                <p class="p-0 m-0">
-                                    <span v-if="queue.dr_status != 'UNPROCESS'">
-                                        {{ queue.dr_status.submission_date }}
-                                    </span>
-                                    <span v-else>
-                                        UNPROCESS
-                                    </span>
-                                </p>
+                            <span class="small text-uppercase text-muted">
+                                QUEUE TIME:
+                            </span>
+                            <p class="p-0 m-0">
+                                {{ moment(log.LocalTime) }}
+                            </p>
                         </td>
                     </tr>
-                    <tr v-if="lastDriver.length == 0">
-                        <td class="text-center" style="padding-top: 30px; padding-bottom: 30px;" colspan="3">
+                    
+                    <tr v-for="(log, z) in lastDriver" :key="z" v-if="log.drivers.length == 0">
+                        <td class="text-center" style="padding-top: 30px; padding-bottom: 30px;" colspan="2">
                             <span class="display-4 text-muted">
                                 Nothing Here
                             </span>
                         </td>
                     </tr>
-                    <tr :class="{ 'table-danger' : queue.availability == 0 }" v-if="queue.availability == 0"  v-for="(queue, i) in lastDriver" :key="i" colspan="3"  style="padding-top: 5px; padding-bottom: 5px;">
-                        <td colspan="3" class="text-center"> 
-                            <span class="text-uppercase">
-                               Driver is deactivated
-                            </span>
+
+                    <tr :class="lastDriverResult.status" v-for="(log, x) in lastDriver" :key="x" v-if="log.drivers.length != 0">
+                        <td class="text-center pb-3 pt-3" colspan="2">
+                            <span style="font-weight: bold" class="text-small text-uppercase text-dark">
+                                {{ lastDriverResult.message }} 
+                            </span>     
                         </td>
                     </tr>
+
+
                 </tbody>
                 </table>
 
@@ -268,20 +266,19 @@
             return {
                 avatar_link: '/driver_rfid/public/storage/',
                 queues: [],
-                currentlyServing: [],
                 todayServed: [],
                 checkSubmission: [],
                 totalentries: [],
                 lastDriver: [],
+                lastDriverResult: [],
             }
         },
 
         created() {
             this.getQueues()
-            this.getCurrentlyServing()
             this.getTodayServed()
-            // this.getTotalQueueToday()
             this.getLastDriver()
+            this.getLastDriverResult()
         },
 
         methods: {
@@ -291,16 +288,10 @@
                 setTimeout(this.getQueues, 10000);
             },
 
-            // getTotalQueueToday() {
-            //     axios.get('/driver_rfid/public/getTotalQueueTodayBtn')
-            //     .then(response => this.totalentries = response.data);
-            //     setTimeout(this.getTotalQueueToday, 3500);
-            // },
-
-            getCurrentlyServing(){
-                axios.get('/driver_rfid/public/serving/3') // driverqueue was hardcoded
-                .then(response => this.currentlyServing = response.data);
-                setTimeout(this.getCurrentlyServing, 3000);
+            getLastDriverResult() {
+                axios.get('/driver_rfid/public/conditionFromLastDriver/3')
+                .then(response => this.lastDriverResult = response.data);
+                setTimeout(this.getLastDriverResult, 2000);
             },
 
             getTodayServed(){

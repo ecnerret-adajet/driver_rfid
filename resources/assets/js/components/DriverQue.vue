@@ -83,6 +83,7 @@
                 </div>
              
                 </div>
+                <!-- end carousel -->
 
 
             </div>
@@ -150,6 +151,9 @@
                                     <button class="float-right btn btn-sm btn-outline-danger">
                                             ASSIGNED SHIPMENT
                                     </button>
+                                    <span>
+                                        {{ served.shipment_number }}
+                                    </span>
                                 </td>
                             </tr>
                             <tr v-if="todayServed.length == 0">
@@ -283,7 +287,7 @@
             },
 
             getLastDriverResult() {
-                axios.get('/driver_rfid/public/conditionFromLastDriver')
+                axios.get('/driver_rfid/public/conditionFromLastDriver/1')
                 .then(response => this.lastDriverResult = response.data);
                 setTimeout(this.getLastDriverResult, 2000);
             },

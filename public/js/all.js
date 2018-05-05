@@ -52696,6 +52696,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -54479,6 +54483,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -54573,6 +54590,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_content_placeholders__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -55132,6 +55159,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -55166,7 +55197,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getLastDriverResult: function getLastDriverResult() {
             var _this2 = this;
 
-            axios.get('/driver_rfid/public/conditionFromLastDriver').then(function (response) {
+            axios.get('/driver_rfid/public/conditionFromLastDriver/1').then(function (response) {
                 return _this2.lastDriverResult = response.data;
             });
             setTimeout(this.getLastDriverResult, 2000);
@@ -55462,8 +55493,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -55472,19 +55501,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             avatar_link: '/driver_rfid/public/storage/',
             queues: [],
-            currentlyServing: [],
             todayServed: [],
             checkSubmission: [],
             totalentries: [],
-            lastDriver: []
+            lastDriver: [],
+            lastDriverResult: []
         };
     },
     created: function created() {
         this.getQueues();
-        this.getCurrentlyServing();
         this.getTodayServed();
-        // this.getTotalQueueToday()
         this.getLastDriver();
+        this.getLastDriverResult();
     },
 
 
@@ -55497,22 +55525,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
             setTimeout(this.getQueues, 10000);
         },
-
-
-        // getTotalQueueToday() {
-        //     axios.get('/driver_rfid/public/getTotalQueueTodayBtn')
-        //     .then(response => this.totalentries = response.data);
-        //     setTimeout(this.getTotalQueueToday, 3500);
-        // },
-
-        getCurrentlyServing: function getCurrentlyServing() {
+        getLastDriverResult: function getLastDriverResult() {
             var _this2 = this;
 
-            axios.get('/driver_rfid/public/serving/3') // driverqueue was hardcoded
-            .then(function (response) {
-                return _this2.currentlyServing = response.data;
+            axios.get('/driver_rfid/public/conditionFromLastDriver/3').then(function (response) {
+                return _this2.lastDriverResult = response.data;
             });
-            setTimeout(this.getCurrentlyServing, 3000);
+            setTimeout(this.getLastDriverResult, 2000);
         },
         getTodayServed: function getTodayServed() {
             var _this3 = this;
@@ -57604,6 +57623,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -57893,6 +57916,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
+//
+//
+//
+//
 //
 //
 //
@@ -59130,6 +59157,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -59161,7 +59189,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.loadingLastAssigned = true;
-            axios.get('/driver_rfid/public/serving').then(function (response) {
+            axios.get('/driver_rfid/public/serving/1').then(function (response) {
                 _this.lastAssigned = response.data;
                 _this.loadingLastAssigned = false;
             });
@@ -59395,8 +59423,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -59428,7 +59454,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.loadingLastAssigned = true;
-            axios.get('/driver_rfid/public/serving').then(function (response) {
+            axios.get('/driver_rfid/public/serving/3').then(function (response) {
                 _this.lastAssigned = response.data;
                 _this.loadingLastAssigned = false;
             });
@@ -59437,7 +59463,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             this.loadingCount = true;
-            axios.get('/driver_rfid/public/monitor/count').then(function (response) {
+            axios.get('/driver_rfid/public/monitor/btnCount').then(function (response) {
                 _this2.totalCount = response.data;
                 _this2.loadingCount = false;
             });
@@ -59663,8 +59689,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -59696,7 +59720,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.loadingLastAssigned = true;
-            axios.get('/driver_rfid/public/serving').then(function (response) {
+            axios.get('/driver_rfid/public/serving/2').then(function (response) {
                 _this.lastAssigned = response.data;
                 _this.loadingLastAssigned = false;
             });
@@ -61098,6 +61122,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -61364,6 +61400,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -61458,6 +61504,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_content_placeholders__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -84756,11 +84812,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }, [_c('small', {
         staticClass: "text-uppercase text-muted"
-      }, [_vm._v("\n                                    SHIPPED DATE\n                                ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                    " + _vm._s(_vm.moment(served.created_at)) + "\n                                ")])]), _vm._v(" "), _vm._m(3, true)])
-    }), _vm._v(" "), (_vm.todayServed.length == 0) ? _c('tr', [_vm._m(4, true)]) : _vm._e()], 2)])])
+      }, [_vm._v("\n                                    SHIPPED DATE\n                                ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                    " + _vm._s(_vm.moment(served.created_at)) + "\n                                ")])]), _vm._v(" "), _c('td', {
+        attrs: {
+          "width": "20%"
+        }
+      }, [_c('button', {
+        staticClass: "float-right btn btn-sm btn-outline-danger"
+      }, [_vm._v("\n                                        ASSIGNED SHIPMENT\n                                ")]), _vm._v(" "), _c('span', [_vm._v("\n                                    " + _vm._s(served.shipment_number) + "\n                                ")])])])
+    }), _vm._v(" "), (_vm.todayServed.length == 0) ? _c('tr', [_vm._m(3, true)]) : _vm._e()], 2)])])
   }))]), _vm._v(" "), _c('table', {
     staticClass: "table border border-warning table-bordered"
-  }, [_vm._m(5), _vm._v(" "), _c('tbody', {
+  }, [_vm._m(4), _vm._v(" "), _c('tbody', {
     staticClass: "border border-warning"
   }, [_vm._l((_vm.lastDriver), function(log, i) {
     return (log.drivers.length != 0) ? _c('tr', {
@@ -84814,7 +84876,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _vm._l((_vm.lastDriver), function(log, z) {
     return (log.drivers.length == 0) ? _c('tr', {
       key: z
-    }, [_vm._m(6, true)]) : _vm._e()
+    }, [_vm._m(5, true)]) : _vm._e()
   }), _vm._v(" "), _vm._l((_vm.lastDriver), function(log, x) {
     return (log.drivers.length != 0) ? _c('tr', {
       key: x,
@@ -84830,7 +84892,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "font-weight": "bold"
       }
     }, [_vm._v("\n                            " + _vm._s(_vm.lastDriverResult.message) + " \n                        ")])])]) : _vm._e()
-  })], 2)])])]), _vm._v(" "), _vm._m(7)])
+  })], 2)])])]), _vm._v(" "), _vm._m(6)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
@@ -84874,14 +84936,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "scope": "col"
     }
   }, [_c('small', [_c('strong', [_vm._v("\n                                Shipped Drivers \n                                ")])])])])])])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('td', {
-    attrs: {
-      "width": "20%"
-    }
-  }, [_c('button', {
-    staticClass: "float-right btn btn-sm btn-outline-danger"
-  }, [_vm._v("\n                                        ASSIGNED SHIPMENT\n                                ")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('td', {
     staticClass: "text-center",
@@ -86514,7 +86568,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card-body"
   }, [(!_vm.loadingCount) ? _c('span', {
     staticClass: "display-3"
-  }, [_vm._v("\n                      0\n                  ")]) : _vm._e(), _vm._v(" "), (_vm.loadingCount) ? _c('span', {
+  }, [_vm._v("\n                      " + _vm._s(_vm.totalCount.totalOpen) + "\n                  ")]) : _vm._e(), _vm._v(" "), (_vm.loadingCount) ? _c('span', {
     staticClass: "display-3"
   }, [_c('svg', {
     staticClass: "spinner",
@@ -86542,7 +86596,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card-body"
   }, [(!_vm.loadingCount) ? _c('span', {
     staticClass: "display-3"
-  }, [_vm._v("\n                      0\n                  ")]) : _vm._e(), _vm._v(" "), (_vm.loadingCount) ? _c('span', {
+  }, [_vm._v("\n                      " + _vm._s(_vm.totalCount.totalAssigned) + "\n                  ")]) : _vm._e(), _vm._v(" "), (_vm.loadingCount) ? _c('span', {
     staticClass: "display-3"
   }, [_c('svg', {
     staticClass: "spinner",
@@ -86570,7 +86624,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card-body"
   }, [(!_vm.loadingCount) ? _c('span', {
     staticClass: "display-3"
-  }, [_vm._v("\n                      0\n                  ")]) : _vm._e(), _vm._v(" "), (_vm.loadingCount) ? _c('span', {
+  }, [_vm._v("\n                      " + _vm._s(_vm.totalCount.current_in_plant) + "\n                  ")]) : _vm._e(), _vm._v(" "), (_vm.loadingCount) ? _c('span', {
     staticClass: "display-3"
   }, [_c('svg', {
     staticClass: "spinner",
@@ -86598,12 +86652,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card-body"
   }, [_c('span', {
     staticClass: "text-uppercase"
-  }, [_vm._l((_vm.lastAssigned), function(serving) {
+  }, [_vm._l((_vm.lastAssigned), function(serving, s) {
     return _c('div', {
+      key: s,
+      staticClass: "row"
+    }, [(serving.driver) ? _c('div', {
       staticClass: "row"
     }, [_c('div', {
       staticClass: "col-3 text-center"
-    }, [(serving.driver.image) ? _c('span', [_c('img', {
+    }, [(serving.driver.image) ? _c('img', {
       staticClass: "rounded-circle",
       staticStyle: {
         "height": "80px",
@@ -86613,7 +86670,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "src": '/driver_rfid/public/storage/' + serving.driver.image.avatar,
         "align": "middle"
       }
-    })]) : _c('span', [_c('img', {
+    }) : _c('img', {
       staticClass: "rounded-circle",
       staticStyle: {
         "height": "80px",
@@ -86623,13 +86680,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "src": '/driver_rfid/public/storage/' + serving.driver.avatar,
         "align": "middle"
       }
-    })])]), _vm._v(" "), _c('div', {
+    })]), _vm._v(" "), _c('div', {
       staticClass: "col-9"
-    }, [_vm._v("\n                              " + _vm._s(serving.driver.name) + " "), _c('br'), _vm._v(" "), _vm._l((serving.driver.truck), function(truckx) {
-      return _c('span', [_vm._v("\n                                  " + _vm._s(truckx.plate_number) + " "), _c('br')])
-    }), _vm._v(" "), _vm._l((serving.driver.hauler), function(haulerx) {
-      return _c('span', [_vm._v("\n                                  " + _vm._s(haulerx.name) + " "), _c('br')])
-    })], 2)])
+    }, [_vm._v("\n                              " + _vm._s(serving.driver.name) + " "), _c('br'), _vm._v(" "), (serving.driver.truck) ? _c('span', [_vm._v("\n                                  " + _vm._s(serving.driver.truck[0].plate_number) + " "), _c('br')]) : _vm._e(), _vm._v(" "), (serving.driver.hauler) ? _c('span', [_vm._v("\n                                  " + _vm._s(serving.driver.hauler[0].name) + " "), _c('br')]) : _vm._e()])]) : _vm._e()])
   }), _vm._v(" "), (_vm.lastAssigned.length == 0) ? _c('div', {
     staticClass: "row"
   }, [_vm._m(4)]) : _vm._e()], 2)])])])]), _vm._v(" "), _c('div', {
@@ -87736,7 +87789,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card-body"
   }, [(!_vm.loadingCount) ? _c('span', {
     staticClass: "display-3"
-  }, [_vm._v("\n                      0\n                  ")]) : _vm._e(), _vm._v(" "), (_vm.loadingCount) ? _c('span', {
+  }, [_vm._v("\n                      " + _vm._s(_vm.totalCount.totalOpen) + "                        \n                  ")]) : _vm._e(), _vm._v(" "), (_vm.loadingCount) ? _c('span', {
     staticClass: "display-3"
   }, [_c('svg', {
     staticClass: "spinner",
@@ -87764,7 +87817,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card-body"
   }, [(!_vm.loadingCount) ? _c('span', {
     staticClass: "display-3"
-  }, [_vm._v("\n                      0\n                  ")]) : _vm._e(), _vm._v(" "), (_vm.loadingCount) ? _c('span', {
+  }, [_vm._v("\n                      " + _vm._s(_vm.totalCount.totalAssigned) + "\n                  ")]) : _vm._e(), _vm._v(" "), (_vm.loadingCount) ? _c('span', {
     staticClass: "display-3"
   }, [_c('svg', {
     staticClass: "spinner",
@@ -87792,7 +87845,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card-body"
   }, [(!_vm.loadingCount) ? _c('span', {
     staticClass: "display-3"
-  }, [_vm._v("\n                      0\n                  ")]) : _vm._e(), _vm._v(" "), (_vm.loadingCount) ? _c('span', {
+  }, [_vm._v("\n                      " + _vm._s(_vm.totalCount.current_in_plant) + "\n                  ")]) : _vm._e(), _vm._v(" "), (_vm.loadingCount) ? _c('span', {
     staticClass: "display-3"
   }, [_c('svg', {
     staticClass: "spinner",
@@ -87820,12 +87873,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card-body"
   }, [_c('span', {
     staticClass: "text-uppercase"
-  }, [_vm._l((_vm.lastAssigned), function(serving) {
+  }, [_vm._l((_vm.lastAssigned), function(serving, s) {
     return _c('div', {
+      key: s,
+      staticClass: "row"
+    }, [(serving.driver) ? _c('div', {
       staticClass: "row"
     }, [_c('div', {
       staticClass: "col-3 text-center"
-    }, [(serving.driver.image) ? _c('span', [_c('img', {
+    }, [(serving.driver.image) ? _c('img', {
       staticClass: "rounded-circle",
       staticStyle: {
         "height": "80px",
@@ -87835,7 +87891,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "src": '/driver_rfid/public/storage/' + serving.driver.image.avatar,
         "align": "middle"
       }
-    })]) : _c('span', [_c('img', {
+    }) : _c('img', {
       staticClass: "rounded-circle",
       staticStyle: {
         "height": "80px",
@@ -87845,13 +87901,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "src": '/driver_rfid/public/storage/' + serving.driver.avatar,
         "align": "middle"
       }
-    })])]), _vm._v(" "), _c('div', {
+    })]), _vm._v(" "), _c('div', {
       staticClass: "col-9"
-    }, [_vm._v("\n                              " + _vm._s(serving.driver.name) + " "), _c('br'), _vm._v(" "), _vm._l((serving.driver.truck), function(truckx) {
-      return _c('span', [_vm._v("\n                                  " + _vm._s(truckx.plate_number) + " "), _c('br')])
-    }), _vm._v(" "), _vm._l((serving.driver.hauler), function(haulerx) {
-      return _c('span', [_vm._v("\n                                  " + _vm._s(haulerx.name) + " "), _c('br')])
-    })], 2)])
+    }, [_vm._v("\n                              " + _vm._s(serving.driver.name) + " "), _c('br'), _vm._v(" "), (serving.driver.truck) ? _c('span', [_vm._v("\n                                  " + _vm._s(serving.driver.truck[0].plate_number) + " "), _c('br')]) : _vm._e(), _vm._v(" "), (serving.driver.hauler) ? _c('span', [_vm._v("\n                                  " + _vm._s(serving.driver.hauler[0].name) + " "), _c('br')]) : _vm._e()])]) : _vm._e()])
   }), _vm._v(" "), (_vm.lastAssigned.length == 0) ? _c('div', {
     staticClass: "row"
   }, [_vm._m(4)]) : _vm._e()], 2)])])])]), _vm._v(" "), _c('div', {
@@ -88351,198 +88403,219 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row mb-4"
   }, [_c('div', {
     staticClass: "col-6"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "carousel slide",
+    attrs: {
+      "id": "carouselExampleIndicators",
+      "data-ride": "carousel"
+    }
+  }, [_c('div', {
+    staticClass: "carousel-inner"
+  }, _vm._l((Math.ceil(_vm.queues.length / 4)), function(loop, q) {
+    return _c('div', {
+      key: q,
+      staticClass: "carousel-item",
+      class: {
+        'active': q == 0
+      },
+      staticStyle: {
+        "height": "800px"
+      }
+    }, [_c('table', {
+      staticClass: "table table-bordered table-striped"
+    }, [_c('tbody', [_vm._l((_vm.queues.slice((loop - 1) * 4, loop * 4)), function(queue, y) {
+      return _c('tr', {
+        key: y
+      }, [_c('td', {
+        staticClass: "text-center",
+        attrs: {
+          "width": "15%"
+        }
+      }, [_c('span', {
+        staticClass: "display-4"
+      }, [_vm._v("\n                                        " + _vm._s(queue.queue_number) + "\n                                    ")])]), _vm._v(" "), _c('td', [_c('div', {
+        staticClass: "row"
+      }, [_c('div', {
+        staticClass: "col-3"
+      }, [_c('img', {
+        staticClass: "rounded-circle mx-auto align-middle",
+        staticStyle: {
+          "height": "80px",
+          "width": "auto"
+        },
+        attrs: {
+          "src": _vm.avatar_link + queue.driver_avatar,
+          "align": "middle"
+        }
+      })]), _vm._v(" "), _c('div', {
+        staticClass: "col-9"
+      }, [_vm._v("\n                                            " + _vm._s(queue.driver_name) + " "), _c('br'), _vm._v("\n                                            " + _vm._s(queue.plate_number) + " "), _c('br'), _vm._v(" "), (queue.hauler == 'NO HAULER') ? _c('span', {
+        staticClass: "text-danger"
+      }, [_vm._v("\n                                                    " + _vm._s(queue.hauler) + "\n                                            ")]) : _c('span', [_vm._v("\n                                                    " + _vm._s(queue.hauler) + "\n                                            ")])])])]), _vm._v(" "), _c('td', [_c('small', {
+        staticClass: "text-uppercase text-muted"
+      }, [_vm._v("\n                                        LAST DR SUBMISSION\n                                    ")]), _vm._v(" "), _c('br'), _vm._v(" "), (queue.dr_status != 'UNPROCESS') ? _c('span', [_vm._v("\n                                        " + _vm._s(queue.dr_status.submission_date) + "\n                                    ")]) : _c('span', [_vm._v("\n                                        UNPROCESS\n                                    ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+        staticClass: "text-uppercase text-muted"
+      }, [_vm._v("\n                                        TAPPED IN QUEUE\n                                    ")]), _c('br'), _vm._v("\n                                    " + _vm._s(_vm.moment(queue.log_time.date)) + "\n                                ")])])
+    }), _vm._v(" "), (_vm.queues.length == 0) ? _c('tr', [_vm._m(1, true)]) : _vm._e()], 2)])])
+  }))])]), _vm._v(" "), _c('div', {
+    staticClass: "col-6"
+  }, [_vm._m(2), _vm._v(" "), _c('div', {
+    staticClass: "carousel slide",
+    attrs: {
+      "id": "carouselExampleIndicators",
+      "data-ride": "carousel"
+    }
+  }, [_c('div', {
+    staticClass: "carousel-inner"
+  }, _vm._l((Math.ceil(_vm.todayServed.length / 4)), function(loop, t) {
+    return _c('div', {
+      key: t,
+      staticClass: "carousel-item",
+      class: {
+        'active': t == 0
+      },
+      staticStyle: {
+        "height": "600px"
+      }
+    }, [_c('table', {
+      staticClass: "table table-bordered table-striped"
+    }, [_c('tbody', [_vm._l((_vm.todayServed.slice((loop - 1) * 4, loop * 4)), function(served, s) {
+      return _c('tr', {
+        key: s
+      }, [_c('td', [(served.driver) ? _c('div', {
+        staticClass: "row"
+      }, [_c('div', {
+        staticClass: "col-2 text-center"
+      }, [(served.driver.image) ? _c('img', {
+        staticClass: "rounded-circle mx-auto",
+        staticStyle: {
+          "height": "60px",
+          "width": "auto"
+        },
+        attrs: {
+          "src": _vm.avatar_link + served.driver.image.avatar,
+          "align": "middle"
+        }
+      }) : _c('img', {
+        staticClass: "rounded-circle mx-auto",
+        staticStyle: {
+          "height": "60px",
+          "width": "auto"
+        },
+        attrs: {
+          "src": _vm.avatar_link + served.driver.avatar,
+          "align": "middle"
+        }
+      })]), _vm._v(" "), _c('div', {
+        staticClass: "col-10"
+      }, [_c('p', {
+        staticClass: "p-0 m-0"
+      }, [_vm._v("\n                                            " + _vm._s(served.driver.name) + "\n                                        ")]), _vm._v(" "), (served.driver.truck) ? _c('p', {
+        staticClass: "p-0 m-0"
+      }, [_vm._v("\n                                            " + _vm._s(served.driver.truck[0].plate_number) + "\n                                        ")]) : _vm._e(), _vm._v(" "), (served.driver.hauler) ? _c('p', {
+        staticClass: "p-0 m-0"
+      }, [_vm._v("\n                                            " + _vm._s(served.driver.hauler[0].name) + "\n                                        ")]) : _vm._e()])]) : _vm._e()]), _vm._v(" "), _c('td', {
+        attrs: {
+          "width": "20%"
+        }
+      }, [_c('small', {
+        staticClass: "text-uppercase text-muted"
+      }, [_vm._v("\n                                    SHIPPED DATE\n                                ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                    " + _vm._s(_vm.moment(served.created_at)) + "\n                                ")])]), _vm._v(" "), _c('td', {
+        attrs: {
+          "width": "20%"
+        }
+      }, [_c('button', {
+        staticClass: "float-right btn btn-sm btn-outline-danger"
+      }, [_vm._v("\n                                        ASSIGNED SHIPMENT\n                                ")]), _vm._v(" "), _c('span', [_vm._v("\n                                    " + _vm._s(served.shipment_number) + "\n                                ")])])])
+    }), _vm._v(" "), (_vm.todayServed.length == 0) ? _c('tr', [_vm._m(3, true)]) : _vm._e()], 2)])])
+  }))]), _vm._v(" "), _c('table', {
+    staticClass: "table border border-warning table-bordered"
+  }, [_vm._m(4), _vm._v(" "), _c('tbody', {
+    staticClass: "border border-warning"
+  }, [_vm._l((_vm.lastDriver), function(log, i) {
+    return (log.drivers.length != 0) ? _c('tr', {
+      key: i
+    }, [_c('td', _vm._l((log.drivers), function(driver, d) {
+      return _c('div', {
+        key: d,
+        staticClass: "row"
+      }, [_c('div', {
+        staticClass: "col-3"
+      }, [(driver.image) ? _c('img', {
+        staticClass: "rounded-circle",
+        staticStyle: {
+          "height": "100px",
+          "width": "auto"
+        },
+        attrs: {
+          "src": _vm.avatar_link + driver.image.avatar,
+          "align": "middle"
+        }
+      }) : _c('img', {
+        staticClass: "rounded-circle",
+        staticStyle: {
+          "height": "100px",
+          "width": "auto"
+        },
+        attrs: {
+          "src": _vm.avatar_link + driver.avatar,
+          "align": "middle"
+        }
+      })]), _vm._v(" "), _c('div', {
+        staticClass: "col-9"
+      }, [_c('p', {
+        staticClass: "p-0 m-0"
+      }, [_vm._v("\n                                    " + _vm._s(driver.name) + " \n                                ")]), _vm._v(" "), _vm._l((driver.truck), function(truck, t) {
+        return (driver.truck) ? _c('p', {
+          key: t,
+          staticClass: "p-0 m-0"
+        }, [_vm._v("\n                                    " + _vm._s(truck.plate_number) + " \n                                ")]) : _vm._e()
+      }), _vm._v(" "), _vm._l((driver.hauler), function(hauler, h) {
+        return (driver.hauler) ? _c('p', {
+          key: h,
+          staticClass: "p-0 m-0"
+        }, [_vm._v("\n                                    " + _vm._s(hauler.name) + "\n                                ")]) : _vm._e()
+      })], 2)])
+    })), _vm._v(" "), _c('td', [_c('span', {
+      staticClass: "small text-uppercase text-muted"
+    }, [_vm._v("\n                            QUEUE TIME:\n                        ")]), _vm._v(" "), _c('p', {
+      staticClass: "p-0 m-0"
+    }, [_vm._v("\n                            " + _vm._s(_vm.moment(log.LocalTime)) + "\n                        ")])])]) : _vm._e()
+  }), _vm._v(" "), _vm._l((_vm.lastDriver), function(log, z) {
+    return (log.drivers.length == 0) ? _c('tr', {
+      key: z
+    }, [_vm._m(5, true)]) : _vm._e()
+  }), _vm._v(" "), _vm._l((_vm.lastDriver), function(log, x) {
+    return (log.drivers.length != 0) ? _c('tr', {
+      key: x,
+      class: _vm.lastDriverResult.status
+    }, [_c('td', {
+      staticClass: "text-center pb-3 pt-3",
+      attrs: {
+        "colspan": "2"
+      }
+    }, [_c('span', {
+      staticClass: "text-small text-uppercase text-dark",
+      staticStyle: {
+        "font-weight": "bold"
+      }
+    }, [_vm._v("\n                            " + _vm._s(_vm.lastDriverResult.message) + " \n                        ")])])]) : _vm._e()
+  })], 2)])])]), _vm._v(" "), _vm._m(6)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col"
   }, [_c('table', {
     staticClass: "table table-bordered table-striped"
-  }, [_vm._m(0), _vm._v(" "), _c('tbody', [_vm._l((_vm.queues), function(queue) {
-    return _c('tr', [_c('td', {
-      staticClass: "text-center",
-      attrs: {
-        "width": "15%"
-      }
-    }, [_c('span', {
-      staticClass: "display-4"
-    }, [_vm._v("\n                 " + _vm._s(queue.queue_number) + "\n                ")])]), _vm._v(" "), _c('td', [_c('div', {
-      staticClass: "row"
-    }, [_c('div', {
-      staticClass: "col-3"
-    }, [_c('img', {
-      staticClass: "rounded-circle mx-auto align-middle",
-      staticStyle: {
-        "height": "80px",
-        "width": "auto"
-      },
-      attrs: {
-        "src": _vm.avatar_link + queue.driver_avatar,
-        "align": "middle"
-      }
-    })]), _vm._v(" "), _c('div', {
-      staticClass: "col-9"
-    }, [_vm._v("\n                        " + _vm._s(queue.driver_name) + " "), _c('br'), _vm._v("\n                        " + _vm._s(queue.plate_number) + " "), _c('br'), _vm._v(" "), (queue.hauler == 'NO HAULER') ? _c('span', {
-      staticClass: "text-danger"
-    }, [_vm._v("\n                                " + _vm._s(queue.hauler) + "\n                        ")]) : _c('span', [_vm._v("\n                                " + _vm._s(queue.hauler) + "\n                        ")])])])]), _vm._v(" "), _c('td', [_c('small', {
-      staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), (queue.dr_status != 'UNPROCESS') ? _c('span', [_vm._v("\n                    " + _vm._s(queue.dr_status.submission_date) + "\n                ")]) : _c('span', [_vm._v("\n                    UNPROCESS\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
-      staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")])])
-  }), _vm._v(" "), (_vm.queues.length == 0) ? _c('tr', [_vm._m(1)]) : _vm._e()], 2)])]), _vm._v(" "), _c('div', {
-    staticClass: "col-6"
-  }, [_c('div', {
-    staticClass: "card bg-light rounded-0"
-  }, [_c('div', {
-    staticClass: "card-body text-center"
-  }, [_vm._l((_vm.currentlyServing), function(serving, i) {
-    return (!_vm.currentlyServing.length == 0) ? _c('div', {
-      key: i,
-      staticClass: "row"
-    }, [_c('div', {
-      staticClass: "col-3"
-    }, [(serving.driver.image) ? _c('span', [_c('img', {
-      staticClass: "rounded-circle",
-      staticStyle: {
-        "height": "100px",
-        "width": "auto"
-      },
-      attrs: {
-        "src": _vm.avatar_link + serving.driver.image.avatar,
-        "align": "right"
-      }
-    })]) : _c('span', [_c('img', {
-      staticClass: "rounded-circle",
-      staticStyle: {
-        "height": "100px",
-        "width": "auto"
-      },
-      attrs: {
-        "src": _vm.avatar_link + serving.driver.avatar,
-        "align": "right"
-      }
-    })])]), _vm._v(" "), _c('div', {
-      staticClass: "col-3 text-left"
-    }, [_c('span', {
-      staticClass: "small text-muted text-uppercase"
-    }, [_vm._v("\n                                    Driver Name:\n                                ")]), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                    " + _vm._s(serving.driver.name) + "\n                                ")]), _c('br'), _vm._v(" "), _c('span', {
-      staticClass: "small text-muted text-uppercase"
-    }, [_vm._v("\n                                    Plate Number:\n                                ")]), _c('br'), _vm._v(" "), _vm._l((serving.driver.truck), function(truckx) {
-      return _c('span', [_vm._v("\n                                    " + _vm._s(truckx.plate_number) + "\n                                ")])
-    }), _c('br')], 2), _vm._v(" "), _c('div', {
-      staticClass: "col-6 text-left"
-    }, [_c('span', {
-      staticClass: "small text-muted text-uppercase"
-    }, [_vm._v("\n                                    Hauler Name:\n                                ")]), _c('br'), _vm._v(" "), _vm._l((serving.driver.hauler), function(haulerx) {
-      return _c('span', [_vm._v("\n                                    " + _vm._s(haulerx.name) + "\n                                ")])
-    })], 2)]) : _vm._e()
-  }), _vm._v(" "), (_vm.currentlyServing == 0) ? _c('h1', {
-    staticClass: "card-title text-muted pt-2  display-3",
-    staticStyle: {
-      "font-weight": "100"
-    }
-  }, [_vm._v("\n                            OPEN\n                        ")]) : _vm._e()], 2), _vm._v(" "), _vm._m(2)]), _vm._v(" "), _c('table', {
-    staticClass: "table table-bordered table-striped"
-  }, [_vm._m(3), _vm._v(" "), _c('tbody', [_vm._l((_vm.todayServed), function(served) {
-    return _c('tr', [_c('td', [_c('div', {
-      staticClass: "row"
-    }, [_c('div', {
-      staticClass: "col-2 text-center"
-    }, [_c('img', {
-      staticClass: "rounded-circle mx-auto",
-      staticStyle: {
-        "height": "60px",
-        "width": "auto"
-      },
-      attrs: {
-        "src": _vm.avatar_link + served.avatar,
-        "align": "middle"
-      }
-    })]), _vm._v(" "), _c('div', {
-      staticClass: "col-10"
-    }, [_c('p', {
-      staticClass: "p-0 m-0"
-    }, [_vm._v("\n                                    " + _vm._s(served.driver_name) + "\n                                ")]), _vm._v(" "), _c('p', {
-      staticClass: "p-0 m-0"
-    }, [_vm._v("\n                                    " + _vm._s(served.plate_number) + "\n                                ")]), _vm._v(" "), _c('p', {
-      staticClass: "p-0 m-0"
-    }, [_vm._v("\n                                    " + _vm._s(served.hauler_name) + "\n                                ")])])])]), _vm._v(" "), _vm._m(4, true)])
-  }), _vm._v(" "), (_vm.todayServed.length == 0) ? _c('tr', [_vm._m(5)]) : _vm._e()], 2)]), _vm._v(" "), _c('table', {
-    staticClass: "table border border-warning table-bordered"
-  }, [_vm._m(6), _vm._v(" "), _c('tbody', {
-    staticClass: "border border-warning"
-  }, [_vm._l((_vm.lastDriver), function(queue, i) {
-    return _c('tr', {
-      key: i,
-      class: {
-        'table-danger': queue.availability == 0
-      }
-    }, [_c('td', {
-      staticClass: "text-center",
-      attrs: {
-        "width": "15%"
-      }
-    }, [_c('span', {
-      staticClass: "display-4"
-    }, [_vm._v("\n                        " + _vm._s(queue.queue_number) + "\n                        ")])]), _vm._v(" "), _c('td', [_c('div', {
-      staticClass: "row"
-    }, [_c('div', {
-      staticClass: "col-3"
-    }, [_c('img', {
-      staticClass: "rounded-circle",
-      staticStyle: {
-        "height": "100px",
-        "width": "auto"
-      },
-      attrs: {
-        "src": _vm.avatar_link + queue.driver_avatar,
-        "align": "middle"
-      }
-    })]), _vm._v(" "), _c('div', {
-      staticClass: "col-9"
-    }, [_c('p', {
-      staticClass: "p-0 m-0"
-    }, [_vm._v("\n                                    " + _vm._s(queue.driver_name) + " \n                                ")]), _vm._v(" "), _c('p', {
-      staticClass: "p-0 m-0"
-    }, [_vm._v("\n                                    " + _vm._s(queue.plate_number) + " \n                                ")]), _vm._v(" "), _c('p', {
-      staticClass: "p-0 m-0"
-    }, [(queue.hauler == 'NO HAULER') ? _c('span', {
-      staticClass: "text-danger"
-    }, [_vm._v("\n                                            " + _vm._s(queue.hauler) + "\n                                    ")]) : _c('span', [_vm._v("\n                                            " + _vm._s(queue.hauler) + "\n                                    ")])])])])]), _vm._v(" "), _c('td', [_c('span', {
-      staticClass: "small text-uppercase text-muted"
-    }, [_vm._v("\n                                QUEUE TIME:\n                            ")]), _vm._v(" "), _c('p', {
-      staticClass: "p-0 m-0"
-    }, [_vm._v("\n                                " + _vm._s(_vm.moment(queue.log_time.date)) + "\n                            ")]), _vm._v(" "), _c('span', {
-      staticClass: "small text-uppercase text-muted"
-    }, [_vm._v("\n                                LAST DR SUBMISSION:\n                            ")]), _vm._v(" "), _c('p', {
-      staticClass: "p-0 m-0"
-    }, [(queue.dr_status != 'UNPROCESS') ? _c('span', [_vm._v("\n                                    " + _vm._s(queue.dr_status.submission_date) + "\n                                ")]) : _c('span', [_vm._v("\n                                    UNPROCESS\n                                ")])])])])
-  }), _vm._v(" "), (_vm.lastDriver.length == 0) ? _c('tr', [_vm._m(7)]) : _vm._e(), _vm._v(" "), _vm._l((_vm.lastDriver), function(queue, i) {
-    return (queue.availability == 0) ? _c('tr', {
-      key: i,
-      class: {
-        'table-danger': queue.availability == 0
-      },
-      staticStyle: {
-        "padding-top": "5px",
-        "padding-bottom": "5px"
-      },
-      attrs: {
-        "colspan": "3"
-      }
-    }, [_vm._m(8, true)]) : _vm._e()
-  })], 2)])])]), _vm._v(" "), _vm._m(9)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', {
+  }, [_c('thead', [_c('tr', {
     staticClass: "text-uppercase font-weight-light"
   }, [_c('th', {
+    staticClass: "table-success",
     attrs: {
       "scope": "col"
     }
-  }, [_c('small', [_vm._v("  Queue # ")])]), _vm._v(" "), _c('th', {
-    attrs: {
-      "scope": "col"
-    }
-  }, [_c('small', [_vm._v("  Driver Details ")])]), _vm._v(" "), _c('th', {
-    attrs: {
-      "scope": "col"
-    }
-  }, [_c('small', [_vm._v("  Recorded Time /Date ")])])])])
+  }, [_c('small', [_c('strong', [_vm._v("\n                                    Drivers in queue # \n                                ")])])])])])])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('td', {
     staticClass: "text-center",
@@ -88555,36 +88628,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "display-4 text-muted"
-  }, [_vm._v("\n                    ......\n                ")])])
+  }, [_vm._v("\n                                        ......\n                                    ")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "card-footer bg-primary text-center mt-1"
-  }, [_c('span', {
-    staticClass: "text-small text-uppercase text-white",
-    staticStyle: {
-      "font-weight": "100"
-    }
-  }, [_vm._v("\n                            RECENTLY ASSIGNED SHIPMENT\n                        ")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col"
+  }, [_c('table', {
+    staticClass: "table table-bordered table-striped"
+  }, [_c('thead', [_c('tr', {
     staticClass: "text-uppercase font-weight-light"
   }, [_c('th', {
+    staticClass: "table-warning",
     attrs: {
       "scope": "col"
     }
-  }, [_c('small', [_vm._v("  Driver Details ")])]), _vm._v(" "), _c('th', {
-    attrs: {
-      "scope": "col"
-    }
-  }, [_c('small', [_vm._v("  Status")])])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('td', {
-    attrs: {
-      "width": "20%"
-    }
-  }, [_c('button', {
-    staticClass: "float-right btn btn-sm btn-outline-danger"
-  }, [_vm._v("\n                                ASSIGNED SHIPMENT\n                        ")])])
+  }, [_c('small', [_c('strong', [_vm._v("\n                                Shipped Drivers \n                                ")])])])])])])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('td', {
     staticClass: "text-center",
@@ -88593,11 +88652,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "padding-bottom": "30px"
     },
     attrs: {
-      "colspan": "2"
+      "colspan": "3"
     }
   }, [_c('span', {
     staticClass: "display-4 text-muted"
-  }, [_vm._v("\n                            Nothing Assigned\n                        ")])])
+  }, [_vm._v("\n                                    Nothing Assigned\n                                ")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', {
     staticClass: "bg-warning"
@@ -88617,20 +88676,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "padding-bottom": "30px"
     },
     attrs: {
-      "colspan": "3"
+      "colspan": "2"
     }
   }, [_c('span', {
     staticClass: "display-4 text-muted"
   }, [_vm._v("\n                            Nothing Here\n                        ")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('td', {
-    staticClass: "text-center",
-    attrs: {
-      "colspan": "3"
-    }
-  }, [_c('span', {
-    staticClass: "text-uppercase"
-  }, [_vm._v("\n                           Driver is deactivated\n                        ")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
@@ -90233,12 +90283,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card-body"
   }, [_c('span', {
     staticClass: "text-uppercase"
-  }, [_vm._l((_vm.lastAssigned), function(serving) {
+  }, [_vm._l((_vm.lastAssigned), function(serving, s) {
     return _c('div', {
+      key: s,
+      staticClass: "row"
+    }, [(serving.driver) ? _c('div', {
       staticClass: "row"
     }, [_c('div', {
       staticClass: "col-3 text-center"
-    }, [(serving.driver.image) ? _c('span', [_c('img', {
+    }, [(serving.driver.image) ? _c('img', {
       staticClass: "rounded-circle",
       staticStyle: {
         "height": "80px",
@@ -90248,7 +90301,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "src": '/driver_rfid/public/storage/' + serving.driver.image.avatar,
         "align": "middle"
       }
-    })]) : _c('span', [_c('img', {
+    }) : _c('img', {
       staticClass: "rounded-circle",
       staticStyle: {
         "height": "80px",
@@ -90258,13 +90311,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "src": '/driver_rfid/public/storage/' + serving.driver.avatar,
         "align": "middle"
       }
-    })])]), _vm._v(" "), _c('div', {
+    })]), _vm._v(" "), _c('div', {
       staticClass: "col-9"
-    }, [_vm._v("\n                              " + _vm._s(serving.driver.name) + " "), _c('br'), _vm._v(" "), _vm._l((serving.driver.truck), function(truckx) {
-      return _c('span', [_vm._v("\n                                  " + _vm._s(truckx.plate_number) + " "), _c('br')])
-    }), _vm._v(" "), _vm._l((serving.driver.hauler), function(haulerx) {
-      return _c('span', [_vm._v("\n                                  " + _vm._s(haulerx.name) + " "), _c('br')])
-    })], 2)])
+    }, [_vm._v("\n                              " + _vm._s(serving.driver.name) + " "), _c('br'), _vm._v(" "), (serving.driver.truck) ? _c('span', [_vm._v("\n                                  " + _vm._s(serving.driver.truck[0].plate_number) + " "), _c('br')]) : _vm._e(), _vm._v(" "), (serving.driver.hauler) ? _c('span', [_vm._v("\n                                  " + _vm._s(serving.driver.hauler[0].name) + " "), _c('br')]) : _vm._e()])]) : _vm._e()])
   }), _vm._v(" "), (_vm.lastAssigned.length == 0) ? _c('div', {
     staticClass: "row"
   }, [_vm._m(4)]) : _vm._e()], 2)])])])]), _vm._v(" "), _c('div', {
@@ -90809,12 +90858,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "src": '/driver_rfid/public/storage/' + barrier.avatar,
         "align": "middle"
       }
-    }), _vm._v(" "), (barrier.is_shipment) ? _c('span', {
-      staticClass: "border border-success p-3 mt-2 rounded text-center text-success d-block",
+    }), _vm._v(" "), (barrier.isNowShipped) ? _c('span', {
+      staticClass: "text-center d-block text-success",
       staticStyle: {
-        "font-size": "35px"
+        "font-size": "40px"
       }
-    }, [_vm._v("\n                        SHIPMENT ASSINED\n                    ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    }, [_vm._v("\n                                ASSIGNED - " + _vm._s(barrier.isNowShipped) + "\n                    ")]) : _vm._e()]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-6 p-0 border border-top-0 border-right-0 border-bottom-0"
     }, [_c('ul', {
       staticClass: "list-group list-group-flush",
@@ -90929,12 +90978,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "src": '/driver_rfid/public/storage/' + barrier.avatar,
         "align": "middle"
       }
-    }), _vm._v(" "), (barrier.is_shipment) ? _c('span', {
-      staticClass: "border border-success p-3 mt-2 rounded text-center text-success d-block",
+    }), _vm._v(" "), (barrier.isNowShipped) ? _c('span', {
+      staticClass: "text-center d-block text-success",
       staticStyle: {
-        "font-size": "35px"
+        "font-size": "40px"
       }
-    }, [_vm._v("\n                        SHIPMENT ASSINED\n                    ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    }, [_vm._v("\n                                ASSIGNED - " + _vm._s(barrier.isNowShipped) + "\n                    ")]) : _vm._e()]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-6 p-0 border border-top-0 border-right-0 border-bottom-0"
     }, [_c('ul', {
       staticClass: "list-group list-group-flush",
@@ -93334,8 +93383,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: {
       'table-striped': !_vm.loading
     }
-  }, [_vm._m(0), _vm._v(" "), _c('tbody', [_vm._l((_vm.filteredQueues), function(queue) {
-    return (!_vm.loading) ? _c('tr', [_c('td', {
+  }, [_vm._m(0), _vm._v(" "), _c('tbody', [_vm._l((_vm.filteredQueues), function(queue, q) {
+    return (!_vm.loading) ? _c('tr', {
+      key: q
+    }, [_c('td', {
       staticClass: "text-center"
     }, [_c('span', {
       staticClass: "display-4"
@@ -93381,15 +93432,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), (queue.dr_status) ? _c('span', [_vm._v("\n                    " + _vm._s(queue.dr_status) + "\n                ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
     }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")]), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
-      staticClass: "btn btn-success",
+      staticClass: "btn btn-outline-success btn-sm disabled",
       attrs: {
         "href": "javascript:void(0);",
-        "data-toggle": "modal",
-        "data-target": '#servingModal-' + queue.driver_id
+        "data-toggle": "modal"
       }
     }, [_vm._v("\n                        OPEN FOR SHIPMENT\n                    ")])]) : _c('span', [_c('button', {
-      staticClass: "btn btn-outline-danger btn-sm disabled"
-    }, [_vm._v("\n                    SHIPMENT ASSIGNED\n                    ")])])])]) : _vm._e()
+      staticClass: "btn btn-outline-danger btn-sm disabled mb-2"
+    }, [_vm._v("\n                        SHIPMENT ASSIGNED\n                    ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+      staticClass: "text-uppercase text-muted"
+    }, [_vm._v("\n                        SHIPMENT NUMBER\n                    ")]), _c('br'), _vm._v(" "), _c('span', {
+      staticClass: "text-center"
+    }, [_vm._v("\n                        " + _vm._s(queue.on_serving) + "\n                    ")])])])]) : _vm._e()
   }), _vm._v(" "), (_vm.filteredQueues.length == 0 && !_vm.loading) ? _c('tr', [_vm._m(1)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('tr', [_c('td', {
     attrs: {
       "colspan": "8"
@@ -93465,8 +93519,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(" Next ")])]), _vm._v(" "), _c('div', {
     staticClass: "col-6 text-right"
-  }, [_c('span', [_vm._v(_vm._s(_vm.queues.length) + " Queue(s)")])])]), _vm._v(" "), _vm._l((_vm.filteredQueues), function(queue) {
-    return _c('div', [_c('div', {
+  }, [_c('span', [_vm._v(_vm._s(_vm.queues.length) + " Queue(s)")])])]), _vm._v(" "), _vm._l((_vm.filteredQueues), function(queue, q) {
+    return _c('div', {
+      key: q
+    }, [_c('div', {
       staticClass: "modal fade",
       attrs: {
         "id": 'servingModal-' + queue.driver_id,
@@ -93593,8 +93649,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: {
       'table-striped': !_vm.loading
     }
-  }, [_vm._m(0), _vm._v(" "), _c('tbody', [_vm._l((_vm.filteredQueues), function(queue) {
-    return (!_vm.loading) ? _c('tr', [_c('td', {
+  }, [_vm._m(0), _vm._v(" "), _c('tbody', [_vm._l((_vm.filteredQueues), function(queue, q) {
+    return (!_vm.loading) ? _c('tr', {
+      key: q
+    }, [_c('td', {
       staticClass: "text-center"
     }, [_c('span', {
       staticClass: "display-4"
@@ -93640,15 +93698,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), (queue.dr_status) ? _c('span', [_vm._v("\n                    " + _vm._s(queue.dr_status) + "\n                ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
     }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")]), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
-      staticClass: "btn btn-success",
+      staticClass: "btn btn-outline-success btn-sm disabled",
       attrs: {
         "href": "javascript:void(0);",
-        "data-toggle": "modal",
-        "data-target": '#servingModal-' + queue.driver_id
+        "data-toggle": "modal"
       }
     }, [_vm._v("\n                        OPEN FOR SHIPMENT\n                    ")])]) : _c('span', [_c('button', {
-      staticClass: "btn btn-outline-danger btn-sm disabled"
-    }, [_vm._v("\n                    SHIPMENT ASSIGNED\n                    ")])])])]) : _vm._e()
+      staticClass: "btn btn-outline-danger btn-sm disabled mb-2"
+    }, [_vm._v("\n                        SHIPMENT ASSIGNED\n                    ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+      staticClass: "text-uppercase text-muted"
+    }, [_vm._v("\n                        SHIPMENT NUMBER\n                    ")]), _c('br'), _vm._v(" "), _c('span', {
+      staticClass: "text-center"
+    }, [_vm._v("\n                        " + _vm._s(queue.on_serving) + "\n                    ")])])])]) : _vm._e()
   }), _vm._v(" "), (_vm.filteredQueues.length == 0 && !_vm.loading) ? _c('tr', [_vm._m(1)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('tr', [_c('td', {
     attrs: {
       "colspan": "8"
@@ -93724,8 +93785,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(" Next ")])]), _vm._v(" "), _c('div', {
     staticClass: "col-6 text-right"
-  }, [_c('span', [_vm._v(_vm._s(_vm.queues.length) + " Queue(s)")])])]), _vm._v(" "), _vm._l((_vm.filteredQueues), function(queue) {
-    return _c('div', [_c('div', {
+  }, [_c('span', [_vm._v(_vm._s(_vm.queues.length) + " Queue(s)")])])]), _vm._v(" "), _vm._l((_vm.filteredQueues), function(queue, q) {
+    return _c('div', {
+      key: q
+    }, [_c('div', {
       staticClass: "modal fade",
       attrs: {
         "id": 'servingModal-' + queue.driver_id,
@@ -95083,12 +95146,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "src": '/driver_rfid/public/storage/' + barrier.avatar,
         "align": "middle"
       }
-    }), _vm._v(" "), (barrier.is_shipment) ? _c('span', {
-      staticClass: "border border-success p-3 mt-2 rounded text-center text-success d-block",
+    }), _vm._v(" "), (barrier.isNowShipped) ? _c('span', {
+      staticClass: "text-center d-block text-success",
       staticStyle: {
-        "font-size": "35px"
+        "font-size": "40px"
       }
-    }, [_vm._v("\n                        SHIPMENT ASSINED\n                    ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    }, [_vm._v("\n                                ASSIGNED - " + _vm._s(barrier.isNowShipped) + "\n                    ")]) : _vm._e()]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-6 p-0 border border-top-0 border-right-0 border-bottom-0"
     }, [_c('ul', {
       staticClass: "list-group list-group-flush",
@@ -95637,15 +95700,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), (queue.dr_status) ? _c('span', [_vm._v("\n                    " + _vm._s(queue.dr_status) + "\n                ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
     }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")]), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
-      staticClass: "btn btn-success",
+      staticClass: "btn btn-outline-success btn-sm disabled",
       attrs: {
         "href": "javascript:void(0);",
-        "data-toggle": "modal",
-        "data-target": '#servingModal-' + queue.driver_id
+        "data-toggle": "modal"
       }
     }, [_vm._v("\n                        OPEN FOR SHIPMENT\n                    ")])]) : _c('span', [_c('button', {
-      staticClass: "btn btn-outline-danger btn-sm disabled"
-    }, [_vm._v("\n                    SHIPMENT ASSIGNED\n                    ")])])])]) : _vm._e()
+      staticClass: "btn btn-outline-danger btn-sm disabled mb-2"
+    }, [_vm._v("\n                        SHIPMENT ASSIGNED\n                    ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+      staticClass: "text-uppercase text-muted"
+    }, [_vm._v("\n                        SHIPMENT NUMBER\n                    ")]), _c('br'), _vm._v(" "), _c('span', {
+      staticClass: "text-center"
+    }, [_vm._v("\n                        " + _vm._s(queue.on_serving) + "\n                    ")])])])]) : _vm._e()
   }), _vm._v(" "), (_vm.filteredQueues.length == 0 && !_vm.loading) ? _c('tr', [_vm._m(1)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('tr', [_c('td', {
     attrs: {
       "colspan": "8"
@@ -95721,8 +95787,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(" Next ")])]), _vm._v(" "), _c('div', {
     staticClass: "col-6 text-right"
-  }, [_c('span', [_vm._v(_vm._s(_vm.queues.length) + " Queue(s)")])])]), _vm._v(" "), _vm._l((_vm.filteredQueues), function(queue) {
-    return _c('div', [_c('div', {
+  }, [_c('span', [_vm._v(_vm._s(_vm.queues.length) + " Queue(s)")])])]), _vm._v(" "), _vm._l((_vm.filteredQueues), function(queue, q) {
+    return _c('div', {
+      key: q
+    }, [_c('div', {
       staticClass: "modal fade",
       attrs: {
         "id": 'servingModal-' + queue.driver_id,
@@ -96489,15 +96557,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), (queue.dr_status) ? _c('span', [_vm._v("\n                    " + _vm._s(queue.dr_status) + "\n                ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
     }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")]), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
-      staticClass: "btn btn-success",
+      staticClass: "btn btn-outline-success btn-sm disabled",
       attrs: {
         "href": "javascript:void(0);",
-        "data-toggle": "modal",
-        "data-target": '#servingModal-' + queue.driver_id
+        "data-toggle": "modal"
       }
     }, [_vm._v("\n                        OPEN FOR SHIPMENT\n                    ")])]) : _c('span', [_c('button', {
-      staticClass: "btn btn-outline-danger btn-sm disabled"
-    }, [_vm._v("\n                    SHIPMENT ASSIGNED\n                    ")])])])]) : _vm._e()
+      staticClass: "btn btn-outline-danger btn-sm disabled mb-2"
+    }, [_vm._v("\n                        SHIPMENT ASSIGNED\n                    ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+      staticClass: "text-uppercase text-muted"
+    }, [_vm._v("\n                        SHIPMENT NUMBER\n                    ")]), _c('br'), _vm._v(" "), _c('span', {
+      staticClass: "text-center"
+    }, [_vm._v("\n                        " + _vm._s(queue.on_serving) + "\n                    ")])])])]) : _vm._e()
   }), _vm._v(" "), (_vm.filteredQueues.length == 0 && !_vm.loading) ? _c('tr', [_vm._m(1)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('tr', [_c('td', {
     attrs: {
       "colspan": "8"
@@ -97256,8 +97327,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: {
       'table-striped': !_vm.loading
     }
-  }, [_vm._m(0), _vm._v(" "), _c('tbody', [_vm._l((_vm.filteredQueues), function(queue) {
-    return (!_vm.loading) ? _c('tr', [_c('td', {
+  }, [_vm._m(0), _vm._v(" "), _c('tbody', [_vm._l((_vm.filteredQueues), function(queue, q) {
+    return (!_vm.loading) ? _c('tr', {
+      key: q
+    }, [_c('td', {
       staticClass: "text-center"
     }, [_c('span', {
       staticClass: "display-4"
@@ -97303,15 +97376,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n                    LAST DR SUBMISSION\n                ")]), _vm._v(" "), _c('br'), _vm._v(" "), (queue.dr_status) ? _c('span', [_vm._v("\n                    " + _vm._s(queue.dr_status) + "\n                ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
     }, [_vm._v("\n                    TAPPED IN QUEUE\n                ")]), _c('br'), _vm._v("\n                 " + _vm._s(_vm.moment(queue.log_time.date)) + "\n            ")]), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
-      staticClass: "btn btn-success",
+      staticClass: "btn btn-outline-success btn-sm disabled",
       attrs: {
         "href": "javascript:void(0);",
-        "data-toggle": "modal",
-        "data-target": '#servingModal-' + queue.driver_id
+        "data-toggle": "modal"
       }
     }, [_vm._v("\n                        OPEN FOR SHIPMENT\n                    ")])]) : _c('span', [_c('button', {
-      staticClass: "btn btn-outline-danger btn-sm disabled"
-    }, [_vm._v("\n                    SHIPMENT ASSIGNED\n                    ")])])])]) : _vm._e()
+      staticClass: "btn btn-outline-danger btn-sm disabled mb-2"
+    }, [_vm._v("\n                        SHIPMENT ASSIGNED\n                    ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+      staticClass: "text-uppercase text-muted"
+    }, [_vm._v("\n                        SHIPMENT NUMBER\n                    ")]), _c('br'), _vm._v(" "), _c('span', {
+      staticClass: "text-center"
+    }, [_vm._v("\n                        " + _vm._s(queue.on_serving) + "\n                    ")])])])]) : _vm._e()
   }), _vm._v(" "), (_vm.filteredQueues.length == 0 && !_vm.loading) ? _c('tr', [_vm._m(1)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('tr', [_c('td', {
     attrs: {
       "colspan": "8"
@@ -97387,8 +97463,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(" Next ")])]), _vm._v(" "), _c('div', {
     staticClass: "col-6 text-right"
-  }, [_c('span', [_vm._v(_vm._s(_vm.queues.length) + " Queue(s)")])])]), _vm._v(" "), _vm._l((_vm.filteredQueues), function(queue) {
-    return _c('div', [_c('div', {
+  }, [_c('span', [_vm._v(_vm._s(_vm.queues.length) + " Queue(s)")])])]), _vm._v(" "), _vm._l((_vm.filteredQueues), function(queue, q) {
+    return _c('div', {
+      key: q
+    }, [_c('div', {
       staticClass: "modal fade",
       attrs: {
         "id": 'servingModal-' + queue.driver_id,
