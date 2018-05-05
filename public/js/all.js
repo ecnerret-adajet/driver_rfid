@@ -86660,7 +86660,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [(serving.driver) ? _c('div', {
       staticClass: "row"
     }, [_c('div', {
-      staticClass: "col-3 text-center"
+      staticClass: "col-4 text-center"
     }, [(serving.driver.image) ? _c('img', {
       staticClass: "rounded-circle",
       staticStyle: {
@@ -86682,7 +86682,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "align": "middle"
       }
     })]), _vm._v(" "), _c('div', {
-      staticClass: "col-9"
+      staticClass: "col-8"
     }, [_vm._v("\n                              " + _vm._s(serving.driver.name) + " "), _c('br'), _vm._v(" "), (serving.driver.truck) ? _c('span', [_vm._v("\n                                  " + _vm._s(serving.driver.truck[0].plate_number) + " "), _c('br')]) : _vm._e(), _vm._v(" "), (serving.driver.hauler) ? _c('span', [_vm._v("\n                                  " + _vm._s(serving.driver.hauler[0].name) + " "), _c('br')]) : _vm._e()])]) : _vm._e()])
   }), _vm._v(" "), (_vm.lastAssigned.length == 0) ? _c('div', {
     staticClass: "row"
@@ -87881,7 +87881,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [(serving.driver) ? _c('div', {
       staticClass: "row"
     }, [_c('div', {
-      staticClass: "col-3 text-center"
+      staticClass: "col-4 text-center"
     }, [(serving.driver.image) ? _c('img', {
       staticClass: "rounded-circle",
       staticStyle: {
@@ -87903,7 +87903,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "align": "middle"
       }
     })]), _vm._v(" "), _c('div', {
-      staticClass: "col-9"
+      staticClass: "col-8"
     }, [_vm._v("\n                              " + _vm._s(serving.driver.name) + " "), _c('br'), _vm._v(" "), (serving.driver.truck) ? _c('span', [_vm._v("\n                                  " + _vm._s(serving.driver.truck[0].plate_number) + " "), _c('br')]) : _vm._e(), _vm._v(" "), (serving.driver.hauler) ? _c('span', [_vm._v("\n                                  " + _vm._s(serving.driver.hauler[0].name) + " "), _c('br')]) : _vm._e()])]) : _vm._e()])
   }), _vm._v(" "), (_vm.lastAssigned.length == 0) ? _c('div', {
     staticClass: "row"
@@ -90292,7 +90292,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [(serving.driver) ? _c('div', {
       staticClass: "row"
     }, [_c('div', {
-      staticClass: "col-3 text-center"
+      staticClass: "col-4 text-center"
     }, [(serving.driver.image) ? _c('img', {
       staticClass: "rounded-circle",
       staticStyle: {
@@ -90314,7 +90314,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "align": "middle"
       }
     })]), _vm._v(" "), _c('div', {
-      staticClass: "col-9"
+      staticClass: "col-8"
     }, [_vm._v("\n                              " + _vm._s(serving.driver.name) + " "), _c('br'), _vm._v(" "), (serving.driver.truck) ? _c('span', [_vm._v("\n                                  " + _vm._s(serving.driver.truck[0].plate_number) + " "), _c('br')]) : _vm._e(), _vm._v(" "), (serving.driver.hauler) ? _c('span', [_vm._v("\n                                  " + _vm._s(serving.driver.hauler[0].name) + " "), _c('br')]) : _vm._e()])]) : _vm._e()])
   }), _vm._v(" "), (_vm.lastAssigned.length == 0) ? _c('div', {
     staticClass: "row"

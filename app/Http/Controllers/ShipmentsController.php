@@ -51,5 +51,7 @@ class ShipmentsController extends Controller
                         ->where('ControllerID',$driverqueue->controller)
                         ->take(1)
                         ->get();
+
+        return $last_served;
     }
 }

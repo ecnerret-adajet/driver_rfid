@@ -68,11 +68,11 @@
 
                          <div class="row" v-for="(serving,s) in lastAssigned" :key="s">
                              <div class="row" v-if="serving.driver">
-                             <div class="col-3 text-center">
+                             <div class="col-4 text-center">
                                   <img v-if="serving.driver.image" :src="'/driver_rfid/public/storage/' + serving.driver.image.avatar" class="rounded-circle" style="height: 80px; width: auto;"  align="middle">
                                   <img v-else :src="'/driver_rfid/public/storage/' + serving.driver.avatar" class="rounded-circle" style="height: 80px; width: auto;"  align="middle">
                              </div>
-                             <div class="col-9">
+                             <div class="col-8">
                                 {{ serving.driver.name }} <br/>
                                 <span v-if="serving.driver.truck">
                                     {{ serving.driver.truck[0].plate_number }} <br/>

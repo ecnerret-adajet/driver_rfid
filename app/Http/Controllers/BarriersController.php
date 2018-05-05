@@ -9,6 +9,7 @@ use App\Log;
 use App\Driver;
 use Carbon\Carbon;
 use App\Serve;
+use App\Shipment;
 
 class BarriersController extends Controller
 {
