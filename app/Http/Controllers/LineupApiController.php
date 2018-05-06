@@ -94,13 +94,13 @@ class LineupApiController extends Controller
         if(count($outstandingDR) == 0) {
             return array(
                 'status' => 'table-danger',
-                'message' => 'Please DR submit outstanding DR first, then tap again!',
+                'message' => 'Please submit/complete outstanding DR first, then tap again!',
                 'code' => 1
             );
         } elseif (count($mainGate) == 0) {
              return array(
                 'status' => 'table-danger',
-                'message' => 'Tap first to main gate RFID, in order to add in queue',
+                'message' => 'Tap first to main gate RFID, in order to reserve a queue slot',
                 'code' => 2
             );
         } elseif ($isDriverActivated == 0) {
