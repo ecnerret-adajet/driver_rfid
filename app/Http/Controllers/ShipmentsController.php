@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Log;
 use App\Shipment;
 use App\Driverqueue;
+use Ixudra\Curl\Facades\Curl;
 
 class ShipmentsController extends Controller
 {
@@ -53,5 +54,41 @@ class ShipmentsController extends Controller
                         ->get();
 
         return $last_served;
+    }
+
+    // Test Shipment assigned 
+    public function shipmentAssigned() {
+        
+          // get all queue entries within the day in all location
+        $driverqueues = Driverqueue::all();
+        
+        foreach($driverqueues as $driverqueue) {
+            
+            $check_truckscale_out = Log::truckscaleOutLocationDate($driverqueue->ts_out_controller,Carbon::today()->subDays(1));
+            $gateEntries =  Log::barrierLocationDate($driverqueue->gate->door,$driverqueue->gate->controller,Carbon::today());
+            $result_lineups = Log::queueLocation($driverqueue->door, $driverqueue->controller, $check_truckscale_out, $gateEntries, Carbon::today());
+            $log_lineups = $result_lineups->unique('CardholderID');
+            $queueObject = array();
+
+            foreach($log_lineups as $key => $log)  {
+                foreach($log->drivers as $x => $driver) {
+                    $amp = '&';
+                    $data = array(
+                        'LogID' => $log->LogID.$amp,
+                    );
+                    array_push($queueObject, $data);
+                }
+            }
+
+            $collection = collect($queueObject);
+            $LogID =  'LogID='.$collection->implode('LogID', 'LogID=');
+            $response = Curl::to('http://10.96.4.39/sapservice/api/assignedshipment')
+            ->withContentType('application/x-www-form-urlencoded')
+            ->withData( $LogID )
+            ->post();
+
+        }
+
+        return $check_truckscale_out;
     }
 }

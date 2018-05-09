@@ -251,8 +251,14 @@ class QueuesController extends Controller
     // MNL (PFMC) deliveries count
     public function getDeliveriesCount()
     {
-        $totalAssiged = count($this->assignedShipment());
-        $totalOpen = count($this->openShipment());
+        $driverqueue = Driverqueue::select('controller','door')->where('id',1)->first();
+
+        $totalAssiged = Shipment::where('ControllerID',$driverqueue->controller)
+                                ->where('DoorID',$driverqueue->door)
+                                ->whereDate('created_at',Carbon::today())
+                                ->count();
+
+        $totalOpen = count($this->openShipment()) - $totalAssiged;
 
         // Get drivers with truckscale out within the day
         $check_truckscale_out = Log::truckscaleOut();
@@ -311,7 +317,7 @@ class QueuesController extends Controller
                     'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
                     'log_time' => $log->LocalTime,
                     'dr_status' =>empty($driver->truck->plate_number) ? 'NO PLATE' : Truck::callLastTrip($driver->truck->plate_number),
-                    'on_serving' =>  Shipment::checkIfShipped($log->CardholderID,null)->first()
+                    'on_serving' => Shipment::checkIfShipped($log->CardholderID,null)->first()
                 );
 
                 array_push($arr, $data);
@@ -432,8 +438,14 @@ class QueuesController extends Controller
     // MNL (PFMC) deliveries count
     public function btnGetDeliveriesCount()
     {
-        $totalAssiged = count($this->btnAssignedShipment());
-        $totalOpen = count($this->btnOpenShipment());
+        $driverqueue = Driverqueue::select('controller','door')->where('id',3)->first();
+
+        $totalAssiged = Shipment::where('ControllerID',$driverqueue->controller)
+                                ->where('DoorID',$driverqueue->door)
+                                ->whereDate('created_at',Carbon::today())
+                                ->count();
+
+        $totalOpen = count($this->btnOpenShipment()) - $totalAssiged;;
 
         // Get drivers with truckscale out within the day
         $check_truckscale_out = Log::btnTruckscaleOut();
@@ -606,8 +618,14 @@ class QueuesController extends Controller
     // MNL (LAPAZ) deliveries count
     public function getLpzDeliveriesCount()
     {
-        $totalAssiged = count($this->lpzAssignedShipment());
-        $totalOpen = count($this->lpzOpenShipment());
+        $driverqueue = Driverqueue::select('controller','door')->where('id',3)->first();
+
+        $totalAssiged = Shipment::where('ControllerID',$driverqueue->controller)
+                                ->where('DoorID',$driverqueue->door)
+                                ->whereDate('created_at',Carbon::today())
+                                ->count();
+
+        $totalOpen = count($this->lpzOpenShipment())  - $totalAssiged;;
 
         // Get drivers with truckscale out within the day
         $check_truckscale_out = Log::lpzTruckscaleOut();

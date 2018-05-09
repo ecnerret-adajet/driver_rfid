@@ -39,12 +39,25 @@ class Shipment extends Model
     public function scopeCheckIfShipped($query, $cardholder, $date)
     {
         $checkDate = !empty($date) ? Carbon::parse($date) : Carbon::today();
+
         // // Returns Cardholders from shipment where found in logs 
         return $query->whereDate('created_at', '=', $checkDate)
                     ->where('CardholderID',$cardholder)
                     ->orderBy('created_at','DESC')
                     ->pluck('shipment_number');
     }
+
+    public function scopeCheckIfShippedDate($query, $cardholder, $date)
+    {
+        $checkDate = !empty($date) ? Carbon::parse($date) : Carbon::today();
+        
+        // // Returns Cardholders from shipment where found in logs 
+        return $query->whereDate('created_at', '=', $checkDate)
+                    ->where('CardholderID',$cardholder)
+                    ->orderBy('created_at','DESC')
+                    ->pluck('shipment_number');
+    }
+
 
     /**
      *  Get All Shipment Assigned for today

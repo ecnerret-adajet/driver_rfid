@@ -141,7 +141,7 @@
                                         SHIPPED DATE
                                     </small> <br/>
                                     <span>
-                                        {{ moment(served.created_at) }}
+                                        {{ moment(served.change_date) }}
                                     </span>
                                 </td>
 

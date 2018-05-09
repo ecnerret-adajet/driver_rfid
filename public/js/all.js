@@ -60047,6 +60047,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -84812,7 +84819,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }, [_c('small', {
         staticClass: "text-uppercase text-muted"
-      }, [_vm._v("\n                                    SHIPPED DATE\n                                ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                    " + _vm._s(_vm.moment(served.created_at)) + "\n                                ")])]), _vm._v(" "), _c('td', {
+      }, [_vm._v("\n                                    SHIPPED DATE\n                                ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                    " + _vm._s(_vm.moment(served.change_date)) + "\n                                ")])]), _vm._v(" "), _c('td', {
         staticClass: "text-center",
         attrs: {
           "width": "20%"
@@ -88521,7 +88528,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }, [_c('small', {
         staticClass: "text-uppercase text-muted"
-      }, [_vm._v("\n                                    SHIPPED DATE\n                                ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                    " + _vm._s(_vm.moment(served.created_at)) + "\n                                ")])]), _vm._v(" "), _c('td', {
+      }, [_vm._v("\n                                    SHIPPED DATE\n                                ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                    " + _vm._s(_vm.moment(served.change_date)) + "\n                                ")])]), _vm._v(" "), _c('td', {
         staticClass: "text-center",
         attrs: {
           "width": "20%"
@@ -92857,15 +92864,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n                      LAST DR SUBMISSION\n                  ")]), _vm._v(" "), _c('br'), _vm._v(" "), (queue.dr_status) ? _c('span', [_vm._v("\n                      " + _vm._s(queue.dr_status) + "\n                  ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
     }, [_vm._v("\n                      TAPPED IN QUEUE\n                  ")]), _c('br'), _vm._v("\n                   " + _vm._s(_vm.moment(queue.log_time.date)) + "\n              ")]), _vm._v(" "), _c('td', [(!queue.on_serving) ? _c('span', [_c('a', {
-      staticClass: "btn btn-success",
+      staticClass: "btn btn-outline-success btn-sm disabled",
       attrs: {
         "href": "javascript:void(0);",
-        "data-toggle": "modal",
-        "data-target": '#servingModal-' + queue.driver_id
+        "data-toggle": "modal"
       }
     }, [_vm._v("\n                          OPEN FOR SHIPMENT\n                      ")])]) : _c('span', [_c('button', {
-      staticClass: "btn btn-outline-danger btn-sm disabled"
-    }, [_vm._v("\n                      SHIPMENT ASSIGNED\n                      ")])])])]) : _vm._e()
+      staticClass: "btn btn-outline-danger btn-sm disabled mb-2"
+    }, [_vm._v("\n                          SHIPMENT ASSIGNED\n                      ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+      staticClass: "text-uppercase text-muted"
+    }, [_vm._v("\n                          SHIPMENT NUMBER\n                      ")]), _c('br'), _vm._v(" "), _c('span', {
+      staticClass: "text-center"
+    }, [_vm._v("\n                          " + _vm._s(queue.on_serving) + "\n                      ")])])])]) : _vm._e()
   }), _vm._v(" "), (_vm.filteredQueues.length == 0 && !_vm.loading) ? _c('tr', [_vm._m(1)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('tr', [_c('td', {
     attrs: {
       "colspan": "8"

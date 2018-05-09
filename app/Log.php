@@ -341,6 +341,21 @@ class Log extends Model
                 ->get();
      }
 
+     // Get by date then pluck
+    public function scopeBarrierLocationDate($query, $door, $controller, $date)
+     {
+         $checkDate = !empty($date) ? Carbon::parse($date) : Carbon::today();
+         
+         return $query->select('LogID','CardholderID','LocalTime')
+                ->whereDate('LocalTime', '=', $checkDate)
+                ->where('DoorID',$door)
+                ->whereNotIn('CardholderID',$this->barrierNoDriver())
+                ->where('ControllerID', $controller)
+                ->where('CardholderID', '>=', 15)
+                ->with('driver')
+                ->pluck('CardholderID');
+     }
+
 
      /**
       * Get Drivers tapped from queueing RFID based from location parameter
@@ -436,8 +451,8 @@ class Log extends Model
       public function scopeTruckscaleOutLocationDate($query, $controller, $date)
       {
           $checkDate = !empty($date) ? Carbon::parse($date) : Carbon::today();
-          return $query->groupBy('CardholderID')
-                ->select('CardholderID')
+
+          return $query->select('CardholderID')
                 ->where('CardholderID', '>=', 15)
                 ->where('ControllerID', $controller)
                 ->where('Direction',2) // All Truckscale Out
