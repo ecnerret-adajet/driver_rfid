@@ -78,6 +78,11 @@ class Log extends Model
         return Carbon::parse($date);
     }
 
+    public function shipment()
+    {
+        return $this->hasOne('App\Shipment','LogID','LogID');
+    }
+
     //Scope Queries
 
     public function scopeMatch($query, $current)
@@ -426,12 +431,32 @@ class Log extends Model
       {
             return $query->select('CardholderID')
                 ->where('CardholderID', '>=', 15)
+                ->whereNotIn('CardholderID',$this->barrierNoDriver()) // added
                 ->where('ControllerID', $controller)
                 ->where('Direction',2) // All Truckscale Out
                 ->whereDate('LocalTime', Carbon::today())
                 ->pluck('CardholderID');
 
       }
+
+    /**
+     * Dynamically get the driver truckscaleout per location
+     * 
+     * @return object
+     */
+    public function scopeTruckscaleOutLocationObject($query, $controller, $date) 
+    {
+    
+    $checkDate = !empty($date) ? Carbon::parse($date) : Carbon::today();
+
+    return $query->with(['drivers','drivers.truck','drivers.hauler'])
+            ->where('CardholderID', '>=', 15)
+            ->whereNotIn('CardholderID',$this->barrierNoDriver())
+            ->where('ControllerID', $controller)
+            ->where('Direction',2) // All Truckscale Out
+            ->whereDate('LocalTime', $checkDate)
+            ->get();
+    }
 
     public function scopeTruckscaleOutFromQueue($query, $driverqueue)
     {

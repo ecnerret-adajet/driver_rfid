@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
          '\App\Console\Commands\UpdateShipment',
+         '\App\Console\Commands\CheckShipmentStart',
     ];
 
     /**   
@@ -24,8 +25,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('command:UpdateShipment')
-                 ->everyFiveMinutes();
+         $schedule->command('command:UpdateShipment')->everyFiveMinutes();
+         $schedule->command('command:CheckShipmentStart')->everyFiveMinutes();
     }
 
     /**

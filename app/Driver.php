@@ -323,7 +323,7 @@ class Driver extends Model
     public function scopeGetActiveDriverTruck($query, $lastTripCardholderArray) 
     {
 
-        $filterActiveDrivers = Truck::whereIn('plate_number'.$lastTripCardholderArray)
+        $filterActiveDrivers = Truck::whereIn('plate_number',$lastTripCardholderArray)
                                     ->where('availability',1)
                                     ->with('driver')
                                     ->get()

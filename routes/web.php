@@ -86,7 +86,10 @@ Auth::routes();
 // secure auth
 Route::group(['middleware' => 'auth'], function () {
 
+    // Test Endpoint
 Route::get('/pullShipmentAssigned','ShipmentsController@shipmentAssigned');
+Route::get('/checkShipmentStart','ShipmentsController@checkShipmentStart');
+
     
 Route::get('/home', 'HomeController@index')->name('home');
 

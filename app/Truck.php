@@ -256,7 +256,7 @@ class Truck extends Model
         } elseif (str_is('MV-*', $value)) {
             return str_replace('MV-', 'MV ', $value);
         } else {
-            return $value;
+            return str_replace('_','', $value);
         }
         
     
@@ -283,22 +283,17 @@ class Truck extends Model
     {
         $cardArray = array();
 
-        // Search for DR submitted with plate number
-        $x = str_replace('-',' ',strtoupper($plateNumberArray));
-        $z = str_replace('_','',$x);
-        $recievedDR = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$z','deploy')");
+        foreach($plateNumberArray as $plate) {
+            // Search for DR submitted with plate number
+            $recievedDR = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$plate','deploy')");
+            $getFirst = head($recievedDR);
+            $result = $getFirst == false ? "UNPROCESS" : $getFirst->submission_date;
 
-        //Found plate number will now be converted and pluck to cardholder ID
-        if(count($recievedDR) != 0) {
-            $plate_has_dr = array_pluck($recievedDR, 'plate_number');
-
-            // $formated_plate_num = str_is('MV*', $plate_has_dr) ? str_replace(' ','', $plate_has_dr) : str_replace(' ','-', $plate_has_dr); 
-
-             // $hasMV =  str_is('MV*', $value) ? str_replace('MV', 'MV ', $value) : $value; 
-            
-            array_push($cardArray, $plate_has_dr);
+            if($result != "0000-00-00") {
+                $data = array(array_pluck($result, 'plate_number'));
+                array_push($cardArray,$data);
+            }
         }
-
 
         $plate_number_array = array_collapse($cardArray);
 
