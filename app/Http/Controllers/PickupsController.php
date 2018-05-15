@@ -28,12 +28,14 @@ class PickupsController extends Controller
                         ->whereNull('deactivated_date')
                         ->whereNotNull('cardholder_id')
                         ->orderBy('id','DESC')
+                        ->take(5)
                         ->get();
 
         $served = Pickup::whereDate('deactivated_date', Carbon::today())
                     ->whereNotNull('deactivated_date')
                     ->whereNotNull('cardholder_id')
                     ->orderBy('created_at','DESC')
+                    ->take(1)
                     ->get();
 
         return view('pickups.index',compact('unserved','assigned','served'));

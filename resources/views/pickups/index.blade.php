@@ -57,7 +57,7 @@
 
                 <div class="tab-pane pt-3" id="served" role="tabpanel">   
                              
-                           @include('pickups.served')
+                           {{-- @include('pickups.served') --}}
 
                 </div><!-- end tab1 -->
             

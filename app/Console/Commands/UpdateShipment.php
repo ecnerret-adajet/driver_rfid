@@ -45,7 +45,7 @@ class UpdateShipment extends Command
     public function handle()
     {
 
-         // get all queue entries within the day in all location
+        // get all queue entries within the day in all location
         $driverqueues = Driverqueue::all();
         
         foreach($driverqueues as $driverqueue) {
@@ -57,16 +57,16 @@ class UpdateShipment extends Command
             $queueObject = array();
 
             foreach($log_lineups as $key => $log)  {
-                foreach($log->drivers as $x => $driver) {
-                    $amp = '&';
-                    $data = array(
-                        'LogID' => $log->LogID.$amp,
-                    );
-                    array_push($queueObject, $data);
-                }
+                    foreach($log->drivers as $x => $driver) {
+                        $amp = '&';
+                        $data = array(
+                            'LogID' => $log->LogID.$amp,
+                        );
+                        array_push($queueObject, $data);
+                    }
             }
 
-            $collection = collect($queueObject);
+           $collection = collect($queueObject);
             $LogID =  'LogID='.$collection->implode('LogID', 'LogID=');
             $response = Curl::to('http://10.96.4.39/sapservice/api/assignedshipment')
             ->withContentType('application/x-www-form-urlencoded')
