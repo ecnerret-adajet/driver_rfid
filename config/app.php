@@ -242,6 +242,7 @@ return [
         'Flashy' => MercurySeries\Flashy\Flashy::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Curl' => Ixudra\Curl\Facades\Curl::class,
+        'Pusher' => Pusher\Pusher::class,
 
     ],
 
