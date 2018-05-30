@@ -119,7 +119,7 @@
                             Request::is('generateLineups') ||
                             Request::is('lineups/*')
                           ) ? 'active' : ''}}">
-                <a href="{{url('/monitor/feed')}}">Queue</a>
+                <a href="{{url('/queueEntryFeed')}}">Queue</a>
               </li>
 
               @endrole

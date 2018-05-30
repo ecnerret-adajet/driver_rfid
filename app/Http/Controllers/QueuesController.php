@@ -101,6 +101,13 @@ class QueuesController extends Controller
         // MNL (Pfmc) queueing location
         $logs = Log::queueLocation(0,1,$check_truckscale_out,$manilaGate,Carbon::today());
 
+        // check if truck has complete dr into pluck
+        // $queue_plate_number = $logs->pluck('driver.truck.plate_number');
+        // $card_queue = Truck::callLastTripCardholder($queue_plate_number);
+
+        //Get only active driver and trucks from DR Submitted result
+        // $activeEntries = Driver::getActiveDriverTruck($card_queue);
+
         // Get the unique result from queue
         $mnl_queue = $logs->unique('CardholderID');
 
@@ -110,34 +117,33 @@ class QueuesController extends Controller
         $arr = array();
         
         foreach($mnl_queue as $key => $log) {
-                foreach($log->drivers as $driver) {
+            foreach($log->drivers as $driver) {
 
-                    if(!empty($driver->truck->plate_number)) {
-                    if(Truck::callLastTrip($driver->truck->plate_number) != "0000-00-00") {   
+                 if(!empty($driver->truck->plate_number)) {
+                    if(Truck::callLastTrip($driver->truck->plate_number) != "0000-00-00") { 
 
-                        $data = array(
-                            'log_id' => substr($log->LogID, -4),
-                            'LogID' => $log->LogID,
-                            'driver_id' => $driver->id,
-                            'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
-                            'driver_name' => $driver->name,
-                            'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
-                            'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
-                            'plant_truck' => empty($driver->truck->plants) ? null : $driver->truck->plants->pluck('plant_name'),
-                            'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
-                            'log_time' => $log->LocalTime,
-                            'dr_status' =>empty($driver->truck->plate_number) ? 'NO PLATE' : Truck::callLastTrip($driver->truck->plate_number),
-                            'on_serving' =>  Shipment::checkIfShipped($log->CardholderID,null)->first()
-                        );                    
+                $data = array(
+                    'log_id' => substr($log->LogID, -4),
+                    'LogID' => $log->LogID,
+                    'driver_id' => $driver->id,
+                    'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
+                    'driver_name' => $driver->name,
+                    'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
+                    'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
+                    'plant_truck' => empty($driver->truck->plants) ? null : $driver->truck->plants->pluck('plant_name'),
+                    'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
+                    'log_time' => $log->LocalTime,
+                    'dr_status' =>empty($driver->truck->plate_number) ? 'NO PLATE' : Truck::callLastTrip($driver->truck->plate_number),
+                    'on_serving' =>  Shipment::checkIfShipped($log->CardholderID,null)->first()
+                );
+                array_push($arr, $data);
 
                     }
-                    }           
-
-                    array_push($arr, $data);
+                }
             }
         }
 
-        return $arr;
+        return  $arr;
     }
 
     // MNL (PFMC) assigned shipment
@@ -159,9 +165,14 @@ class QueuesController extends Controller
         $arr = array();
         
         foreach($mnl_queue as $key => $log) {
-            if(count($log->shipment->where('created_at','>=',Carbon::today())) != 0) {
             foreach($log->drivers as $driver) {
-               
+                if(count($driver->serves->where('created_at','>=',Carbon::today())) != 0) {
+
+                // if(!empty($driver->truck->plate_number)) {
+                //     $x = str_replace('-',' ',strtoupper($driver->truck->plate_number));
+                //     $z = str_replace('_','',$x);
+                //     $y = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$z','deploy')");
+                // }
 
                 $data = array(
                     'log_id' => substr($log->LogID, -4),
@@ -299,28 +310,29 @@ class QueuesController extends Controller
             foreach($log->drivers as $driver) {
 
                 if(!empty($driver->truck->plate_number)) {
-                    if(Truck::callLastTrip($driver->truck->plate_number) != "0000-00-00") {  
+                    if(Truck::callLastTrip($driver->truck->plate_number) != "0000-00-00") { 
 
-                             $data = array(
-                                'log_id' => substr($log->LogID, -4),
-                                'LogID' => $log->LogID,
-                                'driver_id' => $driver->id,
-                                'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
-                                'driver_name' => $driver->name,
-                                'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
-                                'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
-                                'plant_truck' => empty($driver->truck->plants) ? null : $driver->truck->plants->pluck('plant_name'),
-                                'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
-                                'log_time' => $log->LocalTime,
-                                'dr_status' =>empty($driver->truck->plate_number) ? 'NO PLATE' : Truck::callLastTrip($driver->truck->plate_number),
-                                'on_serving' => Shipment::checkIfShipped($log->CardholderID,null)->first()
-                            );
+                        $data = array(
+                            'log_id' => substr($log->LogID, -4),
+                            'LogID' => $log->LogID,
+                            'driver_id' => $driver->id,
+                            'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
+                            'driver_name' => $driver->name,
+                            'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
+                            'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
+                            'plant_truck' => empty($driver->truck->plants) ? null : $driver->truck->plants->pluck('plant_name'),
+                            'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
+                            'log_time' => $log->LocalTime,
+                            'dr_status' =>empty($driver->truck->plate_number) ? 'NO PLATE' : Truck::callLastTrip($driver->truck->plate_number),
+                            'on_serving' => Shipment::checkIfShipped($log->CardholderID,null)->first()
+                        );
+
+                        array_push($arr, $data);
 
                     }
-
                 }
 
-                array_push($arr, $data);
+                
 
             }
         }
@@ -486,29 +498,29 @@ class QueuesController extends Controller
         foreach($lpz_queue as $key => $log) {
             foreach($log->drivers as $driver) {
 
-                if(!empty($driver->truck->plate_number)) {
-                    if(Truck::callLastTrip($driver->truck->plate_number) != "0000-00-00") { 
+                // if(!empty($driver->truck->plate_number)) {
+                //     $x = str_replace('-',' ',strtoupper($driver->truck->plate_number));
+                //     $z = str_replace('_','',$x);
+                //     $y = DB::connection('dr_fp_database')->select("CALL P_LAST_TRIP('$z','deploy')");
+                // }
 
-                            $data = array(
-                                'log_id' => substr($log->LogID, -4),
-                                'LogID' => $log->LogID,
-                                'driver_id' => $driver->id,
-                                'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
-                                'driver_name' => $driver->name,
-                                'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
-                                'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
-                                'plant_truck' => empty($driver->truck->plants) ? null : $driver->truck->plants->pluck('plant_name'),
-                                'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
-                                'log_time' => $log->LocalTime,
-                                'dr_status' =>empty($driver->truck->plate_number) ? 'NO PLATE' : Truck::callLastTrip($driver->truck->plate_number),
-                                // 'driver_status' => $driver->availability,
-                                'on_serving' => empty($driver->serves->where('created_at','>=',Carbon::today())->first()->on_serving) ? null : $driver->serves->first()->on_serving,
+                $data = array(
+                    'log_id' => substr($log->LogID, -4),
+                    'LogID' => $log->LogID,
+                    'driver_id' => $driver->id,
+                    'driver_avatar' => !empty($driver->image) ? $driver->image->avatar : $driver->avatar,
+                    'driver_name' => $driver->name,
+                    'plate_number' => empty($driver->truck->plate_number) ? 'NO PLATE' : $driver->truck->plate_number,
+                    'capacity' =>  empty($driver->truck->capacity) ? null : $driver->truck->capacity->description, 
+                    'plant_truck' => empty($driver->truck->plants) ? null : $driver->truck->plants->pluck('plant_name'),
+                    'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
+                    'log_time' => $log->LocalTime,
+                    'dr_status' =>empty($driver->truck->plate_number) ? 'NO PLATE' : Truck::callLastTrip($driver->truck->plate_number),
+                    // 'driver_status' => $driver->availability,
+                    'on_serving' => empty($driver->serves->where('created_at','>=',Carbon::today())->first()->on_serving) ? null : $driver->serves->first()->on_serving,
 
-                            );
+                );
 
-                    }
-                }
-                
                 array_push($arr, $data);
 
             }

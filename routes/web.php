@@ -35,10 +35,10 @@ Route::get('/', function()
             return redirect('pickups/online');
             break;
         case 7: // Pickup-level-2
-            return redirect('monitor/feed');
+            return redirect('queueEntryFeed');
             break;
         case 8: // Queue Monitoring
-            return redirect('monitor/feed');
+            return redirect('queueEntryFeed');
             break;
         case 9: // Spc/QC Monitoring
             return redirect('trucks');
@@ -50,6 +50,9 @@ Route::get('/', function()
         
 })->middleware('auth');
 
+/**
+ * Guest Routes
+ */
 
 // Route::get('/reassignApproval','SmsController@receiveReassign');
 
@@ -81,14 +84,43 @@ Route::get('/queuesBtn','LineupApiController@getBtnDriverQue');
 Route::get('/getTotalQueueTodayBtn','LineupApiController@getBtnTotalQueueToday');
 Route::get('/getLastDriverBtn','LineupApiController@getBtnLastDriver');
 
+/**
+ *  Gate Entries Route Setup w/ Realtime pusher
+ */
+Route::post('/storeGateEntries/{driverqueue_id}','GateEntriesController@storeGateEntries');
+Route::get('/getLastGateEntry/{driverqueue_id}','GateEntriesController@getLastGateEntry');
+Route::get('/gateEntry/{driverqueue}','GateEntriesController@gateEntry');
+
+/**
+ * Queue Entries Route Setup
+ */
+Route::post('/storeQueueEntries/{driverqueue_id}','QueueEntriesController@storeQueueEntries');
+Route::get('/getQueueEntries/{driverqueue_id}','QueueEntriesController@getQueueEntries');
+Route::get('/queueEntry/{driverqueue}','QueueEntriesController@queueEntry');
+ 
 Auth::routes();
 
-// secure auth
+/**
+ *  Authentication Route
+ */
 Route::group(['middleware' => 'auth'], function () {
 
-    // Test Endpoint
-Route::get('/pullShipmentAssigned','ShipmentsController@shipmentAssigned');
-Route::get('/checkShipmentStart','ShipmentsController@checkShipmentStart');
+//Test Endpoint
+Route::get('/processGateEntries','GateEntriesController@processGateEntries');
+
+/**
+ * Queue Entries Setting Route
+ */
+Route::get('/getQueueEntriesFeed/{driverqueue_id}','QueueEntriesController@getQueueEntriesFeed');
+Route::get('/queueEntryFeed','QueueEntriesController@queueEntryFeed');
+Route::get('/searchQueueEntriesFeed/{driverqueue}','QueueEntriesController@searchQueueEntriesFeed');
+Route::get('/getQueueStatus/{driverqueue}','QueueEntriesController@getQueueStatus');
+Route::get('/lastDriverTapped/{driverqueue}','QueueEntriesController@lastDriverTapped');
+
+/**
+ * Entry Report Route
+ */
+Route::get('/exportEntries/{driverqueue_id}/{date}','EntryReportController@exportEntries');
 
     
 Route::get('/home', 'HomeController@index')->name('home');
@@ -244,8 +276,6 @@ Route::get('/pickupServedSearch','PickupOnlineController@pickupServedSearch');
 Route::post('/storePickup','PickupOnlineController@storePickup');
 Route::patch('pickups/assign/{pickup}',[  'as' => 'pickups-assign.update' ,'uses' => 'PickupsController@assignCardholder']);
 
-
-
 Route::get('/entries','ReportsController@entries');
 Route::get('/generateEntries','ReportsController@generateEntries');
 Route::get('/generateEntriesExport','ReportsController@generateEntriesExport');
@@ -315,10 +345,6 @@ Route::post('/lineups/{log}','LineupsController@store');
 Route::get('/lineups/approval/{id}','LineupsController@hustlingApproval');
 Route::post('/lineups/approval/{id}','LineupsController@hustlingApprovalStore');
 
-
-
-
-
 // Routes for driver's passes
 Route::post('/passes/{driver}/{log}', 'PassesController@store');
 
@@ -356,7 +382,6 @@ Route::post('/inspects/deactivate/{truck}','TruckInspectionController@deactivate
 Route::get('/inspects/activate/{truck}','TruckInspectionController@activateTruckCreate');
 Route::post('/inspects/activate/{truck}','TruckInspectionController@activateTruckStore');
 Route::get('/inspects/show/{truck}','TruckInspectionController@inspectionHistory');
-
 
 /**
  * Route Setup for pickup list

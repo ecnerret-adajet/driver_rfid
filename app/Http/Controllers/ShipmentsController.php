@@ -95,17 +95,13 @@ class ShipmentsController extends Controller
      // Test Shipment for drivers who checkout the plant 
     public function checkShipmentStart() {
         
-         // get all queue entries within the day in all location
+        // get all queue entries within the day in all location
         $driverqueues = Driverqueue::all();
 
-        $queueObject = array();
-
         foreach ($driverqueues as $driverqueue) {
-
             $check_truckscale_out = Log::truckscaleOutLocationObject($driverqueue->ts_out_controller, null);
             $log_lineups = $check_truckscale_out->unique('CardholderID');
-
-            // $check_if_has_shipment = Shipment::checkIfShippedArray($log_lineups->pluck('CardholderID'),null);
+            $queueObject = array();
 
             foreach($log_lineups as $key => $log)  {
                     foreach($log->drivers as $x => $driver) {
@@ -115,18 +111,16 @@ class ShipmentsController extends Controller
                         );
                         array_push($queueObject, $data);
                     }
-            }
-
-                $collection = collect($queueObject);
-                $LogID =  'LogID='.$collection->implode('LogID', 'LogID=');
-                $response = Curl::to('http:/10.96.4.39/sapservice/api/assignedshipment')
-                ->withContentType('application/x-www-form-urlencoded')
-                ->withData( $LogID )
-                ->post();
+            }             
 
         }
 
-    
+        $collection = collect($queueObject);
+        $LogID =  'LogID='.$collection->implode('LogID', 'LogID=');
+        $response = Curl::to('http://10.96.4.39/sapservice/api/assignedshipment')
+        ->withContentType('application/x-www-form-urlencoded')
+        ->withData( $LogID )
+        ->post();
 
         return $response;
     }

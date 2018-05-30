@@ -45,18 +45,15 @@ class CheckShipmentStart extends Command
      */
     public function handle()
     {
-         // get all queue entries within the day in all location
+        // get all queue entries within the day in all location
         $driverqueues = Driverqueue::all();
 
-        foreach ($driverqueues as $key => $driverqueue) {
-            $check_truckscale_out = Log::truckscaleOutLocation($driverqueue->ts_out_controller);
-
+        foreach ($driverqueues as $driverqueue) {
+            $check_truckscale_out = Log::truckscaleOutLocationObject($driverqueue->ts_out_controller, null);
             $log_lineups = $check_truckscale_out->unique('CardholderID');
-
             $queueObject = array();
 
             foreach($log_lineups as $key => $log)  {
-                if(Shipment::checkIfShipped($log->CardholderID,null)->first() != '0000-00-00') {
                     foreach($log->drivers as $x => $driver) {
                         $amp = '&';
                         $data = array(
@@ -64,16 +61,15 @@ class CheckShipmentStart extends Command
                         );
                         array_push($queueObject, $data);
                     }
-                }
-            }
+            }             
 
-            $collection = collect($queueObject);
-            $LogID =  'LogID='.$collection->implode('LogID', 'LogID=');
-            $response = Curl::to('http:/172.17.2.51/sapservice/api/assignedshipment')
-            ->withContentType('application/x-www-form-urlencoded')
-            ->withData( $LogID )
-            ->post();
         }
-    
+
+        $collection = collect($queueObject);
+        $LogID =  'LogID='.$collection->implode('LogID', 'LogID=');
+        $response = Curl::to('http://10.96.4.39/sapservice/api/assignedshipment')
+        ->withContentType('application/x-www-form-urlencoded')
+        ->withData( $LogID )
+        ->post();
     }
 }

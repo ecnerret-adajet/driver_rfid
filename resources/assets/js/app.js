@@ -9,12 +9,12 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+
 
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('drivers', require('./components/Drivers.vue'));
@@ -64,7 +64,9 @@ Vue.component('driverqueue', require('./components/MonitorQueue.vue'));
 Vue.component('gateEntries', require('./components/GateEntries.vue'));
 Vue.component('driverqueueEntries', require('./components/QueuesEntries.vue'));
 
-
+Vue.component('gateArea', require('./components/GateArea.vue'));
+Vue.component('queueArea', require('./components/QueueArea.vue'));
+Vue.component('queueParent', require('./components/QueueParent.vue'));
 
 const app = new Vue({
     el: '#app'

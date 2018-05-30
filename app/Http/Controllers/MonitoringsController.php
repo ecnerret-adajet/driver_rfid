@@ -104,8 +104,9 @@ class MonitoringsController extends Controller
         foreach($log_lineups as $key => $log) {
             foreach($log->drivers as $driver) {
 
-                if(!empty($driver->truck->plate_number)) {
-                    if(Truck::callLastTrip($driver->truck->plate_number) != "0000-00-00") {  
+                // if(!empty($driver->truck->plate_number)) {
+                //     if(Truck::callLastTrip($driver->truck->plate_number) != "0000-00-00") {
+
                         $data = array(
                             'log_id' => substr($log->LogID, -4),
                             'driver_id' => $driver->id,
@@ -119,10 +120,13 @@ class MonitoringsController extends Controller
                             'on_serving' =>  Shipment::checkIfShipped($log->CardholderID,null)->first()
 
                         );
-                    }
-                }
 
-                array_push($arr, $data);
+                         array_push($arr, $data);
+
+                //     }
+                // }
+
+               
 
             }
         }
@@ -255,11 +259,11 @@ class MonitoringsController extends Controller
     public function gateEntries(Gate $gate)
     {
          // Get Logs from Bataan Barrier RFID
-        $entries_count =  Log::barrierLocationObject($gate->door,$gate->controller, Carbon::today());
+        $entries_count =  Log::barrierLocationObject($gate->door,$gate->controller, Carbon::today())->unique();
 
         // Format the array JSON return
         $arr = array();
-        foreach($entries_count as $entry) {
+        foreach($entries_count->values()->all() as $entry) {
             foreach($entry->drivers as $driver) {
 
                     $data = array(
