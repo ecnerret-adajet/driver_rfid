@@ -15,7 +15,7 @@ trait QueueTrait {
         $totalEntry = QueueEntry::whereDate('created_at',Carbon::today())
                         ->where('driverqueue_id',$driverqueue_id)
                         // ->doesntHave('shipment')
-                        ->whereNull('shipment_number')
+                        // ->whereNull('shipment_number')
                         ->whereNotNull('driver_availability')
                         ->whereNotNull('truck_availability')
                         ->whereNotNull('isTappedGateFirst')

@@ -137,9 +137,8 @@ class QueueEntriesController extends Controller
                         ->whereNotIn('CardholderID',$this->notDriver())
                         ->where('CardholderID', '>=', 15)
                         ->orderBy('LocalTime','DESC')
-                        ->with('driver','driver.image','driver.truck','driver.hauler','shipment')
-                        ->first();
-                        
+                        ->with('driver','driver.image','driver.truck','driver.hauler')
+                        ->first();                        
 
         $queueEntry = QueueEntry::updateOrCreate(
             [
@@ -152,7 +151,6 @@ class QueueEntriesController extends Controller
                 'hauler_name' => !empty($lastLogEntry->driver->hauler) ? $lastLogEntry->driver->hauler->name : null,
                 'CardholderID' => $lastLogEntry->CardholderID,
                 'queue_number' => $this->checkIfExist($driverLocation->id),
-                // 'queue_number' => $this->checkEntry($lastLogEntry->CardholderID, $this->checkIfExist($driverLocation->id)) ? $this->checkIfExist($driverLocation->id) + 1 : $this->checkIfExist($driverLocation->id),
                 'isDRCompleted' =>  !empty($lastLogEntry->driver->truck) ? Truck::callLastTrip($lastLogEntry->driver->truck->plate_number) : null,
                 'isTappedGateFirst' => !empty(GateEntry::checkIfTappedFromGate($lastLogEntry->CardholderID)) ? 1 : null,
                 'isSecondDelivery' => $this->checkIfReturned($lastLogEntry->CardholderID) > 0 ? 1 : 0,
@@ -172,10 +170,8 @@ class QueueEntriesController extends Controller
         } else {
             $queueLast = QueueEntry::where('driverqueue_id',$driverLocation->id)->orderBy('id','DESC')->first();
             return $queueLast;
-            //  return $queueEntry;
         }   
             
-            // return $queueEntry;
     }
 
     //Display queue entry by location

@@ -11,6 +11,8 @@ class GateEntry extends Model
 
     protected $connection = "sqlsrv";
 
+    protected $dates = ['LocalTime'];
+
     public function getDates()
     {
         return [];
@@ -53,38 +55,38 @@ class GateEntry extends Model
     //Custome Eleqouent for Report
     public function queueEntry()
     {
-        return $this->belongsTo(QueueEntry::class, 'CardholderID', 'CardholderID')
-                    ->whereDate('created_at', Carbon::parse($this->created_at));
+        return $this->belongsTo(QueueEntry::class, 'CardholderID', 'CardholderID');
     }
 
     public function hasShipment()
     {
-        return $this->belongsTo(Shipment::class,'CardholderID','CardholderID')
-                    ->whereDate('created_at', Carbon::parse($this->created_at));
+        return $this->belongsTo(Shipment::class,'CardholderID','CardholderID');
     }
 
     public function hasTruckscaleIn()
     {
         return $this->belongsTo(Log::class,'CardholderID','CardholderID')
                 ->where('Direction',1)
-                ->whereIn('Controller', [4]) //Controller for TRUCKSCALE IN
-               ->where('LocalTime', '>=', Carbon::parse($this->created_at)->subHours(24)->toDateTimeString());
+                ->whereIn('ControllerID', [4,8]) //Controller for TRUCKSCALE IN
+                ->whereIn('DoorID',[0,1]);
+            //    ->where('LocalTime', '>=', Carbon::parse($this->created_at)->subHours(24)->toDateTimeString());
     }
 
     public function hasTruckscaleOut()
     {
         return $this->belongsTo(Log::class,'CardholderID','CardholderID')
             ->where('Direction',2)
-            ->whereIn('Controller', [5]) //Controller for TRUCKSCALE OUT
-            ->where('LocalTime', '>=', Carbon::parse($this->created_at)->subHours(24)->toDateTimeString());
+            ->whereIn('ControllerID', [4,8]) //Controller for TRUCKSCALE OUT
+            ->whereIn('DoorID',[0,1]);
+            // ->where('LocalTime', '>=', Carbon::parse($this->created_at)->subHours(24)->toDateTimeString());
     }
 
     public function hasGateOut()
     {
         return $this->belongsTo(Log::class,'CardholderID','CardholderID')
             ->where('Direction',2)
-            ->whereIn('Controller', [5]) //Controller for Gate OUT
-            ->where('LocalTime', '>=', Carbon::parse($this->created_at)->subHours(24)->toDateTimeString());
+            ->whereIn('ControllerID', [4,9]); //Controller for Gate OUT
+            // ->whereDate('LocalTime', Carbon::parse($this->LocalTime));
     }
 
     // Query Scope

@@ -8,9 +8,12 @@ use Carbon\Carbon;
 
 class Shipment extends Model
 {
+     protected $connection = "sqlsrv";
     protected $unguard = [
         '*'
     ];
+
+    protected $dates = ['change_date'];
 
     protected $hidden = [
         'updated_at',

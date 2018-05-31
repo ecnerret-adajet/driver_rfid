@@ -254,33 +254,16 @@ class DriversController extends Controller
      */
     public function show(Driver $driver)
     {
-        // $logs = Log::with('customers')
-        //             ->whereNotIn('ControllerID',[1])
-        //             ->where('CardholderID','=',$driver->cardholder->CardholderID)
-        //             ->orderBy('LocalTime','DESC')
-        //             ->get();
 
-        $get_version_cardholder = Driverversion::where('driver_id',$driver->id)->pluck('cardholder_id');
-        $get_driver_cardholder = $driver->cardholder->CardholderID;
-
-        $all_cardholder = array_collapse([$get_version_cardholder, $driver->cardholder->CardholderID]);
-        
-                    
-        // $logs = Log::with('customers')
-        //        ->whereIn('CardholderId', $all_cardholder)
-        //        ->orderBy('LocalTime','DESC')
-        //        ->get();
+        $versions = Driverversion::where('driver_id',$driver->id)->orderBy('created_at','DESC')->pluck('cardholder_id');
 
         $logs = Log::where('CardholderID',$driver->cardholder->CardholderID)
                 ->orderBy('LocalTime','DESC')
                 ->get();
 
-        // add logs from history logs
-        //// code here ////
+        return $versions;
 
-        $versions = Driverversion::where('driver_id',$driver->id)->orderBy('created_at','DESC')->get();
-
-        return view('drivers.show', compact('driver','logs','versions'));
+        // return view('drivers.show', compact('driver','logs','versions'));
     }
 
     /**

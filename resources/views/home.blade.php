@@ -18,6 +18,10 @@
          <div class="card mx-auto mb-3">
         <div class="card-header">
         Entries Monitoring
+
+        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exportEntries">
+            Export Entries
+        </button>
         </div>
         <div class="card-body">
 
@@ -51,6 +55,24 @@
         
         </div><!-- end card-body -->
     </div> <!-- end card -->
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exportEntries" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Entries Report</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <export-entries></export-entries>
+        </div>
+        </div>
+    </div>
+</div>
 
     @else
 

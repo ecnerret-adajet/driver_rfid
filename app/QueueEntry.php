@@ -12,6 +12,8 @@ class QueueEntry extends Model
 
     protected $connection = "sqlsrv";
 
+    protected $dates = ['LocalTime'];
+
     protected $fillable = [
         'queue_number',
         'driver_name',
