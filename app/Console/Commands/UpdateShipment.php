@@ -46,34 +46,64 @@ class UpdateShipment extends Command
     {
 
         // get all queue entries within the day in all location
-        $driverqueues = Driverqueue::all();
+        // $driverqueues = Driverqueue::all();
         
-        foreach($driverqueues as $driverqueue) {
+        // foreach($driverqueues as $driverqueue) {
             
-            $check_truckscale_out = Log::truckscaleOutLocation($driverqueue->ts_out_controller);
-            $gateEntries =  Log::barrierLocation($driverqueue->gate->door,$driverqueue->gate->controller);
-            $result_lineups = Log::queueLocation($driverqueue->door, $driverqueue->controller, $check_truckscale_out, $gateEntries, Carbon::today());
-            $log_lineups = $result_lineups->unique('CardholderID');
-            $queueObject = array();
+        //     $check_truckscale_out = Log::truckscaleOutLocation($driverqueue->ts_out_controller);
+        //     $gateEntries =  Log::barrierLocation($driverqueue->gate->door,$driverqueue->gate->controller);
+        //     $result_lineups = Log::queueLocation($driverqueue->door, $driverqueue->controller, $check_truckscale_out, $gateEntries, Carbon::today());
+        //     $log_lineups = $result_lineups->unique('CardholderID');
+        //     $queueObject = array();
 
-            foreach($log_lineups as $key => $log)  {
-                    foreach($log->drivers as $x => $driver) {
-                        $amp = '&';
-                        $data = array(
-                            'LogID' => $log->LogID.$amp,
-                        );
-                        array_push($queueObject, $data);
-                    }
-            }
-
-           $collection = collect($queueObject);
-            $LogID =  'LogID='.$collection->implode('LogID', 'LogID=');
-            $response = Curl::to('http://10.96.4.39/sapservice/api/assignedshipment')
-            ->withContentType('application/x-www-form-urlencoded')
-            ->withData( $LogID )
-            ->post();
+        //     foreach($log_lineups as $key => $log)  {
+        //             foreach($log->drivers as $x => $driver) {
+        //                 $amp = '&';
+        //                 $data = array(
+        //                     'LogID' => $log->LogID.$amp,
+        //                 );
+        //                 array_push($queueObject, $data);
+        //             }
+        //      }
+        //     }
 
 
+        // get all queue entries within the day in all location
+        $driverqueues = Driverqueue::pluck('id');
+        
+        // $checkTruckscaleOut = collect(Log::truckscaleOutQueueArray())->unique();
+
+        $queues = QueueEntry::whereIn('driverqueue_id',$driverqueues)
+                            // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
+                            ->where('created_at', '>=', Carbon::today())
+                            // ->whereNull('shipment_number')
+                            ->doesntHave('shipment')
+                            ->whereNotNull('driver_availability')
+                            ->whereNotNull('truck_availability')
+                            ->where('isDRCompleted','NOT LIKE','%0000-00-00%')
+                            ->whereNotNull('isTappedGateFirst')
+                            ->orderBy('LocalTime','ASC')
+                            ->get()
+                            ->unique('CardholderID')
+                            ->values()
+                            ->all();
+
+        $queueObject = array();
+
+        foreach($queues as $key => $log)  {
+                $amp = '&';
+                $data = array(
+                    'LogID' => $log->LogID.$amp,
+                );
+                array_push($queueObject, $data);
         }
+
+        $collection = collect($queueObject);
+        $LogID =  'LogID='.$collection->implode('LogID', 'LogID=');
+        $response = Curl::to('http://10.96.4.39/sapservice/api/assignedshipment')
+        ->withContentType('application/x-www-form-urlencoded')
+        ->withData( $LogID )
+        ->post();
+
     }
 }

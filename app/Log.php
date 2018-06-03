@@ -470,6 +470,21 @@ class Log extends Model
                 ->pluck('CardholderID');
     }
 
+    /**
+     * Get array trucksacleout from queue
+     */
+    public function scopeTruckscaleOutQueueArray($query)
+    {
+        $queue = Driverqueue::pluck('ts_out_controller');
+
+        return  $query->select('CardholderID')
+                ->whereIn('ControllerID', $queue)
+                ->where('Direction',2) // All Truckscale Out
+                ->where('CardholderID', '>=', 15)
+                ->whereDate('LocalTime', Carbon::today())
+                ->pluck('CardholderID');
+    }
+
       /**
        *  Export Truckscale search by date
        */
