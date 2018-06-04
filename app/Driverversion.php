@@ -12,6 +12,7 @@ class Driverversion extends Model
         'card_assigned',
         'start_date',
         'end_date',
+        'cardholder_id'
     ];
     
     protected $dates = [

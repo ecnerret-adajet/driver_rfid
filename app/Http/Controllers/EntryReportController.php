@@ -51,7 +51,7 @@ class EntryReportController extends Controller
                                     'shipment' => !empty($entry->hasShipment->change_date) && $entry->hasShipment->change_date > $entry->Localtime ? date('Y-m-d h:i A', strtotime($entry->hasShipment->change_date)) : null,
                                     'ts_time_in' =>  !empty($entry->hasTruckscaleIn->LocalTime) && $entry->hasTruckscaleIn->LocalTime > $entry->LocalTime ? date('Y-m-d h:i A', strtotime($entry->hasTruckscaleIn->LocalTime)) : null,
                                     'ts_time_out' =>  !empty($entry->hasTruckscaleOut->LocalTime) && $entry->hasTruckscaleOut->LocalTime > $entry->LocalTime ? date('Y-m-d h:i A', strtotime($entry->hasTruckscaleOut->LocalTime)) : null,
-                                    'gate_time_out' =>  !empty($entry->hasGateOut->LocalTime) && $entry->hasGateOut->LocalTime > $entry->LocalTime ?  date('Y-m-d h:i A', strtotime($entry->hasGateOut->LocalTime)) : null,
+                                    'gate_time_out' =>  !empty($entry->hasGateOut->LocalTime) ?  date('Y-m-d h:i A', strtotime($entry->hasGateOut->LocalTime)) : null,
                                 );
 
                                 array_push($arr, $data);

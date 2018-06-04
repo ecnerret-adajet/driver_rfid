@@ -107,6 +107,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 //Test Endpoint
 Route::get('/processGateEntries','GateEntriesController@processGateEntries');
+Route::get('/shipmentAssigned','ShipmentsController@shipmentAssigned');
 
 /**
  * Queue Entries Setting Route
@@ -121,6 +122,14 @@ Route::get('/lastDriverTapped/{driverqueue}','QueueEntriesController@lastDriverT
  * Entry Report Route
  */
 Route::get('/exportEntries/{driverqueue_id}/{date}','EntryReportController@exportEntries');
+
+/**
+ * Statuses Count Route
+ */
+Route::get('/totalTrucksInPlant','StatusesController@totalTrucksInPlant');
+Route::get('/totalAssignedShipment','StatusesController@totalAssignedShipment');
+Route::get('/totalForPrint','StatusesController@totalForPrint');
+Route::get('/totalPickup','StatusesController@totalPickup');
 
     
 Route::get('/home', 'HomeController@index')->name('home');

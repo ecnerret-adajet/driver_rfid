@@ -69,6 +69,7 @@ Vue.component('queueArea', require('./components/QueueArea.vue'));
 Vue.component('queueParent', require('./components/QueueParent.vue'));
 
 Vue.component('exportEntries', require('./components/ExportEntries.vue'));
+Vue.component('currentStatus', require('./components/CurrentStatus.vue'));
 
 const app = new Vue({
     el: '#app'

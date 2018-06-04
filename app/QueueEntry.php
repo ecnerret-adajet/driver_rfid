@@ -58,7 +58,7 @@ class QueueEntry extends Model
     
     public function shipment() {
         return $this->belongsTo(Shipment::class,'CardholderID','CardholderID')
-                    ->whereDate('created_at',Carbon::parse($this->created_at));
+                    ->whereDate('created_at', Carbon::parse($this->created_at));
     }
 
     public function todayShipment()

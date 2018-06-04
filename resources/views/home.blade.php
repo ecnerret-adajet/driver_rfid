@@ -1,15 +1,23 @@
 @extends('layouts.app')
 @section('content')
 
-  <!-- Breadcrumbs -->
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-        <a href="#">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item active">My Dashboard</li>
-    </ol>
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="row mb-2">
+          <div class="col-6">
+            <h1 class="m-0 text-dark">Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-6">
+            <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item active">{{ Carbon\Carbon::today()->format('M d, Y') }}</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div>
 
-    <home></home>
+    
+    {{-- <home></home> --}}
+    <current-status></current-status>
 
     @if(\Entrust::hasRole('Administrator') || \Entrust::hasRole('Monitoring') || \Entrust::hasRole('Approver') || \Entrust::hasRole('Queue-monitoring'))
 

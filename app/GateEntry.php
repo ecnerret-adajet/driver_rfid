@@ -85,7 +85,7 @@ class GateEntry extends Model
     {
         return $this->belongsTo(Log::class,'CardholderID','CardholderID')
             ->where('Direction',2)
-            ->whereIn('ControllerID', [4,9]); //Controller for Gate OUT
+            ->whereIn('ControllerID', [4,6,9]); //Controller for Gate OUT
             // ->whereDate('LocalTime', Carbon::parse($this->LocalTime));
     }
 
