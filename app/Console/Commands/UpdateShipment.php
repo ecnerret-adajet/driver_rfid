@@ -7,6 +7,7 @@ use Ixudra\Curl\Facades\Curl;
 use App\Driverqueue;
 use Carbon\Carbon;
 use App\Shipment;
+use App\QueueEntry;
 use App\Log;
 use DB;
 
