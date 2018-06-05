@@ -22,7 +22,7 @@ class EntryReportController extends Controller
         $dateSearch = Session::get('date');
 
         $entries = GateEntry::with('queueEntry:CardholderID,LocalTime',
-                            'hasShipment:CardholderID,change_date',
+                            'hasShipment:CardholderID,change_date,company_server',
                             'hasTruckscaleIn:CardholderID,LocalTime',
                             'hasTruckscaleOut:CardholderID,LocalTime',
                             'hasGateOut:CardholderID,LocalTime')
@@ -55,10 +55,17 @@ class EntryReportController extends Controller
                                     'hauler' => $entry->hauler_name,
 
                                     'gate_time_in' =>  date('Y-m-d h:i A', strtotime($entry->LocalTime)), 
+
                                     'queue_time' => !empty($entry->queueEntry->LocalTime) ? date('Y-m-d h:i A', strtotime($entry->queueEntry->LocalTime)) : null,
+                                    
                                     'shipment' => !empty($entry->hasShipment->change_date) ? date('Y-m-d h:i A', strtotime($entry->hasShipment->change_date)) : null,
+
+                                    'company' => !empty($entry->hasShipment->company_server) ? $entry->hasShipment->company_server : null,
+                                    
                                     'ts_time_in' => !empty($entry->hasTruckscaleIn->LocalTime) ? date('Y-m-d h:i A', strtotime($entry->hasTruckscaleIn->LocalTime)) : null,
+                                    
                                     'ts_time_out' => !empty($entry->hasTruckscaleOut->LocalTime) ? date('Y-m-d h:i A', strtotime($entry->hasTruckscaleOut->LocalTime)) : null,
+                                    
                                     'gate_time_out' => !empty($entry->hasGateOut->LocalTime) ? date('Y-m-d h:i A', strtotime($entry->hasGateOut->LocalTime)) : null,
                                 );
 
@@ -68,20 +75,21 @@ class EntryReportController extends Controller
 
                 //set the titles
                 $sheet->fromArray($arr,null,'A1',false,false)
-                        ->setBorder('A1:I'.$entriesCount,'thin')
+                        ->setBorder('A1:J'.$entriesCount,'thin')
                         ->prependRow(array(
                         'Driver Name', 
                         'Plate Number', 
                         'Hauler Name', 
                         'Gate Entry', 
                         'Queue Entry', 
-                         'Shipment date', 
+                        'Shipment date', 
+                        'Company',
                         'Truckscale In', 
                         'Truckscale Out', 
                         'Gate Out' ));
 
 
-                $sheet->cells('A1:I1', function($cells) {
+                $sheet->cells('A1:J1', function($cells) {
                             $cells->setBackground('#f1c40f'); 
                 });
 
