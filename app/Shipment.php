@@ -8,9 +8,17 @@ use Carbon\Carbon;
 
 class Shipment extends Model
 {
-     protected $connection = "sqlsrv";
-    protected $unguard = [
-        '*'
+    protected $connection = "sqlsrv";
+    
+    protected $fillable = [
+        'LogID',
+        'shipment_number',
+        'change_date',
+        'company_server',
+        'CardholderID',
+        'ControllerID',
+        'DoorID',
+        'status'
     ];
 
     protected $dates = ['change_date'];
@@ -22,6 +30,17 @@ class Shipment extends Model
     public function getDates()
     {
         return [];
+    }
+
+    public function getKeyName(){
+        return "CardholderID";
+    }
+
+    // Model Relationships
+
+    public function queueEntry()
+    {
+        return $this->belongsTo(QueueEntry::class,'CardholderID','CardholderID');
     }
 
     public function driver() 

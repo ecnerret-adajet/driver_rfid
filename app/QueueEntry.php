@@ -45,6 +45,10 @@ class QueueEntry extends Model
         return [];
     }
 
+    public function getKeyName(){
+        return "CardholderID";
+    }
+
     // Attributes Function
     public function setPlateNumberAttribute($value)
     {
@@ -52,18 +56,19 @@ class QueueEntry extends Model
     }
 
     // Relationships Model
-    public function truck() {
+    public function truck() 
+    {
         return $this->belongsTo(Truck::class);
     }
     
-    public function shipment() {
-        return $this->belongsTo(Shipment::class,'CardholderID','CardholderID')
-                    ->whereDate('created_at', Carbon::parse($this->created_at));
+    public function shipment() 
+    {
+        return $this->belongsTo('App\Shipment','CardholderID','CardholderID');
     }
 
-    public function todayShipment()
+    public function getShipmentAttribute()
     {
-        return $this->belongsTo(Shipment::class,'CardholderID','CardholderID');
+        return $this->shipment()->whereDate('created_at',Carbon::parse($this->created_at));
     }
 
     public function log() {
@@ -108,6 +113,5 @@ class QueueEntry extends Model
                     ->get()
                     ->unique('CardholderID');
     }
-
 
 }

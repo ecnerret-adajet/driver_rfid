@@ -79,7 +79,7 @@ class QueueEntriesController extends Controller
 
         // $checkTruckscaleOut = collect(Log::truckscaleOutFromQueue($driverqueue_id))->unique();
 
-        $queues = QueueEntry::with('truck','truck.plants','truck.capacity','shipment')
+        $queues = QueueEntry::with('truck','truck.plants:plant_name','truck.capacity','shipment')
                             ->where('driverqueue_id',$driverqueue->id)
                             ->whereDate('LocalTime',Carbon::parse($search_date))
                             // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
