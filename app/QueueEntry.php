@@ -63,7 +63,8 @@ class QueueEntry extends Model
     
     public function shipment() 
     {
-        return $this->belongsTo('App\Shipment','CardholderID','CardholderID');
+        return $this->belongsTo(Shipment::class,'CardholderID','CardholderID')
+            ->whereDate('change_date', Carbon::parse($this->created_at));
     }
 
     public function getShipmentAttribute()
