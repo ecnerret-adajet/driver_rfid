@@ -1,6 +1,7 @@
 <template>
     <div>
 
+    <div class="table-responsive">
         <table class="table table-bordered table-striped">
         <thead>
             <tr class="text-uppercase font-weight-light">
@@ -12,7 +13,7 @@
             </tr>
         </thead> 
         <tbody>
-                <tr v-for="pickup in filteredPickups" v-if="!loading">
+                <tr v-for="(pickup, p) in filteredPickups" :key="p" v-if="!loading">
                     <td>
                         <small class="btn btn-outline-success btn-sm align-middle" v-if="pickup.cardholder">
                             {{ pickup.cardholder.Name }}
@@ -21,12 +22,16 @@
                             NOT YET SERVED
                         </small>
                     </td>
-                    <td>
+                    <td width="20%">
                         {{ pickup.driver_name }} <br/>
                         {{ pickup.plate_number }} <br/>
                         {{ pickup.company }}
                     </td>
-                    <td>{{ pickup.do_number }}</td>
+                    <td width="30%">
+                        <div style="width: 400px; word-wrap: break-word;">
+                            {{ pickup.do_number }}
+                        </div>
+                    </td>
                     <td>
                        <div class="row">
 
@@ -104,6 +109,7 @@
                 </tr>
         </tbody>
         </table>
+    </div>
 
          <div  class="row mt-3">
             <div class="col-6">

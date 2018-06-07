@@ -1,9 +1,23 @@
 @extends('layouts.app')
 @section('content')
 
-   <div class="card mx-auto mb-3">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="row mb-2">
+          <div class="col-6">
+            <h1 class="m-0 text-dark">Queue Entries</h1>
+          </div><!-- /.col -->
+          <div class="col-6">
+            <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item active">{{ Carbon\Carbon::today()->format('M d, Y') }}</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div>
+
+   <div class="card mx-auto mb-3 mt-3">
         <div class="card-header">
-        Queues Monitoring
+       Pickup & Deliveries Queues
 
         <a class="btn btn-sm btn-outline-primary float-right" href="{{ url('/monitor/feed') }}">
           Visit Previous Version

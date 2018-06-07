@@ -62682,6 +62682,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -93466,14 +93472,31 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('table', {
+  return _c('div', [_c('div', {
+    staticClass: "table-responsive"
+  }, [_c('table', {
     staticClass: "table table-bordered table-striped"
-  }, [_vm._m(0), _vm._v(" "), _c('tbody', [_vm._l((_vm.filteredPickups), function(pickup) {
-    return (!_vm.loading) ? _c('tr', [_c('td', [(pickup.cardholder) ? _c('small', {
+  }, [_vm._m(0), _vm._v(" "), _c('tbody', [_vm._l((_vm.filteredPickups), function(pickup, p) {
+    return (!_vm.loading) ? _c('tr', {
+      key: p
+    }, [_c('td', [(pickup.cardholder) ? _c('small', {
       staticClass: "btn btn-outline-success btn-sm align-middle"
     }, [_vm._v("\n                        " + _vm._s(pickup.cardholder.Name) + "\n                    ")]) : _c('small', {
       staticClass: "btn btn-outline-danger btn-sm  text-uppercase align-middle"
-    }, [_vm._v("\n                        NOT YET SERVED\n                    ")])]), _vm._v(" "), _c('td', [_vm._v("\n                    " + _vm._s(pickup.driver_name) + " "), _c('br'), _vm._v("\n                    " + _vm._s(pickup.plate_number) + " "), _c('br'), _vm._v("\n                    " + _vm._s(pickup.company) + "\n                ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(pickup.do_number))]), _vm._v(" "), _c('td', [_c('div', {
+    }, [_vm._v("\n                        NOT YET SERVED\n                    ")])]), _vm._v(" "), _c('td', {
+      attrs: {
+        "width": "20%"
+      }
+    }, [_vm._v("\n                    " + _vm._s(pickup.driver_name) + " "), _c('br'), _vm._v("\n                    " + _vm._s(pickup.plate_number) + " "), _c('br'), _vm._v("\n                    " + _vm._s(pickup.company) + "\n                ")]), _vm._v(" "), _c('td', {
+      attrs: {
+        "width": "30%"
+      }
+    }, [_c('div', {
+      staticStyle: {
+        "width": "400px",
+        "word-wrap": "break-word"
+      }
+    }, [_vm._v("\n                        " + _vm._s(pickup.do_number) + "\n                    ")])]), _vm._v(" "), _c('td', [_c('div', {
       staticClass: "row"
     }, [_c('div', {
       staticClass: "col"
@@ -93537,7 +93560,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "lines": 1
     }
-  })], 1)], 1)])])]) : _vm._e()], 2)]), _vm._v(" "), _c('div', {
+  })], 1)], 1)])])]) : _vm._e()], 2)])]), _vm._v(" "), _c('div', {
     staticClass: "row mt-3"
   }, [_c('div', {
     staticClass: "col-6"
