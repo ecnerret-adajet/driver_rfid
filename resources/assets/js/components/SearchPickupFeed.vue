@@ -12,21 +12,25 @@
             </tr>
         </thead> 
         <tbody>
-                <tr v-for="pickup in filteredPickups" v-if="!loading">
+                <tr v-for="(pickup,p) in filteredPickups" :key="p" v-if="!loading">
                     <td>
                         <small class="btn btn-outline-success btn-sm align-middle" v-if="pickup.cardholder">
                             {{ pickup.cardholder.Name }}
                         </small>
-                        <small class="btn btn-outline-warning btn-sm  text-uppercase align-middle" v-else>
+                        <small class="btn btn-outline-danger btn-sm  text-uppercase align-middle" v-else>
                             NOT YET SERVED
                         </small>
                     </td>
-                    <td>
+                     <td width="20%">
                         {{ pickup.driver_name }} <br/>
                         {{ pickup.plate_number }} <br/>
                         {{ pickup.company }}
                     </td>
-                    <td>{{ pickup.do_number }}</td>
+                    <td width="30%">
+                        <div style="width: 400px; word-wrap: break-word;">
+                            {{ pickup.do_number }}
+                        </div>
+                    </td>
                     <td>
                        <div class="row">
 
