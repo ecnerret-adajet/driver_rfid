@@ -50,7 +50,8 @@ class Driver extends Model
         'cardholder',
         'card',
         'image',
-        'confirm'
+        'confirm',
+        'logs',
     ];
 
     protected static $logAttributes = [
@@ -127,6 +128,11 @@ class Driver extends Model
     public function log()
     {
         return $this->belongsTo('App\Log','cardholder_id','CardholderID');
+    }
+
+    public function logs()
+    {
+        return $this->hasMany('App\Log','CardholderID','cardholder_id');
     }
 
     /**

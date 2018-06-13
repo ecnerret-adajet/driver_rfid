@@ -31,6 +31,7 @@ use Ixudra\Curl\Facades\Curl;
 use App\Truckversion;
 use App\Version;
 use App\Confirm;
+use App\Shipment;
 
 class DriversController extends Controller
 {
@@ -254,16 +255,10 @@ class DriversController extends Controller
      */
     public function show(Driver $driver)
     {
+        $cardholders = Card::where('CardholderID',$driver->cardholder->CardholderID)
+                            ->get();
 
-        $versions = Driverversion::where('driver_id',$driver->id)->orderBy('created_at','DESC')->pluck('cardholder_id');
-
-        $logs = Log::where('CardholderID',$driver->cardholder->CardholderID)
-                ->orderBy('LocalTime','DESC')
-                ->get();
-
-        return $versions;
-
-        // return view('drivers.show', compact('driver','logs','versions'));
+        return view('drivers.show', compact('driver','cardholders'));
     }
 
     /**

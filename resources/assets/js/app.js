@@ -71,6 +71,10 @@ Vue.component('queueParent', require('./components/QueueParent.vue'));
 Vue.component('exportEntries', require('./components/ExportEntries.vue'));
 Vue.component('currentStatus', require('./components/CurrentStatus.vue'));
 
+Vue.component('driverLogsParent', require('./components/driver/DriverLogsParent.vue'));
+Vue.component('shipments', require('./components/driver/Shipments.vue'));
+Vue.component('driverHistory', require('./components/driver/DriverHistory.vue'));
+
 const app = new Vue({
     el: '#app'
 });

@@ -143,6 +143,15 @@ Route::get('/forPrint','PrintController@getForPrint');
 Route::post('/prints/{id}','PrintController@printed');
 
 Route::resource('/drivers','DriversController');
+/**
+ * Driver Json Details
+ */
+Route::get('driverLogs/{driver}','DriverLogsController@driverLogs');
+Route::get('searchDriverLogs/{driver}/{date}','DriverLogsController@searchDriverLogs');
+Route::get('driverShipments/{driver}','DriverLogsController@driverShipments');
+Route::get('versionObject/{driver}','DriverLogsController@versionObject');
+
+
 Route::post('/drivers/restore/{id}','DriversController@restore');
 Route::get('/drivers/disapproved/{driver}','DriversController@disapprovedDriver');
 Route::patch('/drivers/disapproved/{driver}',[  'as' => 'disapproved.update' ,'uses' => 'DriversController@disapprovedDriverUpdate']);

@@ -1,5 +1,7 @@
 body, html {
  background-color: #ebeef0;
+ font-family: 'Lato',
+ sans-serif;
 }
 
 .has-success .form-control-feedback,
@@ -536,3 +538,18 @@ div#wave .dot:nth-child(3) {
         transform: translateY(-15px);
     }
 }
+
+/*** Header With side line style ***/
+.header-lines {
+    width: 100%;
+    text-align: left;
+    border-bottom: 2px solid #e9ecef;
+    line-height: 0.1em;
+    margin: 10px 0 20px;
+}
+
+.header-lines span {
+    background: #ffffff;
+    padding-right: 13px; 
+}
+

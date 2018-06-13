@@ -53,6 +53,16 @@ class Log extends Model
         return $this->driver()->first();
     }
 
+    public function latestDriver()
+    {
+        return $this->belongsTo('App\Driver','CardholderID','cardholder_id');
+    }
+
+    public function version()
+    {
+        return $this->belongsTo('App\Driverversion','CardholderID','cardholder_id');
+    }
+
     public function lineups()
     {
         return $this->hasMany('App\Lineup','LogID','LogID');

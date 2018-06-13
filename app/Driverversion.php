@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Driverversion extends Model
 {
+    protected $connection = "sqlsrv";
+    
     protected $fiillable = [
         'plate_number',
         'vendor',
@@ -29,6 +31,5 @@ class Driverversion extends Model
     {
         return $this->belongsTo('App\User');
     }
-
 
 }
