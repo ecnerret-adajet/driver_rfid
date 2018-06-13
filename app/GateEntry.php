@@ -40,7 +40,8 @@ class GateEntry extends Model
     // Relationships Tables
 
     public function shipment() {
-        return $this->belongsTo(Shipment::class,'shipment_number','shipment_number');
+        return $this->belongsTo(Shipment::class,'shipment_number','shipment_number')
+        ->whereDate('change_date', Carbon::parse($this->created_at));
     }
 
     public function log() {
