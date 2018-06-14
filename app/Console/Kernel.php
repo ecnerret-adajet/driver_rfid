@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
          '\App\Console\Commands\UpdateShipment',
          '\App\Console\Commands\CheckShipmentStart',
+         '\App\Console\Commands\ReviveGateEntries',
     ];
 
     /**   
