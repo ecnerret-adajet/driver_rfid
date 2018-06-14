@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use DB;
+use Session;
 
 class QueueEntry extends Model
 {
@@ -86,6 +87,13 @@ class QueueEntry extends Model
 
     public function gateEntry() {
         return $this->belongsTo(GateEntry::class);
+    }
+
+    //Seaerch Entry Queue
+    public function qshipment() 
+    {
+        return $this->belongsTo(Shipment::class,'CardholderID','CardholderID')
+            ->whereDate('change_date', Carbon::parse(Session::get('queueDate')));
     }
 
     //Query Scoped

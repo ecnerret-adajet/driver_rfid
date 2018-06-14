@@ -68,7 +68,10 @@
                     <span v-else>
                         <button class="btn btn-outline-danger btn-sm disabled">
                         SHIPMENT ASSIGNED
-                        </button>
+                        </button><br/>
+                        <span class="text-center">
+                            {{ queue.on_serving }}
+                        </span>
                     </span>
                 </td>
 

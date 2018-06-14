@@ -76,12 +76,12 @@
                      {{ moment(queue.LocalTime) }}
                 </td>
                 <td>
-                    <span class="text-center" v-if="queue.shipment">
+                    <span class="text-center" v-if="queue.qshipment">
                         <button class="btn btn-outline-danger btn-sm disabled">
                             SHIPMENT ASSIGNED 
                         </button>
                         <br/>
-                         {{ queue.shipment.shipment_number }}
+                         {{ queue.qshipment.shipment_number }}
                     </span>
                     <span v-else>
                         <button class="btn btn-outline-success btn-sm disabled">

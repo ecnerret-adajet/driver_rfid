@@ -16,6 +16,7 @@ use Flashy;
 use Excel;
 use DB;
 use App\Shipment;
+use Session;
 
 class MonitoringsController extends Controller
 {
@@ -175,7 +176,7 @@ class MonitoringsController extends Controller
                             'hauler' => empty($driver->hauler->name) ? 'NO HAULER' : $driver->hauler->name,
                             'log_time' => $log->LocalTime,
                             'dr_status' =>empty($driver->truck->plate_number) ? 'NO PLATE' : Truck::callLastTrip($driver->truck->plate_number),
-                            'on_serving' =>  Shipment::checkIfShipped($log->CardholderID,null)->first()
+                            'on_serving' =>  Shipment::checkIfShipped($log->CardholderID,$search_date)->first()
 
                         );
 

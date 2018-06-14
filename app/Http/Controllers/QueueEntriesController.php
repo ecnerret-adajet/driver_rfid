@@ -17,6 +17,7 @@ use Carbon\Carbon;
 use App\Shipment;
 use Auth;
 use DB;
+use Session;
 
 class QueueEntriesController extends Controller
 {
@@ -76,10 +77,11 @@ class QueueEntriesController extends Controller
         ]);
 
         $search_date = $request->get('search_date');
+        Session::put('queueDate', $search_date);
 
         // $checkTruckscaleOut = collect(Log::truckscaleOutFromQueue($driverqueue_id))->unique();
 
-        $queues = QueueEntry::with('truck','truck.plants:plant_name','truck.capacity','shipment')
+        $queues = QueueEntry::with('truck','truck.plants:plant_name','truck.capacity','qshipment')
                             ->where('driverqueue_id',$driverqueue->id)
                             ->whereDate('LocalTime',Carbon::parse($search_date))
                             // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())

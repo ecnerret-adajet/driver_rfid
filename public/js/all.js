@@ -59528,6 +59528,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -88554,11 +88557,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "text-uppercase text-muted"
     }, [_vm._v("\n                      LAST DR SUBMISSION\n                  ")]), _vm._v(" "), _c('br'), _vm._v("\n                      " + _vm._s(queue.isDRCompleted) + "\n                      "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                      TAPPED IN QUEUE\n                  ")]), _c('br'), _vm._v("\n                   " + _vm._s(_vm.moment(queue.LocalTime)) + "\n              ")]), _vm._v(" "), _c('td', [(queue.shipment) ? _c('span', {
+    }, [_vm._v("\n                      TAPPED IN QUEUE\n                  ")]), _c('br'), _vm._v("\n                   " + _vm._s(_vm.moment(queue.LocalTime)) + "\n              ")]), _vm._v(" "), _c('td', [(queue.qshipment) ? _c('span', {
       staticClass: "text-center"
     }, [_c('button', {
       staticClass: "btn btn-outline-danger btn-sm disabled"
-    }, [_vm._v("\n                          SHIPMENT ASSIGNED \n                      ")]), _vm._v(" "), _c('br'), _vm._v("\n                       " + _vm._s(queue.shipment.shipment_number) + "\n                  ")]) : _c('span', [_c('button', {
+    }, [_vm._v("\n                          SHIPMENT ASSIGNED \n                      ")]), _vm._v(" "), _c('br'), _vm._v("\n                       " + _vm._s(queue.qshipment.shipment_number) + "\n                  ")]) : _c('span', [_c('button', {
       staticClass: "btn btn-outline-success btn-sm disabled"
     }, [_vm._v("\n                          OPEN FOR SHIPMENT\n                      ")])])])]) : _vm._e()
   }), _vm._v(" "), (_vm.filteredQueues.length == 0 && !_vm.loading) ? _c('tr', [_vm._m(1)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('tr', [_c('td', {
@@ -96773,7 +96776,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "btn btn-outline-success btn-sm disabled"
     }, [_vm._v("\n                      OPEN FOR SHIPMENT\n                      ")])]) : _c('span', [_c('button', {
       staticClass: "btn btn-outline-danger btn-sm disabled"
-    }, [_vm._v("\n                      SHIPMENT ASSIGNED\n                      ")])])])]) : _vm._e()
+    }, [_vm._v("\n                      SHIPMENT ASSIGNED\n                      ")]), _c('br'), _vm._v(" "), _c('span', {
+      staticClass: "text-center"
+    }, [_vm._v("\n                          " + _vm._s(queue.on_serving) + "\n                      ")])])])]) : _vm._e()
   }), _vm._v(" "), (_vm.filteredQueues.length == 0 && !_vm.loading) ? _c('tr', [_vm._m(1)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('tr', [_c('td', {
     attrs: {
       "colspan": "8"
