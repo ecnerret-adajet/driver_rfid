@@ -178,10 +178,12 @@ class MonitoringsController extends Controller
                             'on_serving' =>  Shipment::checkIfShipped($log->CardholderID,null)->first()
 
                         );
+
+                         array_push($arr, $data);
                     }
                 }
 
-                array_push($arr, $data);
+               
 
             }
         }
