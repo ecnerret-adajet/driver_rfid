@@ -95,4 +95,11 @@
     @endif
   
 @endsection
+@section('script')
+<script>
+    setTimeout(function() {
+    location.reload();
+    }, 300000); // 5 minutes page reload
+</script>
+@endsection
 
