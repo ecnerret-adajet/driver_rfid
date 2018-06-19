@@ -9,6 +9,7 @@ use App\GateEntry;
 use App\Shipment;
 use App\Log;
 use App\Cardholder;
+use App\Transaction;
 use Excel;
 use Session;
 use DB;
@@ -32,13 +33,13 @@ class EntryReportController extends Controller
                             'LocalTime',
                             'CardholderID')
                             ->where('driverqueue_id',$driverqueue_id)
-                            ->whereDate('created_at', $dateSearch)
+                            ->whereBetween('LocalTime', [$dateSearch->format('Y-m-d 00:00:00'), $dateSearch->format('Y-m-d 23:59:00')])
                             ->get()
                             ->unique('driver_name');
 
         $uniqueEntires = $entries->values()->all();
         $entriesCount = $entries->count();
-         
+
         Excel::create('driver_entries'.Carbon::now()->format('Ymdh'), function($excel) use ($uniqueEntires, $entriesCount, $date) {
 
             $excel->sheet('Sheet1', function($sheet) use ($uniqueEntires, $entriesCount, $date) {
@@ -54,14 +55,20 @@ class EntryReportController extends Controller
                                     
                                     'hauler' => $entry->hauler_name,
 
-                                    'gate_time_in' =>  date('Y-m-d h:i A', strtotime($entry->LocalTime)), 
+                                    'gate_time_in' =>  date('Y-m-d h:i A', strtotime($entry->LocalTime)), // Driver pass
 
-                                    'queue_time' => !empty($entry->queueEntry->LocalTime) ? date('Y-m-d h:i A', strtotime($entry->queueEntry->LocalTime)) : null,
+                                    // return date for last DR
+                                    'last_dr_date' => Transaction::getLastDr($entry->plate_number,$dateSearch->format('Y-m-d'))->first(),
+
+                                    'queue_time' => !empty($entry->queueEntry->LocalTime) ? date('Y-m-d h:i A', strtotime($entry->queueEntry->LocalTime)) : null, // Queue
                                     
                                     'shipment' => !empty($entry->hasShipment->change_date) ? date('Y-m-d h:i A', strtotime($entry->hasShipment->change_date)) : null,
 
                                     'company' => !empty($entry->hasShipment->company_server) ? $entry->hasShipment->company_server : null,
-                                    
+
+                                     // another gate time in for the truck entrer the plant with guard confirmation
+                                    'truck_gate_in' => Log::truckGateIn($entry->CardholderID,$entry->LocalTime),
+                                                                        
                                     'ts_time_in' => !empty($entry->hasTruckscaleIn->LocalTime) ? date('Y-m-d h:i A', strtotime($entry->hasTruckscaleIn->LocalTime)) : null,
                                     
                                     'ts_time_out' => !empty($entry->hasTruckscaleOut->LocalTime) ? date('Y-m-d h:i A', strtotime($entry->hasTruckscaleOut->LocalTime)) : null,
@@ -75,21 +82,23 @@ class EntryReportController extends Controller
 
                 //set the titles
                 $sheet->fromArray($arr,null,'A1',false,false)
-                        ->setBorder('A1:J'.$entriesCount,'thin')
+                        ->setBorder('A1:L'.$entriesCount,'thin')
                         ->prependRow(array(
                         'Driver Name', 
                         'Plate Number', 
                         'Hauler Name', 
-                        'Gate Entry', 
+                        'Driver Pass Entry',
+                        'Last DR Submitted', 
                         'Queue Entry', 
-                        'Shipment date', 
+                        'Shipment date',
                         'Company',
+                        'Truck Entry',                        
                         'Truckscale In', 
                         'Truckscale Out', 
                         'Gate Out' ));
 
 
-                $sheet->cells('A1:J1', function($cells) {
+                $sheet->cells('A1:L1', function($cells) {
                             $cells->setBackground('#f1c40f'); 
                 });
 
@@ -97,7 +106,6 @@ class EntryReportController extends Controller
 
         })->download('xlsx'); 
 
-       
-                
+                    
     }
 }

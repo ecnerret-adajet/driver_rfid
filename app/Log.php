@@ -19,9 +19,9 @@ class Log extends Model
         'MsgID',
         'CardBits',
         'CardCode',
-        'CardType',
-        'DoorID',
+        // 'DoorID',
         'Invalid',
+        'SystemTime',
     ];
     
     public function getDates()
@@ -301,6 +301,16 @@ class Log extends Model
         $not_driver = array_collapse([$pickup_cards, $guard_cards, $executive_cards]);
         
         return $not_driver;
+    }
+
+    // Get Guard Entry after driver taps in
+    private function guardEntry()
+    {
+        $guard_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%GUARD%')
+        ->pluck('CardholderID'); 
+
+        return $guard_cards;
     }
 
     /**
@@ -605,4 +615,22 @@ class Log extends Model
             ->pluck('CardholderID');
     } 
 
+    //show driver entries with guard authentication
+    public function scopeTruckGateIn($query, $cardholderID, $date)
+    {
+        $get_date = $query->whereDate('LocalTime' , Carbon::parse($date))
+                    ->where('CardholderID',$cardholderID)
+                    ->whereIn('ControllerID',[9,2,5])
+                    ->where('Direction',1)
+                    ->where('CardType',1)
+                    ->orderBy('LocalTime','DESC')
+                    ->take(1)
+                    ->pluck('LocalTime')->first();
+        
+        // $filter_date = Carbon::parse($get_date)->timestamp > strtotime($date) ? 
+        //                 Carbon::parse($get_date)->format('Y-m-d h:i A') : null;
+
+        return Carbon::parse($get_date)->format('Y-m-d h:i A');
+
+    }
 }

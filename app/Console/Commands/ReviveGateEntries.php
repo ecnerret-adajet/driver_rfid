@@ -19,14 +19,14 @@ class ReviveGateEntries extends Command
      *
      * @var string
      */
-    protected $signature = 'command:ReviveGateEntries {driverqueue_id}';
+    protected $signature = 'command:ReviveGateEntries {driverqueue_id} {date}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Revive driver entries from main gate area, for defined location';
+    protected $description = 'Revive driver entries from main gate area, for defined location format date 2018-06-19 00:00:00.000000';
 
     /**
      * Create a new command instance.
@@ -55,7 +55,7 @@ class ReviveGateEntries extends Command
         $lastLogEntry = $this->log->where('DoorID',$driverqueue->gate->door)
                         ->where('ControllerID', $driverqueue->gate->controller)
                         ->whereNotIn('CardholderID',$this->notDriver())
-                        ->whereDate('LocalTime',Carbon::today())
+                        ->whereDate('LocalTime',$this->argument('date')) // Carbon::today()
                         ->where('CardholderID', '>=', 15)
                         ->orderBy('LocalTime','DESC')
                         ->with('driver','driver.image','driver.truck','driver.hauler')
