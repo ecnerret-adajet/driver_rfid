@@ -40,9 +40,9 @@ class EntryReportController extends Controller
         $uniqueEntires = $entries->values()->all();
         $entriesCount = $entries->count();
 
-        Excel::create('driver_entries'.Carbon::now()->format('Ymdh'), function($excel) use ($uniqueEntires, $entriesCount, $date) {
+        Excel::create('driver_entries'.Carbon::now()->format('Ymdh'), function($excel) use ($uniqueEntires, $entriesCount, $dateSearch) {
 
-            $excel->sheet('Sheet1', function($sheet) use ($uniqueEntires, $entriesCount, $date) {
+            $excel->sheet('Sheet1', function($sheet) use ($uniqueEntires, $entriesCount, $dateSearch) {
 
                     // Format the array JSON return
                     $arr = array();
