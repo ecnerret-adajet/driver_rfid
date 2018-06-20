@@ -100,11 +100,15 @@
         </div>
         <div class="card-body">
 
-            @if(count($driver->image) == 0 && $driver->avatar == 'drivers/avatar.png')
+            {{-- @if(count($driver->image) == 0 && $driver->avatar == 'drivers/avatar.png')
                 <div class="mx-auto mb-3">
                     <driverupload img-url="{{ asset('/img/avatar.png') }}"></driverupload>
                 </div>
-            @endif
+            @endif --}}
+
+            <div class="mx-auto mb-3">
+                <driverupload img-url="{{ asset('/img/avatar.png') }}"></driverupload>
+            </div>
 
             {!! Form::model($driver, ['method' => 'PATCH','route' => ['drivers.updateInfo', $driver->id], 'enctype'=>'multipart/form-data']) !!}
             {!! csrf_field() !!}
