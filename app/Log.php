@@ -618,7 +618,8 @@ class Log extends Model
     //show driver entries with guard authentication
     public function scopeTruckGateIn($query, $cardholderID, $date)
     {
-        $get_date = $query->whereDate('LocalTime' , Carbon::parse($date))
+        $get_date = $query->where('LocalTime', '>', Carbon::parse($date)->format('Y-m-d h:i:s'))
+                    ->whereDate('LocalTime',Carbon::parse($date))
                     ->where('CardholderID',$cardholderID)
                     ->whereIn('ControllerID',[9,2,5])
                     ->where('Direction',1)
@@ -627,10 +628,10 @@ class Log extends Model
                     ->take(1)
                     ->pluck('LocalTime')->first();
         
-        // $filter_date = Carbon::parse($get_date)->timestamp > strtotime($date) ? 
-        //                 Carbon::parse($get_date)->format('Y-m-d h:i A') : null;
+        $filter_date = Carbon::parse($get_date)->format('Y-m-d') == Carbon::parse($date)->format('Y-m-d') ? 
+                        Carbon::parse($get_date)->format('Y-m-d h:i A') : 'X';
 
-        return Carbon::parse($get_date)->format('Y-m-d h:i A');
+        return $filter_date;
 
     }
 }

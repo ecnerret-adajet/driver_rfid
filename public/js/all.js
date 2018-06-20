@@ -93527,7 +93527,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.location),
       expression: "location"
     }],
-    staticClass: "form-control disabled",
+    staticClass: "form-control",
     on: {
       "change": function($event) {
         var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {

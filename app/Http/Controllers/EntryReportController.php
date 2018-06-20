@@ -40,44 +40,46 @@ class EntryReportController extends Controller
         $uniqueEntires = $entries->values()->all();
         $entriesCount = $entries->count();
 
+   
         Excel::create('driver_entries'.Carbon::now()->format('Ymdh'), function($excel) use ($uniqueEntires, $entriesCount, $dateSearch) {
 
             $excel->sheet('Sheet1', function($sheet) use ($uniqueEntires, $entriesCount, $dateSearch) {
 
                     // Format the array JSON return
-                    $arr = array();
-                    foreach($uniqueEntires as $entry) {
+                         $arr = array();
+                        foreach($uniqueEntires as $entry) {
 
-                                $data = array(
-                                    'driver' => $entry->driver_name,
-                                    
-                                    'plate' => $entry->plate_number,
-                                    
-                                    'hauler' => $entry->hauler_name,
+                                    $data = array(
+                                        'driver' => $entry->driver_name,
+                                        
+                                        'plate' => $entry->plate_number,
+                                        
+                                        'hauler' => $entry->hauler_name,
 
-                                    'gate_time_in' =>  date('Y-m-d h:i A', strtotime($entry->LocalTime)), // Driver pass
+                                        'gate_time_in' =>  date('Y-m-d h:i A', strtotime($entry->LocalTime)), // Driver pass
 
-                                    // return date for last DR
-                                    'last_dr_date' => Transaction::getLastDr($entry->plate_number,$dateSearch->format('Y-m-d'))->first(),
+                                        // return date for last DR
+                                        'last_dr_date' => Transaction::getLastDr($entry->plate_number,$dateSearch->format('Y-m-d'))->first(),
 
-                                    'queue_time' => !empty($entry->queueEntry->LocalTime) ? date('Y-m-d h:i A', strtotime($entry->queueEntry->LocalTime)) : null, // Queue
-                                    
-                                    'shipment' => !empty($entry->hasShipment->change_date) ? date('Y-m-d h:i A', strtotime($entry->hasShipment->change_date)) : null,
+                                        'queue_time' => !empty($entry->queueEntry->LocalTime) ? date('Y-m-d h:i A', strtotime($entry->queueEntry->LocalTime)) : null, // Queue
+                                        
+                                        'shipment' => !empty($entry->hasShipment->change_date) ? date('Y-m-d h:i A', strtotime($entry->hasShipment->change_date)) : null,
 
-                                    'company' => !empty($entry->hasShipment->company_server) ? $entry->hasShipment->company_server : null,
+                                        'company' => !empty($entry->hasShipment->company_server) ? $entry->hasShipment->company_server : null,
 
-                                     // another gate time in for the truck entrer the plant with guard confirmation
-                                    'truck_gate_in' => Log::truckGateIn($entry->CardholderID,$entry->LocalTime),
-                                                                        
-                                    'ts_time_in' => !empty($entry->hasTruckscaleIn->LocalTime) ? date('Y-m-d h:i A', strtotime($entry->hasTruckscaleIn->LocalTime)) : null,
-                                    
-                                    'ts_time_out' => !empty($entry->hasTruckscaleOut->LocalTime) ? date('Y-m-d h:i A', strtotime($entry->hasTruckscaleOut->LocalTime)) : null,
-                                    
-                                    'gate_time_out' => !empty($entry->hasGateOut->LocalTime) ? date('Y-m-d h:i A', strtotime($entry->hasGateOut->LocalTime)) : null,
-                                );
+                                        // another gate time in for the truck entrer the plant with guard confirmation
+                                        'truck_gate_in' => empty($entry->hasShipment->change_date) ? null : 
+                                                ( Log::truckGateIn($entry->CardholderID,$entry->hasShipment->change_date) == 'X' ? null : Log::truckGateIn($entry->CardholderID,$entry->hasShipment->change_date) ),
+                                                                            
+                                        'ts_time_in' => !empty($entry->hasTruckscaleIn->LocalTime) ? date('Y-m-d h:i A', strtotime($entry->hasTruckscaleIn->LocalTime)) : null,
+                                        
+                                        'ts_time_out' => !empty($entry->hasTruckscaleOut->LocalTime) ? date('Y-m-d h:i A', strtotime($entry->hasTruckscaleOut->LocalTime)) : null,
+                                        
+                                        'gate_time_out' => !empty($entry->hasGateOut->LocalTime) ? date('Y-m-d h:i A', strtotime($entry->hasGateOut->LocalTime)) : null,
+                                    );
 
-                                array_push($arr, $data);
-                    }
+                                    array_push($arr, $data);
+                        }
 
 
                 //set the titles

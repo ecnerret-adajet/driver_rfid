@@ -5,7 +5,7 @@
             <div class="col">
                  <div class="form-group">
                 <label class=" control-label">Location</label>
-                <select class="form-control disabled" v-model="location">
+                <select class="form-control" v-model="location">
                     <option location value="1">Manila</option>
                     <option value="2">Lapaz (MNL)</option>
                     <option value="3">Bataan</option>

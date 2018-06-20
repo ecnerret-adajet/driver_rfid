@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Transaction;
 use App\Log;
 use Carbon\Carbon;
+use App\Truck;
 
 class EntriesReportTest extends TestCase
 {
@@ -35,10 +36,18 @@ class EntriesReportTest extends TestCase
      */
     public function testTruckGateIn()
     {
-        $gate = Log::truckGateIn('894','2018-06-13 19:51:54.000');
+        $gate = Log::truckGateIn('373','2018-06-18 00:26:31.000');
         $this->get($gate)->getContent();
 
         echo json_encode($gate, JSON_PRETTY_PRINT);
     }
+
+    // public function testCallLastTrip()
+    // {
+    //     $call = Truck::callLastTrip('MV 528655');
+    //     $this->get($call)->getContent();
+        
+    //     echo json_encode($call, JSON_PRETTY_PRINT);
+    // }
 
 }
