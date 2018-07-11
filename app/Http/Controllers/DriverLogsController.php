@@ -49,14 +49,14 @@ class DriverLogsController extends Controller
         // Array Merge Cardholder from version with the current cardholder assigned to driver
         $all_cardholder = array_collapse([$cardholders, $driver->cardholder_id]);
 
-        $logs = Log::whereIn('CardholderID',$all_cardholder)
+        $logs = Log::whereIn('CardholderID',[$driver->cardholder_id])
                 ->orderBy('LocalTime','DESC')
                 ->get();
 
         return $logs;
     }
 
-    public function searchDriverLogs(Driver $driver, $date = null)
+    public function searchDriverLogs(Driver $driver, $date)
     {
         $checkDate = !empty($date) ? Carbon::parse($date) : Carbon::today();
 
@@ -65,8 +65,9 @@ class DriverLogsController extends Controller
 
         // Array Merge Cardholder from version with the current cardholder assigned to driver
         $all_cardholder = array_collapse([$cardholders, $driver->cardholder_id]);
+        $checkCardholder = !empty($all_cardholder) ? $all_cardholder : $driver->cardholder_id;
 
-        $logs = Log::whereIn('CardholderID',$all_cardholder)
+        $logs = Log::whereIn('CardholderID', [$driver->cardholder_id])
                 ->whereDate('LocalTime',$checkDate)
                 ->orderBy('LocalTime','DESC')
                 ->get();

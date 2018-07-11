@@ -38,6 +38,11 @@ class Shipment extends Model
 
     // Model Relationships
 
+    public function loading() 
+    {
+        return $this->belongsTo(Loading::class,'shipment_number','shipment_number');
+    }
+
     public function queueEntry()
     {
         return $this->belongsTo(QueueEntry::class,'CardholderID','CardholderID');

@@ -23,7 +23,8 @@ class EntryReportController extends Controller
         $dateSearch = Session::get('date');
 
         $entries = GateEntry::with('queueEntry:CardholderID,LocalTime',
-                            'hasShipment:CardholderID,change_date,company_server',
+                            'hasShipment:shipment_number,CardholderID,change_date,company_server',
+                            'hasShipment.loading',
                             'hasTruckscaleIn:CardholderID,LocalTime',
                             'hasTruckscaleOut:CardholderID,LocalTime',
                             'hasGateOut:CardholderID,LocalTime')
@@ -64,13 +65,21 @@ class EntryReportController extends Controller
                                         'queue_time' => !empty($entry->queueEntry->LocalTime) ? date('Y-m-d h:i A', strtotime($entry->queueEntry->LocalTime)) : null, // Queue
                                         
                                         'shipment' => !empty($entry->hasShipment->change_date) ? date('Y-m-d h:i A', strtotime($entry->hasShipment->change_date)) : null,
-
+                                        
                                         'company' => !empty($entry->hasShipment->company_server) ? $entry->hasShipment->company_server : null,
 
                                         // another gate time in for the truck entrer the plant with guard confirmation
                                         'truck_gate_in' => empty($entry->hasShipment->change_date) ? null : 
                                                 ( Log::truckGateIn($entry->CardholderID,$entry->hasShipment->change_date) == 'X' ? null : Log::truckGateIn($entry->CardholderID,$entry->hasShipment->change_date) ),
                                                                             
+                                        'sap_ts_in' => !empty($entry->hasShipment->loading) ? date('Y-m-d h:i A', strtotime($entry->hasShipment->loading->ts_in)) : null,
+                                        
+                                        'sap_ts_out' => !empty($entry->hasShipment->loading) ? date('Y-m-d h:i A', strtotime($entry->hasShipment->loading->ts_out)) : null,
+
+                                        'sap_loading_start' => !empty($entry->hasShipment->loading) ? date('Y-m-d h:i A', strtotime($entry->hasShipment->loading->loading_start)) : null,
+                                        
+                                        'sap_loading_end' => !empty($entry->hasShipment->loading) ? date('Y-m-d h:i A', strtotime($entry->hasShipment->loading->loading_end)) : null,
+
                                         'ts_time_in' => !empty($entry->hasTruckscaleIn->LocalTime) ? date('Y-m-d h:i A', strtotime($entry->hasTruckscaleIn->LocalTime)) : null,
                                         
                                         'ts_time_out' => !empty($entry->hasTruckscaleOut->LocalTime) ? date('Y-m-d h:i A', strtotime($entry->hasTruckscaleOut->LocalTime)) : null,
@@ -84,7 +93,7 @@ class EntryReportController extends Controller
 
                 //set the titles
                 $sheet->fromArray($arr,null,'A1',false,false)
-                        ->setBorder('A1:L'.$entriesCount,'thin')
+                        ->setBorder('A1:P'.$entriesCount,'thin')
                         ->prependRow(array(
                         'Driver Name', 
                         'Plate Number', 
@@ -94,13 +103,17 @@ class EntryReportController extends Controller
                         'Queue Entry', 
                         'Shipment date',
                         'Company',
-                        'Truck Entry',                        
+                        'T_Entrance',
+                        'SAP_TS_IN',                       
+                        'SAP_TS_OUT',                       
+                        'SAP_loading_start',                       
+                        'SAP_loading_end',                       
                         'Truckscale In', 
                         'Truckscale Out', 
                         'Gate Out' ));
 
 
-                $sheet->cells('A1:L1', function($cells) {
+                $sheet->cells('A1:P1', function($cells) {
                             $cells->setBackground('#f1c40f'); 
                 });
 
