@@ -72,13 +72,13 @@ class EntryReportController extends Controller
                                         'truck_gate_in' => empty($entry->hasShipment->change_date) ? null : 
                                                 ( Log::truckGateIn($entry->CardholderID,$entry->hasShipment->change_date) == 'X' ? null : Log::truckGateIn($entry->CardholderID,$entry->hasShipment->change_date) ),
                                                                             
-                                        'sap_ts_in' => !empty($entry->hasShipment->loading) ? date('Y-m-d h:i A', strtotime($entry->hasShipment->loading->ts_in)) : null,
+                                        'sap_ts_in' => !empty($entry->hasShipment->loading->ts_in) ? date('Y-m-d h:i A', strtotime($entry->hasShipment->loading->ts_in)) : null,
                                         
-                                        'sap_ts_out' => !empty($entry->hasShipment->loading) ? date('Y-m-d h:i A', strtotime($entry->hasShipment->loading->ts_out)) : null,
+                                        'sap_ts_out' => !empty($entry->hasShipment->loading->ts_out) ? date('Y-m-d h:i A', strtotime($entry->hasShipment->loading->ts_out)) : null,
 
-                                        'sap_loading_start' => !empty($entry->hasShipment->loading) ? date('Y-m-d h:i A', strtotime($entry->hasShipment->loading->loading_start)) : null,
+                                        'sap_loading_start' => !empty($entry->hasShipment->loading->loading_start) ? date('Y-m-d h:i A', strtotime($entry->hasShipment->loading->loading_start)) : null,
                                         
-                                        'sap_loading_end' => !empty($entry->hasShipment->loading) ? date('Y-m-d h:i A', strtotime($entry->hasShipment->loading->loading_end)) : null,
+                                        'sap_loading_end' => !empty($entry->hasShipment->loading->loading_end) ? date('Y-m-d h:i A', strtotime($entry->hasShipment->loading->loading_end)) : null,
 
                                         'ts_time_in' => !empty($entry->hasTruckscaleIn->LocalTime) ? date('Y-m-d h:i A', strtotime($entry->hasTruckscaleIn->LocalTime)) : null,
                                         

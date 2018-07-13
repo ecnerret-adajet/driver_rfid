@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Log;
 use Carbon\Carbon;
+use Ixudra\Curl\Facades\Curl;
 
 class Shipment extends Model
 {
@@ -99,6 +100,20 @@ class Shipment extends Model
                     ->pluck('shipment_number');
     }
 
+    public function scopeGetShipment($query, $logId)
+    {
+        $log = 'LogID='.$logId;
+
+        $response = Curl::to('http://10.96.4.39/sapservice/api/assignedshipment')
+        ->withContentType('application/x-www-form-urlencoded')
+        ->withData($log)
+        ->post();
+        
+        $ter = collect(json_decode($response, true))->pluck('shipment');
+        $final = !empty($ter[0]) ? $ter[0] : ''; 
+
+        return $ter;
+    }
 
 
     /**

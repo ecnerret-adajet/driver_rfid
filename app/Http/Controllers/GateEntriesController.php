@@ -60,15 +60,16 @@ class GateEntriesController extends Controller
 
         $totalEntry = GateEntry::whereDate('created_at',Carbon::today())->where('driverqueue_id',$driverLocation->id)->count();                
 
-        $gateEntry = GateEntry::updateOrCreate(
+        $gateEntry = GateEntry::firstOrCreate(
             [
                 'LogID' => $lastLogEntry->LogID,
-                'shipment_number' => Shipment::checkIfShipped($lastLogEntry->CardholderID,null)->first(),
+            ],
+            [
+                // 'shipment_number' => Shipment::checkIfShipped($lastLogEntry->CardholderID,null)->first(),
+                // 'shipment_number' => Shipment::getShipment($lastLogEntry->LogID),
                 'isShipmentStarted' => 0,
                 'driver_availability' => !empty($lastLogEntry->driver) && $lastLogEntry->driver->availability == 1 ? 1 : null,
                 'truck_availability' =>  !empty($lastLogEntry->driver->truck) && $lastLogEntry->driver->truck->availability  == 1 ? 1 : null,
-            ],
-            [
                 'CardholderID' => $lastLogEntry->CardholderID,
                 'gate_number' =>  $totalEntry + 1 ."-". $driverLocation->id,
                 'driver_name' => $lastLogEntry->driver->name,
@@ -80,14 +81,20 @@ class GateEntriesController extends Controller
             ]
         );
 
-        return $gateEntry;
+        if($gateEntry->wasRecentlyCreated == true) {
 
-        // if($gateEntry->wasRecentlyCreated == true) {
-        //     event(new GateEntryEvent($gateEntry,$driverLocation));
-        //     return 'new pushed data';
-        // } else {
-        //     return 'no pushed data';
-        // }
+            $gateEntry->shipment_number = Shipment::getShipment($lastLogEntry->LogID);
+            $gateEntry->save();
+
+            return $gateEntry;
+
+        } else {
+            $last = GateEntry::where('driverqueue_id',$driverqueue_id)
+                            ->orderBy('id','DESC')
+                            ->first();
+                
+            return $last; 
+        }
 
     }
 

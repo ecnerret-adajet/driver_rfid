@@ -56,7 +56,7 @@
       <tr>
         <td width="50%">
             <span style="font-size: 35px;">
-                {{ moment(entries.LocalTime.date) }} 
+                {{ moment(entries.LocalTime) }} 
             </span>
         </td>
         <td>
@@ -156,7 +156,7 @@
       <tr>
         <td width="50%">
             <span style="font-size: 35px;">
-                {{ moment(emptyEntry.LocalTime.date)}} 
+                {{ moment(emptyEntry.LocalTime)}} 
             </span>
         </td>
         <td>

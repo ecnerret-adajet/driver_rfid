@@ -93328,7 +93328,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-size": "35px"
     }
-  }, [_vm._v("\r\n                " + _vm._s(_vm.moment(_vm.entries.LocalTime.date)) + " \r\n            ")])]), _vm._v(" "), _c('td', [(_vm.entries.shipment_number) ? _c('span', {
+  }, [_vm._v("\r\n                " + _vm._s(_vm.moment(_vm.entries.LocalTime)) + " \r\n            ")])]), _vm._v(" "), _c('td', [(_vm.entries.shipment_number) ? _c('span', {
     staticStyle: {
       "font-size": "40px"
     }
@@ -93415,7 +93415,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-size": "35px"
     }
-  }, [_vm._v("\r\n                " + _vm._s(_vm.moment(_vm.emptyEntry.LocalTime.date)) + " \r\n            ")])]), _vm._v(" "), _c('td', [(_vm.emptyEntry.shipment_number) ? _c('span', {
+  }, [_vm._v("\r\n                " + _vm._s(_vm.moment(_vm.emptyEntry.LocalTime)) + " \r\n            ")])]), _vm._v(" "), _c('td', [(_vm.emptyEntry.shipment_number) ? _c('span', {
     staticStyle: {
       "font-size": "40px"
     }

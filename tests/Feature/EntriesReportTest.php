@@ -10,6 +10,7 @@ use App\Transaction;
 use App\Log;
 use Carbon\Carbon;
 use App\Truck;
+use App\Shipment;
 
 class EntriesReportTest extends TestCase
 {
@@ -36,10 +37,14 @@ class EntriesReportTest extends TestCase
      */
     public function testTruckGateIn()
     {
-        $gate = Log::truckGateIn('373','2018-06-18 00:26:31.000');
-        $this->get($gate)->getContent();
+        // $gate = Log::truckGateIn('373','2018-06-18 00:26:31.000');
+        // $this->get($gate)->getContent();
 
-        echo json_encode($gate, JSON_PRETTY_PRINT);
+        // echo json_encode($gate, JSON_PRETTY_PRINT);
+
+        $shipment = Shipment::getShipment('1587474');
+
+        echo json_encode($shipment, JSON_PRETTY_PRINT);
     }
 
     // public function testCallLastTrip()
