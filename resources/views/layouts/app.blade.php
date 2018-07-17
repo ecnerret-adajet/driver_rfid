@@ -45,7 +45,7 @@
 
           <li class="nav-item {{ Request::is('home') ? 'active' : '' }}" data-toggle="tooltip" data-placement="right" title="Dashboard">
             <a class="nav-link font-weight-bold" href="{{url('/home')}}">
-              {{--  <i class="fa fa-fw fa-dashboard"></i>  --}}
+               <i class="fa fa-fw fa-dashboard"></i> 
               <span class="nav-link-text">
                 Dashboard</span>
             </a>
@@ -64,7 +64,7 @@
                                                      Request::is('drivers/*') ||           
                                                      Request::is('cards') || 
                                                      Request::is('bind/*')) ? '' : 'collapsed' }}" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
-              {{--  <i class="fa fa-fw fa-file"></i>  --}}
+               <i class="fa fa-fw fa-database"></i> 
               <span class="nav-link-text">
                 Master Data</span>
             </a>
@@ -141,7 +141,7 @@
                                                      Request::is('handlers') ||
                                                      Request::is('handlers/*') ||
                                                      Request::is('activities')) ? '' : 'collapsed' }}" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
-              {{--  <i class="fa fa-fw fa-file"></i>  --}}
+               <i class="fa fa-fw fa-user"></i> 
               <span class="nav-link-text">
                 Administrator</span>
             </a>
@@ -190,7 +190,7 @@
                                                      Request::is('entries') ||
                                                      Request::is('generateEntries*') ||
                                                      Request::is('monitors/*'))  ? '' : 'collapsed' }}" data-toggle="collapse" href="#collapseReports" data-parent="#exampleAccordion">
-              {{--  <i class="fa fa-fw fa-file"></i>  --}}
+               <i class="fa fa-fw fa-bar-chart"></i> 
               <span class="nav-link-text">
                 Reports</span>
             </a>

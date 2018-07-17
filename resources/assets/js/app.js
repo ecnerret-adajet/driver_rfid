@@ -77,6 +77,8 @@ Vue.component('driverHistory', require('./components/driver/DriverHistory.vue'))
 
 Vue.component('queueDayParent', require('./components/QueueDayParent.vue'));
 
+Vue.component('picklistEntry', require('./components/PicklistEntry.vue'));
+
 const app = new Vue({
     el: '#app'
 });

@@ -408,6 +408,7 @@ Route::get('/inspects/show/{truck}','TruckInspectionController@inspectionHistory
  * Route Setup for pickup list
  */
 Route::get('/picklist/{driver_id}/{log}','PickListsController@pickList');
+Route::get('/picklistEntry/{driver_id}','PickListsController@picklistEntry');
 
 Route::get('/gates/create','MonitoringsController@createGate');
 Route::post('/gates/store','MonitoringsController@storeGate');

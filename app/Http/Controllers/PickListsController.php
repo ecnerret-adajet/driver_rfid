@@ -22,6 +22,18 @@ class PickListsController extends Controller
     }
 
     /**
+     * Display Driver Entry to picklist to json format
+     */
+    public function picklistEntry($driver_id) 
+    {
+        $driver = Driver::where('id',$driver_id)
+                        ->with('image','truck','hauler')
+                        ->first();
+
+        return $driver;
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
