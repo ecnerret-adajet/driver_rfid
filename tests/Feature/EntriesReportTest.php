@@ -42,7 +42,7 @@ class EntriesReportTest extends TestCase
 
         // echo json_encode($gate, JSON_PRETTY_PRINT);
 
-        $shipment = Shipment::getShipment('1587474');
+        $shipment = Shipment::getShipment('1592687');
 
         echo json_encode($shipment, JSON_PRETTY_PRINT);
     }

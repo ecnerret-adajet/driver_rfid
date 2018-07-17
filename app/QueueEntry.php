@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use DB;
 use Session;
+use App\Shipment;
 
 class QueueEntry extends Model
 {
@@ -13,7 +14,9 @@ class QueueEntry extends Model
 
     protected $connection = "sqlsrv";
 
-    protected $dates = ['LocalTime'];
+    protected $dates = [
+        'LocalTime',
+    ];
 
     protected $fillable = [
         'queue_number',
@@ -68,10 +71,10 @@ class QueueEntry extends Model
             ->whereDate('change_date', Carbon::parse($this->created_at));
     }
 
-    public function getShipmentAttribute()
-    {
-        return $this->shipment()->whereDate('created_at',Carbon::parse($this->created_at));
-    }
+    // public function getShipmentAttribute()
+    // {
+    //     return $this->shipment()->whereDate('created_at',Carbon::parse($this->created_at));
+    // }
 
     public function log() {
         return $this->belongsTo(Log::class, 'LogID','LogID');
@@ -121,6 +124,33 @@ class QueueEntry extends Model
                     ->whereNotNull('isTappedGateFirst')
                     ->get()
                     ->unique('CardholderID');
+    }
+
+    // Custom queue entries json cast
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'queue_number' => $this->queue_number,
+            'driver_name' => $this->driver_name,
+            'avatar' => $this->avatar,
+            'plate_number'=> $this->plate_number,
+            'hauler_name' => $this->hauler_name,
+            'driverqueue_id' => $this->driverqueue_id,
+            'shipment_number' => $this->shipment_number,
+            'LogID' => $this->LogID,
+            'CardholderID' => $this->CardholderID,
+            'LocalTime' => $this->LocalTime,
+            'isDRCompleted' => $this->isDRCompleted,
+            'driver_availability' => $this->driver_availability,
+            'truck_availability' => $this->truck_availability,
+            'isTappedGateFirst' => $this->isTappedGateFirst,
+            'isSecondDelivery' => $this->isSecondDelivery,
+            'created_at' => $this->created_at,
+            'truck' => $this->truck, 
+            'shipment' =>  $this->shipment,
+            'lastCreated' => Carbon::parse($this->created_at)->diffForHumans(),
+        ];
     }
 
 }

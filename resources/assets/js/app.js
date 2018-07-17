@@ -75,6 +75,8 @@ Vue.component('driverLogsParent', require('./components/driver/DriverLogsParent.
 Vue.component('shipments', require('./components/driver/Shipments.vue'));
 Vue.component('driverHistory', require('./components/driver/DriverHistory.vue'));
 
+Vue.component('queueDayParent', require('./components/QueueDayParent.vue'));
+
 const app = new Vue({
     el: '#app'
 });

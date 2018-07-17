@@ -69,6 +69,44 @@ class QueueEntriesController extends Controller
         return $queues->values()->all();
     }
 
+    //Show all queue to feed planners monitoring - for eexpired within 24 hours
+    public function getQueueFromCreatedDate($driverqueue_id)
+    {
+         $queues = QueueEntry::whereDate('created_at', '>=', Carbon::now()->subHours(24))
+                            ->where('driverqueue_id',$driverqueue_id)
+                            // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
+                            ->whereNotNull('driver_availability')
+                            ->whereNotNull('truck_availability')
+                            ->where('isDRCompleted','NOT LIKE','%0000-00-00%')
+                            ->whereNotNull('isTappedGateFirst')
+                            ->orderBy('LocalTime','DESC')
+                            ->with('truck','truck.plants:plant_name','truck.capacity','shipment')
+                            ->get()
+                            ->unique('CardholderID');
+
+        return $queues->values()->all();                            
+
+    }
+
+    //Show all expired queues older than 24 hours
+    public function expiredQueues($driverqueue_id)
+    {
+        $queues = QueueEntry::whereDate('created_at', '<=', Carbon::now()->subHours(24))
+                            ->where('driverqueue_id',$driverqueue_id)
+                            // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
+                            ->doesntHave('shipment')
+                            ->whereNotNull('driver_availability')
+                            ->whereNotNull('truck_availability')
+                            ->where('isDRCompleted','NOT LIKE','%0000-00-00%')
+                            ->whereNotNull('isTappedGateFirst')
+                            ->orderBy('LocalTime','DESC')
+                            ->with('truck','truck.plants:plant_name','truck.capacity','shipment')
+                            ->get()
+                            ->unique('CardholderID');
+
+        return $queues->values()->all();  
+    }
+
     //Search queue entries by date
     public function searchQueueEntriesFeed(Request $request, Driverqueue $driverqueue)
     {
@@ -188,6 +226,14 @@ class QueueEntriesController extends Controller
         $driverqueues = Driverqueue::all();
 
         return view('queueEntries.index',compact('driverqueues'));
+    }
+
+    //Queue from 24 hours from it's last tapped from queue rfid
+    public function queueFeed()
+    {
+        $driverqueues = Driverqueue::all();
+
+        return view('queueEntries.queue',compact('driverqueues'));
     }
 
 

@@ -113,7 +113,10 @@ Route::get('/shipmentAssigned','ShipmentsController@shipmentAssigned');
  * Queue Entries Setting Route
  */
 Route::get('/getQueueEntriesFeed/{driverqueue_id}','QueueEntriesController@getQueueEntriesFeed');
+Route::get('/getQueueFromCreatedDate/{driverqueue_id}','QueueEntriesController@getQueueFromCreatedDate');
+Route::get('/expiredQueues/{driverqueue_id}','QueueEntriesController@expiredQueues');
 Route::get('/queueEntryFeed','QueueEntriesController@queueEntryFeed');
+Route::get('/queueFeed','QueueEntriesController@queueFeed'); // newly added
 Route::get('/searchQueueEntriesFeed/{driverqueue}','QueueEntriesController@searchQueueEntriesFeed');
 Route::get('/getQueueStatus/{driverqueue}','QueueEntriesController@getQueueStatus');
 Route::get('/lastDriverTapped/{driverqueue}','QueueEntriesController@lastDriverTapped');

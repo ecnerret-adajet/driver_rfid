@@ -112,7 +112,7 @@ class Shipment extends Model
         $ter = collect(json_decode($response, true))->pluck('shipment');
         $final = !empty($ter[0]) ? $ter[0] : ''; 
 
-        return $ter;
+        return $final;
     }
 
 
