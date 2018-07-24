@@ -2,7 +2,7 @@
 <div style="height: 100%">
 
     <!-- start entries pushed -->
-    <div v-if="entries.length != 0" :class="{ 'active' : entries.driver_availability && entries.truck_availability, 'deactivated' : !entries.driver_availability || !entries.truck_availability }" style="height: 100%">
+    <div v-if="entries.length != 0" :class="{ 'active' : isActive, 'deactivated' : isDeactivated }" style="height: 100%">
     <div class="container-fluid pt-3">
 
         <div class="row pb-3">
@@ -15,7 +15,7 @@
             <div class="col text-center">
 
                 <img v-if="entries.avatar" class="img-responsive rounded-circle mx-auto"  
-                :class="{ 'deactived-img deactivate-image' : !entries.driver_availability || !entries.truck_availability, 'active-image' : entries.driver_availability && entries.truck_availability }" 
+                :class="{ 'deactived-img deactivate-image' : isDeactivated, 'active-image' : isActive }" 
                 style="height: 450px; width: auto;" :src="'/driver_rfid/public/storage/' + entries.avatar" 
                 align="middle">
 
@@ -45,7 +45,7 @@
 
     <div class="container mt-3">
 
-    <table v-if="entries.driver_availability && entries.truck_availability" class="table table-bordered bg-white">
+    <table v-if="isActive" class="table table-bordered bg-white">
     <thead>
       <tr>
         <th class="text-muted">PLANT IN</th>
@@ -85,8 +85,8 @@
             <span v-if="!entries.truck_availability && entries.driver_availability" style="font-size: 35px;">
                 TRUCK DEACTIVATED
             </span>
-            <span v-if="!entries.truck_availability && !entries.driver_availability" style="font-size: 35px;">
-                DRIVER & TRUCK DEACTIVATED
+            <span v-if="entries.access_location != 0" style="font-size: 30px;">
+                {{ plantDeactivated }}
             </span>
         </td>
       </tr>
@@ -213,6 +213,7 @@
             return {
                 entries: [],
                 emptyEntry: [],
+                deactivatedTo: ''
             }
         },
 
@@ -251,6 +252,30 @@
             moment(date) {
                 return moment(date).format('MMMM D, Y h:m:s A');
             },
+        },
+
+        computed: {
+
+            isDeactivated() {
+                return !this.entries.driver_availability || !this.entries.truck_availability || this.driverqueue == this.entries.access_location;
+            },
+
+            isActive() {
+                return this.entries.driver_availability && this.entries.truck_availability && this.driverqueue != this.entries.access_location;
+            },
+
+            plantDeactivated() {
+                if(this.driverqueue == this.entries.access_location) {
+                    if(this.entries.access_location == 1) {
+                        return this.deactivatedTo = 'DEACTIVATED IN MANILA PLANT';
+                    } else if (this.entries.access_location == 2) {
+                        return this.deactivatedTo = 'DEACTIVATED IN LAPAZ';
+                    } else if (this.entries.access_location == 3) {
+                        return this.deactivatedTo = 'DEACTIVATED IN BATAAN';
+                    }
+                }
+            }
+
         }
     }
 </script>

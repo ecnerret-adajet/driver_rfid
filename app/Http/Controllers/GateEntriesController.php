@@ -70,6 +70,7 @@ class GateEntriesController extends Controller
                 'isShipmentStarted' => 0,
                 'driver_availability' => !empty($lastLogEntry->driver) && $lastLogEntry->driver->availability == 1 ? 1 : null,
                 'truck_availability' =>  !empty($lastLogEntry->driver->truck) && $lastLogEntry->driver->truck->availability  == 1 ? 1 : null,
+                'access_location' =>  !empty($lastLogEntry->driver->truck) ? $lastLogEntry->driver->truck->access_location : null,
                 'CardholderID' => $lastLogEntry->CardholderID,
                 'gate_number' =>  $totalEntry + 1 ."-". $driverLocation->id,
                 'driver_name' => $lastLogEntry->driver->name,

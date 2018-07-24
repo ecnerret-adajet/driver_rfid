@@ -85,7 +85,7 @@ class Truck extends Model
      */
     public function setPlateNumberAttribute($value)
     {
-        $this->attributes['plate_number'] = str_replace('_',' ',$value);
+        $this->attributes['plate_number'] = trim(str_replace('_',' ',$value));
     }
     /**
      * Dates configuration for validity_start_date
@@ -217,6 +217,12 @@ class Truck extends Model
         return $this->plants()->pluck('id')->all();
     }
 
+    // Access Group 
+    public function accessLocation()
+    {
+        return $this->belongsTo(AccessGroup::class,'access_location','AccessGroupID');
+    }
+
     /**
      * 
      *  Get all truck for current month
@@ -252,11 +258,11 @@ class Truck extends Model
         // $hasMV =  str_is('MV*', $value) ? str_replace('MV', 'MV ', $value) : $value; 
 
         if(str_is('MV*', $value)) {
-            return str_replace('MV', 'MV ', $value);
+            return trim(str_replace('MV', 'MV ', $value));
         } elseif (str_is('MV-*', $value)) {
-            return str_replace('MV-', 'MV ', $value);
+            return trim(str_replace('MV-', 'MV ', $value));
         } else {
-            return str_replace('_','', $value);
+            return trim(str_replace('_','', $value));
         }
         
     

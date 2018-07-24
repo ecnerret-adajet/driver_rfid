@@ -13,7 +13,7 @@
                     <div class="col-sm-12">
                         <div v-if="!loading">
                             <ul class="list-group">
-                                <li v-for="truck in filteredTruck" class="list-group-item">
+                                <li v-for="(truck,t) in filteredTruck" :key="t" class="list-group-item" :class="{ 'text-danger' : truck.access_location != 0 }">
                                     <div class="row">   
                                         <div class="col-sm-1">
 
@@ -24,7 +24,7 @@
                                         
                                         </div>
                                         <div class="col-sm-5">
-                                           <a :href="truck_link + truck.id "> 
+                                           <a :href="truck_link + truck.id" :class="{ 'text-danger' : truck.access_location != 0 }"> 
                                                <span v-if="truck.reg_number == null">
                                                     {{ truck.plate_number }}
                                                 </span>
@@ -50,16 +50,31 @@
 
                                         </div>
                                         <div class="col-sm-3">
-                                            <span class="badge badge-primary" v-if="truck.card !=  null">
-                                                Sticker Assigned
-                                            </span> 
 
                                             <span v-if="truck.availability == 1">
                                                 <i class="fa fa-circle" style="color:green" aria-hidden="true"></i>                                            
                                             </span>
                                             <span v-if="truck.availability == 0">
                                                 <i class="fa fa-circle" style="color:red" aria-hidden="true"></i> 
-                                            </span>
+                                            </span> <br/>
+
+                                            <span class="badge badge-primary" v-if="truck.card !=  null">
+                                                Sticker Assigned
+                                            </span> <br/>
+
+                                             <span v-if="truck.access_location == 1" class="badge badge-danger">
+                                                Deactivated: Manila Plant
+                                            </span>  
+
+                                             <span v-if="truck.access_location == 2" class="badge badge-danger">
+                                                Deactivated: Lapaz Warehouse
+                                            </span> 
+
+                                            <span v-if="truck.access_location == 3" class="badge badge-danger">
+                                                Deactivated: Bataan Plant
+                                            </span> 
+
+                                            
                                         
                                         </div>
                                         <div class="col-sm-3 pull-right right">
@@ -95,7 +110,8 @@
                                                     <!-- <a  href="javascript:void(0);" class="dropdown-item text-danger" data-toggle="modal" :data-target="'#truckDeactivated-'+ truck.id">Deactive Truck</a> -->
                                                     
                                                     <!-- hyperlink to another page-->
-                                                    <a :href="'inspects/deactivate/' + truck.id " class="dropdown-item text-danger">Deactivate Truck</a>
+                                                    <a v-if="truck.access_location == 0" :href="'inspects/deactivate/' + truck.id " class="dropdown-item text-danger">Deactivate Truck</a>
+                                                    <a v-if="truck.access_location != 0" :href="'inspects/activate/' + truck.id " class="dropdown-item text-success">Activate Truck</a>
                                                     <a :href="'inspects/show/' + truck.id " class="dropdown-item">View History</a>
                                                 </span>
 

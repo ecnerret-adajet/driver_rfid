@@ -43,8 +43,8 @@
              <div class="col-2">
 
                 <div class="list-group rounded-0">
-                    <a href="javascript:void(0);" @click="selected = false" :class="{ active : !selected }" class="list-group-item list-group-item-action rounded-0">Within 24 hours</a>
-                    <a href="javascript:void(0);" @click="selected = true" :class="{ active : selected }" class="list-group-item list-group-item-action rounded-0">Older than 24 hours</a>
+                    <a href="javascript:void(0);" @click="goToOlderEntries()" :class="{ active : !selected }" class="list-group-item list-group-item-action rounded-0">Within 24 hours</a>
+                    <a href="javascript:void(0);" @click="backToWithinDay()" :class="{ active : selected }" class="list-group-item list-group-item-action rounded-0">Older than 24 hours</a>
                 </div>
 
                 <div v-show="!selected" class="list-group mt-3 rounded-0">
@@ -103,6 +103,16 @@
         },
 
         methods: {
+
+            backToWithinDay() {
+                this.selected = true
+                this.filter = 'all'
+            },
+
+            goToOlderEntries() {
+                this.selected = false
+                this.filter = 'all'
+            },
 
             backToLatest() {
                 this.selected = false;

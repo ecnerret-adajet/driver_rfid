@@ -35,6 +35,7 @@ class GateEntry extends Model
         'LocalTime',
         'driver_availability',
         'truck_availability',
+        'access_location',
     ];
 
     // Relationships Tables

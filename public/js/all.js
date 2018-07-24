@@ -57091,7 +57091,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             entries: [],
-            emptyEntry: []
+            emptyEntry: [],
+            deactivatedTo: ''
         };
     },
     created: function created() {
@@ -57132,6 +57133,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         moment: function moment(date) {
             return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM D, Y h:m:s A');
+        }
+    },
+
+    computed: {
+        isDeactivated: function isDeactivated() {
+            return !this.entries.driver_availability || !this.entries.truck_availability || this.driverqueue == this.entries.access_location;
+        },
+        isActive: function isActive() {
+            return this.entries.driver_availability && this.entries.truck_availability && this.driverqueue != this.entries.access_location;
+        },
+        plantDeactivated: function plantDeactivated() {
+            if (this.driverqueue == this.entries.access_location) {
+                if (this.entries.access_location == 1) {
+                    return this.deactivatedTo = 'DEACTIVATED IN MANILA PLANT';
+                } else if (this.entries.access_location == 2) {
+                    return this.deactivatedTo = 'DEACTIVATED IN LAPAZ';
+                } else if (this.entries.access_location == 3) {
+                    return this.deactivatedTo = 'DEACTIVATED IN BATAAN';
+                }
+            }
         }
     }
 });
@@ -64994,6 +65015,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     methods: {
+        backToWithinDay: function backToWithinDay() {
+            this.selected = true;
+            this.filter = 'all';
+        },
+        goToOlderEntries: function goToOlderEntries() {
+            this.selected = false;
+            this.filter = 'all';
+        },
         backToLatest: function backToLatest() {
             this.selected = false;
             this.date = null;
@@ -67708,6 +67737,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_content_placeholders__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -89135,14 +89180,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-sm-12"
   }, [(!_vm.loading) ? _c('div', [_c('ul', {
     staticClass: "list-group"
-  }, [_vm._l((_vm.filteredTruck), function(truck) {
+  }, [_vm._l((_vm.filteredTruck), function(truck, t) {
     return _c('li', {
-      staticClass: "list-group-item"
+      key: t,
+      staticClass: "list-group-item",
+      class: {
+        'text-danger': truck.access_location != 0
+      }
     }, [_c('div', {
       staticClass: "row"
     }, [_vm._m(0, true), _vm._v(" "), _c('div', {
       staticClass: "col-sm-5"
     }, [_c('a', {
+      class: {
+        'text-danger': truck.access_location != 0
+      },
       attrs: {
         "href": _vm.truck_link + truck.id
       }
@@ -89162,9 +89214,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("\n                                               NO DRIVER\n                                           ")]) : _vm._e()], 2), _vm._v(" "), _c('div', {
       staticClass: "col-sm-3"
-    }, [(truck.card != null) ? _c('span', {
-      staticClass: "badge badge-primary"
-    }, [_vm._v("\n                                               Sticker Assigned\n                                           ")]) : _vm._e(), _vm._v(" "), (truck.availability == 1) ? _c('span', [_c('i', {
+    }, [(truck.availability == 1) ? _c('span', [_c('i', {
       staticClass: "fa fa-circle",
       staticStyle: {
         "color": "green"
@@ -89180,7 +89230,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "aria-hidden": "true"
       }
-    })]) : _vm._e()]), _vm._v(" "), _c('div', {
+    })]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), (truck.card != null) ? _c('span', {
+      staticClass: "badge badge-primary"
+    }, [_vm._v("\n                                               Sticker Assigned\n                                           ")]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), (truck.access_location == 1) ? _c('span', {
+      staticClass: "badge badge-danger"
+    }, [_vm._v("\n                                               Deactivated: Manila Plant\n                                           ")]) : _vm._e(), _vm._v(" "), (truck.access_location == 2) ? _c('span', {
+      staticClass: "badge badge-danger"
+    }, [_vm._v("\n                                               Deactivated: Lapaz Warehouse\n                                           ")]) : _vm._e(), _vm._v(" "), (truck.access_location == 3) ? _c('span', {
+      staticClass: "badge badge-danger"
+    }, [_vm._v("\n                                               Deactivated: Bataan Plant\n                                           ")]) : _vm._e()]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-3 pull-right right"
     }, [_vm._m(1, true), _vm._v(" "), _c('div', {
       staticClass: "dropdown-menu dropdown-menu-right",
@@ -89220,12 +89278,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("Edit")]), _vm._v(" "), _c('div', {
       staticClass: "dropdown-divider"
-    })]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || _vm.user_role == 'spc-monitoring') ? _c('span', [_c('a', {
+    })]) : _vm._e(), _vm._v(" "), (_vm.user_role == 'Administrator' || _vm.user_role == 'spc-monitoring') ? _c('span', [(truck.access_location == 0) ? _c('a', {
       staticClass: "dropdown-item text-danger",
       attrs: {
         "href": 'inspects/deactivate/' + truck.id
       }
-    }, [_vm._v("Deactivate Truck")]), _vm._v(" "), _c('a', {
+    }, [_vm._v("Deactivate Truck")]) : _vm._e(), _vm._v(" "), (truck.access_location != 0) ? _c('a', {
+      staticClass: "dropdown-item text-success",
+      attrs: {
+        "href": 'inspects/activate/' + truck.id
+      }
+    }, [_vm._v("Activate Truck")]) : _vm._e(), _vm._v(" "), _c('a', {
       staticClass: "dropdown-item",
       attrs: {
         "href": 'inspects/show/' + truck.id
@@ -91175,7 +91238,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.selected = false
+        _vm.goToOlderEntries()
       }
     }
   }, [_vm._v("Within 24 hours")]), _vm._v(" "), _c('a', {
@@ -91188,7 +91251,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.selected = true
+        _vm.backToWithinDay()
       }
     }
   }, [_vm._v("Older than 24 hours")])]), _vm._v(" "), _c('div', {
@@ -94526,7 +94589,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [(_vm.entries.length != 0) ? _c('div', {
     class: {
-      'active': _vm.entries.driver_availability && _vm.entries.truck_availability, 'deactivated': !_vm.entries.driver_availability || !_vm.entries.truck_availability
+      'active': _vm.isActive, 'deactivated': _vm.isDeactivated
     },
     staticStyle: {
       "height": "100%"
@@ -94540,7 +94603,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [(_vm.entries.avatar) ? _c('img', {
     staticClass: "img-responsive rounded-circle mx-auto",
     class: {
-      'deactived-img deactivate-image': !_vm.entries.driver_availability || !_vm.entries.truck_availability, 'active-image': _vm.entries.driver_availability && _vm.entries.truck_availability
+      'deactived-img deactivate-image': _vm.isDeactivated, 'active-image': _vm.isActive
     },
     staticStyle: {
       "height": "450px",
@@ -94576,7 +94639,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("\r\n                    " + _vm._s(_vm.entries.hauler_name) + "\r\n                ")])])]), _vm._v(" "), _c('div', {
     staticClass: "container mt-3"
-  }, [(_vm.entries.driver_availability && _vm.entries.truck_availability) ? _c('table', {
+  }, [(_vm.isActive) ? _c('table', {
     staticClass: "table table-bordered bg-white"
   }, [_vm._m(1), _vm._v(" "), _c('tbody', [_c('tr', [_c('td', {
     attrs: {
@@ -94607,11 +94670,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-size": "35px"
     }
-  }, [_vm._v("\r\n                TRUCK DEACTIVATED\r\n            ")]) : _vm._e(), _vm._v(" "), (!_vm.entries.truck_availability && !_vm.entries.driver_availability) ? _c('span', {
+  }, [_vm._v("\r\n                TRUCK DEACTIVATED\r\n            ")]) : _vm._e(), _vm._v(" "), (_vm.entries.access_location != 0) ? _c('span', {
     staticStyle: {
-      "font-size": "35px"
+      "font-size": "30px"
     }
-  }, [_vm._v("\r\n                DRIVER & TRUCK DEACTIVATED\r\n            ")]) : _vm._e()])])])])])])]) : _vm._e(), _vm._v(" "), (_vm.entries.length == 0) ? _c('div', {
+  }, [_vm._v("\r\n                " + _vm._s(_vm.plantDeactivated) + "\r\n            ")]) : _vm._e()])])])])])])]) : _vm._e(), _vm._v(" "), (_vm.entries.length == 0) ? _c('div', {
     class: {
       'active': _vm.emptyEntry.driver_availability && _vm.emptyEntry.truck_availability, 'deactivated': !_vm.emptyEntry.driver_availability || !_vm.emptyEntry.truck_availability
     },

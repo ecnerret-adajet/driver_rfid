@@ -15,6 +15,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
         'App\User' => 'App\Policies\UserPolicy',
+        'App\Truck' => 'App\Policies\InspectionPolicy',
     ];
 
     /**
@@ -25,6 +26,9 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+
+         Gate::define('activate', 'InspectionPolicy@forActivation');
+         Gate::define('deactivate', 'InspectionPolicy@forDeactivation');
 
         //
     }

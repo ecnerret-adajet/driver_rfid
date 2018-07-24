@@ -46,5 +46,5 @@ mix.styles([
         // 'resources/assets/js/jquery.dataTables.js',
         // 'resources/assets/js/dataTables.bootstrap4.js',
         // 'resources/assets/js/sb-admin.js',
-    ], 'public/js/all.js');
-    // .browserSync('http://localhost/driver_rfid/public/picklist/1900/1600317');
+    ], 'public/js/all.js')
+    .browserSync('http://localhost/driver_rfid/public/inspects/deactivate/1707');
