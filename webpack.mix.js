@@ -47,4 +47,4 @@ mix.styles([
         // 'resources/assets/js/dataTables.bootstrap4.js',
         // 'resources/assets/js/sb-admin.js',
     ], 'public/js/all.js')
-    .browserSync('http://localhost/driver_rfid/public/inspects/deactivate/1707');
+    .browserSync('http://localhost/driver_rfid/public/login');
