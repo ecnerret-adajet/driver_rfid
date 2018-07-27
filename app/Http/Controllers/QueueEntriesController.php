@@ -151,12 +151,13 @@ class QueueEntriesController extends Controller
 
         $search_date = $request->get('search_date');
         Session::put('queueDate', $search_date);
+        $dateSearch = Session::get('queueDate');
 
         // $checkTruckscaleOut = collect(Log::truckscaleOutFromQueue($driverqueue_id))->unique();
 
         $queues = QueueEntry::with('truck','truck.plants:plant_name','truck.capacity','qshipment')
                             ->where('driverqueue_id',$driverqueue->id)
-                            ->whereDate('LocalTime',Carbon::parse($search_date))
+                            ->whereDate('LocalTime', $dateSearch)
                             // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
                             ->whereNotNull('driver_availability')
                             ->whereNotNull('truck_availability')
@@ -164,11 +165,13 @@ class QueueEntriesController extends Controller
                             ->whereNotNull('isTappedGateFirst')
                             ->orderBy('LocalTime','ASC')
                             ->get()
-                            ->unique('CardholderID');
+                            ->unique('CardholderID')
+                            ->values()->all();
 
-        return $queues->values()->all();
+        $manager = new Manager();
+        $resource = new Collection($queues, new QueueEntriesTransformer());
 
-
+        return $manager->createData($resource)->toArray();
     }
 
     //Count Queue Statuses

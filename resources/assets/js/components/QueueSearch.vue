@@ -12,7 +12,7 @@
             <th scope="col"> <small>  Recorded Time /Date </small> </th>
             <th scope="col"> <small>  Status</small> </th>
             </tr>
-        </thead> 
+        </thead>
         <tbody>
 
             <tr v-for="(queue, i) in filteredQueues" :key="i" v-if="!loading">
@@ -20,7 +20,7 @@
                 <td class="text-center">
                     <span class="display-4">
                      {{ queue.queue_number }}
-                    </span> 
+                    </span>
                 </td>
                 <td>
                     <div class="row">
@@ -43,11 +43,11 @@
                             </span>
                         </div>
                     </div>
-                   
+
                 </td>
                  <td width="7%">
                     <span v-if="queue.truck.capacity">
-                        {{ queue.truck.capacity.description }} 
+                        {{ queue.truck.capacity.description }}
                     </span>
                     <span v-else class="text-muted">
                         N/A
@@ -76,12 +76,12 @@
                      {{ moment(queue.LocalTime) }}
                 </td>
                 <td>
-                    <span class="text-center" v-if="queue.qshipment">
+                    <span class="text-center" v-if="queue.shipment">
                         <button class="btn btn-outline-danger btn-sm disabled">
-                            SHIPMENT ASSIGNED 
+                            SHIPMENT ASSIGNED
                         </button>
                         <br/>
-                         {{ queue.qshipment.shipment_number }}
+                         {{ queue.shipment.shipment_number }}
                     </span>
                     <span v-else>
                         <button class="btn btn-outline-success btn-sm disabled">
@@ -138,7 +138,7 @@
             </div>
         </div>
 
-       
+
 
     </div><!-- end template -->
 
@@ -172,12 +172,12 @@
         },
 
         methods: {
-            
+
             getEntries() {
                 this.loading = true
                 axios.get('/driver_rfid/public/searchQueueEntriesFeed/' + this.location + '?search_date=' + this.date)
                 .then(response => {
-                    this.queues = response.data
+                    this.queues = response.data.data
                     this.loading = false
                 });
             },
@@ -207,7 +207,7 @@
             filteredEntries() {
                 const vm = this;
                 return _.filter(vm.queues, function(item){
-                    return ~item.driver_name.toLowerCase().indexOf(vm.search.trim().toLowerCase()) || 
+                    return ~item.driver_name.toLowerCase().indexOf(vm.search.trim().toLowerCase()) ||
                             ~item.plate_number.toLowerCase().indexOf(vm.search.trim().toLowerCase());
                 });
             },
@@ -215,7 +215,7 @@
             totalPages() {
                 return Math.ceil(this.filteredEntries.length / this.itemsPerPage)
             },
-            
+
             filteredQueues() {
                 var index = this.currentPage * this.itemsPerPage;
                 var queues_array = this.filteredEntries.slice(index, index + this.itemsPerPage);

@@ -14,9 +14,9 @@
         <div class="row">
             <div class="col text-center">
 
-                <img v-if="entries.avatar" class="img-responsive rounded-circle mx-auto"  
-                :class="{ 'deactived-img deactivate-image' : isDeactivated, 'active-image' : isActive }" 
-                style="height: 450px; width: auto;" :src="'/driver_rfid/public/storage/' + entries.avatar" 
+                <img v-if="entries.avatar" class="img-responsive rounded-circle mx-auto"
+                :class="{ 'deactived-img deactivate-image' : isDeactivated, 'active-image' : isActive }"
+                style="height: 450px; width: auto;" :src="'/driver_rfid/public/storage/' + entries.avatar"
                 align="middle">
 
             </div>
@@ -56,7 +56,7 @@
       <tr>
         <td width="50%">
             <span style="font-size: 35px;">
-                {{ moment(entries.LocalTime) }} 
+                {{ moment(entries.LocalTime) }}
             </span>
         </td>
         <td>
@@ -96,11 +96,11 @@
     </div>
 
     </div>
-    </div> 
+    </div>
     <!-- end entries pushed -->
 
 
-    
+
     <!-- start empty pushed -->
     <div v-if="entries.length == 0" :class="{ 'active' : emptyEntry.driver_availability && emptyEntry.truck_availability, 'deactivated' : !emptyEntry.driver_availability || !emptyEntry.truck_availability }" style="height: 100%">
     <div class="container-fluid pt-3">
@@ -114,9 +114,9 @@
         <div class="row">
             <div class="col text-center">
 
-                <img v-if="emptyEntry.avatar" class="img-responsive rounded-circle mx-auto"  
-                :class="{ 'deactived-img deactivate-image' : !emptyEntry.driver_availability || !emptyEntry.truck_availability, 'active-image' : emptyEntry.driver_availability && emptyEntry.truck_availability }" 
-                style="height: 450px; width: auto;" :src="'/storage/' + emptyEntry.avatar" 
+                <img v-if="emptyEntry.avatar" class="img-responsive rounded-circle mx-auto"
+                :class="{ 'deactived-img deactivate-image' : !emptyEntry.driver_availability || !emptyEntry.truck_availability, 'active-image' : emptyEntry.driver_availability && emptyEntry.truck_availability }"
+                style="height: 450px; width: auto;" :src="'/driver_rfid/public/storage/' + emptyEntry.avatar"
                 align="middle">
 
             </div>
@@ -156,7 +156,7 @@
       <tr>
         <td width="50%">
             <span style="font-size: 35px;">
-                {{ moment(emptyEntry.LocalTime)}} 
+                {{ moment(emptyEntry.LocalTime)}}
             </span>
         </td>
         <td>
@@ -196,11 +196,11 @@
     </div>
 
     </div>
-    </div> 
+    </div>
     <!-- end empty pushed -->
 
 
-    
+
 
 </div>
 </template>
@@ -222,7 +222,7 @@
             this.storeEntries()
             // this.lastEntry()
             this.emptyPushed()
-        
+
         },
 
         methods: {
