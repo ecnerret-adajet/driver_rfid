@@ -15,7 +15,7 @@
         </div><!-- /.row -->
     </div>
 
-    
+
     {{-- <home></home> --}}
     <current-status></current-status>
 
@@ -23,7 +23,9 @@
 
         {{--  <dashboard></dashboard>  --}}
 
-         <div class="card mx-auto mb-3">
+        <entries-to-dashboard></entries-to-dashboard>
+
+         {{-- <div class="card mx-auto mb-3">
         <div class="card-header">
         Entries Monitoring
 
@@ -52,17 +54,17 @@
             <div class="tab-pane active" id="gate" role="tabpanel">
                 <gate></gate>
             </div>
-        
+
             <div class="tab-pane" id="queues" role="tabpanel">
                <driverqueue></driverqueue>
             </div>
 
         </div>
 
-             
-        
+
+
         </div><!-- end card-body -->
-    </div> <!-- end card -->
+    </div> <!-- end card --> --}}
 
 
     <!-- Modal -->
@@ -91,9 +93,9 @@
                 </p>
             </div>
         </div>
-  
+
     @endif
-  
+
 @endsection
 @section('script')
 <script>

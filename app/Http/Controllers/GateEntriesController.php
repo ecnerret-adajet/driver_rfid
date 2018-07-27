@@ -15,6 +15,27 @@ use App\Cardholder;
 
 class GateEntriesController extends Controller
 {
+
+    /**
+     * Display Drivers logs from main gate RFID in all location
+     *
+     * @param App\Driverqueue $driverqueue_id
+     * @param date $date
+     * @return json
+     */
+    public function getGateEntries($driverqueue_id,$date)
+    {
+        $gateEntries = GateEntry::where('driverqueue_id',$driverqueue_id)
+                                ->whereDate('LocalTime',$date)
+                                ->orderBy('id','ASC')
+                                ->get()
+                                ->unique('CardholderID')
+                                ->values()
+                                ->all();
+
+        return $gateEntries;
+    }
+
     // Test Job Queue Worker
     public function processGateEntries() {
            // Create podcast...
@@ -28,24 +49,24 @@ class GateEntriesController extends Controller
     {
         $pickup_cards = Cardholder::select('CardholderID')
         ->where('FirstName', 'LIKE', '%pickup%')
-        ->pluck('CardholderID'); 
+        ->pluck('CardholderID');
 
         $guard_cards = Cardholder::select('CardholderID')
         ->where('FirstName', 'LIKE', '%GUARD%')
-        ->pluck('CardholderID'); 
+        ->pluck('CardholderID');
 
         $executive_cards = Cardholder::select('CardholderID')
         ->where('FirstName', 'LIKE', '%EXECUTIVE%')
-        ->pluck('CardholderID'); 
+        ->pluck('CardholderID');
 
         // Remove all cardholder without driver assigned
         $not_driver = array_collapse([$pickup_cards, $guard_cards, $executive_cards]);
-        
+
         return $not_driver;
     }
 
     // Store new gate entry by location
-    public function storeGateEntries(Request $request, $driverqueue_id) 
+    public function storeGateEntries(Request $request, $driverqueue_id)
     {
 
         $driverLocation = Driverqueue::where('id',$driverqueue_id)->first();
@@ -58,7 +79,7 @@ class GateEntriesController extends Controller
                         ->with('driver','driver.image','driver.truck','driver.hauler','shipment')
                         ->first();
 
-        $totalEntry = GateEntry::whereDate('created_at',Carbon::today())->where('driverqueue_id',$driverLocation->id)->count();                
+        $totalEntry = GateEntry::whereDate('created_at',Carbon::today())->where('driverqueue_id',$driverLocation->id)->count();
 
         $gateEntry = GateEntry::firstOrCreate(
             [
@@ -93,25 +114,25 @@ class GateEntriesController extends Controller
             $last = GateEntry::where('driverqueue_id',$driverqueue_id)
                             ->orderBy('id','DESC')
                             ->first();
-                
-            return $last; 
+
+            return $last;
         }
 
     }
 
     // Get the last gate entry by location
-    public function getLastGateEntry($driverqueue_id) 
+    public function getLastGateEntry($driverqueue_id)
     {
 
         $lastEntry = GateEntry::orderBy('id','DESC')
                     ->where('driverqueue_id',$driverqueue_id)->first();
-    
+
         return $lastEntry;
 
     }
 
     // Display gate entry by location
-    public function gateEntry(Driverqueue $driverqueue) 
+    public function gateEntry(Driverqueue $driverqueue)
     {
 
         return view('gateEntries.show',compact('driverqueue'));

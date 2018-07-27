@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Transformers\QueueEntriesTransformer;
+use League\Fractal\Resource\Collection;
+use League\Fractal\Manager;
 use Illuminate\Http\Request;
 use App\Traits\NotDriverTrait;
 use App\Traits\QueueTrait;
@@ -25,12 +28,12 @@ class QueueEntriesController extends Controller
 
     public function __construct()
     {
-        $this->notDriver();    
+        $this->notDriver();
     }
 
     // Show all recently queue
-    public function getQueueEntries($driverqueue_id) 
-    {   
+    public function getQueueEntries($driverqueue_id)
+    {
         $checkTruckscaleOut = collect(Log::truckscaleOutFromQueue($driverqueue_id))->unique();
 
         $queues = QueueEntry::where('driverqueue_id',$driverqueue_id)
@@ -45,12 +48,44 @@ class QueueEntriesController extends Controller
                             ->orderBy('LocalTime','ASC')
                             ->get()
                             ->unique('CardholderID');
- 
+
         return $queues->values()->all();
     }
 
+    /**
+     * Display driver entry logs from queue RFID station
+     *
+     * @param App\Driverqueue $driverqueue_id
+     * @param date $date
+     * @return json
+     */
+    public function getQueueEntriesJson($driverqueue_id,$date)
+    {
+
+        Session::put('queueDate', Carbon::parse($date));
+        $dateSearch = Session::get('queueDate');
+
+        $queues = QueueEntry::with('truck','truck.plants:plant_name','truck.capacity','shipment')
+                            ->whereDate('created_at',$dateSearch)
+                            ->where('driverqueue_id',$driverqueue_id)
+                            // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
+                            ->whereNotNull('driver_availability')
+                            ->whereNotNull('truck_availability')
+                            ->where('isDRCompleted','NOT LIKE','%0000-00-00%')
+                            ->whereNotNull('isTappedGateFirst')
+                            ->orderBy('LocalTime','ASC')
+                            ->get()
+                            ->unique('CardholderID')
+                            ->values()->all();
+
+            $manager = new Manager();
+            $resource = new Collection($queues, new QueueEntriesTransformer());
+
+            return $manager->createData($resource)->toArray();
+    }
+
     // Show all queue to feed planner's monitoring
-    public function getQueueEntriesFeed($driverqueue_id) 
+    public function getQueueEntriesFeed($driverqueue_id)
     {
         // $checkTruckscaleOut = collect(Log::truckscaleOutFromQueue($driverqueue_id))->unique();
 
@@ -84,7 +119,7 @@ class QueueEntriesController extends Controller
                             ->get()
                             ->unique('CardholderID');
 
-        return $queues->values()->all();                            
+        return $queues->values()->all();
 
     }
 
@@ -104,7 +139,7 @@ class QueueEntriesController extends Controller
                             ->get()
                             ->unique('CardholderID');
 
-        return $queues->values()->all();  
+        return $queues->values()->all();
     }
 
     //Search queue entries by date
@@ -156,7 +191,7 @@ class QueueEntriesController extends Controller
     }
 
     //Get the last tapped driver to planners monitoring
-    public function lastDriverTapped($driverqueue) 
+    public function lastDriverTapped($driverqueue)
     {
         $lastDriverTapped = QueueEntry::orderBy('id','DESC')
                         ->whereNotNull('shipment_number')
@@ -167,7 +202,7 @@ class QueueEntriesController extends Controller
     }
 
     // Store new queue entry
-    public function storeQueueEntries(Request $request, $driverqueue_id) 
+    public function storeQueueEntries(Request $request, $driverqueue_id)
     {
 
         $driverLocation = Driverqueue::where('id',$driverqueue_id)->first();
@@ -178,7 +213,7 @@ class QueueEntriesController extends Controller
                         ->where('CardholderID', '>=', 15)
                         ->orderBy('LocalTime','DESC')
                         ->with('driver','driver.image','driver.truck','driver.hauler')
-                        ->first();                        
+                        ->first();
 
         $queueEntry = QueueEntry::updateOrCreate(
             [
@@ -203,15 +238,15 @@ class QueueEntriesController extends Controller
                 'LocalTime' => $lastLogEntry->LocalTime,
             ]
         );
-        
+
         if($queueEntry->wasRecentlyCreated == true) {
             event(new QueueEntryEvent($queueEntry,$driverLocation));
             return $queueEntry;
         } else {
             $queueLast = QueueEntry::where('driverqueue_id',$driverLocation->id)->orderBy('id','DESC')->first();
             return $queueLast;
-        }   
-            
+        }
+
     }
 
     //Display queue entry by location

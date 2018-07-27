@@ -79,6 +79,10 @@ Vue.component('queueDayParent', require('./components/QueueDayParent.vue'));
 
 Vue.component('picklistEntry', require('./components/PicklistEntry.vue'));
 
+Vue.component('reportEntries', require('./components/ReportEntries.vue'));
+
+Vue.component('entriesToDashboard', require('./components/EntriesToDashboard.vue'));
+
 const app = new Vue({
     el: '#app'
 });

@@ -22,9 +22,9 @@ class QueueEntriesTest extends TestCase
     {
         // $this->assertTrue(true);
 
-         $queues = QueueEntry::with('truck','truck.plants:plant_name','truck.capacity','shipment')
-                            ->whereDate('created_at',Carbon::today())
-                            ->where('driverqueue_id',3)
+         $queues = QueueEntry::with('truck','truck.plants:plant_name','truck.capacity','qshipment')
+                            ->whereDate('created_at',Carbon::today()->subDays(2))
+                            ->where('driverqueue_id',1)
                             // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
                             ->whereNotNull('driver_availability')
                             ->whereNotNull('truck_availability')
@@ -34,17 +34,13 @@ class QueueEntriesTest extends TestCase
                             ->get()
                             ->unique('CardholderID');
 
-        // $count = $queues->values()->all();
-        // $count = $queues->count();
-        $this->get($queues)->getContent();
-        
-        echo json_encode($queues, JSON_PRETTY_PRINT);
+        echo json_encode($queues->values()->all(), JSON_PRETTY_PRINT);
     }
 
     /**
-     * 
+     *
      * Test function for newly applied 24 hours from driver's tap to expire
-     * 
+     *
      */
     public function testQueueWithinDay()
     {

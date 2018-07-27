@@ -60,12 +60,12 @@ class QueueEntry extends Model
     }
 
     // Relationships Model
-    public function truck() 
+    public function truck()
     {
         return $this->belongsTo(Truck::class);
     }
-    
-    public function shipment() 
+
+    public function shipment()
     {
         return $this->belongsTo(Shipment::class,'CardholderID','CardholderID')
             ->whereDate('change_date', Carbon::parse($this->created_at));
@@ -93,10 +93,10 @@ class QueueEntry extends Model
     }
 
     //Seaerch Entry Queue
-    public function qshipment() 
+    public function qshipment()
     {
         return $this->belongsTo(Shipment::class,'CardholderID','CardholderID')
-            ->whereDate('change_date', Carbon::parse(Session::get('queueDate')));
+            ->whereDate('change_date', Session::get('queueDate'));
     }
 
     //Query Scoped
@@ -147,7 +147,7 @@ class QueueEntry extends Model
             'isTappedGateFirst' => $this->isTappedGateFirst,
             'isSecondDelivery' => $this->isSecondDelivery,
             'created_at' => $this->created_at,
-            'truck' => $this->truck, 
+            'truck' => $this->truck,
             'shipment' =>  $this->shipment,
             'lastCreated' => Carbon::parse($this->created_at)->diffForHumans(),
         ];
