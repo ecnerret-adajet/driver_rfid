@@ -29,9 +29,9 @@ class Transaction extends Model
                 ->orderBy('submission_date','DESC')
                 ->take(1)
                 ->pluck('submission_date');
-                
+
         return $first_filter;
-        
+
     }
 
     // public function toArray()

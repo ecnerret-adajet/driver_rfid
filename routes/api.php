@@ -18,6 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/last_dr_date/{plate_number}','EntryReportController@getLastDrSubmitted');
+
 // API setup for Hauler Online
 
 

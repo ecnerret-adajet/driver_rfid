@@ -90,6 +90,7 @@ Route::get('/getLastDriverBtn','LineupApiController@getBtnLastDriver');
 Route::post('/storeGateEntries/{driverqueue_id}','GateEntriesController@storeGateEntries');
 Route::get('/getLastGateEntry/{driverqueue_id}','GateEntriesController@getLastGateEntry');
 Route::get('/gateEntry/{driverqueue}','GateEntriesController@gateEntry');
+Route::get('/getGateEntries/{driverqueue_id}/{date}','GateEntriesController@getGateEntries');
 
 /**
 * Queue Entries Route Setup
@@ -129,6 +130,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/searchQueueEntriesFeed/{driverqueue}','QueueEntriesController@searchQueueEntriesFeed');
     Route::get('/getQueueStatus/{driverqueue}','QueueEntriesController@getQueueStatus');
     Route::get('/lastDriverTapped/{driverqueue}','QueueEntriesController@lastDriverTapped');
+    Route::get('/getQueueEntriesJson/{driverqueue_id}/{date}','QueueEntriesController@getQueueEntriesJson');
 
     /**
     * Entry Report Route
@@ -321,8 +323,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/monitors/notrip/{monitor}',['as'=>'notrip.update','uses'=>'MonitorsController@updateNoTrip']);
 
 
-
-
     Route::get('/monitors/{monitor}/edit/{id}', ['as' => 'monitors.edit', 'uses' => 'MonitorsController@edit']);
     // Route::post('/monitors/{monitor}', ['as' => 'monitors.update', 'uses' => 'MonitorsController@update']);
     Route::resource('monitors', 'MonitorsController', ['except' => [
@@ -438,6 +438,13 @@ Route::group(['middleware' => 'auth'], function () {
         * Autoshipment End
         */
         Route::get('/autoShipmentEnd','QueuesController@autoShipmentEnd');
+
+        /**
+         * Route setup for Export Entries Controller
+         */
+        Route::get('/exportEntries/report','EntryReportController@viewDisplayEntries');
+        Route::get('/displayEntries/{driverqueue_id}/{date}','EntryReportController@displayEntries');
+
 
     });
 

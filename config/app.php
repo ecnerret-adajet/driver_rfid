@@ -176,6 +176,7 @@ return [
         MercurySeries\Flashy\FlashyServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Ixudra\Curl\CurlServiceProvider::class,
+        Spatie\Fractal\FractalServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -243,7 +244,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Curl' => Ixudra\Curl\Facades\Curl::class,
         'Pusher' => Pusher\Pusher::class,
-
+        'Fractal' => Spatie\Fractal\FractalFacade::class,
     ],
 
 ];

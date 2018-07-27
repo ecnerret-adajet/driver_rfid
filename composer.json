@@ -21,6 +21,7 @@
         "pusher/pusher-php-server": "~3.0",
         "roksta/toast": "^1.0",
         "spatie/laravel-activitylog": "^1.15",
+        "spatie/laravel-fractal": "4.0",
         "venturecraft/revisionable": "^1.28",
         "zizaco/entrust": "^1.8"
     },

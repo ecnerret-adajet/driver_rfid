@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
 
 
     <!-- CSRF Token -->
@@ -45,14 +45,14 @@
 
           <li class="nav-item {{ Request::is('home') ? 'active' : '' }}" data-toggle="tooltip" data-placement="right" title="Dashboard">
             <a class="nav-link font-weight-bold" href="{{url('/home')}}">
-               <i class="fa fa-fw fa-dashboard"></i> 
+               <i class="fa fa-fw fa-dashboard"></i>
               <span class="nav-link-text">
                 Dashboard</span>
             </a>
           </li>
 
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Master Data">
-            <a class="nav-link nav-link-collapse font-weight-bold {{ (Request::is('trucks') || 
+            <a class="nav-link nav-link-collapse font-weight-bold {{ (Request::is('trucks') ||
                                                      Request::is('trucks/*') ||
                                                      Request::is('pickups') ||
                                                      Request::is('pickups/*') ||
@@ -61,14 +61,14 @@
                                                      Request::is('lineups') ||
                                                      Request::is('lineups/*') ||
                                                      Request::is('drivers') ||
-                                                     Request::is('drivers/*') ||           
-                                                     Request::is('cards') || 
+                                                     Request::is('drivers/*') ||
+                                                     Request::is('cards') ||
                                                      Request::is('bind/*')) ? '' : 'collapsed' }}" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
-               <i class="fa fa-fw fa-database"></i> 
+               <i class="fa fa-fw fa-database"></i>
               <span class="nav-link-text">
                 Master Data</span>
             </a>
-            <ul class="sidenav-second-level {{ (Request::is('trucks') || 
+            <ul class="sidenav-second-level {{ (Request::is('trucks') ||
                                                      Request::is('trucks/*') ||
                                                      Request::is('drivers') ||
                                                      Request::is('lineups') ||
@@ -77,14 +77,14 @@
                                                      Request::is('lineups/*') ||
                                                      Request::is('pickups') ||
                                                      Request::is('pickups/*') ||
-                                                     Request::is('drivers/*') ||           
-                                                     Request::is('cards') || 
+                                                     Request::is('drivers/*') ||
+                                                     Request::is('cards') ||
                                                      Request::is('bind/*')) ? '' : 'collapse' }}" id="collapseComponents">
-                                                     
+
               @role((['Administrator','Monitoring','Approver','spc-monitoring']))
 
               <li class="font-weight-bold {{ (Request::is('trucks') ||
-                            Request::is('trucks/*')  
+                            Request::is('trucks/*')
                         ) ? 'active' : '' }}">
                 <a href="{{url('/trucks')}}">Trucks</a>
               </li>
@@ -97,7 +97,7 @@
                             Request::is('drivers/*')
                           ) ? 'active' : ''}}">
                 <a href="{{url('/drivers')}}">Drivers</a>
-                
+
               </li>
 
                @endrole
@@ -123,17 +123,17 @@
               </li>
 
               @endrole
-              
-              
+
+
             </ul>
           </li>
 
           @role(('Administrator'))
 
-    
+
 
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Admin">
-            <a class="nav-link nav-link-collapse font-weight-bold {{ (Request::is('settings') || 
+            <a class="nav-link nav-link-collapse font-weight-bold {{ (Request::is('settings') ||
                                                      Request::is('users') ||
                                                      Request::is('users/*') ||
                                                      Request::is('generateActivities') ||
@@ -141,11 +141,11 @@
                                                      Request::is('handlers') ||
                                                      Request::is('handlers/*') ||
                                                      Request::is('activities')) ? '' : 'collapsed' }}" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
-               <i class="fa fa-fw fa-user"></i> 
+               <i class="fa fa-fw fa-user"></i>
               <span class="nav-link-text">
                 Administrator</span>
             </a>
-            <ul class="sidenav-second-level {{ (Request::is('settings') || 
+            <ul class="sidenav-second-level {{ (Request::is('settings') ||
                                                      Request::is('generateActivities') ||
                                                      Request::is('users') ||
                                                      Request::is('gates/create') ||
@@ -185,16 +185,16 @@
           @role((['Administrator','Monitoring','Approver']))
 
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reports">
-            <a class="nav-link nav-link-collapse font-weight-bold {{ (Request::is('prints') || 
+            <a class="nav-link nav-link-collapse font-weight-bold {{ (Request::is('prints') ||
                                                      Request::is('analytics') ||
                                                      Request::is('entries') ||
                                                      Request::is('generateEntries*') ||
                                                      Request::is('monitors/*'))  ? '' : 'collapsed' }}" data-toggle="collapse" href="#collapseReports" data-parent="#exampleAccordion">
-               <i class="fa fa-fw fa-bar-chart"></i> 
+               <i class="fa fa-fw fa-bar-chart"></i>
               <span class="nav-link-text">
                 Reports</span>
             </a>
-            <ul class="sidenav-second-level {{ (Request::is('prints') || 
+            <ul class="sidenav-second-level {{ (Request::is('prints') ||
                                                      Request::is('analytics') ||
                                                      Request::is('entries') ||
                                                      Request::is('generateEntries*') ||
@@ -214,7 +214,7 @@
                                 ) ? 'active' : '' }}">
                 <a href="{{url('/entries')}}">Vehicle Entries Report</a>
               </li>
-          
+
             </ul>
           </li>
 
@@ -258,7 +258,7 @@
              Hello, {{ Auth::user()->name }}
             </a>
           </li>
-        
+
          <li class="dropdown">
             <a class="nav-link  mr-lg-2" href="#" id="messagesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-fw fa-ellipsis-v"></i>
@@ -266,7 +266,7 @@
             <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="messagesDropdown">
               <h6 class="dropdown-header">Options:</h6>
               <div class="dropdown-divider"></div>
-              
+
               @if(!Entrust::hasRole('Administrator'))
                 <a class="dropdown-item" href="{{ url('online/users/'.Auth::user()->id.'/edit') }}">
                   <strong>Profile</strong>
@@ -277,19 +277,19 @@
                 <strong>Logout</strong>
               </a>
             </div>
-          </li>      
+          </li>
 
-          
-       
+
+
         </ul>
       </div>
     </nav>
 
     <div class="content-wrapper">
 
-      <div class="container-fluid">
+      <div class="container-fluid pt-2">
 
-  
+
         @yield('content')
 
 
@@ -334,7 +334,7 @@
               <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                             {{ csrf_field() }}
             </form>
-          
+
           </div>
         </div>
       </div>
@@ -342,7 +342,7 @@
 
 
       </div><!-- end app -->
-    
+
        <!-- Scripts -->
         <script src="{{ asset('js/all.js') }}"></script>
         {{--  <script src="{{ asset('js/jquery.cropit.js') }}"></script>  --}}

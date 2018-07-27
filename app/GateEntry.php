@@ -62,52 +62,76 @@ class GateEntry extends Model
     public function queueEntry()
     {
         return $this->belongsTo(QueueEntry::class, 'CardholderID', 'CardholderID')
-            ->whereDate('LocalTime', Session::get('date'));
+        ->whereDate('LocalTime', Session::get('date'));
     }
 
     public function hasShipment()
     {
         return $this->belongsTo(Shipment::class,'CardholderID','CardholderID')
-            ->whereDate('change_date', Session::get('date'));
+        ->whereDate('change_date', Session::get('date'));
     }
 
     public function hasTruckscaleIn()
     {
         return $this->belongsTo(Log::class,'CardholderID','CardholderID')
-                ->where('Direction',1)
-                ->whereIn('ControllerID', [4,8]) //Controller for TRUCKSCALE IN
-                ->whereIn('DoorID',[0,1])
-                ->whereDate('LocalTime', Session::get('date'));
-            //    ->where('LocalTime', '>=', Carbon::parse($this->created_at)->subHours(24)->toDateTimeString());
+        ->where('Direction',1)
+        ->whereIn('ControllerID', [4,8]) //Controller for TRUCKSCALE IN
+        ->whereIn('DoorID',[0,1])
+        ->whereDate('LocalTime', Session::get('date'));
+        //    ->where('LocalTime', '>=', Carbon::parse($this->created_at)->subHours(24)->toDateTimeString());
     }
 
+    /**
+     * Return if driver has tapped for truck plant in
+     *
+     * @param this App\GateEntry $query
+     * @param App\GateEntry $CardholderID
+     * @param Date $date
+     * @return date
+     */
+    public function scopeHasPlantIn($query, $CardholderID, $date)
+    {
+        $driverPass = $query->where('CardholderID', $CardholderID)
+                    ->where('LocalTime', '>', $date)
+                    ->whereNotNull('shipment_number')
+                    ->orderBy('id','ASC')
+                    ->first();
+
+        return !empty($driverPass) ? $driverPass->LocalTime : null;
+    }
+
+    /**
+     * Retrun if a entry has truckscale out
+     *
+     * @return boolean
+     */
     public function hasTruckscaleOut()
     {
         return $this->belongsTo(Log::class,'CardholderID','CardholderID')
-            ->where('Direction',2)
-            ->whereIn('ControllerID', [4,8]) //Controller for TRUCKSCALE OUT
-            ->whereIn('DoorID',[0,1])
-            ->whereDate('LocalTime', Session::get('date'));
-            // ->where('LocalTime', '>=', Carbon::parse($this->created_at)->subHours(24)->toDateTimeString());
+        ->where('Direction',2)
+        ->whereIn('ControllerID', [4,8]) //Controller for TRUCKSCALE OUT
+        ->whereIn('DoorID',[0,1])
+        ->whereDate('LocalTime', Session::get('date'));
+        // ->where('LocalTime', '>=', Carbon::parse($this->created_at)->subHours(24)->toDateTimeString());
     }
 
     public function hasGateOut()
     {
         return $this->belongsTo(Log::class,'CardholderID','CardholderID')
-            ->where('Direction',2)
-            ->whereIn('ControllerID', [4,6,9]) //Controller for Gate OUT
-            ->whereDate('LocalTime', Session::get('date'));
-            // ->whereBetween('LocalTime', [$this->LocalTime, Carbon::parse($this->LocalTime)]);
+        ->where('Direction',2)
+        ->whereIn('ControllerID', [4,6,9]) //Controller for Gate OUT
+        ->whereDate('LocalTime', Session::get('date'));
+        // ->whereBetween('LocalTime', [$this->LocalTime, Carbon::parse($this->LocalTime)]);
     }
 
     // Query Scope
 
-    public function scopeCheckIfTappedFromGate($query, $CardholderID) 
+    public function scopeCheckIfTappedFromGate($query, $CardholderID)
     {
-        //should DRIVER THAT TAP less 3 hours from gate RFID
+        //DRIVER should TAP less 3 hours from gate RFID
         return $query->where('CardholderID', $CardholderID)
-                    ->where('LocalTime', '>=',  Carbon::today()->subHours(3)->toDateTimeString())
-                    ->first(); 
+        ->where('LocalTime', '>=',  Carbon::today()->subHours(3)->toDateTimeString())
+        ->first();
     }
 
 }
