@@ -23,7 +23,7 @@ mix.styles([
         'resources/assets/css/lightbox.css',
         'resources/assets/css/font-awesome.min.css',
         'resources/assets/css/sb-admin.min.css',
-        'public/css/style.css',
+        'resources/assets/css/style.css',
         'node_modules/croppie/croppie.css',
         // 'resources/assets/css/croppie.css',
         'node_modules/animate.css/animate.min.css',
@@ -47,4 +47,4 @@ mix.styles([
         // 'resources/assets/js/dataTables.bootstrap4.js',
         // 'resources/assets/js/sb-admin.js',
     ], 'public/js/all.js')
-    .browserSync('http://localhost/driver_rfid/public/exportEntries/report');
+    .browserSync('http://localhost/driver_rfid/public/queueEntryFeed');
