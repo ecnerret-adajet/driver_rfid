@@ -81,13 +81,13 @@
                                      <span class="d-block text-uppercase text-muted small">Plant In</span>
                                     <p>{{ parseDate(entry.truck_plant_in) || 'N/A' }}</p>
                                     <span class="d-block text-uppercase text-muted small">SAP Loading-start</span>
-                                    <p>{{ entry.sap_ts_in || 'N/A' }} </p>
+                                    <p>{{ parseDate(entry.sap_loading_start) || 'N/A' }} </p>
                                      <span class="d-block text-uppercase text-muted small">SAP Loading-end</span>
-                                    <p>{{ entry.sap_ts_out || 'N/A' }} </p>
+                                    <p>{{ parseDate(entry.sap_loading_end) || 'N/A' }} </p>
                                 </div>
                                  <div class="col-3">
                                      <span class="d-block text-uppercase text-muted small">Truckscale In</span>
-                                    <p>{{ entry.ts_time_in || 'N/A' }}</p>
+                                    <p>{{ parseDate(entry.ts_time_in) || 'N/A' }}</p>
                                     <span class="d-block text-uppercase text-muted small">Truckscale Out</span>
                                     <p>{{ parseDate(entry.ts_time_out) || 'N/A' }} </p>
                                      <span class="d-block text-uppercase text-muted small">Plant Out</span>
@@ -104,8 +104,14 @@
                                     <p>{{ entry.truck_plant_in && entry.ts_time_in ? timeDiff(entry.truck_plant_in,entry.ts_time_in) : 'N/A' }}</p>
                                 </div>
                                 <div class="col-2">
-                                     <span class="d-block text-uppercase text-muted small">Driver Pass to Queue</span>
-                                    <!-- <p>{{ entry.ts_time_in || 'N/A' }}</p> -->
+                                    <span class="d-block text-uppercase text-muted small">Truckscale In to Loading Start</span>
+                                    <p>{{ entry.ts_time_in && entry.sap_loading_start ? timeDiff(entry.ts_time_in,entry.sap_loading_start) : 'N/A' }}</p>
+                                    <span class="d-block text-uppercase text-muted small">Truckscale In to Loading Start</span>
+                                    <p>{{ entry.ts_time_in && entry.sap_loading_start ? timeDiff(entry.ts_time_in,entry.sap_loading_start) : 'N/A' }}</p>
+                                    <span class="d-block text-uppercase text-muted small">Loading Start to Loading End</span>
+                                    <p>{{ entry.sap_loading_start && entry.sap_loading_end ? timeDiff(entry.sap_loading_start,entry.sap_loading_end) : 'N/A' }}</p>
+                                    <span class="d-block text-uppercase text-muted small">Loading End to Truckscale Out</span>
+                                    <p>{{ entry.sap_loading_end && entry.ts_time_out ? timeDiff(entry.sap_loading_end,entry.ts_time_out) : 'N/A' }}</p>
                                 </div>
                             </div>
                         </div>
@@ -151,6 +157,9 @@
 
     import VueContentPlaceholders from 'vue-content-placeholders';
     import moment from 'moment';
+    import Toasted from 'vue-toasted';
+
+    Vue.use(Toasted)
 
     export default {
 
@@ -173,7 +182,24 @@
             this.getLocations()
         },
 
+        watch: {
+            date() {
+                return this.getEntries()
+            },
+            selectedLocation() {
+                return this.getEntries()
+            }
+        },
+
         methods: {
+
+            successMessage() {
+                Vue.toasted.show("Load Successfully!", {
+                    theme: "primary",
+                    position: "bottom-right",
+                    duration : 5000
+                });
+            },
 
             getEntries() {
                 this.loading = true
@@ -181,6 +207,7 @@
                 .then(response => {
                     this.entries = response.data.data
                     this.loading = false
+                    this.successMessage()
                 })
             },
 

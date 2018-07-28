@@ -72,8 +72,13 @@ class EntriesReportTest extends TestCase
         */
         public function testDisplayEntries()
         {
-            Session::put('date', Carbon::today()->subDays(2));
+            Session::put('date', Carbon::today()->subDay());
             $dateSearch = Session::get('date');
+
+            // $entries = GateEntry::where('driverqueue_id',1)
+            // ->whereBetween('LocalTime', [$dateSearch->format('Y-m-d 00:00:00'), $dateSearch->format('Y-m-d 23:59:00')])
+            // ->get()
+            // ->unique('CardholderID');
 
             $entries = GateEntry::with('queueEntry',
             'hasShipment',

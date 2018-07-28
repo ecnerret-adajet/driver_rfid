@@ -37,13 +37,13 @@ class EntryReportTransformer extends TransformerAbstract
 
             'truck_plant_in' => !empty($gateEntry->hasShipment->change_date) ? $gateEntry->hasPlantIn($gateEntry->CardholderID, $gateEntry->hasShipment->change_date) : null,
 
-            'sap_ts_in' => !empty($gateEntry->hasShipment->loading->ts_in) ? $gateEntry->hasShipment->loading->ts_in : null,
-            'sap_ts_out' => !empty($gateEntry->hasShipment->loading->ts_out) ? $gateEntry->hasShipment->loading->ts_out : null,
-            'sap_loading_start' => !empty($gateEntry->hasShipment->loading->loading_start) ? $gateEntry->hasShipment->loading->loading_start : null,
-            'sap_loading_end' => !empty($gateEntry->hasShipment->loading->loading_end) ? $gateEntry->hasShipment->loading->loading_end : null,
-            'ts_time_in' => !empty($gateEntry->hasTruckscaleIn->LocalTime) ? $gateEntry->hasTruckscaleIn->LocalTime : null,
-            'ts_time_out' => !empty($gateEntry->hasTruckscaleOut->LocalTime) ? $gateEntry->hasTruckscaleOut->LocalTime : null,
-            'gate_time_out' => !empty($gateEntry->hasGateOut->LocalTime) ? $gateEntry->hasGateOut->LocalTime : null,
+            'sap_ts_in' => !empty($gateEntry->hasShipment->loading->ts_in) ? date('Y-m-d H:i:s.u', strtotime($gateEntry->hasShipment->loading->ts_in)) : null,
+            'sap_ts_out' => !empty($gateEntry->hasShipment->loading->ts_out) ? date('Y-m-d H:i:s.u', strtotime($gateEntry->hasShipment->loading->ts_out)) : null,
+            'sap_loading_start' => !empty($gateEntry->hasShipment->loading->loading_start) ? date('Y-m-d H:i:s.u', strtotime($gateEntry->hasShipment->loading->loading_start)) : null,
+            'sap_loading_end' => !empty($gateEntry->hasShipment->loading->loading_end) ? date('Y-m-d H:i:s.u', strtotime($gateEntry->hasShipment->loading->loading_end)) : null,
+            'ts_time_in' => !empty($gateEntry->hasTruckscaleIn->LocalTime) ? date('Y-m-d H:i:s.u', strtotime($gateEntry->hasTruckscaleIn->LocalTime)) : null,
+            'ts_time_out' => !empty($gateEntry->hasTruckscaleOut->LocalTime) ? date('Y-m-d H:i:s.u', strtotime($gateEntry->hasTruckscaleOut->LocalTime)) : null,
+            'gate_time_out' => !empty($gateEntry->hasGateOut->LocalTime) ? date('Y-m-d H:i:s.u', strtotime($gateEntry->hasGateOut->LocalTime)) : null,
 
         ];
     }

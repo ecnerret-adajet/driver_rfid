@@ -150,7 +150,7 @@ class EntryReportController extends Controller
             'hasTruckscaleIn',
             'hasTruckscaleOut',
             'hasGateOut')
-            ->where('driverqueue_id',1)
+            ->where('driverqueue_id',$driverqueue_id)
             ->whereBetween('LocalTime', [$dateSearch->format('Y-m-d 00:00:00'), $dateSearch->format('Y-m-d 23:59:00')])
             ->get()
             ->unique('driver_name');
