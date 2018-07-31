@@ -41,7 +41,7 @@
                                 </span>
                             </div>
                             <div class="col-2">
-                                <img :src="avatar_link + queue.avatar" class="rounded-circle mx-auto align-middle" style="float-left; height: 70px; width: auto;"  align="middle">   
+                                <img :src="avatar_link + queue.avatar" class="rounded-circle mx-auto align-middle" style="float-left; height: 70px; width: auto;"  align="middle">
                             </div>
                             <div class="col ml-2">
                                 <strong>{{ queue.driver_name }}</strong> <br/>
@@ -56,13 +56,13 @@
                                 </span>
                                 <span class="text-danger" v-else>
                                     NO HAULER
-                                </span>  
+                                </span>
                             </div>
                         </div>
                    </div>
                     <div class="col-2">
                         <span v-if="queue.truck.capacity">
-                        {{ queue.truck.capacity.description }} 
+                        {{ queue.truck.capacity.description }}
                         </span>
                         <span v-else class="text-muted">
                             N/A
@@ -98,7 +98,7 @@
                                     </span><br/>
                                 </span>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                     <div class="col-4">
                         <span class="text-muted mb-3 text-uppercase d-block font-weight-bold">SHIPMENT INFO:</span>
@@ -106,7 +106,7 @@
                             <div class="col">
                             <small class="font-weight-light text-uppercase d-block text-muted">Shipment Number:</small>
                             <span class="d-block  mb-2">{{ queue.shipment.shipment_number }}</span>
-                            
+
                             <small class="font-weight-light text-uppercase d-block  text-muted">Shipped Date:</small>
                             <span class="d-block  mb-2">{{ moment(queue.shipment.change_date) }}</span>
                             </div>
@@ -121,13 +121,13 @@
                             </div>
                         </div>
                     </div>
-                  
+
                 </div>
             </div>
             </div>
         </div>
 
-  
+
         <div class="row"  v-if="filteredQueues.length == 0 && !loading">
             <div class="col text-center pt-5 pb-5">
                 <i class="display-4 text-muted">
@@ -135,7 +135,7 @@
                 </i>
             </div>
         </div>
-            
+
 
         <div class="row" v-if="loading">
             <div class="col">
@@ -155,7 +155,7 @@
                 </content-placeholders>
                 </div>
         </div>
-           
+
 
     </div>
 
@@ -185,7 +185,7 @@ export default {
     components: {
         VueContentPlaceholders,
     },
-    
+
     data() {
         return {
             loading: false,
@@ -249,7 +249,7 @@ export default {
         filteredEntries() {
             const vm = this;
             return _.filter(vm.queues, function(item){
-                return ~item.driver_name.toLowerCase().indexOf(vm.search.trim().toLowerCase()) || 
+                return ~item.driver_name.toLowerCase().indexOf(vm.search.trim().toLowerCase()) ||
                         ~item.plate_number.toLowerCase().indexOf(vm.search.trim().toLowerCase());
             });
         },
@@ -261,7 +261,7 @@ export default {
                 return this.queues && bySearch;
             } else if(this.filter == 'with-shipment') {
                 return this.queues.filter(queue => {
-                    return queue.shipment != null && 
+                    return queue.shipment != null &&
                         queue.driver_name.toLowerCase().includes(this.search.trim().toLowerCase());
                 });
             } else if(this.filter == 'no-shipment') {
@@ -277,7 +277,7 @@ export default {
         totalPages() {
             return Math.ceil(this.queueFilter.length / this.itemsPerPage)
         },
-        
+
         filteredQueues() {
             var index = this.currentPage * this.itemsPerPage;
             var queues_array = this.queueFilter.slice(index, index + this.itemsPerPage);

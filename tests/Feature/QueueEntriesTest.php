@@ -103,11 +103,7 @@ class QueueEntriesTest extends TestCase
     {
 
         $last_entry = Carbon::parse($this->testSearchQueueEntries());
-
-        //  Session::put('queueDate', Carbon::now()->subHours(24));
-        // Session::put('queueDate', Carbon::now()->subDays(2)->subHours(24));
-       $latestDate = Carbon::now()->subDay();
-        $olderDate = Carbon::now()->subDays(2);
+        $olderDate = Carbon::now()->subDays(3);
 
         $queues = QueueEntry::where('LocalTime', '>=' ,$olderDate)
                             ->where('LocalTime', '<' ,$last_entry)
@@ -118,7 +114,7 @@ class QueueEntriesTest extends TestCase
                             ->whereNotNull('truck_availability')
                             ->where('isDRCompleted','NOT LIKE','%0000-00-00%')
                             ->whereNotNull('isTappedGateFirst')
-                            ->orderBy('LocalTime','DESC')
+                            ->orderBy('LocalTime','ASC')
                             ->with('truck','truck.plants:plant_name','truck.capacity','shipment')
                             ->get()
                             ->unique('CardholderID')
@@ -137,7 +133,7 @@ class QueueEntriesTest extends TestCase
         // $checkTruckscaleOut = collect(Log::truckscaleOutFromQueue($driverqueue_id))->unique();
 
         $queues = QueueEntry::with('truck','truck.plants:plant_name','truck.capacity','qshipment')
-                            ->whereDate('LocalTime',  '>=', $dateSearch) // get less than 24 hours from tap
+                            ->where('LocalTime',  '>=', $dateSearch) // get less than 24 hours from tap
                             ->where('driverqueue_id',1)
                             // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
                             ->whereNotNull('driver_availability')
@@ -151,6 +147,7 @@ class QueueEntriesTest extends TestCase
 
         $manager = new Manager();
         $resource = new Collection($queues, new QueueEntriesTransformer());
+        // $final = $manager->createData($resource)->toArray();
         $final = end($manager->createData($resource)->toArray()['data'])['LocalTime'];
 
         echo json_encode($final, JSON_PRETTY_PRINT);

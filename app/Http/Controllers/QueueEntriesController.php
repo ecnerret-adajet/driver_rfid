@@ -116,7 +116,7 @@ class QueueEntriesController extends Controller
         Session::put('queueDate', Carbon::now()->subDay());
         $dateSearch = Session::get('queueDate');
 
-         $queues = QueueEntry::whereDate('created_at', '>=', $dateSearch)
+         $queues = QueueEntry::whereDate('LocalTime', '>=', $dateSearch)
                             ->where('driverqueue_id',$driverqueue_id)
                             // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
                             ->whereNotNull('driver_availability')
@@ -136,14 +136,14 @@ class QueueEntriesController extends Controller
     public function expiredQueues($driverqueue_id)
     {
 
-        $last_entry = current($this->searchQueueEntriesFeed($driverqueue_id)['data'])['created_at'];
+        $last_entry = end($this->searchQueueEntriesFeed($driverqueue_id)['data'])['LocalTime'];
         $olderDate = Carbon::now()->subDays(3);
 
         // Session::put('queueDate', Carbon::now()->subHours(24));
         // Session::put('queueDate', Carbon::now()->subDays(2)->subHours(24));
 
-        $queues = QueueEntry::where('created_at', '>=', $olderDate)
-                            ->where('created_at', '<', $last_entry)
+        $queues = QueueEntry::where('LocalTime', '>=', $olderDate)
+                            ->where('LocalTime', '<', $last_entry)
                             ->where('driverqueue_id',$driverqueue_id)
                             // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
                             // ->doesntHave('shipment')
@@ -151,7 +151,7 @@ class QueueEntriesController extends Controller
                             ->whereNotNull('truck_availability')
                             ->where('isDRCompleted','NOT LIKE','%0000-00-00%')
                             ->whereNotNull('isTappedGateFirst')
-                            ->orderBy('created_at','DESC')
+                            ->orderBy('LocalTime','DESC')
                             ->with('truck','truck.plants:plant_name','truck.capacity','shipment')
                             ->get()
                             ->unique('CardholderID');
@@ -169,14 +169,14 @@ class QueueEntriesController extends Controller
         // $checkTruckscaleOut = collect(Log::truckscaleOutFromQueue($driverqueue_id))->unique();
 
         $queues = QueueEntry::with('truck','truck.plants:plant_name','truck.capacity','qshipment')
-                            ->whereDate('created_at',  '>=', $dateSearch) // get less than 24 hours from tap
+                            ->where('LocalTime',  '>=', $dateSearch) // get less than 24 hours from tap
                             ->where('driverqueue_id',$driverqueue)
                             // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
                             ->whereNotNull('driver_availability')
                             ->whereNotNull('truck_availability')
                             ->where('isDRCompleted','NOT LIKE','%0000-00-00%')
                             ->whereNotNull('isTappedGateFirst')
-                            ->orderBy('LocalTime','ASC')
+                            ->orderBy('LocalTime','DESC')
                             ->get()
                             ->unique('CardholderID')
                             ->values()->all();

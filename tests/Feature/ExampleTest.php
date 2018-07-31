@@ -60,13 +60,11 @@ class ExampleTest extends TestCase
 
     public function testDates()
     {
-        Session::put('queueDate', Carbon::now());
-        $startDate = Session::get('queueDate');
-        $endDate = $startDate->subDays(2);
+        // Session::put('queueDate', Carbon::now());
+        Session::put('queueDate', Carbon::now()->subDay());
+         $dateSearch = Session::get('queueDate');
 
-        $test = Carbon::now()->subDay();
-
-        echo json_encode($test, JSON_PRETTY_PRINT);
+        echo json_encode($dateSearch, JSON_PRETTY_PRINT);
     }
 
 }

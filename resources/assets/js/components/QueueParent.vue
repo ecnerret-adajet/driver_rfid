@@ -128,15 +128,6 @@
 
         </div> <!-- end row -->
 
-         <div class="form-row mb-3 mt-1" v-if="selected == 2">
-                <div class="col p-3 bg-light text-primary">
-                    <p class="text-danger h5">
-                        Older 24 hours ( 3 days entries )
-                    </p>
-                </div>
-            </div>
-
-
             <app-queue-search   v-if="selected == 1"
                                 @withShipment="withShipment = $event"
                                 @noShipment="noShipment = $event"

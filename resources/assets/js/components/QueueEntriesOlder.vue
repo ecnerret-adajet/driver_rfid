@@ -72,7 +72,7 @@
                     <small class="text-uppercase text-muted">
                         TAPPED IN QUEUE
                     </small><br/>
-                     {{ moment(queue.created_at) }}
+                     {{ moment(queue.LocalTime) }}
                 </td>
                 <td>
                     <span v-if="queue.shipment">
