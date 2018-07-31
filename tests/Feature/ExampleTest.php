@@ -2,15 +2,17 @@
 
 namespace Tests\Feature;
 
+use App\Card;
+use App\Truck;
+use Carbon\Carbon;
+use App\Cardholder;
 use Tests\TestCase;
+use App\AccessGroup;
+use App\Driverqueue;
+use Session;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use App\AccessGroup;
-use App\Truck;
-use App\Card;
-use App\Cardholder;
-use App\Driverqueue;
 
 class ExampleTest extends TestCase
 {
@@ -24,7 +26,7 @@ class ExampleTest extends TestCase
         // $response = $this->get('/');
 
         // $response->assertStatus(200);
-        
+
         $this->assertTrue(true);
     }
 
@@ -40,7 +42,7 @@ class ExampleTest extends TestCase
     }
 
     /**
-     * Test Card ID from truck -> driver 
+     * Test Card ID from truck -> driver
      */
     public function testCardholderTruck()
     {
@@ -54,6 +56,17 @@ class ExampleTest extends TestCase
         // $card = Card::where('')
 
         echo json_encode($truck, JSON_PRETTY_PRINT);
+    }
+
+    public function testDates()
+    {
+        Session::put('queueDate', Carbon::now());
+        $startDate = Session::get('queueDate');
+        $endDate = $startDate->subDays(2);
+
+        $test = Carbon::now()->subDay();
+
+        echo json_encode($test, JSON_PRETTY_PRINT);
     }
 
 }

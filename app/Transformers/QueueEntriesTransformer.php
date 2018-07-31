@@ -34,7 +34,7 @@ class QueueEntriesTransformer extends TransformerAbstract
             'isSecondDelivery' => $queueEntry->isSecondDelivery,
             'created_at' => $queueEntry->created_at,
             'truck' => $queueEntry->truck,
-            'shipment' =>  $queueEntry->qshipment,
+            'shipment' =>  $queueEntry->withinDayShipment, //qshipment
             'lastCreated' => Carbon::parse($queueEntry->created_at)->diffForHumans(),
         ];
     }

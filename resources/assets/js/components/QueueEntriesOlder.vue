@@ -1,7 +1,6 @@
 <template>
   <div>
 
-
      <table class="table table-bordered" :class="{'table-striped' : !loading}">
         <thead>
             <tr class="text-uppercase font-weight-light">
@@ -73,15 +72,26 @@
                     <small class="text-uppercase text-muted">
                         TAPPED IN QUEUE
                     </small><br/>
-                     {{ moment(queue.LocalTime) }}
+                     {{ moment(queue.created_at) }}
                 </td>
                 <td>
-                    <span class="text-center" v-if="queue.shipment">
-                        <button class="btn btn-outline-danger btn-sm disabled">
+                    <span v-if="queue.shipment">
+                        <button class="btn btn-outline-danger btn-sm disabled mb-2">
                             SHIPMENT ASSIGNED
                         </button>
                         <br/>
-                         {{ queue.shipment.shipment_number }}
+                        <small class="d-block text-uppercase text-muted">
+                            Shipment Number
+                        </small>
+                        <span class="d-block">
+                        {{ queue.shipment.shipment_number }}
+                        </span>
+                        <small class="d-block text-uppercase text-muted">
+                            Shipment Date
+                        </small>
+                        <span class="d-block">
+                        {{ moment(queue.shipment.change_date) }}
+                        </span>
                     </span>
                     <span v-else>
                         <button class="btn btn-outline-success btn-sm disabled">
@@ -151,7 +161,7 @@
 
     export default {
 
-        props: ['location','search','filter'],
+        props: ['location','filter','search'],
 
         components: {
             VueContentPlaceholders,
@@ -159,7 +169,6 @@
 
         data() {
             return {
-                loading: false,
                 queues: [],
                 currentPage: 0,
                 itemsPerPage: 5,
@@ -168,8 +177,20 @@
         },
 
         watch: {
-            queues() {
-                this.$emit('all-queue',this.queues)
+            withShipment() {
+                this.$emit('withShipment',this.withShipment);
+            },
+
+            noShipment() {
+                this.$emit('noShipment',this.noShipment);
+            },
+
+            date() {
+                return this.getEntries();
+            },
+
+            filter() {
+                return this.resetStartRow();
             }
         },
 
@@ -181,11 +202,15 @@
 
             getEntries() {
                 this.loading = true
-                axios.get('/driver_rfid/public/getQueueEntriesFeed/' + this.location)
+                axios.get('/driver_rfid/public/expiredQueues/' + this.location)
                 .then(response => {
                     this.queues = response.data
                     this.loading = false
                 });
+            },
+
+            searchDate(date) {
+                return moment(date).format('YYYY-MM-DD');
             },
 
             moment(date) {
@@ -210,6 +235,14 @@
         },
 
         computed: {
+
+            withShipment() {
+                return this.queues.filter(queue => queue.shipment != null).length;
+            },
+
+            noShipment() {
+                return this.queues.filter(queue => queue.shipment == null).length;
+            },
 
             searchEntries() {
                 return this.queues.filter(item => {
@@ -237,7 +270,6 @@
 
                 return this.queues && bySearch;
             },
-
 
             totalPages() {
                 return Math.ceil(this.filteredEntries.length / this.itemsPerPage)

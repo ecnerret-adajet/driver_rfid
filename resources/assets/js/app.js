@@ -67,6 +67,7 @@ Vue.component('driverqueueEntries', require('./components/QueuesEntries.vue'));
 Vue.component('gateArea', require('./components/GateArea.vue'));
 Vue.component('queueArea', require('./components/QueueArea.vue'));
 Vue.component('queueParent', require('./components/QueueParent.vue'));
+Vue.component('queueSearch', require('./components/QueueSearch.vue'));
 
 Vue.component('exportEntries', require('./components/ExportEntries.vue'));
 Vue.component('currentStatus', require('./components/CurrentStatus.vue'));

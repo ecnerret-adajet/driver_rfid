@@ -6,6 +6,7 @@
         <div class="row mb-2">
           <div class="col-6">
             <h1 class="m-0 text-dark">Queue Entries</h1>
+            <span class="text-muted">All Pickup and Deliveries logs</span>
           </div><!-- /.col -->
           <div class="col-6">
             <ol class="breadcrumb float-sm-right">
@@ -15,18 +16,9 @@
         </div><!-- /.row -->
     </div>
 
-   <div class="card mx-auto mb-3 mt-3">
-        <div class="card-header">
-       Pickup & Deliveries Queues
-
-        <a class="btn btn-sm btn-outline-primary float-right" href="{{ url('/monitor/feed') }}">
-          Visit Previous Version
-        </a>
-        </div>
-        <div class="card-body">
 
         <!-- Nav tabs -->
-<ul class="nav nav-tabs" role="tablist">
+<ul class="nav nav-tabs mt-5" role="tablist">
   @role((['Administrator','Queue-monitoring','Pickup-level-2']))
     <li class="nav-item">
       <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Pickup Queues</a>
@@ -46,27 +38,26 @@
 </ul>
 
 <!-- Tab panes -->
-<div class="tab-content">
+<div class="tab-content mb-3">
 
   @role((['Administrator','Queue-monitoring','Pickup-level-2']))
     <div class="tab-pane active" id="home" role="tabpanel">
       <monitor-queue-pickups></monitor-queue-pickups>
     </div>
   @endrole
-  
+
   @role((['Administrator','Queue-monitoring']))
     @foreach($driverqueues as $driverqueue)
     <div class="tab-pane" id="queue-{{ $driverqueue->id }}" role="tabpanel">
-    <queue-parent driverqueue="{{ $driverqueue->id }}"></queue-parent>
+      <queue-parent location="{{ $driverqueue->id }}"></queue-parent>
     </div>
     @endforeach
   @endrole
 
 </div>
 
-        
-        </div><!-- end card-body -->
-    </div> <!-- end card -->
+
+
 
 
 

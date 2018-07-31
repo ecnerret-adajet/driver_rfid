@@ -1,7 +1,6 @@
 <template>
   <div>
 
-
      <table class="table table-bordered" :class="{'table-striped' : !loading}">
         <thead>
             <tr class="text-uppercase font-weight-light">
@@ -40,6 +39,9 @@
                             </span>
                             <span class="text-danger" v-else>
                                 NO HAULER
+                            </span> <br/>
+                            <span>
+                               {{ queue.LogID }}
                             </span>
                         </div>
                     </div>
@@ -73,15 +75,27 @@
                     <small class="text-uppercase text-muted">
                         TAPPED IN QUEUE
                     </small><br/>
-                     {{ moment(queue.LocalTime) }}
+                     {{ moment(queue.created_at) }}
+
                 </td>
                 <td>
-                    <span class="text-center" v-if="queue.shipment">
-                        <button class="btn btn-outline-danger btn-sm disabled">
+                    <span v-if="queue.shipment">
+                        <button class="btn btn-outline-danger btn-sm disabled mb-2">
                             SHIPMENT ASSIGNED
                         </button>
                         <br/>
-                         {{ queue.shipment.shipment_number }}
+                        <small class="d-block text-uppercase text-muted">
+                            Shipment Number
+                        </small>
+                        <span class="d-block">
+                        {{ queue.shipment.shipment_number }}
+                        </span>
+                        <small class="d-block text-uppercase text-muted">
+                            Shipment Date
+                        </small>
+                        <span class="d-block">
+                        {{ moment(queue.shipment.change_date) }}
+                        </span>
                     </span>
                     <span v-else>
                         <button class="btn btn-outline-success btn-sm disabled">
@@ -145,13 +159,16 @@
 </template>
 <script>
 
+    import Toasted from 'vue-toasted';
     import moment from 'moment';
     import VueContentPlaceholders from 'vue-content-placeholders';
     import _ from 'lodash';
 
+    Vue.use(Toasted)
+
     export default {
 
-        props: ['location','search','date'],
+        props: ['location','filter','search'],
 
         components: {
             VueContentPlaceholders,
@@ -159,11 +176,29 @@
 
         data() {
             return {
-                loading: false,
+                date: moment(new Date()).format('YYYY-MM-DD'),
                 queues: [],
                 currentPage: 0,
                 itemsPerPage: 5,
                 avatar_link: '/driver_rfid/public/storage/',
+            }
+        },
+
+        watch: {
+            withShipment() {
+                this.$emit('withShipment',this.withShipment);
+            },
+
+            noShipment() {
+                this.$emit('noShipment',this.noShipment);
+            },
+
+            date() {
+                return this.getEntries();
+            },
+
+            filter() {
+                return this.resetStartRow();
             }
         },
 
@@ -175,11 +210,15 @@
 
             getEntries() {
                 this.loading = true
-                axios.get('/driver_rfid/public/searchQueueEntriesFeed/' + this.location + '?search_date=' + this.date)
+                axios.get(`/driver_rfid/public/searchQueueEntriesFeed/${this.location}`)
                 .then(response => {
                     this.queues = response.data.data
                     this.loading = false
                 });
+            },
+
+            searchDate(date) {
+                return moment(date).format('YYYY-MM-DD');
             },
 
             moment(date) {
@@ -204,12 +243,40 @@
         },
 
         computed: {
-            filteredEntries() {
-                const vm = this;
-                return _.filter(vm.queues, function(item){
-                    return ~item.driver_name.toLowerCase().indexOf(vm.search.trim().toLowerCase()) ||
-                            ~item.plate_number.toLowerCase().indexOf(vm.search.trim().toLowerCase());
+
+            withShipment() {
+                return this.queues.filter(queue => queue.shipment != null).length;
+            },
+
+            noShipment() {
+                return this.queues.filter(queue => queue.shipment == null).length;
+            },
+
+            searchEntries() {
+                return this.queues.filter(item => {
+                    return item.driver_name.toLowerCase().includes(this.search.trim().toLowerCase()) ||
+                            item.plate_number.toLowerCase().includes(this.search.trim().toLowerCase());
                 });
+            },
+
+            filteredEntries() {
+                let bySearch = this.searchEntries;
+
+                if(this.filter == 'all') {
+                    return this.queues && bySearch;
+                } else if(this.filter == 'with-shipment') {
+                    return this.queues.filter(queue => {
+                        return queue.shipment != null &&
+                            queue.plate_number.toLowerCase().includes(this.search.trim().toLowerCase());
+                    });
+                } else if(this.filter == 'no-shipment') {
+                    return this.queues.filter(queue => {
+                        return queue.shipment == null &&
+                                queue.plate_number.toLowerCase().includes(this.search.trim().toLowerCase());
+                    });
+                }
+
+                return this.queues && bySearch;
             },
 
             totalPages() {

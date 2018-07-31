@@ -44,7 +44,7 @@
       <monitor-queue-pickups></monitor-queue-pickups>
     </div>
   @endrole
-  
+
   @role((['Administrator','Queue-monitoring']))
     <div class="tab-pane" id="manila" role="tabpanel">
       <monitor-queue-deliveries></monitor-queue-deliveries>
@@ -66,8 +66,8 @@
   @endrole
 </div>
 
-             
-        
+
+
         </div><!-- end card-body -->
     </div> <!-- end card -->
 

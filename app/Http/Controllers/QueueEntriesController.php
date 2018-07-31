@@ -104,10 +104,19 @@ class QueueEntriesController extends Controller
         return $queues->values()->all();
     }
 
-    //Show all queue to feed planners monitoring - for eexpired within 24 hours
+    /**
+     * Shows all queue to feed planners monitoring - for eexpired within 24 hours
+     *
+     * @param App\Driverqueue $driverqueue_id
+     * @return json
+     */
     public function getQueueFromCreatedDate($driverqueue_id)
     {
-         $queues = QueueEntry::whereDate('created_at', '>=', Carbon::now()->subHours(24))
+
+        Session::put('queueDate', Carbon::now()->subDay());
+        $dateSearch = Session::get('queueDate');
+
+         $queues = QueueEntry::whereDate('created_at', '>=', $dateSearch)
                             ->where('driverqueue_id',$driverqueue_id)
                             // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
                             ->whereNotNull('driver_availability')
@@ -126,15 +135,23 @@ class QueueEntriesController extends Controller
     //Show all expired queues older than 24 hours
     public function expiredQueues($driverqueue_id)
     {
-        $queues = QueueEntry::whereDate('created_at', '<=', Carbon::now()->subHours(24))
+
+        $last_entry = current($this->searchQueueEntriesFeed($driverqueue_id)['data'])['created_at'];
+        $olderDate = Carbon::now()->subDays(3);
+
+        // Session::put('queueDate', Carbon::now()->subHours(24));
+        // Session::put('queueDate', Carbon::now()->subDays(2)->subHours(24));
+
+        $queues = QueueEntry::where('created_at', '>=', $olderDate)
+                            ->where('created_at', '<', $last_entry)
                             ->where('driverqueue_id',$driverqueue_id)
                             // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
-                            ->doesntHave('shipment')
+                            // ->doesntHave('shipment')
                             ->whereNotNull('driver_availability')
                             ->whereNotNull('truck_availability')
                             ->where('isDRCompleted','NOT LIKE','%0000-00-00%')
                             ->whereNotNull('isTappedGateFirst')
-                            ->orderBy('LocalTime','DESC')
+                            ->orderBy('created_at','DESC')
                             ->with('truck','truck.plants:plant_name','truck.capacity','shipment')
                             ->get()
                             ->unique('CardholderID');
@@ -143,21 +160,17 @@ class QueueEntriesController extends Controller
     }
 
     //Search queue entries by date
-    public function searchQueueEntriesFeed(Request $request, Driverqueue $driverqueue)
+    public function searchQueueEntriesFeed($driverqueue)
     {
-        $this->validate($request, [
-            'search_date' => 'required'
-        ]);
-
-        $search_date = $request->get('search_date');
-        Session::put('queueDate', $search_date);
+        // Session::put('queueDate', $search_date);
+        Session::put('queueDate', Carbon::now()->subDay());
         $dateSearch = Session::get('queueDate');
 
         // $checkTruckscaleOut = collect(Log::truckscaleOutFromQueue($driverqueue_id))->unique();
 
         $queues = QueueEntry::with('truck','truck.plants:plant_name','truck.capacity','qshipment')
-                            ->where('driverqueue_id',$driverqueue->id)
-                            ->whereDate('LocalTime', $dateSearch)
+                            ->whereDate('created_at',  '>=', $dateSearch) // get less than 24 hours from tap
+                            ->where('driverqueue_id',$driverqueue)
                             // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
                             ->whereNotNull('driver_availability')
                             ->whereNotNull('truck_availability')
@@ -188,16 +201,14 @@ class QueueEntriesController extends Controller
         );
 
         return $data;
-
-        // return $totalAssigned = QueueEntry::totalAssigned($driverqueue);
-
     }
 
     //Get the last tapped driver to planners monitoring
     public function lastDriverTapped($driverqueue)
     {
         $lastDriverTapped = QueueEntry::orderBy('id','DESC')
-                        ->whereNotNull('shipment_number')
+                        ->has('shipment')
+                    //    ->whereNotNull('shipment_number')
                         ->where('driverqueue_id',$driverqueue)
                         ->first();
 
@@ -218,7 +229,7 @@ class QueueEntriesController extends Controller
                         ->with('driver','driver.image','driver.truck','driver.hauler')
                         ->first();
 
-        $queueEntry = QueueEntry::updateOrCreate(
+        $queueEntry = QueueEntry::firstOrCreate(
             [
                 'LogID' => $lastLogEntry->LogID,
             ],

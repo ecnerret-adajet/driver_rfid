@@ -99,6 +99,12 @@ class QueueEntry extends Model
             ->whereDate('change_date', Session::get('queueDate'));
     }
 
+    public function withinDayShipment()
+    {
+        return $this->belongsTo(Shipment::class,'CardholderID','CardholderID')
+            ->whereDate('change_date', '>=', Session::get('queueDate'));
+    }
+
     //Query Scoped
     public function scopeTotalAssigned($query, $driverqueue)
     {
