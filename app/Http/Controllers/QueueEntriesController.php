@@ -136,7 +136,7 @@ class QueueEntriesController extends Controller
     public function expiredQueues($driverqueue_id)
     {
 
-        $last_entry = end($this->searchQueueEntriesFeed($driverqueue_id)['data'])['LocalTime'];
+        $last_entry = current($this->searchQueueEntriesFeed($driverqueue_id)['data'])['LocalTime'];
         $olderDate = Carbon::now()->subDays(3);
 
         // Session::put('queueDate', Carbon::now()->subHours(24));
@@ -176,7 +176,7 @@ class QueueEntriesController extends Controller
                             ->whereNotNull('truck_availability')
                             ->where('isDRCompleted','NOT LIKE','%0000-00-00%')
                             ->whereNotNull('isTappedGateFirst')
-                            ->orderBy('LocalTime','DESC')
+                            ->orderBy('LocalTime','ASC')
                             ->get()
                             ->unique('CardholderID')
                             ->values()->all();
