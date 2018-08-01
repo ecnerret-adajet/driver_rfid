@@ -110,7 +110,7 @@
                         <!-- <input class="form-control" type="date" v-model="date"> -->
                         <select class="form-control" v-model="selected">
                             <option selected value="1">Within 24 hours</option>
-                            <option value="2">Older than 24 hours</option>
+                            <option value="2">Over 24 - 72 hours</option>
                         </select>
                     </div>
                 </div>
