@@ -9,8 +9,12 @@
             <span class="text-muted">All Pickup and Deliveries logs</span>
           </div><!-- /.col -->
           <div class="col-6">
-            <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item active">{{ Carbon\Carbon::today()->format('M d, Y') }}</li>
+            <ol class="breadcrumb float-right">
+            <li>
+              <a  href="{{ url('/monitor/feed') }}">
+                  Visit Previous Version
+                </a>
+            </li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
