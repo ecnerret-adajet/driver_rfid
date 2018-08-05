@@ -62,11 +62,11 @@ class QueueEntriesController extends Controller
     public function getQueueEntriesJson($driverqueue_id,$date)
     {
 
-        Session::put('queueDate', Carbon::parse($date));
+        Session::put('queueDate', Carbon::parse($date)->subDay()); // For observation
         $dateSearch = Session::get('queueDate');
 
         $queues = QueueEntry::with('truck','truck.plants:plant_name','truck.capacity','shipment')
-                            ->whereDate('created_at',$dateSearch)
+                            ->whereDate('created_at', '>=', $dateSearch)
                             ->where('driverqueue_id',$driverqueue_id)
                             // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
                             ->whereNotNull('driver_availability')

@@ -24,47 +24,47 @@ class QueueEntriesTest extends TestCase
 
     use NotDriverTrait, QueueTrait;
     /**
-     * A basic test example.
-     *
-     * @return void
-     */
+    * A basic test example.
+    *
+    * @return void
+    */
     public function testQueueCount()
     {
         // $this->assertTrue(true);
 
-         $queues = QueueEntry::with('truck','truck.plants:plant_name','truck.capacity','qshipment')
-                            ->whereDate('created_at',Carbon::today()->subDays(2))
-                            ->where('driverqueue_id',1)
-                            // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
-                            ->whereNotNull('driver_availability')
-                            ->whereNotNull('truck_availability')
-                            ->where('isDRCompleted','NOT LIKE','%0000-00-00%')
-                            ->whereNotNull('isTappedGateFirst')
-                            ->orderBy('LocalTime','ASC')
-                            ->get()
-                            ->unique('CardholderID');
+        $queues = QueueEntry::with('truck','truck.plants:plant_name','truck.capacity','qshipment')
+        ->whereDate('created_at',Carbon::today()->subDays(2))
+        ->where('driverqueue_id',1)
+        // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
+        ->whereNotNull('driver_availability')
+        ->whereNotNull('truck_availability')
+        ->where('isDRCompleted','NOT LIKE','%0000-00-00%')
+        ->whereNotNull('isTappedGateFirst')
+        ->orderBy('LocalTime','ASC')
+        ->get()
+        ->unique('CardholderID');
 
         echo json_encode($queues->values()->all(), JSON_PRETTY_PRINT);
     }
 
     /**
-     *
-     * Test function for newly applied 24 hours from driver's tap to expire
-     *
-     */
+    *
+    * Test function for newly applied 24 hours from driver's tap to expire
+    *
+    */
     public function testQueueWithinDay()
     {
         $queues = QueueEntry::whereDate('created_at', '>=', Carbon::now()->subHours(24))
-                            ->where('driverqueue_id',1)
-                            // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
-                            ->whereNotNull('driver_availability')
-                            ->whereNotNull('truck_availability')
-                            ->where('isDRCompleted','NOT LIKE','%0000-00-00%')
-                            ->whereNotNull('isTappedGateFirst')
-                            ->orderBy('LocalTime','DESC')
-                            ->with('truck','truck.plants:plant_name','truck.capacity','shipment')
-                            ->get()
-                            ->unique('CardholderID');
+        ->where('driverqueue_id',1)
+        // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
+        ->whereNotNull('driver_availability')
+        ->whereNotNull('truck_availability')
+        ->where('isDRCompleted','NOT LIKE','%0000-00-00%')
+        ->whereNotNull('isTappedGateFirst')
+        ->orderBy('LocalTime','DESC')
+        ->with('truck','truck.plants:plant_name','truck.capacity','shipment')
+        ->get()
+        ->unique('CardholderID');
 
         $this->get($queues)->getContent();
 
@@ -72,8 +72,8 @@ class QueueEntriesTest extends TestCase
     }
 
     /**
-     * Test Function for expired queueu after 24 hours
-     */
+    * Test Function for expired queueu after 24 hours
+    */
     public function testExpiredQueues()
     {
 
@@ -81,17 +81,17 @@ class QueueEntriesTest extends TestCase
         $subDay = Carbon::now()->subHours(24);
 
         $queues = QueueEntry::whereDate('created_at', '<=', $subDay)
-                            ->where('driverqueue_id',1)
-                            // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
-                            ->doesntHave('shipment')
-                            ->whereNotNull('driver_availability')
-                            ->whereNotNull('truck_availability')
-                            ->where('isDRCompleted','NOT LIKE','%0000-00-00%')
-                            ->whereNotNull('isTappedGateFirst')
-                            ->orderBy('LocalTime','DESC')
-                            ->with('truck','truck.plants:plant_name','truck.capacity','shipment')
-                            ->get()
-                            ->unique('CardholderID');
+        ->where('driverqueue_id',1)
+        // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
+        ->doesntHave('shipment')
+        ->whereNotNull('driver_availability')
+        ->whereNotNull('truck_availability')
+        ->where('isDRCompleted','NOT LIKE','%0000-00-00%')
+        ->whereNotNull('isTappedGateFirst')
+        ->orderBy('LocalTime','DESC')
+        ->with('truck','truck.plants:plant_name','truck.capacity','shipment')
+        ->get()
+        ->unique('CardholderID');
 
         $this->get($queues)->getContent();
 
@@ -106,19 +106,19 @@ class QueueEntriesTest extends TestCase
         $olderDate = Carbon::now()->subDays(3);
 
         $queues = QueueEntry::where('LocalTime', '>=' ,$olderDate)
-                            ->where('LocalTime', '<' ,$last_entry)
-                            ->where('driverqueue_id',1)
-                            // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
-                            ->doesntHave('shipment')
-                            ->whereNotNull('driver_availability')
-                            ->whereNotNull('truck_availability')
-                            ->where('isDRCompleted','NOT LIKE','%0000-00-00%')
-                            ->whereNotNull('isTappedGateFirst')
-                            ->orderBy('LocalTime','ASC')
-                            ->with('truck','truck.plants:plant_name','truck.capacity','shipment')
-                            ->get()
-                            ->unique('CardholderID')
-                            ->values()->all();
+        ->where('LocalTime', '<' ,$last_entry)
+        ->where('driverqueue_id',1)
+        // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
+        ->doesntHave('shipment')
+        ->whereNotNull('driver_availability')
+        ->whereNotNull('truck_availability')
+        ->where('isDRCompleted','NOT LIKE','%0000-00-00%')
+        ->whereNotNull('isTappedGateFirst')
+        ->orderBy('LocalTime','ASC')
+        ->with('truck','truck.plants:plant_name','truck.capacity','shipment')
+        ->get()
+        ->unique('CardholderID')
+        ->values()->all();
 
         echo json_encode($queues, JSON_PRETTY_PRINT);
     }
@@ -133,17 +133,17 @@ class QueueEntriesTest extends TestCase
         // $checkTruckscaleOut = collect(Log::truckscaleOutFromQueue($driverqueue_id))->unique();
 
         $queues = QueueEntry::with('truck','truck.plants:plant_name','truck.capacity','qshipment')
-                            ->where('LocalTime',  '>=', $dateSearch) // get less than 24 hours from tap
-                            ->where('driverqueue_id',1)
-                            // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
-                            ->whereNotNull('driver_availability')
-                            ->whereNotNull('truck_availability')
-                            ->where('isDRCompleted','NOT LIKE','%0000-00-00%')
-                            ->whereNotNull('isTappedGateFirst')
-                            ->orderBy('LocalTime','DESC')
-                            ->get()
-                            ->unique('CardholderID')
-                            ->values()->all();
+        ->where('LocalTime',  '>=', $dateSearch) // get less than 24 hours from tap
+        ->where('driverqueue_id',1)
+        // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
+        ->whereNotNull('driver_availability')
+        ->whereNotNull('truck_availability')
+        ->where('isDRCompleted','NOT LIKE','%0000-00-00%')
+        ->whereNotNull('isTappedGateFirst')
+        ->orderBy('LocalTime','DESC')
+        ->get()
+        ->unique('CardholderID')
+        ->values()->all();
 
         $manager = new Manager();
         $resource = new Collection($queues, new QueueEntriesTransformer());
@@ -159,15 +159,55 @@ class QueueEntriesTest extends TestCase
         $driverLocation = Driverqueue::where('id',1)->first();
 
         $lastLogEntry = Log::where('DoorID',$driverLocation->door)
-                        ->where('ControllerID', $driverLocation->controller)
-                        ->whereNotIn('CardholderID',$this->notDriver())
-                        ->where('CardholderID', '>=', 15)
-                        ->orderBy('LocalTime','DESC')
-                        ->with('driver','driver.image','driver.truck','driver.hauler')
-                        ->first();
+        ->where('ControllerID', $driverLocation->controller)
+        ->whereNotIn('CardholderID',$this->notDriver())
+        ->where('CardholderID', '>=', 15)
+        ->orderBy('LocalTime','DESC')
+        ->with('driver','driver.image','driver.truck','driver.hauler')
+        ->first();
 
 
         echo json_encode($lastLogEntry, JSON_PRETTY_PRINT);
+    }
+
+    public function testUpdateShipment()
+    {
+        Session::put('queueDate', Carbon::now()->subDays(9));
+        $dateSearch = Session::get('queueDate');
+
+        $driverqueues = Driverqueue::pluck('id');
+
+        $queues = QueueEntry::whereIn('driverqueue_id',$driverqueues)
+        ->whereDate('LocalTime', '>=', $dateSearch)
+        ->doesntHave('shipment')
+        ->whereNotNull('driver_availability')
+        ->whereNotNull('truck_availability')
+        ->where('isDRCompleted','NOT LIKE','%0000-00-00%')
+        ->whereNotNull('isTappedGateFirst')
+        ->orderBy('LocalTime','DESC')
+        ->get()
+        ->unique('CardholderID')
+        ->values()->all();
+
+        $queueObject = array();
+
+        foreach($queues as $key => $log)  {
+            $amp = '&';
+            $data = array(
+                'LogID' => $log->LogID.$amp,
+            );
+            array_push($queueObject, $data);
+        }
+
+        $collection = collect($queueObject);
+
+        $LogID =  'LogID='.$collection->implode('LogID', 'LogID=');
+        // $response = Curl::to('http://10.96.4.39/sapservice/api/assignedshipment2')
+        // ->withContentType('application/x-www-form-urlencoded')
+        // ->withData( $LogID )
+        // ->post();
+
+        echo json_encode($LogID, JSON_PRETTY_PRINT);
     }
 
 

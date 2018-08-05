@@ -14,24 +14,24 @@ use DB;
 class UpdateShipment extends Command
 {
     /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+    * The name and signature of the console command.
+    *
+    * @var string
+    */
     protected $signature = 'command:UpdateShipment';
 
     /**
-     * The console command description.
-     *
-     * @var string
-     */
+    * The console command description.
+    *
+    * @var string
+    */
     protected $description = 'Update shipment logs from driver RFID';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
+    * Create a new command instance.
+    *
+    * @return void
+    */
     public function __construct(Log $log)
     {
         parent::__construct();
@@ -39,72 +39,47 @@ class UpdateShipment extends Command
     }
 
     /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
+    * Execute the console command.
+    *
+    * @return mixed
+    */
     public function handle()
     {
 
-        // get all queue entries within the day in all location
-        // $driverqueues = Driverqueue::all();
-        
-        // foreach($driverqueues as $driverqueue) {
-            
-        //     $check_truckscale_out = Log::truckscaleOutLocation($driverqueue->ts_out_controller);
-        //     $gateEntries =  Log::barrierLocation($driverqueue->gate->door,$driverqueue->gate->controller);
-        //     $result_lineups = Log::queueLocation($driverqueue->door, $driverqueue->controller, $check_truckscale_out, $gateEntries, Carbon::today());
-        //     $log_lineups = $result_lineups->unique('CardholderID');
-        //     $queueObject = array();
+        Session::put('queueDate', Carbon::now()->subDay());
+        $dateSearch = Session::get('queueDate');
 
-        //     foreach($log_lineups as $key => $log)  {
-        //             foreach($log->drivers as $x => $driver) {
-        //                 $amp = '&';
-        //                 $data = array(
-        //                     'LogID' => $log->LogID.$amp,
-        //                 );
-        //                 array_push($queueObject, $data);
-        //             }
-        //      }
-        //     }
-
-
-        // get all queue entries within the day in all location
         $driverqueues = Driverqueue::pluck('id');
-        
-        // $checkTruckscaleOut = collect(Log::truckscaleOutQueueArray())->unique();
 
         $queues = QueueEntry::whereIn('driverqueue_id',$driverqueues)
-                            // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
-                            ->where('created_at', '>=', Carbon::today())
-                            // ->whereNull('shipment_number')
-                            ->doesntHave('shipment')
-                            ->whereNotNull('driver_availability')
-                            ->whereNotNull('truck_availability')
-                            ->where('isDRCompleted','NOT LIKE','%0000-00-00%')
-                            ->whereNotNull('isTappedGateFirst')
-                            ->orderBy('LocalTime','ASC')
-                            ->get()
-                            ->unique('CardholderID')
-                            ->values()
-                            ->all();
+        ->whereDate('LocalTime', '>=', $dateSearch)
+        ->doesntHave('shipment')
+        ->whereNotNull('driver_availability')
+        ->whereNotNull('truck_availability')
+        ->where('isDRCompleted','NOT LIKE','%0000-00-00%')
+        ->whereNotNull('isTappedGateFirst')
+        ->orderBy('LocalTime','DESC')
+        ->get()
+        ->unique('CardholderID')
+        ->values()->all();
 
         $queueObject = array();
 
         foreach($queues as $key => $log)  {
-                $amp = '&';
-                $data = array(
-                    'LogID' => $log->LogID.$amp,
-                );
-                array_push($queueObject, $data);
+            $amp = '&';
+            $data = array(
+                'LogID' => $log->LogID.$amp,
+            );
+            array_push($queueObject, $data);
         }
 
         $collection = collect($queueObject);
+
         $LogID =  'LogID='.$collection->implode('LogID', 'LogID=');
-        $response = Curl::to('http://10.96.4.39/sapservice/api/assignedshipment')
+        // Post to new API
+        $response = Curl::to('http://10.96.4.39/sapservice/api/assignedshipment2')
         ->withContentType('application/x-www-form-urlencoded')
         ->withData( $LogID )
         ->post();
-
     }
 }

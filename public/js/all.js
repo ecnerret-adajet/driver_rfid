@@ -53670,6 +53670,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -96027,7 +96028,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "text-center"
     }, [_c('button', {
       staticClass: "btn btn-outline-danger btn-sm disabled"
-    }, [_vm._v("\n                            SHIPMENT ASSIGNED\n                        ")]), _vm._v(" "), _c('br'), _vm._v("\n                        " + _vm._s(entry.shipment.shipment_number) + "\n                    ")]) : _c('span', [_c('button', {
+    }, [_vm._v("\n                            SHIPMENT ASSIGNED\n                        ")]), _vm._v(" "), _c('br'), _vm._v("\n                        " + _vm._s(entry.shipment.shipment_number) + " "), _c('br'), _vm._v("\n                        " + _vm._s(_vm.parseDate(entry.shipment.change_date)) + "\n                    ")]) : _c('span', [_c('button', {
       staticClass: "btn btn-outline-success btn-sm disabled"
     }, [_vm._v("\n                            OPEN FOR SHIPMENT\n                        ")])])])]) : _vm._e()
   }), _vm._v(" "), (_vm.filteredResult.length == 0 && !_vm.loading) ? _c('tr', [_vm._m(1)]) : _vm._e()], 2)]), _vm._v(" "), (_vm.loading) ? _c('div', {

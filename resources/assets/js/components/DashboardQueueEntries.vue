@@ -64,7 +64,8 @@
                                 SHIPMENT ASSIGNED
                             </button>
                             <br/>
-                            {{ entry.shipment.shipment_number }}
+                            {{ entry.shipment.shipment_number }} <br/>
+                            {{ parseDate(entry.shipment.change_date) }}
                         </span>
                         <span v-else>
                             <button class="btn btn-outline-success btn-sm disabled">
