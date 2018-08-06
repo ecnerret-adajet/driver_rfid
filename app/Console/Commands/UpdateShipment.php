@@ -2,14 +2,15 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use Ixudra\Curl\Facades\Curl;
-use App\Driverqueue;
-use Carbon\Carbon;
-use App\Shipment;
-use App\QueueEntry;
-use App\Log;
 use DB;
+use App\Log;
+use App\Shipment;
+use Carbon\Carbon;
+use App\QueueEntry;
+use App\Driverqueue;
+use Ixudra\Curl\Facades\Curl;
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Session;
 
 class UpdateShipment extends Command
 {
@@ -81,5 +82,7 @@ class UpdateShipment extends Command
         ->withContentType('application/x-www-form-urlencoded')
         ->withData( $LogID )
         ->post();
-    }
+
+        $this->info('Command Executed');
+}
 }
