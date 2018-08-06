@@ -52,7 +52,7 @@ class UpdateShipment extends Command
         $driverqueues = Driverqueue::pluck('id');
 
         $queues = QueueEntry::whereIn('driverqueue_id',$driverqueues)
-        ->whereDate('LocalTime', '>=', $dateSearch)
+        ->where('LocalTime', '>=', $dateSearch)
         ->doesntHave('shipment')
         ->whereNotNull('driver_availability')
         ->whereNotNull('truck_availability')

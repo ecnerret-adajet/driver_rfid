@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Carbon\Carbon;
 use App\Log;
 use App\Shipment;
-use App\Driverqueue;
+use Carbon\Carbon;
 use App\QueueEntry;
+use App\Driverqueue;
+use Illuminate\Http\Request;
 use Ixudra\Curl\Facades\Curl;
+use Illuminate\Support\Facades\Session;
 
 class ShipmentsController extends Controller
 {
@@ -25,12 +26,12 @@ class ShipmentsController extends Controller
         // get the cardholder with time out
         $log = Log::whereIn('CardholderID',$located_serves)
                 ->whereDate('LocalTime',Carbon::today())
-                ->where('Direction',2) 
+                ->where('Direction',2)
                 ->pluck('CardholderID');
 
         // Get only unique cardholder
         $get_unique_log = $log->unique('CardholderID');
-        
+
         $served = Shipment::with('driver','driver.truck','driver.hauler','driver.image')
                         ->whereDate('created_at',Carbon::today())
                         ->where('ControllerID', $driverqueue->controller)
@@ -45,7 +46,7 @@ class ShipmentsController extends Controller
 
     // Get the last shipment assigned based from location queue
 
-    public function currentlyServing(Driverqueue $driverqueue) 
+    public function currentlyServing(Driverqueue $driverqueue)
     {
         $last_served = Shipment::with('driver','driver.truck','driver.hauler','driver.image')
                         ->orderBy('id','DESC')
@@ -57,17 +58,20 @@ class ShipmentsController extends Controller
         return $last_served;
     }
 
-    // Test Shipment assigned 
+    // Test Shipment assigned
     public function shipmentAssigned() {
-        
+
+        Session::put('queueDate', Carbon::now()->subDay());
+        $dateSearch = Session::get('queueDate');
+
         // get all queue entries within the day in all location
         $driverqueues = Driverqueue::pluck('id');
-        
+
         // $checkTruckscaleOut = collect(Log::truckscaleOutQueueArray())->unique();
 
         $queues = QueueEntry::whereIn('driverqueue_id',$driverqueues)
                             // ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
-                            ->where('created_at', '>=', Carbon::today())
+                            ->where('LocalTime', '>=', $dateSearch)
                             // ->whereNull('shipment_number')
                             ->doesntHave('shipment')
                             ->whereNotNull('driver_availability')
@@ -92,7 +96,7 @@ class ShipmentsController extends Controller
 
         $collection = collect($queueObject);
         $LogID =  'LogID='.$collection->implode('LogID', 'LogID=');
-        $response = Curl::to('http://10.96.4.39/sapservice/api/assignedshipment')
+        $response = Curl::to('http://10.96.4.39/sapservice/api/assignedshipment2')
         ->withContentType('application/x-www-form-urlencoded')
         ->withData( $LogID )
         ->post();
@@ -100,9 +104,9 @@ class ShipmentsController extends Controller
         return $response;
     }
 
-     // Test Shipment for drivers who checkout the plant 
+     // Test Shipment for drivers who checkout the plant
     public function checkShipmentStart() {
-        
+
         // get all queue entries within the day in all location
         $driverqueues = Driverqueue::all();
 
@@ -119,7 +123,7 @@ class ShipmentsController extends Controller
                         );
                         array_push($queueObject, $data);
                     }
-            }             
+            }
 
         }
 
