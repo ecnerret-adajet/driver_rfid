@@ -443,7 +443,7 @@ Route::group(['middleware' => 'auth'], function () {
          * Route setup for Export Entries Controller
          */
         Route::get('/exportEntries/report','EntryReportController@viewDisplayEntries');
-        Route::get('/displayEntries/{driverqueue_id}/{date}','EntryReportController@displayEntries');
+        Route::get('/displayEntries/{driverqueue_id}/{start_date}/{end_date}','EntryReportController@displayEntries');
 
 
     });

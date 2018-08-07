@@ -2,35 +2,51 @@
     <div>
 
         <!-- Content Header (Page header) -->
-        <div class="content-header">
+        <div class="content-header mb-4">
             <div class="row my-2">
                 <div class="col">
                     <h1 class="m-0 text-dark">Entries Report</h1>
                 </div><!-- /.col -->
+                <div class="col">
+                    <report-entries-data :entries="entries"></report-entries-data>
+                </div>
             </div><!-- /.row -->
-        </div>
-
-        <div class="row my-2">
-            <div class="col">
-                <button class="btn btn-primary float-right">Export to xslx</button>
-                    <div class="form-group mt-3">
-                    <div class="input-group input-append w-25">
-                        <span class="input-group-addon add-on"><i class="fa fa-search"></i></span>
-                        <input type="text" class="form-control w-50" v-model="search" placeholder="Search Driver Name">
-                    </div>
-                    </div>
-            </div>
         </div>
 
         <div class="card mb-4">
             <div class="card-header py-3 bg-white border-bottom-0">
-                <select class="form-control float-right w-25" v-model="selectedLocation">
-                    <option v-for="(location, l) in locations" :key="l" :value="location.id">{{ location.title }}</option>
-                </select>
-                <div class="input-group input-append date w-25" id="datePicker">
-                    <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
-                    <input type="date" class="form-control" v-model="date" />
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="text-muted text-uppercase small">Search</label>
+                            <input type="text" class="form-control" v-model="search" placeholder="Search Driver Name">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="text-muted text-uppercase small">Start Date</label>
+                            <input type="date" class="form-control" v-model="start_date" :min="minDate" :max="maxDate"/>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                        <label  class="text-muted text-uppercase small">End Date</label>
+                        <input type="date" class="form-control" v-model="end_date" :max="maxDate" :min="minDate" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                        <label class="text-muted text-uppercase small">Location</label>
+                         <select class="form-control" v-model="selectedLocation">
+                            <option v-for="(location, l) in locations" :key="l" :value="location.id">{{ location.title }}</option>
+                        </select>
+                        </div>
+                    </div>
                 </div>
+
+
+
+
             </div>
             <div class="card-body p-0">
 
@@ -106,8 +122,6 @@
                                 <div class="col-2">
                                     <span class="d-block text-uppercase text-muted small">Truckscale In to Loading Start</span>
                                     <p>{{ entry.ts_time_in && entry.sap_loading_start ? timeDiff(entry.ts_time_in,entry.sap_loading_start) : 'N/A' }}</p>
-                                    <span class="d-block text-uppercase text-muted small">Truckscale In to Loading Start</span>
-                                    <p>{{ entry.ts_time_in && entry.sap_loading_start ? timeDiff(entry.ts_time_in,entry.sap_loading_start) : 'N/A' }}</p>
                                     <span class="d-block text-uppercase text-muted small">Loading Start to Loading End</span>
                                     <p>{{ entry.sap_loading_start && entry.sap_loading_end ? timeDiff(entry.sap_loading_start,entry.sap_loading_end) : 'N/A' }}</p>
                                     <span class="d-block text-uppercase text-muted small">Loading End to Truckscale Out</span>
@@ -158,20 +172,26 @@
     import VueContentPlaceholders from 'vue-content-placeholders';
     import moment from 'moment';
     import Toasted from 'vue-toasted';
+    import ReportEntriesData from './ReportEntriesData.vue';
 
     Vue.use(Toasted)
 
     export default {
 
+        components: {
+            ReportEntriesData
+        },
+
         data() {
             return {
+                entries: [],
                 search: '',
                 loading: false,
-                entries: [],
                 locations: [],
                 selectedLocation: 1,
                 lastDr: '',
-                date: moment(new Date()).format('YYYY-MM-DD'),
+                start_date: moment(new Date()).format('YYYY-MM-DD'),
+                end_date: moment(new Date()).format('YYYY-MM-DD'),
                 currentPage: 0,
                 itemsPerPage: 10,
             }
@@ -183,11 +203,17 @@
         },
 
         watch: {
-            date() {
-                return this.getEntries()
+            start_date() {
+                this.resetStartRow()
+                this.getEntries()
+            },
+            end_date() {
+                this.resetStartRow()
+                this.getEntries()
             },
             selectedLocation() {
-                return this.getEntries()
+                this.resetStartRow()
+                this.getEntries()
             }
         },
 
@@ -203,7 +229,7 @@
 
             getEntries() {
                 this.loading = true
-                axios.get('/driver_rfid/public/displayEntries/' + this.selectedLocation + '/' + this.date)
+                axios.get('/driver_rfid/public/displayEntries/' + this.selectedLocation + '/' + this.start_date + '/' + this.end_date)
                 .then(response => {
                     this.entries = response.data.data
                     this.loading = false
@@ -257,33 +283,33 @@
         },
 
         computed: {
+
+            maxDate() {
+                return moment(new Date()).format('YYYY-MM-DD');
+            },
+
+            minDate() {
+                return  moment().startOf('month').format('YYYY-MM-DD');
+            },
+
             filteredEntries() {
-
                 return this.entries.filter(item => item.driver.toLowerCase().includes(this.search.trim().toLowerCase()));
-
             },
 
             totalPages() {
-
                 return Math.ceil(this.filteredEntries.length / this.itemsPerPage)
-
             },
 
             filteredResult() {
-
                 var index = this.currentPage * this.itemsPerPage;
                 var drivers_array = this.filteredEntries.slice(index, index + this.itemsPerPage);
-
                 if (this.currentPage >= this.totalPages) {
                     this.currentPage = this.totalPages - 1
                 }
-
                 if(this.currentPage == -1){
                     this.currentPage = 0;
                 }
-
                 return drivers_array;
-
             }
 
         }

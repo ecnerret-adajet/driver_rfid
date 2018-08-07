@@ -139,10 +139,11 @@ class EntryReportController extends Controller
         * @param Date $date
         * @return JSON
         */
-        public function displayEntries($driverqueue_id, $date)
+        public function displayEntries($driverqueue_id, $start_date, $end_date)
         {
-            Session::put('date', Carbon::parse($date));
-            $dateSearch = Session::get('date');
+            Session::put('date', Carbon::parse($start_date));
+            $get_start_date = Session::get('date');
+            $get_end_date = Carbon::parse($end_date);
 
             $entries = GateEntry::with('queueEntry',
             'hasShipment',
@@ -151,7 +152,7 @@ class EntryReportController extends Controller
             'hasTruckscaleOut',
             'hasGateOut')
             ->where('driverqueue_id',$driverqueue_id)
-            ->whereBetween('LocalTime', [$dateSearch->format('Y-m-d 00:00:00'), $dateSearch->format('Y-m-d 23:59:00')])
+            ->whereBetween('LocalTime', [$get_start_date->format('Y-m-d 00:00:00'), $get_end_date->format('Y-m-d 23:59:00')])
             ->get()
             ->unique('driver_name');
 
