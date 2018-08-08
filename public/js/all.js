@@ -67524,10 +67524,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'QUEUE TO SHIPMENT': 'queue_to_shipment',
                 'SHIPMENT TO PLANT_IN': 'shipment_to_plant_in',
                 // 'PLANT IN TO TS_IN': 'plant_in_to_ts_in',
-                'TS_IN TO SAP-LOADING-START': 'ts_in_to_sap_loading_start',
+                'SAP_TS_IN TO SAP-LOADING-START': 'sap_ts_in_to_sap_loading_start',
                 'SAP-LOADING-START TO SAP-LOADING-END': 'sap_loading_start_to_sap_loading_end',
-                'SAP-LOADING-END TO TS_OUT': 'sap_loading_end_to_ts_out',
-                'TS_OUT TO PLANT_OUT': 'ts_out_to_plant_out'
+                'SAP-LOADING-END TO SAP_TS_OUT': 'sap_loading_end_to_sap_ts_out',
+                'SAP_TS_OUT TO PLANT_OUT': 'sap_ts_out_to_plant_out'
 
             }
         };
