@@ -57575,6 +57575,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -101963,7 +101966,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card mx-auto mb-3"
   }, [_c('div', {
     staticClass: "card-header"
-  }, [_c('h5', [_vm._v("Driver Entries\n            "), _c('select', {
+  }, [_c('h5', [_vm._v("Driver Entries\n            "), _c('a', {
+    staticClass: "btn btn-primary float-right ml-3",
+    attrs: {
+      "href": "/driver_rfid/public/exportEntries/report"
+    }
+  }, [_vm._v("Report Entries")]), _vm._v(" "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
