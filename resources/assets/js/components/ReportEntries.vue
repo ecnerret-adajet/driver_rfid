@@ -55,7 +55,7 @@
                         <div class="col-3"><strong>Name</strong></div>
                         <div class="col-2"><strong>Plate Number</strong></div>
                         <div class="col-3"><strong>Hauler Name</strong></div>
-                        <div class="col-2"><strong>Driver Pass</strong></div>
+                        <div class="col-2"><strong>Truck Type</strong></div>
                         <div class="col-2"><strong>Last Submitted DR</strong></div>
                     </div>
                 </div>
