@@ -57,6 +57,16 @@ class GateEntry extends Model
         return $this->belongsTo(Driverqueue::class);
     }
 
+    public function truck()
+    {
+        return $this->belongsTo(Truck::class,'plate_number','plate_number');
+    }
+
+    public function capacity()
+    {
+        return $this->belongsTo(QueueEntry::class, 'CardholderID', 'CardholderID');
+    }
+
     //Custom Eleqouent for Report
 
     public function queueEntry()
@@ -97,7 +107,18 @@ class GateEntry extends Model
                     ->orderBy('id','ASC')
                     ->first();
 
-        return !empty($driverPass) ? $driverPass->LocalTime : null;
+        return !empty($driverPass) ? $driverPass->LocalTime : 'N/A';
+    }
+
+    public function scopeHasPlantInReport($query, $CardholderID, $date)
+    {
+        $driverPass = $query->where('CardholderID', $CardholderID)
+                    ->where('LocalTime', '>', $date)
+                    ->whereNotNull('shipment_number')
+                    ->orderBy('id','ASC')
+                    ->first();
+
+        return !empty($driverPass) ? date('Y-m-d H:i', strtotime($driverPass->LocalTime)) : 'N/A';
     }
 
     /**

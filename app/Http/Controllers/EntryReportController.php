@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Transformers\EntryReportTransformer;
+use App\Transformers\ReportEntriesTransformer;
 use League\Fractal\Resource\Collection;
 use Illuminate\Http\Request;
 use League\Fractal\Manager;
@@ -150,7 +151,8 @@ class EntryReportController extends Controller
             'hasShipment.loading',
             'hasTruckscaleIn',
             'hasTruckscaleOut',
-            'hasGateOut')
+            'hasGateOut',
+            'capacity.truck','capacity.truck.capacity')
             ->where('driverqueue_id',$driverqueue_id)
             ->whereBetween('LocalTime', [$get_start_date->format('Y-m-d 00:00:00'), $get_end_date->format('Y-m-d 23:59:00')])
             ->get()
@@ -163,6 +165,30 @@ class EntryReportController extends Controller
 
             return $manager->createData($resource)->toArray();
 
+        }
+
+        public function displayEntriesReport($driverqueue_id, $date)
+        {
+            Session::put('date', Carbon::parse($date));
+            $dateSearch = Session::get('date');
+
+            $entries = GateEntry::with('queueEntry',
+            'hasShipment',
+            'hasShipment.loading',
+            'hasTruckscaleIn',
+            'hasTruckscaleOut',
+            'hasGateOut')
+            ->where('driverqueue_id',$driverqueue_id)
+            ->whereBetween('LocalTime', [$dateSearch->format('Y-m-d 00:00:00'), $dateSearch->format('Y-m-d 23:59:00')])
+            ->get()
+            ->unique('driver_name');
+
+            $uniqueEntires = $entries->values()->all();
+            $entriesCount = $entries->count();
+
+            $manager = new Manager();
+            $resource = new Collection($uniqueEntires, new ReportEntriesTransformer());
+            return  $manager->createData($resource)->toArray()['data'];
         }
 
         public function getLastDrSubmitted($plate_number)

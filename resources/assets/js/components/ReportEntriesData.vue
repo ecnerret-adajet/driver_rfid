@@ -1,14 +1,14 @@
 <template>
-    <!-- <download-excel
-            class   = "float-right btn btn-primary disabled hoverable"
+    <download-excel
+            class   = "float-right btn btn-primary"
             :data   = "entries"
             :fields = "json_fields"
-            name    = "filename.xls">
+            :name    = "reportName">
             Export Entries
-    </download-excel> -->
-    <button class="btn float-right btn-primary disabled hoverable">
+    </download-excel>
+    <!-- <button class="btn float-right btn-primary disabled hoverable">
         Export Entries
-    </button>
+    </button> -->
 </template>
 <script>
 import JsonExcel from 'vue-json-excel'
@@ -17,6 +17,8 @@ export default {
 
     props: {
         entries: Array,
+        location: Number,
+        date: String,
     },
 
     components: {
@@ -26,20 +28,32 @@ export default {
     data() {
         return {
             json_fields: {
-                'Driver Name': 'driver',
-                'Plate Number': 'plate',
-                'Hauler Name': 'hauler',
-                'Driver pass': 'driverpass',
-                'Last Submitted DR': 'last_dr_date',
-                'Queue' : 'queue_time',
-                'Shipment Date' : 'shipment',
-                'Company' : 'company',
-                'Plant_in' : 'truck_plant_in',
-                'SAP_loading_start' : 'sap_loading_start',
-                'SAP_loading end' : 'sap_loading_end',
-                'Truckscale_in' : 'ts_time_in',
-                'Truckscale_out' : 'ts_time_out',
-                'Plant out' : 'gate_time_out',
+                'DRIVER NAME': 'driver',
+                'PLATE NUMBER': 'plate',
+                'HAULER NAME': 'hauler',
+                'DRIVER-PASS': 'driverpass',
+                'LAST-SUBMITTED-DR': 'last_dr_date',
+                'QUEUE' : 'queue_time',
+                'SHIPMENT-DATE' : 'shipment',
+                'COMPANY' : 'company',
+                'PLANT-IN' : 'truck_plant_in',
+                'TRUCKSCALE-IN' : 'ts_time_in',
+                'TRUCKSCALE-OUT' : 'ts_time_out',
+                'PLANT-OUT' : 'gate_time_out',
+                'SAP-TRUCKSCALE-IN' : 'sap_ts_in',
+                'SAP-TRUCKSCALE-OUT' : 'sap_ts_out',
+                'SAP-LOADING-START' : 'sap_loading_start',
+                'SAP-LOADING-END' : 'sap_loading_end',
+                'DRIVER-PASS TO QUEUE': 'driverpass_to_queue',
+                'QUEUE TO SHIPMENT': 'queue_to_shipment',
+                'SHIPMENT TO PLANT_IN': 'shipment_to_plant_in',
+                // 'PLANT IN TO TS_IN': 'plant_in_to_ts_in',
+                'TS_IN TO SAP-LOADING-START': 'ts_in_to_sap_loading_start',
+                'SAP-LOADING-START TO SAP-LOADING-END': 'sap_loading_start_to_sap_loading_end',
+                'SAP-LOADING-END TO TS_OUT': 'sap_loading_end_to_ts_out',
+                'TS_OUT TO PLANT_OUT': 'ts_out_to_plant_out',
+
+
             },
         }
     },
@@ -55,8 +69,19 @@ export default {
     },
 
     computed: {
-        test() {
-            return 'terrence'
+        locationName() {
+            if(this.location == 1) {
+                return 'Manila'
+            } else if (this.location == 2) {
+                return 'Lapaz'
+            } else if(this.location == 3) {
+                return 'Bataan'
+            } else {
+                return 'location'
+            }
+        },
+        reportName() {
+            return `${this.locationName}-${this.date}`;
         }
     }
 }

@@ -13,6 +13,7 @@ use League\Fractal\Manager;
 use Illuminate\Support\Facades\Session;
 use League\Fractal\Resource\Collection;
 use App\Transformers\EntryReportTransformer;
+use App\Transformers\ReportEntriesTransformer;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -97,6 +98,32 @@ class EntriesReportTest extends TestCase
             $resource = new Collection($uniqueEntires, new EntryReportTransformer());
 
             echo json_encode($manager->createData($resource)->toArray(), JSON_PRETTY_PRINT);
+        }
+
+        public function testDisplayEntriesReport()
+        {
+            Session::put('date', Carbon::today());
+            $dateSearch = Session::get('date');
+
+            $entries = GateEntry::with('queueEntry',
+            'hasShipment',
+            'hasShipment.loading',
+            'hasTruckscaleIn',
+            'hasTruckscaleOut',
+            'hasGateOut')
+            ->where('driverqueue_id',1)
+            ->whereBetween('LocalTime', [$dateSearch->format('Y-m-d 00:00:00'), $dateSearch->format('Y-m-d 23:59:00')])
+            ->get()
+            ->unique('driver_name');
+
+            $uniqueEntires = $entries->values()->all();
+            $entriesCount = $entries->count();
+
+            $manager = new Manager();
+            $resource = new Collection($uniqueEntires, new ReportEntriesTransformer());
+            $final_manager = $manager->createData($resource)->toArray()['data'];
+
+            echo json_encode($final_manager, JSON_PRETTY_PRINT);
         }
 
     }

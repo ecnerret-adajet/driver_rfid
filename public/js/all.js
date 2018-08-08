@@ -67298,6 +67298,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -67316,6 +67323,8 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_toasted___default.a);
     data: function data() {
         return {
             entries: [],
+            reportEntries: [],
+            loadingReport: false,
             search: '',
             loading: false,
             locations: [],
@@ -67330,21 +67339,26 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_toasted___default.a);
     created: function created() {
         this.getEntries();
         this.getLocations();
+        this.getReportEntries();
     },
 
 
     watch: {
         start_date: function start_date() {
+            this.end_date = this.start_date;
             this.resetStartRow();
             this.getEntries();
+            this.getReportEntries();
         },
-        end_date: function end_date() {
-            this.resetStartRow();
-            this.getEntries();
-        },
+
+        // end_date() {
+        //     this.resetStartRow()
+        //     this.getEntries()
+        // },
         selectedLocation: function selectedLocation() {
             this.resetStartRow();
             this.getEntries();
+            this.getReportEntries();
         }
     },
 
@@ -67366,18 +67380,27 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_toasted___default.a);
                 _this.successMessage();
             });
         },
-        getLocations: function getLocations() {
+        getReportEntries: function getReportEntries() {
             var _this2 = this;
 
+            this.loadingReport = true;
+            axios.get('/driver_rfid/public/displayEntriesReport/' + this.selectedLocation + '/' + this.start_date).then(function (response) {
+                _this2.reportEntries = response.data;
+                _this2.loadingReport = false;
+            });
+        },
+        getLocations: function getLocations() {
+            var _this3 = this;
+
             axios.get('/driver_rfid/public/driverqueues').then(function (response) {
-                return _this2.locations = response.data;
+                return _this3.locations = response.data;
             });
         },
         lastDrSubmitted: function lastDrSubmitted(plate_number) {
-            var _this3 = this;
+            var _this4 = this;
 
             axios.get('/driver_rfid/public/api/last_dr_date/' + plate_number).then(function (resonse) {
-                _this3.lastDr = response.data;
+                _this4.lastDr = response.data;
                 console.log(response.data);
             });
         },
@@ -67415,10 +67438,10 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_toasted___default.a);
             return __WEBPACK_IMPORTED_MODULE_1_moment___default()().startOf('month').format('YYYY-MM-DD');
         },
         filteredEntries: function filteredEntries() {
-            var _this4 = this;
+            var _this5 = this;
 
             return this.entries.filter(function (item) {
-                return item.driver.toLowerCase().includes(_this4.search.trim().toLowerCase());
+                return item.driver.toLowerCase().includes(_this5.search.trim().toLowerCase());
             });
         },
         totalPages: function totalPages() {
@@ -67466,7 +67489,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
 
     props: {
-        entries: Array
+        entries: Array,
+        location: Number,
+        date: String
     },
 
     components: {
@@ -67476,20 +67501,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             json_fields: {
-                'Driver Name': 'driver',
-                'Plate Number': 'plate',
-                'Hauler Name': 'hauler',
-                'Driver pass': 'driverpass',
-                'Last Submitted DR': 'last_dr_date',
-                'Queue': 'queue_time',
-                'Shipment Date': 'shipment',
-                'Company': 'company',
-                'Plant_in': 'truck_plant_in',
-                'SAP_loading_start': 'sap_loading_start',
-                'SAP_loading end': 'sap_loading_end',
-                'Truckscale_in': 'ts_time_in',
-                'Truckscale_out': 'ts_time_out',
-                'Plant out': 'gate_time_out'
+                'DRIVER NAME': 'driver',
+                'PLATE NUMBER': 'plate',
+                'HAULER NAME': 'hauler',
+                'DRIVER-PASS': 'driverpass',
+                'LAST-SUBMITTED-DR': 'last_dr_date',
+                'QUEUE': 'queue_time',
+                'SHIPMENT-DATE': 'shipment',
+                'COMPANY': 'company',
+                'PLANT-IN': 'truck_plant_in',
+                'TRUCKSCALE-IN': 'ts_time_in',
+                'TRUCKSCALE-OUT': 'ts_time_out',
+                'PLANT-OUT': 'gate_time_out',
+                'SAP-TRUCKSCALE-IN': 'sap_ts_in',
+                'SAP-TRUCKSCALE-OUT': 'sap_ts_out',
+                'SAP-LOADING-START': 'sap_loading_start',
+                'SAP-LOADING-END': 'sap_loading_end',
+                'DRIVER-PASS TO QUEUE': 'driverpass_to_queue',
+                'QUEUE TO SHIPMENT': 'queue_to_shipment',
+                'SHIPMENT TO PLANT_IN': 'shipment_to_plant_in',
+                // 'PLANT IN TO TS_IN': 'plant_in_to_ts_in',
+                'TS_IN TO SAP-LOADING-START': 'ts_in_to_sap_loading_start',
+                'SAP-LOADING-START TO SAP-LOADING-END': 'sap_loading_start_to_sap_loading_end',
+                'SAP-LOADING-END TO TS_OUT': 'sap_loading_end_to_ts_out',
+                'TS_OUT TO PLANT_OUT': 'ts_out_to_plant_out'
+
             }
         };
     },
@@ -67506,8 +67542,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     computed: {
-        test: function test() {
-            return 'terrence';
+        locationName: function locationName() {
+            if (this.location == 1) {
+                return 'Manila';
+            } else if (this.location == 2) {
+                return 'Lapaz';
+            } else if (this.location == 3) {
+                return 'Bataan';
+            } else {
+                return 'location';
+            }
+        },
+        reportName: function reportName() {
+            return this.locationName + '-' + this.date;
         }
     }
 });
@@ -106757,9 +106804,14 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('button', {
-    staticClass: "btn float-right btn-primary disabled hoverable"
-  }, [_vm._v("\n    Export Entries\n")])
+  return _c('download-excel', {
+    staticClass: "float-right btn btn-primary",
+    attrs: {
+      "data": _vm.entries,
+      "fields": _vm.json_fields,
+      "name": _vm.reportName
+    }
+  }, [_vm._v("\n        Export Entries\n")])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -107923,11 +107975,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row my-2"
   }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "col"
-  }, [_c('report-entries-data', {
+  }, [(!_vm.loadingReport) ? _c('report-entries-data', {
     attrs: {
-      "entries": _vm.entries
+      "location": _vm.selectedLocation,
+      "date": _vm.start_date,
+      "entries": _vm.reportEntries
     }
-  })], 1)])]), _vm._v(" "), _c('div', {
+  }) : _vm._e()], 1)])]), _vm._v(" "), _c('div', {
     staticClass: "card mb-4"
   }, [_c('div', {
     staticClass: "card-header py-3 bg-white border-bottom-0"
@@ -107966,7 +108020,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group"
   }, [_c('label', {
     staticClass: "text-muted text-uppercase small"
-  }, [_vm._v("Start Date")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("Date")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -107976,7 +108030,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-control",
     attrs: {
       "type": "date",
-      "min": _vm.minDate,
       "max": _vm.maxDate
     },
     domProps: {
@@ -107986,34 +108039,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "input": function($event) {
         if ($event.target.composing) { return; }
         _vm.start_date = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "col"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    staticClass: "text-muted text-uppercase small"
-  }, [_vm._v("End Date")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.end_date),
-      expression: "end_date"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      "type": "date",
-      "max": _vm.maxDate,
-      "min": _vm.minDate
-    },
-    domProps: {
-      "value": (_vm.end_date)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.end_date = $event.target.value
       }
     }
   })])]), _vm._v(" "), _c('div', {
@@ -108088,7 +108113,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "col-3"
     }, [_vm._v("\n                                " + _vm._s(entry.hauler) + "\n                            ")]), _vm._v(" "), _c('div', {
       staticClass: "col-2"
-    }, [_vm._v("\n                                " + _vm._s(_vm.parseDate(entry.driverpass)) + "\n                            ")]), _vm._v(" "), _c('div', {
+    }, [_vm._v("\n                                " + _vm._s(entry.capacity || 'N/A') + "\n                            ")]), _vm._v(" "), _c('div', {
       staticClass: "col-2"
     }, [_vm._v("\n                                " + _vm._s(entry.last_dr_date) + "\n                            ")])])]), _vm._v(" "), _c('div', {
       staticClass: "collapse show",
@@ -108109,23 +108134,29 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "d-block text-uppercase text-muted small"
     }, [_vm._v("Shipment Date")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.parseDate(entry.shipment) || 'N/A') + " ")]), _vm._v(" "), _c('span', {
       staticClass: "d-block text-uppercase text-muted small"
-    }, [_vm._v("company")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(entry.company || 'N/A') + " ")])]), _vm._v(" "), _c('div', {
-      staticClass: "col-2"
-    }, [_c('span', {
+    }, [_vm._v("company")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(entry.company || 'N/A') + " ")]), _vm._v(" "), _c('span', {
       staticClass: "d-block text-uppercase text-muted small"
-    }, [_vm._v("Plant In")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.parseDate(entry.truck_plant_in) || 'N/A'))]), _vm._v(" "), _c('span', {
-      staticClass: "d-block text-uppercase text-muted small"
-    }, [_vm._v("SAP Loading-start")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.parseDate(entry.sap_loading_start) || 'N/A') + " ")]), _vm._v(" "), _c('span', {
-      staticClass: "d-block text-uppercase text-muted small"
-    }, [_vm._v("SAP Loading-end")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.parseDate(entry.sap_loading_end) || 'N/A') + " ")])]), _vm._v(" "), _c('div', {
+    }, [_vm._v("Plant In")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.parseDate(entry.truck_plant_in) || 'N/A'))])]), _vm._v(" "), _c('div', {
       staticClass: "col-3"
     }, [_c('span', {
+      staticClass: "d-block text-uppercase text-muted small"
+    }, [_vm._v("Driver Pass")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.parseDate(entry.driverpass) || 'N/A'))]), _vm._v(" "), _c('span', {
       staticClass: "d-block text-uppercase text-muted small"
     }, [_vm._v("Truckscale In")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.parseDate(entry.ts_time_in) || 'N/A'))]), _vm._v(" "), _c('span', {
       staticClass: "d-block text-uppercase text-muted small"
     }, [_vm._v("Truckscale Out")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.parseDate(entry.ts_time_out) || 'N/A') + " ")]), _vm._v(" "), _c('span', {
       staticClass: "d-block text-uppercase text-muted small"
     }, [_vm._v("Plant Out")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.parseDate(entry.gate_time_out) || 'N/A') + " ")])]), _vm._v(" "), _c('div', {
+      staticClass: "col-2"
+    }, [_c('span', {
+      staticClass: "d-block text-uppercase text-muted small"
+    }, [_vm._v("SAP Loading-start")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.parseDate(entry.sap_loading_start) || 'N/A') + " ")]), _vm._v(" "), _c('span', {
+      staticClass: "d-block text-uppercase text-muted small"
+    }, [_vm._v("SAP Loading-end")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.parseDate(entry.sap_loading_end) || 'N/A') + " ")]), _vm._v(" "), _c('span', {
+      staticClass: "d-block text-uppercase text-muted small"
+    }, [_vm._v("SAP Truckscale In")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.parseDate(entry.sap_ts_in) || 'N/A') + " ")]), _vm._v(" "), _c('span', {
+      staticClass: "d-block text-uppercase text-muted small"
+    }, [_vm._v("SAP Truckscale Out")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.parseDate(entry.sap_ts_out) || 'N/A') + " ")])]), _vm._v(" "), _c('div', {
       staticClass: "col-2"
     }, [_c('span', {
       staticClass: "d-block text-uppercase text-muted small"
@@ -108143,7 +108174,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "d-block text-uppercase text-muted small"
     }, [_vm._v("Loading Start to Loading End")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(entry.sap_loading_start && entry.sap_loading_end ? _vm.timeDiff(entry.sap_loading_start, entry.sap_loading_end) : 'N/A'))]), _vm._v(" "), _c('span', {
       staticClass: "d-block text-uppercase text-muted small"
-    }, [_vm._v("Loading End to Truckscale Out")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(entry.sap_loading_end && entry.ts_time_out ? _vm.timeDiff(entry.sap_loading_end, entry.ts_time_out) : 'N/A'))])])])])])])
+    }, [_vm._v("Loading End to Truckscale Out")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(entry.sap_loading_end && entry.ts_time_out ? _vm.timeDiff(entry.sap_loading_end, entry.ts_time_out) : 'N/A'))]), _vm._v(" "), _c('span', {
+      staticClass: "d-block text-uppercase text-muted small"
+    }, [_vm._v("Truckscale Out to Plant out")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(entry.ts_time_out && entry.gate_time_out ? _vm.timeDiff(entry.ts_time_out, entry.gate_time_out) : 'N/A'))])])])])])])
   })) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
     staticClass: "row m-3"
   }, [_c('div', {

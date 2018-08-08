@@ -23,6 +23,7 @@ class EntryReportTransformer extends TransformerAbstract
             'avatar' => $gateEntry->avatar,
             'driver' => $gateEntry->driver_name,
             'plate' => $gateEntry->plate_number,
+            'capacity' => $gateEntry->capacity['truck']['capacity']['description'],
             'hauler' => $gateEntry->hauler_name,
             'CardholderID' => $gateEntry->CardholderID,
             'driverpass' =>  $gateEntry->LocalTime,

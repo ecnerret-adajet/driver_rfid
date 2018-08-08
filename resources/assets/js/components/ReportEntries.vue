@@ -8,7 +8,7 @@
                     <h1 class="m-0 text-dark">Entries Report</h1>
                 </div><!-- /.col -->
                 <div class="col">
-                    <report-entries-data :entries="entries"></report-entries-data>
+                    <report-entries-data v-if="!loadingReport" :location="selectedLocation" :date="start_date" :entries="reportEntries"></report-entries-data>
                 </div>
             </div><!-- /.row -->
         </div>
@@ -24,16 +24,16 @@
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label class="text-muted text-uppercase small">Start Date</label>
-                            <input type="date" class="form-control" v-model="start_date" :min="minDate" :max="maxDate"/>
+                            <label class="text-muted text-uppercase small">Date</label>
+                            <input type="date" class="form-control" v-model="start_date"  :max="maxDate"/>
                         </div>
                     </div>
-                    <div class="col">
+                    <!-- <div class="col">
                         <div class="form-group">
                         <label  class="text-muted text-uppercase small">End Date</label>
                         <input type="date" class="form-control" v-model="end_date" :max="maxDate" :min="minDate" />
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col">
                         <div class="form-group">
                         <label class="text-muted text-uppercase small">Location</label>
@@ -75,7 +75,7 @@
                                     {{ entry.hauler }}
                                 </div>
                                 <div class="col-2">
-                                    {{ parseDate(entry.driverpass) }}
+                                    {{ entry.capacity || 'N/A' }}
                                 </div>
                                 <div class="col-2">
                                     {{ entry.last_dr_date }}
@@ -92,16 +92,12 @@
                                     <p>{{ parseDate(entry.shipment) || 'N/A' }} </p>
                                      <span class="d-block text-uppercase text-muted small">company</span>
                                     <p>{{ entry.company || 'N/A' }} </p>
-                                </div>
-                                <div class="col-2">
                                      <span class="d-block text-uppercase text-muted small">Plant In</span>
                                     <p>{{ parseDate(entry.truck_plant_in) || 'N/A' }}</p>
-                                    <span class="d-block text-uppercase text-muted small">SAP Loading-start</span>
-                                    <p>{{ parseDate(entry.sap_loading_start) || 'N/A' }} </p>
-                                     <span class="d-block text-uppercase text-muted small">SAP Loading-end</span>
-                                    <p>{{ parseDate(entry.sap_loading_end) || 'N/A' }} </p>
                                 </div>
                                  <div class="col-3">
+                                     <span class="d-block text-uppercase text-muted small">Driver Pass</span>
+                                    <p>{{ parseDate(entry.driverpass) || 'N/A' }}</p>
                                      <span class="d-block text-uppercase text-muted small">Truckscale In</span>
                                     <p>{{ parseDate(entry.ts_time_in) || 'N/A' }}</p>
                                     <span class="d-block text-uppercase text-muted small">Truckscale Out</span>
@@ -110,6 +106,15 @@
                                     <p>{{ parseDate(entry.gate_time_out) || 'N/A' }} </p>
                                 </div>
                                 <div class="col-2">
+                                    <span class="d-block text-uppercase text-muted small">SAP Loading-start</span>
+                                    <p>{{ parseDate(entry.sap_loading_start) || 'N/A' }} </p>
+                                     <span class="d-block text-uppercase text-muted small">SAP Loading-end</span>
+                                    <p>{{ parseDate(entry.sap_loading_end) || 'N/A' }} </p>
+                                     <span class="d-block text-uppercase text-muted small">SAP Truckscale In</span>
+                                    <p>{{ parseDate(entry.sap_ts_in) || 'N/A' }} </p>
+                                     <span class="d-block text-uppercase text-muted small">SAP Truckscale Out</span>
+                                    <p>{{ parseDate(entry.sap_ts_out) || 'N/A' }} </p>
+                                </div>                                <div class="col-2">
                                     <span class="d-block text-uppercase text-muted small">Driver Pass to Queue</span>
                                     <p>{{ entry.driverpass && entry.queue_time ? timeDiff(entry.driverpass,entry.queue_time) : 'N/A' }}</p>
                                     <span class="d-block text-uppercase text-muted small">Queue to Shipment</span>
@@ -126,6 +131,8 @@
                                     <p>{{ entry.sap_loading_start && entry.sap_loading_end ? timeDiff(entry.sap_loading_start,entry.sap_loading_end) : 'N/A' }}</p>
                                     <span class="d-block text-uppercase text-muted small">Loading End to Truckscale Out</span>
                                     <p>{{ entry.sap_loading_end && entry.ts_time_out ? timeDiff(entry.sap_loading_end,entry.ts_time_out) : 'N/A' }}</p>
+                                    <span class="d-block text-uppercase text-muted small">Truckscale Out to Plant out</span>
+                                    <p>{{ entry.ts_time_out && entry.gate_time_out ? timeDiff(entry.ts_time_out,entry.gate_time_out) : 'N/A' }}</p>
                                 </div>
                             </div>
                         </div>
@@ -185,6 +192,8 @@
         data() {
             return {
                 entries: [],
+                reportEntries: [],
+                loadingReport: false,
                 search: '',
                 loading: false,
                 locations: [],
@@ -200,20 +209,24 @@
         created() {
             this.getEntries()
             this.getLocations()
+            this.getReportEntries()
         },
 
         watch: {
             start_date() {
+                this.end_date = this.start_date
                 this.resetStartRow()
                 this.getEntries()
+                this.getReportEntries()
             },
-            end_date() {
-                this.resetStartRow()
-                this.getEntries()
-            },
+            // end_date() {
+            //     this.resetStartRow()
+            //     this.getEntries()
+            // },
             selectedLocation() {
                 this.resetStartRow()
                 this.getEntries()
+                this.getReportEntries()
             }
         },
 
@@ -234,6 +247,15 @@
                     this.entries = response.data.data
                     this.loading = false
                     this.successMessage()
+                })
+            },
+
+            getReportEntries() {
+                this.loadingReport = true
+                axios.get('/driver_rfid/public/displayEntriesReport/' + this.selectedLocation + '/' + this.start_date)
+                .then(response => {
+                    this.reportEntries = response.data
+                    this.loadingReport = false
                 })
             },
 

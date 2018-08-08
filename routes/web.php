@@ -444,6 +444,7 @@ Route::group(['middleware' => 'auth'], function () {
          */
         Route::get('/exportEntries/report','EntryReportController@viewDisplayEntries');
         Route::get('/displayEntries/{driverqueue_id}/{start_date}/{end_date}','EntryReportController@displayEntries');
+        Route::get('/displayEntriesReport/{driverqueue_id}/{date}','EntryReportController@displayEntriesReport');
 
 
     });
