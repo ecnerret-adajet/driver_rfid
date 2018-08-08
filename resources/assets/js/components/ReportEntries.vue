@@ -121,18 +121,18 @@
                                     <p>{{ entry.queue_time && entry.shipment ? timeDiff(entry.queue_time,entry.shipment) : 'N/A' }}</p>
                                     <span class="d-block text-uppercase text-muted small">Shipment to Plant In</span>
                                     <p>{{ entry.shipment && entry.truck_plant_in ? timeDiff(entry.shipment,entry.truck_plant_in) : 'N/A' }}</p>
-                                     <span class="d-block text-uppercase text-muted small">Plant In to Truckscale In</span>
-                                    <p>{{ entry.truck_plant_in && entry.ts_time_in ? timeDiff(entry.truck_plant_in,entry.ts_time_in) : 'N/A' }}</p>
+                                     <span class="d-block text-uppercase text-muted small">Plant In to SAP_TRUCKSCALE_IN</span>
+                                    <p>{{ entry.truck_plant_in && entry.sap_ts_in ? timeDiff(entry.truck_plant_in,entry.sap_ts_in) : 'N/A' }}</p>
                                 </div>
                                 <div class="col-2">
-                                    <span class="d-block text-uppercase text-muted small">Truckscale In to Loading Start</span>
-                                    <p>{{ entry.ts_time_in && entry.sap_loading_start ? timeDiff(entry.ts_time_in,entry.sap_loading_start) : 'N/A' }}</p>
+                                    <span class="d-block text-uppercase text-muted small"> SAP_TRUCKSCALE_IN to Loading Start</span>
+                                    <p>{{ entry.sap_ts_in && entry.sap_loading_start ? timeDiff(entry.sap_ts_in,entry.sap_loading_start) : 'N/A' }}</p>
                                     <span class="d-block text-uppercase text-muted small">Loading Start to Loading End</span>
                                     <p>{{ entry.sap_loading_start && entry.sap_loading_end ? timeDiff(entry.sap_loading_start,entry.sap_loading_end) : 'N/A' }}</p>
-                                    <span class="d-block text-uppercase text-muted small">Loading End to Truckscale Out</span>
-                                    <p>{{ entry.sap_loading_end && entry.ts_time_out ? timeDiff(entry.sap_loading_end,entry.ts_time_out) : 'N/A' }}</p>
-                                    <span class="d-block text-uppercase text-muted small">Truckscale Out to Plant out</span>
-                                    <p>{{ entry.ts_time_out && entry.gate_time_out ? timeDiff(entry.ts_time_out,entry.gate_time_out) : 'N/A' }}</p>
+                                    <span class="d-block text-uppercase text-muted small">Loading End to SAP_TRUCKSCALE_OUT</span>
+                                    <p>{{ entry.sap_loading_end && entry.sap_ts_out ? timeDiff(entry.sap_loading_end,entry.sap_ts_out) : 'N/A' }}</p>
+                                    <span class="d-block text-uppercase text-muted small">SAP_TRUCKSALE_OUT to Plant out</span>
+                                    <p>{{ entry.sap_ts_out && entry.gate_time_out ? timeDiff(entry.sap_ts_out,entry.gate_time_out) : 'N/A' }}</p>
                                 </div>
                             </div>
                         </div>

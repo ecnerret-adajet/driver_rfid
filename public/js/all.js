@@ -108174,17 +108174,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "d-block text-uppercase text-muted small"
     }, [_vm._v("Shipment to Plant In")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(entry.shipment && entry.truck_plant_in ? _vm.timeDiff(entry.shipment, entry.truck_plant_in) : 'N/A'))]), _vm._v(" "), _c('span', {
       staticClass: "d-block text-uppercase text-muted small"
-    }, [_vm._v("Plant In to Truckscale In")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(entry.truck_plant_in && entry.ts_time_in ? _vm.timeDiff(entry.truck_plant_in, entry.ts_time_in) : 'N/A'))])]), _vm._v(" "), _c('div', {
+    }, [_vm._v("Plant In to SAP_TRUCKSCALE_IN")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(entry.truck_plant_in && entry.sap_ts_in ? _vm.timeDiff(entry.truck_plant_in, entry.sap_ts_in) : 'N/A'))])]), _vm._v(" "), _c('div', {
       staticClass: "col-2"
     }, [_c('span', {
       staticClass: "d-block text-uppercase text-muted small"
-    }, [_vm._v("Truckscale In to Loading Start")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(entry.ts_time_in && entry.sap_loading_start ? _vm.timeDiff(entry.ts_time_in, entry.sap_loading_start) : 'N/A'))]), _vm._v(" "), _c('span', {
+    }, [_vm._v(" SAP_TRUCKSCALE_IN to Loading Start")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(entry.sap_ts_in && entry.sap_loading_start ? _vm.timeDiff(entry.sap_ts_in, entry.sap_loading_start) : 'N/A'))]), _vm._v(" "), _c('span', {
       staticClass: "d-block text-uppercase text-muted small"
     }, [_vm._v("Loading Start to Loading End")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(entry.sap_loading_start && entry.sap_loading_end ? _vm.timeDiff(entry.sap_loading_start, entry.sap_loading_end) : 'N/A'))]), _vm._v(" "), _c('span', {
       staticClass: "d-block text-uppercase text-muted small"
-    }, [_vm._v("Loading End to Truckscale Out")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(entry.sap_loading_end && entry.ts_time_out ? _vm.timeDiff(entry.sap_loading_end, entry.ts_time_out) : 'N/A'))]), _vm._v(" "), _c('span', {
+    }, [_vm._v("Loading End to SAP_TRUCKSCALE_OUT")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(entry.sap_loading_end && entry.sap_ts_out ? _vm.timeDiff(entry.sap_loading_end, entry.sap_ts_out) : 'N/A'))]), _vm._v(" "), _c('span', {
       staticClass: "d-block text-uppercase text-muted small"
-    }, [_vm._v("Truckscale Out to Plant out")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(entry.ts_time_out && entry.gate_time_out ? _vm.timeDiff(entry.ts_time_out, entry.gate_time_out) : 'N/A'))])])])])])])
+    }, [_vm._v("SAP_TRUCKSALE_OUT to Plant out")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(entry.sap_ts_out && entry.gate_time_out ? _vm.timeDiff(entry.sap_ts_out, entry.gate_time_out) : 'N/A'))])])])])])])
   })) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
     staticClass: "row m-3"
   }, [_c('div', {
