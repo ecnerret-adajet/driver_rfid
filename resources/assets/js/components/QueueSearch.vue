@@ -105,6 +105,28 @@
                 </td>
 
             </tr>
+            <tr v-if="withShipment == 0 && !loading">
+                <td colspan="8">
+                    <div class="row">
+                        <div class="col text-center pt-3 pb-3">
+                            <span class="display-4 text-muted">
+                                Nothing Found
+                            </span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr v-if="noShipment == 0 && !loading">
+                <td colspan="8">
+                    <div class="row">
+                        <div class="col text-center pt-3 pb-3">
+                            <span class="display-4 text-muted">
+                                Nothing Found
+                            </span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
             <tr v-if="filteredQueues.length == 0 && !loading">
                 <td colspan="8">
                     <div class="row">

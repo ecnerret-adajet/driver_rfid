@@ -66877,6 +66877,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -96438,7 +96460,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n                      " + _vm._s(_vm.moment(queue.shipment.change_date)) + "\n                      ")])]) : _c('span', [_c('button', {
       staticClass: "btn btn-outline-success btn-sm disabled"
     }, [_vm._v("\n                          OPEN FOR SHIPMENT\n                      ")])])])]) : _vm._e()
-  }), _vm._v(" "), (_vm.filteredQueues.length == 0 && !_vm.loading) ? _c('tr', [_vm._m(1)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('tr', [_c('td', {
+  }), _vm._v(" "), (_vm.withShipment == 0 && !_vm.loading) ? _c('tr', [_vm._m(1)]) : _vm._e(), _vm._v(" "), (_vm.noShipment == 0 && !_vm.loading) ? _c('tr', [_vm._m(2)]) : _vm._e(), _vm._v(" "), (_vm.filteredQueues.length == 0 && !_vm.loading) ? _c('tr', [_vm._m(3)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('tr', [_c('td', {
     attrs: {
       "colspan": "8"
     }
@@ -96542,6 +96564,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "scope": "col"
     }
   }, [_c('small', [_vm._v("  Status")])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('td', {
+    attrs: {
+      "colspan": "8"
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col text-center pt-3 pb-3"
+  }, [_c('span', {
+    staticClass: "display-4 text-muted"
+  }, [_vm._v("\n                              Nothing Found\n                          ")])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('td', {
+    attrs: {
+      "colspan": "8"
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col text-center pt-3 pb-3"
+  }, [_c('span', {
+    staticClass: "display-4 text-muted"
+  }, [_vm._v("\n                              Nothing Found\n                          ")])])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('td', {
     attrs: {
