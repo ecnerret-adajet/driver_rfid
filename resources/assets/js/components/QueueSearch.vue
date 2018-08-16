@@ -79,7 +79,7 @@
 
                 </td>
                 <td>
-                    <span v-if="queue.shipment.status == null">
+                    <span v-if="queue.shipment.status != 1">
                         <button class="btn btn-outline-danger btn-sm disabled mb-2">
                             SHIPMENT ASSIGNED
                         </button>

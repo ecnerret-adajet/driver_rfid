@@ -96447,7 +96447,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "text-uppercase text-muted"
     }, [_vm._v("\n                      LAST DR SUBMISSION\n                  ")]), _vm._v(" "), _c('br'), _vm._v("\n                      " + _vm._s(queue.isDRCompleted) + "\n                      "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                      TAPPED IN QUEUE\n                  ")]), _c('br'), _vm._v("\n                   " + _vm._s(_vm.moment(queue.LocalTime)) + "\n\n              ")]), _vm._v(" "), _c('td', [(queue.shipment.status == null) ? _c('span', [_c('button', {
+    }, [_vm._v("\n                      TAPPED IN QUEUE\n                  ")]), _c('br'), _vm._v("\n                   " + _vm._s(_vm.moment(queue.LocalTime)) + "\n\n              ")]), _vm._v(" "), _c('td', [(queue.shipment.status != 1) ? _c('span', [_c('button', {
       staticClass: "btn btn-outline-danger btn-sm disabled mb-2"
     }, [_vm._v("\n                          SHIPMENT ASSIGNED\n                      ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "d-block text-uppercase text-muted"
