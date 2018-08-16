@@ -79,7 +79,7 @@
 
                 </td>
                 <td>
-                    <span v-if="queue.shipment">
+                    <span v-if="queue.shipment.status == null">
                         <button class="btn btn-outline-danger btn-sm disabled mb-2">
                             SHIPMENT ASSIGNED
                         </button>
@@ -105,28 +105,28 @@
                 </td>
 
             </tr>
-            <tr v-if="withShipment == 0 && !loading">
+            <!-- <tr v-if="withShipment == 0 && noShipment != 0">
                 <td colspan="8">
                     <div class="row">
                         <div class="col text-center pt-3 pb-3">
                             <span class="display-4 text-muted">
-                                Nothing Found
+                               No with shipment entries
                             </span>
                         </div>
                     </div>
                 </td>
             </tr>
-            <tr v-if="noShipment == 0 && !loading">
+            <tr v-if="noShipment == 0 && withShipment != 0">
                 <td colspan="8">
                     <div class="row">
                         <div class="col text-center pt-3 pb-3">
                             <span class="display-4 text-muted">
-                                Nothing Found
+                                No open shipment entries
                             </span>
                         </div>
                     </div>
                 </td>
-            </tr>
+            </tr> -->
             <tr v-if="filteredQueues.length == 0 && !loading">
                 <td colspan="8">
                     <div class="row">
