@@ -86,18 +86,21 @@
                         <div class="card-body bg-light">
                             <div class="row mx-2">
                                 <div class="col-3">
+                                    <span class="d-block text-uppercase text-muted small">Driver Pass</span>
+                                    <p>{{ parseDate(entry.driverpass) || 'N/A' }}</p>
+
                                     <span class="d-block text-uppercase text-muted small">Queue Time</span>
                                     <p>{{ parseDate(entry.queue_time) || 'N/A' }}</p>
+
                                     <span class="d-block text-uppercase text-muted small">Shipment Date</span>
                                     <p>{{ parseDate(entry.shipment) || 'N/A' }} </p>
                                      <span class="d-block text-uppercase text-muted small">company</span>
                                     <p>{{ entry.company || 'N/A' }} </p>
-                                     <span class="d-block text-uppercase text-muted small">Plant In</span>
-                                    <p>{{ parseDate(entry.truck_plant_in) || 'N/A' }}</p>
+
                                 </div>
                                  <div class="col-3">
-                                     <span class="d-block text-uppercase text-muted small">Driver Pass</span>
-                                    <p>{{ parseDate(entry.driverpass) || 'N/A' }}</p>
+                                    <span class="d-block text-uppercase text-muted small">Plant In</span>
+                                    <p>{{ parseDate(entry.truck_plant_in) || 'N/A' }}</p>
                                      <span class="d-block text-uppercase text-muted small">Truckscale In</span>
                                     <p>{{ parseDate(entry.ts_time_in) || 'N/A' }}</p>
                                     <span class="d-block text-uppercase text-muted small">Truckscale Out</span>

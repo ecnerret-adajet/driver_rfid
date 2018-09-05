@@ -66877,28 +66877,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -67154,6 +67132,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_toasted___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_toasted__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ReportEntriesData_vue__ = __webpack_require__(418);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ReportEntriesData_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__ReportEntriesData_vue__);
+//
+//
+//
 //
 //
 //
@@ -96447,7 +96428,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "text-uppercase text-muted"
     }, [_vm._v("\n                      LAST DR SUBMISSION\n                  ")]), _vm._v(" "), _c('br'), _vm._v("\n                      " + _vm._s(queue.isDRCompleted) + "\n                      "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                      TAPPED IN QUEUE\n                  ")]), _c('br'), _vm._v("\n                   " + _vm._s(_vm.moment(queue.LocalTime)) + "\n\n              ")]), _vm._v(" "), _c('td', [(queue.shipment.status != 1) ? _c('span', [_c('button', {
+    }, [_vm._v("\n                      TAPPED IN QUEUE\n                  ")]), _c('br'), _vm._v("\n                   " + _vm._s(_vm.moment(queue.LocalTime)) + "\n\n              ")]), _vm._v(" "), _c('td', [(queue.shipment) ? _c('span', [_c('button', {
       staticClass: "btn btn-outline-danger btn-sm disabled mb-2"
     }, [_vm._v("\n                          SHIPMENT ASSIGNED\n                      ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "d-block text-uppercase text-muted"
@@ -108160,17 +108141,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "col-3"
     }, [_c('span', {
       staticClass: "d-block text-uppercase text-muted small"
+    }, [_vm._v("Driver Pass")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.parseDate(entry.driverpass) || 'N/A'))]), _vm._v(" "), _c('span', {
+      staticClass: "d-block text-uppercase text-muted small"
     }, [_vm._v("Queue Time")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.parseDate(entry.queue_time) || 'N/A'))]), _vm._v(" "), _c('span', {
       staticClass: "d-block text-uppercase text-muted small"
     }, [_vm._v("Shipment Date")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.parseDate(entry.shipment) || 'N/A') + " ")]), _vm._v(" "), _c('span', {
       staticClass: "d-block text-uppercase text-muted small"
-    }, [_vm._v("company")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(entry.company || 'N/A') + " ")]), _vm._v(" "), _c('span', {
-      staticClass: "d-block text-uppercase text-muted small"
-    }, [_vm._v("Plant In")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.parseDate(entry.truck_plant_in) || 'N/A'))])]), _vm._v(" "), _c('div', {
+    }, [_vm._v("company")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(entry.company || 'N/A') + " ")])]), _vm._v(" "), _c('div', {
       staticClass: "col-3"
     }, [_c('span', {
       staticClass: "d-block text-uppercase text-muted small"
-    }, [_vm._v("Driver Pass")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.parseDate(entry.driverpass) || 'N/A'))]), _vm._v(" "), _c('span', {
+    }, [_vm._v("Plant In")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.parseDate(entry.truck_plant_in) || 'N/A'))]), _vm._v(" "), _c('span', {
       staticClass: "d-block text-uppercase text-muted small"
     }, [_vm._v("Truckscale In")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.parseDate(entry.ts_time_in) || 'N/A'))]), _vm._v(" "), _c('span', {
       staticClass: "d-block text-uppercase text-muted small"
