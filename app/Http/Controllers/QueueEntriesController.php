@@ -254,8 +254,11 @@ class QueueEntriesController extends Controller
         );
 
         if($queueEntry->wasRecentlyCreated == true) {
+
+            QueueEntry::pushNewQueue($queueEntry->LogID);
             event(new QueueEntryEvent($queueEntry,$driverLocation));
             return $queueEntry;
+
         } else {
             $queueLast = QueueEntry::where('driverqueue_id',$driverLocation->id)->orderBy('id','DESC')->first();
             return $queueLast;

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Ixudra\Curl\Facades\Curl;
 use DB;
 use Session;
 use App\Shipment;
@@ -130,6 +131,18 @@ class QueueEntry extends Model
                     ->whereNotNull('isTappedGateFirst')
                     ->get()
                     ->unique('CardholderID');
+    }
+
+    // push to poll in queue entries to SAP
+    public function scopePushNewQueue($query, $logId)
+    {
+        $log = 'LogID='.$logId;
+
+        return $response = Curl::to('http://10.96.4.39/SapServiceTest/api/queues/push')
+        ->withContentType('application/x-www-form-urlencoded')
+        ->withData($log)
+        ->post();
+
     }
 
     // Custom queue entries json cast
