@@ -138,7 +138,7 @@ class QueueEntry extends Model
     {
         $log = 'LogID='.$logId;
 
-        return $response = Curl::to('http://10.96.4.39/SapServiceTest/api/queues/push')
+        return $response = Curl::to('http://10.96.4.39/SapService/api/queues/push')
         ->withContentType('application/x-www-form-urlencoded')
         ->withData($log)
         ->post();

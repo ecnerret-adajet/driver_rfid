@@ -255,7 +255,10 @@ class QueueEntriesController extends Controller
 
         if($queueEntry->wasRecentlyCreated == true) {
 
-            QueueEntry::pushNewQueue($queueEntry->LogID);
+            if(!$this->notDriver()) {
+                QueueEntry::pushNewQueue($queueEntry->LogID);
+            }
+
             event(new QueueEntryEvent($queueEntry,$driverLocation));
             return $queueEntry;
 
