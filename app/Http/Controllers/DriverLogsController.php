@@ -33,7 +33,11 @@ class DriverLogsController extends Controller
      */
     public function driverShipments(Driver $driver)
     {
-       return Shipment::where('CardholderID',$driver->cardholder_id)->get();
+       return Shipment::where('CardholderID',$driver->cardholder_id)
+                        ->get()
+                        ->unique('LogID')
+                        ->values()
+                        ->all();
     }
 
     public function driverLogs(Driver $driver)

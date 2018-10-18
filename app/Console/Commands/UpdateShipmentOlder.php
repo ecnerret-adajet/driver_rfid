@@ -1,0 +1,89 @@
+<?php
+
+namespace App\Console\Commands;
+
+use DB;
+use App\Log;
+use App\Shipment;
+use Carbon\Carbon;
+use App\QueueEntry;
+use App\Driverqueue;
+use Ixudra\Curl\Facades\Curl;
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Session;
+
+class UpdateShipmentOlder extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'command:UpdateShipmentOlder';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Update older shipment logs from driver RFID';
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct(Log $log)
+    {
+        parent::__construct();
+        $this->log = $log;
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle()
+    {
+        Session::put('queueDate', Carbon::now()->subDay(3));
+        $dateSearch = Session::get('queueDate');
+        $last_entry = Carbon::today()->subDay(1);
+
+        $driverqueues = Driverqueue::pluck('id');
+
+        $queues = QueueEntry::whereIn('driverqueue_id',$driverqueues)
+        ->where('LocalTime', '>=', $dateSearch)
+        ->where('LocalTime', '<', $last_entry)
+        ->doesntHave('shipment')
+        ->whereNotNull('driver_availability')
+        ->whereNotNull('truck_availability')
+        ->where('isDRCompleted','NOT LIKE','%0000-00-00%')
+        ->whereNotNull('isTappedGateFirst')
+        ->orderBy('LocalTime','DESC')
+        ->get()
+        ->unique('CardholderID')
+        ->values()->all();
+
+        $queueObject = array();
+
+        foreach($queues as $key => $log)  {
+            $amp = '&';
+            $data = array(
+                'LogID' => $log->LogID.$amp,
+            );
+            array_push($queueObject, $data);
+        }
+
+        $collection = collect($queueObject);
+
+        $LogID =  'LogID='.$collection->implode('LogID', 'LogID=');
+        // Post to new API
+        $response = Curl::to('http://10.96.4.39/sapservice/api/assignedshipment2')
+        ->withContentType('application/x-www-form-urlencoded')
+        ->withData( $LogID )
+        ->post();
+
+        $this->info('Command Executed');
+    }
+}
