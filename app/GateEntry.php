@@ -139,9 +139,10 @@ class GateEntry extends Model
     public function hasGateOut()
     {
         return $this->belongsTo(Log::class,'CardholderID','CardholderID')
+        ->orderBy('LogID','desc')
         ->where('Direction',2)
         ->whereIn('ControllerID', [4,6,9]) //Controller for Gate OUT
-        ->whereDate('LocalTime', Session::get('date'));
+        ->where('LocalTime','>',Session::get('date'));
         // ->whereBetween('LocalTime', [$this->LocalTime, Carbon::parse($this->LocalTime)]);
     }
 

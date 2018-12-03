@@ -126,4 +126,16 @@ class EntriesReportTest extends TestCase
             echo json_encode($final_manager, JSON_PRETTY_PRINT);
         }
 
+        public function testPushGateToQueue()
+        {
+            $queues = GateEntry::where('driverqueue_id',3)
+            ->whereDate('LocalTime', '2018-10-18')
+            ->orderBy('LocalTime','DESC')
+            ->get()
+            ->unique('CardholderID')
+            ->values()->all();
+
+             echo json_encode($queues, JSON_PRETTY_PRINT);
+        }
+
     }
