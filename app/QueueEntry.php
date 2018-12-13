@@ -8,6 +8,7 @@ use Ixudra\Curl\Facades\Curl;
 use DB;
 use Session;
 use App\Shipment;
+use App\Log;
 
 class QueueEntry extends Model
 {
@@ -72,6 +73,13 @@ class QueueEntry extends Model
             ->whereDate('change_date', Carbon::parse($this->created_at));
     }
 
+    public function hasShipment()
+    {
+        return $this->belongsTo(Shipment::class,'CardholderID','CardholderID')
+        ->whereDate('change_date', Session::get('queueDate'));
+    }
+
+
     // public function getShipmentAttribute()
     // {
     //     return $this->shipment()->whereDate('created_at',Carbon::parse($this->created_at));
@@ -104,6 +112,16 @@ class QueueEntry extends Model
     {
         return $this->belongsTo(Shipment::class,'CardholderID','CardholderID')
             ->whereDate('change_date', '>=', Session::get('queueDate'));
+    }
+
+    // Check if has plant out
+    public function hasGateOut()
+    {
+        return $this->belongsTo(Log::class,'CardholderID','CardholderID')
+        ->orderBy('LogID','desc')
+        ->where('Direction',2)
+        ->whereIn('ControllerID', [4,6,9]) //Controller for Gate OUT
+        ->where('LocalTime','>', Session::get('queueDate'));
     }
 
     //Query Scoped

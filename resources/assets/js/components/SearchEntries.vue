@@ -1,6 +1,6 @@
 <template>
     <div>
-        
+
     <div class="card-body p-0">
 
     <div class="form-row mb-2 mt-2">
@@ -10,21 +10,21 @@
             </div>
         </div>
     </div>
-       
+
 
             <div class="row">
                     <div class="col-sm-12">
                         <div v-if="!loading">
                             <ul class="list-group list-group-flush">
-                                <li v-for="entry in paginateEntries" class="list-group-item">
-                                    <div class="row mt-2">   
+                                <li v-for="(entry,e) in paginateEntries" :key="e" class="list-group-item">
+                                    <div class="row mt-2">
                                         <div class="col-sm-1">
-                                            <img :src="avatar_link + entry.avatar" class="rounded-circle" style="height: 60px; width: auto;"  align="middle">                                            
+                                            <img :src="avatar_link + entry.avatar" class="rounded-circle" style="height: 60px; width: auto;"  align="middle">
                                         </div>
                                         <div class="col-sm-3">
-                                            {{entry.driver_name}} 
+                                            {{entry.driver_name}}
                                             <br/>
-                    
+
                                             <span v-if="entry.plate_number">
                                                {{ entry.plate_number }}
                                             </span>
@@ -39,7 +39,7 @@
                                              <span v-else class="text-danger">
                                                     NO HAULER
                                             </span>
-                                      
+
                                         </div>
                                         <div class="col-sm-3">
 
@@ -67,7 +67,7 @@
 
                                         </div>
                                         <div class="col-sm-2">
-                                        
+
                                             <small class="text-muted text-uppercase">Truckscale IN</small><br/>
                                             <span v-if="entry.truckscale_in">
                                                 {{ moment(entry.truckscale_in.date) }}
@@ -89,13 +89,13 @@
                                                    NO TRUCKSCALE IN
                                                </button>
                                             </span>
-                                        
+
                                         </div>
                                          <div class="col-sm-2">
                                              <br/>
                                             <span v-if="entry.truckscale_in">
-                                                <a :class="{ 'btn-outline-success' : entry.sticker_in, 'btn-outline-danger' : !entry.sticker_in }" class="btn btn-sm mb-2" :href="'http://172.17.2.25:8080/RFID/' + cameraDate(entry.truckscale_in.date) + '/AC.' + cameraDate(entry.truckscale_in.date) + '.0000' + entry.truckscale_in_id + '-1.jpg'" :data-lightbox="entry.LogID" :data-title="'TIME IN - ' + moment(entry.truckscale_in.date)">                      
-                                                    <i class="fa fa-camera" aria-hidden="true"></i> 
+                                                <a :class="{ 'btn-outline-success' : entry.sticker_in, 'btn-outline-danger' : !entry.sticker_in }" class="btn btn-sm mb-2" :href="'http://172.17.2.25:8080/RFID/' + cameraDate(entry.truckscale_in.date) + '/AC.' + cameraDate(entry.truckscale_in.date) + '.0000' + entry.truckscale_in_id + '-1.jpg'" :data-lightbox="entry.LogID" :data-title="'TIME IN - ' + moment(entry.truckscale_in.date)">
+                                                    <i class="fa fa-camera" aria-hidden="true"></i>
                                                     <span v-if="entry.sticker_in">
                                                         Matched
                                                     </span>
@@ -106,8 +106,8 @@
                                             </span>
                                             <br/>
                                             <span v-if="entry.truckscale_out">
-                                                <a :class="{ 'btn-outline-success' : entry.sticker_out, 'btn-outline-danger' : !entry.sticker_out }" class="btn btn-sm mb-2" :href="'http://172.17.2.25:8080/RFID/' + cameraDate(entry.truckscale_out.date) + '/AC.' + cameraDate(entry.truckscale_out.date) + '.0000' + entry.truckscale_out_id + '-2.jpg'" :data-lightbox="entry.LogID" :data-title="'TIME IN - ' + moment(entry.truckscale_out.date)">                      
-                                                    <i class="fa fa-camera" aria-hidden="true"></i> 
+                                                <a :class="{ 'btn-outline-success' : entry.sticker_out, 'btn-outline-danger' : !entry.sticker_out }" class="btn btn-sm mb-2" :href="'http://172.17.2.25:8080/RFID/' + cameraDate(entry.truckscale_out.date) + '/AC.' + cameraDate(entry.truckscale_out.date) + '.0000' + entry.truckscale_out_id + '-2.jpg'" :data-lightbox="entry.LogID" :data-title="'TIME IN - ' + moment(entry.truckscale_out.date)">
+                                                    <i class="fa fa-camera" aria-hidden="true"></i>
                                                     <span v-if="entry.sticker_out">
                                                         Matched
                                                     </span>
@@ -161,7 +161,7 @@
                          <!-- <div class="center-align" style="padding-top: 50px; display: flex; align-items: center; justify-content: center;" v-if="loading">
                             <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
                                 <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
-                            </svg>	
+                            </svg>
                         </div> -->
                     </div>
                 </div>
@@ -223,7 +223,7 @@ export default {
         resetStartRow() {
             this.currentPage = 0;
         },
-        
+
         moment(date) {
             return moment(date).format('MMMM D, Y h:m:s A');
         },
@@ -233,13 +233,13 @@ export default {
         },
 
         dateDiff(startTime, endTime) {
-            var a = moment(startTime);   
-            var b = moment(endTime);   
+            var a = moment(startTime);
+            var b = moment(endTime);
             return b.diff(a, 'hours');
        },
 
         setPage(pageNumber) {
-            this.currentPage = pageNumber;         
+            this.currentPage = pageNumber;
         },
 
         resetStartRow() {
@@ -258,7 +258,7 @@ export default {
     computed: {
         filteredEntries() {
             const vm = this;
-            
+
             return _.filter(vm.entries, function (item) {
                 return ~item.driver_name.toLowerCase().indexOf(vm.searchKey.trim().toLowerCase());
             });
@@ -275,13 +275,13 @@ export default {
 
             if (this.currentPage >= this.totalPages) {
                 this.currentPage = this.totalPages - 1
-            } 
-            
+            }
+
             return entries_array;
         }
     },
 
- 
+
 
 }
 </script>

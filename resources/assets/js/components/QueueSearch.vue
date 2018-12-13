@@ -10,6 +10,7 @@
             <th scope="col"> <small>  Truck Location(s) </small> </th>
             <th scope="col"> <small>  Recorded Time /Date </small> </th>
             <th scope="col"> <small>  Status</small> </th>
+            <th scope="col"> <small>  Plant Out</small> </th>
             </tr>
         </thead>
         <tbody>
@@ -75,11 +76,11 @@
                     <small class="text-uppercase text-muted">
                         TAPPED IN QUEUE
                     </small><br/>
-                     {{ moment(queue.LocalTime) }}
+                     {{ dateformat(queue.LocalTime) }}
 
                 </td>
                 <td>
-                    <span v-if="queue.shipment">
+                    <span v-if="checkIfForShipment(queue)[0] != 0">
                         <button class="btn btn-outline-danger btn-sm disabled mb-2">
                             SHIPMENT ASSIGNED
                         </button>
@@ -94,7 +95,7 @@
                             Shipment Date
                         </small>
                         <span class="d-block">
-                        {{ moment(queue.shipment.change_date) }}
+                        {{ dateformat(queue.shipment.change_date) }}
                         </span>
                     </span>
                     <span v-else>
@@ -102,6 +103,9 @@
                             OPEN FOR SHIPMENT
                         </button>
                     </span>
+                </td>
+                <td>
+                    {{  plantOutDate(queue.plant_out.date)  }}
                 </td>
 
             </tr>
@@ -225,6 +229,34 @@
                 return moment(date).format('MMMM D, Y h:m:s A');
             },
 
+            dateformat(date) {
+                return moment(date).format('MMM D, YY h:m:s A');
+            },
+
+            plantOutDate(date) {
+                if(date != null) {
+                    return this.dateformat(date)
+                }
+            },
+
+            checkIfForShipment(queueObj) {
+
+                // 0 === [w/o shipment][w/o plantout] = open shipment
+                // 1 === [w/shipment][w/plantout] = in transit
+                // 2 === [w/shipment][w/o plantout] = current in plant
+
+                if(!queueObj.shipment) {
+                    return [ 0, 'Open Shipment' ];
+                } else if  (queueObj.plant_out.date != '' && queueObj.shipment) {
+                    let queue =  moment(queueObj.LocalTime).unix();
+                    let shipment = moment(queueObj.shipment.change_date).unix();
+                    return queue > shipment ? [ 0, 'Open Shipment' ] : [ 1, 'In Transit' ];
+                } else if (queueObj.plant_out.date == '' && queueObj.shipment) {
+                    return [ 2, 'Currently in plant' ]
+                }
+                return [ 0, 'Open shipment' ]
+            },
+
             setPage(pageNumber) {
                 this.currentPage = pageNumber;
             },
@@ -271,8 +303,9 @@
                     });
                 } else if(this.filter == 'no-shipment') {
                     return this.queues.filter(queue => {
-                        return queue.shipment == null &&
-                                queue.plate_number.toLowerCase().includes(this.search.trim().toLowerCase());
+                        return queue.shipment ? moment(queue.LocalTime).unix() > moment(queue.shipment.change_date).unix() : queue;
+                    }).filter(response => {
+                        return  response.plate_number.toLowerCase().includes(this.search.trim().toLowerCase());
                     });
                 }
 

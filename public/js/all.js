@@ -66877,6 +66877,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -66941,6 +66945,31 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_toasted___default.a);
         moment: function moment(date) {
             return __WEBPACK_IMPORTED_MODULE_1_moment___default()(date).format('MMMM D, Y h:m:s A');
         },
+        dateformat: function dateformat(date) {
+            return __WEBPACK_IMPORTED_MODULE_1_moment___default()(date).format('MMM D, YY h:m:s A');
+        },
+        plantOutDate: function plantOutDate(date) {
+            if (date != null) {
+                return this.dateformat(date);
+            }
+        },
+        checkIfForShipment: function checkIfForShipment(queueObj) {
+
+            // 0 === [w/o shipment][w/o plantout] = open shipment
+            // 1 === [w/shipment][w/plantout] = in transit
+            // 2 === [w/shipment][w/o plantout] = current in plant
+
+            if (!queueObj.shipment) {
+                return [0, 'Open Shipment'];
+            } else if (queueObj.plant_out.date != '' && queueObj.shipment) {
+                var queue = __WEBPACK_IMPORTED_MODULE_1_moment___default()(queueObj.LocalTime).unix();
+                var shipment = __WEBPACK_IMPORTED_MODULE_1_moment___default()(queueObj.shipment.change_date).unix();
+                return queue > shipment ? [0, 'Open Shipment'] : [1, 'In Transit'];
+            } else if (queueObj.plant_out.date == '' && queueObj.shipment) {
+                return [2, 'Currently in plant'];
+            }
+            return [0, 'Open shipment'];
+        },
         setPage: function setPage(pageNumber) {
             this.currentPage = pageNumber;
         },
@@ -66986,7 +67015,9 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_toasted___default.a);
                 });
             } else if (this.filter == 'no-shipment') {
                 return this.queues.filter(function (queue) {
-                    return queue.shipment == null && queue.plate_number.toLowerCase().includes(_this3.search.trim().toLowerCase());
+                    return queue.shipment ? __WEBPACK_IMPORTED_MODULE_1_moment___default()(queue.LocalTime).unix() > __WEBPACK_IMPORTED_MODULE_1_moment___default()(queue.shipment.change_date).unix() : queue;
+                }).filter(function (response) {
+                    return response.plate_number.toLowerCase().includes(_this3.search.trim().toLowerCase());
                 });
             }
 
@@ -94768,8 +94799,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-sm-12"
   }, [(!_vm.loading) ? _c('div', [_c('ul', {
     staticClass: "list-group list-group-flush"
-  }, [_vm._l((_vm.paginateEntries), function(entry) {
+  }, [_vm._l((_vm.paginateEntries), function(entry, e) {
     return _c('li', {
+      key: e,
       staticClass: "list-group-item"
     }, [_c('div', {
       staticClass: "row mt-2"
@@ -94787,7 +94819,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-3"
-    }, [_vm._v("\n                                        " + _vm._s(entry.driver_name) + " \n                                        "), _c('br'), _vm._v(" "), (entry.plate_number) ? _c('span', [_vm._v("\n                                           " + _vm._s(entry.plate_number) + "\n                                        ")]) : _c('span', {
+    }, [_vm._v("\n                                        " + _vm._s(entry.driver_name) + "\n                                        "), _c('br'), _vm._v(" "), (entry.plate_number) ? _c('span', [_vm._v("\n                                           " + _vm._s(entry.plate_number) + "\n                                        ")]) : _c('span', {
       staticClass: "text-danger"
     }, [_vm._v("\n                                                NO TRUCK\n                                        ")]), _vm._v(" "), _c('br'), _vm._v(" "), (entry.hauler) ? _c('span', [_vm._v("\n                                           " + _vm._s(entry.hauler) + "\n                                        ")]) : _c('span', {
       staticClass: "text-danger"
@@ -96428,7 +96460,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "text-uppercase text-muted"
     }, [_vm._v("\n                      LAST DR SUBMISSION\n                  ")]), _vm._v(" "), _c('br'), _vm._v("\n                      " + _vm._s(queue.isDRCompleted) + "\n                      "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "text-uppercase text-muted"
-    }, [_vm._v("\n                      TAPPED IN QUEUE\n                  ")]), _c('br'), _vm._v("\n                   " + _vm._s(_vm.moment(queue.LocalTime)) + "\n\n              ")]), _vm._v(" "), _c('td', [(queue.shipment) ? _c('span', [_c('button', {
+    }, [_vm._v("\n                      TAPPED IN QUEUE\n                  ")]), _c('br'), _vm._v("\n                   " + _vm._s(_vm.dateformat(queue.LocalTime)) + "\n\n              ")]), _vm._v(" "), _c('td', [(_vm.checkIfForShipment(queue)[0] != 0) ? _c('span', [_c('button', {
       staticClass: "btn btn-outline-danger btn-sm disabled mb-2"
     }, [_vm._v("\n                          SHIPMENT ASSIGNED\n                      ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
       staticClass: "d-block text-uppercase text-muted"
@@ -96438,9 +96470,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "d-block text-uppercase text-muted"
     }, [_vm._v("\n                          Shipment Date\n                      ")]), _vm._v(" "), _c('span', {
       staticClass: "d-block"
-    }, [_vm._v("\n                      " + _vm._s(_vm.moment(queue.shipment.change_date)) + "\n                      ")])]) : _c('span', [_c('button', {
+    }, [_vm._v("\n                      " + _vm._s(_vm.dateformat(queue.shipment.change_date)) + "\n                      ")])]) : _c('span', [_c('button', {
       staticClass: "btn btn-outline-success btn-sm disabled"
-    }, [_vm._v("\n                          OPEN FOR SHIPMENT\n                      ")])])])]) : _vm._e()
+    }, [_vm._v("\n                          OPEN FOR SHIPMENT\n                      ")])])]), _vm._v(" "), _c('td', [_vm._v("\n                  " + _vm._s(_vm.plantOutDate(queue.plant_out.date)) + "\n              ")])]) : _vm._e()
   }), _vm._v(" "), (_vm.filteredQueues.length == 0 && !_vm.loading) ? _c('tr', [_vm._m(1)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('tr', [_c('td', {
     attrs: {
       "colspan": "8"
@@ -96544,7 +96576,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "scope": "col"
     }
-  }, [_c('small', [_vm._v("  Status")])])])])
+  }, [_c('small', [_vm._v("  Status")])]), _vm._v(" "), _c('th', {
+    attrs: {
+      "scope": "col"
+    }
+  }, [_c('small', [_vm._v("  Plant Out")])])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('td', {
     attrs: {

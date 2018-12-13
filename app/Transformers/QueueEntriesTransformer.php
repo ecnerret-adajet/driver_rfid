@@ -36,6 +36,8 @@ class QueueEntriesTransformer extends TransformerAbstract
             'truck' => $queueEntry->truck,
             'shipment' =>  $queueEntry->withinDayShipment, //qshipment
             'lastCreated' => Carbon::parse($queueEntry->created_at)->diffForHumans(),
+            // addional data
+            'plant_out' => !empty($queueEntry->hasGateOut) ? $queueEntry->hasGateOut->LocalTime : '',
         ];
     }
 }
