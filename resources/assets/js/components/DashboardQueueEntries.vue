@@ -30,8 +30,9 @@
                 <th>Driver Details</th>
                 <th>Plate Number</th>
                 <th>Hauler</th>
-                <th>Last Submitted DR</th>
-                <th>Queue Date</th>
+                <th>Truck Locations</th>
+                <!-- <th>Last Submitted DR</th> -->
+                <th>Dates</th>
                 <th>Status</th>
             </thead>
             <tbody>
@@ -53,9 +54,22 @@
                         {{ entry.hauler_name }}
                     </td>
                     <td>
-                        {{ entry.isDRCompleted }}
+                        <div class="row">
+                        <div class="col" v-for="(i, index) in Math.ceil(entry.truck.plants.length / 4)" :key="index">
+                            <span v-for="(x,y) in entry.truck.plants.slice((i - 1) * 4, i *4)" :key="y">
+                                <span class="badge badge-secondary m-1">
+                                    {{ x.plant_name }}
+                                </span><br/>
+                            </span>
+                        </div>
+                    </div>
                     </td>
                     <td>
+                        <span class="text-uppercase text-muted" style="font-size: 0.8em;">Last Submitted DR</span><br/>
+                        {{ entry.isDRCompleted }}
+                        <br/>
+                        <br/>
+                        <span class="text-uppercase text-muted" style="font-size: 0.8em;">Queue Date/Time</span><br/>
                         {{ parseDate(entry.LocalTime) }}
                     </td>
                     <td>
@@ -176,7 +190,7 @@ export default {
         },
 
         parseDate(date) {
-                return moment(date).format('MMMM D, Y h:m:s A');
+                return moment(date).format('YYYY-MM-D h:m:s A');
         },
 
         setPage(pageNumber) {

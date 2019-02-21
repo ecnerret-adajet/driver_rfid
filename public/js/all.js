@@ -53929,6 +53929,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -53985,7 +53999,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.resetStartRow();
         },
         parseDate: function parseDate(date) {
-            return __WEBPACK_IMPORTED_MODULE_1_moment___default()(date).format('MMMM D, Y h:m:s A');
+            return __WEBPACK_IMPORTED_MODULE_1_moment___default()(date).format('YYYY-MM-D h:m:s A');
         },
         setPage: function setPage(pageNumber) {
             this.currentPage = pageNumber;
@@ -96730,7 +96744,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }), _vm._v("\n                    " + _vm._s(entry.driver_name) + "\n                ")]), _vm._v(" "), _c('td', [_vm._v("\n                    " + _vm._s(entry.plate_number) + " "), _c('br'), _vm._v(" "), _c('span', {
       staticClass: "text-muted"
-    }, [_vm._v("\n                    " + _vm._s(entry.truck.capacity.description || 'N/A') + "\n                    ")])]), _vm._v(" "), _c('td', [_vm._v("\n                    " + _vm._s(entry.hauler_name) + "\n                ")]), _vm._v(" "), _c('td', [_vm._v("\n                    " + _vm._s(entry.isDRCompleted) + "\n                ")]), _vm._v(" "), _c('td', [_vm._v("\n                    " + _vm._s(_vm.parseDate(entry.LocalTime)) + "\n                ")]), _vm._v(" "), _c('td', [(entry.shipment) ? _c('span', {
+    }, [_vm._v("\n                    " + _vm._s(entry.truck.capacity.description || 'N/A') + "\n                    ")])]), _vm._v(" "), _c('td', [_vm._v("\n                    " + _vm._s(entry.hauler_name) + "\n                ")]), _vm._v(" "), _c('td', [_c('div', {
+      staticClass: "row"
+    }, _vm._l((Math.ceil(entry.truck.plants.length / 4)), function(i, index) {
+      return _c('div', {
+        key: index,
+        staticClass: "col"
+      }, _vm._l((entry.truck.plants.slice((i - 1) * 4, i * 4)), function(x, y) {
+        return _c('span', {
+          key: y
+        }, [_c('span', {
+          staticClass: "badge badge-secondary m-1"
+        }, [_vm._v("\n                                " + _vm._s(x.plant_name) + "\n                            ")]), _c('br')])
+      }))
+    }))]), _vm._v(" "), _c('td', [_c('span', {
+      staticClass: "text-uppercase text-muted",
+      staticStyle: {
+        "font-size": "0.8em"
+      }
+    }, [_vm._v("Last Submitted DR")]), _c('br'), _vm._v("\n                    " + _vm._s(entry.isDRCompleted) + "\n                    "), _c('br'), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', {
+      staticClass: "text-uppercase text-muted",
+      staticStyle: {
+        "font-size": "0.8em"
+      }
+    }, [_vm._v("Queue Date/Time")]), _c('br'), _vm._v("\n                    " + _vm._s(_vm.parseDate(entry.LocalTime)) + "\n                ")]), _vm._v(" "), _c('td', [(entry.shipment) ? _c('span', {
       staticClass: "text-center"
     }, [_c('button', {
       staticClass: "btn btn-outline-danger btn-sm disabled"
@@ -96816,7 +96853,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "font-size": "0.9em",
       "letter-spacing": "0.1em"
     }
-  }, [_c('th', [_vm._v("Queue #")]), _vm._v(" "), _c('th', [_vm._v("Driver Details")]), _vm._v(" "), _c('th', [_vm._v("Plate Number")]), _vm._v(" "), _c('th', [_vm._v("Hauler")]), _vm._v(" "), _c('th', [_vm._v("Last Submitted DR")]), _vm._v(" "), _c('th', [_vm._v("Queue Date")]), _vm._v(" "), _c('th', [_vm._v("Status")])])
+  }, [_c('th', [_vm._v("Queue #")]), _vm._v(" "), _c('th', [_vm._v("Driver Details")]), _vm._v(" "), _c('th', [_vm._v("Plate Number")]), _vm._v(" "), _c('th', [_vm._v("Hauler")]), _vm._v(" "), _c('th', [_vm._v("Truck Locations")]), _vm._v(" "), _c('th', [_vm._v("Dates")]), _vm._v(" "), _c('th', [_vm._v("Status")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('td', {
     attrs: {

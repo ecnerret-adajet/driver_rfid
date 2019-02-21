@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Transformers\QueueEntriesTransformer;
+use App\Transformers\QueueEntriesDashTransformer;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Manager;
 use Illuminate\Http\Request;
@@ -79,7 +80,8 @@ class QueueEntriesController extends Controller
                             ->values()->all();
 
             $manager = new Manager();
-            $resource = new Collection($queues, new QueueEntriesTransformer());
+            // $resource = new Collection($queues, new QueueEntriesTransformer());
+            $resource = new Collection($queues, new QueueEntriesDashTransformer());
 
             return $manager->createData($resource)->toArray();
     }
