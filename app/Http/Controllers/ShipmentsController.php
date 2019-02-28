@@ -10,6 +10,9 @@ use App\Driverqueue;
 use Illuminate\Http\Request;
 use Ixudra\Curl\Facades\Curl;
 use Illuminate\Support\Facades\Session;
+use League\Fractal\Resource\Collection;
+use League\Fractal\Manager;
+use App\Transformers\WithShipmentsTransformer;
 
 class ShipmentsController extends Controller
 {
@@ -32,7 +35,7 @@ class ShipmentsController extends Controller
         // Get only unique cardholder
         $get_unique_log = $log->unique('CardholderID');
 
-        $served = Shipment::with('driver','driver.truck','driver.hauler','driver.image')
+        $served = Shipment::with('driver','driver.truck','driver.hauler','driver.image','queueEntry:LogID,isTappedGateFirst,isDRCompleted')
                         ->whereDate('created_at',Carbon::today())
                         ->where('ControllerID', $driverqueue->controller)
                         ->where('DoorID',$driverqueue->door)
@@ -40,7 +43,12 @@ class ShipmentsController extends Controller
                         ->orderBy('id','DESC')
                         ->get();
 
-        return $served;
+        $manager = new Manager();
+        $resource = new Collection($served, new WithShipmentsTransformer());
+
+        return $manager->createData($resource)->toArray();
+
+        // return $served;
 
     }
 

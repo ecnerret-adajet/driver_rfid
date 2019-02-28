@@ -65098,6 +65098,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_services_SequenceStatus_vue__ = __webpack_require__(558);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_services_SequenceStatus_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_services_SequenceStatus_vue__);
 //
 //
 //
@@ -65362,11 +65364,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['driverqueue'],
+
+    components: {
+        SequenceStatus: __WEBPACK_IMPORTED_MODULE_1__components_services_SequenceStatus_vue___default.a
+    },
+
     data: function data() {
         return {
             avatar_link: '/driver_rfid/public/storage/',
@@ -65388,11 +65406,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     methods: {
+
+        // trigger only after every 5 mins
         getQueues: function getQueues() {
             var _this = this;
 
             axios.get('/driver_rfid/public/getQueueEntries/' + this.driverqueue).then(function (response) {
-                return _this.queues = response.data;
+                return _this.queues = response.data.data;
             });
             // setTimeout(this.storeEntries, 10000); // 10 seconds
         },
@@ -65404,26 +65424,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(e.queueEntry);
             });
         },
+
+
+        // trigger after every 12 seconds
         getTodayServed: function getTodayServed() {
             var _this3 = this;
 
             axios.get('/driver_rfid/public/servedToday/' + this.driverqueue).then(function (response) {
-                return _this3.todayServed = response.data;
+                _this3.todayServed = response.data.data;
             });
             setTimeout(this.getTodayServed, 12000); // 12 seconds
         },
+
+
+        // triggered after every 2 seconds
         getLastDriver: function getLastDriver() {
             var _this4 = this;
 
             axios.post('/driver_rfid/public/storeQueueEntries/' + this.driverqueue).then(function (response) {
-                return _this4.lastDriver = response.data;
+                // console.log('check last driver data: ', response.data.data)
+                _this4.lastDriver = response.data.data;
             }).catch(function (error) {
                 console.log(error);
             });
             setTimeout(this.getLastDriver, 2000); // 2 seconds
         },
         moment: function moment(date) {
-            return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM D, Y h:m:s A');
+            return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMM D, Y h:m:s A');
         }
     },
 
@@ -104911,7 +104938,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         staticClass: "text-danger"
       }, [_vm._v("\n                                                NO TRUCK "), _c('br')]), _vm._v(" "), (queue.hauler_name) ? _c('span', [_vm._v("\n                                                " + _vm._s(queue.hauler_name) + " "), _c('br')]) : _c('span', {
         staticClass: "text-danger"
-      }, [_vm._v("\n                                                NO HAULER\n                                            ")])])])]), _vm._v(" "), _c('td', [_c('small', {
+      }, [_vm._v("\n                                                NO HAULER\n                                            ")]), _vm._v(" "), _c('keep-alive', [_c('sequence-status', {
+        attrs: {
+          "item": queue
+        }
+      })], 1)], 1)])]), _vm._v(" "), _c('td', [_c('small', {
         staticClass: "text-uppercase text-muted"
       }, [_vm._v("\n                                        LAST DR SUBMISSION\n                                    ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                        " + _vm._s(queue.isDRCompleted) + "\n                                    ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
         staticClass: "text-uppercase text-muted"
@@ -104976,11 +105007,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         staticClass: "p-0 m-0"
       }, [_vm._v("\n                                            " + _vm._s(served.driver.hauler[0].name) + "\n                                        ")]) : _vm._e()])]) : _vm._e()]), _vm._v(" "), _c('td', {
         attrs: {
-          "width": "25%"
+          "width": "35%"
         }
       }, [_c('small', {
         staticClass: "text-uppercase text-muted"
-      }, [_vm._v("\n                                    SHIPPED DATE\n                                ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                    " + _vm._s(_vm.moment(served.created_at)) + "\n                                ")])]), _vm._v(" "), _c('td', {
+      }, [_vm._v("\n                                    SHIPPED DATE\n                                ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v("\n                                    " + _vm._s(_vm.moment(served.created_at)) + "\n                                ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('keep-alive', [_c('sequence-status', {
+        attrs: {
+          "item": served
+        }
+      })], 1)], 1), _vm._v(" "), _c('td', {
         staticClass: "text-center",
         attrs: {
           "width": "20%"
@@ -105011,9 +105046,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-9"
   }, [_c('p', {
     staticClass: "p-0 m-0"
-  }, [_vm._v("\n                                    " + _vm._s(_vm.lastDriver.driver_name) + " \n                                ")]), _vm._v(" "), (_vm.lastDriver.plate_number) ? _c('p', {
+  }, [_vm._v("\n                                    " + _vm._s(_vm.lastDriver.driver_name) + "\n                                ")]), _vm._v(" "), (_vm.lastDriver.plate_number) ? _c('p', {
     staticClass: "p-0 m-0"
-  }, [_vm._v("\n                                    " + _vm._s(_vm.lastDriver.plate_number) + " \n                                ")]) : _c('p', {
+  }, [_vm._v("\n                                    " + _vm._s(_vm.lastDriver.plate_number) + "\n                                ")]) : _c('p', {
     staticClass: "p-0 m-0 text-danger"
   }, [_vm._v("\n                                    NO TRUCK\n                                ")]), _vm._v(" "), (_vm.lastDriver.hauler_name) ? _c('p', {
     staticClass: "p-0 m-0"
@@ -105023,7 +105058,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "small text-uppercase text-muted"
   }, [_vm._v("\n                            QUEUE TIME:\n                        ")]), _vm._v(" "), _c('p', {
     staticClass: "p-0 m-0"
-  }, [_vm._v("\n                            " + _vm._s(_vm.moment(_vm.lastDriver.LocalTime)) + "\n                        ")])])]) : _vm._e(), _vm._v(" "), (_vm.lastDriver.length != 0) ? _c('tr', {
+  }, [_vm._v("\n                            " + _vm._s(_vm.moment(_vm.lastDriver.LocalTime)) + "\n                        ")]), _vm._v(" "), _c('keep-alive', [_c('sequence-status', {
+    attrs: {
+      "item": _vm.lastDriver
+    }
+  })], 1)], 1)]) : _vm._e(), _vm._v(" "), (_vm.lastDriver.length != 0) ? _c('tr', {
     class: _vm.checkAlertMessage.tableStyle
   }, [_c('td', {
     staticClass: "text-center pb-3 pt-3",
@@ -105032,7 +105071,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "text-small text-uppercase text-dark font-italic"
-  }, [_vm._v("\n                            " + _vm._s(_vm.checkAlertMessage.alertMessage) + " \n                        ")])])]) : _vm._e(), _vm._v(" "), (_vm.lastDriver.length == 0) ? _c('tr', [_vm._m(5)]) : _vm._e()])])])])])
+  }, [_vm._v("\n                            " + _vm._s(_vm.checkAlertMessage.alertMessage) + "\n                        ")])])]) : _vm._e(), _vm._v(" "), (_vm.lastDriver.length == 0) ? _c('tr', [_vm._m(5)]) : _vm._e()])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
@@ -105043,7 +105082,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('thead', [_c('tr', {
     staticClass: "text-uppercase font-weight-light"
   }, [_c('th', {
-    staticClass: "table-success",
+    staticClass: "table-warning",
     attrs: {
       "scope": "col"
     }
@@ -123584,6 +123623,176 @@ __webpack_require__(148);
 __webpack_require__(153);
 module.exports = __webpack_require__(147);
 
+
+/***/ }),
+/* 557 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: {
+        item: Object
+    },
+
+    data: function data() {
+        return {
+            driverPass: false,
+            truckscaleIn: false,
+            submittedDr: false,
+            assignedShipment: false,
+            truckscaleOut: false
+        };
+    },
+    mounted: function mounted() {
+        this.checkSequenceStatus();
+    },
+
+
+    methods: {
+        checkSequenceStatus: function checkSequenceStatus() {
+
+            if (this.item.isTappedGateFirst === "1") {
+                this.driverPass = true;
+            } else {
+                this.driverPass = false;
+            }
+
+            if (this.item.isDRCompleted != "0000-00-00") {
+                this.submittedDr = true;
+            } else {
+                this.submittedDr = false;
+            }
+
+            if (this.item.shipment_number) {
+                this.assignedShipment = true;
+            } else {
+                this.assignedShipment = false;
+            }
+        }
+    }
+
+});
+
+/***/ }),
+/* 558 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(557),
+  /* template */
+  __webpack_require__(559),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\xampp\\htdocs\\driver_rfid\\resources\\assets\\js\\components\\services\\SequenceStatus.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] SequenceStatus.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-23c447e6", Component.options)
+  } else {
+    hotAPI.reload("data-v-23c447e6", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 559 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('p', {
+    staticClass: "pt-2"
+  }, [_c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.driverPass),
+      expression: "driverPass"
+    }],
+    staticClass: "text-uppercase badge badge-warning",
+    staticStyle: {
+      "font-size": "10px"
+    }
+  }, [_vm._v("Pass")]), _vm._v(" "), _c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.truckscaleIn),
+      expression: "truckscaleIn"
+    }],
+    staticClass: "text-uppercase badge badge-warning",
+    staticStyle: {
+      "font-size": "10px"
+    }
+  }, [_vm._v("TS-In")]), _vm._v(" "), _c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.submittedDr),
+      expression: "submittedDr"
+    }],
+    staticClass: "text-uppercase badge badge-warning",
+    staticStyle: {
+      "font-size": "10px"
+    }
+  }, [_vm._v("DR-Received")]), _vm._v(" "), _c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.assignedShipment),
+      expression: "assignedShipment"
+    }],
+    staticClass: "text-uppercase badge badge-warning",
+    staticStyle: {
+      "font-size": "10px"
+    }
+  }, [_vm._v("Shipped")]), _vm._v(" "), _c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.truckscaleOut),
+      expression: "truckscaleOut"
+    }],
+    staticClass: "text-uppercase badge badge-warning",
+    staticStyle: {
+      "font-size": "10px"
+    }
+  }, [_vm._v("TS-Out")])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-23c447e6", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

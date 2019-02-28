@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Transformers\QueueEntriesTransformer;
 use App\Transformers\QueueEntriesDashTransformer;
+use App\Transformers\QueueEntriesMonitorTransformer;
+use App\Transformers\LastDriverTransformer;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Manager;
 use Illuminate\Http\Request;
@@ -40,7 +42,7 @@ class QueueEntriesController extends Controller
         $queues = QueueEntry::where('driverqueue_id',$driverqueue_id)
                             ->whereNotIn('CardholderID',$checkTruckscaleOut->values()->all())
                              ->where('created_at', '>=', Carbon::today())
-                            // ->whereNull('shipment_number')
+                            ->whereNull('shipment_number') // uncomment show all wihtout shipment today
                             ->doesntHave('shipment')
                             ->whereNotNull('driver_availability')
                             ->whereNotNull('truck_availability')
@@ -48,9 +50,14 @@ class QueueEntriesController extends Controller
                             ->whereNotNull('isTappedGateFirst')
                             ->orderBy('LocalTime','ASC')
                             ->get()
-                            ->unique('CardholderID');
+                            ->unique('CardholderID')
+                            ->values()->all();
 
-        return $queues->values()->all();
+        $manager = new Manager();
+        $resource = new Collection($queues, new QueueEntriesMonitorTransformer());
+
+         return $manager->createData($resource)->toArray();
+
     }
 
     /**
@@ -255,6 +262,9 @@ class QueueEntriesController extends Controller
             ]
         );
 
+        $manager = new Manager();
+
+
         if($queueEntry->wasRecentlyCreated == true) {
 
             if(!$this->notDriver()) {
@@ -262,11 +272,21 @@ class QueueEntriesController extends Controller
             }
 
             event(new QueueEntryEvent($queueEntry,$driverLocation));
-            return $queueEntry;
+
+            // return $queueEntry;
+
+            // $resource = new Collection($queueEntry, new LastDriverTransformer());
+            // return $manager->createData($resource)->toArray();
+
+            return fractal($queueEntry, new LastDriverTransformer())->respond();
 
         } else {
+
             $queueLast = QueueEntry::where('driverqueue_id',$driverLocation->id)->orderBy('id','DESC')->first();
-            return $queueLast;
+
+            // return $queueLast;
+
+            return fractal($queueLast, new LastDriverTransformer())->respond();
         }
 
     }

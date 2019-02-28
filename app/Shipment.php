@@ -10,7 +10,7 @@ use Ixudra\Curl\Facades\Curl;
 class Shipment extends Model
 {
     protected $connection = "sqlsrv";
-    
+
     protected $fillable = [
         'LogID',
         'shipment_number',
@@ -39,17 +39,17 @@ class Shipment extends Model
 
     // Model Relationships
 
-    public function loading() 
+    public function loading()
     {
         return $this->belongsTo(Loading::class,'shipment_number','shipment_number');
     }
 
     public function queueEntry()
     {
-        return $this->belongsTo(QueueEntry::class,'CardholderID','CardholderID');
+        return $this->belongsTo(QueueEntry::class,'LogID','LogID');
     }
 
-    public function driver() 
+    public function driver()
     {
         return $this->cardholder->driver();
     }
@@ -68,7 +68,7 @@ class Shipment extends Model
     {
         $checkDate = !empty($date) ? Carbon::parse($date) : Carbon::today();
 
-        // // Returns Cardholders from shipment where found in logs 
+        // // Returns Cardholders from shipment where found in logs
         return $query->whereDate('created_at', $checkDate)
                     ->where('CardholderID',$cardholder)
                     ->orderBy('created_at','DESC')
@@ -78,14 +78,14 @@ class Shipment extends Model
     public function scopeCheckIfShippedDate($query, $cardholder, $date)
     {
         $checkDate = !empty($date) ? Carbon::parse($date) : Carbon::today();
-        
-        // // Returns Cardholders from shipment where found in logs 
+
+        // // Returns Cardholders from shipment where found in logs
         return $query->whereDate('created_at', '=', $checkDate)
                     ->where('CardholderID',$cardholder)
                     ->orderBy('created_at','DESC')
                     ->pluck('shipment_number');
     }
-    
+
     /**
      * Check if array cardholders has shipment assigned
      */
@@ -93,7 +93,7 @@ class Shipment extends Model
     {
         $checkDate = !empty($date) ? Carbon::parse($date) : Carbon::today();
 
-        // // Returns Cardholders from shipment where found in logs 
+        // // Returns Cardholders from shipment where found in logs
         return $query->whereDate('created_at', $checkDate)
                     ->whereIn('CardholderID',$cardholder)
                     ->orderBy('created_at','DESC')
@@ -108,9 +108,9 @@ class Shipment extends Model
         ->withContentType('application/x-www-form-urlencoded')
         ->withData($log)
         ->post();
-        
+
         $ter = collect(json_decode($response, true))->pluck('shipment');
-        $final = !empty($ter[0]) ? $ter[0] : ''; 
+        $final = !empty($ter[0]) ? $ter[0] : '';
 
         return $final;
     }
@@ -118,9 +118,9 @@ class Shipment extends Model
 
     /**
      *  Get All Shipment Assigned for today
-     * 
+     *
      * @return Pluck
-     * 
+     *
      */
     public function scopeServedToday($query)
     {
@@ -128,4 +128,4 @@ class Shipment extends Model
                 ->pluck('CardholderID');
     }
 
-} 
+}

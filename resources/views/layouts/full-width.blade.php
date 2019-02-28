@@ -44,7 +44,7 @@
 
       <div class="container-fluid">
 
-  
+
         @yield('content')
 
 
@@ -55,13 +55,13 @@
     </div>
     <!-- /.content-wrapper -->
 
-    <footer class="sticky">
+    {{-- <footer class="sticky">
       <div class="container">
         <div class="text-center">
           <small>Copyright &copy; La Filipina Uy Gongco Group of Companies {{ Carbon\Carbon::now()->format('Y') }}</small>
         </div>
       </div>
-    </footer>
+    </footer> --}}
 
     <!-- Scroll to Top Button -->
     <a class="scroll-to-top rounded" href="#page-top">
@@ -89,7 +89,7 @@
               <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                             {{ csrf_field() }}
             </form>
-          
+
           </div>
         </div>
       </div>
@@ -97,7 +97,7 @@
 
 
       </div><!-- end app -->
-    
+
        <!-- Scripts -->
         <script src="{{ asset('js/all.js') }}"></script>
         {{--  <script src="{{ asset('js/jquery.cropit.js') }}"></script>  --}}

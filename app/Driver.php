@@ -55,7 +55,7 @@ class Driver extends Model
     ];
 
     protected static $logAttributes = [
-        'name', 
+        'name',
         'cardholder_id',
     ];
 
@@ -78,7 +78,7 @@ class Driver extends Model
      {
          $this->attributes['start_validity_date'] = Carbon::parse($date);
      }
- 
+
      public function getStartValidityDateAttribute($date)
      {
          return Carbon::parse($date)->format('Y-m-d');
@@ -91,7 +91,7 @@ class Driver extends Model
      {
          $this->attributes['end_validity_date'] = Carbon::parse($date);
      }
- 
+
      public function getEndValidityDateAttribute($date)
      {
          return Carbon::parse($date)->format('Y-m-d');
@@ -164,7 +164,7 @@ class Driver extends Model
 
 
     /**
-     * driver wiill assign a truck plate number
+     * driver will assign a truck plate number
      */
     public function trucks()
     {
@@ -224,7 +224,7 @@ class Driver extends Model
     //     return $this->confirm()->first();
     // }
 
-    
+
     /**
     * Logs all revisions from drivers record
     */
@@ -232,7 +232,7 @@ class Driver extends Model
     {
         return $this->belongsToMany(Version::class);
     }
-    
+
     public function getVersionListAttribute()
     {
         return $this->versions->pluck('id')->all();
@@ -258,9 +258,9 @@ class Driver extends Model
     }
 
     /**
-     * 
+     *
      *  Driver version
-     * 
+     *
      */
     public function driverversion()
     {
@@ -268,9 +268,9 @@ class Driver extends Model
     }
 
     /**
-     *  
+     *
      *  Generate From this month
-     * 
+     *
      */
     public function scopeThisMonth($query)
     {
@@ -283,9 +283,9 @@ class Driver extends Model
     }
 
     /**
-     * 
+     *
      *  Driver's assocaited with driver's pass
-     * 
+     *
      */
     public function passes()
     {
@@ -293,9 +293,9 @@ class Driver extends Model
     }
 
     /**
-     *  
+     *
      * Associated Driver who request LOST rfid
-     * 
+     *
      */
     public function lost()
     {
@@ -323,10 +323,10 @@ class Driver extends Model
 
     /**
      * Check if driver or truck is deactivated based from DR Submitted to pluck in cardholder
-     * 
+     *
      * Accepts array from DR Submitted pluck from Truck::callLastTripCardholder($plateArray)
      */
-    public function scopeGetActiveDriverTruck($query, $lastTripCardholderArray) 
+    public function scopeGetActiveDriverTruck($query, $lastTripCardholderArray)
     {
 
         $filterActiveDrivers = Truck::whereIn('plate_number',$lastTripCardholderArray)

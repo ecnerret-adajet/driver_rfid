@@ -10,15 +10,15 @@
                         <table class="table table-bordered table-striped">
                         <thead>
                             <tr class="text-uppercase font-weight-light">
-                            <th  class="table-success" scope="col"> 
-                                <small>  
+                            <th  class="table-warning" scope="col">
+                                <small>
                                     <strong>
                                         List of Drivers On Queue for Shipment
                                     </strong>
-                                </small> 
+                                </small>
                             </th>
                             </tr>
-                        </thead> 
+                        </thead>
                         </table>
                     </div>
                 </div>
@@ -27,14 +27,14 @@
                 <div class="carousel-inner">
 
                     <div class="carousel-item" style="height: 850px;" v-for="(loop,q) in Math.ceil(queues.length / 7)" :key="q" :class="{ 'active' : q == 0 }">
-                           
+
                             <table class="table table-bordered table-striped">
                              <tbody>
                                 <tr v-for="(queue,y) in queues.slice((loop - 1) * 7, loop *7)" :key="y">
                                     <td width="15%" class="text-center">
                                         <span class="display-4">
                                             {{ queue.queue_number }}
-                                        </span> 
+                                        </span>
                                     </td>
                                     <td>
                                         <div class="row">
@@ -55,6 +55,9 @@
                                                 <span class="text-danger" v-else>
                                                     NO HAULER
                                                 </span>
+                                                 <keep-alive>
+                                                <sequence-status :item="queue"></sequence-status>
+                                                 </keep-alive>
                                             </div>
                                         </div>
                                     </td>
@@ -81,13 +84,14 @@
                                 </tr>
                             </tbody>
                             </table>
-                     
+
 
                     </div>
                 </div>
-             
+
                 </div>
-               
+
+
 
             </div>
 
@@ -99,15 +103,15 @@
                         <table class="table table-bordered table-striped">
                         <thead>
                             <tr class="text-uppercase font-weight-light">
-                            <th  class="table-warning" scope="col"> 
-                                <small> 
+                            <th  class="table-warning" scope="col">
+                                <small>
                                     <strong>
                                     List Drivers with Shipment
                                     </strong>
-                                </small> 
+                                </small>
                             </th>
                             </tr>
-                        </thead> 
+                        </thead>
                         </table>
                     </div>
                 </div>
@@ -115,7 +119,7 @@
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
 
-                    <div class="carousel-item" style="height: 600px;" v-for="(loop,t) in Math.ceil(todayServed.length / 6)" :key="t" :class="{ 'active' : t == 0 }">    
+                    <div class="carousel-item" style="height: 600px;" v-for="(loop,t) in Math.ceil(todayServed.length / 6)" :key="t" :class="{ 'active' : t == 0 }">
 
                         <table class="table table-bordered table-striped">
                         <tbody>
@@ -142,13 +146,16 @@
 
                                 </td>
 
-                                <td width="25%">
+                                <td width="35%">
                                 <small class="text-uppercase text-muted">
                                         SHIPPED DATE
                                     </small> <br/>
                                     <span>
                                         {{ moment(served.created_at) }}
-                                    </span>
+                                    </span> <br/>
+                                     <keep-alive>
+                                        <sequence-status :item="served"></sequence-status>
+                                    </keep-alive>
                                 </td>
 
 
@@ -185,15 +192,15 @@
                     <table class="table table-bordered table-striped">
                     <thead>
                         <tr class="text-uppercase font-weight-light">
-                        <th  class="table-primary" scope="col"> 
-                            <small>  
+                        <th  class="table-primary" scope="col">
+                            <small>
                                 <strong>
                                     Last driver tapped:
                                 </strong>
-                            </small> 
+                            </small>
                         </th>
                         </tr>
-                    </thead> 
+                    </thead>
                     </table>
                 </div>
             </div>
@@ -209,10 +216,10 @@
                                 </div>
                                 <div class="col-9">
                                     <p class="p-0 m-0">
-                                        {{ lastDriver.driver_name }} 
+                                        {{ lastDriver.driver_name }}
                                     </p>
                                     <p class="p-0 m-0" v-if="lastDriver.plate_number">
-                                        {{ lastDriver.plate_number }} 
+                                        {{ lastDriver.plate_number }}
                                     </p>
                                     <p class="p-0 m-0 text-danger" v-else>
                                         NO TRUCK
@@ -233,17 +240,20 @@
                             <p class="p-0 m-0">
                                 {{ moment(lastDriver.LocalTime) }}
                             </p>
+                            <keep-alive>
+                                <sequence-status :item="lastDriver"></sequence-status>
+                            </keep-alive>
                         </td>
                     </tr>
 
                     <tr :class="checkAlertMessage.tableStyle" v-if="lastDriver.length != 0">
                         <td class="text-center pb-3 pt-3" colspan="2">
                             <span class="text-small text-uppercase text-dark font-italic">
-                                {{ checkAlertMessage.alertMessage }} 
-                            </span>     
+                                {{ checkAlertMessage.alertMessage }}
+                            </span>
                         </td>
                     </tr>
-                    
+
                     <tr v-if="lastDriver.length == 0">
                         <td class="text-center" style="padding-top: 30px; padding-bottom: 30px;" colspan="2">
                             <span class="display-4 text-muted">
@@ -264,9 +274,15 @@
 </template>
 <script>
     import moment from 'moment';
+    import SequenceStatus from '../components/services/SequenceStatus.vue';
 
     export default {
         props: ['driverqueue'],
+
+        components: {
+            SequenceStatus
+        },
+
         data() {
             return {
                 avatar_link: '/driver_rfid/public/storage/',
@@ -288,9 +304,11 @@
         },
 
         methods: {
+
+            // trigger only after every 5 mins
             getQueues() {
                 axios.get('/driver_rfid/public/getQueueEntries/' + this.driverqueue)
-                .then(response => this.queues = response.data)
+                .then(response => this.queues = response.data.data)
                 // setTimeout(this.storeEntries, 10000); // 10 seconds
             },
 
@@ -302,15 +320,22 @@
                 });
             },
 
+            // trigger after every 12 seconds
             getTodayServed() {
-                axios.get('/driver_rfid/public/servedToday/' + this.driverqueue) 
-                .then(response => this.todayServed = response.data);
+                axios.get('/driver_rfid/public/servedToday/' + this.driverqueue)
+                .then(response => {
+                    this.todayServed = response.data.data;
+                })
                 setTimeout(this.getTodayServed, 12000); // 12 seconds
             },
 
+            // triggered after every 2 seconds
             getLastDriver() {
                 axios.post('/driver_rfid/public/storeQueueEntries/' + this.driverqueue)
-                .then(response => this.lastDriver = response.data)
+                .then(response => {
+                    // console.log('check last driver data: ', response.data.data)
+                    this.lastDriver = response.data.data
+                })
                 .catch((error) => {
                     console.log(error);
                 });
@@ -318,7 +343,7 @@
             },
 
             moment(date) {
-                return moment(date).format('MMMM D, Y h:m:s A');
+                return moment(date).format('MMM D, Y h:m:s A');
             },
         },
 
@@ -330,11 +355,11 @@
                 if(!lastDriver.driver_availability) {
                     driverStatus.alertMessage = "Driver deactivated";
                     driverStatus.tableStyle = "table-danger";
-                } 
+                }
                 else if (!lastDriver.truck_availability) {
                     driverStatus.alertMessage = "Truck deactivated";
                     driverStatus.tableStyle = "table-danger";
-                } 
+                }
                 else if (lastDriver.isDRCompleted == "0000-00-00") {
                     driverStatus.alertMessage = "Please submit all outstanding DR first, then tap again!";
                     driverStatus.tableStyle = "table-danger";
@@ -342,7 +367,7 @@
                 else if (!lastDriver.isTappedGateFirst) {
                     driverStatus.alertMessage = "Tap first from main gate RFID";
                     driverStatus.tableStyle = "table-danger";
-                } 
+                }
                 else if (lastDriver.shipment_number) {
                     driverStatus.alertMessage = "Shipment already assigned";
                     driverStatus.tableStyle ="table-primary";
