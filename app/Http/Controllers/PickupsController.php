@@ -22,7 +22,8 @@ class PickupsController extends Controller
     {
         $unserved = Pickup::whereNull('cardholder_id')
                         ->orderBy('created_at','DESC')
-                        ->get();
+                        ->get()
+                        ->take(20);
 
         $assigned = Pickup::whereDate('activation_date', Carbon::today())
                         ->whereNull('deactivated_date')
@@ -50,7 +51,7 @@ class PickupsController extends Controller
             ->take(1)
             ->get();
 
-        return $pick;      
+        return $pick;
     }
 
     public function getTruckscaleOut($cardholder, $created)
@@ -73,7 +74,7 @@ class PickupsController extends Controller
 
         $start_date = $request->get('start_date');
         $end_date = $request->get('end_date');
-        
+
         // $pickups = Pickup::whereBetween('created_at', [Carbon::parse($start_date), Carbon::parse($end_date)])
         // ->orderBy('created_at','DESC')->get();
 
@@ -139,17 +140,17 @@ class PickupsController extends Controller
     {
          $guard_cards = Cardholder::select('CardholderID')
             ->where('Name', 'LIKE', '%PICKUP CONFIRM%')
-            ->pluck('CardholderID'); 
+            ->pluck('CardholderID');
 
         $pickup_cards = Pickup::select('cardholder_id')
-                            ->whereNotNull('cardholder_id')                
-                            ->where('availability',1)->get();       
+                            ->whereNotNull('cardholder_id')
+                            ->where('availability',1)->get();
 
         $cardholders = Cardholder::whereNotIn('CardholderID', $pickup_cards)
                                     ->whereNotIn('CardholderID', $guard_cards)
                                     ->where('Name', 'LIKE', '%Pickup%')
                                     ->pluck('Name','CardholderID');
-                                    
+
         return $cardholders;
     }
 
@@ -188,18 +189,18 @@ class PickupsController extends Controller
     {
         $guard_cards = Cardholder::select('CardholderID')
             ->where('Name', 'LIKE', '%PICKUP CONFIRM%')
-            ->pluck('CardholderID'); 
+            ->pluck('CardholderID');
 
         $pickup_cards = Pickup::select('cardholder_id')
-                            ->whereNotNull('cardholder_id')                
-                            ->where('availability',1)->get();       
+                            ->whereNotNull('cardholder_id')
+                            ->where('availability',1)->get();
 
         $cardholders = Cardholder::whereNotIn('CardholderID', $pickup_cards)
                                     ->whereNotIn('CardholderID', $guard_cards)
                                     ->where('Name', 'LIKE', '%Pickup%')
                                     ->pluck('Name','CardholderID');
-                                    
-    
+
+
         return view('pickups.create', compact('cardholders','pickup_cards'));
     }
 
@@ -250,11 +251,11 @@ class PickupsController extends Controller
     public function edit(Pickup $pickup)
     {
         $pickup_cards = Pickup::select('cardholder_id')->where('availability',1)->get();
-        
+
             $cardholders = Cardholder::whereNotIn('CardholderID', $pickup_cards)
                                     ->where('Name', 'LIKE', '%Pickup%')
                                     ->pluck('Name','CardholderID');
-    
+
             return view('pickups.edit',compact('pickup_cards','cardholders','pickup'));
     }
 
@@ -281,12 +282,12 @@ class PickupsController extends Controller
         $pickup->cardholder()->associate($plate);
         $pickup->save();
 
-        
+
         flashy()->success('Pickup has successfully update!');
         return redirect('pickups');
     }
 
-    
+
     /**
      *
      *Deactive a pickup RFID
@@ -306,7 +307,7 @@ class PickupsController extends Controller
         ->performedOn($pick)
         ->withProperties(['cardholder' => $pick->cardholder_id])
         ->log('Deactivated Pickup RFID');
-         
+
          flashy()->success('Pickup has successfully deactivated!');
          return redirect('pickups');
      }
@@ -323,9 +324,9 @@ class PickupsController extends Controller
     }
 
     /**
-     * 
+     *
      *  Setup to fetched all served pickups in monitor/feed routes
-     *  
+     *
      */
     public function pickupFeed()
     {
@@ -389,8 +390,8 @@ class PickupsController extends Controller
                         ->get();
 
         return $served;
-    
+
     }
 
-   
+
 }

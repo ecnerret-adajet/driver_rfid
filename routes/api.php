@@ -20,6 +20,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/last_dr_date/{plate_number}','EntryReportController@getLastDrSubmitted');
 
+Route::get('pickups/unserved','PickupsApiController@unserved');
+Route::get('pickups/assigned','PickupsApiController@assigned');
+Route::get('pickups/served','PickupsApiController@served');
+
 // API setup for Hauler Online
 
 
