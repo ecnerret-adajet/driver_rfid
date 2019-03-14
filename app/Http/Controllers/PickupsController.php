@@ -13,6 +13,11 @@ use Flashy;
 
 class PickupsController extends Controller
 {
+
+    public function main() {
+        return view('pickups.main');
+    }
+
     /**
      * Display a listing of the resource.
      *

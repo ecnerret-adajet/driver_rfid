@@ -329,11 +329,14 @@ Route::group(['middleware' => 'auth'], function () {
         'create', 'store', 'edit'
         ]]);
 
+        Route::get('/pickups/main','PickupsController@main');
         Route::get('/pickupsJson','PickupsController@pickupsJson');
         Route::get('/pickupsStatus','PickupsController@pickupsStatus');
         Route::get('/generatePickups','PickupsController@generatePickups');
         Route::post('/pickups/deactivate/{id}','PickupsController@deactive');
         Route::resource('/pickups','PickupsController');
+
+
 
 
         //Route for pickup monitoring and deliveries monitoring
