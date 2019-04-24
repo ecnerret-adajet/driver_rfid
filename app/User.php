@@ -6,12 +6,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use Notifiable;
-    use EntrustUserTrait;
-    use LogsActivity;
+    use HasApiTokens, Notifiable, EntrustUserTrait, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -23,7 +22,7 @@ class User extends Authenticatable
     ];
 
     protected static $logAttributes = [
-        'name', 
+        'name',
         'email'
     ];
 
@@ -78,7 +77,7 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Lineup');
     }
-    
+
     /**
     *
     * Get the associated user from pickup created
@@ -91,9 +90,9 @@ class User extends Authenticatable
 
 
     /**
-     * 
-     *  Driver's Pass Accepted By 
-     * 
+     *
+     *  Driver's Pass Accepted By
+     *
      */
     public function passes()
     {
@@ -110,7 +109,7 @@ class User extends Authenticatable
 
     /**
      *   Assocaite User who request a RFID re-printing
-     * 
+     *
      */
     public function losts()
     {

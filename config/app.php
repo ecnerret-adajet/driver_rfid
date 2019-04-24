@@ -177,6 +177,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Ixudra\Curl\CurlServiceProvider::class,
         Spatie\Fractal\FractalServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
 
         /*
          * Application Service Providers...
