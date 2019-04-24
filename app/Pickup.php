@@ -25,7 +25,7 @@ class Pickup extends Model
         'do_number',
         'coa'
     ];
-    
+
 
     public function getDates()
     {
@@ -34,7 +34,7 @@ class Pickup extends Model
 
 
     protected static $logAttributes = [
-        'plate_number', 
+        'plate_number',
         'company',
         'driver_name',
         'remarks',
@@ -50,7 +50,7 @@ class Pickup extends Model
     }
 
     /**
-     * 
+     *
      */
     public function users()
     {

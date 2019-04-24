@@ -14,15 +14,19 @@
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::get('/last_dr_date/{plate_number}','EntryReportController@getLastDrSubmitted');
+
+Route::group(['middleware' => 'auth:api'], function() {
+
+Route::get('pickups-unserved','PickupsApiController@unserved');
+Route::get('pickups-assigned','PickupsApiController@assigned');
+Route::get('pickups-served','PickupsApiController@served');
+
 });
 
-Route::get('/last_dr_date/{plate_number}','EntryReportController@getLastDrSubmitted');
-
-Route::get('pickups/unserved','PickupsApiController@unserved');
-Route::get('pickups/assigned','PickupsApiController@assigned');
-Route::get('pickups/served','PickupsApiController@served');
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 // API setup for Hauler Online
 

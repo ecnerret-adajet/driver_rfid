@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Transformers\EntryReportTransformer;
 use Spatie\Activitylog\Models\Activity;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use App\Cardholder;
+use Carbon\Carbon;
 use App\Pickup;
 use App\Log;
 use Flashy;
@@ -17,10 +18,10 @@ class PickupsApiController extends Controller
     {
         $unserved = Pickup::whereNull('cardholder_id')
                         ->orderBy('created_at','DESC')
-                        // ->get()
+                        // ->get();
                         ->paginate(10);
 
-        return $unserved;
+        return response()->json($unserved, 200);
     }
 
     public function assigned()
@@ -47,22 +48,6 @@ class PickupsApiController extends Controller
                     ->paginate(10);
 
         return $served;
-    }
-
-    public function searchPickups(Request $request)
-    {
-        $this->validate($request, [
-            'start_date' => 'required|before:end_date',
-            'end_date' => 'required'
-        ]);
-
-        $start_date = $request->get('start_date');
-        $end_date = $request->get('end_date');
-
-        $this->assigned();
-        $this->served();
-        $this->unserved();
-
     }
 
     /**
