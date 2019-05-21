@@ -1,7 +1,7 @@
 <template>
-    <div>     
+    <div>
 
-        <div class="row mt-4" v-if="selected">
+        <div class="row mt-4">
             <div class="col-10">
                 <div class="form-group">
                     <label class="text-uppercase text-muted">Filter by date</label>
@@ -10,7 +10,7 @@
             </div>
             <div class="col-2">
                 <label>&nbsp;</label>
-                <button class="btn btn-block btn-outline-primary" :disabled="!date" @click="selected=false">Generate</button>
+                <button class="btn btn-block btn-outline-primary">Generate</button>
             </div>
         </div>
 
@@ -34,8 +34,8 @@
 
             <app-pickup-served-current v-if="selected" :searchString="searchString"></app-pickup-served-current>
             <app-pickup-served-search v-if="!selected" :searchString="searchString" :date="searchDate(date)"></app-pickup-served-search>
-         
-            
+
+
     </div>
 </template>
 <script>
@@ -44,7 +44,7 @@
     import PickupServedSearch from './PickupServedSearch.vue';
 
     export default {
-        
+
         components: {
             appPickupServedCurrent : PickupServedCurrent,
             appPickupServedSearch : PickupServedSearch,

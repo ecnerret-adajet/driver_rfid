@@ -23,7 +23,7 @@ class Log extends Model
         'Invalid',
         'SystemTime',
     ];
-    
+
     public function getDates()
     {
         return [];
@@ -142,7 +142,7 @@ class Log extends Model
                       ->whereNotIn('CardholderID',$pickups)
                       ->where('CardholderID', '>=', 1)
                       ->whereDate('LocalTime', '>=', Carbon::today())
-                      ->orderBy('LocalTime','DESC')->get(); 
+                      ->orderBy('LocalTime','DESC')->get();
     }
 
     /*
@@ -150,7 +150,7 @@ class Log extends Model
     *  - MonitorsController > create, edit
     *  - LogsController > index
     */
-    public function scopeFullEntriesIn($query) 
+    public function scopeFullEntriesIn($query)
     {
         return $query->where('CardholderID', '>=', 1)
                       ->where('Direction', 1)
@@ -206,9 +206,9 @@ class Log extends Model
 
     /**
      *  Get all drivers who has a truckscale IN within cureent date in Manila
-     * 
+     *
      * Pluck Return
-     * 
+     *
      */
     public function scopeTruckscaleIn($query)
     {
@@ -222,9 +222,9 @@ class Log extends Model
 
     /**
      * Get all Drivers who has a truckscale OUT within current date
-     * 
+     *
      * Pluck Return
-     * 
+     *
      */
     public function scopeTruckscaleOut($query)
     {
@@ -238,7 +238,7 @@ class Log extends Model
 
     /**
      * Get all drivers who has truckscale out in lapaz within current date
-     * 
+     *
      * Pluck Return
      */
     public function scopeLpzTruckscaleOut($query)
@@ -251,9 +251,9 @@ class Log extends Model
     }
 
     /**
-     * 
+     *
      * Get all driver who has truckscale IN withtin BTN MGC wihtin current date
-     * 
+     *
      */
     public function scopeBtnTruckscaleIn($query)
     {
@@ -279,7 +279,7 @@ class Log extends Model
     public function scopeThisDay($query)
     {
         return $query->whereDate('LocalTime', '>=', Carbon::today());
-        
+
     }
 
     // Get Driver from barrier that is not Driver's RFID in the system
@@ -287,19 +287,19 @@ class Log extends Model
     {
         $pickup_cards = Cardholder::select('CardholderID')
         ->where('FirstName', 'LIKE', '%pickup%')
-        ->pluck('CardholderID'); 
+        ->pluck('CardholderID');
 
         $guard_cards = Cardholder::select('CardholderID')
         ->where('FirstName', 'LIKE', '%GUARD%')
-        ->pluck('CardholderID'); 
+        ->pluck('CardholderID');
 
         $executive_cards = Cardholder::select('CardholderID')
         ->where('FirstName', 'LIKE', '%EXECUTIVE%')
-        ->pluck('CardholderID'); 
+        ->pluck('CardholderID');
 
         // Remove all cardholder without driver assigned
         $not_driver = array_collapse([$pickup_cards, $guard_cards, $executive_cards]);
-        
+
         return $not_driver;
     }
 
@@ -308,14 +308,14 @@ class Log extends Model
     {
         $guard_cards = Cardholder::select('CardholderID')
         ->where('FirstName', 'LIKE', '%GUARD%')
-        ->pluck('CardholderID'); 
+        ->pluck('CardholderID');
 
         return $guard_cards;
     }
 
     /**
      * Get Drivers tapped from gate RFID based from location parameter within the date
-     * 
+     *
      */
 
      public function scopeBarrierLocation($query, $door, $controller)
@@ -331,7 +331,7 @@ class Log extends Model
                 ->pluck('CardholderID');
      }
 
-    
+
     public function scopeGateLocation($query, $driverqueue)
     {
 
@@ -355,7 +355,7 @@ class Log extends Model
     public function scopeBarrierLocationObject($query, $door, $controller, $date)
      {
          $checkDate = !empty($date) ? Carbon::parse($date) : Carbon::today();
-         
+
          return $query->select('LogID','CardholderID','LocalTime')
                 ->whereDate('LocalTime', '=', $checkDate)
                 ->where('DoorID',$door)
@@ -370,7 +370,7 @@ class Log extends Model
     public function scopeBarrierLocationDate($query, $door, $controller, $date)
      {
          $checkDate = !empty($date) ? Carbon::parse($date) : Carbon::today();
-         
+
          return $query->select('LogID','CardholderID','LocalTime')
                 ->whereDate('LocalTime', '=', $checkDate)
                 ->where('DoorID',$door)
@@ -461,12 +461,12 @@ class Log extends Model
 
     /**
      * Dynamically get the driver truckscaleout per location
-     * 
+     *
      * @return object
      */
-    public function scopeTruckscaleOutLocationObject($query, $controller, $date) 
+    public function scopeTruckscaleOutLocationObject($query, $controller, $date)
     {
-    
+
     $checkDate = !empty($date) ? Carbon::parse($date) : Carbon::today();
 
     return $query->with(['drivers','drivers.truck','drivers.hauler'])
@@ -542,7 +542,7 @@ class Log extends Model
 
     /**
      * Get Drivers tapped from gate RFID based from location parameter within the date
-     * 
+     *
     */
      public function scopeBarrierLocationRecent($query, $door, $controller)
      {
@@ -602,7 +602,7 @@ class Log extends Model
             ->take(1)
             ->pluck('CardholderID');
     }
-    
+
     public function scopeLastDriverFromQueue($query, $driverqueue)
     {
 
@@ -613,7 +613,7 @@ class Log extends Model
             ->orderBy('LogID','DESC')
             ->take(1)
             ->pluck('CardholderID');
-    } 
+    }
 
     //show driver entries with guard authentication
     public function scopeTruckGateIn($query, $cardholderID, $date)
@@ -627,11 +627,41 @@ class Log extends Model
                     ->orderBy('LocalTime','DESC')
                     ->take(1)
                     ->pluck('LocalTime')->first();
-        
-        $filter_date = Carbon::parse($get_date)->format('Y-m-d') == Carbon::parse($date)->format('Y-m-d') ? 
+
+        $filter_date = Carbon::parse($get_date)->format('Y-m-d') == Carbon::parse($date)->format('Y-m-d') ?
                         Carbon::parse($get_date)->format('Y-m-d h:i A') : 'X';
 
         return $filter_date;
 
+    }
+
+    /**
+     * Get the In entry by direction 1, with cardholder as primary parameter
+     *
+     * @param int $cardholderId
+     * @param date $created
+     * @return void
+     */
+    public function scopeGetInEntry($query, $cardholderId, $created)
+    {
+        return $query->where('CardholderID',$cardholderId)
+                ->where('Direction', 1)
+                ->where('LocalTime', '>=', Carbon::parse($created))
+                ->orderBy('LocalTime','DESC');
+    }
+
+    /**
+     * Get the Out entry by direction 2, with cardholder as primary parameter
+     *
+     * @param int $cardholderId
+     * @param date $created
+     * @return void
+     */
+    public function scopeGetOutEntry($query, $cardholderId, $created)
+    {
+        return $query->where('CardholderID',$cardholderId)
+                ->where('Direction', 2)
+                ->where('LocalTime', '>=', Carbon::parse($created))
+                ->orderBy('LocalTime','DESC');
     }
 }

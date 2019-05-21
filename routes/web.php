@@ -329,7 +329,8 @@ Route::group(['middleware' => 'auth'], function () {
         'create', 'store', 'edit'
         ]]);
 
-        Route::get('/pickups/main','PickupsController@main');
+        // New Pickup Entries
+        Route::get('/pickups-entries','PickupsController@pickupEntries');
         Route::get('/pickupsJson','PickupsController@pickupsJson');
         Route::get('/pickupsStatus','PickupsController@pickupsStatus');
         Route::get('/generatePickups','PickupsController@generatePickups');

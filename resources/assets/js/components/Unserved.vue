@@ -10,9 +10,9 @@
             <th scope="col"> <small>  Activity Details </small> </th>
             <th scope="col"> <small>  Created By </small> </th>
             </tr>
-        </thead> 
+        </thead>
         <tbody>
-                <tr v-for="pickup in filteredPickups" v-if="!loading">
+                <tr v-for="pickup in filteredPickups" :key="pickup.id" v-if="!loading">
                     <td>
                         <small class="btn btn-outline-success btn-sm align-middle" v-if="pickup.cardholder">
                             {{ pickup.cardholder.Name }}
@@ -38,35 +38,35 @@
                                 <span v-if="!pickup.activation_date">
                                     NOT YET ARRIVED <br/>
                                 </span>
-                                
+
                                 <small class="text-uppercase text-muted">Checkout Date</small>  <br/>
                                 <span v-if="pickup.deactivated_date">
                                     {{ moment(pickup.deactivated_date) }}
                                 </span>
                                 <span v-if="!pickup.cardholder && !pickup.deactivated_date">
                                     N/A
-                                </span> 
+                                </span>
                                 <span v-if="pickup.cardholder && !pickup.deactivated_date">
                                    STILL IN PLANT
-                                </span> 
+                                </span>
                             </div>
 
                             <div class="col">
-                                <small class="text-uppercase text-muted">Time Rendered</small> <br/> 
+                                <small class="text-uppercase text-muted">Time Rendered</small> <br/>
                                 <span v-if="pickup.deactivated_date">
                                     {{ dateDiff(pickup.activation_date, pickup.deactivated_date) }} Hour(s)
                                 </span>
                                 <span v-else class="text-muted">
                                     N/A
-                                </span>    
-                            </div>   
-                        </div> 
-                                        
+                                </span>
+                            </div>
+                        </div>
+
                     </td>
                     <td>
                         {{ pickup.user.name }} <br/>
                       <small class="text-uppercase text-muted">Date Created</small> <br/>
-                        {{ moment(pickup.created_at) }} 
+                        {{ moment(pickup.created_at) }}
                     </td>
                 </tr>
                 <tr v-if="filteredPickups.length == 0 && !loading">
@@ -156,8 +156,8 @@ import _ from 'lodash';
             },
 
             dateDiff(startTime, endTime) {
-                var a = moment(startTime);   
-                var b = moment(endTime);   
+                var a = moment(startTime);
+                var b = moment(endTime);
                 return b.diff(a, 'hours');
             },
 
@@ -166,7 +166,7 @@ import _ from 'lodash';
             },
 
             setPage(pageNumber) {
-                this.currentPage = pageNumber;         
+                this.currentPage = pageNumber;
             },
 
             resetStartRow() {
@@ -185,7 +185,7 @@ import _ from 'lodash';
 
         computed: {
             filteredEntries() {
-                const vm = this;                
+                const vm = this;
                 return _.filter(vm.pickups, function (item) {
                     return ~item.driver_name.toLowerCase().indexOf(vm.search.trim().toLowerCase());
                 });
@@ -202,12 +202,12 @@ import _ from 'lodash';
 
                 if (this.currentPage >= this.totalPages) {
                     this.currentPage = this.totalPages - 1
-                } 
+                }
 
                 if(this.currentPage == -1){
                     this.currentPage = 0;
                 }
-                
+
                 return drivers_array;
             }
         }

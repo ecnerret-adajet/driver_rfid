@@ -1,9 +1,9 @@
 <template>
 
   <div>
-            
+
             <div class="form-row mb-2 mt-2">
-               
+
                 <div class="col-md-6">
                     <div class="form-group">
                         <input type="text" class="form-control"  v-model="searchString" @keyup="resetStartRow" placeholder="Search" />
@@ -14,7 +14,7 @@
                     <div class="form-group">
                         <select name="age" class="form-control disabled" v-model="searchHauler">
                             <option value="">All Haulers...</option>
-                            <option v-for="hauler in haulers" :value="hauler.name">{{ hauler.name }}</option>
+                            <option v-for="(hauler,h) in haulers" :key="h" :value="hauler.name">{{ hauler.name }}</option>
                         </select>
                     </div>
                 </div>
@@ -26,8 +26,8 @@
                     <div class="col-sm-12">
                         <div v-if="!loading">
                             <ul class="list-group">
-                                <li v-for="driver in filteredDrivers" class="list-group-item">
-                                    <div class="row">   
+                                <li v-for="(driver,d) in filteredDrivers" :key="d" class="list-group-item">
+                                    <div class="row">
                                         <div class="col-sm-1">
 
                                         <span v-if="driver.image">
@@ -36,14 +36,14 @@
                                         <span v-else>
                                             <img :src="avatar_link + driver.avatar" class="rounded-circle" style="height: 60px; width: auto;"  align="middle">
                                         </span>
-                                            
-                                        
+
+
                                         </div>
                                         <div class="col-sm-5">
                                             <a :href="'/driver_rfid/public/drivers/' + driver.id"  style="text-transform: upppercase">{{driver.name}}</a> : <small v-if="driver.cardholder">{{ driver.cardholder.Name }}</small>
                                             <br/>
-                    
-                                            <span v-if="driver.truck" v-for="t in driver.truck">
+
+                                            <span v-if="driver.truck" v-for="(t,i) in driver.truck" :key="i">
                                                {{ t.plate_number }}
                                             </span>
                                              <span v-else class="text-danger">
@@ -51,21 +51,21 @@
                                             </span>
 
                                             <br/>
-                                            <span v-if="driver.hauler" v-for="h in driver.hauler">
+                                            <span v-if="driver.hauler" v-for="(h,i) in driver.hauler" :key="i">
                                                {{ h.name }}
                                             </span>
                                              <span v-else class="text-danger">
                                                     NO HAULER
                                             </span>
-                                      
+
                                         </div>
                                         <div class="col-sm-3">
                                             <span class="badge badge-primary" v-if="!driver.card">
                                                 Card Assigned
-                                            </span> 
+                                            </span>
                                         </div>
                                         <div class="col-sm-3 pull-right right">
-                                        
+
 
                                          <span v-if="driver.availability == 1 || driver.print_status == 1 && driver.notif_status == 0">
                                           <a class="dropdown pull-right btn btn-outline-secondary" href="#" id="driverDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -88,8 +88,8 @@
                                                     <div class="dropdown-divider"></div>
                                                 </span>
                                             </span>
-                                                   
-                                       
+
+
                                             <span v-if="user_role == 'Approver' || user_role == 'Administrator'">
                                                 <span v-if="driver.availability == 1">
                                                     <div class="dropdown-divider"></div>
@@ -123,23 +123,23 @@
                                                  </span>
                                               </div>
                                         </span>
-                                        
+
                                         <span v-if="user_role == 'Administrator' || user_role == 'Monitoring'">
                                             <span v-if="driver.confirm">
 
                                                 <a v-if="driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'New Driver'" class="pull-right btn btn-outline-danger btn-sm ml-2 mr-2" :href="'/driver_rfid/public/drivers/disapproved/' + driver.id">Update Details</a>
                                                 <a v-if="driver.confirm.status == 'Disapprove' && driver.confirm.classification == 'Update Driver'" class="pull-right btn btn-outline-warning btn-sm text-warning ml-2 mr-2" data-toggle="modal" :data-target="'#reverseDisapproved-'+ driver.id">Reverse Disapproved</a>
-                                            
+
                                             </span>
                                         </span>
 
                                         <span v-if="driver.availability == 1">
-                                            <i class="fa fa-circle" style="color:green" aria-hidden="true"></i>                                            
+                                            <i class="fa fa-circle" style="color:green" aria-hidden="true"></i>
                                         </span>
                                         <span v-if="driver.availability == 0">
-                                            <i class="fa fa-circle" style="color:red" aria-hidden="true"></i> 
+                                            <i class="fa fa-circle" style="color:red" aria-hidden="true"></i>
                                         </span>
-                                        
+
                                         </div>
                                     </div>
 
@@ -188,7 +188,7 @@
 
 
 
-        <div v-for="driver in filteredDrivers">
+        <div v-for="(driver,d) in filteredDrivers" :key="d">
 
 
             <!-- Deactivate Modal -->
@@ -201,24 +201,24 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
-                
+
 
                 </div>
                 <div class="modal-body text-center">
 
-                                           
+
                     <em>Are you sure you want to proceed with this action?</em>
-                
+
 
                 </div>
-                <div class="modal-footer">  
+                <div class="modal-footer">
                     <form  method="POST" :action="'/driver_rfid/public/drivers/deactivate/'+driver.id">
-                        <input type="hidden" name="_token" :value="csrf">  
+                        <input type="hidden" name="_token" :value="csrf">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Confirm</button> 
-                    </form>  
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                    </form>
                 </div>
-                    
+
                 </div>
             </div>
             </div><!-- end modal -->
@@ -233,26 +233,26 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
-                
+
 
                 </div>
                 <div class="modal-body text-center">
 
-                                           
+
                     <em>Are you sure you want to proceed with this action?</em><br/>
                     <small>The removed driver may still retrieved if necessary.</small>
-                
+
 
                 </div>
-                <div class="modal-footer">  
+                <div class="modal-footer">
                     <form  method="POST" :action="'/driver_rfid/public/drivers/'+driver.id">
                         <input type="hidden" name="_method" value="delete" />
-                        <input type="hidden" name="_token" :value="csrf">  
+                        <input type="hidden" name="_token" :value="csrf">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Confirm</button> 
-                    </form>  
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                    </form>
                 </div>
-                    
+
                 </div>
             </div>
             </div><!-- end modal -->
@@ -268,24 +268,24 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
-                
+
 
                 </div>
                 <div class="modal-body text-center">
 
-                                           
+
                     <em>Are you sure you want to proceed with this action?</em>
-                
+
 
                 </div>
-                <div class="modal-footer">  
+                <div class="modal-footer">
                     <form  method="POST" :action="'/driver_rfid/public/drivers/activate/'+driver.id">
-                        <input type="hidden" name="_token" :value="csrf">  
+                        <input type="hidden" name="_token" :value="csrf">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Confirm</button> 
-                    </form>  
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                    </form>
                 </div>
-                    
+
                 </div>
             </div>
             </div><!-- end modal -->
@@ -301,24 +301,24 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
-                
+
 
                 </div>
                 <div class="modal-body text-center">
 
-                                           
+
                     <em>Are you sure you want to proceed with this action?</em>
-                
+
 
                 </div>
-                <div class="modal-footer">  
+                <div class="modal-footer">
                     <form  method="POST" :action="'/driver_rfid/public/drivers/reverseDisapproved/'+driver.id">
-                        <input type="hidden" name="_token" :value="csrf">  
+                        <input type="hidden" name="_token" :value="csrf">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Confirm</button> 
-                    </form>  
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                    </form>
                 </div>
-                    
+
                 </div>
             </div>
             </div><!-- end modal -->
@@ -334,20 +334,20 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
-                
+
 
                 </div>
                 <div class="modal-body text-center">
 
-                                           
+
                     <em>The selected driver has no card assigned, Please contact support for assistance.</em>
-                
+
 
                 </div>
-                <div class="modal-footer">  
+                <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Confirm</button>
                 </div>
-                    
+
                 </div>
             </div>
             </div><!-- end no card assigned -->
@@ -386,7 +386,7 @@ export default {
             itemsPerPage: 5,
         }
     },
-    
+
     mounted() {
         this.csrf = window.Laravel.csrfToken;
     },
@@ -412,7 +412,7 @@ export default {
         },
 
         setPage(pageNumber) {
-            this.currentPage = pageNumber;         
+            this.currentPage = pageNumber;
         },
 
         resetStartRow() {
@@ -432,7 +432,7 @@ export default {
     computed: {
         filteredEntries() {
             const vm = this;
-            
+
             return _.filter(vm.drivers, function (item) {
                 return ~item.name.toLowerCase().indexOf(vm.searchString.trim().toLowerCase());
             });
@@ -449,12 +449,12 @@ export default {
 
             if (this.currentPage >= this.totalPages) {
                 this.currentPage = this.totalPages - 1
-            } 
+            }
 
             if(this.currentPage == -1){
                 this.currentPage = 0;
             }
-            
+
             return drivers_array;
         }
     }

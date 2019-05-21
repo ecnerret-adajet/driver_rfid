@@ -16,6 +16,7 @@ class PickupTest extends TestCase
 {
     /**
      * @test
+     * pickup unserved
      */
     public function can_return_unserved_pickups_with_null_cardholder_id()
     {
@@ -27,7 +28,20 @@ class PickupTest extends TestCase
             ])
             ->assertJsonStructure([
                 'data' =>  [
-                    '*' => [ 'id','plate_number','company','driver_name','remarks','deactivated_date','activation_date','do_number','created_at' ]
+                    '*' => [
+                        'id',
+                        'pickup_deploy_name',
+                        'availability',
+                        'driver_name',
+                        'company',
+                        'do_number',
+                        'created_at',
+                        'checkout_date',
+                        'truckscale_in',
+                        'truckscale_out',
+                        'time_diff',
+                        'deactivated_date'
+                    ]
                 ]
             ]);
 
@@ -35,6 +49,7 @@ class PickupTest extends TestCase
 
     /**
      * @test
+     * pickup served
      */
     public function can_return_served_pickups_where_availability_equals_to_false()
     {
@@ -42,11 +57,25 @@ class PickupTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJsonMissing([
-                'availability' => "1"
+                'deactivated_date' => null,
+                'cardholder_id' => null,
             ])
             ->assertJsonStructure([
                 'data' =>  [
-                    '*' => [ 'id','plate_number','company','driver_name','remarks','deactivated_date','activation_date','availability','do_number','created_at' ]
+                    '*' => [
+                        'id',
+                        'pickup_deploy_name',
+                        'availability',
+                        'driver_name',
+                        'company',
+                        'do_number',
+                        'created_at',
+                        'checkout_date',
+                        'truckscale_in',
+                        'truckscale_out',
+                        'time_diff',
+                        'deactivated_date'
+                    ]
                 ]
             ]);
 
@@ -54,18 +83,35 @@ class PickupTest extends TestCase
 
     /**
      * @test
+     *  pickup assigned
      */
     public function can_return_assigned_pickups_where_availability_equals_to_true()
     {
         $response = $this->actingAs($this->defaultUser(), 'api')->json('GET','api/pickups-assigned');
 
+        // \Log::info($response->getContent());
+
         $response->assertStatus(200)
             ->assertJsonMissing([
-                'availability' => "0"
+                'cardholder_id' => null,
+                'deactivated_date' => !null
             ])
             ->assertJsonStructure([
                 'data' =>  [
-                    '*' => [ 'id','plate_number','company','driver_name','remarks','deactivated_date','activation_date','availability','do_number','created_at' ]
+                    '*' => [
+                        'id',
+                        'pickup_deploy_name',
+                        'availability',
+                        'driver_name',
+                        'company',
+                        'do_number',
+                        'created_at',
+                        'checkout_date',
+                        'truckscale_in',
+                        'truckscale_out',
+                        'time_diff',
+                        'deactivated_date'
+                    ]
                 ]
             ]);
 

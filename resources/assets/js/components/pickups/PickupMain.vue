@@ -13,9 +13,50 @@
         </div>
         <div class="card-body">
 
+             <pickups></pickups>
 
-            <pickup-served></pickup-served>
+              <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
 
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#no-yet-serve" role="tab"> Not Yet Served </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#assigned" role="tab">Assigned</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#served" role="tab"> Served </a>
+                    </li>
+
+
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active pt-3" id="no-yet-serve" role="tabpanel">
+
+                    <pickups-data url="/driver_rfid/public/api/pickups-unserved"></pickups-data>
+
+                </div><!-- end tab 2 -->
+
+                <div class="tab-pane  pt-3" id="assigned" role="tabpanel">
+
+                    <pickups-data url="/driver_rfid/public/api/pickups-assigned"></pickups-data>
+
+                </div><!-- end tab1 -->
+
+                <div class="tab-pane pt-3" id="served" role="tabpanel">
+
+                     <pickups-data url="/driver_rfid/public/api/pickups-served"></pickups-data>
+
+                </div><!-- end tab1 -->
+
+
+
+            </div>
 
 
         </div><!-- end card-body -->
@@ -26,11 +67,11 @@
 </template>
 
 <script>
-import PickupServed from '../pickups/PickupServed.vue';
+import PickupsData from '../pickups/PickupsData.vue';
 
 export default {
     components: {
-        PickupServed,
+        PickupsData,
     },
     data() {
         return {

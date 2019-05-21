@@ -14,8 +14,8 @@ use Flashy;
 class PickupsController extends Controller
 {
 
-    public function main() {
-        return view('pickups.main');
+    public function pickupEntries() {
+        return view('pickups.pickupEntries');
     }
 
     /**
