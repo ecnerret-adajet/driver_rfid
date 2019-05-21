@@ -23,7 +23,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#assigned" role="tab">Assigned</a>
+                        <a class="nav-link" data-toggle="tab" href="#assigned" role="tab">Current In Plant</a>
                     </li>
 
                     <li class="nav-item">
@@ -38,19 +38,19 @@
 
                 <div class="tab-pane active pt-3" id="no-yet-serve" role="tabpanel">
 
-                    <pickups-data url="/driver_rfid/public/api/pickups-unserved"></pickups-data>
+                    <pickups-data url="/driver_rfid/public/api/pickups-unserved/"></pickups-data>
 
                 </div><!-- end tab 2 -->
 
                 <div class="tab-pane  pt-3" id="assigned" role="tabpanel">
 
-                    <pickups-data url="/driver_rfid/public/api/pickups-assigned"></pickups-data>
+                    <pickups-data url="/driver_rfid/public/api/pickups-assigned/"></pickups-data>
 
                 </div><!-- end tab1 -->
 
                 <div class="tab-pane pt-3" id="served" role="tabpanel">
 
-                     <pickups-data url="/driver_rfid/public/api/pickups-served"></pickups-data>
+                     <pickups-data url="/driver_rfid/public/api/pickups-served/"></pickups-data>
 
                 </div><!-- end tab1 -->
 

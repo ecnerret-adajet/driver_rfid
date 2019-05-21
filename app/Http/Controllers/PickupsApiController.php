@@ -16,10 +16,12 @@ use Flashy;
 
 class PickupsApiController extends Controller
 {
-    public function unserved()
+    public function unserved($date)
     {
+        $carbonDate = Carbon::parse($date);
+
         $unserved = Pickup::whereNull('cardholder_id')
-                        ->where('created_at', '>=', Carbon::now()->subDays(30))
+                        ->where('created_at', '>=', $carbonDate->subDays(30))
                         ->orderBy('created_at','DESC')
                         ->get();
                         // ->paginate(10);
@@ -31,9 +33,11 @@ class PickupsApiController extends Controller
         // return response()->json($unserved, 200);
     }
 
-    public function assigned()
+    public function assigned($date)
     {
-        $assigned = Pickup::whereDate('activation_date', Carbon::today())
+        $carbonDate = Carbon::parse($date);
+
+        $assigned = Pickup::whereDate('activation_date', $carbonDate)
                         ->whereNull('deactivated_date')
                         ->whereNotNull('cardholder_id')
                         ->orderBy('id','DESC')
@@ -48,9 +52,11 @@ class PickupsApiController extends Controller
         // return $assigned;
     }
 
-    public function served()
+    public function served($date)
     {
-        $served = Pickup::whereDate('deactivated_date', Carbon::today())
+        $carbonDate = Carbon::parse($date);
+
+        $served = Pickup::whereDate('deactivated_date', $carbonDate)
                     ->whereNotNull('deactivated_date')
                     ->whereNotNull('cardholder_id')
                     ->orderBy('created_at','DESC')

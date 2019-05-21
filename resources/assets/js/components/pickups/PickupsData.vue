@@ -16,7 +16,7 @@
             </div>
             <div class="col-4">
                 <label>&nbsp;</label>
-                <button class="btn btn-block btn-primary">Generate</button>
+                <button class="btn btn-block btn-primary" :disabled="loading" @click="generatePickup()">Generate</button>
             </div>
         </div>
 
@@ -37,7 +37,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item, i) in filteredPickups" :key="i">
+                    <tr v-for="(item, i) in filteredPickups" :key="i" v-if="!loading">
                         <td>{{ item.pickup_deploy_name }}</td>
                         <td>
                         <span>{{ item.driver_name }}</span> <br/>
@@ -68,24 +68,37 @@
                             <span>{{ item.time_diff }}</span>
                         </td>
                         <td>
-                            <button v-if="item.deactivated_date === 'no-deactivate-date' &&
+                            <button v-show="item.deactivated_date === 'no-deactivate-date' &&
                                      item.activation_date === 'no-activation-date'"
                                      @click.prevent="assignCard(item)" type="button" class="btn btn-outline-primary btn-sm">
                                      ASSIGN CARD
                             </button>
 
-                            <button v-if="item.activation_date != 'no-activation-date' &&
+                            <button v-show="item.activation_date != 'no-activation-date' &&
                                      item.deactivated_date === 'no-deactivate-date'"
                                      @click.prevent="deativateCard(item)" type="button" class="btn btn-outline-danger btn-sm">
                                      DEACTIVATE CARD
                             </button>
 
-                            <button v-if="item.activation_date != 'no-activation-date' &&
+                            <button v-show="item.activation_date != 'no-activation-date' &&
                                           item.deactivated_date != 'no-deactivate-date'"
                                           type="button" class="btn btn-outline-success btn-sm disabled">
                                           SERVED
                             </button>
 
+                        </td>
+                    </tr>
+                    <tr v-if="filteredPickups.length == 0 && !loading">
+                        <td colspan="7">
+                            <div class="row">
+                                <div class="col text-center pt-5 pb-5">
+                                    <img  src="/driver_rfid/public/images/archive.png" class="mx-auto mt-2" style="height: 150px; width: auto;"  align="middle">
+                                    <br/>
+                                    <span class="display-4">
+                                        Nothing Found
+                                    </span>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     <tr v-if="loading">
@@ -231,11 +244,15 @@ export default {
 
         loadPickupData() {
             this.loading = true;
-            axios.get(this.url)
+            axios.get(`${this.url}${this.date}`)
             .then(response => {
                 this.pickups = response.data.data
                 this.loading = false
             })
+        },
+
+        generatePickup() {
+            this.loadPickupData()
         },
 
         resetModal(event) {
@@ -324,4 +341,11 @@ export default {
     }
 }
 </script>
+<style>
+button:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+</style>
+
 

@@ -18,9 +18,9 @@
 
 Route::group(['middleware' => 'auth:api'], function() {
 
-Route::get('pickups-unserved','PickupsApiController@unserved');
-Route::get('pickups-assigned','PickupsApiController@assigned');
-Route::get('pickups-served','PickupsApiController@served');
+Route::get('pickups-unserved/{date}','PickupsApiController@unserved');
+Route::get('pickups-assigned/{date}','PickupsApiController@assigned');
+Route::get('pickups-served/{date}','PickupsApiController@served');
 Route::patch('pickups-deactivate/{pickup}','PickupsApiController@pickupDeactivate');
 Route::get('pickups-available','PickupsApiController@cardholderAvailability');
 Route::patch('pickups-assign-card/{pickup}','PickupsApiController@assignCardholder');
