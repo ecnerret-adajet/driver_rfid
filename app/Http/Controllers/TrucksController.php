@@ -23,9 +23,9 @@ class TrucksController extends Controller
 {
 
     /**
-     * 
+     *
      *  Custom Function
-     * 
+     *
      */
 
      // return vendor from SAP server
@@ -46,7 +46,7 @@ class TrucksController extends Controller
     }
 
     // return haulers vendor number for edit method
-    public function vendorHauler($x) 
+    public function vendorHauler($x)
     {
         $hauler = Hauler::where('id',$x)->first();
         return $hauler->vendor_number;
@@ -88,10 +88,10 @@ class TrucksController extends Controller
     }
 
     /**
-     * 
-     * 
-     *  Search Cardholder Name for cards 
-     * 
+     *
+     *
+     *  Search Cardholder Name for cards
+     *
      */
     public function displayCardholder($x)
     {
@@ -102,21 +102,21 @@ class TrucksController extends Controller
 
 
     /**
-     * Show all cardholder should not be displayed on card list 
+     * Show all cardholder should not be displayed on card list
      */
     public function removedCardholder()
     {
         $pickup_cards = Cardholder::select('CardholderID')
         ->where('FirstName', 'LIKE', '%pickup%')
-        ->pluck('CardholderID'); 
+        ->pluck('CardholderID');
 
         $guard_cards = Cardholder::select('CardholderID')
         ->where('FirstName', 'LIKE', '%GUARD%')
-        ->pluck('CardholderID'); 
+        ->pluck('CardholderID');
 
         $executive_cards = Cardholder::select('CardholderID')
         ->where('FirstName', 'LIKE', '%EXECUTIVE%')
-        ->pluck('CardholderID'); 
+        ->pluck('CardholderID');
 
         $driver_card = Driver::select('cardholder_id')
         ->where('availability',1)
@@ -146,7 +146,7 @@ class TrucksController extends Controller
         $haulers = ['' => ''] + Hauler::pluck('name','id')->all();
 
         $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','id')->all();
-        
+
         $driver_card = Driver::select('cardholder_id')->where('availability',1)->get();
         $truck_card = Truck::select('card_id')->whereNotNull('card_id')->get();
 
@@ -202,7 +202,7 @@ class TrucksController extends Controller
         $truck = Auth::user()->trucks()->create($request->all());
         if($request->hasFile('documents')){
             $truck->documents = $request->file('documents')->store('trucks_docs','public');
-        }   
+        }
         if(empty($request->input('plate_number'))){
             $truck->plate_number = $request->input('reg_number');
         }
@@ -250,7 +250,7 @@ class TrucksController extends Controller
         $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','id')->all();
 
         if(!count($truck->drivers) == null) {
-        
+
             $cards = Card::orderBy('CardholderID','DESC')
             ->where('CardholderID', $truck->drivers->first()->cardholder_id)
             ->where('AccessGroupID', 2) // card type
@@ -270,7 +270,7 @@ class TrucksController extends Controller
             ->pluck('full_deploy','CardID');
 
         }
-         
+
          $capacities = Capacity::pluck('description','id');
          $contracts = Contract::all()->pluck('contract','id');
          $bases = Base::pluck('origin','id');
@@ -284,9 +284,9 @@ class TrucksController extends Controller
     }
 
     /**
-     * 
+     *
      *  Update Truck Infor by RTC
-     * 
+     *
      */
     public function editInfo(Truck $truck)
     {
@@ -322,25 +322,25 @@ class TrucksController extends Controller
         return redirect('trucks');
     }
 
-    
+
     // Transfer truck to 3PL
-    public function transferHauler(Truck $truck) 
+    public function transferHauler(Truck $truck)
     {
         $haulers = ['' => ''] + Hauler::pluck('name','id')->all();
         $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','id')->all();
-        
+
         return view('trucks.transfer', compact('haulers','haulers_subcon','truck'));
     }
 
     public function truckVersion($id, $start_date)
     {
         $truck = Truck::findOrFail($id);
-    
+
         if(!empty($truck->card_id)) {
             $card = Card::where('CardID',$truck->card_id)->pluck('CardholderID')->first();
         }
 
-        
+
         $version = new Version;
         $version->truck_id = $truck->id;
         $version->user_id = Auth::user()->id;
@@ -348,11 +348,11 @@ class TrucksController extends Controller
         $version->plate_number = empty($truck->plate_number) ? $truck->reg_number : $truck->plate_number;
         $version->hauler = empty($truck->hauler->name) ? null : $truck->hauler->name;
         $version->card_id = empty($truck->card_id) ? null : $truck->card_id;
-        $version->cardholder_id = empty($card) ? null : $card; 
-        $version->driver_name = empty($truck->drivers->first()->name) ? null : $truck->drivers->first()->name; 
+        $version->cardholder_id = empty($card) ? null : $card;
+        $version->driver_name = empty($truck->drivers->first()->name) ? null : $truck->drivers->first()->name;
         $version->start_validity_date = empty($start_date) ? null : $start_date;
         $version->end_validity_date = Carbon::now();
-        $version->save(); 
+        $version->save();
 
         return $version;
     }
@@ -369,14 +369,14 @@ class TrucksController extends Controller
         $this->truckVersion($truck->id, $request->input('validity_end_date'));
 
         $hauler_name = Hauler::select('name')->where('id',$request->input('hauler_list'))->first();
-    
-        $truck->update($request->all());  
+
+        $truck->update($request->all());
         $truck->vendor_description = $request->input('vendor_description');
         $truck->subvendor_description = $request->input('hauler_list');
         $truck->save();
-        
-        $truck->haulers()->sync((array) $request->input('hauler_list'));      
-            
+
+        $truck->haulers()->sync((array) $request->input('hauler_list'));
+
         // Record Log Activity
         $activity = activity()
         ->performedOn($truck)
@@ -407,7 +407,7 @@ class TrucksController extends Controller
         flashy()->success('Driver successfully removed!');
         return redirect('trucks');
     }
-    
+
 
     /**
      * Update the specified resource in storage.
@@ -481,7 +481,7 @@ class TrucksController extends Controller
     }
 
     /**
-     * 
+     *
      * Activate Truck
      */
     public function activateTruck(Request $request, $id)
@@ -499,9 +499,9 @@ class TrucksController extends Controller
     }
 
     /**
-     * 
+     *
      *  Change the registration number to official plate number
-     * 
+     *
      */
     public function changePlateNumber(Request $request, $id)
     {
@@ -538,7 +538,7 @@ class TrucksController extends Controller
     public function exportTrucks()
     {
         $trucks = Truck::all();
-        
+
         Excel::create('trucks'.Carbon::now()->format('Ymdh'), function($excel) use ($trucks) {
 
             $excel->sheet('Sheet1', function($sheet) use ($trucks) {
@@ -569,14 +569,14 @@ class TrucksController extends Controller
                         ->prependRow(array(
                         'PLATE NUMBER', 'TRUCK TYPE', 'CAPACITY', 'HAULER', 'DRIVER NAME'));
                 $sheet->cells('A1:E1', function($cells) {
-                            $cells->setBackground('#f1c40f'); 
+                            $cells->setBackground('#f1c40f');
                 });
 
 
             });
 
         })->download('xlsx');
-        
+
     }
 
     public function trucksJson()
@@ -586,7 +586,7 @@ class TrucksController extends Controller
                  ->where('availability',1)
                  ->orderBy('id','DESC')
                  ->get();
-        
+
         return $trucks;
     }
 
@@ -596,7 +596,7 @@ class TrucksController extends Controller
                  ->with('driver','hauler','driver.cardholder','card')
                  ->orderBy('id','DESC')
                  ->get();
-        
+
         return $trucks;
     }
 
@@ -606,8 +606,32 @@ class TrucksController extends Controller
                  ->where('availability',0)
                  ->orderBy('id','DESC')
                  ->get();
-        
+
         return $trucks;
+    }
+
+    public function truckRfid()
+    {
+        $cards = Card::orderBy('CardholderID','DESC')
+                    ->whereNotIn('CardholderID', $this->removedCardholder())
+                    ->where('AccessGroupID', 2) // card type
+                    ->where('CardholderID','>=', 15)
+                    ->where('CardholderID','!=', 0)
+                    ->get();
+
+        return $cards;
+    }
+
+    public function assignRFID(Request $request, Truck $truck)
+    {
+        $this->validate($request,[
+            'card_list' => 'required'
+        ]);
+
+        $truck->card()->associate($request->input('card_list'));
+        $truck->save();
+
+        return response()->json($truck, 200);
     }
 
 }
