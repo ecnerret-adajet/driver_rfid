@@ -54,7 +54,7 @@
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Master Data">
             <a class="nav-link nav-link-collapse font-weight-bold {{ (Request::is('trucks') ||
                                                      Request::is('trucks/*') ||
-                                                     Request::is('pickups') ||
+                                                     Request::is('pickups-entries') ||
                                                      Request::is('pickups/*') ||
                                                      Request::is('generatePickups') ||
                                                      Request::is('generateLineups') ||
@@ -75,7 +75,7 @@
                                                      Request::is('generatePickups') ||
                                                      Request::is('generateLineups') ||
                                                      Request::is('lineups/*') ||
-                                                     Request::is('pickups') ||
+                                                     Request::is('pickups-entries') ||
                                                      Request::is('pickups/*') ||
                                                      Request::is('drivers/*') ||
                                                      Request::is('cards') ||
@@ -104,11 +104,11 @@
 
                @role((['Administrator','Personnel']))
 
-               <li class="font-weight-bold {{ (Request::is('pickups') ||
+               <li class="font-weight-bold {{ (Request::is('pickups-entries') ||
                             Request::is('generatePickups') ||
                             Request::is('pickups/*')
                           ) ? 'active' : ''}}">
-                <a href="{{url('/pickups')}}">Pickups</a>
+                <a href="{{url('/pickups-entries')}}">Pickups</a>
               </li>
 
               @endrole
