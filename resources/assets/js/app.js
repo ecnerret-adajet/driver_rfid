@@ -84,6 +84,8 @@ Vue.component('reportEntries', require('./components/ReportEntries.vue'));
 
 Vue.component('entriesToDashboard', require('./components/EntriesToDashboard.vue'));
 
+Vue.component('replacements', require('./components/replacements/Index.vue'));
+
 const app = new Vue({
     el: '#app'
 });

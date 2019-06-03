@@ -6,9 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Replacement extends Model
 {
-    protected $fillable = [
-        'reason_replacement',
-        'remarks'
+    protected $guarded = [
+        'id',
     ];
 
     public function user()

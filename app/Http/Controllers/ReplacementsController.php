@@ -1,19 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Transformers\ReplacementTransformer;
-use League\Fractal\Resource\Collection;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use League\Fractal\Manager;
-use League\Fractal\Resource\Item;
 use App\Replacement;
-use Carbon\Carbon;
-use App\Card;
 
-class ReplacementApiController extends Controller
+class ReplacementsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,12 +14,7 @@ class ReplacementApiController extends Controller
      */
     public function index()
     {
-        $replacements = Replacement::all();
-
-        $manager = new Manager();
-        $resource = new Collection($replacements, new ReplacementTransformer());
-
-        return $manager->createData($resource)->toArray();
+        return view('replacements.index');
     }
 
     /**
@@ -48,25 +35,7 @@ class ReplacementApiController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'driver_id' => 'required',
-            'card_id' => 'required',
-            'reason_replacement' => 'required',
-        ]);
-
-        $replacement = Replacement::create([
-            'user_id' => $request->user_id,
-            'driver_id' => $request->driver_id,
-            'card_id' => $request->card_id,
-            'reason_replacement' => $request->reason_replacement,
-            'remarks' => $request->remarks,
-        ]);
-
-        $manager = new Manager();
-        $item = new Item($replacement, new ReplacementTransformer);
-
-        return $manager->createData($item)->toArray()['data'];
-
+        //
     }
 
     /**

@@ -446,6 +446,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/displayEntries/{driverqueue_id}/{start_date}/{end_date}','EntryReportController@displayEntries');
         Route::get('/displayEntriesReport/{driverqueue_id}/{date}','EntryReportController@displayEntriesReport');
 
+        /**
+         * Route setup for Replacements RFID Card
+         */
+        Route::get('/replacements','ReplacementsController@index');
+        Route::get('api-replacements','Api\ReplacementApiController@index');
+        Route::post('api-replacements','Api\ReplacementApiController@store');
+
 
     });
 

@@ -21,7 +21,7 @@ class CreateReplacementsTable extends Migration
             $table->string('reason_replacement');
             $table->string('remarks')->nullable();
             $table->boolean('status')->default(0);
-            $table->integer('marked_by')->unsigned();
+            $table->integer('marked_by')->unsigned()->nullable();
             $table->timestamps();
         });
     }
