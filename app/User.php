@@ -23,7 +23,7 @@ class User extends Authenticatable
     ];
 
     protected static $logAttributes = [
-        'name', 
+        'name',
         'email'
     ];
 
@@ -78,7 +78,7 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Lineup');
     }
-    
+
     /**
     *
     * Get the associated user from pickup created
@@ -91,9 +91,9 @@ class User extends Authenticatable
 
 
     /**
-     * 
-     *  Driver's Pass Accepted By 
-     * 
+     *
+     *  Driver's Pass Accepted By
+     *
      */
     public function passes()
     {
@@ -110,7 +110,7 @@ class User extends Authenticatable
 
     /**
      *   Assocaite User who request a RFID re-printing
-     * 
+     *
      */
     public function losts()
     {
@@ -163,6 +163,16 @@ class User extends Authenticatable
     public function gates()
     {
         return $this->hasMany(Gate::class);
+    }
+
+    /**
+     * Linked to a user who created a replacement card
+     *
+     * @return void
+     */
+    public function replacements()
+    {
+        return $this->hasMany(Replacement::class);
     }
 
 
