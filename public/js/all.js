@@ -85522,6 +85522,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -85555,6 +85557,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
 
+    computed: {
+        isRfidAssgined: function isRfidAssgined() {
+            var fromCardholder = this.truck.driver ? this.truck.driver.map(function (item) {
+                return item;
+            }) : 0;
+            return this.truck.card_id ? true : fromCardholder.length > 0 ? true : false;
+        }
+    },
+
     methods: {
         resetFields: function resetFields() {
             this.toSubmit = {
@@ -85584,10 +85595,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this2.closeForm();
                 _this2.submitting = false;
             }).catch(function (error) {
-                // if(error.response.status == 422) {
-                _this2.errors = error.response.data.errors;
-                _this2.submitting = false;
-                // }
+                if (error.response.status == 422) {
+                    _this2.errors = error.response.data;
+                    _this2.submitting = false;
+                }
             });
         },
         closeForm: function closeForm() {
@@ -113678,6 +113689,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: {
       'is-invalid': _vm.errors.card_list
     },
+    attrs: {
+      "disabled": _vm.isRfidAssgined
+    },
     on: {
       "change": function($event) {
         var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
@@ -113706,7 +113720,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(rfid.full_deploy))])
   })], 2), _vm._v(" "), (_vm.errors.card_list) ? _c('div', {
     staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.card_list[0]))]) : _vm._e()])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.errors.card_list[0]))]) : _vm._e(), _vm._v(" "), (_vm.isRfidAssgined) ? _c('div', {
+    staticClass: "text-danger"
+  }, [_vm._v("Truck has already RFID assigned")]) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "modal-footer"
   }, [_c('button', {
     staticClass: "btn btn-secondary",
@@ -113716,7 +113732,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.closeForm
     }
-  }, [_vm._v("Close")]), _vm._v(" "), _c('button', {
+  }, [_vm._v("Close")]), _vm._v(" "), (_vm.isRfidAssgined === false) ? _c('button', {
     staticClass: "btn btn-primary",
     attrs: {
       "type": "button",
@@ -113727,6 +113743,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         $event.preventDefault();
         _vm.assignRfid($event)
       }
+    }
+  }, [_vm._v("Save changes")]) : _c('button', {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      "type": "button",
+      "disabled": ""
     }
   }, [_vm._v("Save changes")])])])])])
 },staticRenderFns: []}

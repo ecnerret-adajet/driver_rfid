@@ -17,17 +17,19 @@
 
              <div class="form-group" :class="{ ' has-danger' : errors.card_list }">
                 <label>Truck RFID</label>
-                <select :class="{ 'is-invalid' : errors.card_list }" class="form-control" v-model="toSubmit.card_list">
-                    <option value=""  selected>All RFID</option>
-                    <option v-for="(rfid,c) in rfids" :key="c" selected :value="rfid.CardID">{{ rfid.full_deploy }}</option>
+                <select  :disabled="isRfidAssgined" :class="{ 'is-invalid' : errors.card_list }" class="form-control" v-model="toSubmit.card_list">
+                    <option value=""   selected>All RFID</option>
+                    <option v-for="(rfid,c) in rfids" :key="c"  selected :value="rfid.CardID">{{ rfid.full_deploy }}</option>
                 </select>
                 <div v-if="errors.card_list" class="invalid-feedback">{{ errors.card_list[0] }}</div>
+                <div v-if="isRfidAssgined" class="text-danger">Truck has already RFID assigned</div>
             </div>
 
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="closeForm">Close</button>
-            <button type="button" :disabled="submitting" @click.prevent="assignRfid" class="btn btn-primary">Save changes</button>
+            <button type="button" v-if="isRfidAssgined === false" :disabled="submitting" @click.prevent="assignRfid" class="btn btn-primary">Save changes</button>
+            <button type="button" v-else disabled class="btn btn-secondary">Save changes</button>
         </div>
         </div>
     </div>
@@ -64,6 +66,14 @@ export default {
         this.getTruckRfid()
     },
 
+    computed: {
+        isRfidAssgined() {
+            let fromCardholder = this.truck.driver ? this.truck.driver.map(item => item) : 0;
+            return this.truck.card_id ? true :
+            fromCardholder.length > 0 ? true : false;
+        }
+    },
+
     methods: {
 
         resetFields() {
@@ -96,10 +106,10 @@ export default {
                 this.submitting = false
             })
             .catch(error => {
-                // if(error.response.status == 422) {
-                    this.errors = error.response.data.errors
+                if(error.response.status == 422) {
+                    this.errors = error.response.data
                     this.submitting = false
-                // }
+                }
             })
         },
 
