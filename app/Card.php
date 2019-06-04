@@ -30,13 +30,15 @@ class Card extends Model
         'SeparationDate',
     ];
 
+    protected $appends = ['full_deploy'];
+
     public function getDates()
     {
         return [];
     }
 
     protected static $logAttributes = [
-        'binders', 
+        'binders',
     ];
 
     public function getKeyName(){
@@ -44,7 +46,7 @@ class Card extends Model
     }
 
     public function getFullDeployAttribute()
-    {   
+    {
         return $this->CardNo .' - '. $this->cardholder['Name'];
     }
 
@@ -53,7 +55,7 @@ class Card extends Model
     	return $this->belongsTo(Cardholder::class,'CardholderID','CardholderID');
     }
 
-    public function binders() 
+    public function binders()
     {
         return $this->hasMany('App\Binder','card_id','CardID');
     }

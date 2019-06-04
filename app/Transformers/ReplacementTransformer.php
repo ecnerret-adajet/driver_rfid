@@ -25,7 +25,7 @@ class ReplacementTransformer extends TransformerAbstract
             'hauler' => $replacement->driver->hauler,
             'reason_replacement' => $replacement->reason_replacement,
             'remarks' => $replacement->remarks,
-            'status' => $replacement->status == 1 ? 'Approved' : 'Pending',
+            'status' => $replacement->status,
             'marked_by' => $replacement->markedby,
             'created_at' => (string) $replacement->created_by
         ];

@@ -10,36 +10,44 @@
             </div>
             <div class="modal-body">
 
-                <div class="form-group" :class="{ ' has-danger' : errors.bank_list }">
+                <div class="form-group" :class="{ ' has-danger' : errors.driver_id }">
                     <label>Select Driver</label>
-                    <select :class="{ 'is-invalid' : errors.bank_list }" class="form-control" v-model="toSubmit.bank_list">
-                        <option value=""  selected>All Banks</option>
-                        <option v-for="(bank,i) in banks" :key="i" selected :value="bank.id">{{ bank.name + " - " + bank.branch }}</option>
+                    <select :class="{ 'is-invalid' : errors.driver_id }" class="form-control" v-model="toSubmit.driver_id">
+                        <option value=""  selected>All Drivers</option>
+                        <option v-for="(driver,i) in drivers" :key="i" selected :value="driver.id">{{ driver.name }}</option>
                     </select>
-                    <div v-if="errors.bank_list" class="invalid-feedback">{{ errors.bank_list[0] }}</div>
+                    <div v-if="errors.driver_id" class="invalid-feedback">{{ errors.driver_id[0] }}</div>
                 </div>
 
-                <div class="form-group" :class="{ ' has-danger' : errors.company_list }">
-                    <label>Company</label>
-                    <select :class="{ 'is-invalid' : errors.company_list }" class="form-control" v-model="toSubmit.company_list">
-                        <option value=""  selected>All Companies</option>
-                        <option v-for="(company,c) in companies" :key="c" selected :value="company.id">{{ company.department ? company.department + " - " + company.name : company.name }}</option>
+                <div class="form-group" :class="{ ' has-danger' : errors.card_id }">
+                    <label>RFID Cards</label>
+                    <select  :class="{ 'is-invalid' : errors.card_id }" class="form-control" v-model="toSubmit.card_id">
+                        <option value="" selected>All RFID</option>
+                        <option v-for="(card,c) in cards" :key="c" selected :value="card.CardID">{{ card.full_deploy }}</option>
                     </select>
-                    <div v-if="errors.company_list" class="invalid-feedback">{{ errors.company_list[0] }}</div>
+                    <div v-if="errors.card_id" class="invalid-feedback">{{ errors.card_id[0] }}</div>
                 </div>
 
-                <div class="form-group" :class="{ ' has-danger' : errors.account_number }">
-                    <label>Account Number</label>
-                    <input type="text" :class="{ 'is-invalid' : errors.account_number }" class="form-control" id="name" v-model="toSubmit.account_number" placeholder="Enter Account Number">
-                    <div v-if="errors.account_number" class="invalid-feedback">{{ errors.account_number[0] }}</div>
+                <div class="form-group" :class="{ ' has-danger' : errors.reason_replacement }">
+                    <label>Reason Replacement</label>
+                    <select  :class="{ 'is-invalid' : errors.reason_replacement }" class="form-control" v-model="toSubmit.reason_replacement">
+                        <option value="" selected>Select Reason Replacement</option>
+                        <option v-for="(reason,c) in reasons" :key="c" selected :value="reason">{{ reason }}</option>
+                    </select>
+                    <div v-if="errors.reason_replacement" class="invalid-feedback">{{ errors.reason_replacement[0] }}</div>
+                </div>
+
+                <div class="form-group" :class="{ ' has-danger' : errors.remarks }">
+                    <label>Remarks</label>
+                    <textarea class="form-control" :class="{ 'is-invalid' : errors.remarks }" v-model="toSubmit.remarks" rows="3"></textarea>
+                    <div v-if="errors.remarks" class="invalid-feedback">{{ errors.remarks[0] }}</div>
                 </div>
 
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" @click="closeForm">Cancel</button>
-                <button v-if="isCreate === false" type="button" class="btn btn-primary" :disabled="loading" @click.prevent="updateAccount">Update</button>
-                <button v-else type="button" :disabled="loading" class="btn btn-primary" @click.prevent="addReplacement">Submit</button>
+                <button  type="button" :disabled="loading" class="btn btn-primary" @click.prevent="addReplacement()">Submit</button>
             </div>
             </div>
         </div>
@@ -60,6 +68,8 @@ export default {
             errors: [],
             loading: false,
             cards: [],
+            reasons: [],
+            drivers: [],
             toSubmit: {
                 driver_id: '',
                 card_id: '',
@@ -72,6 +82,7 @@ export default {
     mounted() {
         this.getCardlist()
         this.getDrivers()
+        this.getReasonReplacements()
     },
 
     watch: {
@@ -84,11 +95,25 @@ export default {
 
     methods: {
 
+        getDrivers() {
+            axios.get('/driver_rfid/public/driversJson')
+            .then(response => {
+                this.drivers = response.data
+            })
+        },
+
         getCardlist() {
-            axios.get('/driver_rfid/public/card-list')
+            axios.get('/driver_rfid/public/api-driver-rfid')
             .then(response => {
                 this.cards = response.data
             });
+        },
+
+        getReasonReplacements() {
+            axios.get('/driver_rfid/public/api-reason-replacement')
+            .then(response => {
+                this.reasons = response.data
+            })
         },
 
         resetFields() {
@@ -102,14 +127,14 @@ export default {
 
         addReplacement() {
             this.loading = true
-            axios.post('/api-replacement', {
+            axios.post('/driver_rfid/public/api-replacements', {
                 driver_id: this.toSubmit.driver_id,
                 card_id: this.toSubmit.card_id,
                 reason_replacement: this.toSubmit.reason_replacement,
                 remarks: this.toSubmit.remarks
             })
             .then(response => {
-                if(response.status === 201) { // if has a resource
+                if(response.status === 200) { // if has a resource
                     // this.banks.unshift(response.data)
                     this.$emit('storeResponse', response.data)
                     return response.data
@@ -121,10 +146,8 @@ export default {
                 this.closeForm()
             })
             .catch(error => {
-                if(error.response.status == 422) {
-                    this.errors = error.response.data
-                    this.loading = false
-                }
+                this.errors = error.response.data
+                this.loading = false
             });
         },
 

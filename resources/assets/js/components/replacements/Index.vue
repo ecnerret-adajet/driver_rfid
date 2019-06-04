@@ -217,6 +217,7 @@ export default {
         },
         openCreateModal() {
             this.showModal = true;
+            console.log('show modal: ', this.showModal)
         },
         setPage(pageNumber) {
             this.currentPage = pageNumber;

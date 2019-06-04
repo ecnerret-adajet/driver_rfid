@@ -12,6 +12,8 @@ use League\Fractal\Resource\Item;
 use App\Replacement;
 use Carbon\Carbon;
 use App\Card;
+use App\Cardholder;
+use App\Driver;
 
 class ReplacementApiController extends Controller
 {
@@ -22,7 +24,7 @@ class ReplacementApiController extends Controller
      */
     public function index()
     {
-        $replacements = Replacement::all();
+        $replacements = Replacement::orderBy('id','DESC')->get();
 
         $manager = new Manager();
         $resource = new Collection($replacements, new ReplacementTransformer());
@@ -41,6 +43,33 @@ class ReplacementApiController extends Controller
     }
 
     /**
+     * Show all cardholder should not be displayed on card list
+     */
+    public function removedCardholder()
+    {
+        $pickup_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%pickup%')
+        ->pluck('CardholderID');
+
+        $guard_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%GUARD%')
+        ->pluck('CardholderID');
+
+        $executive_cards = Cardholder::select('CardholderID')
+        ->where('FirstName', 'LIKE', '%EXECUTIVE%')
+        ->pluck('CardholderID');
+
+        $driver_card = Driver::select('cardholder_id')
+        ->where('availability',1)
+        ->pluck('cardholder_id');
+
+        // Remove all cardholder without driver assigned
+        $not_driver = array_collapse([$pickup_cards, $guard_cards, $executive_cards, $driver_card]);
+
+        return $not_driver;
+    }
+
+    /**
      * Show all available RFID
      */
     public function driverRfidList()
@@ -53,6 +82,17 @@ class ReplacementApiController extends Controller
                     ->get();
 
         return $cards;
+    }
+
+    /**
+     * List all possbile reason for replacement
+     *
+     * @return void
+     */
+    public function reasonReplacement()
+    {
+        $reasons = array("Lost Card", "Malfunctioned", "New Driver");
+        return $reasons;
     }
 
     /**
@@ -70,7 +110,7 @@ class ReplacementApiController extends Controller
         ]);
 
         $replacement = Replacement::create([
-            'user_id' => $request->user_id,
+            'user_id' => Auth::user()->id,
             'driver_id' => $request->driver_id,
             'card_id' => $request->card_id,
             'reason_replacement' => $request->reason_replacement,

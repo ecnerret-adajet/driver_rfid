@@ -85507,6 +85507,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -85522,6 +85530,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             errors: [],
             loading: false,
             cards: [],
+            reasons: [],
+            drivers: [],
             toSubmit: {
                 driver_id: '',
                 card_id: '',
@@ -85533,6 +85543,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         this.getCardlist();
         this.getDrivers();
+        this.getReasonReplacements();
     },
 
 
@@ -85545,11 +85556,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
-        getCardlist: function getCardlist() {
+        getDrivers: function getDrivers() {
             var _this = this;
 
-            axios.get('/driver_rfid/public/card-list').then(function (response) {
-                _this.cards = response.data;
+            axios.get('/driver_rfid/public/driversJson').then(function (response) {
+                _this.drivers = response.data;
+            });
+        },
+        getCardlist: function getCardlist() {
+            var _this2 = this;
+
+            axios.get('/driver_rfid/public/api-driver-rfid').then(function (response) {
+                _this2.cards = response.data;
+            });
+        },
+        getReasonReplacements: function getReasonReplacements() {
+            var _this3 = this;
+
+            axios.get('/driver_rfid/public/api-reason-replacement').then(function (response) {
+                _this3.reasons = response.data;
             });
         },
         resetFields: function resetFields() {
@@ -85561,30 +85586,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             };
         },
         addReplacement: function addReplacement() {
-            var _this2 = this;
+            var _this4 = this;
 
             this.loading = true;
-            axios.post('/api-replacement', {
+            axios.post('/driver_rfid/public/api-replacements', {
                 driver_id: this.toSubmit.driver_id,
                 card_id: this.toSubmit.card_id,
                 reason_replacement: this.toSubmit.reason_replacement,
                 remarks: this.toSubmit.remarks
             }).then(function (response) {
-                if (response.status === 201) {
+                if (response.status === 200) {
                     // if has a resource
                     // this.banks.unshift(response.data)
-                    _this2.$emit('storeResponse', response.data);
+                    _this4.$emit('storeResponse', response.data);
                     return response.data;
                 }
             }).then(function (response) {
-                _this2.returnMessage("Added successfully!");
-                _this2.resetFields();
-                _this2.closeForm();
+                _this4.returnMessage("Added successfully!");
+                _this4.resetFields();
+                _this4.closeForm();
             }).catch(function (error) {
-                if (error.response.status == 422) {
-                    _this2.errors = error.response.data;
-                    _this2.loading = false;
-                }
+                _this4.errors = error.response.data;
+                _this4.loading = false;
             });
         },
         closeForm: function closeForm() {
@@ -85826,6 +85849,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         openCreateModal: function openCreateModal() {
             this.showModal = true;
+            console.log('show modal: ', this.showModal);
         },
         setPage: function setPage(pageNumber) {
             this.currentPage = pageNumber;
@@ -110906,18 +110930,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "form-group",
     class: {
-      ' has-danger': _vm.errors.bank_list
+      ' has-danger': _vm.errors.driver_id
     }
   }, [_c('label', [_vm._v("Select Driver")]), _vm._v(" "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.toSubmit.bank_list),
-      expression: "toSubmit.bank_list"
+      value: (_vm.toSubmit.driver_id),
+      expression: "toSubmit.driver_id"
     }],
     staticClass: "form-control",
     class: {
-      'is-invalid': _vm.errors.bank_list
+      'is-invalid': _vm.errors.driver_id
     },
     on: {
       "change": function($event) {
@@ -110927,7 +110951,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.toSubmit.bank_list = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        _vm.toSubmit.driver_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
   }, [_c('option', {
@@ -110935,33 +110959,33 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": "",
       "selected": ""
     }
-  }, [_vm._v("All Banks")]), _vm._v(" "), _vm._l((_vm.banks), function(bank, i) {
+  }, [_vm._v("All Drivers")]), _vm._v(" "), _vm._l((_vm.drivers), function(driver, i) {
     return _c('option', {
       key: i,
       attrs: {
         "selected": ""
       },
       domProps: {
-        "value": bank.id
+        "value": driver.id
       }
-    }, [_vm._v(_vm._s(bank.name + " - " + bank.branch))])
-  })], 2), _vm._v(" "), (_vm.errors.bank_list) ? _c('div', {
+    }, [_vm._v(_vm._s(driver.name))])
+  })], 2), _vm._v(" "), (_vm.errors.driver_id) ? _c('div', {
     staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.bank_list[0]))]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.errors.driver_id[0]))]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "form-group",
     class: {
-      ' has-danger': _vm.errors.company_list
+      ' has-danger': _vm.errors.card_id
     }
-  }, [_c('label', [_vm._v("Company")]), _vm._v(" "), _c('select', {
+  }, [_c('label', [_vm._v("RFID Cards")]), _vm._v(" "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.toSubmit.company_list),
-      expression: "toSubmit.company_list"
+      value: (_vm.toSubmit.card_id),
+      expression: "toSubmit.card_id"
     }],
     staticClass: "form-control",
     class: {
-      'is-invalid': _vm.errors.company_list
+      'is-invalid': _vm.errors.card_id
     },
     on: {
       "change": function($event) {
@@ -110971,7 +110995,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.toSubmit.company_list = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        _vm.toSubmit.card_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
   }, [_c('option', {
@@ -110979,51 +111003,93 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": "",
       "selected": ""
     }
-  }, [_vm._v("All Companies")]), _vm._v(" "), _vm._l((_vm.companies), function(company, c) {
+  }, [_vm._v("All RFID")]), _vm._v(" "), _vm._l((_vm.cards), function(card, c) {
     return _c('option', {
       key: c,
       attrs: {
         "selected": ""
       },
       domProps: {
-        "value": company.id
+        "value": card.CardID
       }
-    }, [_vm._v(_vm._s(company.department ? company.department + " - " + company.name : company.name))])
-  })], 2), _vm._v(" "), (_vm.errors.company_list) ? _c('div', {
+    }, [_vm._v(_vm._s(card.full_deploy))])
+  })], 2), _vm._v(" "), (_vm.errors.card_id) ? _c('div', {
     staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.company_list[0]))]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.errors.card_id[0]))]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "form-group",
     class: {
-      ' has-danger': _vm.errors.account_number
+      ' has-danger': _vm.errors.reason_replacement
     }
-  }, [_c('label', [_vm._v("Account Number")]), _vm._v(" "), _c('input', {
+  }, [_c('label', [_vm._v("Reason Replacement")]), _vm._v(" "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.toSubmit.account_number),
-      expression: "toSubmit.account_number"
+      value: (_vm.toSubmit.reason_replacement),
+      expression: "toSubmit.reason_replacement"
     }],
     staticClass: "form-control",
     class: {
-      'is-invalid': _vm.errors.account_number
+      'is-invalid': _vm.errors.reason_replacement
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.toSubmit.reason_replacement = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "",
+      "selected": ""
+    }
+  }, [_vm._v("Select Reason Replacement")]), _vm._v(" "), _vm._l((_vm.reasons), function(reason, c) {
+    return _c('option', {
+      key: c,
+      attrs: {
+        "selected": ""
+      },
+      domProps: {
+        "value": reason
+      }
+    }, [_vm._v(_vm._s(reason))])
+  })], 2), _vm._v(" "), (_vm.errors.reason_replacement) ? _c('div', {
+    staticClass: "invalid-feedback"
+  }, [_vm._v(_vm._s(_vm.errors.reason_replacement[0]))]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "form-group",
+    class: {
+      ' has-danger': _vm.errors.remarks
+    }
+  }, [_c('label', [_vm._v("Remarks")]), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.toSubmit.remarks),
+      expression: "toSubmit.remarks"
+    }],
+    staticClass: "form-control",
+    class: {
+      'is-invalid': _vm.errors.remarks
     },
     attrs: {
-      "type": "text",
-      "id": "name",
-      "placeholder": "Enter Account Number"
+      "rows": "3"
     },
     domProps: {
-      "value": (_vm.toSubmit.account_number)
+      "value": (_vm.toSubmit.remarks)
     },
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.toSubmit.account_number = $event.target.value
+        _vm.toSubmit.remarks = $event.target.value
       }
     }
-  }), _vm._v(" "), (_vm.errors.account_number) ? _c('div', {
+  }), _vm._v(" "), (_vm.errors.remarks) ? _c('div', {
     staticClass: "invalid-feedback"
-  }, [_vm._v(_vm._s(_vm.errors.account_number[0]))]) : _vm._e()])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.errors.remarks[0]))]) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "modal-footer"
   }, [_c('button', {
     staticClass: "btn btn-secondary",
@@ -111033,7 +111099,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.closeForm
     }
-  }, [_vm._v("Cancel")]), _vm._v(" "), (_vm.isCreate === false) ? _c('button', {
+  }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-primary",
     attrs: {
       "type": "button",
@@ -111042,19 +111108,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": function($event) {
         $event.preventDefault();
-        _vm.updateAccount($event)
-      }
-    }
-  }, [_vm._v("Update")]) : _c('button', {
-    staticClass: "btn btn-primary",
-    attrs: {
-      "type": "button",
-      "disabled": _vm.loading
-    },
-    on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.addReplacement($event)
+        _vm.addReplacement()
       }
     }
   }, [_vm._v("Submit")])])])])])
