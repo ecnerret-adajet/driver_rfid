@@ -47,7 +47,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" @click="closeForm">Cancel</button>
-                <button  type="button" :disabled="loading" class="btn btn-primary" @click.prevent="addReplacement()">Submit</button>
+                <button  type="button" :disabled="submitting" class="btn btn-primary" @click.prevent="addReplacement()">Submit</button>
             </div>
             </div>
         </div>
@@ -66,7 +66,7 @@ export default {
     data() {
         return {
             errors: [],
-            loading: false,
+            submitting: false,
             cards: [],
             reasons: [],
             drivers: [],
@@ -126,7 +126,7 @@ export default {
         },
 
         addReplacement() {
-            this.loading = true
+            this.submitting = true
             axios.post('/driver_rfid/public/api-replacements', {
                 driver_id: this.toSubmit.driver_id,
                 card_id: this.toSubmit.card_id,
@@ -141,13 +141,15 @@ export default {
                 }
             })
             .then(response => {
-                this.returnMessage("Added successfully!")
                 this.resetFields()
                 this.closeForm()
+                this.submitting = false
             })
             .catch(error => {
-                this.errors = error.response.data
-                this.loading = false
+                if(error.response.status == 422) {
+                    this.errors = error.response.data
+                    this.submitting = false
+                }
             });
         },
 
@@ -155,7 +157,7 @@ export default {
             this.errors = []
             this.$emit('returnShowModal',false)
             $('#newReplacement').modal('hide')
-            this.loading = false
+            this.submitting = false
         }
 
     }

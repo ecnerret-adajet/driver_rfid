@@ -85528,7 +85528,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             errors: [],
-            loading: false,
+            submitting: false,
             cards: [],
             reasons: [],
             drivers: [],
@@ -85588,7 +85588,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         addReplacement: function addReplacement() {
             var _this4 = this;
 
-            this.loading = true;
+            this.submitting = true;
             axios.post('/driver_rfid/public/api-replacements', {
                 driver_id: this.toSubmit.driver_id,
                 card_id: this.toSubmit.card_id,
@@ -85602,19 +85602,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     return response.data;
                 }
             }).then(function (response) {
-                _this4.returnMessage("Added successfully!");
                 _this4.resetFields();
                 _this4.closeForm();
+                _this4.submitting = false;
             }).catch(function (error) {
-                _this4.errors = error.response.data;
-                _this4.loading = false;
+                if (error.response.status == 422) {
+                    _this4.errors = error.response.data;
+                    _this4.submitting = false;
+                }
             });
         },
         closeForm: function closeForm() {
             this.errors = [];
             this.$emit('returnShowModal', false);
             $('#newReplacement').modal('hide');
-            this.loading = false;
+            this.submitting = false;
         }
     }
 
@@ -111103,7 +111105,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "btn btn-primary",
     attrs: {
       "type": "button",
-      "disabled": _vm.loading
+      "disabled": _vm.submitting
     },
     on: {
       "click": function($event) {
