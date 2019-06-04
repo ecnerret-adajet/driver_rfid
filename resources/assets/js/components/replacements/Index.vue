@@ -177,7 +177,7 @@
   </div>
 </template>
 <script>
-import Create from './replacements/Index.vue'
+import Create from '../replacements/Create.vue'
 import VueContentPlaceholders from 'vue-content-placeholders';
 export default {
 

@@ -41,6 +41,21 @@ class ReplacementApiController extends Controller
     }
 
     /**
+     * Show all available RFID
+     */
+    public function driverRfidList()
+    {
+        $cards = Card::orderBy('CardholderID','DESC')
+                    ->whereNotIn('CardholderID', $this->removedCardholder())
+                    ->where('AccessGroupID', 1) // card type
+                    ->where('CardholderID','>=', 15)
+                    ->where('CardholderID','!=', 0)
+                    ->get();
+
+        return $cards;
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
