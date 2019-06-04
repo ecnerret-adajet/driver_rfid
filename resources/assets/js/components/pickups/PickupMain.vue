@@ -7,8 +7,8 @@
         <a class="btn btn-primary btn-sm pull-right" href="#">
         Back
         </a>
-        <a class="btn btn-primary btn-sm pull-right mr-2" href="#">
-        Add New Pickup
+        <a class="btn btn-secondary btn-sm pull-right mr-2" href="/driver_rfid/public/pickups">
+        Visit Old Version
         </a>
         </div>
         <div class="card-body">
