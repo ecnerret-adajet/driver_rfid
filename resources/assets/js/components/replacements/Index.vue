@@ -15,9 +15,20 @@
         <div class="card-header">
                All Replacements
 
-                <a class="btn btn-primary btn-sm pull-right" href="#">
+                <!-- <a class="btn btn-primary btn-sm pull-right" href="#">
                     Back
+                </a> -->
+
+                 <a class="dropdown pull-right btn btn-sm btn-outline-secondary" href="#" id="driverDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-ellipsis-v"></i>
                 </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="driverDropdown">
+
+                <span>
+                    <a href="javascript:void(0);" class="dropdown-item">Export Summary Report</a>
+                </span>
+
+                </div><!-- end dropdown -->
 
                 <button type="button" class="btn btn-primary btn-sm pull-right mr-2" @click="openCreateModal()">
                     New Replacement
@@ -96,7 +107,7 @@
                                         </div>
                                         <div class="col-sm-3 pull-right right">
 
-                                         <span>
+                                         <span v-if="role == 'Monitoring' || role == 'Administrator'">
                                             <a class="dropdown pull-right btn btn-outline-secondary" href="#" id="driverDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="fa fa-ellipsis-v"></i>
                                             </a>
@@ -188,6 +199,10 @@ import Approve from '../replacements/Approve.vue';
 import ArrovedReplacements from '../replacements/ApprovedReplacements.vue';
 import VueContentPlaceholders from 'vue-content-placeholders';
 export default {
+
+    props: {
+        role: String
+    },
 
     components: {
         VueContentPlaceholders,

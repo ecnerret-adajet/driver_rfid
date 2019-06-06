@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <replacements></replacements>
+    <replacements role="{{ Auth::user()->roles->first()->name }}"></replacements>
 
 @endsection
 

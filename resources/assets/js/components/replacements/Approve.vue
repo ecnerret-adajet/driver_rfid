@@ -15,7 +15,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" @click="closeModal">Cancel</button>
-                <button type="button" class="btn btn-primary"  @click.prevent="approveReplacement">Submit</button>
+                <button type="button" class="btn btn-primary" :disabled="subitting"  @click.prevent="approveReplacement">Submit</button>
             </div>
             </div>
         </div>
@@ -42,13 +42,13 @@ export default {
 
     methods: {
 
-        returnMessage(message) {
-            Vue.toasted.show(message, {
-                theme: "primary",
-                position: "bottom-right",
-                duration : 5000
-            });
-        },
+        // returnMessage(message) {
+        //     Vue.toasted.show(message, {
+        //         theme: "primary",
+        //         position: "bottom-right",
+        //         duration : 5000
+        //     });
+        // },
 
         closeModal() {
             $('#approveReplacement').modal('hide')

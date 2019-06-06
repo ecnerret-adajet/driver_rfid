@@ -85504,13 +85504,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     methods: {
-        returnMessage: function returnMessage(message) {
-            Vue.toasted.show(message, {
-                theme: "primary",
-                position: "bottom-right",
-                duration: 5000
-            });
-        },
+
+        // returnMessage(message) {
+        //     Vue.toasted.show(message, {
+        //         theme: "primary",
+        //         position: "bottom-right",
+        //         duration : 5000
+        //     });
+        // },
+
         closeModal: function closeModal() {
             $('#approveReplacement').modal('hide');
             return this.$emit('returnshowModal', false);
@@ -86153,12 +86155,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: {
+        role: String
+    },
 
     components: {
         VueContentPlaceholders: __WEBPACK_IMPORTED_MODULE_3_vue_content_placeholders__["default"],
@@ -105147,12 +105164,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card mx-auto mb-3"
   }, [_c('div', {
     staticClass: "card-header"
-  }, [_vm._v("\n             All Replacements\n\n              "), _c('a', {
-    staticClass: "btn btn-primary btn-sm pull-right",
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("\n                  Back\n              ")]), _vm._v(" "), _c('button', {
+  }, [_vm._v("\n             All Replacements\n\n              "), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _c('button', {
     staticClass: "btn btn-primary btn-sm pull-right mr-2",
     attrs: {
       "type": "button"
@@ -105164,7 +105176,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("\n                  New Replacement\n              ")])]), _vm._v(" "), _c('div', {
     staticClass: "card-body"
-  }, [_vm._m(1), _vm._v(" "), _c('div', {
+  }, [_vm._m(3), _vm._v(" "), _c('div', {
     staticClass: "tab-content"
   }, [_c('div', {
     staticClass: "tab-pane active pt-3",
@@ -105250,7 +105262,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "badge badge-primary"
     }, [_vm._v("\n                                              Card Assigned\n                                          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
       staticClass: "col-sm-3 pull-right right"
-    }, [_c('span', [_vm._m(2, true), _vm._v(" "), _c('div', {
+    }, [(_vm.role == 'Monitoring' || _vm.role == 'Administrator') ? _c('span', [_vm._m(4, true), _vm._v(" "), _c('div', {
       staticClass: "dropdown-menu dropdown-menu-right",
       attrs: {
         "aria-labelledby": "driverDropdown"
@@ -105266,10 +105278,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.openApproveModal(item)
         }
       }
-    }, [_vm._v("Approve Entry")])])])])])])])
+    }, [_vm._v("Approve Entry")])])])]) : _vm._e()])])])
   }), _vm._v(" "), (_vm.filterReplacements.length == 0) ? _c('li', {
     staticClass: "list-group-item"
-  }, [_vm._m(3)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
+  }, [_vm._m(5)]) : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.loading) ? _c('div', {
     staticClass: "row center-align",
     staticStyle: {
       "display": "flex",
@@ -105387,6 +105399,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('h1', {
     staticClass: "m-0 text-dark"
   }, [_vm._v("Replacements")])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
+    staticClass: "dropdown pull-right btn btn-sm btn-outline-secondary",
+    attrs: {
+      "href": "#",
+      "id": "driverDropdown",
+      "data-toggle": "dropdown",
+      "aria-haspopup": "true",
+      "aria-expanded": "false"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-ellipsis-v"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "dropdown-menu dropdown-menu-right",
+    attrs: {
+      "aria-labelledby": "driverDropdown"
+    }
+  }, [_c('span', [_c('a', {
+    staticClass: "dropdown-item",
+    attrs: {
+      "href": "javascript:void(0);"
+    }
+  }, [_vm._v("Export Summary Report")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('ul', {
     staticClass: "nav nav-tabs",
@@ -110512,7 +110549,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-primary",
     attrs: {
-      "type": "button"
+      "type": "button",
+      "disabled": _vm.subitting
     },
     on: {
       "click": function($event) {
