@@ -70,4 +70,9 @@ class Card extends Model
         return $this->hasOne('App\Truck','card_id','CardID');
     }
 
+    public function replacements()
+    {
+        return $this->HasMany('App\Replacement','card_id','CardID');
+    }
+
 }

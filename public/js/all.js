@@ -85938,7 +85938,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     return response.data;
                 }
             }).then(function (response) {
-                _this4.resetFields();
                 _this4.closeForm();
                 _this4.submitting = false;
             }).catch(function (error) {
@@ -85949,6 +85948,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         closeForm: function closeForm() {
+            this.resetFields();
             this.errors = [];
             this.$emit('returnShowModal', false);
             $('#newReplacement').modal('hide');

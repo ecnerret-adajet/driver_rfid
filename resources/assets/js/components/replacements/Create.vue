@@ -141,7 +141,6 @@ export default {
                 }
             })
             .then(response => {
-                this.resetFields()
                 this.closeForm()
                 this.submitting = false
             })
@@ -154,6 +153,7 @@ export default {
         },
 
         closeForm() {
+            this.resetFields()
             this.errors = []
             this.$emit('returnShowModal',false)
             $('#newReplacement').modal('hide')

@@ -6,6 +6,9 @@ use App\Transformers\ReplacementTransformer;
 use League\Fractal\Resource\Collection;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\ConfirmLostCard;
+use Spatie\Activitylog\Models\Activity;
 use Illuminate\Http\Request;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Item;
@@ -13,7 +16,11 @@ use App\Replacement;
 use Carbon\Carbon;
 use App\Card;
 use App\Cardholder;
+use App\Version;
 use App\Driver;
+use App\Setting;
+use App\User;
+use DB;
 
 class ReplacementApiController extends Controller
 {
@@ -128,6 +135,14 @@ class ReplacementApiController extends Controller
             'remarks' => $request->remarks,
         ]);
 
+        $driver = Driver::whereId($replacement->driver_id)
+                        ->with('truck','hauler')
+                        ->first();
+
+        //send email to supervisor for approval
+        $setting = Setting::first();
+        Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmLostCard($driver));
+
         $manager = new Manager();
         $item = new Item($replacement, new ReplacementTransformer);
 
@@ -144,6 +159,30 @@ class ReplacementApiController extends Controller
         $replacement->status = $request->status;
         $replacement->marked_by = 1;
         $replacement->save();
+
+        $driver = Driver::whereId($replacement->driver_id)
+                        ->with('truck','hauler')
+                        ->first();
+
+        $driver->print_status = 1;
+        $driver->availability = 0;
+        $driver->notif_status = 1;
+        $driver->card()->associate($replacement->card_id);
+        $driver->cardholder()->associate($driver->card->CardholderID);
+        $driver->save();
+
+        //Deactivating RFID card from ASManager
+        if(!empty($driver->card_id)) {
+            $card = Card::where('CardID',$replacement->card_id)->first();
+            $card->CardStatus = 1;
+            $card->save();
+        }
+
+         // Records to system log
+        $activity = activity()
+        ->performedOn($driver)
+        ->withProperties(['card_no' => $driver->card_id])
+        ->log('Reprint Card');
 
         $manager = new Manager();
         $item = new Item($replacement, new ReplacementTransformer);
