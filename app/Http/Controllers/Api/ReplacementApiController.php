@@ -21,6 +21,8 @@ use App\Driver;
 use App\Setting;
 use App\User;
 use DB;
+use App\Truckversion;
+use App\Driverversion;
 
 class ReplacementApiController extends Controller
 {
@@ -59,6 +61,53 @@ class ReplacementApiController extends Controller
     {
         //
     }
+
+    /**
+     *  Driver revision method
+     */
+    public function driverRevision($id, $end_validity)
+    {
+        // search ID from Driver model
+        $driver = Driver::findOrFail($id);
+
+        //search frorm driver history truck when no truck found from reassignment
+        $last_driver_truck =  Version::select('plate_number','hauler')
+                                        ->where('driver_id',$id)
+                                        ->orderBy('id','desc')
+                                        ->first();
+
+        $version =  new Driverversion;
+        $version->driver_id = $driver->id;
+        $version->card_no = $driver->card_id;
+        $version->cardholder_id = $driver->cardholder_id;
+        $version->user_id = Auth::user()->id;
+        $version->plate_number = empty($driver->truck->plate_number) ? empty($last_driver_truck->plate_number) ? 'N/A' : $last_driver_truck->plate_number : $driver->truck->plate_number;
+        $version->vendor = empty($driver->hauler->name) ? $last_driver_truck->hauler : $driver->hauler->name;
+        $version->start_date = $end_validity;
+        $version->end_date = Carbon::now();
+        $version->save();
+
+        return $version;
+    }
+
+    /**
+     *  Trucks revision method
+     */
+    public function truckRevision($id)
+    {
+        $driver = Driver::findOrFail($id);
+
+        $version = new Truckversion;
+        $version->user_id = Auth::user()->id;
+        $version->cardholder_id = $driver->cardholder_id;
+        $version->card_id = $driver->card_id;
+        $version->driver_name = $driver->name;
+        $version->plate_number = empty($driver->truck->plate_number) ? 'N/A' :  $driver->truck->plate_number;
+        $version->hauler = empty($driver->hauler->name) ? 'N/A' : $driver->hauler->name;
+        $version->save();
+
+        return $version;
+     }
 
     /**
      * Show all cardholder should not be displayed on card list
@@ -183,6 +232,11 @@ class ReplacementApiController extends Controller
         ->performedOn($driver)
         ->withProperties(['card_no' => $driver->card_id])
         ->log('Reprint Card');
+
+        // Driver's Revision model
+        $this->driverRevision($driver->id, $driver->end_validity_date);
+        // Truck's Revision model
+        $this->truckRevision($driver->id);
 
         $manager = new Manager();
         $item = new Item($replacement, new ReplacementTransformer);
