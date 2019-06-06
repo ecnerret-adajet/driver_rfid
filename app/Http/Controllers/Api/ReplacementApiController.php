@@ -19,12 +19,23 @@ class ReplacementApiController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * of pending approval entries
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $replacements = Replacement::orderBy('id','DESC')->get();
+        $replacements = Replacement::where('status',0)->orderBy('id','DESC')->get();
+
+        $manager = new Manager();
+        $resource = new Collection($replacements, new ReplacementTransformer());
+
+        return $manager->createData($resource)->toArray();
+    }
+
+    public function approvedReplacements()
+    {
+        $replacements = Replacement::where('status',1)->orderBy('id','DESC')->get();
 
         $manager = new Manager();
         $resource = new Collection($replacements, new ReplacementTransformer());
@@ -122,6 +133,22 @@ class ReplacementApiController extends Controller
 
         return $manager->createData($item)->toArray()['data'];
 
+    }
+
+    public function forApprovalReplacements(Request $request, Replacement $replacement)
+    {
+        $this->validate($request, [
+            'status' => 'required'
+        ]);
+
+        $replacement->status = $request->status;
+        $replacement->marked_by = 1;
+        $replacement->save();
+
+        $manager = new Manager();
+        $item = new Item($replacement, new ReplacementTransformer);
+
+        return $manager->createData($item)->toArray()['data'];
     }
 
     /**

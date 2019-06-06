@@ -51,6 +51,39 @@ class ReplacementTest extends TestCase
         ]);
     }
 
+    /**
+     * @test
+     */
+    public function can_approve_replacements()
+    {
+        $replacement = \App\Replacement::first();
+        $user = $this->defaultUser();
+        $response = $this->actingAs($user, 'api')->json('PATCH', "api-replacements-approve/$replacement->id", [
+            'status' => $status = true,
+        ]);
+
+        // \Log::info($response->getContent());
+
+        $response->assertJsonStructure([
+            'id',
+            'user',
+            'card',
+            'driver',
+            'reason_replacement',
+            'remarks',
+            'status'
+        ])
+        ->assertJson([
+            'status' => $status,
+        ])
+        ->assertStatus(200);
+
+        $this->assertDatabaseHas('replacements',[
+            'status' => $status,
+        ]);
+
+    }
+
      /**
      * @test
      */

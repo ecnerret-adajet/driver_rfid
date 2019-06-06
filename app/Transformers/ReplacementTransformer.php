@@ -20,7 +20,7 @@ class ReplacementTransformer extends TransformerAbstract
             'card' => $replacement->card,
             'cardholder' => $replacement->driver->cardholder,
             'driver' => $replacement->driver,
-            // 'driver-image' => $replacement->driver->image,
+            'driver-image' => $replacement->driver->image,
             'truck' => $replacement->driver->truck,
             'hauler' => $replacement->driver->hauler,
             'reason_replacement' => $replacement->reason_replacement,

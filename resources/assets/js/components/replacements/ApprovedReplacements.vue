@@ -2,47 +2,7 @@
 
   <div>
 
-        <div class="content-header">
-        <div class="row mb-2">
-          <div class="col-6">
-            <h1 class="m-0 text-dark">Replacements</h1>
-          </div><!-- /.col -->
-
-        </div><!-- /.row -->
-    </div>
-
-    <div class="card mx-auto mb-3">
-        <div class="card-header">
-               All Replacements
-
-                <a class="btn btn-primary btn-sm pull-right" href="#">
-                    Back
-                </a>
-
-                <button type="button" class="btn btn-primary btn-sm pull-right mr-2" @click="openCreateModal()">
-                    New Replacement
-                </button>
-
-        </div>
-        <div class="card-body">
-
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#pending" role="tab">Pending Replacements</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#approved" role="tab">Approved Replacements</a>
-                    </li>
-            </ul>
-
-            <!-- Tab panes -->
-            <div class="tab-content">
-
-                <div class="tab-pane active pt-3" id="pending" role="tabpanel">
-
-            <div class="form-row mb-2 mt-2">
+        <div class="form-row mb-2 mt-2">
 
                 <div class="col-md-12">
                     <div class="form-group">
@@ -155,45 +115,24 @@
                 </div>
             </div>
 
-
-            </div>
-
-                <div class="tab-pane pt-3" id="approved" role="tabpanel">
-                    <approved :data="approveData"></approved>
-                </div>
-
-            </div>
-
-
-
-        </div><!-- end card-body -->
-    </div> <!-- end card -->
-
-    <create :showModal="showModal"
-            @returnShowModal="showModal = $event"
-            @storeResponse="storeResponse">
-    </create>
-
-    <approve :showModal="showModalApprove"
-            :approveData="approveData"
-            @returnshowModal="showModalApprove = $event"
-            @response="approveResponse">
-    </approve>
-
   </div>
 </template>
 <script>
-import Create from '../replacements/Create.vue';
-import Approve from '../replacements/Approve.vue';
-import ArrovedReplacements from '../replacements/ApprovedReplacements.vue';
 import VueContentPlaceholders from 'vue-content-placeholders';
 export default {
 
+    props: {
+        data: Object
+    },
+
     components: {
         VueContentPlaceholders,
-        Create,
-        Approve,
-        approved: ArrovedReplacements
+    },
+
+    watch: {
+        data() {
+            this.replacements.unshift(this.data)
+        }
     },
 
     data() {
@@ -218,7 +157,7 @@ export default {
     methods: {
         getReplacements() {
             this.loading = true
-            axios.get('/driver_rfid/public/api-replacements')
+            axios.get('/driver_rfid/public/api-replacements-approved')
             .then(response => {
                 this.replacements = response.data.data
                 this.loading = false
