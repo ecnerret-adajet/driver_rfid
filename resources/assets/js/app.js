@@ -82,7 +82,9 @@ Vue.component('picklistEntry', require('./components/PicklistEntry.vue'));
 
 Vue.component('reportEntries', require('./components/ReportEntries.vue'));
 
-Vue.component('entriesToDashboard', require('./components/EntriesToDashboard.vue'));
+Vue.component('entriesToDashboard', require('./components/EntriesToDashboard.vue'))
+
+Vue.component('assign-card', require('./components/trucks/Assign.vue'));
 
 Vue.component('pickupMain', require('./components/pickups/PickupMain.vue'));
 
