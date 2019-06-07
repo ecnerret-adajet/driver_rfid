@@ -458,6 +458,19 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('truck-rfid','TrucksController@truckRfid');
         Route::post('assign-rfid/{truck}','TrucksController@assignRFID');
 
+        /*
+         * Route setup for Replacements RFID Card
+         */
+        Route::get('/replacements','ReplacementsController@index');
+        Route::get('api-replacements','Api\ReplacementApiController@index');
+        Route::post('api-replacements','Api\ReplacementApiController@store');
+        Route::patch('api-replacements-approve/{replacement}','Api\ReplacementApiController@forApprovalReplacements');
+        Route::get('api-driver-rfid','Api\ReplacementApiController@driverRfidList');
+        Route::get('api-reason-replacement','Api\ReplacementApiController@reasonReplacement');
+        Route::get('api-replacements-approved','Api\ReplacementApiController@approvedReplacements');
+        Route::get('api-replacements-report/{date_from}/{date_to}','Api\ReplacementApiController@replacementReport');
+
+
     });
 
 

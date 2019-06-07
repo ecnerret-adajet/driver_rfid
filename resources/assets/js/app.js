@@ -88,6 +88,8 @@ Vue.component('assign-card', require('./components/trucks/Assign.vue'));
 
 Vue.component('pickupMain', require('./components/pickups/PickupMain.vue'));
 
+Vue.component('replacements', require('./components/replacements/Index.vue'));
+
 const app = new Vue({
     el: '#app'
 });

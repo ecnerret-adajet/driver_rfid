@@ -164,5 +164,15 @@ class User extends Authenticatable
         return $this->hasMany(Gate::class);
     }
 
+    /**
+     * Linked to a user who created a replacement card
+     *
+     * @return void
+     */
+    public function replacements()
+    {
+        return $this->hasMany(Replacement::class);
+    }
+
 
 }

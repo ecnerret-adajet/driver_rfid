@@ -13,7 +13,7 @@
                     <div class="col-sm-12">
                         <div v-if="!loading">
                             <ul class="list-group">
-                                <li v-for="truck in filteredTruck" class="list-group-item">
+                                <li v-for="(truck,t) in filteredTruck" :key="t" class="list-group-item">
                                     <div class="row">
                                         <div class="col-sm-1">
 
@@ -147,7 +147,7 @@
             </div>
 
 
-        <div v-for="truck in filteredTruck">
+        <div v-for="(truck,t) in filteredTruck" :key="t">
 
 
             <!-- Change Plate Number Modal -->
