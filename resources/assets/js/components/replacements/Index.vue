@@ -25,7 +25,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="driverDropdown">
 
                 <span>
-                    <a href="javascript:void(0);" class="dropdown-item">Export Summary Report</a>
+                    <a href="javascript:void(0);" @click.prevent="openReportModal()" class="dropdown-item">Export Summary Report</a>
                 </span>
 
                 </div><!-- end dropdown -->
@@ -80,7 +80,7 @@
                                         </span>
 
                                         </div>
-                                        <div class="col-sm-5">
+                                        <div class="col-sm-4">
                                             <span  style="text-transform: upppercase">{{item.driver.name}}</span> : <small v-if="item.driver.cardholder">{{ item.driver.cardholder.Name }}</small>
                                             <br/>
 
@@ -100,10 +100,13 @@
                                             </span>
 
                                         </div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <span class="badge badge-primary" v-if="!item.card">
                                                 Card Assigned
                                             </span>
+                                            <br/>
+                                            <small class="text-muted">CREATED AT:</small><br/>
+                                            <span>{{ dateFormat(item.created_at) }}</span>
                                         </div>
                                         <div class="col-sm-3 pull-right right">
 
@@ -191,11 +194,17 @@
             @response="approveResponse">
     </approve>
 
+    <report :showModal="showModalReport"
+            @returnshowModal="showModalReport = $event">
+    </report>
+
   </div>
 </template>
 <script>
+import moment from 'moment';
 import Create from '../replacements/Create.vue';
 import Approve from '../replacements/Approve.vue';
+import Report from '../replacements/Report.vue';
 import ArrovedReplacements from '../replacements/ApprovedReplacements.vue';
 import VueContentPlaceholders from 'vue-content-placeholders';
 export default {
@@ -208,7 +217,8 @@ export default {
         VueContentPlaceholders,
         Create,
         Approve,
-        approved: ArrovedReplacements
+        approved: ArrovedReplacements,
+        Report
     },
 
     data() {
@@ -216,6 +226,7 @@ export default {
             searchString: '',
             showModal: false,
             showModalApprove: false,
+            showModalReport: false,
             approveData: {},
             loading: false,
             replacements: [],
@@ -239,8 +250,14 @@ export default {
                 this.loading = false
             })
         },
+        dateFormat(date) {
+            return moment(date).format('MMMM D, Y h:m:s A');
+        },
         storeResponse(event) {
             return this.replacements.unshift(event)
+        },
+        openReportModal() {
+            this.showModalReport = true;
         },
         openCreateModal() {
             this.showModal = true;

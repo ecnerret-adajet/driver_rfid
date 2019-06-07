@@ -27,7 +27,7 @@ class ReplacementTransformer extends TransformerAbstract
             'remarks' => $replacement->remarks,
             'status' => $replacement->status,
             'marked_by' => $replacement->markedby,
-            'created_at' => (string) $replacement->created_by
+            'created_at' => (string) $replacement->created_at
         ];
     }
 }

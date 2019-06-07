@@ -2,27 +2,28 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Support\Facades\Notification;
 use App\Transformers\ReplacementTransformer;
+use Spatie\Activitylog\Models\Activity;
 use League\Fractal\Resource\Collection;
+use App\Notifications\ConfirmLostCard;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Notification;
-use App\Notifications\ConfirmLostCard;
-use Spatie\Activitylog\Models\Activity;
+use League\Fractal\Resource\Item;
 use Illuminate\Http\Request;
 use League\Fractal\Manager;
-use League\Fractal\Resource\Item;
-use App\Replacement;
-use Carbon\Carbon;
-use App\Card;
-use App\Cardholder;
-use App\Version;
-use App\Driver;
-use App\Setting;
-use App\User;
-use DB;
-use App\Truckversion;
 use App\Driverversion;
+use App\Truckversion;
+use App\Replacement;
+use App\Cardholder;
+use Carbon\Carbon;
+use App\Version;
+use App\Setting;
+use App\Driver;
+use App\Card;
+use App\User;
+use Excel;
+use DB;
 
 class ReplacementApiController extends Controller
 {
@@ -242,6 +243,58 @@ class ReplacementApiController extends Controller
         $item = new Item($replacement, new ReplacementTransformer);
 
         return $manager->createData($item)->toArray()['data'];
+    }
+
+    /**
+     * generate replacement RFID Card report
+     *
+     * @return void
+     */
+    public function replacementReport($date_from, $date_to)
+    {
+        $replacements = Replacement::where('status',1)
+                            ->whereBetween('created_at', [Carbon::parse($date_from), Carbon::parse($date_to)])
+                            ->orderBy('id','DESC')
+                            ->get();
+
+        $manager = new Manager();
+        $resource = new Collection($replacements, new ReplacementTransformer());
+        $results = $manager->createData($resource)->toArray()['data'];
+
+        Excel::create('driver_entries'.Carbon::now()->format('Ymdh'), function($excel) use ($results) {
+            $excel->sheet('Sheet1', function($sheet) use ($results) {
+                // Format the array JSON return
+                $arr = array();
+                foreach($results as $result) {
+                    $data = array(
+                        'date' => date('Y-m-d', strtotime($result['created_at'])),
+                        'hauler' => trim($result['hauler']['name']),
+                        'plate_number' => $result['truck']['plate_number'],
+                        'driver_name' => $result['driver']['name'],
+                        'remarks' => $result['reason_replacement'],
+                        'cost' => 275.00,
+                        'rfid_card_number' => $result['cardholder']['CardholderID']
+                    );
+                    array_push($arr, $data);
+                }
+                //set the titles
+                $sheet->fromArray($arr,null,'A1',false,false)
+                ->setBorder('A1:G'.count($results),'thin')
+                ->prependRow(array(
+                    'Date',
+                    'Hauler',
+                    'Plate Number',
+                    'Driver Name',
+                    'Remarks',
+                    'Cost',
+                    'Cardholder ID' ));
+                    $sheet->cells('A1:G1', function($cells) {
+                        $cells->setBackground('#f1c40f');
+                    });
+                });
+            })->download('xlsx');
+
+        // return $results;
     }
 
     /**

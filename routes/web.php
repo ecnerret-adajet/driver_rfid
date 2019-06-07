@@ -456,6 +456,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('api-driver-rfid','Api\ReplacementApiController@driverRfidList');
         Route::get('api-reason-replacement','Api\ReplacementApiController@reasonReplacement');
         Route::get('api-replacements-approved','Api\ReplacementApiController@approvedReplacements');
+        Route::get('api-replacements-report/{date_from}/{date_to}','Api\ReplacementApiController@replacementReport');
 
 
     });

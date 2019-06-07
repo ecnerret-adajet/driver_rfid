@@ -12,7 +12,7 @@
 
                 <div class="form-group" :class="{ ' has-danger' : errors.driver_id }">
                     <label>Select Driver</label>
-                    <select :class="{ 'is-invalid' : errors.driver_id }" class="form-control" v-model="toSubmit.driver_id">
+                    <select :disabled="submitting" :class="{ 'is-invalid' : errors.driver_id }" class="form-control" v-model="toSubmit.driver_id">
                         <option value=""  selected>All Drivers</option>
                         <option v-for="(driver,i) in drivers" :key="i" selected :value="driver.id">{{ driver.name }}</option>
                     </select>
@@ -21,7 +21,7 @@
 
                 <div class="form-group" :class="{ ' has-danger' : errors.card_id }">
                     <label>RFID Cards</label>
-                    <select  :class="{ 'is-invalid' : errors.card_id }" class="form-control" v-model="toSubmit.card_id">
+                    <select :disabled="submitting" :class="{ 'is-invalid' : errors.card_id }" class="form-control" v-model="toSubmit.card_id">
                         <option value="" selected>All RFID</option>
                         <option v-for="(card,c) in cards" :key="c" selected :value="card.CardID">{{ card.full_deploy }}</option>
                     </select>
@@ -30,7 +30,7 @@
 
                 <div class="form-group" :class="{ ' has-danger' : errors.reason_replacement }">
                     <label>Reason Replacement</label>
-                    <select  :class="{ 'is-invalid' : errors.reason_replacement }" class="form-control" v-model="toSubmit.reason_replacement">
+                    <select :disabled="submitting" :class="{ 'is-invalid' : errors.reason_replacement }" class="form-control" v-model="toSubmit.reason_replacement">
                         <option value="" selected>Select Reason Replacement</option>
                         <option v-for="(reason,c) in reasons" :key="c" selected :value="reason">{{ reason }}</option>
                     </select>
@@ -39,7 +39,7 @@
 
                 <div class="form-group" :class="{ ' has-danger' : errors.remarks }">
                     <label>Remarks</label>
-                    <textarea class="form-control" :class="{ 'is-invalid' : errors.remarks }" v-model="toSubmit.remarks" rows="3"></textarea>
+                    <textarea :disabled="submitting" class="form-control" :class="{ 'is-invalid' : errors.remarks }" v-model="toSubmit.remarks" rows="3"></textarea>
                     <div v-if="errors.remarks" class="invalid-feedback">{{ errors.remarks[0] }}</div>
                 </div>
 
@@ -47,7 +47,14 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" @click="closeForm">Cancel</button>
-                <button  type="button" :disabled="submitting" class="btn btn-primary" @click.prevent="addReplacement()">Submit</button>
+                <button  type="button" v-if="!submitting" :disabled="submitting" class="btn btn-primary" @click.prevent="addReplacement()">Submit</button>
+                <button  type="button" v-else class="btn btn-primary" disabled>
+                    <div id="wave" class="text-center ml-2 mr-2">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                </button>
             </div>
             </div>
         </div>

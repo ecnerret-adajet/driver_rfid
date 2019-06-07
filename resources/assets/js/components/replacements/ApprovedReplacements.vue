@@ -56,19 +56,8 @@
                                         </div>
                                         <div class="col-sm-3 pull-right right">
 
-                                         <span>
-                                            <a class="dropdown pull-right btn btn-outline-secondary" href="#" id="driverDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fa fa-ellipsis-v"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="driverDropdown">
-
-                                            <span>
-                                                <a href="javascript:void(0);" class="dropdown-item" @click.prevent="openApproveModal(item)">Approve Entry</a>
-                                                <!-- <div class="dropdown-divider"></div> -->
-                                            </span>
-
-                                            </div><!-- end dropdown -->
-                                        </span>
+                                        <button type="button" disabled v-if="item.driver.print_status === '1'" class="pull-right btn btn-outline-danger btn-sm text-danger">FOR PRINTING</button>
+                                        <button type="button" disabled v-if="item.driver.print_status === '0'" class="pull-right btn btn-outline-success btn-sm text-success">PRINTED</button>
 
                                         </div>
                                     </div>
