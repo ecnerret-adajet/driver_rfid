@@ -24,11 +24,11 @@
             Back
             </a>
 
-            {{-- @role((['Administrator','Monitoring']))
+            @role((['Administrator','Monitoring']))
                 <a class="btn btn-primary btn-sm pull-right mr-2" href="{{ url('trucks/create') }}">
                     Add New Truck
                 </a>
-            @endrole --}}
+            @endrole
 
         </div>
         <div class="card-body">
