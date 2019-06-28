@@ -151,7 +151,7 @@ class TrucksController extends Controller
         $truck_card = Truck::select('card_id')->whereNotNull('card_id')->get();
 
         $cards = Card::orderBy('CardholderID','DESC')
-                    ->whereNotIn('CardholderID', $this->removedCardholder())
+                    // ->whereNotIn('CardholderID', $this->removedCardholder())
                     ->where('AccessGroupID', 2) // card type
                     ->where('CardholderID','>=', 15)
                     ->where('CardholderID','!=', 0)

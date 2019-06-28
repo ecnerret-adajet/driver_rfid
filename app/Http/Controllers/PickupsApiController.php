@@ -103,8 +103,7 @@ class PickupsApiController extends Controller
                             ->whereNotNull('cardholder_id')
                             ->where('availability',1)->get();
 
-        $cardholders = Cardholder::whereNotIn('CardholderID', $pickup_cards)
-                                    ->whereNotIn('CardholderID', $guard_cards)
+        $cardholders = Cardholder::whereNotIn('CardholderID', $guard_cards)
                                     ->where('Name', 'LIKE', '%Pickup%')
                                     ->get();
 
