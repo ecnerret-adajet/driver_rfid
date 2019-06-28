@@ -61,6 +61,7 @@
                                                      Request::is('lineups') ||
                                                      Request::is('lineups/*') ||
                                                      Request::is('drivers') ||
+                                                     Request::is('replacements') ||
                                                      Request::is('drivers/*') ||
                                                      Request::is('cards') ||
                                                      Request::is('bind/*')) ? '' : 'collapsed' }}" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
@@ -71,6 +72,7 @@
             <ul class="sidenav-second-level {{ (Request::is('trucks') ||
                                                      Request::is('trucks/*') ||
                                                      Request::is('drivers') ||
+                                                     Request::is('replacements') ||
                                                      Request::is('lineups') ||
                                                      Request::is('generatePickups') ||
                                                      Request::is('generateLineups') ||
@@ -97,6 +99,13 @@
                             Request::is('drivers/*')
                           ) ? 'active' : ''}}">
                 <a href="{{url('/drivers')}}">Drivers</a>
+
+              </li>
+
+              <li class="font-weight-bold {{ (Request::is('replacements') ||
+                            Request::is('replacements/*')
+                          ) ? 'active' : ''}}">
+                <a href="{{url('/replacements')}}">Card Replacements</a>
 
               </li>
 

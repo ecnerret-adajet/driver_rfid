@@ -31,6 +31,13 @@ Route::patch('pickups-assign-card/{pickup}','PickupsApiController@assignCardhold
 //     return $request->user();
 // });
 
+// Route::group(['middleware' => 'auth:api'], function() {
+
+//     Route::resource('replacements','Api\ReplacementApiController');
+
+// });
+
+
 // API setup for Hauler Online
 
 

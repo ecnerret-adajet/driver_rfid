@@ -188,7 +188,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::patch('/drivers/updateInfo/{driver}', ['as' => 'drivers.updateInfo', 'uses' => 'DriversController@updateInfo']);
 
 
-    Route::resource('/trucks','TrucksController');
+    Route::resource('/trucks','TrucksController',['except' => [
+        'create','store'
+    ]]);
     Route::get('/trucks/{truck}/transfer','TrucksController@transferHauler');
     Route::patch('/transfer/{truck}',[  'as' => 'transfer.update' ,'uses' => 'TrucksController@updateTransferHauler']);
     Route::get('/exportTrucks','TrucksController@exportTrucks');
@@ -449,6 +451,24 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/exportEntries/report','EntryReportController@viewDisplayEntries');
         Route::get('/displayEntries/{driverqueue_id}/{start_date}/{end_date}','EntryReportController@displayEntries');
         Route::get('/displayEntriesReport/{driverqueue_id}/{date}','EntryReportController@displayEntriesReport');
+
+        /**
+         *  Assign RFID to truck
+         */
+        Route::get('truck-rfid','TrucksController@truckRfid');
+        Route::post('assign-rfid/{truck}','TrucksController@assignRFID');
+
+        /*
+         * Route setup for Replacements RFID Card
+         */
+        Route::get('/replacements','ReplacementsController@index');
+        Route::get('api-replacements','Api\ReplacementApiController@index');
+        Route::post('api-replacements','Api\ReplacementApiController@store');
+        Route::patch('api-replacements-approve/{replacement}','Api\ReplacementApiController@forApprovalReplacements');
+        Route::get('api-driver-rfid','Api\ReplacementApiController@driverRfidList');
+        Route::get('api-reason-replacement','Api\ReplacementApiController@reasonReplacement');
+        Route::get('api-replacements-approved','Api\ReplacementApiController@approvedReplacements');
+        Route::get('api-replacements-report/{date_from}/{date_to}','Api\ReplacementApiController@replacementReport');
 
 
     });

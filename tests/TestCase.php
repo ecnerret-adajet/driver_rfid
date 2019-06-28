@@ -28,5 +28,6 @@ abstract class TestCase extends BaseTestCase
     public function defaultAuth()
     {
         return Auth::attempt(['email' => 'terrence.tejada@lafilgroup.com', 'password' => 'password']);
+        return User::find(1);
     }
 }

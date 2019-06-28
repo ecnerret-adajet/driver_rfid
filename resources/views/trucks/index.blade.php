@@ -55,7 +55,7 @@
                 <div class="tab-pane active pt-3" id="active_trucks" role="tabpanel">
                     <trucks user_role="{{ Auth::user()->roles()->first()->name }}"></trucks>
                 </div>
-            
+
                 <div class="tab-pane pt-3" id="no_driver" role="tabpanel">
                     <no-driver user_role="{{ Auth::user()->roles()->first()->name }}"></no-driver>
                 </div>
@@ -64,12 +64,12 @@
                     <deactivated-trucks user_role="{{ Auth::user()->roles()->first()->name }}"></deactivated-trucks>
                 </div>
 
-                
+
 
             </div>
 
-             
-        
+
+
         </div><!-- end card-body -->
     </div> <!-- end card -->
 

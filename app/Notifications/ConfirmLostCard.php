@@ -21,10 +21,10 @@ class ConfirmLostCard extends Notification
      *
      * @return void
      */
-    public function __construct(Driver $driver, Lost $lost)
+    public function __construct(Driver $driver)
     {
         $this->driver = $driver;
-        $this->lost = $lost;
+        // $this->lost = $lost;
     }
 
     /**
@@ -49,16 +49,16 @@ class ConfirmLostCard extends Notification
         $driver_name = $this->driver->name;
         $truck_name = $this->driver->truck->plate_number;
         $hauler_name = $this->driver->hauler->name;
-        $reason = $this->lost->reason;
+        // $reason = $this->lost->reason;
 
         return (new MailMessage)
                 ->success()
                 ->subject('Truck Monitoring: Driver Reprinting Request')
                 ->greeting('Good day!')
                 ->line('A driver is requesting for ID re-printing for your approval. This will be deducted to respective hauler.')
-                ->action('Confirm Now', url('/confirm/create/'.$this->driver->id.'/'.$this->driver->truck->id))
+                ->action('Confirm Now', url('/replacements'))
                 ->line('This is a generated notification from the system')
-                ->markdown('vendor.notifications.lost', compact('driver_name','truck_name','hauler_name','reason'));
+                ->markdown('vendor.notifications.lost', compact('driver_name','truck_name','hauler_name'));
     }
 
     /**
