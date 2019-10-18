@@ -136,7 +136,7 @@
 <button type="submit"  class="btn btn-primary btn-block">Submit</button>
 
 @section('script')
-<script>
+<!-- <script>
     $("[data-mask]").inputmask();
 
     $(".select2-hauler").select2({
@@ -148,7 +148,7 @@
         placeholder: "Select Company",
         allowClear: true,
     });
-</script>
+</script> -->
 @endsection
 
 

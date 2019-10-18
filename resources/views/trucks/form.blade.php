@@ -231,7 +231,7 @@
       
 
 @section('script')
-    <script>
+    <!-- <script>
         $("[data-mask]").inputmask();
         $(".select2-vendor").select2();
         $(".select2-subvendor").select2();
@@ -251,6 +251,6 @@
             $('#inputReward').prop('disabled', false);
         });
 
-    </script>
+    </script> -->
   
 @endsection

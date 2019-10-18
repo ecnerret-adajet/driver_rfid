@@ -193,7 +193,7 @@
 
 
 @section('script')
-    <script>
+    <!-- <script>
         $("[data-mask]").inputmask();
         $(".select2-card").select2({
              placeholder: "Select Card",
@@ -211,5 +211,5 @@
             allowClear: true,
         });
         $(":file").filestyle({btnClass: "btn-primary", buttonBefore: true, size: "sm"});
-    </script>
+    </script> -->
 @endsection

@@ -164,7 +164,7 @@
 
 
 @section('script')
-    <script>
+    <!-- <script>
         $("[data-mask]").inputmask();
      
         $(".select2-truck").select2({
@@ -174,5 +174,5 @@
 
         $(":file").filestyle({btnClass: "btn-primary", buttonBefore: true, size: "sm"});
 
-    </script>
+    </script> -->
 @endsection

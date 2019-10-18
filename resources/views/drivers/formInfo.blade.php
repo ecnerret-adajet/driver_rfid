@@ -133,11 +133,11 @@
 
 
 @section('script')
-    <script>
+    <!-- <script>
         $("[data-mask]").inputmask();
         $(".select2-card").select2({
              placeholder: "Select Card",
             allowClear: true,
         });       
-    </script>
+    </script> -->
 @endsection

@@ -85,9 +85,9 @@
 <button type="submit"  class="btn btn-primary btn-block">Submit</button>
 
 @section('script')
-<script>
+<!-- <script>
     $("[data-mask]").inputmask();
-</script>
+</script> -->
 @endsection
 
 
