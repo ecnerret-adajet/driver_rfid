@@ -188,9 +188,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::patch('/drivers/updateInfo/{driver}', ['as' => 'drivers.updateInfo', 'uses' => 'DriversController@updateInfo']);
 
 
-    Route::resource('/trucks','TrucksController',['except' => [
-        'create','store'
-    ]]);
+    Route::resource('/trucks','TrucksController');
     Route::get('/trucks/{truck}/transfer','TrucksController@transferHauler');
     Route::patch('/transfer/{truck}',[  'as' => 'transfer.update' ,'uses' => 'TrucksController@updateTransferHauler']);
     Route::get('/exportTrucks','TrucksController@exportTrucks');

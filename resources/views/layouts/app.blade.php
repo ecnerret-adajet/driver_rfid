@@ -217,12 +217,12 @@
                 <a href="{{url('/prints')}}">Drivers Approval</a>
               </li>
 
-               <li class="font-weight-bold {{ (Request::is('entries') ||
+               <!-- <li class="font-weight-bold {{ (Request::is('entries') ||
                                   Request::is('generateEntries*') ||
                                   Request::is('monitors/*')
                                 ) ? 'active' : '' }}">
                 <a href="{{url('/entries')}}">Vehicle Entries Report</a>
-              </li>
+              </li> -->
 
             </ul>
           </li>

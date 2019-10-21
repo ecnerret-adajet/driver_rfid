@@ -62,6 +62,7 @@ class PushGateToQueueSAP extends Command
         foreach($queues as $log)  {
             // Post to new API
             $response = Curl::to('http://10.96.4.39/EmergencyService/api/entries/push')
+            // $response = Curl::to('http://10.96.4.39/sapservice/api/assignedshipment')
             ->withContentType('application/x-www-form-urlencoded')
             ->withData( array( 'LogID' => $log->LogID ) )
             ->post();
