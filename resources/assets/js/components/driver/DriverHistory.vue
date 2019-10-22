@@ -108,7 +108,7 @@ export default {
     methods: {
         getHistories() {
             this.loading = true
-            axios.get('/driver_rfid/public/versionObject/' + this.driver)
+            axios.get('/versionObject/' + this.driver)
             .then(response => {
                 this.histories = response.data
                 this.loading = false

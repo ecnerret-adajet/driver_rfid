@@ -65,7 +65,7 @@
                         <div class="card-header bg-white rounded-0 border-left-0 border-right-0 entry-pointer" :id="`heading${entry.id}`" data-toggle="collapse" :data-target="`#collapse-${entry.id}`" aria-expanded="true" aria-controls="collapseOne">
                             <div class="row">
                                 <div class="col-3">
-                                    <img :src="`/driver_rfid/public/storage/${entry.avatar}`" class="rounded-circle mx-auto align-middle px-3" style="float-left; height: 45px; width: auto;"  align="middle">
+                                    <img :src="`/storage/${entry.avatar}`" class="rounded-circle mx-auto align-middle px-3" style="float-left; height: 45px; width: auto;"  align="middle">
                                     {{ entry.driver }}
                                 </div>
                                 <div class="col-2">
@@ -245,7 +245,7 @@
 
             getEntries() {
                 this.loading = true
-                axios.get('/driver_rfid/public/displayEntries/' + this.selectedLocation + '/' + this.start_date + '/' + this.end_date)
+                axios.get('/displayEntries/' + this.selectedLocation + '/' + this.start_date + '/' + this.end_date)
                 .then(response => {
                     this.entries = response.data.data
                     this.loading = false
@@ -255,7 +255,7 @@
 
             getReportEntries() {
                 this.loadingReport = true
-                axios.get('/driver_rfid/public/displayEntriesReport/' + this.selectedLocation + '/' + this.start_date)
+                axios.get('/displayEntriesReport/' + this.selectedLocation + '/' + this.start_date)
                 .then(response => {
                     this.reportEntries = response.data
                     this.loadingReport = false
@@ -263,12 +263,12 @@
             },
 
             getLocations() {
-                axios.get('/driver_rfid/public/driverqueues')
+                axios.get('/driverqueues')
                 .then(response => this.locations = response.data)
             },
 
             lastDrSubmitted(plate_number) {
-                axios.get('/driver_rfid/public/api/last_dr_date/' + plate_number)
+                axios.get('/api/last_dr_date/' + plate_number)
                 .then(resonse => {
                     this.lastDr = response.data
                     console.log(response.data)

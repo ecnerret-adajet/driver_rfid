@@ -167,7 +167,7 @@
 
                 </div>
                 <div class="modal-footer">  
-                    <form  method="POST" :action="'/driver_rfid/public/storeCurrentlyServing/'+ queue.driver_id + '/' + queue.LogID">
+                    <form  method="POST" :action="'/storeCurrentlyServing/'+ queue.driver_id + '/' + queue.LogID">
                         <input type="hidden" name="_token" :value="csrf">  
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Confirm</button> 
@@ -200,7 +200,7 @@ import _ from 'lodash';
                 queues: [],
                 currentPage: 0,
                 itemsPerPage: 5,
-                avatar_link: '/driver_rfid/public/storage/',
+                avatar_link: '/storage/',
                 csrf: '',
             }
         },
@@ -216,7 +216,7 @@ import _ from 'lodash';
         methods: {
             getQueues() {
                 this.loading = true
-                axios.get('/driver_rfid/public/monitor/openShipment')
+                axios.get('/monitor/openShipment')
                 .then(response => {
                     this.queues = response.data
                     this.loading = false

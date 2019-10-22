@@ -59,7 +59,7 @@
 
                         <div class="row" v-if="lastAssigned.length != 0">
                              <div class="col-3 text-center">
-                                <img :src="'/driver_rfid/public/storage/' + lastAssigned.avatar" class="rounded-circle" style="height: 80px; width: auto;"  align="middle">
+                                <img :src="'/storage/' + lastAssigned.avatar" class="rounded-circle" style="height: 80px; width: auto;"  align="middle">
                              </div>
                              <div class="col-9">
                                  {{ lastAssigned.driver_name }}  <br/>
@@ -110,7 +110,7 @@
                         <!-- <input class="form-control" type="date" v-model="date"> -->
                         <select class="form-control" v-model="selected">
                             <option selected value="1">Within 24 hours</option>
-                            <option value="2">Over 24 - 72 hours</option>
+                            <!-- <option value="2">Over 24 - 72 hours</option> -->
                         </select>
                     </div>
                 </div>
@@ -119,9 +119,9 @@
                     <div class="form-group">
                         <label class="text-muted text-uppercase" >Filter by Category</label>
                         <select class="form-control" v-model="filter">
-                            <option selected value="all">All</option>
+                            <option selected value="no-shipment">Open Shipment</option>
                             <option value="with-shipment">With Shipment</option>
-                            <option value="no-shipment">Open Shipment</option>
+                            <option value="all">All</option>
                         </select>
                     </div>
                 </div>
@@ -163,7 +163,7 @@
 
         data() {
             return {
-                filter: 'all',
+                filter: 'no-shipment',
                 selected: 1,
                 search: '',
                 lastAssigned: [],
@@ -184,7 +184,7 @@
         methods: {
             getLastAssigned() {
                 this.loadingLastAssigned = true
-                axios.get('/driver_rfid/public/lastDriverTapped/' + this.location)
+                axios.get('/lastDriverTapped/' + this.location)
                 .then(response => {
                     this.lastAssigned = response.data
                     this.loadingLastAssigned = false
@@ -193,7 +193,7 @@
 
             getTotalCountDeliveries() {
                 this.loadingCount = true
-                axios.get('/driver_rfid/public/getQueueStatus/' + this.location)
+                axios.get('/getQueueStatus/' + this.location)
                 .then(response => {
                     this.totalCount = response.data
                     this.loadingCount = false

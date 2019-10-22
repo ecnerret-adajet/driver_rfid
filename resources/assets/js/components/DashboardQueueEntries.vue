@@ -41,7 +41,7 @@
                         {{ entry.queue_number }}
                     </td>
                     <td>
-                        <img :src="`/driver_rfid/public/storage/${entry.avatar}`" class="rounded-circle mx-auto align-middle px-3" style="float-left; height: 45px; width: auto;"  align="middle">
+                        <img :src="`/storage/${entry.avatar}`" class="rounded-circle mx-auto align-middle px-3" style="float-left; height: 45px; width: auto;"  align="middle">
                         {{ entry.driver_name }}
                     </td>
                     <td>
@@ -171,7 +171,7 @@ export default {
     methods:  {
         getQueues() {
             this.loading = true
-            axios.get(`/driver_rfid/public/getQueueEntriesJson/${this.location}/${this.date}`)
+            axios.get(`/getQueueEntriesJson/${this.location}/${this.date}`)
             .then(response => {
                 this.entries = response.data.data
                 this.filter = 'all'

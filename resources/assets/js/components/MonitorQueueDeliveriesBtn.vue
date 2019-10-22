@@ -69,8 +69,8 @@
                          <div class="row" v-for="(serving,s) in lastAssigned" :key="s">
                              <div class="row" v-if="serving.driver">
                              <div class="col-4 text-center">
-                                  <img v-if="serving.driver.image" :src="'/driver_rfid/public/storage/' + serving.driver.image.avatar" class="rounded-circle" style="height: 80px; width: auto;"  align="middle">
-                                  <img v-else :src="'/driver_rfid/public/storage/' + serving.driver.avatar" class="rounded-circle" style="height: 80px; width: auto;"  align="middle">
+                                  <img v-if="serving.driver.image" :src="'/storage/' + serving.driver.image.avatar" class="rounded-circle" style="height: 80px; width: auto;"  align="middle">
+                                  <img v-else :src="'/storage/' + serving.driver.avatar" class="rounded-circle" style="height: 80px; width: auto;"  align="middle">
                              </div>
                              <div class="col-8">
                                 {{ serving.driver.name }} <br/>
@@ -142,7 +142,7 @@
                                     <i class="fa fa-ellipsis-v"></i>
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" :href="'/driver_rfid/public/exportQueues/' + 1 + '/' + date">Export to Excell</a>
+                                    <a class="dropdown-item" :href="'/exportQueues/' + 1 + '/' + date">Export to Excell</a>
                                 </div>
                                 </div>
                             </div>
@@ -214,7 +214,7 @@
         methods: {
             getLastAssigned() {
                 this.loadingLastAssigned = true
-                axios.get('/driver_rfid/public/serving/3')
+                axios.get('/serving/3')
                 .then(response => {
                     this.lastAssigned = response.data
                     this.loadingLastAssigned = false
@@ -223,7 +223,7 @@
 
             getTotalCountDeliveries() {
                 this.loadingCount = true
-                axios.get('/driver_rfid/public/monitor/btnCount')
+                axios.get('/monitor/btnCount')
                 .then(response => {
                     this.totalCount = response.data
                     this.loadingCount = false

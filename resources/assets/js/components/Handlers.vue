@@ -83,7 +83,7 @@ export default {
     methods: {
         getHandlers() {
             this.loading = true
-            axios.get('/driver_rfid/public/handlerJson')
+            axios.get('/handlerJson')
             .then(response => {
                 this.handlers = response.data
                 this.loading = false

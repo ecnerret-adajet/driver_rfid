@@ -92,7 +92,7 @@
                         <td colspan="7">
                             <div class="row">
                                 <div class="col text-center pt-5 pb-5">
-                                    <img  src="/driver_rfid/public/images/archive.png" class="mx-auto mt-2" style="height: 150px; width: auto;"  align="middle">
+                                    <img  src="/images/archive.png" class="mx-auto mt-2" style="height: 150px; width: auto;"  align="middle">
                                     <br/>
                                     <span class="display-4">
                                         Nothing Found
@@ -144,7 +144,7 @@
     <deactivate  :message="'Are you sure you want to proceed?'"
             :title="'Deactivate Pickup'"
             :data="toPassObj"
-            :path-url="'/driver_rfid/public/api/pickups-deactivate'"
+            :path-url="'/api/pickups-deactivate'"
             :showModal="showModal"
             @response="childResponse($event)"
             @returnShowModal="resetModal($event)">

@@ -2,7 +2,7 @@
     <div class="card mx-auto mb-3">
         <div class="card-header">
             <h5>Driver Entries
-                <a class="btn btn-primary float-right ml-3" href="/driver_rfid/public/exportEntries/report">Report Entries</a>
+                <a class="btn btn-primary float-right ml-3" href="/exportEntries/report">Report Entries</a>
 
                 <select class="form-control float-right w-25" v-model="selectedLocation">
                     <option v-for="(location, l) in locations" :key="l" :value="location.id">{{ location.title }}</option>
@@ -64,7 +64,7 @@ export default {
 
     methods: {
         getDriverqueues() {
-            axios.get('/driver_rfid/public/driverqueues')
+            axios.get('/driverqueues')
             .then(response => this.locations = response.data);
         }
     }

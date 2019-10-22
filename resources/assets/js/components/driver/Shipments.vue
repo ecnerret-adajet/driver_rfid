@@ -108,7 +108,7 @@ export default {
     methods: {
         getShipments() {
             this.loading = true
-            axios.get('/driver_rfid/public/driverShipments/' + this.driver)
+            axios.get('/driverShipments/' + this.driver)
             .then(response => {
                 this.shipments = response.data
                 this.loading = false

@@ -192,8 +192,8 @@ export default {
     data() {
         return {
             loading: false,
-            driver_link: '/driver_rfid/public/drivers/',
-            avatar_link: '/driver_rfid/public/storage/',
+            driver_link: '/drivers/',
+            avatar_link: '/storage/',
             entries: [],
             searchKey: '',
             currentPage: 0,
@@ -213,7 +213,7 @@ export default {
     methods: {
         getEntries() {
             this.loading = true
-            axios.get('/driver_rfid/public/generateHomeFeed?search_date=' + this.date)
+            axios.get('/generateHomeFeed?search_date=' + this.date)
             .then(response => {
                 this.entries = response.data
                 this.loading = false

@@ -131,7 +131,7 @@
                 loading: false,
                 currentPage: 0,
                 itemsPerPage: 5,
-                avatar_link: '/driver_rfid/public/storage/',
+                avatar_link: '/storage/',
             }
         },
  
@@ -142,7 +142,7 @@
         methods: {
             getEntries() {
                 this.loading = true
-                axios.get('/driver_rfid/public/searchGateEntries/' + this.gate_id + '?search_date=' + this.date)
+                axios.get('/searchGateEntries/' + this.gate_id + '?search_date=' + this.date)
                 .then(response => {
                     this.entries = response.data
                     this.loading = false

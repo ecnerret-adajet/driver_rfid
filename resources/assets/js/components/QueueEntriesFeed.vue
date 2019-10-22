@@ -163,7 +163,7 @@
                 queues: [],
                 currentPage: 0,
                 itemsPerPage: 5,
-                avatar_link: '/driver_rfid/public/storage/',
+                avatar_link: '/storage/',
             }
         },
 
@@ -181,7 +181,7 @@
 
             getEntries() {
                 this.loading = true
-                axios.get('/driver_rfid/public/getQueueEntriesFeed/' + this.location)
+                axios.get('/getQueueEntriesFeed/' + this.location)
                 .then(response => {
                     this.queues = response.data
                     this.loading = false

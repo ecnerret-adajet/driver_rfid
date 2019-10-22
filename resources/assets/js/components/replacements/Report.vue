@@ -72,7 +72,7 @@ export default {
 
         generateReport() {
             this.submitting = true;
-            let url = `/driver_rfid/public/api-replacements-report/${this.toSubmit.date_from}/${this.toSubmit.date_to}`;
+            let url = `/api-replacements-report/${this.toSubmit.date_from}/${this.toSubmit.date_to}`;
             return Promise.resolve(url)
             .then(download => {
                 return window.location.href = download

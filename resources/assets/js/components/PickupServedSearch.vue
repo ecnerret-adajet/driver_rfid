@@ -153,7 +153,7 @@
         methods: {
             getPickup() {
                 this.loading = true
-                axios.get('/driver_rfid/public/pickupServedSearch?search_date=' + this.date)
+                axios.get('/pickupServedSearch?search_date=' + this.date)
                 .then(response => {
                     this.pickups = response.data
                     this.loading = false

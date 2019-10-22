@@ -29,7 +29,7 @@
         <div class="row mb-3 mt-3">
             <div class="col">
                  <div class="form-group">
-                     <a class="btn btn-primary btn-block" :href="'/driver_rfid/public/exportEntries/' + location + '/' + date">Download Report</a>
+                     <a class="btn btn-primary btn-block" :href="'/exportEntries/' + location + '/' + date">Download Report</a>
                 </div>
             </div>
         </div>

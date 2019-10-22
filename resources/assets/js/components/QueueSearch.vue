@@ -11,11 +11,12 @@
             <th scope="col"> <small>  Recorded Time /Date </small> </th>
             <th scope="col"> <small>  Status</small> </th>
             <th scope="col"> <small>  Plant Out</small> </th>
+            <th scope="col"> <small>  Option</small> </th>
             </tr>
         </thead>
         <tbody>
 
-            <tr v-for="(queue, i) in filteredQueues" :key="i" v-if="!loading">
+            <tr v-for="(queue, i) in filteredQueues" :key="i" v-show="!loading">
 
                 <td class="text-center">
                     <span class="display-4">
@@ -80,8 +81,8 @@
 
                 </td>
                 <td>
-                    <span v-if="checkIfForShipment(queue)[0] != 0">
-                        <button class="btn btn-outline-danger btn-sm disabled mb-2">
+                    <span v-if="checkIfForShipment(queue) != 0">
+                        <button :class="{ ' btn-outline-danger' : checkIfForShipment(queue) == 1, ' btn-outline-warning' : checkIfForShipment(queue) == 2 }" class="btn  btn-sm disabled mb-2">
                             SHIPMENT ASSIGNED
                         </button>
                         <br/>
@@ -106,6 +107,16 @@
                 </td>
                 <td>
                     {{  plantOutDate(queue.plant_out.date)  }}
+                </td>
+                <td>
+
+                    <a v-if="checkIfForShipment(queue) === 0"  class="dropdown pull-right btn btn-outline-secondary" href="#" id="entryDequeue" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-ellipsis-v"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="entryDequeue">
+                        <a :href="'/dequeues/entry/' + queue.id " class="dropdown-item">Remove from queue</a>
+                    </div><!-- end dropdown -->
+                    
                 </td>
 
             </tr>
@@ -184,7 +195,7 @@
                 queues: [],
                 currentPage: 0,
                 itemsPerPage: 5,
-                avatar_link: '/driver_rfid/public/storage/',
+                avatar_link: '/storage/',
             }
         },
 
@@ -210,11 +221,77 @@
           this.getEntries();
         },
 
+        computed: {
+
+            withShipment() {
+                return this.queues.filter(queue => queue.shipment != null).length;
+            },
+
+            noShipment() {
+                return this.queues.filter(queue => queue.shipment == null).length;
+            },
+
+            searchEntries() {
+                return this.queues.filter(item => {
+                    return item.driver_name.toLowerCase().includes(this.search.trim().toLowerCase()) ||
+                            item.plate_number.toLowerCase().includes(this.search.trim().toLowerCase());
+                });
+            },
+
+            filteredEntries() {
+                let bySearch = this.searchEntries;
+
+                switch (this.filter) {
+                    case "all":
+                        return this.queues && bySearch;
+                        break;
+
+                    case "with-shipment":
+                        return this.queues.filter(queue => {
+                            return queue.shipment != null &&
+                                queue.plate_number.toLowerCase().includes(this.search.trim().toLowerCase());
+                        });
+                        break;
+
+                    case "no-shipment":
+                        return this.queues.filter(queue => {
+                            return queue.shipment ? moment(queue.LocalTime).unix() > moment(queue.shipment.change_date).unix() : queue;
+                        }).filter(response => {
+                            return  response.plate_number.toLowerCase().includes(this.search.trim().toLowerCase());
+                        });
+                        break;
+
+                    default:
+                        return this.queues && bySearch;
+                        break;
+                }
+            },
+
+            totalPages() {
+                return Math.ceil(this.filteredEntries.length / this.itemsPerPage)
+            },
+
+            filteredQueues() {
+                var index = this.currentPage * this.itemsPerPage;
+                var queues_array = this.filteredEntries.slice(index, index + this.itemsPerPage);
+
+                if(this.currentPage >= this.totalPages) {
+                    this.currentPage = this.totalPages - 1
+                }
+
+                if(this.currentPage == -1) {
+                    this.currentPage = 0;
+                }
+
+                return queues_array;
+            }
+        },
+
         methods: {
 
             getEntries() {
                 this.loading = true
-                axios.get(`/driver_rfid/public/searchQueueEntriesFeed/${this.location}`)
+                axios.get(`/searchQueueEntriesFeed/${this.location}`)
                 .then(response => {
                     this.queues = response.data.data
                     this.loading = false
@@ -245,16 +322,43 @@
                 // 1 === [w/shipment][w/plantout] = in transit
                 // 2 === [w/shipment][w/o plantout] = current in plant
 
-                if(!queueObj.shipment) {
-                    return [ 0, 'Open Shipment' ];
-                } else if  (queueObj.plant_out.date != '' && queueObj.shipment) {
-                    let queue =  moment(queueObj.LocalTime).unix();
-                    let shipment = moment(queueObj.shipment.change_date).unix();
-                    return queue > shipment ? [ 0, 'Open Shipment' ] : [ 1, 'In Transit' ];
-                } else if (queueObj.plant_out.date == '' && queueObj.shipment) {
-                    return [ 2, 'Currently in plant' ]
+                // include DR submission date
+                //queue.isDRCompleted
+
+
+                // if(!queueObj.shipment) {
+                //     return [ 0, 'Open Shipment' ];
+                // } else if  (queueObj.plant_out.date != '' && queueObj.shipment) {
+
+                //     let queue =  moment(queueObj.LocalTime).unix();
+                //     let shipment = moment(queueObj.shipment.change_date).unix();
+
+
+                //     return queue > shipment ? [ 0, 'Open Shipment' ] : [ 1, 'In Transit' ];
+                // } else if (queueObj.plant_out.date == '' && queueObj.shipment) {
+                //     return [ 2, 'Currently in plant' ]
+                // }
+                // return [ 0, 'Open shipment' ]
+
+                switch (true) {
+                    case queueObj.isDRCompleted === "UNPROCESS" && queueObj.shipment != null:
+                        return 2;
+                        break;
+                    case queueObj.shipment === null:
+                        return 0;
+                        break;
+                    case queueObj.isDRCompleted === "UNPROCESS":
+                        return 0;
+                        break;
+                    case queueObj.plant_out.date === "" && queueObj.shipment === null:
+                        return 0;
+                        break;   
+                    default: 
+                        return 1;
+                        break;
                 }
-                return [ 0, 'Open shipment' ]
+
+
             },
 
             setPage(pageNumber) {
@@ -274,63 +378,7 @@
             }
         },
 
-        computed: {
-
-            withShipment() {
-                return this.queues.filter(queue => queue.shipment != null).length;
-            },
-
-            noShipment() {
-                return this.queues.filter(queue => queue.shipment == null).length;
-            },
-
-            searchEntries() {
-                return this.queues.filter(item => {
-                    return item.driver_name.toLowerCase().includes(this.search.trim().toLowerCase()) ||
-                            item.plate_number.toLowerCase().includes(this.search.trim().toLowerCase());
-                });
-            },
-
-            filteredEntries() {
-                let bySearch = this.searchEntries;
-
-                if(this.filter == 'all') {
-                    return this.queues && bySearch;
-                } else if(this.filter == 'with-shipment') {
-                    return this.queues.filter(queue => {
-                        return queue.shipment != null &&
-                            queue.plate_number.toLowerCase().includes(this.search.trim().toLowerCase());
-                    });
-                } else if(this.filter == 'no-shipment') {
-                    return this.queues.filter(queue => {
-                        return queue.shipment ? moment(queue.LocalTime).unix() > moment(queue.shipment.change_date).unix() : queue;
-                    }).filter(response => {
-                        return  response.plate_number.toLowerCase().includes(this.search.trim().toLowerCase());
-                    });
-                }
-
-                return this.queues && bySearch;
-            },
-
-            totalPages() {
-                return Math.ceil(this.filteredEntries.length / this.itemsPerPage)
-            },
-
-            filteredQueues() {
-                var index = this.currentPage * this.itemsPerPage;
-                var queues_array = this.filteredEntries.slice(index, index + this.itemsPerPage);
-
-                if(this.currentPage >= this.totalPages) {
-                    this.currentPage = this.totalPages - 1
-                }
-
-                if(this.currentPage == -1) {
-                    this.currentPage = 0;
-                }
-
-                return queues_array;
-            }
-        }
+        
 
 
     }

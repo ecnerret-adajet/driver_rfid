@@ -41,7 +41,7 @@
 
                                             <br/>
 
-                                            <span v-for="(d, index) in truck.driver" :key="index">
+                                            <span v-for="(d, tdriver) in truck.driver" :key="tdriver">
                                                  {{d.name}}
                                             </span>
                                             <span v-if="truck.driver == 0" style="color: red">
@@ -184,7 +184,7 @@
 
 
                 </div>
-                 <form  method="POST" class="bootstrap-modal-form" :action="'/driver_rfid/public/trucks/changePlateNumber/'+truck.id">
+                 <form  method="POST" class="bootstrap-modal-form" :action="'/trucks/changePlateNumber/'+truck.id">
                  <input type="hidden" name="_token" :value="csrf">
                     <div class="modal-body">
 
@@ -230,7 +230,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <form  method="POST" :action="'/driver_rfid/public/trucks/deactivate/'+truck.id">
+                    <form  method="POST" :action="'/trucks/deactivate/'+truck.id">
                         <input type="hidden" name="_token" :value="csrf">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Confirm</button>
@@ -263,7 +263,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <form  method="POST" :action="'/driver_rfid/public/trucks/remove/'+truck.id">
+                    <form  method="POST" :action="'/trucks/remove/'+truck.id">
                         <input type="hidden" name="_token" :value="csrf">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Confirm</button>
@@ -299,8 +299,8 @@ export default {
         return {
             showModal: false,
             loading: false,
-            truck_link: '/driver_rfid/public/trucks/',
-            export_link: '/driver_rfid/public/exportTrucks',
+            truck_link: '/trucks/',
+            export_link: '/exportTrucks',
             trucks: [],
             truck: {},
             searchString: '',
@@ -325,7 +325,7 @@ export default {
     methods: {
         getTruck() {
             this.loading = true
-            axios.get('/driver_rfid/public/trucksJson')
+            axios.get('/trucksJson')
             .then(response => {
                  this.trucks = response.data
                  this.loading = false

@@ -40,7 +40,7 @@
                                     <i class="fa fa-ellipsis-v"></i>
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" :href="'/driver_rfid/public/exportQueues/' + selected + '/' + date">Export to Excell</a>
+                                    <a class="dropdown-item" :href="'/exportQueues/' + selected + '/' + date">Export to Excell</a>
                                 </div>
                                 </div>
                             </div>
@@ -103,7 +103,7 @@
 
         methods: {
             getQueues() {
-                axios.get('/driver_rfid/public/driverqueues')
+                axios.get('/driverqueues')
                 .then(response => {
                     this.driverqueue = response.data
                 });

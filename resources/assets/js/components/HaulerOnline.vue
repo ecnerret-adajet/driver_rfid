@@ -25,7 +25,7 @@
                                         
                                         </div>
                                         <div class="col-sm-5">
-                                            <!-- <a :href="'/driver_rfid/public/drivers/' + driver.id"  style="text-transform: upppercase">{{driver.name}}</a> :  -->
+                                            <!-- <a :href="'/drivers/' + driver.id"  style="text-transform: upppercase">{{driver.name}}</a> :  -->
                                             <span style="text-transform: upppercase">{{driver.name}}</span> : 
 
                                             <small v-if="driver.cardholder">{{ driver.cardholder.Name }}</small>
@@ -195,8 +195,8 @@ import _ from 'lodash';
          data() {
              return {
                 searchString: '',
-                driver_link: '/driver_rfid/public/drivers/',
-                avatar_link: '/driver_rfid/public/storage/',
+                driver_link: '/drivers/',
+                avatar_link: '/storage/',
                 loading: false,
                 drivers: [],
                 csrf: '',
@@ -216,7 +216,7 @@ import _ from 'lodash';
          methods: {
              getDriversHauler(){
                  this.loading = true
-                 axios.get('/driver_rfid/public/users/driver/hauler/'+ this.user)
+                 axios.get('/users/driver/hauler/'+ this.user)
                  .then(response => {
                      this.drivers = response.data
                      this.loading = false

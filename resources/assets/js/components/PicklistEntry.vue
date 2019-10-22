@@ -157,7 +157,7 @@ export default {
     data() {
         return {
             entry: [],
-            avatar_link: '/driver_rfid/public/storage/',
+            avatar_link: '/storage/',
         }
     },
 
@@ -167,7 +167,7 @@ export default {
 
     methods: {
         getEntry() {
-            axios.get('/driver_rfid/public/picklistEntry/' + this.driver_id)
+            axios.get('/picklistEntry/' + this.driver_id)
             .then(response => this.entry = response.data);
         }
     }

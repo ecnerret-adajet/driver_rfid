@@ -16,7 +16,7 @@
 
                 <img v-if="entries.avatar" class="img-responsive rounded-circle mx-auto"
                 :class="{ 'deactived-img deactivate-image' : isDeactivated, 'active-image' : isActive }"
-                style="height: 450px; width: auto;" :src="'/driver_rfid/public/storage/' + entries.avatar"
+                style="height: 450px; width: auto;" :src="'/storage/' + entries.avatar"
                 align="middle">
 
             </div>
@@ -116,7 +116,7 @@
 
                 <img v-if="emptyEntry.avatar" class="img-responsive rounded-circle mx-auto"
                 :class="{ 'deactived-img deactivate-image' : !emptyEntry.driver_availability || !emptyEntry.truck_availability, 'active-image' : emptyEntry.driver_availability && emptyEntry.truck_availability }"
-                style="height: 450px; width: auto;" :src="'/driver_rfid/public/storage/' + emptyEntry.avatar"
+                style="height: 450px; width: auto;" :src="'/storage/' + emptyEntry.avatar"
                 align="middle">
 
             </div>
@@ -228,7 +228,7 @@
         methods: {
 
             storeEntries() {
-                axios.post('/driver_rfid/public/storeGateEntries/'+this.driverqueue)
+                axios.post('/storeGateEntries/'+this.driverqueue)
                 .then(response => this.entries = response.data)
                 .catch((error) => {
                     console.log(error);
@@ -237,7 +237,7 @@
             },
 
             emptyPushed() {
-                axios.get('/driver_rfid/public/getLastGateEntry/' + this.driverqueue)
+                axios.get('/getLastGateEntry/' + this.driverqueue)
                 .then(response => this.emptyEntry = response.data);
             },
 

@@ -102,7 +102,7 @@
     methods: {
         getTotalCount() {
             this.loading = true
-            axios.get('/driver_rfid/public/pickupCount')
+            axios.get('/pickupCount')
             .then(response => {
                 this.totalCount = response.data
                 this.loading = false

@@ -81,7 +81,7 @@ class ReviveQueueEntries extends Command
                     'hauler_name' => !empty($entry->driver->hauler) ? $entry->driver->hauler->name : null,
                     'CardholderID' => $entry->CardholderID,
                     'queue_number' => $this->checkIfExist($driverqueue->id),
-                    'isDRCompleted' =>  !empty($entry->driver->truck) ? Truck::callLastTrip($entry->driver->truck->plate_number) : null,
+                    'isDRCompleted' =>  !empty($entry->driver->truck) ? Truck::callLastTrip($entry->plate_number) : null,
                     'isTappedGateFirst' => !empty(GateEntry::checkIfTappedFromGate($entry->CardholderID)) ? 1 : null,
                     'isSecondDelivery' => $this->checkIfReturned($entry->CardholderID) > 0 ? 1 : 0,
                     'driver_availability' => !empty($entry->driver) && $entry->driver->availability == 1 ? 1 : null,

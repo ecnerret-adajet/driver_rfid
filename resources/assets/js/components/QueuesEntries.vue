@@ -88,7 +88,7 @@ export default {
     methods: {
         getQueue() {
             this.loading = true
-            axios.get('/driver_rfid/public/driverqueues')
+            axios.get('/driverqueues')
             .then(response => {
                 this.driverqueues = response.data
                 this.loading = false

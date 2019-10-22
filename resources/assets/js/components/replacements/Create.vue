@@ -103,21 +103,21 @@ export default {
     methods: {
 
         getDrivers() {
-            axios.get('/driver_rfid/public/driversJson')
+            axios.get('/driversJson')
             .then(response => {
                 this.drivers = response.data
             })
         },
 
         getCardlist() {
-            axios.get('/driver_rfid/public/api-driver-rfid')
+            axios.get('/api-driver-rfid')
             .then(response => {
                 this.cards = response.data
             });
         },
 
         getReasonReplacements() {
-            axios.get('/driver_rfid/public/api-reason-replacement')
+            axios.get('/api-reason-replacement')
             .then(response => {
                 this.reasons = response.data
             })
@@ -134,7 +134,7 @@ export default {
 
         addReplacement() {
             this.submitting = true
-            axios.post('/driver_rfid/public/api-replacements', {
+            axios.post('/api-replacements', {
                 driver_id: this.toSubmit.driver_id,
                 card_id: this.toSubmit.card_id,
                 reason_replacement: this.toSubmit.reason_replacement,

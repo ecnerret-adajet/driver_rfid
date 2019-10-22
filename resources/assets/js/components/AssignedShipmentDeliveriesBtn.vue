@@ -150,7 +150,7 @@ import _ from 'lodash';
                 queues: [],
                 currentPage: 0,
                 itemsPerPage: 5,
-                avatar_link: '/driver_rfid/public/storage/',
+                avatar_link: '/storage/',
                 csrf: '',
             }
         },
@@ -166,7 +166,7 @@ import _ from 'lodash';
         methods: {
             getQueues() {
                 this.loading = true
-                axios.get('/driver_rfid/public/monitor/btnAssignedShipment')
+                axios.get('/monitor/btnAssignedShipment')
                 .then(response => {
                     this.queues = response.data
                     this.loading = false

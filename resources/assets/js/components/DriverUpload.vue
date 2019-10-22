@@ -74,7 +74,7 @@ export default {
 
     methods: {
         getImage() {
-            axios.get('/driver_rfid/public/getImage')
+            axios.get('/getImage')
             .then(response => this.imageResult = response.data);
             setTimeout(this.getImage, 2000);
 
@@ -122,7 +122,7 @@ export default {
                 size: 'viewport'
             }).then(response => {
                 this.image = response
-                axios.post('/driver_rfid/public/driver-image', {avatar: this.image})
+                axios.post('/driver-image', {avatar: this.image})
                 .then(response => {
                     this.modalVisible = false
                     this.successUpload = true

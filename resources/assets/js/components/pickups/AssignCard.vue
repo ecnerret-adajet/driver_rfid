@@ -102,7 +102,7 @@ export default {
 
     methods: {
         getCardholderAvailability() {
-            axios.get('/driver_rfid/public/api/pickups-available')
+            axios.get('/api/pickups-available')
             .then(response => {
                 this.cardholders = response.data
             })
@@ -116,7 +116,7 @@ export default {
         assignCard() {
             console.log('check selected cardholder: ', this.selectedCardholder)
             this.submitting = true;
-            axios.patch(`/driver_rfid/public/api/pickups-assign-card/${this.pickup.id}`,{
+            axios.patch(`/api/pickups-assign-card/${this.pickup.id}`,{
                 cardholder_list: this.selectedCardholder
             })
             .then(response => {

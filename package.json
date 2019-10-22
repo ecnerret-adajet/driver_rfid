@@ -9,17 +9,19 @@
     },
     "devDependencies": {
         "axios": "^0.15.3",
+        "babel-plugin-transform-runtime": "^6.23.0",
         "bootstrap-sass": "^3.3.7",
         "cross-env": "^3.2.3",
         "jquery": "^3.4.1",
         "laravel-mix": "0.*",
         "lodash": "^4.17.11",
-        "vue": "^2.1.10",
+        "vue": "^2.6.10",
         "vuejs-paginator-axios": "^2.0.1"
     },
     "dependencies": {
         "@deveodk/vue-toastr": "^1.0.4",
         "animate.css": "^3.6.1",
+        "babel-preset-env": "^1.7.0",
         "bootstrap": "^4.1.2",
         "chart.js": "^2.8.0",
         "croppie": "^2.5.1",

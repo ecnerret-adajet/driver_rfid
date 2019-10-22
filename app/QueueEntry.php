@@ -56,10 +56,10 @@ class QueueEntry extends Model
     }
 
     // Attributes Function
-    public function setPlateNumberAttribute($value)
-    {
-        $this->attributes['plate_number'] = str_replace('_', '', $value);
-    }
+    // public function setPlateNumberAttribute($value)
+    // {
+    //     $this->attributes['plate_number'] = str_replace('_', '', $value);
+    // }
 
     // Relationships Model
     public function truck()

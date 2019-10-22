@@ -140,7 +140,7 @@ import _ from 'lodash';
         data(){
             return {
                 searchString: '',
-                truck_link: '/driver_rfid/public/trucks/',
+                truck_link: '/trucks/',
                 trucks: [],
                 loading: false,
                 csrf: '',
@@ -160,7 +160,7 @@ import _ from 'lodash';
     methods: {
         getTruck() {
             this.loading = true
-            axios.get('/driver_rfid/public/users/truck/hauler/' + this.user)
+            axios.get('/users/truck/hauler/' + this.user)
             .then(response => {
                  this.trucks = response.data
                  this.loading = false

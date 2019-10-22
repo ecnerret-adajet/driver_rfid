@@ -120,8 +120,8 @@
                         <li v-for="(driver, p) in totalPrint.slice(0,5)" :key="p" class="list-group-item">
                             <div class="row">
                                 <div class="col-2">
-                                    <img v-if="driver.image" :src="'/driver_rfid/public/storage/' + driver.image.avatar" class="rounded-circle mx-auto mt-2" style="height: 60px; width: auto;"  align="middle">
-                                    <img v-else :src="'/driver_rfid/public/storage/' + driver.avatar" class="rounded-circle mx-auto mt-2" style="height: 60px; width: auto;"  align="middle">
+                                    <img v-if="driver.image" :src="'/storage/' + driver.image.avatar" class="rounded-circle mx-auto mt-2" style="height: 60px; width: auto;"  align="middle">
+                                    <img v-else :src="'/storage/' + driver.avatar" class="rounded-circle mx-auto mt-2" style="height: 60px; width: auto;"  align="middle">
                                 </div>
                                 <div class="col-10">
                                     <p class="p-0 m-0">
@@ -269,7 +269,7 @@ export default {
 
         getTrucksInPlant() {
             this.loading1 = true
-            axios.get('/driver_rfid/public/totalTrucksInPlant')
+            axios.get('/totalTrucksInPlant')
                 .then( response => {
                     this.trucksInPlant = response.data
                     this.loading1 = false
@@ -278,7 +278,7 @@ export default {
 
         getAssignedShipment() {
             this.loading2 = true
-            axios.get('/driver_rfid/public/totalAssignedShipment')
+            axios.get('/totalAssignedShipment')
                 .then( response => {
                     this.assignedShipment = response.data
                     this.loading2 = false
@@ -287,7 +287,7 @@ export default {
 
         getTotalPickup() {
             this.loading3 = true
-            axios.get('/driver_rfid/public/totalPickup')
+            axios.get('/totalPickup')
                 .then( response => {
                     this.totalPickup = response.data
                     this.loading3 = false
@@ -296,7 +296,7 @@ export default {
 
         getTotalPrint() {
             this.loading4 = true
-            axios.get('/driver_rfid/public/totalForPrint')
+            axios.get('/totalForPrint')
                 .then( response => {
                     this.totalPrint = response.data
                     this.loading4 = false

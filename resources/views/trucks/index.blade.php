@@ -76,9 +76,9 @@
 
 @endsection
 @section('script')
-    <script>
+    <!-- <script>
         $("[data-mask]").inputmask();
-    </script>
+    </script> -->
 @endsection
 
 

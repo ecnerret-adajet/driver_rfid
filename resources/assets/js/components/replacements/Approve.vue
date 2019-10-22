@@ -58,7 +58,7 @@ export default {
 
         approveReplacement() {
             this.subitting = true;
-            axios.patch(`/driver_rfid/public/api-replacements-approve/${this.approveData.id}`,{
+            axios.patch(`/api-replacements-approve/${this.approveData.id}`,{
                 status: true
             })
             .then(response => {

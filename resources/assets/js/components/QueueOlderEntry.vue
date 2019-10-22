@@ -193,7 +193,7 @@ export default {
             queues: [],
             currentPage: 0,
             itemsPerPage: 10,
-            avatar_link: '/driver_rfid/public/storage/',
+            avatar_link: '/storage/',
         }
     },
 
@@ -215,7 +215,7 @@ export default {
 
         getEntries() {
             this.loading = true
-            axios.get('/driver_rfid/public/expiredQueues/' + this.location)
+            axios.get('/expiredQueues/' + this.location)
             .then(response => {
                 this.queues = response.data
                 this.loading = false

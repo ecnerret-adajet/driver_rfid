@@ -232,8 +232,8 @@ export default {
             replacements: [],
             currentPage: 0,
             itemsPerPage: 5,
-            driver_link: '/driver_rfid/public/drivers/',
-            avatar_link: '/driver_rfid/public/storage/',
+            driver_link: '/drivers/',
+            avatar_link: '/storage/',
         }
     },
 
@@ -244,7 +244,7 @@ export default {
     methods: {
         getReplacements() {
             this.loading = true
-            axios.get('/driver_rfid/public/api-replacements')
+            axios.get('/api-replacements')
             .then(response => {
                 this.replacements = response.data.data
                 this.loading = false

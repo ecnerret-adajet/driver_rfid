@@ -83,7 +83,7 @@ export default {
         },
 
         getTruckRfid() {
-            axios.get('/driver_rfid/public/truck-rfid')
+            axios.get('/truck-rfid')
             .then(response => {
                 this.rfids = response.data
             })
@@ -91,7 +91,7 @@ export default {
 
         assignRfid() {
             this.submitting = true
-            axios.post(`/driver_rfid/public/assign-rfid/${this.truck.id}`,{
+            axios.post(`/assign-rfid/${this.truck.id}`,{
                 card_list: this.toSubmit.card_list
             })
             .then(response => {

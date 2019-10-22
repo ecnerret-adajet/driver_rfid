@@ -118,7 +118,7 @@
 export default {
     data() {
         return {
-            print_link: '/driver_rfid/public/prints',
+            print_link: '/prints',
             home: [],
             is_loading: false
         }
@@ -131,7 +131,7 @@ export default {
     methods: {
         getHome() {
             this.is_loading = true
-            axios.get('/driver_rfid/public/homeJson')
+            axios.get('/homeJson')
             .then(response => {
                 this.home = response.data
                 this.is_loading = false

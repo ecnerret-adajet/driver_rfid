@@ -83,10 +83,10 @@ class Truck extends Model
     /**
      * Remove unneccessary character in plate_number
      */
-    public function setPlateNumberAttribute($value)
-    {
-        $this->attributes['plate_number'] = trim(str_replace('_',' ',$value));
-    }
+    // public function setPlateNumberAttribute($value)
+    // {
+    //     $this->attributes['plate_number'] = trim(str_replace('_',' ',$value));
+    // }
     /**
      * Dates configuration for validity_start_date
      */
@@ -242,31 +242,31 @@ class Truck extends Model
      * 
      * Sanitize plate number
      */
-    public function getPlatenumFormatAttribute()
-    {
-        $x = str_replace('-',' ',strtoupper($this->plate_number));
-        $z = str_replace('_','',$x);
-        return $z;
-    }
+    // public function getPlatenumFormatAttribute()
+    // {
+    //     $x = str_replace('-',' ',strtoupper($this->plate_number));
+    //     $z = str_replace('_','',$x);
+    //     return $z;
+    // }
 
     /**
      *  Format MV plate numbers
      */
-    public function getPlateNumberAttribute($value)
-    {
-        // check also if a plate number starts with MVX-000 
-        // $hasMV =  str_is('MV*', $value) ? str_replace('MV', 'MV ', $value) : $value; 
+    // public function getPlateNumberAttribute($value)
+    // {
+    //     // check also if a plate number starts with MVX-000 
+    //     // $hasMV =  str_is('MV*', $value) ? str_replace('MV', 'MV ', $value) : $value; 
 
-        if(str_is('MV*', $value)) {
-            return trim(str_replace('MV', 'MV ', $value));
-        } elseif (str_is('MV-*', $value)) {
-            return trim(str_replace('MV-', 'MV ', $value));
-        } else {
-            return trim(str_replace('_','', $value));
-        }
+    //     if(str_is('MV*', $value)) {
+    //         return trim(str_replace('MV', 'MV ', $value));
+    //     } elseif (str_is('MV-*', $value)) {
+    //         return trim(str_replace('MV-', 'MV ', $value));
+    //     } else {
+    //         return trim(str_replace('_','', $value));
+    //     }
         
     
-    }
+    // }
 
     /**
      * Search Plate Number / Driver if DR was completely submitted.

@@ -262,7 +262,7 @@
 
         data() {
             return {
-                avatar_link: '/driver_rfid/public/storage/',
+                avatar_link: '/storage/',
                 queues: [],
                 todayServed: [],
                 checkSubmission: [],
@@ -281,25 +281,25 @@
 
         methods: {
             getQueues() {
-                axios.get('/driver_rfid/public/queues')
+                axios.get('/queues')
                 .then(response => this.queues = response.data);
                 setTimeout(this.getQueues, 10000);
             },
 
             getLastDriverResult() {
-                axios.get('/driver_rfid/public/conditionFromLastDriver/1')
+                axios.get('/conditionFromLastDriver/1')
                 .then(response => this.lastDriverResult = response.data);
                 setTimeout(this.getLastDriverResult, 2000);
             },
     
             getTodayServed(){
-                axios.get('/driver_rfid/public/servedToday/1') // driverqueue id was hardcoded 
+                axios.get('/servedToday/1') // driverqueue id was hardcoded 
                 .then(response => this.todayServed = response.data);
                 setTimeout(this.getTodayServed, 4000);
             },
 
             getLastDriver() {
-                axios.get('/driver_rfid/public/getLastDriver')
+                axios.get('/getLastDriver')
                 .then(response => this.lastDriver = response.data);
                 setTimeout(this.getLastDriver, 2000);
             },      

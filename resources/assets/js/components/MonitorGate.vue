@@ -38,7 +38,7 @@
                                     <i class="fa fa-ellipsis-v"></i>
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" :href="'/driver_rfid/public/exportGate/' + selected + '/' + date">Export to Excell</a>
+                                    <a class="dropdown-item" :href="'/exportGate/' + selected + '/' + date">Export to Excell</a>
                                 </div>
                                 </div>
                             </div>
@@ -100,7 +100,7 @@
 
         methods: {
             getGates() {
-                axios.get('/driver_rfid/public/gates')
+                axios.get('/gates')
                 .then(response => {
                     this.gates = response.data
                 });

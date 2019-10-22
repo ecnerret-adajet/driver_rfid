@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel
          '\App\Console\Commands\ReviveGateEntries',
          '\App\Console\Commands\ReviveQueueEntries',
          '\App\Console\Commands\PushGateToQueueSAP',
+         '\App\Console\Commands\PlateNumberAlignment',
     ];
 
     /**   

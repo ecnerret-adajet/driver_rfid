@@ -154,7 +154,7 @@
         methods: {
             getPickup() {
                 this.loading = true
-                axios.get('/driver_rfid/public/getPickupWithCardholder')
+                axios.get('/getPickupWithCardholder')
                 .then(response => {
                     this.pickups = response.data
                     this.loading = false

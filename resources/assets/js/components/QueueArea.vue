@@ -269,7 +269,7 @@
         props: ['driverqueue'],
         data() {
             return {
-                avatar_link: '/driver_rfid/public/storage/',
+                avatar_link: '/storage/',
                 queues: [],
                 todayServed: [],
                 lastDriver: [],
@@ -289,7 +289,7 @@
 
         methods: {
             getQueues() {
-                axios.get('/driver_rfid/public/getQueueEntries/' + this.driverqueue)
+                axios.get('/getQueueEntries/' + this.driverqueue)
                 .then(response => this.queues = response.data)
                 // setTimeout(this.storeEntries, 10000); // 10 seconds
             },
@@ -303,13 +303,13 @@
             },
 
             getTodayServed() {
-                axios.get('/driver_rfid/public/servedToday/' + this.driverqueue) 
+                axios.get('/servedToday/' + this.driverqueue) 
                 .then(response => this.todayServed = response.data);
                 setTimeout(this.getTodayServed, 12000); // 12 seconds
             },
 
             getLastDriver() {
-                axios.post('/driver_rfid/public/storeQueueEntries/' + this.driverqueue)
+                axios.post('/storeQueueEntries/' + this.driverqueue)
                 .then(response => this.lastDriver = response.data)
                 .catch((error) => {
                     console.log(error);

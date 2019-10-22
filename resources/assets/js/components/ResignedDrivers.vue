@@ -40,7 +40,7 @@
                                         
                                         </div>
                                         <div class="col-sm-5">
-                                            <a :href="'/driver_rfid/public/drivers/' + driver.id"  style="text-transform: upppercase">{{driver.name}}</a> : <small v-if="driver.cardholder">{{ driver.cardholder.Name }}</small>
+                                            <a :href="'/drivers/' + driver.id"  style="text-transform: upppercase">{{driver.name}}</a> : <small v-if="driver.cardholder">{{ driver.cardholder.Name }}</small>
                                             <br/>
                     
                                             <span v-if="driver.truck" v-for="t in driver.truck">
@@ -158,7 +158,7 @@
 
                 </div>
                 <div class="modal-footer">  
-                    <form  method="POST" :action="'/driver_rfid/public/drivers/deactivate/'+driver.id">
+                    <form  method="POST" :action="'/drivers/deactivate/'+driver.id">
                         <input type="hidden" name="_token" :value="csrf">  
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Confirm</button> 
@@ -191,7 +191,7 @@
 
                 </div>
                 <div class="modal-footer">  
-                    <form  method="POST" :action="'/driver_rfid/public/drivers/'+driver.id">
+                    <form  method="POST" :action="'/drivers/'+driver.id">
                         <input type="hidden" name="_method" value="delete" />
                         <input type="hidden" name="_token" :value="csrf">  
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -225,7 +225,7 @@
 
                 </div>
                 <div class="modal-footer">  
-                    <form  method="POST" :action="'/driver_rfid/public/drivers/activate/'+driver.id">
+                    <form  method="POST" :action="'/drivers/activate/'+driver.id">
                         <input type="hidden" name="_token" :value="csrf">  
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Confirm</button> 
@@ -258,7 +258,7 @@
 
                 </div>
                 <div class="modal-footer">  
-                    <form  method="POST" :action="'/driver_rfid/public/drivers/restore/'+driver.id">
+                    <form  method="POST" :action="'/drivers/restore/'+driver.id">
                         <input type="hidden" name="_token" :value="csrf">  
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Confirm</button> 
@@ -291,7 +291,7 @@
 
                 </div>
                 <div class="modal-footer">  
-                    <form  method="POST" :action="'/driver_rfid/public/drivers/reverseDisapproved/'+driver.id">
+                    <form  method="POST" :action="'/drivers/reverseDisapproved/'+driver.id">
                         <input type="hidden" name="_token" :value="csrf">  
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Confirm</button> 
@@ -355,8 +355,8 @@ export default {
         return {
             searchString: '',
             searchHauler: '',
-            driver_link: '/driver_rfid/public/drivers/',
-            avatar_link: '/driver_rfid/public/storage/',
+            driver_link: '/drivers/',
+            avatar_link: '/storage/',
             drivers: [],
             haulers: [],
             loading: false,
@@ -378,7 +378,7 @@ export default {
     methods: {
         getDrivers() {
             this.loading = true
-             axios.get('/driver_rfid/public/resignedDriversJson')
+             axios.get('/resignedDriversJson')
             .then(response => {
                 this.drivers = response.data
                 this.loading = false
@@ -386,7 +386,7 @@ export default {
         },
 
         getHaulers() {
-            axios.get('/driver_rfid/public/haulersJson')
+            axios.get('/haulersJson')
             .then(response => this.haulers = response.data);
         },
 

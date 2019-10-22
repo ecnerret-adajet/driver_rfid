@@ -7,7 +7,7 @@
         <a class="btn btn-primary btn-sm pull-right" href="#">
         Back
         </a>
-        <a class="btn btn-secondary btn-sm pull-right mr-2" href="/driver_rfid/public/pickups">
+        <a class="btn btn-secondary btn-sm pull-right mr-2" href="/pickups">
         Visit Old Version
         </a>
         </div>
@@ -38,19 +38,19 @@
 
                 <div class="tab-pane active pt-3" id="no-yet-serve" role="tabpanel">
 
-                    <pickups-data url="/driver_rfid/public/api/pickups-unserved/"></pickups-data>
+                    <pickups-data url="/api/pickups-unserved/"></pickups-data>
 
                 </div><!-- end tab 2 -->
 
                 <div class="tab-pane  pt-3" id="assigned" role="tabpanel">
 
-                    <pickups-data url="/driver_rfid/public/api/pickups-assigned/"></pickups-data>
+                    <pickups-data url="/api/pickups-assigned/"></pickups-data>
 
                 </div><!-- end tab1 -->
 
                 <div class="tab-pane pt-3" id="served" role="tabpanel">
 
-                     <pickups-data url="/driver_rfid/public/api/pickups-served/"></pickups-data>
+                     <pickups-data url="/api/pickups-served/"></pickups-data>
 
                 </div><!-- end tab1 -->
 

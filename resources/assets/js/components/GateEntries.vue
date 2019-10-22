@@ -84,7 +84,7 @@ export default {
     methods: {
         getGates() {
             this.loading = true
-            axios.get('/driver_rfid/public/gates')
+            axios.get('/gates')
             .then(response => {
                 this.gates = response.data
                 this.loading = false

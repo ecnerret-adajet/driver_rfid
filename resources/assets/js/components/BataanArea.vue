@@ -16,7 +16,7 @@
                             </span>
                         </div>
 
-                        <img class="img-responsive rounded-circle mx-auto" :class="{ 'deactived-img' : barrier.availability == 0 }" style="height: 450px; width: auto;" :src="'/driver_rfid/public/storage/' + barrier.avatar" align="middle">
+                        <img class="img-responsive rounded-circle mx-auto" :class="{ 'deactived-img' : barrier.availability == 0 }" style="height: 450px; width: auto;" :src="'/storage/' + barrier.avatar" align="middle">
                         
                         <!-- <span v-if="barrier.is_shipment" class="border border-success p-3 mt-2 rounded text-center text-success d-block" style="font-size: 35px;">
                             SHIPMENT ASSINED
@@ -99,14 +99,14 @@
 
         methods: {
             getEntries () {
-                axios.get('/driver_rfid/public/bataanAPI')
+                axios.get('/bataanAPI')
                 .then(response => this.entries = response.data);
 
                 setTimeout(this.getEntries, 2000);
             },
 
             // getTruckInPlant () {
-            //     axios.get('/driver_rfid/public/getTotalTrucksInPlant')
+            //     axios.get('/getTotalTrucksInPlant')
             //     .then(response => this.currentTrucks = response.data);
             //     setTimeout(this.getTruckInPlant, 3000);
             // },

@@ -148,7 +148,7 @@ import _ from 'lodash';
 
             getPickup() {
                 this.loading = true
-                axios.get('/driver_rfid/public/pickupInPlant')
+                axios.get('/pickupInPlant')
                 .then(response => {
                     this.pickups = response.data
                     this.loading = false

@@ -107,7 +107,7 @@ export default {
     methods: {
         getLogs() {
             this.loading = true
-            axios.get('/driver_rfid/public/searchDriverLogs/' + this.driver + '/' + this.date)
+            axios.get('/searchDriverLogs/' + this.driver + '/' + this.date)
             .then(response => {
                 this.logs = response.data
                 this.loading = false

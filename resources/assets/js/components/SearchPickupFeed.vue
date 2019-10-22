@@ -153,7 +153,7 @@ import _ from 'lodash';
 
             getPickup() {
                 this.loading = true
-                axios.get('/driver_rfid/public/generatePickupFeed?search_date=' + this.date)
+                axios.get('/generatePickupFeed?search_date=' + this.date)
                 .then(response => {
                     this.pickups = response.data
                     this.loading = false
