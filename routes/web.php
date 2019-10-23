@@ -471,6 +471,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('api-replacements-report/{date_from}/{date_to}','Api\ReplacementApiController@replacementReport');
 
 
+        /**
+         * Dequeue setup
+         */
+        Route::get('/dequeues/create','DequeueController@create');
+
     });
 
 

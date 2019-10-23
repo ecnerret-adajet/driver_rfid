@@ -133,7 +133,9 @@
                                 @noShipment="noShipment = $event"
                                 :filter="filter"
                                 :location="location"
-                                :search="search">
+                                :search="search"
+                                :dequeue="dequeue"
+                                @passQueueId="openDequeue($event)">
             </app-queue-search>
 
             <app-queue-entries-older v-if="selected == 2"
@@ -144,6 +146,14 @@
                                 @noShipment="noShipment = $event">
             </app-queue-entries-older>
 
+              <!-- create dequeue entry -->
+            <create-dequeue :queue_entry_id="queue_id"
+                            :showModal="showModal"
+                            @storeDequeue="returnDequeue($event)"
+                            @closeModal="showModal = $event">
+            </create-dequeue>
+
+
     </div><!-- end template -->
 
 </template>
@@ -151,6 +161,7 @@
     import moment from 'moment';
     import QueueSearch from './QueueSearch.vue';
     import QueueEntriesOlder from './QueueEntriesOlder.vue';
+    import CreateDequeue from './dequeue/Create';
 
     export default {
 
@@ -159,10 +170,14 @@
         components: {
             appQueueEntriesOlder : QueueEntriesOlder,
             appQueueSearch : QueueSearch,
+            CreateDequeue
         },
 
         data() {
             return {
+                showModal: false,
+                queue_id: 0,
+                dequeue: {},
                 filter: 'no-shipment',
                 selected: 1,
                 search: '',
@@ -182,6 +197,18 @@
         },
 
         methods: {
+
+            openDequeue(event) {
+                this.showModal = true;
+                this.queue_id = event
+            },
+
+            returnDequeue(event) {
+                if(Object.keys(event).length > 0) {
+                    this.dequeue = event
+                }
+            },
+
             getLastAssigned() {
                 this.loadingLastAssigned = true
                 axios.get('/lastDriverTapped/' + this.location)

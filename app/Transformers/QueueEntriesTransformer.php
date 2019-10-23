@@ -38,6 +38,7 @@ class QueueEntriesTransformer extends TransformerAbstract
             'lastCreated' => Carbon::parse($queueEntry->created_at)->diffForHumans(),
             // addional data
             'plant_out' => !empty($queueEntry->hasGateOut) ? $queueEntry->hasGateOut->LocalTime : '',
+            'dequeue' => $queueEntry->dequeue
         ];
     }
 }

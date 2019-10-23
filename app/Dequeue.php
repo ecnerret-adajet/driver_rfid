@@ -11,6 +11,21 @@ class Dequeue extends Model
         'isApproved'
     ];
 
+    protected $dates = [
+        'created_at',
+        'updated_at',
+    ];
+
+    public function getDates()
+    {
+        return [];
+    }
+
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
     public function queueEntry()
     {
         return $this->belongsTo(QueueEntry::class);

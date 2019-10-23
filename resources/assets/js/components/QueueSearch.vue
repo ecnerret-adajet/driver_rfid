@@ -16,7 +16,7 @@
         </thead>
         <tbody>
 
-            <tr v-for="(queue, i) in filteredQueues" :key="i" v-show="!loading">
+            <tr :class="{ 'table-danger ' : queue.dequeue }" v-for="(queue, i) in filteredQueues" :key="i" v-show="!loading">
 
                 <td class="text-center">
                     <span class="display-4">
@@ -90,7 +90,8 @@
                             Shipment Number
                         </small>
                         <span class="d-block">
-                        {{ queue.shipment.shipment_number }}
+                        {{ queue.shipment.shipment_number }} <br/>
+                        <!-- {{ getUnix(queue.shipment.change_date) - getUnix(queue.LocalTime) }} -->
                         </span>
                         <small class="d-block text-uppercase text-muted">
                             Shipment Date
@@ -110,11 +111,11 @@
                 </td>
                 <td>
 
-                    <a v-if="checkIfForShipment(queue) === 0"  class="dropdown pull-right btn btn-outline-secondary" href="#" id="entryDequeue" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a v-if="checkIfForShipment(queue) === 0" :class="{ ' disabled ' : queue.dequeue  }"  class="dropdown pull-right btn btn-outline-secondary" href="#" id="entryDequeue" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-ellipsis-v"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="entryDequeue">
-                        <a :href="'/dequeues/entry/' + queue.id " class="dropdown-item">Remove from queue</a>
+                        <a href="javascript:void(0);" @click="openCreateDequeue(queue.id)" class="dropdown-item">Remove from queue</a>
                     </div><!-- end dropdown -->
                     
                 </td>
@@ -168,7 +169,6 @@
         </div>
 
 
-
     </div><!-- end template -->
 
 </template>
@@ -177,13 +177,12 @@
     import Toasted from 'vue-toasted';
     import moment from 'moment';
     import VueContentPlaceholders from 'vue-content-placeholders';
-    import _ from 'lodash';
 
     Vue.use(Toasted)
 
     export default {
 
-        props: ['location','filter','search'],
+        props: ['location','filter','search','dequeue'],
 
         components: {
             VueContentPlaceholders,
@@ -200,6 +199,11 @@
         },
 
         watch: {
+            dequeue() {
+                if(this.dequeue) {
+                    this.returnDequeue(this.dequeue)
+                }
+            },
             withShipment() {
                 this.$emit('withShipment',this.withShipment);
             },
@@ -247,18 +251,29 @@
                         break;
 
                     case "with-shipment":
+
                         return this.queues.filter(queue => {
-                            return queue.shipment != null &&
-                                queue.plate_number.toLowerCase().includes(this.search.trim().toLowerCase());
+                            return queue.shipment != null
+                        })
+                        .filter(response => {
+                            return  response.plate_number.toLowerCase().includes(this.search.trim().toLowerCase());
                         });
+
                         break;
 
                     case "no-shipment":
+
                         return this.queues.filter(queue => {
-                            return queue.shipment ? moment(queue.LocalTime).unix() > moment(queue.shipment.change_date).unix() : queue;
-                        }).filter(response => {
+                            return queue.shipment === null && queue.plant_out === ""
+                        })
+                        .filter(response => {
                             return  response.plate_number.toLowerCase().includes(this.search.trim().toLowerCase());
                         });
+
+                        break;
+
+                    case "in-transit": 
+                        // code here for in-transit 
                         break;
 
                     default:
@@ -289,6 +304,33 @@
 
         methods: {
 
+            successMessage() {
+                Vue.toasted.show("Dequeued entry is subject for approval!", {
+                    theme: "primary",
+                    position: "bottom-right",
+                    duration : 5000
+                });
+            },
+
+            getUnix(dateTime) {
+                return moment(dateTime).unix()
+            },
+
+            openCreateDequeue(queue) {
+                this.$emit('passQueueId', queue);
+            },
+
+            returnDequeue(event) {
+                console.log('dequeue return')
+                this.filteredQueues.map(item => {
+                    if(item.id === event.queue_entry_id) {
+                        this.successMessage()
+                        return item.dequeue = event.dequeue
+                    }
+                })
+
+            },
+
             getEntries() {
                 this.loading = true
                 axios.get(`/searchQueueEntriesFeed/${this.location}`)
@@ -312,7 +354,7 @@
 
             plantOutDate(date) {
                 if(date != null) {
-                    return this.dateformat(date)
+                    return moment(date).format('MMM D, YY h:m:s A');
                 }
             },
 

@@ -79,6 +79,11 @@ class QueueEntry extends Model
         ->whereDate('change_date', Session::get('queueDate'));
     }
 
+    public function dequeue()
+    {
+        return $this->hasOne(Dequeue::class,'queue_entry_id','id');
+    }
+
 
     // public function getShipmentAttribute()
     // {
