@@ -47,4 +47,4 @@ mix.styles([
         // 'resources/assets/js/dataTables.bootstrap4.js',
         // 'resources/assets/js/sb-admin.js',
     ], 'public/js/all.js')
-    .browserSync('http://localhost/pickups-entries');
+    .browserSync('http://truck-monitoring.test/queueEntryFeed');

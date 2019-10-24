@@ -20,7 +20,9 @@ class DequeueTransformer extends TransformerAbstract
             'queue_entry_id' => $dequeue->queue_entry_id,
             'remarks' => $dequeue->remarks,
             'confirmed_by' => $dequeue->confirmed_by,
-            'isApproved' => $dequeue->isApproved
+            'isApproved' => $dequeue->isApproved,
+            'queue_entry' => $dequeue->queueEntry,
+            'created_at' => (string) $dequeue->created_at
         ];
     }
 }

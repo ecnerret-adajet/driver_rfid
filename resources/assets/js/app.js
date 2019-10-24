@@ -90,6 +90,10 @@ Vue.component('pickupMain', require('./components/pickups/PickupMain.vue'));
 
 Vue.component('replacements', require('./components/replacements/Index.vue'));
 
+Vue.component('Dequeues', require('./components/dequeue/Index.vue'));
+Vue.component('createDequeue', require('./components/dequeue/Create.vue'));
+
+
 const app = new Vue({
     el: '#app'
 });

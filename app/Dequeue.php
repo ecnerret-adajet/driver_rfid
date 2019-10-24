@@ -28,7 +28,7 @@ class Dequeue extends Model
 
     public function queueEntry()
     {
-        return $this->belongsTo(QueueEntry::class);
+        return $this->belongsTo(QueueEntry::class,'queue_entry_id','id');
     }
 
     public function user()

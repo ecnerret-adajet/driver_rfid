@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::patch('pickups-assign-card/{pickup}','PickupsApiController@assignCardholder');
 
 
+    Route::get('dequeues','Api\DequeuesApiController@index');
     Route::post('dequeues','Api\DequeuesApiController@store');
 
 });

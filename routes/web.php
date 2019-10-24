@@ -474,7 +474,8 @@ Route::group(['middleware' => 'auth'], function () {
         /**
          * Dequeue setup
          */
-        Route::get('/dequeues/create','DequeueController@create');
+        Route::get('/dequeues','DequeueController@index');
+        Route::get('/dequeues/create/{queue_id}','DequeueController@create');
 
     });
 

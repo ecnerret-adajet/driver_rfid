@@ -115,7 +115,7 @@
                         <i class="fa fa-ellipsis-v"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="entryDequeue">
-                        <a href="javascript:void(0);" @click="openCreateDequeue(queue.id)" class="dropdown-item">Remove from queue</a>
+                        <a :href="`/dequeues/create/${queue.id}`" class="dropdown-item">Remove from queue</a>
                     </div><!-- end dropdown -->
                     
                 </td>

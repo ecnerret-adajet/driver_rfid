@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Notification;
 use App\Notifications\DequeueNotification;
 use App\Dequeue;
 use Illuminate\Support\Facades\Auth;
+use App\Transformers\DequeueTransformer;
+use League\Fractal\Resource\Collection;
+use League\Fractal\Manager;
 use Carbon\Carbon;
 use App\QueueEntry;
 use App\Setting;
@@ -18,7 +21,11 @@ class DequeuesApiController extends Controller
     public function index()
     {
         $dequeues =  Dequeue::orderBy('id','desc')->get();
-        return $dequeues;
+
+        $manager = new Manager();
+        $resource = new Collection($dequeues, new DequeueTransformer());
+
+        return $manager->createData($resource)->toArray();
     }
 
     public function create(QueueEntry $queueEntry)
@@ -45,7 +52,10 @@ class DequeuesApiController extends Controller
         $setting = Setting::first();
         // Notification::send(User::where('id', $setting->user->id)->get(), new DequeueNotification($queue));
 
-        return $dequeue;
+        return [
+            'result' => $dequeue,
+            'redirect' => '/queueEntryFeed'
+        ];
 
     }
 
