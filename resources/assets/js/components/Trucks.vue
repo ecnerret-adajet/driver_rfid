@@ -358,11 +358,9 @@ export default {
 
     computed: {
         filteredEntries() {
-            const vm = this;
-
-            return _.filter(vm.trucks, function (item) {
-                return ~item.plate_number.toLowerCase().indexOf(vm.searchString.trim().toLowerCase());
-            });
+            return this.trucks.filter(item => {
+                return item.plate_number.toLowerCase().includes(this.searchString.trim().toLowerCase());
+            })
         },
 
         totalPages() {
