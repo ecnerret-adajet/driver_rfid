@@ -75,11 +75,11 @@
 
 
 @endsection
-@section('script')
+<!-- @section('script')
     <script>
         $("[data-mask]").inputmask();
     </script>
-@endsection
+@endsection -->
 
 
 
