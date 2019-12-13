@@ -73867,6 +73867,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -73875,6 +73881,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             isGpsLoading: false,
+            gpsStatus: '',
             entries: [],
             emptyEntry: [],
             deactivatedTo: ''
@@ -73892,31 +73899,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         checkGps: function checkGps(plate_number) {
             var _this = this;
 
-            if (plate_number === undefined) {
-                return "N/A";
-            }
-
-            var filteredPlate = plate_number.replace("-", " ");
             this.isGpsLoading = true;
-            axios.get('http://10.96.4.68/api/vehicle-gps/' + filteredPlate, {
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    'Content-Type': 'application/json'
-                },
-                crossdomain: true
-            }).then(function (response) {
-                console.log('check result api: ', response.data);
+            axios.get('/driver_rfid/public/check_gps_status/' + plate_number).then(function (response) {
+                console.log('check gps status: ', response.status);
                 if (response.status === 200) {
                     _this.isGpsLoading = false;
-                    return response.data;
+                    return _this.gpsStatus = "YES";
                 }
+                _this.isGpsLoading = false;
+                return _this.gpsStatus = "NO";
             });
         },
         storeEntries: function storeEntries() {
             var _this2 = this;
 
             axios.post('/driver_rfid/public/storeGateEntries/' + this.driverqueue).then(function (response) {
-                return _this2.entries = response.data;
+                _this2.entries = response.data;
+                _this2.checkGps(response.data.plate_number);
             }).catch(function (error) {
                 console.log(error);
             });
@@ -73940,16 +73939,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         // },
 
         moment: function moment(date) {
-            return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('MMMM D, Y h:m:s A');
+            return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).format('M/d/Y h:m:s A');
         }
     },
 
     computed: {
         isDeactivated: function isDeactivated() {
-            return !this.entries.driver_availability || !this.entries.truck_availability || this.driverqueue == this.entries.access_location;
+            return !this.entries.driver_availability || !this.entries.truck_availability || this.driverqueue == this.entries.access_location || this.gpsStatus === "NO";
         },
         isActive: function isActive() {
-            return this.entries.driver_availability && this.entries.truck_availability && this.driverqueue != this.entries.access_location;
+            return this.entries.driver_availability && this.entries.truck_availability && this.driverqueue != this.entries.access_location && this.gpsStatus === "YES";
         },
         plantDeactivated: function plantDeactivated() {
             if (this.driverqueue == this.entries.access_location) {
@@ -107191,12 +107190,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "width": "10%"
     }
   }, [_c('span', {
+    staticClass: "text-center",
+    class: {
+      'text-success': _vm.gpsStatus === 'YES', 'text-danger': _vm.gpsStatus === 'NO'
+    },
     staticStyle: {
       "font-size": "35px"
     }
-  }, [_vm._v("\r\n               " + _vm._s(_vm.checkGps(_vm.entries.plate_number)) + "\r\n            ")])]), _vm._v(" "), _c('td', {
+  }, [_vm._v("\r\n               " + _vm._s(_vm.gpsStatus) + "\r\n            ")])]), _vm._v(" "), _c('td', {
     attrs: {
-      "width": "50%"
+      "width": "40%"
     }
   }, [_c('span', {
     staticStyle: {
@@ -107215,7 +107218,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "table table-bordered bg-white"
   }, [_vm._m(2), _vm._v(" "), _c('tbody', [_c('tr', [_c('td', {
     staticClass: "text-center text-danger font-weight-bold"
-  }, [(!_vm.entries.driver_availability && _vm.entries.truck_availability) ? _c('span', {
+  }, [(_vm.gpsStatus === 'NO') ? _c('span', {
+    staticStyle: {
+      "font-size": "35px"
+    }
+  }, [_vm._v("\r\n                NO GPS INSTALLED\r\n            ")]) : _vm._e(), _vm._v(" "), (!_vm.entries.driver_availability && _vm.entries.truck_availability) ? _c('span', {
     staticStyle: {
       "font-size": "35px"
     }
@@ -107286,12 +107293,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "width": "10%"
     }
   }, [_c('span', {
+    staticClass: "text-center",
+    class: {
+      'text-success': _vm.gpsStatus === 'YES', 'text-danger': _vm.gpsStatus === 'NO'
+    },
     staticStyle: {
       "font-size": "35px"
     }
-  }, [_vm._v("\r\n               " + _vm._s(_vm.checkGps(_vm.entries.plate_number)) + "\r\n            ")])]), _vm._v(" "), _c('td', {
+  }, [_vm._v("\r\n               " + _vm._s(_vm.gpsStatus) + "\r\n            ")])]), _vm._v(" "), _c('td', {
     attrs: {
-      "width": "50%"
+      "width": "40%"
     }
   }, [_c('span', {
     staticStyle: {
@@ -107310,7 +107321,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "table table-bordered bg-white"
   }, [_vm._m(5), _vm._v(" "), _c('tbody', [_c('tr', [_c('td', {
     staticClass: "text-center text-danger font-weight-bold"
-  }, [(!_vm.emptyEntry.driver_availability && _vm.emptyEntry.truck_availability) ? _c('span', {
+  }, [(_vm.gpsStatus === 'NO') ? _c('span', {
+    staticStyle: {
+      "font-size": "35px"
+    }
+  }, [_vm._v("\r\n                NO GPS INSTALLED\r\n            ")]) : _vm._e(), _vm._v(" "), (!_vm.emptyEntry.driver_availability && _vm.emptyEntry.truck_availability) ? _c('span', {
     staticStyle: {
       "font-size": "35px"
     }

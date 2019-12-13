@@ -93,6 +93,11 @@ Route::get('/gateEntry/{driverqueue}','GateEntriesController@gateEntry');
 Route::get('/getGateEntries/{driverqueue_id}/{date}','GateEntriesController@getGateEntries');
 
 /**
+ * Check gps status api
+ */
+Route::get('/check_gps_status/{plate_number}','Api\VehicleApiController@checkGpsStatus');
+
+/**
 * Queue Entries Route Setup
 */
 Route::post('/storeQueueEntries/{driverqueue_id}','QueueEntriesController@storeQueueEntries');

@@ -56,11 +56,11 @@
     <tbody>
       <tr>
         <td width="10%">
-            <span style="font-size: 35px;">
-               {{ checkGps(entries.plate_number) }}
+            <span class="text-center" :class="{ 'text-success': gpsStatus === 'YES', 'text-danger' : gpsStatus === 'NO' }" style="font-size: 35px;">
+               {{ gpsStatus }}
             </span>
         </td>
-        <td width="50%">
+        <td width="40%">
             <span style="font-size: 35px;">
                 {{ moment(entries.LocalTime) }}
             </span>
@@ -85,6 +85,9 @@
     <tbody>
       <tr>
         <td class="text-center text-danger font-weight-bold">
+            <span v-if="gpsStatus === 'NO'" style="font-size: 35px;">
+                NO GPS INSTALLED
+            </span>
             <span v-if="!entries.driver_availability && entries.truck_availability" style="font-size: 35px;">
                 DRIVER DEACTIVATED
             </span>
@@ -162,11 +165,11 @@
     <tbody>
       <tr>
         <td width="10%">
-            <span style="font-size: 35px;">
-               {{ checkGps(entries.plate_number) }}
+            <span class="text-center" :class="{ 'text-success': gpsStatus === 'YES', 'text-danger' : gpsStatus === 'NO' }" style="font-size: 35px;">
+               {{ gpsStatus }}
             </span>
         </td>
-        <td width="50%">
+        <td width="40%">
             <span style="font-size: 35px;">
                 {{ moment(emptyEntry.LocalTime)}}
             </span>
@@ -191,6 +194,9 @@
     <tbody>
       <tr>
         <td class="text-center text-danger font-weight-bold">
+            <span v-if="gpsStatus === 'NO'" style="font-size: 35px;">
+                NO GPS INSTALLED
+            </span>
             <span v-if="!emptyEntry.driver_availability && emptyEntry.truck_availability" style="font-size: 35px;">
                 DRIVER DEACTIVATED
             </span>
@@ -224,6 +230,7 @@
         data() {
             return {
                 isGpsLoading: false,
+                gpsStatus: '',
                 entries: [],
                 emptyEntry: [],
                 deactivatedTo: ''
@@ -242,32 +249,26 @@
 
             checkGps(plate_number) {
 
-                if(plate_number === undefined) {
-                    return "N/A"
-                }
-
-                let filteredPlate = plate_number.replace("-"," ");
                 this.isGpsLoading = true
-                axios.get(`http://10.96.4.68/api/vehicle-gps/${filteredPlate}`,{
-                     headers: {
-                        'Access-Control-Allow-Origin': '*',
-                        'Content-Type': 'application/json',
-                    },
-                     crossdomain: true
-                })
+                axios.get(`/driver_rfid/public/check_gps_status/${plate_number}`)
                 .then(response => {
-                    console.log('check result api: ', response.data)
+                    console.log('check gps status: ', response.status)
                     if(response.status === 200) {
                         this.isGpsLoading = false
-                        return response.data
+                        return this.gpsStatus = "YES"
                     }
+                        this.isGpsLoading = false
+                        return this.gpsStatus = "NO"
                 })
 
             },
 
             storeEntries() {
                 axios.post('/driver_rfid/public/storeGateEntries/'+this.driverqueue)
-                .then(response => this.entries = response.data)
+                .then(response => {
+                    this.entries = response.data
+                    this.checkGps(response.data.plate_number)
+                })
                 .catch((error) => {
                     console.log(error);
                 });
@@ -288,18 +289,18 @@
             // },
 
             moment(date) {
-                return moment(date).format('MMMM D, Y h:m:s A');
+                return moment(date).format('M/d/Y h:m:s A');
             },
         },
 
         computed: {
 
             isDeactivated() {
-                return !this.entries.driver_availability || !this.entries.truck_availability || this.driverqueue == this.entries.access_location;
+                return !this.entries.driver_availability || !this.entries.truck_availability || this.driverqueue == this.entries.access_location || this.gpsStatus === "NO";
             },
 
             isActive() {
-                return this.entries.driver_availability && this.entries.truck_availability && this.driverqueue != this.entries.access_location;
+                return this.entries.driver_availability && this.entries.truck_availability && this.driverqueue != this.entries.access_location && this.gpsStatus === "YES";
             },
 
             plantDeactivated() {
