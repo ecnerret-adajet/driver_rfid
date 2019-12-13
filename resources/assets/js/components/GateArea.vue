@@ -48,12 +48,18 @@
     <table v-if="isActive" class="table table-bordered bg-white">
     <thead>
       <tr>
+        <th class="text-muted">HAS GPS</th>
         <th class="text-muted">PLANT IN</th>
         <th class="text-muted">SHIPMENT NUMBER</th>
       </tr>
     </thead>
     <tbody>
       <tr>
+        <td width="10%">
+            <span style="font-size: 35px;">
+               {{ checkGps(entries.plate_number) }}
+            </span>
+        </td>
         <td width="50%">
             <span style="font-size: 35px;">
                 {{ moment(entries.LocalTime) }}
@@ -148,12 +154,18 @@
     <table v-if="emptyEntry.driver_availability && emptyEntry.truck_availability" class="table table-bordered bg-white">
     <thead>
       <tr>
+        <th class="text-muted">HAS GPS</th>
         <th class="text-muted">PLANT IN</th>
         <th class="text-muted">SHIPMENT NUMBER</th>
       </tr>
     </thead>
     <tbody>
       <tr>
+        <td width="10%">
+            <span style="font-size: 35px;">
+               {{ checkGps(entries.plate_number) }}
+            </span>
+        </td>
         <td width="50%">
             <span style="font-size: 35px;">
                 {{ moment(emptyEntry.LocalTime)}}
@@ -211,6 +223,7 @@
         props: ['driverqueue'],
         data() {
             return {
+                isGpsLoading: false,
                 entries: [],
                 emptyEntry: [],
                 deactivatedTo: ''
@@ -226,6 +239,31 @@
         },
 
         methods: {
+
+            checkGps(plate_number) {
+
+                if(plate_number === undefined) {
+                    return "N/A"
+                }
+
+                let filteredPlate = plate_number.replace("-"," ");
+                this.isGpsLoading = true
+                axios.get(`http://10.96.4.68/api/vehicle-gps/${filteredPlate}`,{
+                     headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type': 'application/json',
+                    },
+                     crossdomain: true
+                })
+                .then(response => {
+                    console.log('check result api: ', response.data)
+                    if(response.status === 200) {
+                        this.isGpsLoading = false
+                        return response.data
+                    }
+                })
+
+            },
 
             storeEntries() {
                 axios.post('/driver_rfid/public/storeGateEntries/'+this.driverqueue)
