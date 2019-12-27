@@ -145,7 +145,7 @@ class TrucksController extends Controller
 
         $haulers = ['' => ''] + Hauler::pluck('name','id')->all();
 
-        $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','id')->all();
+        $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002001')->pluck('name','id')->all();
 
         $driver_card = Driver::select('cardholder_id')->where('availability',1)->get();
         $truck_card = Truck::select('card_id')->whereNotNull('card_id')->get();
@@ -247,7 +247,7 @@ class TrucksController extends Controller
     public function edit(Truck $truck)
     {
         $haulers = ['' => ''] + Hauler::orderBy('vendor_number','ASC')->pluck('name','id')->all();
-        $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','id')->all();
+        $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002001')->pluck('name','id')->all();
 
         if(!count($truck->drivers) == null) {
 
@@ -276,7 +276,7 @@ class TrucksController extends Controller
          $bases = Base::pluck('origin','id');
          $plants = Plant::pluck('plant_name','id');
 
-         $subvendors = ['NO SUBVENDOR' => 'NO SUBVENDOR'] + collect($this->vendorSubvendor())->where('vendor_number', '!=', '0000002000')->pluck('vendor_name','vendor_number')->all();
+         $subvendors = ['NO SUBVENDOR' => 'NO SUBVENDOR'] + collect($this->vendorSubvendor())->where('vendor_number', '!=', '0000002001')->pluck('vendor_name','vendor_number')->all();
          $vendors = collect($this->vendorSubvendor())->pluck('vendor_name','vendor_number');
 
         return view('trucks.edit', compact('truck','haulers','cards','capacities','contracts','subvendors','vendors','bases','plants','haulers_subcon'));
@@ -327,7 +327,7 @@ class TrucksController extends Controller
     public function transferHauler(Truck $truck)
     {
         $haulers = ['' => ''] + Hauler::pluck('name','id')->all();
-        $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002000')->pluck('name','id')->all();
+        $haulers_subcon = ['' => ''] + Hauler::where('vendor_number', '!=', '0000002001')->pluck('name','id')->all();
 
         return view('trucks.transfer', compact('haulers','haulers_subcon','truck'));
     }
