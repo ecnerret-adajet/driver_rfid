@@ -104,6 +104,18 @@ return [
             'pooling'  => false,
         ],
 
+        'sqlsrv_central' => [
+            'driver' => 'sqlsrv',
+            'host' => env('DB_CENTRAL_HOST', 'localhost'),
+            'port' => env('DB_CENTRAL_PORT', '1433'),
+            'database' => env('DB_CENTRAL_DATABASE', 'forge'),
+            'username' => env('DB_CENTRAL_USERNAME', 'forge'),
+            'password' => env('DB_CENTRAL_PASSWORD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'pooling'  => false,
+        ],
+
         'dr_fp_database' => [
             'driver' => 'mysql',
             'host' => env('DB_DR_HOST', '127.0.0.1'),
