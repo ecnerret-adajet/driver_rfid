@@ -240,8 +240,8 @@ class DriversController extends Controller
             $driver->haulers()->attach($drivers_truck); 
             
             //send email to supervisor for approval
-            $setting = Setting::first();
-            Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmDriver($driver));
+            // $setting = Setting::first();
+            // Notification::send(User::where('id', $setting->user->id)->get(), new ConfirmDriver($driver));
   
         flashy()->success('Driver has successfully created!');
         return redirect('drivers');
