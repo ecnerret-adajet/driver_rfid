@@ -1,11 +1,11 @@
 @inject('search', 'App\Http\Controllers\TrucksController')
-  
+
              @if(Request::is('trucks/create'))
                 <div class="form-row">
                     <div class="col-md-6">
                         <div class="form-group {{ $errors->has('plate_number') ? ' has-danger' : '' }}">
                             <label>Plate Number</label>
-                            {{ Form::text('plate_number', null, ['class' => 'form-control', 'id' => 'sPriceRewards', 'placeholder' => 'Enter Plate Number', "data-inputmask" => "'mask': 'AAA-9999'", 'data-mask']) }}
+                            {{ Form::text('plate_number', null, ['class' => 'form-control', 'id' => 'sPriceRewards', 'placeholder' => 'Enter Plate Number', "data-inputmask" => "'mask': 'AAA 9999'", 'data-mask']) }}
                             @if ($errors->has('plate_number'))
                                 <div class="form-control-feedback">
                                     <small>
@@ -19,7 +19,7 @@
                     <div class="col-md-6">
                         <div class="form-group {{ $errors->has('reg_number') ? ' has-danger' : '' }}">
                             <label>Registration Number</label>
-                            {{ Form::text('reg_number', null, ['class' => 'form-control', 'id' => 'inputReward', 'placeholder' => 'Enter Registration Number', "data-inputmask" => "'mask': 'MV999999'", 'data-mask']) }}
+                            {{ Form::text('reg_number', null, ['class' => 'form-control', 'id' => 'inputReward', 'placeholder' => 'Enter Registration Number', "data-inputmask" => "'mask': 'MV 999999'", 'data-mask']) }}
                             @if ($errors->has('reg_number'))
                                 <div class="form-control-feedback">
                                     <small>
@@ -32,7 +32,7 @@
                 </div>
             @endif
 
-            
+
 
             <div class="form-row">
                    <div class="col-md-12">
@@ -82,7 +82,7 @@
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('capacity_list') ? ' has-danger' : '' }}">
                             <label>Capacity</label>
-                            {!! Form::select('capacity_list', $capacities, $truck->capacity_id == null ? null : $truck->capacity_id, ['placeholder' => 'Select Capacity', 'class' => 'form-control select2-capacity'] ) !!}                           
+                            {!! Form::select('capacity_list', $capacities, $truck->capacity_id == null ? null : $truck->capacity_id, ['placeholder' => 'Select Capacity', 'class' => 'form-control select2-capacity'] ) !!}
                             @if ($errors->has('capacity_list'))
                                 <div class="form-control-feedback">
                                 <small>
@@ -92,7 +92,7 @@
                             @endif
                     </div>
                 </div>
-              
+
             </div>
 
 
@@ -137,7 +137,7 @@
                                 @else
                                     @if($truck->vendor_description == null)
                                         {!! Form::select('vendor_description', $haulers, '0000002000', ['placeholder' => 'Select Vendor','class' => 'form-control select2-vendor'] ) !!}
-                                    @else                                       
+                                    @else
                                         {!! Form::select('vendor_description', $haulers, $truck->vendor_description, ['placeholder' => 'Select Vendor','class' => 'form-control select2-vendor'] ) !!}
                                     @endif
                                 @endif
@@ -156,7 +156,7 @@
                                 <label>Subvendor Number</label>
                                  @if(Request::is('trucks/create'))
                                         {!! Form::select('hauler_list', $haulers_subcon, null, ['placeholder' => 'Select Subvendor', 'class' => 'form-control select2-subvendor'] ) !!}
-                                @else                                   
+                                @else
                                     {!! Form::select('hauler_list', $haulers_subcon, $truck->subvendor_description, ['placeholder' => 'Select Subvendor', 'class' => 'form-control select2-subvendor'] ) !!}
                                      @if($truck->subvendor_description == null)
                                     <div class="form-control-feedback">
@@ -194,7 +194,7 @@
                         </div>
                     </div>
                 </div>
-        
+
 
             <div class="form-row">
                 <div class="col-md-6">
@@ -224,11 +224,11 @@
                     </div>
                 </div>
             </div>
-            
-        
-        
+
+
+
             <button type="submit"  class="btn btn-primary btn-block">Submit</button>
-      
+
 
 @section('script')
     <script>
@@ -244,7 +244,7 @@
         $(".select2-card").select2();
         $(".select2-plant").select2();
 
-        $('#sPriceRewards').on('input', function() {    
+        $('#sPriceRewards').on('input', function() {
             if($(this).val().length)
             $('#inputReward').prop('disabled', true);
             else
@@ -252,5 +252,5 @@
         });
 
     </script>
-  
+
 @endsection

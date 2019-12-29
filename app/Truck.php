@@ -29,7 +29,7 @@ class Truck extends Model
     ];
 
     protected static $logAttributes = [
-        'plate_number', 
+        'plate_number',
         'availability',
         'vendor_description',
         'subvendor_description',
@@ -83,10 +83,10 @@ class Truck extends Model
     /**
      * Remove unneccessary character in plate_number
      */
-    // public function setPlateNumberAttribute($value)
-    // {
-    //     $this->attributes['plate_number'] = trim(str_replace('_',' ',$value));
-    // }
+    public function setPlateNumberAttribute($value)
+    {
+        $this->attributes['plate_number'] = trim(str_replace('_',' ',$value));
+    }
     /**
      * Dates configuration for validity_start_date
      */
@@ -94,7 +94,7 @@ class Truck extends Model
      {
          $this->attributes['validity_start_date'] = Carbon::parse($date);
      }
- 
+
      public function getValidityStartDateAttribute($date)
      {
          return Carbon::parse($date)->format('Y-m-d');
@@ -107,7 +107,7 @@ class Truck extends Model
      {
          $this->attributes['validity_end_date'] = Carbon::parse($date);
      }
- 
+
      public function getValidityEndDateAttribute($date)
      {
          return Carbon::parse($date)->format('Y-m-d');
@@ -151,12 +151,12 @@ class Truck extends Model
         return $this->hauler()->first();
     }
 
-    //list all assicaited contract code in truck 
+    //list all assicaited contract code in truck
     public function contracts()
     {
         return $this->belongsToMany('App\Contract');
     }
-     
+
     public function getContractListAttribute()
     {
         return $this->contracts->pluck('id')->all();
@@ -217,14 +217,14 @@ class Truck extends Model
         return $this->plants()->pluck('id')->all();
     }
 
-    // Access Group 
+    // Access Group
     public function accessLocation()
     {
         return $this->belongsTo(AccessGroup::class,'access_location','AccessGroupID');
     }
 
     /**
-     * 
+     *
      *  Get all truck for current month
      *
      */
@@ -239,7 +239,7 @@ class Truck extends Model
     }
 
     /**
-     * 
+     *
      * Sanitize plate number
      */
     // public function getPlatenumFormatAttribute()
@@ -254,8 +254,8 @@ class Truck extends Model
      */
     // public function getPlateNumberAttribute($value)
     // {
-    //     // check also if a plate number starts with MVX-000 
-    //     // $hasMV =  str_is('MV*', $value) ? str_replace('MV', 'MV ', $value) : $value; 
+    //     // check also if a plate number starts with MVX-000
+    //     // $hasMV =  str_is('MV*', $value) ? str_replace('MV', 'MV ', $value) : $value;
 
     //     if(str_is('MV*', $value)) {
     //         return trim(str_replace('MV', 'MV ', $value));
@@ -264,8 +264,8 @@ class Truck extends Model
     //     } else {
     //         return trim(str_replace('_','', $value));
     //     }
-        
-    
+
+
     // }
 
     /**
@@ -279,7 +279,7 @@ class Truck extends Model
         $result = $getFirst == false ? "UNPROCESS" : $getFirst->submission_date;
 
 
-        return $result;  
+        return $result;
     }
 
     /**
@@ -309,8 +309,8 @@ class Truck extends Model
                             ->pluck('driver.cardholder_id');
 
         return $cardholder;
-        
+
     }
-    
+
 
 }
