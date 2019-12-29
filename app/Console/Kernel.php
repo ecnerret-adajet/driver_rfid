@@ -19,9 +19,10 @@ class Kernel extends ConsoleKernel
          '\App\Console\Commands\ReviveGateEntries',
          '\App\Console\Commands\ReviveQueueEntries',
          '\App\Console\Commands\PushGateToQueueSAP',
+         '\App\Console\Commands\AlignPlateNumber',
     ];
 
-    /**   
+    /**
      * Define the application's command schedule.
      *
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
