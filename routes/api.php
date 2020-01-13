@@ -18,12 +18,16 @@
 
 Route::group(['middleware' => 'auth:api'], function() {
 
-Route::get('pickups-unserved/{date}','PickupsApiController@unserved');
-Route::get('pickups-assigned/{date}','PickupsApiController@assigned');
-Route::get('pickups-served/{date}','PickupsApiController@served');
-Route::patch('pickups-deactivate/{pickup}','PickupsApiController@pickupDeactivate');
-Route::get('pickups-available','PickupsApiController@cardholderAvailability');
-Route::patch('pickups-assign-card/{pickup}','PickupsApiController@assignCardholder');
+    Route::get('pickups-unserved/{date}','PickupsApiController@unserved');
+    Route::get('pickups-assigned/{date}','PickupsApiController@assigned');
+    Route::get('pickups-served/{date}','PickupsApiController@served');
+    Route::patch('pickups-deactivate/{pickup}','PickupsApiController@pickupDeactivate');
+    Route::get('pickups-available','PickupsApiController@cardholderAvailability');
+    Route::patch('pickups-assign-card/{pickup}','PickupsApiController@assignCardholder');
+
+    // allowed pickup company api
+    Route::get('pickups-allowed','SettingsController@indexPickupCompany');
+    Route::post('pickups-allowed','SettingsController@storePickupCompany');
 
 });
 

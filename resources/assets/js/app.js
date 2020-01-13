@@ -90,6 +90,10 @@ Vue.component('pickupMain', require('./components/pickups/PickupMain.vue'));
 
 Vue.component('replacements', require('./components/replacements/Index.vue'));
 
+// Allowed company to input free text on pickup entry create
+Vue.component('allowedCompany', require('./components/pickups/AllowedCompany.vue'));
+
+
 const app = new Vue({
     el: '#app'
 });

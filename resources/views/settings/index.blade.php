@@ -89,6 +89,10 @@
     </div> <!-- end card -->
 
 
+    <allowedCompany></allowedCompany>
+ 
+
+
 @endsection
 
 

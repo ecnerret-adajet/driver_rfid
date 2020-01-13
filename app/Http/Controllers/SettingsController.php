@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Setting;
 use App\User;
+use App\ModuleSetting;
 use Flashy;
 
 
@@ -54,6 +55,35 @@ class SettingsController extends Controller
 
         return redirect('settings');
     }
+
+    public function indexPickupCompany()
+    {
+        $isSetAllowedCompany = ModuleSetting::where('modelable_type',"App\\Pickup")->get();
+
+        if($isSetAllowedCompany->count() > 1) {
+            return ModuleSetting::first();
+        }
+        
+        return response()->json([], 200);
+
+    }
+
+    public function storePickupCompany(Request $request)
+    {
+        $this->validate($request,[
+            'modelable_array' => 'required'
+        ]);
+
+        $allowedCompany = new ModuleSetting;
+        $allowedCompany->user_id = Auth::user()->id;
+        $allowedCompany->modelable_type = 'App\\Pickup';
+        $allowedCompany->modelable_array = $request->input('modelable_array');
+        $allowedCompany->save();
+
+        return $allowedCompany;
+
+    }
+
 
     /**
      * Display the specified resource.
