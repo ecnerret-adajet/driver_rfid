@@ -64,12 +64,14 @@ class UsersController extends Controller
         $user->email = $request->input('email');
         $user->phone_number = $request->input('phone_number');
         $user->password = Hash::make($request->input('password'));
-        
+        $user->bypass_rfid = $request->has('bypass_rfid');
+
         if($request->hasFile('avatar')){
         $user->avatar = $request->file('avatar')->store('users');
         }
         $user->hauler()->associate($request->input('hauler_list'));
         $user->company()->associate($request->input('company_list'));
+        $user->userLocation()->associate($request->input('user_location'));
 
         $user->save();
 
@@ -77,7 +79,7 @@ class UsersController extends Controller
 
          $activity = activity()
          ->log('Created');
-        
+
          flashy()->success('User has successfully created!');
 
         return redirect('users');

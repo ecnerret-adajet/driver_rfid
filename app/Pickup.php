@@ -23,7 +23,9 @@ class Pickup extends Model
         'deactivated_date',
         'activation_date',
         'do_number',
-        'coa'
+        'coa',
+        'bypass_rfid',
+        'helper'
     ];
 
 

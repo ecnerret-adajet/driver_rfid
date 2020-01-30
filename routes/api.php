@@ -29,6 +29,11 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('pickups-allowed','SettingsController@indexPickupCompany');
     Route::post('pickups-allowed','SettingsController@storePickupCompany');
 
+    //  ETA store
+    Route::get('haulers-arrivals', 'Api\HaulerExpectedController@index');
+    Route::get('haulers-arrivals/{id}', 'Api\HaulerExpectedController@show');
+    Route::post('haulers-arrivals', 'Api\HaulerExpectedController@store');
+
 });
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {

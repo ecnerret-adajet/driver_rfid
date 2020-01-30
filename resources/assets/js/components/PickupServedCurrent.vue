@@ -9,16 +9,20 @@
                     <th scope="col"> <small>  DO Details </small> </th>
                     <th scope="col"> <small>  Activity Details </small> </th>
                     <th scope="col"> <small>  Created By </small> </th>
+                    <th></th>
                     </tr>
-                </thead> 
+                </thead>
             <tbody>
 
-                <tr v-for="pickup in filteredPickups" v-if="!loading">
+                <tr v-for="(pickup, p) in filteredPickups" :key="p" v-if="!loading">
                     <td>
-                        <small class="btn btn-outline-success btn-sm align-middle" v-if="pickup.cardholder">
+                        <small class="btn btn-outline-success btn-sm align-middle" v-if="pickup.cardholder && pickup.bypass_rfid === '0'">
                             {{ pickup.cardholder.Name }}
                         </small>
-                        <small class="btn btn-outline-danger btn-sm  text-uppercase align-middle" v-else>
+                        <small class="btn btn-outline-success btn-sm  text-uppercase align-middle" v-if="!pickup.cardholder && pickup.bypass_rfid === '1'">
+                            NO RFID NEEDED
+                        </small>
+                        <small class="btn btn-outline-danger btn-sm  text-uppercase align-middle" v-if="!pickup.cardholder && pickup.bypass_rfid === '0'">
                             NOT YET SERVED
                         </small>
                     </td>
@@ -42,35 +46,46 @@
                                 <span v-if="!pickup.activation_date && pickup.cardholder_id">
                                     CANNOT DETERMINE <br/>
                                 </span>
-                                
+
                                 <small class="text-uppercase text-muted">Checkout Date</small>  <br/>
                                 <span v-if="pickup.deactivated_date">
                                     {{ moment(pickup.deactivated_date) }}
                                 </span>
                                 <span v-if="!pickup.cardholder && !pickup.deactivated_date">
                                     N/A
-                                </span> 
+                                </span>
                                 <span v-if="pickup.cardholder && !pickup.deactivated_date">
                                    STILL IN PLANT
-                                </span> 
+                                </span>
                             </div>
 
                             <div class="col">
-                                <small class="text-uppercase text-muted">Time Rendered</small> <br/> 
+                                <small class="text-uppercase text-muted">Time Rendered</small> <br/>
                                 <span v-if="pickup.deactivated_date && pickup.activation_date">
                                     {{ dateDiff(pickup.activation_date, pickup.deactivated_date) }} Hour(s)
                                 </span>
                                 <span v-else class="text-muted">
                                     N/A
-                                </span>    
-                            </div>   
-                        </div> 
-                                        
+                                </span>
+                            </div>
+                        </div>
+
                     </td>
                     <td>
                       {{ pickup.user.name }} <br/><br/>
                       <small class="text-uppercase text-muted">Date Created</small> <br/>
-                        {{ moment(pickup.created_at) }} 
+                        {{ moment(pickup.created_at) }}
+                    </td>
+                    <td>
+                        <span v-if="!pickup.deactivated_date">
+                            <a class="dropdown pull-right btn btn-outline-primary" href="#" id="driverDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-ellipsis-v"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="driverDropdown">
+                                    <a :href="'unserved/' + pickup.id + '/edit'" class="dropdown-item">Update</a>
+                                    <!-- <a href="#" class="dropdown-item text-danger" data-toggle="modal" :data-target="'#pickupCancel-'+ pickup.id">Cancel Pickup</a> -->
+                            </div><!-- end dropdown -->
+                        </span>
                     </td>
                 </tr>
                 <tr v-if="filteredPickups.length == 0 && !loading">
@@ -132,7 +147,7 @@
     export default {
 
         props: ['searchString'],
-        
+
         components: {
             VueContentPlaceholders,
         },
@@ -152,18 +167,40 @@
         },
 
         methods: {
+
+
             getPickup() {
                 this.loading = true
                 axios.get('/driver_rfid/public/getPickupWithCardholder')
                 .then(response => {
+                    console.log('check pickup current data: ', response.data)
                     this.pickups = response.data
                     this.loading = false
                 });
             },
 
+            cardStatus(pickup) {
+
+                switch (true) {
+                    case pickup.bypass_rfid === 1:
+                        return 'NO RFID NEEDED'
+                        break;
+                    case !pickup.activation_date && !pickup.cardholder_id:
+                        return 'NOT YET ARRIVED'
+                        break;
+                    case !pickup.activation_date && pickup.cardholder_id:
+                        return 'CANNOT DETERMINE'
+                        break;
+                    default:
+                        return 'N/A';
+                        break;
+                }
+
+            },
+
            dateDiff(startTime, endTime) {
-                var a = moment(startTime);   
-                var b = moment(endTime);   
+                var a = moment(startTime);
+                var b = moment(endTime);
                 return b.diff(a, 'hours');
             },
 
@@ -172,7 +209,7 @@
             },
 
             setPage(pageNumber) {
-                this.currentPage = pageNumber;         
+                this.currentPage = pageNumber;
             },
 
             resetStartRow() {
@@ -191,7 +228,7 @@
 
         computed: {
            filteredEntries() {
-                const vm = this;                
+                const vm = this;
                 return _.filter(vm.pickups, function (item) {
                     return ~item.driver_name.toLowerCase().indexOf(vm.searchString.trim().toLowerCase());
                 });
@@ -208,12 +245,12 @@
 
                 if (this.currentPage >= this.totalPages) {
                     this.currentPage = this.totalPages - 1
-                } 
+                }
 
                 if(this.currentPage == -1){
                     this.currentPage = 0;
                 }
-                
+
                 return drivers_array;
             }
         }

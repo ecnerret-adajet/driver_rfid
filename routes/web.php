@@ -473,6 +473,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('api-replacements-approved','Api\ReplacementApiController@approvedReplacements');
         Route::get('api-replacements-report/{date_from}/{date_to}','Api\ReplacementApiController@replacementReport');
 
+        /**
+         * Hauler Expected Arrival Routes
+         */
+        Route::get('expected-arrivals', 'Api\HaulerExpectedController@expectedArrivals');
+
 
     });
 

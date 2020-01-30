@@ -25,6 +25,8 @@
                         <input type="text" class="form-control" id="name" v-model="pickup.company" disabled>
                     </div>
 
+                    <div v-if="pickup.user.bypass_rfid === '0'">
+
                     <div class="form-group row" :class="{ ' has-danger' : errors.cardholder_list }">
                         <label class="col-md-4">Available Cards</label>
                         <div class="col-md-8">
@@ -35,6 +37,20 @@
                         <div v-if="errors.cardholder_list" class="invalid-feedback">{{ errors.cardholder_list[0] }}</div>
                        </div>
                     </div>
+                    </div>
+
+                    <div v-else>
+
+                        <span class="text-danger">
+                            <i>
+                            RFID is not required for this user / plant
+                            </i>
+                        </span>
+
+                    </div>
+
+
+
 
                 </div>
                 <div class="modal-footer">

@@ -133,6 +133,14 @@
 
               @endrole
 
+              @role((['Administrator','Queue-monitoring','monitoring']))
+
+              <li class="font-weight-bold {{ Request::is('expected-arrivals*') ? 'active' : ''}}">
+                <a href="{{url('/expected-arrivals')}}">ETA</a>
+              </li>
+
+              @endrole
+
 
             </ul>
           </li>

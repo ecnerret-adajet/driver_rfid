@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Laravel\Passport\HasApiTokens;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -18,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','phone_number','company',
+        'name', 'email', 'password','phone_number','company', 'bypass_rfid','two_factor_code','two_factor_expires_at'
     ];
 
     protected static $logAttributes = [
@@ -26,10 +27,18 @@ class User extends Authenticatable
         'email'
     ];
 
+    protected $casts = [
+        'bypass_rfid'
+    ];
+
     public function getDates()
     {
         return [];
     }
+
+    protected $dates = [
+        'two_factor_expires_at'
+    ];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -40,6 +49,32 @@ class User extends Authenticatable
         'password', 'remember_token','created_at','updated_at'
     ];
 
+    public function userLocation()
+    {
+        return $this->belongsTo(UserLocation::class);
+    }
+
+    public function generateTwoFactorCode()
+    {
+        $this->timestamps = false;
+        $this->two_factor_code = rand(100000, 999999);
+        $this->two_factor_expires_at = Carbon::now()->addMinutes(10);
+        $this->save();
+    }
+
+    public function resetTwoFactorCode()
+    {
+        $this->timestamps = false;
+        $this->two_factor_code = null;
+        $this->two_factor_expires_at = null;
+        $this->save();
+    }
+
+    /**
+     * driver relationship
+     *
+     * @return void
+     */
     public function drivers()
     {
         return $this->hasMany(Driver::class);
@@ -153,7 +188,8 @@ class User extends Authenticatable
      */
     public function driverqueues()
     {
-        return $this->hasMany(Queue::class);
+        return $this->hasMany(Driverqueue::class);
+        // return $this->hasMany(Queue::class);
     }
 
     /**

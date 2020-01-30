@@ -32,11 +32,12 @@ class PickupOnlineController extends Controller
                             $q->where('company_id', Auth::user()->company_id);
                         })
                         ->orderBy('created_at','DESC')
+                        ->where('bypass_rfid', false)
                         ->whereNull('cardholder_id')
                         ->with('cardholder','user')
                         ->get();
-        
-        return $pickups;
+
+return $pickups;
     }
 
     public function getPickupWithCardholder()
@@ -47,6 +48,7 @@ class PickupOnlineController extends Controller
                         ->orderBy('created_at','DESC')
                         ->whereNotNull('cardholder_id')
                         ->whereDate('activation_date', Carbon::today())
+                        ->orWhere('bypass_rfid', true)
                         ->with('cardholder','user')
                         ->get();
         

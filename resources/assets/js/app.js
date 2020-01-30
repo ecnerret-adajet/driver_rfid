@@ -91,7 +91,12 @@ Vue.component('pickupMain', require('./components/pickups/PickupMain.vue'));
 Vue.component('replacements', require('./components/replacements/Index.vue'));
 
 // Allowed company to input free text on pickup entry create
-Vue.component('allowedCompany', require('./components/pickups/AllowedCompany.vue'));
+Vue.component('allowed-pick-company', require('./components/pickups/AllowedCompany.vue'));
+
+// Create Expected Arrival modal
+Vue.component('hauler-expected-truck', require('./components/HaulerExpectedArrival.vue'));
+Vue.component('hauler-expected-index', require('./components/HaulerExpectedIndex.vue'));
+Vue.component('hauler-expected-arrival-all', require('./components/expected/HaulerExpectedArrivalAll.vue'));
 
 
 const app = new Vue({

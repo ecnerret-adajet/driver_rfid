@@ -38,7 +38,9 @@
                 </thead>
                 <tbody>
                     <tr v-for="(item, i) in filteredPickups" :key="i" v-if="!loading">
-                        <td>{{ item.pickup_deploy_name }}</td>
+                        <td>
+                            {{ item.bypass_rfid === '0' ? item.pickup_deploy_name : 'NO RFID NEEDED' }}
+                        </td>
                         <td>
                         <span>{{ item.driver_name }}</span> <br/>
                         <span>{{ item.plate_number }}</span> <br/>
