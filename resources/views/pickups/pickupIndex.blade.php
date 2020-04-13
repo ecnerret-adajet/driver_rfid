@@ -8,6 +8,11 @@
              <a class="btn btn-danger btn-sm pull-right bootstrap-modal-form-open" href="javascript:void(0);" data-toggle="modal" data-target="#addPickup">
                 Add New Pickup
             </a>
+
+             <a class="btn btn-danger btn-sm pull-right bootstrap-modal-form-open" href="javascript:void(0);" data-toggle="modal" data-target="#bookingRequest">
+                Booking Request
+            </a>
+
         </div>
         <div class="card-body">
 
@@ -41,6 +46,37 @@
         
         </div><!-- end card-body -->
     </div> <!-- end card -->
+
+
+     <!-- Add New Booking Request -->
+     <div class="modal fade" id="bookingRequest" tabindex="-1" role="dialog" aria-labelledby="driverModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" id="queueter">
+        <div class="modal-content">
+        <div class="modal-header">
+
+            <h6 class="modal-title" id="driverModalLabel">Add Booking Request</h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        
+
+        </div>
+        {!! Form::model($pickup = new \App\Pickup, ['url' => 'storePickup', 'id' => 'pickupForm', 'class' => 'bootstrap-modal-form', 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
+        <div class="modal-body">
+            
+          {!! csrf_field() !!}
+            @include('pickups.bookingForm')          
+
+        </div>
+        <div class="modal-footer">  
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                 <button type="submit" class="btn btn-primary">Confirm</button> 
+        </div>
+        {!! Form::close() !!} 
+            
+        </div>
+    </div>
+    </div><!-- end modal -->
 
 
 
@@ -78,6 +114,8 @@
         </div>
     </div>
     </div><!-- end modal -->
+
+
 
 
 @endsection

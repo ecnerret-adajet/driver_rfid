@@ -483,6 +483,12 @@ Route::group(['middleware' => 'auth'], function () {
          */
         Route::get('expected-arrivals', 'Api\HaulerExpectedController@expectedArrivals');
 
+        /**
+         * Booking Request Route Setup
+         */
+        Route::get('/booking-requests','BookRequestController@index');
+        Route::get('/booking-requests/{bookingRequest}','BookRequestController@show');
+
 
     });
 

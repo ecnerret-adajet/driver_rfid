@@ -98,6 +98,8 @@ Vue.component('hauler-expected-truck', require('./components/HaulerExpectedArriv
 Vue.component('hauler-expected-index', require('./components/HaulerExpectedIndex.vue'));
 Vue.component('hauler-expected-arrival-all', require('./components/expected/HaulerExpectedArrivalAll.vue'));
 
+// Booking Request Components
+Vue.component('booking-requests', require('./components/bookingRequest/Index.vue'));
 
 const app = new Vue({
     el: '#app'
