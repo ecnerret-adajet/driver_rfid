@@ -9,7 +9,7 @@
                 Add New Pickup
             </a>
 
-             <a class="btn btn-danger btn-sm pull-right bootstrap-modal-form-open" href="javascript:void(0);" data-toggle="modal" data-target="#bookingRequest">
+             <a class="btn btn-danger btn-sm pull-right bootstrap-modal-form-open mr-2" href="javascript:void(0);" data-toggle="modal" data-target="#bookingRequest">
                 Booking Request
             </a>
 
@@ -61,7 +61,7 @@
         
 
         </div>
-        {!! Form::model($pickup = new \App\Pickup, ['url' => 'storePickup', 'id' => 'pickupForm', 'class' => 'bootstrap-modal-form', 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
+        {!! Form::model($bookingRequest = new \App\BookingRequest, ['url' => 'booking-requests', 'id' => 'bookingForm', 'class' => 'bootstrap-modal-form', 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
         <div class="modal-body">
             
           {!! csrf_field() !!}

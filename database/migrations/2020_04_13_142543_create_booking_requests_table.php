@@ -15,6 +15,18 @@ class CreateBookingRequestsTable extends Migration
     {
         Schema::create('booking_requests', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->string('order_reference');
+            $table->string('order_reference_no');
+            $table->timestamp('booking_date');
+            $table->string('consignee');
+            $table->string('destination');
+            $table->string('van_no');
+            $table->string('ship_type'); // transfer or delivery
+            $table->string('mode_of_shipment');
+            $table->string('plate_number')->nullable();
+            $table->string('driver_name')->nullable();
+            $table->string('shippers_name')->nullable();
             $table->timestamps();
         });
     }

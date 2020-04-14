@@ -15,37 +15,44 @@
         <div class="card-header">
             Booking Request - Entry
 
-        <a class="btn btn-primary btn-sm pull-right" href="#">
+        <button id="update-book-request" class="btn btn-primary btn-sm pull-right" href="#">
             Save
-        </a>
+        </button>
 
         </div>
         <div class="card-body">
 
+        {!! Form::model($bookingRequest, ['id'=>'bookingRequestUpdate', 'method' => 'PATCH','route' => ['booking-requests.update', $bookingRequest->id], 'enctype'=>'multipart/form-data']) !!}
+        {!! csrf_field() !!}
+        <form>
+        <div class="form-group row {{ $errors->has('driver_name') ? ' has-danger' : '' }}">
+            <label class="col-md-3 col-form-label">
+                Shipper's Name
+            </label>
+            <div class="col-md-9">
+                {{ Form::text('shippers_name', null, ['class' => 'form-control', 'placeholder' => 'Enter Shippers Name']) }}
+            </div>
+        </div>
 
+        <div class="form-group row {{ $errors->has('driver_name') ? ' has-danger' : '' }}">
+            <label class="col-md-3 col-form-label">
+                Driver Name
+            </label>
+            <div class="col-md-9">
+                {{ Form::text('driver_name', null, ['class' => 'form-control', 'placeholder' => 'Enter Driver Name']) }}
+            </div>
+        </div>
 
-       
-             <div class="form-row">
-                    <div class="col-md-12">
-                        <div class="form-group {{ $errors->has('plate_number') ? ' has-danger' : '' }}">
-                            <label>Shipper's Name</label>
-                            {{ Form::text('plate_number', null, ['class' => 'form-control', 'placeholder' => 'Enter Shippers Name']) }}
-                            @if ($errors->has('plate_number'))
-                                <div class="form-control-feedback">
-                                    <small>
-                                    {{ $errors->first('plate_number') }}
-                                    </small>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-
-                </div>
-                
-        
-
-
-            
+        <div class="form-group row {{ $errors->has('plate_number') ? ' has-danger' : '' }}">
+                <label class="col-md-3 col-form-label">
+                        Plate Number
+                </label>
+                    <div class="col-md-9">
+                {{ Form::text('plate_number', null, ['class' => 'form-control', 'placeholder' => 'Enter Plate Number']) }}
+            </div>
+        </div>
+        </form>
+        {!! Form::close() !!}
         
     </div>
     </div>
@@ -66,6 +73,7 @@
                     <li class="list-group-item border-0">Booking Date</li>
                     <li class="list-group-item border-0">Consignee</li>
                     <li class="list-group-item border-0">Destination</li>
+                    <li class="list-group-item border-0">Ship Type</li>
                     <li class="list-group-item border-0">Mode of Shipment</li>
                     <li class="list-group-item border-0">Plate Number</li>
                     <li class="list-group-item border-0">Driver</li>
@@ -73,14 +81,15 @@
             </div>
             <div class="col-6">
                 <ul class="list-group border-0 text-left">
-                    <li class="list-group-item border-0">STO</li>
-                    <li class="list-group-item border-0">111222333444</li>
-                    <li class="list-group-item border-0">April 13, 2020</li>
-                    <li class="list-group-item border-0">PFMC</li>
-                    <li class="list-group-item border-0">PALAWAN</li>
-                    <li class="list-group-item border-0">Door to Door</li>
-                    <li class="list-group-item border-0">ABJ-6592</li>
-                    <li class="list-group-item border-0">Agapito Reyes</li>
+                    <li class="list-group-item border-0">{{ $bookingRequest->order_reference }}</li>
+                    <li class="list-group-item border-0">{{ $bookingRequest->order_reference_no }}</li>
+                    <li class="list-group-item border-0">{{ $bookingRequest->booking_date }}</li>
+                    <li class="list-group-item border-0">{{ $bookingRequest->consignee }}</li>
+                    <li class="list-group-item border-0">{{ $bookingRequest->destination }}</li>
+                    <li class="list-group-item border-0">{{ $bookingRequest->ship_type }}</li>
+                    <li class="list-group-item border-0">{{ $bookingRequest->mode_of_shipment }}</li>
+                    <li class="list-group-item border-0">{{ $bookingRequest->plate_number }}</li>
+                    <li class="list-group-item border-0">{{ $bookingRequest->driver_name }}</li>
                 </ul>
             </div>
         </div>
@@ -89,4 +98,14 @@
     </div>
     </div>
         
+@endsection
+
+@section('script')
+    <script>
+        $(function(){
+            $('#update-book-request').on('click', function(){
+                $('#bookingRequestUpdate').submit();
+            });
+            })
+    </script>
 @endsection

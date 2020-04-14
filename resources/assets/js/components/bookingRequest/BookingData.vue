@@ -11,180 +11,11 @@
 
             </div>
 
-             <div class="row">
-                    <div class="col-sm-12">
-                        <div>
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <div class="row">
-                                        <div class="col-sm-1">
-
-                                            <span class="fa-stack fa-lg mt-5">
-                                                <i class="fa fa-circle fa-stack-2x"></i>
-                                                <i class="fa fa-truck fa-stack-1x fa-inverse" aria-hidden="true"></i>
-                                            </span>
-
-                                        </div>
-                                        <div class="col-sm-3">
-
-                                            <small class="text-muted text-uppercase ">
-                                               Reference Number
-                                            </small> <br/>
-                                            <span>
-                                                STO : 123412455123 
-                                            </span> <br/> <br/>
-                                           
-
-                                            <small class="text-muted text-uppercase ">
-                                               Booking Date
-                                            </small> <br/>
-                                            <span>
-                                               April 13. 2020
-                                            </span> 
-                                            <br>
-                                        </div>
-                                        <div class="col-sm-3">
-
-                                            <small class="text-muted text-uppercase ">
-                                                Driver Name
-                                            </small> <br/>
-                                            <span>
-                                               Agapito Reyes
-                                            </span> <br/> <br/>
-
-                                            <small class="text-muted text-uppercase ">
-                                                Plate Number
-                                            </small> <br/>
-                                            <span>
-                                              ABJ-6529
-                                            </span> <br/>
-
-                                        </div>
-                                        
-                                        <div class="col-sm-3 pull-right right">
-                                            <small class="text-uppercase text-muted">Mode of Shipment </small><br/>
-                                            <span>
-                                                Door to Door
-                                            </span>
-                                        </div>
-
-                                        <div class="col-sm-2">
-                                            
-                                            <small class="text-muted text-uppercase ">
-                                                Status
-                                            </small> <br/>
-                                            <span>
-                                               Pending <i class="fa fa-circle" style="color:red" aria-hidden="true"></i>
-                                            </span> <br/> <br/>
-
-                                            <small class="text-muted text-uppercase ">
-                                                Shipper's Name
-                                            </small> <br/>
-                                            <span>
-                                              
-                                            </span> <br/>
-
-                                        </div>
-
-
-                                    </div>
-                                </li>
-                         
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-
-             <div class="row">
-                    <div class="col-sm-12">
-                        <div>
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <div class="row">
-                                        <div class="col-sm-1">
-
-                                            <span class="fa-stack fa-lg mt-5">
-                                                <i class="fa fa-circle fa-stack-2x"></i>
-                                                <i class="fa fa-truck fa-stack-1x fa-inverse" aria-hidden="true"></i>
-                                            </span>
-
-                                        </div>
-                                        <div class="col-sm-3">
-
-                                            <small class="text-muted text-uppercase ">
-                                               Reference Number
-                                            </small> <br/>
-                                            <span>
-                                                STO : 949493942394 
-                                            </span> <br/> <br/>
-                                           
-
-                                            <small class="text-muted text-uppercase ">
-                                               Booking Date
-                                            </small> <br/>
-                                            <span>
-                                               April 12. 2020
-                                            </span> 
-                                            <br>
-                                        </div>
-                                        <div class="col-sm-3">
-
-                                            <small class="text-muted text-uppercase ">
-                                                Driver Name
-                                            </small> <br/>
-                                            <span>
-                                               Benjamine Alvarez
-                                            </span> <br/> <br/>
-
-                                            <small class="text-muted text-uppercase ">
-                                                Plate Number
-                                            </small> <br/>
-                                            <span>
-                                              ABJ-3399
-                                            </span> <br/>
-
-                                        </div>
-                                        
-                                        <div class="col-sm-3 pull-right right">
-                                            <small class="text-uppercase text-muted">Mode of Shipment </small><br/>
-                                            <span>
-                                                Door to Pier
-                                            </span>
-                                        </div>
-
-                                        <div class="col-sm-2">
-                                            
-                                            <small class="text-muted text-uppercase ">
-                                                Status
-                                            </small> <br/>
-                                            <span>
-                                               Updated <i class="fa fa-circle" style="color:green" aria-hidden="true"></i>
-                                            </span> <br/> <br/>
-
-                                            <small class="text-muted text-uppercase ">
-                                                Shipper's Name
-                                            </small> <br/>
-                                            <span>
-                                              PFMC
-                                            </span> <br/>
-
-                                        </div>
-
-
-                                    </div>
-                                </li>
-                         
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- <div class="row">
+                <div class="row">
                     <div class="col-sm-12">
                         <div v-if="!loading">
                             <ul class="list-group">
-                                <li v-for="(arrival, i) in filterBookingRequest" :key="i" class="list-group-item">
+                                <li v-for="(bookRequest, i) in filterBookingRequest" :key="i" class="list-group-item">
                                     <div class="row">
                                         <div class="col-sm-1">
 
@@ -194,46 +25,99 @@
                                             </span>
 
                                         </div>
-                                        <div class="col-sm-5">
-                                           <a href="#">
-                                               <span v-if="arrival.truck">
-                                                    {{ arrival.plate_number }}
-                                                </span>
-                                                <span v-else>
-                                                    NO PLATE NUMBER
-                                                </span>
-                                          </a> : <br/>
+                                         <div class="col-sm-2">
 
-                                            <span class="text-muted">
-                                               {{ arrival.hauler_name }}
-                                            </span>
+                                            <small class="text-muted text-uppercase ">
+                                               Reference Number
+                                            </small> <br/>
+                                            <span>
+                                                STO : {{ bookRequest.order_reference_no }} 
+                                            </span> <br/> <br/>
+                                           
 
-                                            <br/>
-
-                                            <span v-if="arrival.truck.driver">
-                                                 {{arrival.truck.driver[0].name}}
-                                            </span>
-                                            <span v-else>
-                                                NO DRIVER ASSIGNED
-                                            </span>
-
+                                            <small class="text-muted text-uppercase ">
+                                               Booking Date
+                                            </small> <br/>
+                                            <span>
+                                               {{ bookRequest.booking_date }}
+                                            </span> 
+                                            <br>
                                         </div>
                                         <div class="col-sm-3">
 
-                                            <span v-if="arrival.truck.availability == 1">
-                                               Active <i class="fa fa-circle" style="color:green" aria-hidden="true"></i>
-                                            </span>
-                                            <span v-if="arrival.truck.availability == 0">
-                                               Deactivated <i class="fa fa-circle" style="color:red" aria-hidden="true"></i>
-                                            </span>
+                                            <small class="text-muted text-uppercase ">
+                                                Driver Name
+                                            </small> <br/>
+                                            <span v-if="bookRequest.driver_name">
+                                               {{ bookRequest.driver_name }}
+                                            </span> 
+                                            <span v-else class="text-muted">
+                                               N/A
+                                            </span> 
+                                            <br/> <br/>
+
+                                            <small class="text-muted text-uppercase ">
+                                                Plate Number
+                                            </small> <br/>
+                                            <span v-if="bookRequest.plate_number">
+                                              {{ bookRequest.plate_number }}
+                                            </span> 
+                                             <span v-else class="text-muted">
+                                               N/A
+                                            </span> 
+                                            <br/>
 
                                         </div>
 
                                         <div class="col-sm-3 pull-right right">
-                                            <span class="text-muted">Expected Time Arrival: </span><br/>
+                                            <small class="text-uppercase text-muted">Mode of Shipment </small><br/>
                                             <span>
-                                                {{ moment(arrival.expected_arrival) }}
-                                            </span>
+                                                {{ bookRequest.mode_of_shipment }}
+                                            </span><br/> <br/>
+                                             <small class="text-uppercase text-muted">Ship Type </small><br/>
+                                            <span>
+                                                {{ bookRequest.ship_type }}
+                                            </span><br/> <br/>
+                                        </div>
+
+                                         <div class="col-sm-2">
+                                            
+                                            <small class="text-muted text-uppercase ">
+                                                Status
+                                            </small> <br/>
+
+                                            <span v-if="bookRequest.shippers_name">
+                                                Updated <i class="fa fa-circle" style="color:green" aria-hidden="true"></i>
+                                            </span> 
+                                            <span v-else>
+                                               Pending <i class="fa fa-circle" style="color:red" aria-hidden="true"></i>
+                                            </span> 
+                                            
+                                            <br/> <br/>
+
+                                            <small class="text-muted text-uppercase ">
+                                                Shipper's Name
+                                            </small> <br/>
+                                            <span v-if="bookRequest.shippers_name">
+                                                {{ bookRequest.shippers_name }}
+                                            </span> 
+                                             <span v-else class="text-muted">
+                                               N/A
+                                            </span> 
+                                            <br/>
+
+                                        </div>
+
+                                        <div class="col-sm-1">
+                                             <a class="dropdown pull-right btn btn-outline-secondary" href="#" id="driverDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-ellipsis-v"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="driverDropdown">
+
+                                                <a  :href="'/booking-requests/' + bookRequest.id " class="dropdown-item">Update</a>
+
+                                            </div>
+
                                         </div>
 
 
@@ -266,7 +150,7 @@
                              </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
 
 
                  <div  class="row mt-3">
@@ -276,7 +160,7 @@
                     <button :disabled="!showNextLink()" class="btn btn-default btn-sm" v-on:click="setPage(currentPage + 1)"> Next </button>
                 </div>
                 <div class="col-6 text-right">
-                    <span> 2 Booked Requests</span>
+                    <span> {{ bookings.length }} Booked Requests</span>
                 </div>
             </div>
 
@@ -286,6 +170,7 @@
 </template>
 <script>
 import VueContentPlaceholders from 'vue-content-placeholders';
+import moment from 'moment';
 
     export default {
          props: ['user'],
@@ -306,10 +191,22 @@ import VueContentPlaceholders from 'vue-content-placeholders';
              }
          },
 
+         created() {
+
+             this.fetchBookedEntries()
+
+         },
 
          methods: {
 
-             moment(date) {
+             fetchBookedEntries() {
+                 axios.get('/api/booking-requests')
+                 .then(response => {
+                     this.bookings = response.data.data
+                 })
+             },
+
+            moment(date) {
                 return moment(date).format('MMMM D, Y h:m A');
             },
 
@@ -335,7 +232,7 @@ import VueContentPlaceholders from 'vue-content-placeholders';
 
         filteredEntries() {
             return this.bookings.filter(item => {
-                return item.shippers_name.toLowerCase().indexOf(this.searchString.trim().toLowerCase());
+                return item.order_reference_no.includes(this.searchString.trim().toLowerCase());
             })
         },
 

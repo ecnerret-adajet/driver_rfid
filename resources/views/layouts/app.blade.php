@@ -141,6 +141,14 @@
 
               @endrole
 
+              @role((['Administrator','Queue-monitoring','monitoring']))
+
+              <li class="font-weight-bold {{ Request::is('booking-requests*') ? 'active' : ''}}">
+                <a href="{{url('/booking-requests')}}">Booking Entries</a>
+              </li>
+
+              @endrole
+
 
             </ul>
           </li>

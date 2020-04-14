@@ -34,6 +34,9 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('haulers-arrivals/{id}', 'Api\HaulerExpectedController@show');
     Route::post('haulers-arrivals', 'Api\HaulerExpectedController@store');
 
+    // Book Request API
+    Route::get('/booking-requests','BookRequestController@fetchBookRequests');
+
 });
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {

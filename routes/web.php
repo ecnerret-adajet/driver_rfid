@@ -486,9 +486,7 @@ Route::group(['middleware' => 'auth'], function () {
         /**
          * Booking Request Route Setup
          */
-        Route::get('/booking-requests','BookRequestController@index');
-        Route::get('/booking-requests/{bookingRequest}','BookRequestController@show');
-
+        Route::resource('/booking-requests','BookRequestController');
 
     });
 
