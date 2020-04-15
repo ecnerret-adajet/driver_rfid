@@ -33,6 +33,18 @@ class BookRequestController extends Controller
         return $manager->createData($resource)->toArray();
     }
 
+    public function myBookedRequests()
+    {
+        $bookRequests = BookingRequest::orderBy('id','desc')
+                        ->where('user_id',Auth::user()->id)
+                        ->get();
+
+        $manager = new Manager();
+        $resource = new Collection($bookRequests, new BookRequestTransformer());
+
+        return $manager->createData($resource)->toArray();
+    }
+
      /**
      * Store a newly created resource in storage.
      *

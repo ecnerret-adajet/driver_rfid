@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth:api'], function() {
 
     // Book Request API
     Route::get('/booking-requests','BookRequestController@fetchBookRequests');
+    Route::get('/my-bookings','BookRequestController@myBookedRequests');
 
 });
 

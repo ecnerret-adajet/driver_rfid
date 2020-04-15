@@ -100,6 +100,7 @@ Vue.component('hauler-expected-arrival-all', require('./components/expected/Haul
 
 // Booking Request Components
 Vue.component('booking-requests', require('./components/bookingRequest/Index.vue'));
+Vue.component('my-bookings', require('./components/bookingRequest/Mybookings.vue'));
 
 const app = new Vue({
     el: '#app'

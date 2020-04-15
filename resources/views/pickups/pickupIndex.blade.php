@@ -27,6 +27,10 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#profile" role="tab"> Served </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#bookRequest" role="tab"> Booked Requests </a>
+                    </li>
             </ul>
 
             <!-- Tab panes -->
@@ -38,6 +42,10 @@
             
                 <div class="tab-pane pt-3" id="profile" role="tabpanel">
                     <pickup-served></pickup-served>
+                </div>
+
+                <div class="tab-pane pt-3" id="bookRequest" role="tabpanel">
+                    <my-bookings></my-bookings>
                 </div>
 
             </div>
