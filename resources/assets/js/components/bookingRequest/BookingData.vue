@@ -200,7 +200,7 @@ import moment from 'moment';
          methods: {
 
              fetchBookedEntries() {
-                 axios.get('/api/booking-requests')
+                 axios.get('/driver_rfid/public/api/booking-requests')
                  .then(response => {
                      this.bookings = response.data.data
                  })
