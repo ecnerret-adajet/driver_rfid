@@ -25,12 +25,13 @@
         {!! Form::model($bookingRequest, ['id'=>'bookingRequestUpdate', 'method' => 'PATCH','route' => ['booking-requests.update', $bookingRequest->id], 'enctype'=>'multipart/form-data']) !!}
         {!! csrf_field() !!}
         <form>
+
         <div class="form-group row {{ $errors->has('driver_name') ? ' has-danger' : '' }}">
             <label class="col-md-3 col-form-label">
                 Shipper's Name
             </label>
             <div class="col-md-9">
-                {{ Form::text('shippers_name', null, ['class' => 'form-control', 'placeholder' => 'Enter Shippers Name']) }}
+            {!! Form::select('shippers_name', array('ALC' => 'ALC', 'CSCI' => 'CSCI','LFUG' => 'LFUG','LFMI' => 'LFMI', 'MTPCI' => 'MTPCI', 'MGC' => 'MGC', 'PFMC' => 'PFMC', 'PLILI' => 'PLILI'), null, ['placeholder' => 'Select Shippers',  'class' => 'form-control select2-card'] ) !!}
             </div>
         </div>
 
