@@ -336,8 +336,9 @@ class PickupsController extends Controller
     public function pickupFeed()
     {
         $pickups = Pickup::with('cardholder','user')
+                        ->whereDate('created_at', '>=',  Carbon::today())
+                        ->whereDate('created_at' ,'<=', Carbon::today())
                         ->orderBy('id','DESC')
-                        ->take(30)
                         ->get();
 
         return $pickups;
@@ -390,7 +391,8 @@ class PickupsController extends Controller
         $search_date = $request->get('search_date');
 
         $served = Pickup::with('cardholder','user')
-                        ->whereDate('created_at',Carbon::parse($search_date))
+                        ->whereDate('created_at', '>=',  Carbon::parse($search_date))
+                        ->whereDate('created_at' ,'<=', Carbon::parse($search_date))
                         ->orderBy('id','DESC')
                         ->get();
 
