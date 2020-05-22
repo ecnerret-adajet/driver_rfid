@@ -161,6 +161,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/forPrint','PrintController@getForPrint');
     Route::post('/prints/{id}','PrintController@printed');
 
+     /**
+     * Company Resource
+     */
+    Route::resource('/companies','CompaniesController');
+
     Route::resource('/drivers','DriversController');
     /**
     * Driver Json Details

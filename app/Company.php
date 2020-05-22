@@ -8,11 +8,12 @@ class Company extends Model
 {
     protected $fillable = [
         'name',
+        'remarks'
     ];
 
     /**
      *  List user where has a user_id assigned
-     * 
+     *
      */
     public function user()
     {
