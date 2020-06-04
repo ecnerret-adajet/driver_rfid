@@ -1,20 +1,20 @@
 <template>
     <div>
-       
-      
+
+
 
        <table class="table table-bordered">
            <tr>
                <td width="10%">
-                <img v-if="entry.image" :src="avatar_link + entry.image.avatar" class="rounded-circle" style="height: 100px; width: auto;"  align="middle">
-                <img v-else :src="avatar_link + entry.avatar" class="rounded-circle" style="height: 100px; width: auto;"  align="middle">
+                <img :src="avatar_link + lastDriver.avatar" class="rounded-circle" style="height: 100px; width: auto;"  align="middle">
+                <!-- <img v-else :src="avatar_link + entry.avatar" class="rounded-circle" style="height: 100px; width: auto;"  align="middle"> -->
                </td>
                <td class="pt-3">
                    <button class="float-right btn btn-secondary btn-sm">CANCEL</button>
-                   <span class="d-block">{{ entry.name }}</span>
-                   <span v-if="entry.truck" class="d-block">{{ entry.truck[0].plate_number }}</span>
-                   <span v-if="entry.hauler" class="d-block">{{ entry.hauler[0].name }}</span>
-                   
+                   <span class="d-block">{{ lastDriver.driver_name }}</span>
+                   <span v-if="lastDriver.plate_number" class="d-block">{{ lastDriver.plate_number }}</span>
+                   <span v-if="lastDriver.hauler_name" class="d-block">{{ lastDriver.hauler_name }}</span>
+
                </td>
            </tr>
        </table>
@@ -23,7 +23,7 @@
            <tr>
                <td colspan="3">
                    <small class="text-muted text-uppercase d-block">Shipment No:</small>
-                   <span class="font-weight-light h4">00001231231</span>
+                   <span class="font-weight-light h4">{{ lastDriver.shipment_number }}</span>
                </td>
            </tr>
            <tr>
@@ -33,11 +33,11 @@
                </td>
                <td>
                    <small class="text-muted text-uppercase d-block">Picking Date:</small>
-                   <span class="font-weight-light h5">July 17, 2018 2:00 AM</span>
+                   <span class="font-weight-light h5">N/A</span>
                </td>
                <td>
                    <small class="text-muted text-uppercase d-block">Loading Date:</small>
-                   <span class="font-weight-light h5">July 17, 2018 5:00 AM</span>
+                   <span class="font-weight-light h5">N/A</span>
                </td>
            </tr>
            <tr>
@@ -102,36 +102,7 @@
   </thead>
   <tbody>
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td>@fat</td>
-      <td>@fat</td>
-      <td>@fat</td>
-      <td>@fat</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-      <td>@twitter</td>
-      <td>@twitter</td>
-      <td>@twitter</td>
-      <td>@twitter</td>
-      <td>@twitter</td>
+      <th colSpan="9" class="text-center bg-default" scope="row">No Data Found</th>
     </tr>
   </tbody>
 </table>
@@ -156,6 +127,7 @@ export default {
 
     data() {
         return {
+            lastDriver: [],
             entry: [],
             avatar_link: '/driver_rfid/public/storage/',
         }
@@ -163,15 +135,27 @@ export default {
 
     created() {
         this.getEntry()
+        this.getLastDriver()
     },
 
     methods: {
         getEntry() {
             axios.get('/driver_rfid/public/picklistEntry/' + this.driver_id)
             .then(response => this.entry = response.data);
-        }
+        },
+        getLastDriver() {
+            axios.post('/driver_rfid/public/storeQueueEntries/1')
+            .then(response => {
+                console.log('check last driver: ', response)
+                this.lastDriver = response.data
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+            // setTimeout(this.getLastDriver, 2000); // 2 seconds
+        },
     }
 
-    
+
 }
 </script>
