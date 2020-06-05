@@ -104,6 +104,11 @@ Route::post('/storeQueueEntries/{driverqueue_id}','QueueEntriesController@storeQ
 Route::get('/getQueueEntries/{driverqueue_id}','QueueEntriesController@getQueueEntries');
 Route::get('/queueEntry/{driverqueue}','QueueEntriesController@queueEntry');
 
+/**
+ * Loading Entries Route Setup
+ */
+Route::post('/storeLoadingEntries/{driverqueue_id}', 'LoadingEntriesController@storeLoadingEntries');
+
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
 $this->post('login', 'Auth\LoginController@login');

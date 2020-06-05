@@ -23,7 +23,8 @@
            <tr>
                <td colspan="3">
                    <small class="text-muted text-uppercase d-block">Shipment No:</small>
-                   <span class="font-weight-light h4">{{ lastDriver.shipment_number }}</span>
+                   <span v-if="lastDriver.shipment_number" class="font-weight-light h4">{{ lastDriver.shipment_number }}</span>
+                   <span v-else class="font-weight-light h4 text-danger">NO SHIPMENT NUMBERS</span>
                </td>
            </tr>
            <tr>
@@ -144,7 +145,7 @@ export default {
             .then(response => this.entry = response.data);
         },
         getLastDriver() {
-            axios.post('/driver_rfid/public/storeQueueEntries/1')
+            axios.post('/driver_rfid/public/storeLoadingEntries/5') //1
             .then(response => {
                 console.log('check last driver: ', response)
                 this.lastDriver = response.data
@@ -152,7 +153,7 @@ export default {
             .catch((error) => {
                 console.log(error);
             });
-            // setTimeout(this.getLastDriver, 2000); // 2 seconds
+            setTimeout(this.getLastDriver, 3000); // 2 seconds
         },
     }
 
