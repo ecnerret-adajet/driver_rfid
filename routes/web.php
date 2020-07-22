@@ -161,7 +161,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/forPrint','PrintController@getForPrint');
     Route::post('/prints/{id}','PrintController@printed');
 
-     /**
+    /**
      * Company Resource
      */
     Route::resource('/companies','CompaniesController');
@@ -477,6 +477,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('api-reason-replacement','Api\ReplacementApiController@reasonReplacement');
         Route::get('api-replacements-approved','Api\ReplacementApiController@approvedReplacements');
         Route::get('api-replacements-report/{date_from}/{date_to}','Api\ReplacementApiController@replacementReport');
+
+        /**
+         * Hauler Expected Arrival Routes
+         */
+        Route::get('expected-arrivals', 'Api\HaulerExpectedController@expectedArrivals');
 
 
     });

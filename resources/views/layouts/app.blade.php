@@ -133,6 +133,14 @@
 
               @endrole
 
+              @role((['Administrator','Queue-monitoring','monitoring']))
+
+              <li class="font-weight-bold {{ Request::is('expected-arrivals*') ? 'active' : ''}}">
+                <a href="{{url('/expected-arrivals')}}">ETA</a>
+              </li>
+
+              @endrole
+
 
             </ul>
           </li>
@@ -177,7 +185,7 @@
               <li class="font-weight-bold {{ (Request::is('settings') ||
                               Request::is('settings/*')
                             ) ? 'active' : '' }}">
-                <a href="{{url('/settings')}}">Email Notifications</a>
+                <a href="{{url('/settings')}}">Settings</a>
               </li>
                <li class="font-weight-bold {{ (Request::is('activities') || Request::is('generateActivities')) ? 'active' : '' }}">
                 <a href="{{url('/activities')}}">System Logs</a>

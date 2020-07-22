@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\Cardholder;
 use App\Pickup;
 use App\Log;
+use App\ModuleSetting;
 use Flashy;
 
 class PickupsController extends Controller

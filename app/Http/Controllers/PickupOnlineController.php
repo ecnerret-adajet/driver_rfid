@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Collection;
 use Spatie\Activitylog\Models\Activity;
 use Carbon\Carbon;
 use App\Cardholder;
 use App\Pickup;
+use App\ModuleSetting;
 use App\Log;
 use Flashy;
 
@@ -15,7 +17,13 @@ class PickupOnlineController extends Controller
 {
     public function index() 
     {
-        return view('pickups.pickupIndex');
+        $allowedPickup = collect(json_decode(ModuleSetting::where('modelable_type','App\Pickup')->first()->modelable_array,true));
+
+        $isAllowed = in_array(Auth::user()->company->id, $allowedPickup->toArray()) ? 'true' : 'false';
+
+        $userCompanyName = Auth::user()->company->name;
+
+        return view('pickups.pickupIndex',compact('userCompanyName','isAllowed'));
     }
 
     public function getPickupData()
@@ -24,11 +32,12 @@ class PickupOnlineController extends Controller
                             $q->where('company_id', Auth::user()->company_id);
                         })
                         ->orderBy('created_at','DESC')
+                        ->where('bypass_rfid', false)
                         ->whereNull('cardholder_id')
                         ->with('cardholder','user')
                         ->get();
-        
-        return $pickups;
+
+return $pickups;
     }
 
     public function getPickupWithCardholder()
@@ -39,6 +48,7 @@ class PickupOnlineController extends Controller
                         ->orderBy('created_at','DESC')
                         ->whereNotNull('cardholder_id')
                         ->whereDate('activation_date', Carbon::today())
+                        ->orWhere('bypass_rfid', true)
                         ->with('cardholder','user')
                         ->get();
         
@@ -110,7 +120,15 @@ class PickupOnlineController extends Controller
             'coa' => 'required'
         ]);
 
-        $pickup = Auth::user()->pickups()->create($request->all());
+        // $pickup = Auth::user()->pickups()->create($request->all());
+        $pickup = new Pickup;
+        $pickup->user_id = Auth::user()->id;
+        $pickup->plate_number = $request->input('plate_number');
+        $pickup->driver_name = $request->input('driver_name');
+        $pickup->company = $request->input('company');
+        $pickup->do_number = $request->input('do_number');
+        $pickup->coa = $request->input('coa');
+        $pickup->save();
 
         flashy()->success('Pickup has successfully created!');
         return redirect('pickups/online');

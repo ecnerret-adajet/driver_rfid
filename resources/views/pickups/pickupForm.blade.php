@@ -31,7 +31,11 @@
             Company
     </label>
     <div class="col-md-9">
-    {{ Form::text('company', null, ['class' => 'form-control', 'placeholder' => 'Enter Company']) }}
+        @if($isAllowed == "false")
+            {{ Form::text('company', $userCompanyName, ['class' => 'form-control hide', 'placeholder' => 'Enter Company', 'readonly' => 'true']) }}
+        @else
+            {{ Form::text('company', null, ['class' => 'form-control', 'placeholder' => 'Enter Company']) }}
+        @endif
     </div>
 </div>
     
