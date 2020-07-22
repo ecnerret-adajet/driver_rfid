@@ -112,8 +112,9 @@ class UsersController extends Controller
         $userRole = $user->roles->pluck('id','id')->toArray();
         $haulers = Hauler::pluck('name','id');
         $companies = Company::pluck('name','id');
+        $userLocations = UserLocation::pluck('name','id');
 
-        return view('users.edit',compact('user','roles','userRole','haulers','companies'));
+        return view('users.edit',compact('user','roles','userRole','haulers','companies','userLocations'));
     }
 
     /**
@@ -144,6 +145,7 @@ class UsersController extends Controller
         $user->roles()->sync( (array) $request->input('roles_list'));
         $user->hauler()->associate($request->input('hauler_list'));
         $user->company()->associate($request->input('company_list'));
+        $user->userLocation()->associate($request->input('user_location'));
         $user->save();
 
         $activity = activity()

@@ -14,7 +14,7 @@ class PickListsController extends Controller
      *  Pick list per driver detected from truckscale
      * 
      */
-    public function pickList($driver_id, $log)
+    public function pickList($driverqueue)
     {
         $driver = Driver::findOrFail($driver_id);
 
