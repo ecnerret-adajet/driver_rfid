@@ -30,7 +30,7 @@
         "moment": "^2.24.0",
         "popper.js": "^1.14.3",
         "pusher-js": "^4.2.1",
-        "v-select2-component": "^0.4.1",
+        "v-select2-component": "^0.4.3",
         "vue-content-placeholders": "^0.2.1",
         "vue-json-excel": "^0.2.83",
         "vue-json-to-excel": "0.0.8",

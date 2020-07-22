@@ -3,7 +3,7 @@
 
 
 
-       <table class="table table-bordered">
+       <table v-if="Object.keys(lastDriver).length > 0" class="table table-bordered">
            <tr>
                <td width="10%">
                 <img :src="avatar_link + lastDriver.avatar" class="rounded-circle" style="height: 100px; width: auto;"  align="middle">
@@ -19,11 +19,21 @@
            </tr>
        </table>
 
-       <table class="table table-bordered">
+       <table v-else class="table table-bordered">
+            <tr>
+               <td colspan="2">
+                    <h3 class="text-muted text-center">NO DRIVER DETAILS</h3>
+               </td>
+           </tr>
+       </table>
+
+
+       <table  class="table table-bordered">
            <tr>
                <td colspan="3">
                    <small class="text-muted text-uppercase d-block">Shipment No:</small>
-                   <span class="font-weight-light h4">{{ lastDriver.shipment_number }}</span>
+                   <span v-if="lastDriver.shipment_number" class="font-weight-light h4">{{ lastDriver.shipment_number }}</span>
+                   <span v-else class="font-weight-light h4 text-danger">NO SHIPMENT NUMBER</span>
                </td>
            </tr>
            <tr>
@@ -48,7 +58,7 @@
            </tr>
        </table>
 
-       <table class="table table-bordered">
+       <table v-if="Object.keys(lastDriver).length > 0" class="table table-bordered">
            <tr>
                <td colspan="4">
                    <small class="text-muted text-uppercase d-block">Ship to party:</small>
@@ -85,7 +95,7 @@
            </tr>
        </table>
 
-       <div class="table-responsive">
+       <div v-if="Object.keys(lastDriver).length > 0" class="table-responsive">
            <table class="table table-hover ">
   <thead>
     <tr class="table-dark">
@@ -109,14 +119,14 @@
         </div>
 
 
-        <div class="row mt-4">
+        <!-- <div class="row mt-4">
             <div class="col">
                 <button class="btn rounded-0 btn-outline-primary btn-lg btn-block text-uppercase active">Driver Confirm</button>
             </div>
             <div class="col">
                 <button class="btn rounded-0 btn-outline-primary btn-lg btn-block text-uppercase">Checker Confirm</button>
             </div>
-        </div>
+        </div> -->
 
     </div>
 </template>
@@ -144,7 +154,7 @@ export default {
             .then(response => this.entry = response.data);
         },
         getLastDriver() {
-            axios.post('/driver_rfid/public/storeQueueEntries/1')
+            axios.post('/driver_rfid/public/storeLoadingEntries/5') //1
             .then(response => {
                 console.log('check last driver: ', response)
                 this.lastDriver = response.data
@@ -152,7 +162,7 @@ export default {
             .catch((error) => {
                 console.log(error);
             });
-            // setTimeout(this.getLastDriver, 2000); // 2 seconds
+            setTimeout(this.getLastDriver, 3000); // 2 seconds
         },
     }
 

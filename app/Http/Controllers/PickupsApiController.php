@@ -44,7 +44,7 @@ class PickupsApiController extends Controller
                         ->whereNotNull('cardholder_id')
                         ->orWhere('bypass_rfid',true)
                         ->orderBy('id','DESC')
-                        // ->take(8)
+                        // ->take(50)
                         ->get();
                         // ->paginate(10);
 
