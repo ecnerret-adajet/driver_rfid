@@ -20,6 +20,8 @@ class Kernel extends ConsoleKernel
          '\App\Console\Commands\ReviveQueueEntries',
          '\App\Console\Commands\PushGateToQueueSAP',
          '\App\Console\Commands\PlateNumberAlignment',
+         '\App\Console\Commands\DoNumberStatusUpdate',
+         '\App\Console\Commands\DoNumberServedStatus',
     ];
 
     /**
@@ -32,6 +34,9 @@ class Kernel extends ConsoleKernel
     {
          $schedule->command('command:UpdateShipment')->everyFiveMinutes();
          $schedule->command('command:CheckShipmentStart')->everyFiveMinutes();
+
+         $schedule->command('command:do_number_status')->hourly();
+         $schedule->command('command:do_number_status_server')->hourlyAt(30);
     }
 
     /**
