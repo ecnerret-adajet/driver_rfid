@@ -17,6 +17,7 @@ use App\Hauler;
 use App\Driver;
 use App\Truck;
 use App\Company;
+use App\UserLocation;
 
 class UsersController extends Controller
 {
@@ -40,7 +41,8 @@ class UsersController extends Controller
         $roles = Role::pluck('display_name','id');
         $haulers = Hauler::pluck('name','id');
         $companies = Company::pluck('name','id');
-        return view('users.create',compact('roles','haulers','companies'));  
+        $userLocations = UserLocation::pluck('name','id');
+        return view('users.create',compact('roles','haulers','companies','userLocations'));  
     }
 
     /**
