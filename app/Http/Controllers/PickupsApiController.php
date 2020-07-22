@@ -41,7 +41,7 @@ class PickupsApiController extends Controller
                         ->whereNull('deactivated_date')
                         ->whereNotNull('cardholder_id')
                         ->orderBy('id','DESC')
-                        // ->take(8)
+                        // ->take(50)
                         ->get();
                         // ->paginate(10);
 
