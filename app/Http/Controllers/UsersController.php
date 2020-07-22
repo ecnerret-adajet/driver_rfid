@@ -19,6 +19,13 @@ use App\Truck;
 use App\Company;
 use App\UserLocation;
 
+
+use App\SapUser;
+use App\SapServer;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Exception\ServerException;
+
 class UsersController extends Controller
 {
     /**
@@ -205,5 +212,222 @@ class UsersController extends Controller
         }
 
         return $trucks;
+    }
+
+
+    public function getPFMCEmailAddress($id){
+
+        $to = $id;
+        $from = $id;
+        
+        $client = new Client();
+
+        $sap_user =  SapUser::where('server' , 'PFMC')->first();
+       
+        $sap_server = SapServer::where('server' , 'PFMC')->where('name' , 'PROD')->first();
+
+        $connection = [
+            'ashost' => $sap_server['host'],
+            'sysnr' => $sap_server['system_number'],
+            'client' => $sap_server['client'],
+            'user' => $sap_user['username'],
+            'passwd' => $sap_user['password']
+        ];
+    
+       $all_user = User::select('id','email','pfmc_customer_code','lfug_customer_code')->where('id','>=',$from)->where('id','<=',$to)->whereNotNull('company_id')->get();
+       $user_data = [];     
+
+       foreach($all_user as $key => $user){
+
+            
+            $email = $user['email'];
+
+            try{
+                $address_number = $client->request('GET', 'http://10.96.4.39:8012/api/read-table',
+                                ['query' => 
+                                    ['connection' => $connection,
+                                        'table' => [
+                                            'table' => ['ADR6' => 'address_number'],
+                                            'fields' => [
+                                                'ADDRNUMBER' => 'address_number',
+                                                'SMTP_ADDR' => 'email_address',
+                                            ],
+                                            'options' => [
+                                                ['TEXT' => "SMTP_ADDR = '$email'"]
+                                            ],
+                                        ]
+                                    ]
+                                ],
+                                ['timeout' => 600],
+                                ['delay' => 10000]
+                            );
+
+                $address_number_datas = json_decode($address_number->getBody(), true);
+                
+                if($address_number_datas){
+                    
+                    $customer_data = [];
+                    $customer_codes_data = [];
+
+                    foreach($address_number_datas as $k => $address_number_data){
+                        
+                        $address_number = $address_number_data['address_number'];
+
+                        if($address_number){
+                            $customers = $client->request('GET', 'http://10.96.4.39:8012/api/read-table',
+                                ['query' => 
+                                    ['connection' => $connection,
+                                        'table' => [
+                                            'table' => ['KNA1' => 'do_headers'],
+                                            'fields' => [
+                                                'KUNNR' => 'customer_code',
+                                            ],
+                                            'options' => [
+                                                ['TEXT' => "ADRNR = '$address_number'"]
+                                            ],
+                                        ]
+                                    ]
+                                ],
+                                ['timeout' => 600],
+                                ['delay' => 10000]
+                            );
+                            $customers_data = json_decode($customers->getBody(), true);
+                            if($customers_data){
+                                foreach( $customers_data as $customer_code){
+                                    array_push($customer_codes_data, $customer_code['customer_code']);
+                                }
+                            }
+                        }
+                    }
+                    
+                    $user_data[$key]['id'] = $user['id'];
+                    $user_data[$key]['email'] = $email;
+                    $compiled_customer_codes = $customer_codes_data ? implode(',',$customer_codes_data) : "";
+                    $user_data[$key]['customer_code'] = $compiled_customer_codes;
+
+                    if($compiled_customer_codes){
+                        if($user['pfmc_customer_code'] != $compiled_customer_codes){
+                            $data = [];
+                            $data['pfmc_customer_code'] = $compiled_customer_codes;
+                            $user->update($data);
+                        }
+                    }
+                }
+            }
+            catch(ServerException $e){}
+        }
+
+        if($user_data){
+            return 'Customer code exist';
+        }else{
+            return 'Customer no found';
+        }
+        
+    }
+
+    public function getLFUGEmailAddress($id){
+
+        $to = $id;
+        $from = $id;
+        
+        $client = new Client();
+
+        $sap_user =  SapUser::where('server' , 'LFUG')->first();
+       
+        $sap_server = SapServer::where('server' , 'LFUG')->where('name' , 'PROD')->first();
+
+        $connection = [
+            'ashost' => $sap_server['host'],
+            'sysnr' => $sap_server['system_number'],
+            'client' => $sap_server['client'],
+            'user' => $sap_user['username'],
+            'passwd' => $sap_user['password']
+        ];
+    
+       $all_user = User::select('id','email','pfmc_customer_code','lfug_customer_code')->where('id','>=',$from)->where('id','<=',$to)->whereNotNull('company_id')->get();
+       $user_data = [];     
+
+       foreach($all_user as $key => $user){
+            $email = $user['email'];
+            try{    
+                $address_number = $client->request('GET', 'http://10.96.4.39:8012/api/read-table',
+                                ['query' => 
+                                    ['connection' => $connection,
+                                        'table' => [
+                                            'table' => ['ADR6' => 'address_number'],
+                                            'fields' => [
+                                                'ADDRNUMBER' => 'address_number',
+                                                'SMTP_ADDR' => 'email_address',
+                                            ],
+                                            'options' => [
+                                                ['TEXT' => "SMTP_ADDR = '$email'"]
+                                            ],
+                                        ]
+                                    ]
+                                ],
+                                ['timeout' => 600],
+                                ['delay' => 10000]
+                            );
+
+                $address_number_datas = json_decode($address_number->getBody(), true);
+                
+                if($address_number_datas){
+                    
+                    $customer_data = [];
+                    $customer_codes_data = [];
+                    foreach($address_number_datas as $k => $address_number_data){
+                        
+                        $address_number = $address_number_data['address_number'];
+
+                        if($address_number){
+                            $customers = $client->request('GET', 'http://10.96.4.39:8012/api/read-table',
+                                ['query' => 
+                                    ['connection' => $connection,
+                                        'table' => [
+                                            'table' => ['KNA1' => 'do_headers'],
+                                            'fields' => [
+                                                'KUNNR' => 'customer_code',
+                                            ],
+                                            'options' => [
+                                                ['TEXT' => "ADRNR = '$address_number'"]
+                                            ],
+                                        ]
+                                    ]
+                                ],
+                                ['timeout' => 600],
+                                ['delay' => 10000]
+                            );
+                            $customers_data = json_decode($customers->getBody(), true);
+                            if($customers_data){
+                                foreach( $customers_data as $customer_code){
+                                    array_push($customer_codes_data, $customer_code['customer_code']);
+                                }
+                            }
+                        }
+                    }
+                    
+                    $user_data[$key]['id'] = $user['id'];
+                    $user_data[$key]['email'] = $email;
+                    $compiled_customer_codes = $customer_codes_data ? implode(',',$customer_codes_data) : "";
+                    $user_data[$key]['customer_code'] = $compiled_customer_codes;
+
+                    if($compiled_customer_codes){
+                        if($user['lfug_customer_code'] != $compiled_customer_codes){
+                            $data = [];
+                            $data['lfug_customer_code'] = $compiled_customer_codes;
+                            $user->update($data);
+                        }
+                    }
+                }
+            }
+            catch(ServerException $e){}
+        }
+
+        if($user_data){
+            return 'Customer code exist';
+        }else{
+            return 'Customer no found';
+        }
+        
     }
 }

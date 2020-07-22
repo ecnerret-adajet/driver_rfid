@@ -56,7 +56,17 @@
 
                                             <div class="btn-group pull-right" role="group" aria-label="Basic example">
                                                 <a :href="users_link + user.id + '/edit'" class="btn btn-secondary btn-sm">Edit User</a>
-                                                <!-- <a href="javascript:void(0);" class="btn btn-secondary btn-sm">Deactivate</a> -->
+                                               
+                                                <a :href="'/driver_rfid/public/pfmc-customer/'+user.id" target="_blank" class="btn btn-success btn-sm ml-1">
+                                                    Generate PFMC 
+                                                    <i v-if="user.lfug_customer_code" class="fa fa-check"></i>
+                                                    <i v-else class="fa fa-times"></i>
+                                                </a>
+                                                <a :href="'/driver_rfid/public/lfug-customer/'+user.id" target="_blank" class="btn btn-success btn-sm ml-1">
+                                                    Generate LFUG
+                                                    <i v-if="user.pfmc_customer_code" class="fa fa-check"></i>
+                                                    <i v-else class="fa fa-times"></i>
+                                                </a>  
                                             </div>
                                                                                         
                                         </div>

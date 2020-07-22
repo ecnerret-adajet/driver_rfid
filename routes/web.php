@@ -489,6 +489,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('expected-arrivals', 'Api\HaulerExpectedController@expectedArrivals');
 
 
+        Route::get('pfmc-customer/{id}', 'UsersController@getPFMCEmailAddress');
+        Route::get('lfug-customer/{id}', 'UsersController@getLFUGEmailAddress');
+
+
     });
 
 
