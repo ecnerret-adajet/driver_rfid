@@ -315,7 +315,11 @@ class UsersController extends Controller
             catch(ServerException $e){}
         }
 
-        return $user_data;
+        if($user_data){
+            return 'Customer code exist';
+        }else{
+            return 'Customer no found';
+        }
         
     }
 
@@ -417,7 +421,11 @@ class UsersController extends Controller
             catch(ServerException $e){}
         }
 
-        return $user_data;
+        if($user_data){
+            return 'Customer code exist';
+        }else{
+            return 'Customer no found';
+        }
         
     }
 }
