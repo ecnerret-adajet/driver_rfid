@@ -149,15 +149,28 @@ export default {
     },
 
     methods: {
+
         getEntry() {
             axios.get('/driver_rfid/public/picklistEntry/' + this.driver_id)
             .then(response => this.entry = response.data);
         },
+
+        getPicklistLoad(shipment_number) {
+             axios.get(`/driver_rfid/public/api/picklist-for-loading/${shipment_number}`)
+             .then(response => {
+                 // then save to picklist table
+                 console.log('check picklist status: ', response.data)
+             })
+        },
+
         getLastDriver() {
-            axios.post('/driver_rfid/public/storeLoadingEntries/5') //1
+            axios.post('/driver_rfid/public/storeLoadingEntries/6') //1
             .then(response => {
                 console.log('check last driver: ', response)
                 this.lastDriver = response.data
+                if(response.data.shipment_number != '') {
+                    this.getPicklistLoad(response.data.shipment_number)
+                }
             })
             .catch((error) => {
                 console.log(error);

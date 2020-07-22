@@ -34,6 +34,9 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('haulers-arrivals/{id}', 'Api\HaulerExpectedController@show');
     Route::post('haulers-arrivals', 'Api\HaulerExpectedController@store');
 
+    // get picklist data
+    Route::get('picklist-for-loading/{shipment_number}', 'LoadingEntriesController@getPicklistData');
+
 });
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {

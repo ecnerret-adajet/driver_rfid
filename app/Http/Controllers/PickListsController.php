@@ -10,13 +10,13 @@ use Carbon\Carbon;
 class PickListsController extends Controller
 {
     /**
-     * 
+     *
      *  Pick list per driver detected from truckscale
-     * 
+     *
      */
     public function pickList($driverqueue)
     {
-        $driver = Driver::findOrFail($driver_id);
+        $driver = Driver::findOrFail($driverqueue);
 
         return view('pick.list', compact('driver','log'));
     }
@@ -24,7 +24,7 @@ class PickListsController extends Controller
     /**
      * Display Driver Entry to picklist to json format
      */
-    public function picklistEntry($driver_id) 
+    public function picklistEntry($driver_id)
     {
         $driver = Driver::where('id',$driver_id)
                         ->with('image','truck','hauler')

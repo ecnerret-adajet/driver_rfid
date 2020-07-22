@@ -7,6 +7,7 @@ use App\Transformers\QueueEntriesDashTransformer;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Manager;
 use Illuminate\Http\Request;
+use App\Traits\SapApiTrait;
 use App\Traits\NotDriverTrait;
 use App\Traits\QueueTrait;
 use App\Events\QueueEntryEvent;
@@ -25,11 +26,32 @@ use Session;
 
 class LoadingEntriesController extends Controller
 {
-    use NotDriverTrait, QueueTrait;
+    use NotDriverTrait, QueueTrait, SapApiTrait;
 
     public function __construct()
     {
         $this->notDriver();
+    }
+
+    public function getPicklistData($shipment_number)
+    {
+        $sapConnection = [
+            'ashost' => '172.17.2.37',
+            'sysnr' => '00',
+            'client' => '100',
+            'user' => 'payproject',
+            'passwd' => 'welcome69+',
+        ];
+
+        $commodities = $this->executeSapFunction($sapConnection, 'ZFM_PICKING_LIST', [
+            'SHIPMENT' => $shipment_number,
+        ], null);
+
+        if ($commodities) {
+            return response()->json(['data' => $commodities], 200);
+        } else {
+            return response()->json(['data' => 'no shipment'], 201);
+        }
     }
 
     // Show all recently queue
