@@ -99,6 +99,7 @@ class DoNumberStatusUpdate extends Command
         $do_details = json_decode($do_headers->getBody(), true);
 
         if($do_details){
+            $x = 0;
             foreach($do_details as $key => $do_detail){
 
 
@@ -133,13 +134,14 @@ class DoNumberStatusUpdate extends Command
                 $validate_sap_do = SapDoNumber::where('do_number',$do_detail['do_number'])->first();
                 if(empty($validate_sap_do)){
                     SapDoNumber::create($data);
+                    $x++;
                 }else{
                     $validate_sap_do->update($data);
                 }  
             }
         }
 
-        return count($do_details);
+        return $x;
     }
 
     public function getPFMCDONumbers(){
@@ -192,6 +194,7 @@ class DoNumberStatusUpdate extends Command
         $do_details = json_decode($do_headers->getBody(), true);
 
         if($do_details){
+            $x = 0;
             foreach($do_details as $key => $do_detail){
 
                 //Check Status
@@ -226,12 +229,13 @@ class DoNumberStatusUpdate extends Command
                 $validate_sap_do = SapDoNumber::where('do_number',$do_detail['do_number'])->first();
                 if(empty($validate_sap_do)){
                     SapDoNumber::create($data);
+                    $x++;
                 }else{
                     $validate_sap_do->update($data);
                 }  
             }
         }
 
-        return count($do_details);
+        return $x;
     }
 }

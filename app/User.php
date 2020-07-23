@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','phone_number','company', 'bypass_rfid','two_factor_code','two_factor_expires_at'
+        'name', 'email', 'password','phone_number','company', 'bypass_rfid','two_factor_code','two_factor_expires_at','lfug_customer_code','pfmc_customer_code'
     ];
 
     protected static $logAttributes = [
