@@ -127,7 +127,7 @@ class DoNumberStatusUpdate extends Command
                 $data = [];
                 $data['customer_code'] = $do_detail['customer_code'];
                 $data['do_number'] = $do_detail['do_number'];
-                $data['sap_date'] = date('Ymd');
+                $data['sap_date'] = $date;
                 $data['status'] = $sales_document ? $sales_document[0]['status'] : "";
                 $data['server'] = "LFUG";
 
@@ -222,7 +222,7 @@ class DoNumberStatusUpdate extends Command
                 $data = [];
                 $data['customer_code'] = $do_detail['customer_code'];
                 $data['do_number'] = $do_detail['do_number'];
-                $data['sap_date'] = date('Ymd');
+                $data['sap_date'] = $date;
                 $data['status'] = $sales_document ? $sales_document[0]['status'] : "";
                 $data['server'] = "PFMC";
 

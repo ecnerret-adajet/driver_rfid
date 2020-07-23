@@ -320,7 +320,7 @@ class UsersController extends Controller
         if($user_data){
             return 'Customer code exist';
         }else{
-            return 'Customer no found';
+            return 'Customer not found';
         }
         
     }
@@ -426,7 +426,7 @@ class UsersController extends Controller
         if($user_data){
             return 'Customer code exist';
         }else{
-            return 'Customer no found';
+            return 'Customer not found';
         }
         
     }
