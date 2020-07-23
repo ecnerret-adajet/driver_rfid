@@ -21,8 +21,6 @@ class PickupsApiController extends Controller
         $carbonDate = Carbon::parse($date);
 
         $unserved = Pickup::whereNull('cardholder_id')
-                        ->where('bypass_rfid',false)
-                        ->with('user')
                         ->where('created_at', '>=', $carbonDate->subDays(30))
                         ->orderBy('created_at','DESC')
                         ->get();
@@ -42,7 +40,6 @@ class PickupsApiController extends Controller
         $assigned = Pickup::whereDate('activation_date', $carbonDate)
                         ->whereNull('deactivated_date')
                         ->whereNotNull('cardholder_id')
-                        ->orWhere('bypass_rfid',true)
                         ->orderBy('id','DESC')
                         // ->take(50)
                         ->get();
@@ -113,35 +110,29 @@ class PickupsApiController extends Controller
         return $cardholders;
      }
 
-     public function assignCardholder(Request $request, Pickup $pickup)
-     {
- 
-         if($pickup->user->bypass_rfid == 0) {
-             $this->validate($request, [
-                 'cardholder_list' => 'required'
-             ]);
-         }
- 
-         if($pickup->user->bypass_rfid == 0) {
-             // Set the cardholder value
-             $plate = $request->input('cardholder_list');
-             // Assign rfid to pickup record
-             $pickup->cardholder()->associate($plate);
-         } else {
-             $pickup->bypass_rfid = 1;
-         }
- 
-         $pickup->activation_date = Carbon::now();
-         $pickup->save();
- 
-         // Record Log Activity
-         $activity = activity()
-         ->performedOn($pickup)
-         ->withProperties(['cardholder' => $request->input('cardholder_list') == '' ? 'BY_PASSED' : $plate  ])
-         ->log('Assigned Pickup RFID');
- 
-         return $pickup;
-     }
+    public function assignCardholder(Request $request, Pickup $pickup)
+    {
+
+        $this->validate($request, [
+            'cardholder_list' => 'required'
+        ]);
+
+        // Set the cardholder value
+        $plate = $request->input('cardholder_list');
+
+        // Assign rfid to pickup record
+        $pickup->cardholder()->associate($plate);
+        $pickup->activation_date = Carbon::now();
+        $pickup->save();
+
+        // Record Log Activity
+        $activity = activity()
+        ->performedOn($pickup)
+        ->withProperties(['cardholder' => $plate])
+        ->log('Assigned Pickup RFID');
+
+        return $pickup;
+    }
 
     /**
      * Show the form for creating a new resource.
