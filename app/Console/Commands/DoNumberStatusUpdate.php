@@ -99,9 +99,11 @@ class DoNumberStatusUpdate extends Command
             );
 
         $do_details = json_decode($do_headers->getBody(), true);
+        
+        $x = 0;
 
         if($do_details){
-            $x = 0;
+            
             foreach($do_details as $key => $do_detail){
 
 
@@ -196,9 +198,10 @@ class DoNumberStatusUpdate extends Command
             );
 
         $do_details = json_decode($do_headers->getBody(), true);
-
+        
+        $x = 0;
         if($do_details){
-            $x = 0;
+           
             foreach($do_details as $key => $do_detail){
 
                 //Check Status
