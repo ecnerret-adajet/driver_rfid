@@ -23,7 +23,7 @@
         "@deveodk/vue-toastr": "^1.0.4",
         "@ttskch/select2-bootstrap4-theme": "^1.3.2",
         "animate.css": "^3.6.1",
-        "bootstrap": "^4.1.2",
+        "bootstrap": "^4.3.1",
         "chart.js": "^2.8.0",
         "croppie": "^2.5.1",
         "laravel-echo": "^1.3.2",
