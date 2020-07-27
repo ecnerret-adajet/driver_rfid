@@ -11,6 +11,7 @@ use App\Traits\SapApiTrait;
 use App\Traits\NotDriverTrait;
 use App\Traits\QueueTrait;
 use App\Events\QueueEntryEvent;
+use Ixudra\Curl\Facades\Curl;
 use App\Driverqueue;
 use App\LoadingEntry;
 use App\GateEntry;
@@ -36,19 +37,32 @@ class LoadingEntriesController extends Controller
     public function getPicklistData($shipment_number)
     {
         $sapConnection = [
-            'ashost' => '172.17.2.37',
+            'ashost' => '172.17.1.33',
             'sysnr' => '00',
-            'client' => '100',
+            'client' => '400',
             'user' => 'payproject',
-            'passwd' => 'welcome69+',
+            'passwd' => 'welcome69',
         ];
 
         $commodities = $this->executeSapFunction($sapConnection, 'ZFM_PICKING_LIST', [
             'SHIPMENT' => $shipment_number,
         ], null);
 
+        $commoditiesResult = array(
+            'deliveries' => $commodities['DELIVERIES'],
+            'shipment' => $commodities['SHIPMENT_DETAILS']
+        );
+
+        // Post to new API
+        $response = Curl::to('http://10.97.17.167:8888/api/picklist-delivery')
+        // $response = Curl::to('http://10.96.4.86/api/picklist-delivery')
+        ->withContentType('application/x-www-form-urlencoded')
+        ->withData($commoditiesResult)
+        ->post();
+
+
         if ($commodities) {
-            return response()->json(['data' => $commodities], 200);
+            return response()->json([$commoditiesResult], 200);
         } else {
             return response()->json(['data' => 'no shipment'], 201);
         }

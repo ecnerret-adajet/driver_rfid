@@ -133,30 +133,30 @@
 <script>
 export default {
 
-    props: ['driver_id'],
+    props: ['driverqueue'],
 
     data() {
         return {
             lastDriver: [],
             entry: [],
             avatar_link: '/driver_rfid/public/storage/',
+            current_shipment: ''
         }
     },
 
     created() {
-        this.getEntry()
         this.getLastDriver()
     },
 
     methods: {
 
-        getEntry() {
-            axios.get('/driver_rfid/public/picklistEntry/' + this.driver_id)
-            .then(response => this.entry = response.data);
-        },
+        // getEntry() {
+        //     axios.get('/driver_rfid/public/picklistEntry/' + this.driver_id)
+        //     .then(response => this.entry = response.data);
+        // },
 
         getPicklistLoad(shipment_number) {
-             axios.get(`/driver_rfid/public/api/picklist-for-loading/${shipment_number}`)
+             axios.get(`/driver_rfid/public/picklist-for-loading/${shipment_number}`)
              .then(response => {
                  // then save to picklist table
                  console.log('check picklist status: ', response.data)
@@ -164,12 +164,20 @@ export default {
         },
 
         getLastDriver() {
-            axios.post('/driver_rfid/public/storeLoadingEntries/6') //1
+            axios.post(`/driver_rfid/public/storeLoadingEntries/${this.driverqueue}`) //1
             .then(response => {
-                console.log('check last driver: ', response)
+                console.log('check last driver: ', response.data.shipment_number)
                 this.lastDriver = response.data
-                if(response.data.shipment_number != '') {
-                    this.getPicklistLoad(response.data.shipment_number)
+
+                if(response.data.shipment_number != null) {
+
+                    this.current_shipment = response.data.shipment_number
+
+                    if(this.current_shipment !=  response.data.shipment_number) {
+                        console.log('new shipment number detected')
+                        this.getPicklistLoad(response.data.shipment_number)
+                    }
+                    
                 }
             })
             .catch((error) => {

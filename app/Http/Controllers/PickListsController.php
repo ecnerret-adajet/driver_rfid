@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Driver;
 use Carbon\Carbon;
+use App\Driverqueue;
 
 class PickListsController extends Controller
 {
@@ -14,11 +15,9 @@ class PickListsController extends Controller
      *  Pick list per driver detected from truckscale
      *
      */
-    public function pickList($driverqueue)
+    public function pickList(Driverqueue $driverqueue)
     {
-        $driver = Driver::findOrFail($driverqueue);
-
-        return view('pick.list', compact('driver','log'));
+        return view('pick.list', compact('driverqueue'));
     }
 
     /**

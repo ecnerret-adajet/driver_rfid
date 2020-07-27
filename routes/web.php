@@ -438,6 +438,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/picklist/{driverqueue}','PickListsController@pickList');
         Route::get('/picklistEntry/{driver_id}','PickListsController@picklistEntry');
 
+        // get picklist data
+        Route::get('picklist-for-loading/{shipment_number}', 'LoadingEntriesController@getPicklistData');
+
         Route::get('/gates/create','MonitoringsController@createGate');
         Route::post('/gates/store','MonitoringsController@storeGate');
         Route::get('/queues/create','MonitoringsController@createQueue');
