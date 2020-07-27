@@ -86,7 +86,9 @@ class DoNumberStatusUpdate extends Command
                                 ['TEXT' => "VSART = 'P2' OR "],  
                                 ['TEXT' => "VSART = 'P3' OR "],  
                                 ['TEXT' => "VSART = 'P7' OR "],  
-                                ['TEXT' => "VSART = 'PO' OR "],  
+                                ['TEXT' => "VSART = 'PO' OR "],
+                                ['TEXT' => "VSART = 'C1' OR "],   
+                                ['TEXT' => "VSART = 'C2' OR "],   
                                 ['TEXT' => "VSART = 'Y1')"],  
                             ],
                         ]
@@ -97,9 +99,11 @@ class DoNumberStatusUpdate extends Command
             );
 
         $do_details = json_decode($do_headers->getBody(), true);
+        
+        $x = 0;
 
         if($do_details){
-            $x = 0;
+            
             foreach($do_details as $key => $do_detail){
 
 
@@ -182,6 +186,8 @@ class DoNumberStatusUpdate extends Command
                                 ['TEXT' => "VSART = 'P3' OR "],  
                                 ['TEXT' => "VSART = 'P7' OR "],  
                                 ['TEXT' => "VSART = 'PO' OR "],  
+                                ['TEXT' => "VSART = 'C1' OR "],  
+                                ['TEXT' => "VSART = 'C2' OR "],  
                                 ['TEXT' => "VSART = 'Y1')"],  
                             ],
                         ]
@@ -192,9 +198,10 @@ class DoNumberStatusUpdate extends Command
             );
 
         $do_details = json_decode($do_headers->getBody(), true);
-
+        
+        $x = 0;
         if($do_details){
-            $x = 0;
+           
             foreach($do_details as $key => $do_detail){
 
                 //Check Status
