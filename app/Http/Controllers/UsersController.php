@@ -71,6 +71,8 @@ class UsersController extends Controller
         $user = new User;
         $user->name = $request->input('name');
         $user->email = $request->input('email');
+        $user->pfmc_customer_code = $request->input('pfmc_customer_code');
+        $user->lfug_customer_code = $request->input('lfug_customer_code');
         $user->phone_number = $request->input('phone_number');
         $user->password = Hash::make($request->input('password'));
         $user->bypass_rfid = $request->has('bypass_rfid');

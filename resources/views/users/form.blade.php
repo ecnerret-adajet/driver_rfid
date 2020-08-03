@@ -96,6 +96,41 @@
     </div>
 
 
+    <div class="form-row">
+
+    <div class="col-md-6">
+        <div class="form-group {{ $errors->has('pfmc_customer_code') ? ' has-danger' : '' }}">
+            <label>PFMC Customer Code</label>
+            <input id="pfmc_customer_code" type="text" class="form-control form-control-lg" name="pfmc_customer_code">
+            @if ($errors->has('pfmc_customer_code'))
+                    <div class="form-control-feedback">
+                        <small>
+                        {{ $errors->first('pfmc_customer_code') }}
+                        </small>
+                    </div>
+                @endif
+        </div>
+    </div>
+
+     <div class="col-md-6">
+        <div class="form-group {{ $errors->has('lfug_customer_code') ? ' has-danger' : '' }}">
+            <label>LFUG Customer Code</label>
+            <input id="lfug_customer_code" type="text" class="form-control form-control-lg" name="lfug_customer_code">
+            @if ($errors->has('lfug_customer_code'))
+                    <div class="form-control-feedback">
+                        <small>
+                        {{ $errors->first('lfug_customer_code') }}
+                        </small>
+                    </div>
+                @endif
+        </div>
+    </div>
+
+    
+</div>
+
+
+
 <div class="form-row">
     <div class="col-md-4">
         <div class="form-group {{ $errors->has('password') ? ' has-danger' : '' }}">
