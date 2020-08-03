@@ -89,6 +89,8 @@ class DoNumberStatusUpdate extends Command
                                 ['TEXT' => "VSART = 'PO' OR "],
                                 ['TEXT' => "VSART = 'C1' OR "],   
                                 ['TEXT' => "VSART = 'C2' OR "],   
+                                ['TEXT' => "VSART = 'A2' OR "],   
+                                ['TEXT' => "VSART = 'P2' OR "],   
                                 ['TEXT' => "VSART = 'Y1')"],  
                             ],
                         ]
@@ -188,6 +190,8 @@ class DoNumberStatusUpdate extends Command
                                 ['TEXT' => "VSART = 'PO' OR "],  
                                 ['TEXT' => "VSART = 'C1' OR "],  
                                 ['TEXT' => "VSART = 'C2' OR "],  
+                                ['TEXT' => "VSART = 'A2' OR "],
+                                ['TEXT' => "VSART = 'P2' OR "],  
                                 ['TEXT' => "VSART = 'Y1')"],  
                             ],
                         ]
