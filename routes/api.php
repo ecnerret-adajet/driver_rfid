@@ -52,3 +52,7 @@ Route::group(['middleware' => 'auth:api'], function() {
 
 
 // API setup for Pickup Online
+
+ //Check DO Number
+Route::get('pfmc-customer', 'Api\DoCheckerApiController@checkPfmc');
+Route::get('lfug-customer', 'Api\DoCheckerApiController@checkLfug');
