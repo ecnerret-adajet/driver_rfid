@@ -64,7 +64,7 @@ class DoCheckerApiController extends Controller
             if(in_array($do_details[0]['ship_type'], $pickup_shiptypes) ){
                 $status="For pickup";
             }else{
-                $status="Not for pickup";
+                $status="DO Number is not for Pickup";
             }
             
 
@@ -79,6 +79,7 @@ class DoCheckerApiController extends Controller
                 'do_details'=>$do_details[0],
                 'status'=>$status, 
                 'is_save'=>$is_exist, 
+                'pickup_shiptypes'=>$pickup_shiptypes, 
             ];
         }else{
             return "not_exist";
@@ -136,7 +137,7 @@ class DoCheckerApiController extends Controller
             if(in_array($do_details[0]['ship_type'], $pickup_shiptypes) ){
                 $status="For pickup";
             }else{
-                $status="Not for pickup";
+                $status="DO Number is not for Pickup";
             }
             
             //Check if DO exist
@@ -150,6 +151,7 @@ class DoCheckerApiController extends Controller
                 'do_details'=>$do_details[0],
                 'status'=>$status, 
                 'is_save'=>$is_exist, 
+                'pickup_shiptypes'=>$pickup_shiptypes, 
             ];
         }else{
             return "not_exist";
