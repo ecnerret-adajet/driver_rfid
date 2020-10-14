@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\User;
 use App\SapUser;
 use App\SapServer;
 use App\SapDoNumber;
@@ -56,6 +57,27 @@ class DoCheckerApiController extends Controller
         $do_details = json_decode($do_headers->getBody(), true);
         
         if($do_details){
+
+            $sales_document_headers = $client->request('GET', 'http://10.96.4.39:8012/api/read-table',
+                ['query' => 
+                    ['connection' => $connection,
+                        'table' => [
+                            'table' => ['VBUK' => 'sales_document_headers'],
+                            'fields' => [
+                                'WBSTK' => 'status',
+                            ],
+                            'options' => [
+                                ['TEXT' => "VBELN = '$do_number'"]
+                            ],
+                        ]
+                    ]
+                ],
+                ['timeout' => 60],
+                ['delay' => 10000]
+            );
+
+            $sales_document = json_decode($sales_document_headers->getBody(), true); 
+
             $status="";
           
             $pickup_shiptypes=[
@@ -66,20 +88,22 @@ class DoCheckerApiController extends Controller
             }else{
                 $status="DO Number is not for Pickup";
             }
-            
 
+            $customer = User::select('name','email','pfmc_customer_code')->where('pfmc_customer_code','like','%'.$do_details[0]['customer_code'].'%')->get();
+            
             //Check if DO exist
             $is_exist = "No";
-            $validate_do = SapDoNumber::where('do_number',$do_number)->first();
+            $validate_do = SapDoNumber::where('do_number',$do_number)->where('server','PFMC')->first();
             if($validate_do){
                 $is_exist = "Yes";
             }
 
             return $data = [
                 'do_details'=>$do_details[0],
+                'sales_document'=>$sales_document[0],
                 'status'=>$status, 
                 'is_save'=>$is_exist, 
-                'pickup_shiptypes'=>$pickup_shiptypes, 
+                'customer'=>$customer, 
             ];
         }else{
             return "not_exist";
@@ -129,6 +153,27 @@ class DoCheckerApiController extends Controller
         $do_details = json_decode($do_headers->getBody(), true);
 
         if($do_details){
+
+            $sales_document_headers = $client->request('GET', 'http://10.96.4.39:8012/api/read-table',
+                ['query' => 
+                    ['connection' => $connection,
+                        'table' => [
+                            'table' => ['VBUK' => 'sales_document_headers'],
+                            'fields' => [
+                                'WBSTK' => 'status',
+                            ],
+                            'options' => [
+                                ['TEXT' => "VBELN = '$do_number'"]
+                            ],
+                        ]
+                    ]
+                ],
+                ['timeout' => 60],
+                ['delay' => 10000]
+            );
+
+            $sales_document = json_decode($sales_document_headers->getBody(), true); 
+
             $status="";
           
             $pickup_shiptypes=[
@@ -140,18 +185,21 @@ class DoCheckerApiController extends Controller
                 $status="DO Number is not for Pickup";
             }
             
+            $customer = User::select('name','email','lfug_customer_code')->where('lfug_customer_code','like','%'.$do_details[0]['customer_code'].'%')->get();
+
             //Check if DO exist
             $is_exist = "No";
-            $validate_do = SapDoNumber::where('do_number',$do_number)->first();
+            $validate_do = SapDoNumber::where('do_number',$do_number)->where('server','LFUG')->first();
             if($validate_do){
                 $is_exist = "Yes";
             }
 
             return $data = [
                 'do_details'=>$do_details[0],
+                'sales_document'=>$sales_document[0],
                 'status'=>$status, 
                 'is_save'=>$is_exist, 
-                'pickup_shiptypes'=>$pickup_shiptypes, 
+                'customer'=>$customer, 
             ];
         }else{
             return "not_exist";
