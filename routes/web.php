@@ -442,7 +442,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/picklist/{driverqueue}','PickListsController@pickList');
         Route::get('/picklistEntry/{driver_id}','PickListsController@picklistEntry');
 
-        
+
 
         Route::get('/gates/create','MonitoringsController@createGate');
         Route::post('/gates/store','MonitoringsController@storeGate');
@@ -497,6 +497,11 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('pfmc-customer/{id}', 'UsersController@getPFMCEmailAddress');
         Route::get('lfug-customer/{id}', 'UsersController@getLFUGEmailAddress');
+
+        /**
+         * Change origin route
+         */
+        Route::get('change-origins','ChangeOriginController@index');
 
 
     });

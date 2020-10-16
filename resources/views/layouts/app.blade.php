@@ -141,6 +141,14 @@
 
               @endrole
 
+              @role((['Administrator','Queue-monitoring','monitoring']))
+
+              <li class="font-weight-bold {{ Request::is('change-origins*') ? 'active' : ''}}">
+                <a href="{{url('/change-origins')}}">Change Origin</a>
+              </li>
+
+              @endrole
+
 
             </ul>
           </li>

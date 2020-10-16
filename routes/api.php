@@ -34,6 +34,13 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('haulers-arrivals/{id}', 'Api\HaulerExpectedController@show');
     Route::post('haulers-arrivals', 'Api\HaulerExpectedController@store');
 
+    // Change Origin API
+    Route::get('change-origins','Api\ChangeOriginApiController@index');
+    Route::get('approval-types', 'Api\ChangeOriginApiController@approvalTypes');
+
+    // Change origin approver
+    Route::patch('change-origins/approval/{changeOrigin}', 'Api\ChangeOriginApiController@approval');
+
 });
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {

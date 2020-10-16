@@ -98,6 +98,9 @@ Vue.component('hauler-expected-truck', require('./components/HaulerExpectedArriv
 Vue.component('hauler-expected-index', require('./components/HaulerExpectedIndex.vue'));
 Vue.component('hauler-expected-arrival-all', require('./components/expected/HaulerExpectedArrivalAll.vue'));
 
+// Component for change origin
+Vue.component('change-origin-all', require('./components/changeOrigin/Index.vue'));
+
 
 const app = new Vue({
     el: '#app'
