@@ -1,6 +1,3 @@
-
-
-
 <div class="form-row">
     <div class="col-md-6">
         <div class="form-group {{ $errors->has('name') ? ' has-danger' : '' }}">
@@ -101,7 +98,8 @@
     <div class="col-md-6">
         <div class="form-group {{ $errors->has('pfmc_customer_code') ? ' has-danger' : '' }}">
             <label>PFMC Customer Code</label>
-            <input id="pfmc_customer_code" type="text" class="form-control form-control-lg" name="pfmc_customer_code">
+            {{ Form::text('pfmc_customer_code', $user->pfmc_customer_code, ['class' => 'form-control form-control-lg', 'placeholder' => 'PFMC Code']) }}
+            {{-- <input id="pfmc_customer_code" type="text" class="form-control form-control-lg" name="pfmc_customer_code"> --}}
             @if ($errors->has('pfmc_customer_code'))
                     <div class="form-control-feedback">
                         <small>
@@ -115,7 +113,8 @@
      <div class="col-md-6">
         <div class="form-group {{ $errors->has('lfug_customer_code') ? ' has-danger' : '' }}">
             <label>LFUG Customer Code</label>
-            <input id="lfug_customer_code" type="text" class="form-control form-control-lg" name="lfug_customer_code">
+            {{-- <input id="lfug_customer_code" type="text" class="form-control form-control-lg" name="lfug_customer_code"> --}}
+            {{ Form::text('lfug_customer_code', $user->lfug_customer_code, ['class' => 'form-control form-control-lg', 'placeholder' => 'LFUG Code']) }}
             @if ($errors->has('lfug_customer_code'))
                     <div class="form-control-feedback">
                         <small>
@@ -126,7 +125,7 @@
         </div>
     </div>
 
-    
+
 </div>
 
 
