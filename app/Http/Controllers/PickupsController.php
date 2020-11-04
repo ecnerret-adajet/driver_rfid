@@ -337,8 +337,12 @@ class PickupsController extends Controller
     public function pickupFeed()
     {
         $pickups = Pickup::with('cardholder','user')
-                        ->whereDate('created_at', '>=',  Carbon::today())
-                        ->whereDate('created_at' ,'<=', Carbon::today())
+                        // ->whereDate('created_at', '>=',  Carbon::today())
+                        // ->whereDate('created_at' ,'<=', Carbon::today())
+                        ->where(function ($q) {
+                            $q->whereDate('pickup_date', '>=', Carbon::today()->subDays(3))
+                                ->orWhereDate('created_at', '>=', Carbon::today()->subDays(3));
+                        })
                         ->orderBy('id','DESC')
                         ->get();
 
@@ -364,6 +368,10 @@ class PickupsController extends Controller
                         ->whereNull('cardholder_id')
                         ->whereNull('deactivated_date')
                         ->orderBy('id','DESC')
+                        ->where(function ($q) {
+                            $q->whereDate('pickup_date', '>=', Carbon::today()->subDays(3))
+                                ->orWhereDate('created_at', '>=', Carbon::today()->subDays(3));
+                        })
                         // ->take(30)
                         ->get();
 
@@ -376,7 +384,11 @@ class PickupsController extends Controller
                         ->whereNotNull('cardholder_id')
                         ->whereNotNull('deactivated_date')
                         ->orderBy('id','DESC')
-                        ->whereDate('activation_date', Carbon::today())
+                        ->where(function ($q) {
+                            $q->whereDate('pickup_date', '>=', Carbon::today()->subDays(3))
+                                ->orWhereDate('created_at', '>=', Carbon::today()->subDays(3));
+                        })
+                        // ->whereDate('activation_date', Carbon::today())
                         // ->take(30)
                         ->get();
 

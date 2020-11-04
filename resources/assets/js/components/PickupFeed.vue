@@ -71,7 +71,7 @@
                     <td>
                     {{ pickup.user.name }} <br/>
                     <small class="text-uppercase text-muted">Date Created</small> <br/>
-                    {{ moment(pickup.created_at) }}
+                    {{ moment(pickup.created_at) }}<br/>
                     <small class="text-uppercase text-muted">Pickup Date</small> <br/>
                     {{ pickDateFormat(pickup.pickup_date) }}
                     </td>

@@ -9,13 +9,13 @@
             <span class="text-muted">All Pickup and Deliveries logs</span>
           </div><!-- /.col -->
           <div class="col-6">
-            <ol class="breadcrumb float-right">
+            {{-- <ol class="breadcrumb float-right">
             <li>
               <a  href="{{ url('/monitor/feed') }}">
                   Visit Previous Version
                 </a>
             </li>
-            </ol>
+            </ol> --}}
           </div><!-- /.col -->
         </div><!-- /.row -->
     </div>

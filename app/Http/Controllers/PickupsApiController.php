@@ -18,10 +18,14 @@ class PickupsApiController extends Controller
 {
     public function unserved($date)
     {
-        $carbonDate = Carbon::parse($date);
+        // $carbonDate = Carbon::parse($date);
 
         $unserved = Pickup::whereNull('cardholder_id')
-                        ->where('created_at', '>=', $carbonDate->subDays(30))
+                        // ->where('created_at', '>=', $carbonDate->subDays(30))
+                        ->where(function ($q) {
+                            $q->whereDate('pickup_date', '>=', Carbon::today()->subDays(3))
+                                ->orWhereDate('created_at', '>=', Carbon::today()->subDays(3));
+                        })
                         ->orderBy('created_at','DESC')
                         ->get();
                         // ->paginate(10);

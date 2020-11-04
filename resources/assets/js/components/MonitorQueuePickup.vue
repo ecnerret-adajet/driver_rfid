@@ -1,7 +1,7 @@
 <template>
   <div>
-      
-            <div class="row mt-4">
+
+            <!-- <div class="row mt-4">
                 <div class="col-10">
                     <div class="form-group">
                         <label class="text-uppercase text-muted">Filter by date</label>
@@ -12,10 +12,10 @@
                     <label>&nbsp;</label>
                     <button class="btn btn-block btn-outline-primary" :disabled="!date" @click="generatePickup()">Generate</button>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="form-row mb-2">
-                     
+            <div class="form-row mb-2 mt-4">
+
                 <div class="col-2" v-if="!generate">
                     <div class="form-group">
                         <select name="age" class="form-control disabled" v-model="selected">
@@ -43,13 +43,13 @@
                 </div>
             </div>
 
-            <app-search-pickup-feed :search="searchString" v-if="generate" :date="searchDate(date)"></app-search-pickup-feed>
+            <!-- <app-search-pickup-feed :search="searchString" v-if="generate" :date="searchDate(date)"></app-search-pickup-feed> -->
             <app-pickup-feed :search="searchString"  v-if="selected == 1"></app-pickup-feed>
             <app-served :search="searchString"  v-if="selected == 2"></app-served>
             <app-unserved :search="searchString"  v-if="selected == 3"></app-unserved>
             <app-pickup-in-plant :search="searchString"  v-if="selected == 4"></app-pickup-in-plant>
 
-        
+
   </div>
 </template>
 <script>
