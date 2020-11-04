@@ -25,7 +25,8 @@ class Pickup extends Model
         'do_number',
         'coa',
         'bypass_rfid',
-        'helper'
+        'helper',
+        'pickup_date'
     ];
 
 

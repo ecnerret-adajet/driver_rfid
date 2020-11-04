@@ -43,7 +43,8 @@ class PickupAPITransformer extends TransformerAbstract
             'deactivated_date' => !empty($pickup->deactivated_date) ? (string) date('Y-m-d h:i A',strtotime($pickup->deactivated_date)) : 'no-deactivate-date',
             'activation_date' => !empty($pickup->activation_date) ? (string) date('Y-m-d h:i A',strtotime($pickup->activation_date)) : 'no-activation-date',
             'user' => $pickup->user,
-            'bypass_rfid' => $pickup->bypass_rfid
+            'bypass_rfid' => $pickup->bypass_rfid,
+            'pickup_date' => isset($pickup->pickup_date) ? (string) date('Y-m-d',strtotime($pickup->pickup_date)) : "NO PICK DATE"
 
         ];
     }

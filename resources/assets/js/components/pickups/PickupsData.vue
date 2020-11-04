@@ -39,7 +39,8 @@
                 <tbody>
                     <tr v-for="(item, i) in filteredPickups" :key="i" v-if="!loading">
                         <td>
-                            {{ item.bypass_rfid === '0' ? item.pickup_deploy_name : 'NO RFID NEEDED' }}
+                            {{ item.pickup_deploy_name }}
+                            <!-- {{ item.bypass_rfid === '0' ? item.pickup_deploy_name : 'NO RFID NEEDED' }} -->
                         </td>
                         <td>
                         <span>{{ item.driver_name }}</span> <br/>
@@ -50,7 +51,20 @@
                             <span>{{ item.do_number }}</span>
                         </td>
                         <td>
+                            <small class="text-uppercase text-muted">
+                                Created Date:
+                            </small>
+                            <br/>
                             <span>{{ item.created_at }}</span>
+                            <br/>
+                            <br/>
+
+                            <small class="text-uppercase text-muted">
+                                Pickup Date:
+                            </small>
+                            <br/>
+
+                            <span>{{ item.pickup_date }}</span>
                         </td>
                         <td>
                             <small class="text-uppercase text-muted">

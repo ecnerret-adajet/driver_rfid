@@ -66,7 +66,9 @@
                     <td>
                         {{ pickup.user.name }} <br/>
                       <small class="text-uppercase text-muted">Date Created</small> <br/>
-                        {{ moment(pickup.created_at) }}
+                    {{ moment(pickup.created_at) }}
+                    <small class="text-uppercase text-muted">Pickup Date</small> <br/>
+                    {{ pickDateFormat(pickup.pickup_date) }}
                     </td>
                 </tr>
                 <tr v-if="filteredPickups.length == 0 && !loading">
@@ -163,6 +165,13 @@ import _ from 'lodash';
 
              moment(date) {
                 return moment(date).format('MMMM D, Y h:m:s A');
+            },
+
+            pickDateFormat(date) {
+                if(date) {
+                    return moment(date).format('MMMM D, Y');
+                }
+                return 'NO PICK DATE'
             },
 
             setPage(pageNumber) {

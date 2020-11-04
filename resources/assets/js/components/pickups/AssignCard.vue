@@ -25,7 +25,7 @@
                         <input type="text" class="form-control" id="name" v-model="pickup.company" disabled>
                     </div>
 
-                    <div v-if="pickup.user.bypass_rfid === '0'">
+                    <div v-if="pickup.user.bypass_rfid === '0' || pickup.user.bypass_rfid === null">
 
                     <div class="form-group row" :class="{ ' has-danger' : errors.cardholder_list }">
                         <label class="col-md-4">Available Cards</label>
