@@ -175,7 +175,7 @@ import _ from 'lodash';
 
             pickDateFormat(date) {
                 if(date) {
-                    return moment(date).format('MMMM D, Y');
+                    return moment(date).format('MMMM D, Y h:m:s A');
                 }
                 return 'NO PICK DATE'
             },

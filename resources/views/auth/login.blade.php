@@ -90,6 +90,46 @@
 </style>
 @endsection
 @section('content')
+
+ <div class="row">
+                <div class="container">
+                             <div class="row">
+                            <div class="col text-left">
+
+                                 <div class="alert alert-danger" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+
+                                    <span>
+                                        <b>Announcement:</b> Effective November 9, 2020, the pick-up portal will implement an automatic expiration of the pick-up entry date beyond four (4) days after the
+                                        encoded pick-up date. The customer must update the pick-up date entry on or before the expiration date if needed. Else, re-entry of the pick-up details is
+                                        required to be encoded in the pick-up system.
+                                    </span>
+                                     <br/><br/>
+                                    <span>
+                                        <b>Example:</b> <br/>
+                                        Pickup date encoded in the system: Nov 4, 2020 <br/>
+                                        Current Date Nov 9, 2020 <br/>
+                                        Status in Pickup Portal " NOT YET SERVED" <br/>
+                                        PICK UP ENTRY WILL BE AUTO DELETE NO LONGER ACCESSIBLE <br/>
+                                        <br/>
+                                        Meaning that all pickup from November 4, 2020 backwards will no longer available in the system starting tomorrow Nov.9 2020
+                                     </span>
+                                    <span>
+                                        Please be guided accordingly.
+                                    </span>
+
+                            </div>
+
+
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+
+
 <div class="container">
     <div class="card-login mx-auto">
         <div class="card-body">
