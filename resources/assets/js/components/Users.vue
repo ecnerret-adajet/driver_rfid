@@ -134,7 +134,7 @@ export default {
             searchUser = searchUser.trim().toLowerCase();
 
             user_array = user_array.filter(function(item) {
-                if(item.name.toLowerCase().indexOf(searchUser) !== -1) {
+                if(item.name.toLowerCase().indexOf(searchUser) !== -1 || item.email.toLowerCase().indexOf(searchUser)  !== -1) {
                     return item;
                 }
             })
