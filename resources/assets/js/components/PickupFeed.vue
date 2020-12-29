@@ -15,10 +15,18 @@
         <tbody>
                 <tr v-for="(pickup, p) in filteredPickups" :key="p" v-if="!loading">
                     <td>
-                        <small class="btn btn-outline-success btn-sm align-middle" v-if="pickup.cardholder">
+                        <div v-if="pickup.pickup_status === 'served'">
+                            <small class="btn btn-outline-success btn-sm align-middle">
+                                DO-Served
+                            </small>
+                            <small class="btn btn-outline-success btn-sm align-middle">
+                                 {{ pickup.cardholder.Name ? pickup.cardholder.Name : 'N/A'  }}
+                            </small>
+                        </div>
+                        <small v-if="pickup.pickup_status != 'served' && pickup.cardholder" class="btn btn-outline-success btn-sm align-middle">
                             {{ pickup.cardholder.Name }}
                         </small>
-                        <small class="btn btn-outline-danger btn-sm  text-uppercase align-middle" v-else>
+                        <small v-if="pickup.pickup_status != 'served' && !pickup.cardholder" class="btn btn-outline-danger btn-sm  text-uppercase align-middle">
                             NOT YET SERVED
                         </small>
                     </td>
@@ -29,7 +37,12 @@
                     </td>
                     <td width="30%">
                         <div style="width: 400px; word-wrap: break-word;">
-                            {{ pickup.do_number }}
+                            <!-- {{ pickup.do_number }} -->
+                            <div v-for="(do_number, a) in pickup.do_numbers" :key="a">
+
+                                <p v-if="do_number.status =='C'" style="color:green">{{ do_number.do_number }}  {{ do_number.status ?  " - " + "Served" : ""}}</p>
+                                <p v-else style="color:black">{{ do_number.do_number }}  {{ do_number.status ?  " - " + "Not yet served" : ""}}</p>
+                            </div>
                         </div>
                     </td>
                     <td>
@@ -200,10 +213,26 @@ import _ from 'lodash';
 
         computed: {
             filteredEntries() {
-                const vm = this;
-                return _.filter(vm.pickups, function (item) {
-                    return ~item.driver_name.toLowerCase().indexOf(vm.search.trim().toLowerCase());
+
+                if(!this.search) {
+                    return this.pickups;
+                }
+
+                return this.pickups.filter(item => {
+                    if(item.driver_name.toLowerCase().indexOf(this.search.trim().toLowerCase()) !== -1 ||
+                        item.plate_number.toLowerCase().indexOf(this.search.trim().toLowerCase())  !== -1) {
+                        return item;
+                    }
                 });
+
+                // return _.filter(vm.pickups, function (item) {
+                //     return ~item.driver_name.toLowerCase().indexOf(vm.search.trim().toLowerCase());
+
+                //     if(item.driver_name.toLowerCase().indexOf(vm.search.trim().toLowerCase()) !== -1 ||
+                //         item.plate_number.toLowerCase().indexOf(vm.search.trim().toLowerCase())  !== -1) {
+                //         return item;
+                //     }
+                // });
             },
 
             totalPages() {

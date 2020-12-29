@@ -5,6 +5,7 @@
         <thead>
             <tr class="text-uppercase text-muted font-weight-light">
             <th scope="col"> <small>  Cardholder </small> </th>
+            <th scope="col"> <small>  DO Status </small> </th>
             <th scope="col"> <small>  Driver Details </small> </th>
             <th scope="col"> <small>  DO Details </small> </th>
             <th scope="col"> <small>  Activity Details </small> </th>
@@ -21,6 +22,16 @@
                             NOT YET SERVED
                         </small>
                     </td>
+                    <td>
+                        <small>
+                            <div v-if="pickup.pickup_status === 'served'" class="btn btn-outline-success btn-sm  text-uppercase align-middle">
+                                SERVED
+                            </div>
+                            <div v-else class="btn btn-outline-danger btn-sm  text-uppercase align-middle">
+                                NOT YET SERVED
+                            </div>
+                        </small>
+                    </td>
                      <td width="20%">
                         {{ pickup.driver_name }} <br/>
                         {{ pickup.plate_number }} <br/>
@@ -28,7 +39,12 @@
                     </td>
                     <td width="30%">
                         <div style="width: 400px; word-wrap: break-word;">
-                            {{ pickup.do_number }}
+                            <!-- {{ pickup.do_number }} -->
+                            <div v-for="(do_number, a) in pickup.do_numbers" :key="a">
+
+                                <p v-if="do_number.status =='C'" style="color:green">{{ do_number.do_number }}  {{ do_number.status ?  " - " + "Served" : ""}}</p>
+                                <p v-else style="color:black">{{ do_number.do_number }}  {{ do_number.status ?  " - " + "Not yet served" : ""}}</p>
+                            </div>
                         </div>
                     </td>
                     <td>

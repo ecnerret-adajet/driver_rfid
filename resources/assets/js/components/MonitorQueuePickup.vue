@@ -18,8 +18,8 @@
 
                 <div class="col-2" v-if="!generate">
                     <div class="form-group">
-                        <select name="age" class="form-control disabled" v-model="selected">
-                            <option selected value="1">Filter by Category</option>
+                        <select name="age" class="form-control" v-model="selected">
+                            <option selected value="1">All</option>
                             <option value="2">Served</option>
                             <option value="3">Unserved</option>
                             <option value="4">Still In Plant</option>
@@ -29,7 +29,7 @@
 
                 <div :class="{'col-10' : !generate, 'col-12' : generate }">
                     <div class="form-group">
-                        <input type="text" class="form-control"  v-model="searchString" placeholder="Search Driver Name" />
+                        <input type="text" class="form-control"  v-model="searchString" placeholder="Search Driver Name or Plate number" />
                     </div>
                 </div>
 
@@ -55,7 +55,7 @@
 <script>
     import moment from 'moment';
     import PickupFeed from './PickupFeed.vue';
-    import SearchPickupFeed from './SearchPickupFeed';
+    // import SearchPickupFeed from './SearchPickupFeed';
     import Served from './Served.vue';
     import Unserved from './Unserved.vue';
     import PickupInPlant from './PickupInPlant.vue';
@@ -72,8 +72,8 @@
         },
 
         components: {
+            // appSearchPickupFeed : SearchPickupFeed,
             appPickupFeed : PickupFeed,
-            appSearchPickupFeed : SearchPickupFeed,
             appServed : Served,
             appUnserved : Unserved,
             appPickupInPlant : PickupInPlant

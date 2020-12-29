@@ -12,12 +12,20 @@
             </tr>
         </thead>
         <tbody>
-                <tr v-for="pickup in filteredPickups" v-if="!loading">
+                <tr v-for="(pickup,p) in filteredPickups" :key="p" v-if="!loading">
                     <td>
-                        <small class="btn btn-outline-success btn-sm align-middle" v-if="pickup.cardholder">
+                        <div v-if="pickup.pickup_status === 'served'">
+                            <small class="btn btn-outline-success btn-sm align-middle">
+                                DO-Served
+                            </small>
+                            <small class="btn btn-outline-success btn-sm align-middle">
+                                 {{ pickup.cardholder.Name ? pickup.cardholder.Name : 'N/A'  }}
+                            </small>
+                        </div>
+                        <small v-if="pickup.pickup_status != 'served' && pickup.cardholder" class="btn btn-outline-success btn-sm align-middle">
                             {{ pickup.cardholder.Name }}
                         </small>
-                        <small class="btn btn-outline-danger btn-sm  text-uppercase align-middle" v-else>
+                        <small v-if="pickup.pickup_status != 'served' && !pickup.cardholder" class="btn btn-outline-danger btn-sm  text-uppercase align-middle">
                             NOT YET SERVED
                         </small>
                     </td>
@@ -26,7 +34,13 @@
                         {{ pickup.plate_number }} <br/>
                         {{ pickup.company }}
                     </td>
-                    <td>{{ pickup.do_number }}</td>
+                    <td>
+                        <!-- {{ pickup.do_number }} -->
+                        <div v-for="(do_number, a) in pickup.do_numbers" :key="a">
+                            <p v-if="do_number.status =='C'" style="color:green">{{ do_number.do_number }}  {{ do_number.status ?  " - " + "Served" : ""}}</p>
+                            <p v-else style="color:black">{{ do_number.do_number }}  {{ do_number.status ?  " - " + "Not yet served" : ""}}</p>
+                        </div>
+                    </td>
                     <td>
                        <div class="row">
 
@@ -69,7 +83,6 @@
                     {{ moment(pickup.created_at) }}<br/>
                     <small class="text-uppercase text-muted">Pickup Date</small> <br/>
                     {{ pickDateFormat(pickup.pickup_date) }}
-                    </td>
                     </td>
                 </tr>
                 <tr v-if="filteredPickups.length == 0 && !loading">
@@ -195,9 +208,20 @@ import _ from 'lodash';
 
         computed: {
             filteredEntries() {
-                const vm = this;
-                return _.filter(vm.pickups, function (item) {
-                    return ~item.driver_name.toLowerCase().indexOf(vm.search.trim().toLowerCase());
+                // const vm = this;
+                // return _.filter(vm.pickups, function (item) {
+                //     return ~item.driver_name.toLowerCase().indexOf(vm.search.trim().toLowerCase());
+                // });
+
+                if(!this.search) {
+                    return this.pickups;
+                }
+
+                return this.pickups.filter(item => {
+                    if(item.driver_name.toLowerCase().indexOf(this.search.trim().toLowerCase()) !== -1 ||
+                        item.plate_number.toLowerCase().indexOf(this.search.trim().toLowerCase())  !== -1) {
+                        return item;
+                    }
                 });
             },
 

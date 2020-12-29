@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\Cardholder;
 use App\Pickup;
 use App\Log;
+use App\SapDoNumber;
 use App\ModuleSetting;
 use Flashy;
 
@@ -346,6 +347,43 @@ class PickupsController extends Controller
                         ->orderBy('id','DESC')
                         ->get();
 
+        if ($pickups) {
+            foreach ($pickups as $key => $pickup) {
+                $pickups[$key] = $pickup;
+                $do_numbers = explode(',', $pickup['do_number']);
+                $do_number_status = [];
+                $status = "";
+                if ($do_numbers) {
+                    $serve_count = 0;
+                    $not_serve_count = 0;
+                    foreach ($do_numbers as $k => $do_number) {
+                        $sap_do_number = SapDoNumber::where('do_number', $do_number)->first();
+                        $do_number_status[$k]['do_number'] =  $do_number;
+                        if ($sap_do_number) {
+                            $do_number_status[$k]['status'] = $sap_do_number['status'];
+                            if ($sap_do_number['status'] == 'C') {
+                                $serve_count += 1;
+                            } else {
+                                $not_serve_count += 1;
+                            }
+                        } else {
+                            $do_number_status[$k]['status'] = "";
+                        }
+                    }
+
+                    if ($not_serve_count > 0) {
+                        $status = 'not_served';
+                    } else {
+                        if ($serve_count == count($do_numbers)) {
+                            $status = 'served';
+                        }
+                    }
+                }
+                $pickups[$key]['pickup_status'] = $status;
+                $pickups[$key]['do_numbers'] = $do_number_status;
+            }
+        }
+
         return $pickups;
     }
 
@@ -358,6 +396,43 @@ class PickupsController extends Controller
                         ->whereDate('activation_date', Carbon::today())
                         // ->take(30)
                         ->get();
+
+        if ($pickups) {
+            foreach ($pickups as $key => $pickup) {
+                $pickups[$key] = $pickup;
+                $do_numbers = explode(',', $pickup['do_number']);
+                $do_number_status = [];
+                $status = "";
+                if ($do_numbers) {
+                    $serve_count = 0;
+                    $not_serve_count = 0;
+                    foreach ($do_numbers as $k => $do_number) {
+                        $sap_do_number = SapDoNumber::where('do_number', $do_number)->first();
+                        $do_number_status[$k]['do_number'] =  $do_number;
+                        if ($sap_do_number) {
+                            $do_number_status[$k]['status'] = $sap_do_number['status'];
+                            if ($sap_do_number['status'] == 'C') {
+                                $serve_count += 1;
+                            } else {
+                                $not_serve_count += 1;
+                            }
+                        } else {
+                            $do_number_status[$k]['status'] = "";
+                        }
+                    }
+
+                    if ($not_serve_count > 0) {
+                        $status = 'not_served';
+                    } else {
+                        if ($serve_count == count($do_numbers)) {
+                            $status = 'served';
+                        }
+                    }
+                }
+                $pickups[$key]['pickup_status'] = $status;
+                $pickups[$key]['do_numbers'] = $do_number_status;
+            }
+        }
 
         return $pickups;
     }
@@ -374,6 +449,43 @@ class PickupsController extends Controller
                         })
                         // ->take(30)
                         ->get();
+
+        if ($pickups) {
+            foreach ($pickups as $key => $pickup) {
+                $pickups[$key] = $pickup;
+                $do_numbers = explode(',', $pickup['do_number']);
+                $do_number_status = [];
+                $status = "";
+                if ($do_numbers) {
+                    $serve_count = 0;
+                    $not_serve_count = 0;
+                    foreach ($do_numbers as $k => $do_number) {
+                        $sap_do_number = SapDoNumber::where('do_number', $do_number)->first();
+                        $do_number_status[$k]['do_number'] =  $do_number;
+                        if ($sap_do_number) {
+                            $do_number_status[$k]['status'] = $sap_do_number['status'];
+                            if ($sap_do_number['status'] == 'C') {
+                                $serve_count += 1;
+                            } else {
+                                $not_serve_count += 1;
+                            }
+                        } else {
+                            $do_number_status[$k]['status'] = "";
+                        }
+                    }
+
+                    if ($not_serve_count > 0) {
+                        $status = 'not_served';
+                    } else {
+                        if ($serve_count == count($do_numbers)) {
+                            $status = 'served';
+                        }
+                    }
+                }
+                $pickups[$key]['pickup_status'] = $status;
+                $pickups[$key]['do_numbers'] = $do_number_status;
+            }
+        }
 
         return $pickups;
     }
@@ -392,6 +504,43 @@ class PickupsController extends Controller
                         // ->take(30)
                         ->get();
 
+        if ($pickups) {
+            foreach ($pickups as $key => $pickup) {
+                $pickups[$key] = $pickup;
+                $do_numbers = explode(',', $pickup['do_number']);
+                $do_number_status = [];
+                $status = "";
+                if ($do_numbers) {
+                    $serve_count = 0;
+                    $not_serve_count = 0;
+                    foreach ($do_numbers as $k => $do_number) {
+                        $sap_do_number = SapDoNumber::where('do_number', $do_number)->first();
+                        $do_number_status[$k]['do_number'] =  $do_number;
+                        if ($sap_do_number) {
+                            $do_number_status[$k]['status'] = $sap_do_number['status'];
+                            if ($sap_do_number['status'] == 'C') {
+                                $serve_count += 1;
+                            } else {
+                                $not_serve_count += 1;
+                            }
+                        } else {
+                            $do_number_status[$k]['status'] = "";
+                        }
+                    }
+
+                    if ($not_serve_count > 0) {
+                        $status = 'not_served';
+                    } else {
+                        if ($serve_count == count($do_numbers)) {
+                            $status = 'served';
+                        }
+                    }
+                }
+                $pickups[$key]['pickup_status'] = $status;
+                $pickups[$key]['do_numbers'] = $do_number_status;
+            }
+        }
+
         return $pickups;
     }
 
@@ -403,14 +552,50 @@ class PickupsController extends Controller
 
         $search_date = $request->get('search_date');
 
-        $served = Pickup::with('cardholder','user')
-                        ->whereDate('created_at', '>=',  Carbon::parse($search_date))
-                        ->whereDate('created_at' ,'<=', Carbon::parse($search_date))
-                        ->orderBy('id','DESC')
-                        ->get();
+        $pickups = Pickup::with('cardholder','user')
+                ->whereDate('created_at', '>=',  Carbon::parse($search_date))
+                ->whereDate('created_at' ,'<=', Carbon::parse($search_date))
+                ->orderBy('id','DESC')
+                ->get();
 
-        return $served;
+        if ($pickups) {
+            foreach ($pickups as $key => $pickup) {
+                $pickups[$key] = $pickup;
+                $do_numbers = explode(',', $pickup['do_number']);
+                $do_number_status = [];
+                $status = "";
+                if ($do_numbers) {
+                    $serve_count = 0;
+                    $not_serve_count = 0;
+                    foreach ($do_numbers as $k => $do_number) {
+                        $sap_do_number = SapDoNumber::where('do_number', $do_number)->first();
+                        $do_number_status[$k]['do_number'] =  $do_number;
+                        if ($sap_do_number) {
+                            $do_number_status[$k]['status'] = $sap_do_number['status'];
+                            if ($sap_do_number['status'] == 'C') {
+                                $serve_count += 1;
+                            } else {
+                                $not_serve_count += 1;
+                            }
+                        } else {
+                            $do_number_status[$k]['status'] = "";
+                        }
+                    }
 
+                    if ($not_serve_count > 0) {
+                        $status = 'not_served';
+                    } else {
+                        if ($serve_count == count($do_numbers)) {
+                            $status = 'served';
+                        }
+                    }
+                }
+                $pickups[$key]['pickup_status'] = $status;
+                $pickups[$key]['do_numbers'] = $do_number_status;
+            }
+        }
+
+        return $pickups;
     }
 
 
