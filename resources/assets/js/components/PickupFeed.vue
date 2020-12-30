@@ -20,7 +20,7 @@
                                 DO-Served
                             </small>
                             <small class="btn btn-outline-success btn-sm align-middle">
-                                 {{ pickup.cardholder.Name ? pickup.cardholder.Name : 'N/A'  }}
+                                 {{ pickup.cardholder ? pickup.cardholder.Name : 'N/A' }}
                             </small>
                         </div>
                         <small v-if="pickup.pickup_status != 'served' && pickup.cardholder" class="btn btn-outline-success btn-sm align-middle">
