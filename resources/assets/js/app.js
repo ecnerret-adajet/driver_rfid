@@ -40,6 +40,7 @@ Vue.component('hauleronlinetruck', require('./components/HaulerOnlineTruck.vue')
 Vue.component('driverque', require('./components/DriverQue.vue'));
 Vue.component('pickupUnserve', require('./components/PickupUnserve.vue'));
 Vue.component('pickupServed', require('./components/PickupServed.vue'));
+Vue.component('pickupServedHistory', require('./components/PickupServedHistory.vue'));
 
 Vue.component('driverupload', require('./components/DriverUpload.vue'));
 Vue.component('monitorQueuePickups', require('./components/MonitorQueuePickup.vue'));

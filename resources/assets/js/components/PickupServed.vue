@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <div class="row mt-4">
+        <!-- <div class="row mt-4">
             <div class="col-10">
                 <div class="form-group">
                     <label class="text-uppercase text-muted">Filter by date</label>
@@ -12,7 +12,7 @@
                 <label>&nbsp;</label>
                 <button class="btn btn-block btn-outline-primary">Generate</button>
             </div>
-        </div>
+        </div> -->
 
         <div class="row mb-3" v-if="!selected">
             <div class="col">

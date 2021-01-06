@@ -22,6 +22,10 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#profile" role="tab"> Served </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#servedHistory" role="tab"> Served History </a>
+                    </li>
             </ul>
 
             <!-- Tab panes -->
@@ -30,15 +34,19 @@
                 <div class="tab-pane active pt-3" id="home" role="tabpanel">
                      <pickup-unserve></pickup-unserve>
                 </div>
-            
+
                 <div class="tab-pane pt-3" id="profile" role="tabpanel">
                     <pickup-served></pickup-served>
                 </div>
 
+                <div class="tab-pane pt-3" id="servedHistory" role="tabpanel">
+                    <pickup-served-history></pickup-served-history>
+                </div>
+
             </div>
 
-             
-        
+
+
         </div><!-- end card-body -->
     </div> <!-- end card -->
 
@@ -55,26 +63,26 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
-        
+
 
         </div>
         {!! Form::model($pickup = new \App\Pickup, ['url' => 'storePickup', 'id' => 'pickupForm', 'class' => 'bootstrap-modal-form', 'files' => 'true', 'enctype' => 'multipart\form-data']) !!}
         <div class="modal-body">
-            
+
           {!! csrf_field() !!}
             @include('pickups.pickupForm')
-                           
 
-          
+
+
 
 
         </div>
-        <div class="modal-footer">  
+        <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                 <button type="submit" class="btn btn-primary">Confirm</button> 
+                 <button type="submit" class="btn btn-primary">Confirm</button>
         </div>
-        {!! Form::close() !!} 
-            
+        {!! Form::close() !!}
+
         </div>
     </div>
     </div><!-- end modal -->

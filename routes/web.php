@@ -321,6 +321,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // For Sales Monitoring Feed Pickup section
     Route::get('/getPickupData','PickupOnlineController@getPickupData');
+    Route::get('/getPickupHistory', 'PickupOnlineController@getPickupHistory');
     Route::get('/getPickupWithCardholder','PickupOnlineController@getPickupWithCardholder');
     Route::get('/pickupCount','PickupOnlineController@pickupCount');
     Route::get('/pickupServedSearch','PickupOnlineController@pickupServedSearch');

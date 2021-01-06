@@ -1,5 +1,5 @@
 <template>
-   <div>
+    <div>
             <div class="form-row mt-3 mb-2">
 
                 <!-- <div class="col-2">
@@ -26,7 +26,7 @@
                 <thead>
                     <tr class="text-uppercase font-weight-light">
                     <th scope="col"> <small>  Cardholder </small> </th>
-                    <th scope="col"> <small>  DO Status </small> </th>
+                    <!-- <th scope="col"> <small>  DO Status </small> </th> -->
                     <th scope="col"> <small>  Driver Details </small> </th>
                     <th scope="col"> <small>  DO Details </small> </th>
                     <th scope="col"> <small>  Activity Details </small> </th>
@@ -43,7 +43,7 @@
                             <br>
                         </small>
                     </td>
-                    <td>
+                    <!-- <td>
                         <small>
                             <div v-if="pickup.pickup_status === 'served'" class="btn btn-outline-success btn-sm  text-uppercase align-middle">
                                 SERVED
@@ -53,7 +53,7 @@
                             </div>
 
                         </small>
-                    </td>
+                    </td> -->
                     <td>
                         {{ pickup.driver_name }} <br/>
                         {{ pickup.plate_number }} <br/>
@@ -254,7 +254,7 @@
         methods: {
             getPickup() {
                 this.loading = true
-                axios.get('/driver_rfid/public/getPickupData')
+                axios.get('/driver_rfid/public/getPickupHistory')
                 .then(response => {
                     this.pickups = response.data
                     this.loading = false
