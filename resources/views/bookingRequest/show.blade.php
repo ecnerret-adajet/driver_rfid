@@ -54,7 +54,7 @@
         </div>
         </form>
         {!! Form::close() !!}
-        
+
     </div>
     </div>
 
@@ -73,6 +73,7 @@
                     <li class="list-group-item border-0">Order Reference No.</li>
                     <li class="list-group-item border-0">Booking Date</li>
                     <li class="list-group-item border-0">Consignee</li>
+                    <li class="list-group-item border-0">Origin</li>
                     <li class="list-group-item border-0">Destination</li>
                     <li class="list-group-item border-0">Ship Type</li>
                     <li class="list-group-item border-0">Mode of Shipment</li>
@@ -86,6 +87,7 @@
                     <li class="list-group-item border-0">{{ $bookingRequest->order_reference_no }}</li>
                     <li class="list-group-item border-0">{{ $bookingRequest->booking_date }}</li>
                     <li class="list-group-item border-0">{{ $bookingRequest->consignee }}</li>
+                    <li class="list-group-item border-0">{{ $bookingRequest->origin }}</li>
                     <li class="list-group-item border-0">{{ $bookingRequest->destination }}</li>
                     <li class="list-group-item border-0">{{ $bookingRequest->ship_type }}</li>
                     <li class="list-group-item border-0">{{ $bookingRequest->mode_of_shipment }}</li>
@@ -94,11 +96,11 @@
                 </ul>
             </div>
         </div>
-                
-        
+
+
     </div>
     </div>
-        
+
 @endsection
 
 @section('script')

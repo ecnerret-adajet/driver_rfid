@@ -19,7 +19,7 @@ class BookRequestController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {        
+    {
         return view('bookingRequest.index');
     }
 
@@ -68,6 +68,7 @@ class BookRequestController extends Controller
         $bookRequest->booking_date = Carbon::parse($request->booking_date);
         $bookRequest->consignee = $request->consignee;
         $bookRequest->destination = $request->destination;
+        $bookRequest->origin = $request->origin;
         $bookRequest->van_no = $request->van_no;
         $bookRequest->ship_type = $request->ship_type;
         $bookRequest->mode_of_shipment = $request->mode_of_shipment;

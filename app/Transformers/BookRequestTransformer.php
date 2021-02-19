@@ -21,6 +21,7 @@ class BookRequestTransformer extends TransformerAbstract
             'booking_date' => (string) $bookingRequest->booking_date,
             'consignee' =>  $bookingRequest->consignee,
             'destination' =>  $bookingRequest->destination,
+            'origin' =>  $bookingRequest->origin,
             'van_no' =>  $bookingRequest->van_no,
             'ship_type' =>  $bookingRequest->ship_type,
             'mode_of_shipment' =>  $bookingRequest->mode_of_shipment,

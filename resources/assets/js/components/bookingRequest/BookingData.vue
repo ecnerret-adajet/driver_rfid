@@ -31,29 +31,29 @@
                                                Reference Number
                                             </small> <br/>
                                             <span>
-                                                STO : {{ bookRequest.order_reference_no }} 
+                                                STO : {{ bookRequest.order_reference_no }}
                                             </span> <br/> <br/>
-                                           
+
 
                                             <small class="text-muted text-uppercase ">
                                                Booking Date
                                             </small> <br/>
                                             <span>
                                                {{ bookRequest.booking_date }}
-                                            </span> 
+                                            </span>
                                             <br>
                                         </div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-2">
 
                                             <small class="text-muted text-uppercase ">
                                                 Driver Name
                                             </small> <br/>
                                             <span v-if="bookRequest.driver_name">
                                                {{ bookRequest.driver_name }}
-                                            </span> 
+                                            </span>
                                             <span v-else class="text-muted">
                                                N/A
-                                            </span> 
+                                            </span>
                                             <br/> <br/>
 
                                             <small class="text-muted text-uppercase ">
@@ -61,15 +61,15 @@
                                             </small> <br/>
                                             <span v-if="bookRequest.plate_number">
                                               {{ bookRequest.plate_number }}
-                                            </span> 
+                                            </span>
                                              <span v-else class="text-muted">
                                                N/A
-                                            </span> 
+                                            </span>
                                             <br/>
 
                                         </div>
 
-                                        <div class="col-sm-3 pull-right right">
+                                        <div class="col-sm-2 pull-right right">
                                             <small class="text-uppercase text-muted">Mode of Shipment </small><br/>
                                             <span>
                                                 {{ bookRequest.mode_of_shipment }}
@@ -80,19 +80,30 @@
                                             </span><br/> <br/>
                                         </div>
 
+                                        <div class="col-sm-2 pull-right right">
+                                            <small class="text-uppercase text-muted">Origin </small><br/>
+                                            <span>
+                                                {{ bookRequest.origin }}
+                                            </span><br/> <br/>
+                                             <small class="text-uppercase text-muted">Destination </small><br/>
+                                            <span>
+                                                {{ bookRequest.destination }}
+                                            </span><br/> <br/>
+                                        </div>
+
                                          <div class="col-sm-2">
-                                            
+
                                             <small class="text-muted text-uppercase ">
                                                 Status
                                             </small> <br/>
 
                                             <span v-if="bookRequest.shippers_name">
                                                 Updated <i class="fa fa-circle" style="color:green" aria-hidden="true"></i>
-                                            </span> 
+                                            </span>
                                             <span v-else>
                                                Pending <i class="fa fa-circle" style="color:red" aria-hidden="true"></i>
-                                            </span> 
-                                            
+                                            </span>
+
                                             <br/> <br/>
 
                                             <small class="text-muted text-uppercase ">
@@ -100,10 +111,10 @@
                                             </small> <br/>
                                             <span v-if="bookRequest.shippers_name">
                                                 {{ bookRequest.shippers_name }}
-                                            </span> 
+                                            </span>
                                              <span v-else class="text-muted">
                                                N/A
-                                            </span> 
+                                            </span>
                                             <br/>
 
                                         </div>
@@ -114,7 +125,7 @@
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="driverDropdown">
 
-                                                <a  :href="'/booking-requests/' + bookRequest.id " class="dropdown-item">Update</a>
+                                                <a  :href="'/driver_rfid/public/booking-requests/' + bookRequest.id " class="dropdown-item">Update</a>
 
                                             </div>
 

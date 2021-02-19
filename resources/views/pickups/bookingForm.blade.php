@@ -10,7 +10,7 @@
 
 <div class="form-group row {{ $errors->has('do_number') ? ' has-danger' : '' }}">
      <label class="col-md-3 col-form-label">
-        Order Reference 
+        Order Reference
     </label>
     <div class="col-sm-9 pt-2">
 
@@ -41,7 +41,7 @@
     </div>
 </div>
 
-   
+
 <div class="form-group row {{ $errors->has('booking_date') ? ' has-danger' : '' }}">
     <label class="col-md-3 col-form-label">
         Booking Date
@@ -66,6 +66,15 @@
     </label>
     <div class="col-md-9">
         {{ Form::text('consignee', null, ['class' => 'form-control', 'placeholder' => 'Enter Consignee Name']) }}
+    </div>
+</div>
+
+<div class="form-group row {{ $errors->has('origin') ? ' has-danger' : '' }}">
+    <label class="col-md-3 col-form-label">
+        Origin
+    </label>
+    <div class="col-md-9">
+        {{ Form::text('origin', null, ['class' => 'form-control', 'placeholder' => 'Enter Origin']) }}
     </div>
 </div>
 

@@ -20,6 +20,7 @@ class CreateBookingRequestsTable extends Migration
             $table->string('order_reference_no');
             $table->timestamp('booking_date');
             $table->string('consignee');
+            $table->string('origin');
             $table->string('destination');
             $table->string('van_no');
             $table->string('ship_type'); // transfer or delivery
