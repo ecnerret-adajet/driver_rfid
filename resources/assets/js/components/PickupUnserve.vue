@@ -203,7 +203,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <form  method="post" :action="'/pickups/unserved/'+pickup.id">
+                    <form  method="post" :action="'/driver_rfid/public/pickups/unserved/'+pickup.id">
 
                         <input type="hidden" name="_token" :value="csrf">
                         <input type="hidden" name="_method" value="delete">

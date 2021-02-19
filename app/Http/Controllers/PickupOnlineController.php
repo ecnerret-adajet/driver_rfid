@@ -348,6 +348,8 @@ class PickupOnlineController extends Controller
     {
         $pickup->delete();
         flashy()->success('Pickup has successfully deleted!');
-        return redirect('pickups/online');
+        // return redirect('pickups/online');
+
+        return back();
     }
 }

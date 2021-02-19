@@ -16,6 +16,23 @@ use Flashy;
 
 class PickupsApiController extends Controller
 {
+
+    public function findPickup($do_number)
+    {
+
+        $served = Pickup::where('do_numver', 'LIKE', '%'.$do_number.'%')
+                    ->orderBy('created_at','DESC')
+                    ->take(5)
+                    ->get();
+                    // ->paginate(10);
+
+        $manager = new Manager();
+        $resource = new Collection($served, new PickupAPITransformer());
+        return $manager->createData($resource)->toArray();
+
+        // return $served;
+    }
+
     public function unserved($date)
     {
         // $carbonDate = Carbon::parse($date);
@@ -45,7 +62,7 @@ class PickupsApiController extends Controller
                         ->whereNull('deactivated_date')
                         ->whereNotNull('cardholder_id')
                         ->orderBy('id','DESC')
-                        ->take(30)
+                        ->take(10)
                         ->get();
                         // ->paginate(10);
 
@@ -64,7 +81,7 @@ class PickupsApiController extends Controller
                     ->whereNotNull('deactivated_date')
                     ->whereNotNull('cardholder_id')
                     ->orderBy('created_at','DESC')
-                    // ->take(1)
+                    ->take(5)
                     ->get();
                     // ->paginate(10);
 
