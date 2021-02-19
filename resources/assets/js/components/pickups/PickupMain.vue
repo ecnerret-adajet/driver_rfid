@@ -30,6 +30,10 @@
                         <a class="nav-link" data-toggle="tab" href="#served" role="tab"> Served </a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#searchDo" role="tab"> Search By DO </a>
+                    </li>
+
 
             </ul>
 
@@ -54,6 +58,12 @@
 
                 </div><!-- end tab1 -->
 
+                <div class="tab-pane pt-3" id="searchDo" role="tabpanel">
+
+                     <pickup-do :url="`/driver_rfid/public/api/pickups-search-do`"></pickup-do>
+
+                </div><!-- end tab1 -->
+
 
 
             </div>
@@ -68,10 +78,12 @@
 
 <script>
 import PickupsData from '../pickups/PickupsData.vue';
+import PickupDo from '../pickups/PickupDo.vue';
 
 export default {
     components: {
         PickupsData,
+        PickupDo,
     },
     data() {
         return {

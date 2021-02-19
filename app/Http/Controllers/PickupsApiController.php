@@ -20,7 +20,7 @@ class PickupsApiController extends Controller
     public function findPickup($do_number)
     {
 
-        $served = Pickup::where('do_numver', 'LIKE', '%'.$do_number.'%')
+        $served = Pickup::where('do_number', 'LIKE', '%'.$do_number.'%')
                     ->orderBy('created_at','DESC')
                     ->take(5)
                     ->get();
