@@ -34,7 +34,7 @@ class PickupOnlineController extends Controller
         $isAllowed = in_array(Auth::user()->company->id, $allowedPickup->toArray()) ? 'true' : 'false';
 
         // For convan entries // karl agaua
-        $isDoExcempted = in_array(Auth::user()->id, collect([1, 1030, 1054])->toArray()) ? 'true' : 'false';
+        $isDoExcempted = in_array(Auth::user()->id, collect([1, 1030, 1054, 102, 118, 1189])->toArray()) ? 'true' : 'false';
 
         $userCompanyName = Auth::user()->company->name;
 

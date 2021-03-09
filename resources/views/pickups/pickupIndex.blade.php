@@ -5,9 +5,12 @@
         <div class="card-header">
             Pickup Entries
 
+            @if($isDoExcempted == 'true')
              <a class="btn btn-danger btn-sm pull-right bootstrap-modal-form-open" href="javascript:void(0);" data-toggle="modal" data-target="#addPickup">
                 Add New Pickup
             </a>
+            @endif
+
         </div>
         <div class="card-body">
 
