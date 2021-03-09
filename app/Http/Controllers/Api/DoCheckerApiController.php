@@ -81,7 +81,7 @@ class DoCheckerApiController extends Controller
             $status="";
           
             $pickup_shiptypes=[
-                'L1','LO','M1','M7','MO','P2','P3','P7','PO','C1','C2','A2','P2','Y1'
+                'L1','LO','M1','M7','MO','P2','P3','P7','PO','C1','C2','A2','P2','Y1','PB'
             ];
             if(in_array($do_details[0]['ship_type'], $pickup_shiptypes) ){
                 $status="For pickup";
@@ -177,7 +177,7 @@ class DoCheckerApiController extends Controller
             $status="";
           
             $pickup_shiptypes=[
-                'L1','LO','M1','M7','MO','P2','P3','P7','PO','C1','C2','A2','P2','Y1'
+                'L1','LO','M1','M7','MO','P2','P3','P7','PO','C1','C2','A2','P2','Y1','PB'
             ];
             if(in_array($do_details[0]['ship_type'], $pickup_shiptypes) ){
                 $status="For pickup";
