@@ -11,6 +11,7 @@ use App\CustomerDoNumber;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
 
+use Carbon\Carbon;
 class DoNumberServedStatus extends Command
 {
     /**
@@ -53,7 +54,7 @@ class DoNumberServedStatus extends Command
 
         $client = new Client();
 
-        $sap_user =  SapUser::where('server' , 'LFUG')->first();
+        $sap_user =  SapUser::where('server' , 'LFUG')->where('stage_server','PROD')->first();
        
         $sap_server = SapServer::where('server' , 'LFUG')->where('name' , 'PROD')->first();
 
@@ -65,39 +66,63 @@ class DoNumberServedStatus extends Command
             'passwd' => $sap_user['password']
         ];
 
-        $sap_do_numbers = SapDoNumber::where('status','!=', 'C')->where('server','LFUG')->get();
-
-        $x = 0;
-        if($sap_do_numbers){
-
-            foreach($sap_do_numbers as $key => $do_detail){
-
-                $do_number = $do_detail['do_number'];
-                $sales_document_headers = $client->request('GET', 'http://10.96.4.39:8012/api/read-table',
-                    ['query' => 
-                        ['connection' => $connection,
-                            'table' => [
-                                'table' => ['VBUK' => 'sales_document_headers'],
-                                'fields' => [
-                                    'WBSTK' => 'status',
-                                ],
-                                'options' => [
-                                    ['TEXT' => "VBELN = '$do_number'"]
-                                ],
-                            ]
+        //If Time is 01 in the morning
+        if(date('H:i') < date('00:30')){
+            $date = date('Ymd', strtotime('-1 days'));
+        }else{
+            $date = date('Ymd');
+        }
+    
+        $do_headers = $client->request('GET', 'http://10.96.4.39:8012/api/read-table',
+                ['query' => 
+                    ['connection' => $connection,
+                        'table' => [
+                            'table' => ['/SPE/LIKPUK' => 'pickups'],
+                            'fields' => [
+                                'VBELN' => 'do_number',
+                                'KUNNR' => 'customer_code',
+                                'WBSTK' => 'status',
+                            ],
+                            'options' => [
+                                ['TEXT' => "(AEDAT = '$date' AND "],
+                                ['TEXT' => " VBTYP = 'J') AND "],
+                                // ['TEXT' => " WBSTK <> 'A') AND "],
+                                ['TEXT' => "(VSART = 'L1' OR "],  
+                                ['TEXT' => "VSART = 'L7' OR "],  
+                                ['TEXT' => "VSART = 'LO' OR "],  
+                                ['TEXT' => "VSART = 'M1' OR "],  
+                                ['TEXT' => "VSART = 'M7' OR "],  
+                                ['TEXT' => "VSART = 'MO' OR "],  
+                                ['TEXT' => "VSART = 'P2' OR "],  
+                                ['TEXT' => "VSART = 'P3' OR "],  
+                                ['TEXT' => "VSART = 'P7' OR "],  
+                                ['TEXT' => "VSART = 'PO' OR "],
+                                ['TEXT' => "VSART = 'C1' OR "],   
+                                ['TEXT' => "VSART = 'C2' OR "],   
+                                ['TEXT' => "VSART = 'A2' OR "],   
+                                ['TEXT' => "VSART = 'P2' OR "],   
+                                ['TEXT' => "VSART = 'PB' OR "],   
+                                ['TEXT' => "VSART = 'Y1')"],  
+                            ],
                         ]
-                    ],
-                    ['timeout' => 60],
-                    ['delay' => 10000]
-                );
+                    ]
+                ],
+                ['timeout' => 60],
+                ['delay' => 10000]
+        );
 
-                $sales_document = json_decode($sales_document_headers->getBody(), true); 
+        
+        $do_details = json_decode($do_headers->getBody(), true);
+        
+        $x = 0;
+
+        if($do_details){
+            
+            foreach($do_details as $key => $do_detail){
 
                 $data = [];
-                $data['status'] = $sales_document ? $sales_document[0]['status'] : "";
-
+                $data['status'] = $do_detail['status'];
                 $validate_sap_do = SapDoNumber::where('do_number',$do_detail['do_number'])->first();
-
                 if($validate_sap_do){
                     $validate_sap_do->update($data);
                     $x++;
@@ -112,7 +137,7 @@ class DoNumberServedStatus extends Command
 
         $client = new Client();
 
-        $sap_user =  SapUser::where('server' , 'PFMC')->first();
+        $sap_user =  SapUser::where('server' , 'PFMC')->where('stage_server','PROD')->first();
        
         $sap_server = SapServer::where('server' , 'PFMC')->where('name' , 'PROD')->first();
 
@@ -124,39 +149,62 @@ class DoNumberServedStatus extends Command
             'passwd' => $sap_user['password']
         ];
 
-        $sap_do_numbers = SapDoNumber::where('status','!=', 'C')->where('server','PFMC')->get();
+        //If Time is 01 in the morning
+        if(date('H:i') < date('00:30')){
+            $date = date('Ymd', strtotime('-1 days'));
+        }else{
+            $date = date('Ymd');
+        }
 
-        $x = 0;
-        if($sap_do_numbers){
-
-            foreach($sap_do_numbers as $key => $do_detail){
-
-                $do_number = $do_detail['do_number'];
-                $sales_document_headers = $client->request('GET', 'http://10.96.4.39:8012/api/read-table',
-                    ['query' => 
-                        ['connection' => $connection,
-                            'table' => [
-                                'table' => ['VBUK' => 'sales_document_headers'],
-                                'fields' => [
-                                    'WBSTK' => 'status',
-                                ],
-                                'options' => [
-                                    ['TEXT' => "VBELN = '$do_number'"]
-                                ],
-                            ]
+        $do_headers = $client->request('GET', 'http://10.96.4.39:8012/api/read-table',
+                ['query' => 
+                    ['connection' => $connection,
+                        'table' => [
+                            'table' => ['/SPE/LIKPUK' => 'pickups'],
+                            'fields' => [
+                                'VBELN' => 'do_number',
+                                'KUNNR' => 'customer_code',
+                                'WBSTK' => 'status',
+                            ],
+                            'options' => [
+                                ['TEXT' => "(AEDAT = '$date' AND "],
+                                ['TEXT' => " VBTYP = 'J') AND "],
+                                // ['TEXT' => " WBSTK <> 'A') AND "],
+                                ['TEXT' => "(VSART = 'L1' OR "],  
+                                ['TEXT' => "VSART = 'L7' OR "],  
+                                ['TEXT' => "VSART = 'LO' OR "],  
+                                ['TEXT' => "VSART = 'M1' OR "],  
+                                ['TEXT' => "VSART = 'M7' OR "],  
+                                ['TEXT' => "VSART = 'MO' OR "],  
+                                ['TEXT' => "VSART = 'P2' OR "],  
+                                ['TEXT' => "VSART = 'P3' OR "],  
+                                ['TEXT' => "VSART = 'P7' OR "],  
+                                ['TEXT' => "VSART = 'PO' OR "],
+                                ['TEXT' => "VSART = 'C1' OR "],   
+                                ['TEXT' => "VSART = 'C2' OR "],   
+                                ['TEXT' => "VSART = 'A2' OR "],   
+                                ['TEXT' => "VSART = 'P2' OR "],   
+                                ['TEXT' => "VSART = 'PB' OR "],   
+                                ['TEXT' => "VSART = 'Y1')"],  
+                            ],
                         ]
-                    ],
-                    ['timeout' => 60],
-                    ['delay' => 10000]
-                );
+                    ]
+                ],
+                ['timeout' => 60],
+                ['delay' => 10000]
+            );
 
-                $sales_document = json_decode($sales_document_headers->getBody(), true); 
+        $do_details = json_decode($do_headers->getBody(), true);
+        
+        $x = 0;
+        if($do_details){
+           
+            foreach($do_details as $key => $do_detail){
 
                 $data = [];
-                $data['status'] = $sales_document ? $sales_document[0]['status'] : "";
+                $data['status'] = $do_detail['status'];
 
                 $validate_sap_do = SapDoNumber::where('do_number',$do_detail['do_number'])->first();
-
                 if($validate_sap_do){
                     $validate_sap_do->update($data);
                     $x++;
