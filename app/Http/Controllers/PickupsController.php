@@ -341,8 +341,8 @@ class PickupsController extends Controller
                         // ->whereDate('created_at', '>=',  Carbon::today())
                         // ->whereDate('created_at' ,'<=', Carbon::today())
                         ->where(function ($q) {
-                            $q->whereDate('pickup_date', '>=', Carbon::today()->subDays(3))
-                                ->orWhereDate('created_at', '>=', Carbon::today()->subDays(3));
+                            $q->whereDate('pickup_date', '>=', Carbon::today()->subDays(2))
+                                ->orWhereDate('created_at', '>=', Carbon::today()->subDays(2));
                         })
                         ->orderBy('id','DESC')
                         ->get();

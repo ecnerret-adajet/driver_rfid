@@ -38,6 +38,7 @@ class LoadingEntry extends Model
         'isTappedGateFirst',
         'isSecondDelivery',
         'isShipmentStarted',
+        'change_date_time',
     ];
 
     protected $hidden = [

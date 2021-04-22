@@ -71,6 +71,7 @@
                                                     <a :href="driver_link + 'reprint/' + driver.id" class="dropdown-item">Reprint Card</a>
                                                     <span v-if="driver.card !=  null">
                                                         <a :href="driver_link + driver.id + '/reassign'" class="dropdown-item">Reassign Truck</a>
+                                                        <a :href="driver_link + 'transfer-hauler/' + driver.id" class="dropdown-item">Transfer Hauler</a>
                                                     </span>
                                                     <span v-if="driver.card ==  null">
                                                         <a  href="javascript:void(0);" class="dropdown-item" data-toggle="modal" :data-target="'#noCardAssigned-'+ driver.id" style="color: red">Reassign Truck</a>
