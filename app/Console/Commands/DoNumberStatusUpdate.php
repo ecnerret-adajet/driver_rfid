@@ -77,7 +77,7 @@ class DoNumberStatusUpdate extends Command
                                 'WBSTK' => 'status',
                             ],
                             'options' => [
-                                ['TEXT' => "(AEDAT >= '$date' AND "],
+                                ['TEXT' => "(ERDAT >= '$date' AND "],
                                 ['TEXT' => " VBTYP = 'J' AND "],
                                 ['TEXT' => " WBSTK = 'A') AND "],
                                 ['TEXT' => "(VSART = 'L1' OR "],  
@@ -162,7 +162,7 @@ class DoNumberStatusUpdate extends Command
                                 'WBSTK' => 'status',
                             ],
                             'options' => [
-                                ['TEXT' => "(AEDAT >= '$date' AND "],
+                                ['TEXT' => "(ERDAT >= '$date' AND "],
                                 ['TEXT' => " VBTYP = 'J' AND "],
                                 ['TEXT' => " WBSTK = 'A') AND "],
                                 ['TEXT' => "(VSART = 'L1' OR "],  

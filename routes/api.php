@@ -57,3 +57,5 @@ Route::group(['middleware' => 'auth:api'], function() {
  //Check DO Number
 Route::get('pfmc-customer', 'Api\DoCheckerApiController@checkPfmc');
 Route::get('lfug-customer', 'Api\DoCheckerApiController@checkLfug');
+
+Route::get('lfug-do-customer', 'Api\DoCheckerApiController@checkDOLfug');
